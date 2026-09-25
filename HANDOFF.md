@@ -11,42 +11,43 @@
 - `coloringLLT_concat` proves coloring multiplicativity for arbitrary valid
   paths and every finite alphabet. Its completed Aristotle candidate was
   ported by Luna and verified locally without changing the pinned toolchain.
-- Earlier empty/singleton and size-two unicellular theorems remain checked.
+- `coloringLLT_unicellular` proves the general relation for every valid
+  diagonal word and finite alphabet. The first three recursion clauses are
+  now checked; the two single-bounce clauses remain open.
 - Finite colorings split across a vertex concatenation, and independent sums
   factor. Both local resolutions of a diagonal step preserve path validity;
   the unchanged normal/strict scanners are proved equal.
 - The elementary-coloring bijection proof came from a live Aristotle candidate,
   was ported by Luna, and passed local Lean 4.34 builds and axiom checks.
-- Full/default build and all 51 declarations in `Verification.lean` pass;
+- Full/default build and all 62 declarations in `Verification.lean` pass;
   only standard Lean axioms appear. Source guards and reference-integrity checks pass.
 - Primary `/root` owns strategy, integration, all current source files, and
-  the sole project build slot. No delegated source edit or local build is active.
+  the sole project build slot. Current bounded assignments are below.
 
 ## Immediate next action
 
-Pursue the general unicellular relation in issue
-https://github.com/PerAlexandersson/VerticalStripLLT/issues/3.
+Pursue the single-bounce coloring relations using the audited decomposition
+in `docs/BOUNCE_PLAN.md`. The general unicellular theorem has passed the local
+batch build and axiom audit; issue #3 is ready to close with this checkpoint.
 
-Aristotle project `7cac7db7-a2d1-4c27-8522-9b43c7690ed8`, task
-`2496607b-8e35-455c-9ee7-7a60c6ef4618`, is `IN_PROGRESS` on that exact
-statement (latest observation 4 percent, editing `Request.lean`). The request
-includes the checked path resolution, marked endpoint, and pointwise weight
-lemmas. Inspect this handle; do not restart on an observation timeout.
-Provenance and isolated environment details are in `docs/ARISTOTLE.md`.
-Luna should port the candidate; primary remains sole local builder.
+Aristotle project `8099d4f4-4cb0-4b15-b617-ce2a18f3ee54` is newly submitted for
+the restricted swap-sum identity under explicit graph symmetry hypotheses.
+Task `6e7dc2fe-1962-4412-aeec-cac660f99fa4` is confirmed `IN_PROGRESS`.
+It contains the checked `ColoringSwap` primitives. Observe this same project;
+service completion will still require local porting and verification.
+Exact request/result provenance is in `docs/ARISTOTLE.md`.
 
-Remaining proof outline: characterize changed normal/strict edge sets by
-inserting `markedDiagonalEdge`; freshness follows from strict/normal
-disjointness. Apply `coloringWeight_unicellular_of_edges` and sum over all
-colorings. The source map records the exact assumptions. The coloring
-polynomial remains independently defined, never defined by the recurrence.
+All source assignments from the unicellular checkpoint are integrated and
+released. Luna `column_paths` ported the completed Aristotle proof into
+`Unicellular.lean`; Luna `path_invariants` authored `ColoringSwap.lean`.
+Terra `bounce_audit` returned a read-only review of the exact single-bounce
+hypotheses; primary reviewed it and recorded `docs/BOUNCE_PLAN.md`.
 
-All latest Luna assignments are integrated and released. `path_invariants`
-authored `MarkedDiagonal.lean` and independently audited the concatenation
-and marked-edge statements, finding no scope issues. `column_paths` authored
-`UnicellularWeight.lean` and ported Aristotle's `ColoringConcat.lean`. Primary
-fixed final API/transparency details and ran every build; both Luna workers
-remain build-free and own no files until explicitly reassigned.
+User steering: keep modules separate, batch local compilation, and delegate
+bounded independent tasks in parallel to Aristotle and smaller models.
+Primary remains sole local builder. No delegated source edit is currently
+active; record exact ownership before the next assignment. No full bounce
+identity or recursive/orientation bridge is claimed.
 
 ## New declarations and source correspondence
 
@@ -74,7 +75,7 @@ All declarations below are under `VerticalStripLLT`.
   simp lemmas, `sum_colorings_split`, `sum_colorings_split_mul`.
 - `UnicellularPath.lean`: `Step.validFrom_resolve`, `normalFrom_resolve`,
   `strictFrom_resolve`; `SchroderPath.resolveNorthEast`, `resolveEastNorth`,
-  and their step-list simp lemmas. The general polynomial relation is open.
+  and their step-list simp lemmas.
 
 - `ColoringConcat.lean`: eight scanner block identities, `leftPairEmb`,
   `rightPairEmb`, `disjoint_left_right_maps`, `concat_normalEdges`,
@@ -85,7 +86,14 @@ All declarations below are under `VerticalStripLLT`.
   `strictFrom_marked`, `markedDiagonal_bounds`; `SchroderPath.markedDiagonalEdge`
   and `markedDiagonalEdge_mem`.
 - `UnicellularWeight.lean`: `coloringWeight_unicellular_of_edges`, with explicit
-  edge-set hypotheses; the general path polynomial identity remains open.
+  edge-set hypotheses.
+
+- `Unicellular.lean`: raw marked-edge scanner identities, the four resolved
+  edge-set identities, marked-edge freshness, `coloringLLT_unicellular`.
+  This proves Proposition `coloringProperties` (iii), lines 2341–2352.
+- `ColoringSwap.lean`: `swapColors`, evaluation/involution lemmas,
+  `prod_X_swapColors`, `swapColorEquiv`. No admissibility/ascent preservation
+  without graph hypotheses is claimed.
 
 ## Ownership and checks
 
@@ -96,11 +104,11 @@ and `Concat.lean`. Both returned their source and ran no builds. Primary
 integrated their work, fixed final normalization/API details, and compiled it.
 Neither Luna worker currently owns a file; record ownership before reassignment.
 
-Focused checks passed for all three new modules, then the full/default build
-(1369 jobs) and `lake-workspace env lean Verification.lean` passed. Logs:
+One focused batch checked the two new modules; after fixing the candidate's
+Lean 4.34 filter simplification, the full/default build (1371 jobs) and `lake-workspace env lean Verification.lean` passed. Logs:
 
-- `/lake-cache/ai-projects/build/VerticalStripLLT/multiplicativity-build.log`
-- `/lake-cache/ai-projects/build/VerticalStripLLT/multiplicativity-axioms.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/unicellular-build.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/unicellular-axioms.log`
 
 No `sorry`, `admit`, custom `axiom`, `unsafe`, or `native_decide` in production
 source. Lean source is at most 100 columns. `git diff --check` passes and the
@@ -120,6 +128,8 @@ process exited. Do not infer build-slot ownership from an old lock or status not
   Milestone issue #1 is complete; issue #2 is now proved locally as well.
 - Coloring sum factorization and unicellular path resolutions: `6d72a1b`,
   pushed after full build, 39 axiom checks, and source/reference guards.
+- Coloring multiplicativity and unicellular helpers: `156aef3`, pushed;
+  full build and 51 public axiom checks pass. Issue #2 is closed.
 - Private repository, branch `main`. No branch, remote, or account changes.
 - Lean `v4.34.0`, Mathlib `5ed2965256430c3649e86755f9576b54eca72435`.
 - Wrapper package-directory warning is expected; never respond with `lake update`.
@@ -131,7 +141,7 @@ process exited. Do not infer build-slot ownership from an old lock or status not
 
 ## Remaining main-theorem work
 
-General unicellular and bounce identities; bounce
+Single-bounce identities; bounce
 reduction; lexicographic decrease lemmas for `(size, east count, first-east
 height)`; recurrence uniqueness; recursive elementary invariant and coloring
 bridge; independent orientation/HRV construction and its recurrence; ordinary

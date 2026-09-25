@@ -30,15 +30,18 @@ A general-purpose symmetric-functions library is outside the scope.
   while preserving validity; the unchanged edge scanners are proved equal.
 - `markedDiagonalEdge` locates the strict edge at a chosen diagonal step.
   `coloringWeight_unicellular_of_edges` proves the local weight relation from
-  explicit edge-insertion hypotheses; the full path identity is still open.
+  explicit edge-insertion hypotheses. `coloringLLT_unicellular` combines the
+  proved edge identities to give the general relation for every valid `U d V`.
+- `ColoringSwap.lean` provides the swap involution, its restricted-coloring
+  equivalence, and vertex-monomial preservation for the upcoming bounce proofs.
 - `coloringLLT_pair_unicellular` proves
   `G_nnee − G_nene = (q−1) G_nde` for every finite alphabet.
 - In two variables, `coloringLLT_strictPair_eq_evalElementary_two` proves
   `G_nde = e₂`, and `coloringLLT_normalPair_eq_evalElementary_two` proves
   `G_nnee = e₁² + (q−1)e₂` by evaluating a separate formal expression.
 
-The general column initial condition and the first local recursion case are
-proved. General unicellular and bounce relations,
+The general column initial condition, multiplicativity, and general unicellular
+relation are proved. The bounce relations,
 recurrence uniqueness, a terminating recursive invariant, the orientation
 formula, and the full semantic bridge remain to be proved.
 

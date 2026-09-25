@@ -52,3 +52,14 @@ import VerticalStripLLT
 #print axioms VerticalStripLLT.Step.markedDiagonal_bounds
 #print axioms VerticalStripLLT.SchroderPath.markedDiagonalEdge_mem
 #print axioms VerticalStripLLT.coloringWeight_unicellular_of_edges
+#print axioms VerticalStripLLT.Step.strictFrom_diagonal_eq_or_marked
+#print axioms VerticalStripLLT.Step.normalFrom_northEast_eq_or_marked
+#print axioms VerticalStripLLT.SchroderPath.resolve_strictEdges_eq
+#print axioms VerticalStripLLT.SchroderPath.resolve_diagonal_normalEdges_eq
+#print axioms VerticalStripLLT.SchroderPath.diagonal_strictEdges_eq_insert
+#print axioms VerticalStripLLT.SchroderPath.northEast_normalEdges_eq_insert
+#print axioms VerticalStripLLT.SchroderPath.markedDiagonalEdge_not_mem_eastNorth_normalEdges
+#print axioms VerticalStripLLT.coloringLLT_unicellular
+#print axioms VerticalStripLLT.swapColors_involutive
+#print axioms VerticalStripLLT.prod_X_swapColors
+#print axioms VerticalStripLLT.swapColorEquiv

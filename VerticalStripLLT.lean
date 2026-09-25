@@ -7,3 +7,5 @@ import VerticalStripLLT.UnicellularPath
 import VerticalStripLLT.ColoringConcat
 import VerticalStripLLT.MarkedDiagonal
 import VerticalStripLLT.UnicellularWeight
+import VerticalStripLLT.Unicellular
+import VerticalStripLLT.ColoringSwap

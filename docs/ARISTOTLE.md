@@ -72,11 +72,11 @@ implementation files. Keep generated requests/results outside the checkout.
 - The remote job changed its isolated toolchain to Lean 4.28 and used Mathlib
   v4.28.0. The local toolchain and manifest remain unchanged at Lean 4.34.
 
-## General unicellular relation (active)
+## General unicellular relation (completed and locally verified)
 
 - Project ID: `7cac7db7-a2d1-4c27-8522-9b43c7690ed8`.
 - Task ID: `2496607b-8e35-455c-9ee7-7a60c6ef4618`.
-- SDK query confirmed `IN_PROGRESS` after submission.
+- SDK query confirmed `COMPLETE`, 100 percent, on 2026-09-25.
 - Request directory:
   `/lake-cache/ai-projects/requests/VerticalStripLLT/general-unicellular`.
 - Self-contained snapshot of nine checked local modules, including path
@@ -90,8 +90,32 @@ implementation files. Keep generated requests/results outside the checkout.
 - This isolated request pins the observed service environment Lean/Mathlib
   v4.28.0, avoiding the earlier initial toolchain mismatch. All returned
   candidates must still pass the unchanged local Lean 4.34 environment.
-- Observe this exact handle; do not duplicate a live task after an observation
-  timeout. Luna should port its candidate; primary remains sole local builder.
+- Completed export is retained as `result.tar.gz` and selected source as
+  `completed-candidate.lean`. All original supplied declarations and proofs
+  were preserved. Luna ported the added declarations into `Unicellular.lean`.
+- Local Lean 4.34 needed staged simplification: remove finite-set filter
+  membership before rewriting resolved path steps, to preserve matching of
+  dependent decidability instances. No statement or semantic change was made.
+- The batch containing `Unicellular.lean` and `ColoringSwap.lean` passed the
+  full build and all 62 public axiom checks. Only standard Lean axioms occur.
+
+## Restricted swap sum (active)
+
+- Project ID: `8099d4f4-4cb0-4b15-b617-ce2a18f3ee54`.
+- Task ID: `6e7dc2fe-1962-4412-aeec-cac660f99fa4`, confirmed `IN_PROGRESS`.
+- Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/swap-sum`.
+- Uses five checked source modules and the same isolated Lean/Mathlib v4.28
+  setup. The new pair embedding swaps both vertex coordinates.
+- Target: the sum of coloring weights with `c a < c b` equals `C(q)` times
+  the sum with `c b < c a`, assuming `(a,b)` is normal, strict edges are
+  swap invariant, and the normal edges with `(a,b)` erased are swap invariant.
+- This is a graph-conditional ingredient of the single-bounce proof, not a
+  claimed path bounce theorem. The scanner work must prove these hypotheses.
+- Supplied helpers include the checked coloring swap involution, increasing/
+  decreasing coloring equivalence, and monomial preservation. The requested
+  new work is admissibility invariance, ascent change, and sum reindexing.
+- Follow this same task on continuation; Luna ports candidates and primary
+  performs authoritative local checks in batches.
 
 The API credential is loaded by the shared environment helper and is never
 passed on the command line or stored in this repository. Do not upload the

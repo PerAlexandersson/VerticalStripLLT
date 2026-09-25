@@ -190,17 +190,22 @@ graph and weight factorization.
 `UnicellularPath.lean` proves that a valid `U d V` has valid resolutions
 `U ne V` and `U en V`. It also proves that `U en V` has the same normal-edge
 scanner as `U d V`, and the two resolutions have the same strict-edge scanner.
-This begins the general relation in Proposition `coloringProperties` (iii),
-manuscript lines 2341–2352; it does not yet prove that polynomial relation.
+These supply the path resolutions for Proposition `coloringProperties` (iii),
+manuscript lines 2341–2352.
 
 `MarkedDiagonal.lean` locates the endpoint `(x,y)` of `U`, constructs the
 marked vertex pair, and proves strict-edge membership. `UnicellularWeight.lean`
 proves the pointwise weight identity under the four explicit edge-set
 equalities, by splitting admissibility and the marked color inequality.
 
-The remaining local obligations are to characterize the two changed edge
-sets by insertion of the marked pair. Strict/normal disjointness shows that
-the inserted normal edge is new. The checked pointwise weight identity then
-yields the general unicellular relation by summation. No recursive invariant
-is used in this proof. Aristotle is searching this remaining step with the
-checked helpers as input; service status alone is not a local proof.
+`Unicellular.lean` proves the changed edge sets are obtained by insertion of
+the marked pair. Strict/normal disjointness proves freshness. The pointwise
+weight identity then yields `coloringLLT_unicellular` by summation, uniformly
+in all finite alphabets. Aristotle supplied the candidate; Luna ported it and
+primary verified it locally. No recursive invariant is used in this proof.
+
+The first three recursion clauses are now proved. For the remaining bounce
+clause, `ColoringSwap.lean` supplies the swap involution, increasing/decreasing
+coloring equivalence, and monomial preservation. Its admissibility and ascent
+effects still require graph hypotheses. See `BOUNCE_PLAN.md` for the audited
+single-bounce scope and remaining proof decomposition.
