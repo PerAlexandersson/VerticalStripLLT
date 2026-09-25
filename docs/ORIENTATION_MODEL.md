@@ -48,11 +48,20 @@ HRV fiber has size k+1. `ColumnBridge.lean` combines this independent proof
 with the previously checked coloring column theorem, uniformly in alphabet size.
 
 For the next identities, keep HRV transport separate from combinatorial
-orientation choices. `HRVCongruence.lean` will transfer reachability, maxima,
+orientation choices. `HRVCongruence.lean` transfers reachability, maxima,
 fibers, and monomials from equality of upward-step relations on the same
-vertices. `OrientationInsert.lean` will split a fresh normal-edge direction
+vertices. `OrientationInsert.lean` splits a fresh normal-edge direction
 from the remaining orientation and count its extra ascent. These are the two
 independent ingredients for the unicellular orientation bijection.
 Concatenation uses the already checked disjoint graph decomposition, transports
 reachability through `Fin.castAdd` and `Fin.natAdd`, then factors the fibers,
 monomial, and finite sum. No coloring/expansion equality is assumed.
+
+The product and unicellular identities are now independently proved.
+`OrientationTransport`, `OrientationInsertSum`, and `OrientationUnicellular`
+separate equal-normal-edge transport, the two fresh-edge summands, and the
+final relation. `OrientationSpecializations` gives both parameter choices.
+The next NN bounce changes the strict-edge relation and requires additional
+HRV analysis: normal-edge deletion alone need not preserve HRV. The isolated
+Aristotle request uses the checked graph symmetries and manuscript maps
+phi/phibar/psi; none of their HRV properties is assumed as a new axiom.

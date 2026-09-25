@@ -68,8 +68,8 @@ A subsequent primary/Terra source audit identified the second leading-east
 requirement at `LLTe_1`, lines 1927–1933: the local DN relation applied before
 the induction hypothesis has middle eV''. The initially implemented NN-only
 certificate suffices for the checked single ND consequence, but does not by
-itself justify this DD step. Add the DN-leading-east field explicitly and
-transport/prove it alongside NN. The original restricted predicate remains
+itself justify this DD step. The DN-leading-east field is now explicit, with
+its map transport and coloring witness proved alongside NN. The original restricted predicate remains
 unchanged. Both unrestricted coloring semantic statements follow from their
 existing graph proofs; the direct orientation bounce statements must still
 be proved. No generic leading-east implication has been inferred silently.

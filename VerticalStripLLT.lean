@@ -36,3 +36,6 @@ import VerticalStripLLT.ColoringReductionRecursion
 import VerticalStripLLT.ReductionThirdBounce
 import VerticalStripLLT.ReductionRecursionMap
 import VerticalStripLLT.OrientationConcat
+import VerticalStripLLT.BounceCoordinates
+import VerticalStripLLT.BounceDecompositionProperties
+import VerticalStripLLT.OrientationSpecializations

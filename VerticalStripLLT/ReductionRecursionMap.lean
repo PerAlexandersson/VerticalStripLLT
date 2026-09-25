@@ -10,9 +10,13 @@ theorem SatisfiesReductionRecursion.map {A B : Type*} [CommRing A] [CommRing B]
       (fun n P => φ (F n P)) := by
   refine
     { toSatisfiesRecursion := H.toSatisfiesRecursion.map φ
-      firstBounceOneLeadingEast := ?_ }
-  intro n U V W hV h hreturn hgap
-  simpa only [map_mul] using
-    congrArg φ (H.firstBounceOneLeadingEast U V W hV h hreturn hgap)
+      firstBounceOneLeadingEast := ?_
+      secondBounceOneLeadingEast := ?_ }
+  · intro n U V W hV h hreturn hgap
+    simpa only [map_mul] using
+      congrArg φ (H.firstBounceOneLeadingEast U V W hV h hreturn hgap)
+  · intro n U V W hV h hreturn hgap
+    exact congrArg φ
+      (H.secondBounceOneLeadingEast U V W hV h hreturn hgap)
 
 end VerticalStripLLT

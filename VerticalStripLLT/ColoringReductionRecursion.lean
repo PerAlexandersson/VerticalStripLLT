@@ -1,6 +1,7 @@
 import VerticalStripLLT.ReductionRecursion
 import VerticalStripLLT.ColoringRecursion
 import VerticalStripLLT.ThirdBounceWeight
+import VerticalStripLLT.SecondBounceGeneral
 
 namespace VerticalStripLLT
 
@@ -12,8 +13,11 @@ theorem coloringLLT_satisfiesReductionRecursion (m : ℕ) :
   have H := coloringLLT_satisfiesRecursion m
   refine
     { toSatisfiesRecursion := H
-      firstBounceOneLeadingEast := ?_ }
-  intro n U V W hV h hreturn hgap
-  exact coloringLLT_firstBounce_general U (Step.east :: V) W h hreturn hgap m
+      firstBounceOneLeadingEast := ?_
+      secondBounceOneLeadingEast := ?_ }
+  · intro n U V W hV h hreturn hgap
+    exact coloringLLT_firstBounce_general U (Step.east :: V) W h hreturn hgap m
+  · intro n U V W hV h hreturn hgap
+    exact coloringLLT_secondBounce_general U (Step.east :: V) W h hreturn hgap m
 
 end VerticalStripLLT

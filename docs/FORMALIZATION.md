@@ -285,8 +285,8 @@ The orientation model is now defined independently in `Orientation`, `HRV`,
 and `OrientationExpansion`: `orientationExpansionAt` isolates the ascent
 parameter, with unshifted and shifted wrappers. Reachability maximality,
 HRV idempotence, fiber nonemptiness, and empty-path normalization are proved.
-The detailed representation decision is `ORIENTATION_MODEL.md`; no nonempty
-orientation recurrence or equality with coloring semantics is yet claimed.
+The detailed representation decision is `ORIENTATION_MODEL.md`; the column, product, and unicellular orientation identities are now proved.
+The arbitrary-path equality with coloring semantics remains open.
 
 `BounceSeed.split` and `BounceSeed.dd_child` preserve the exact return index
 and the strict child gap. `BounceSeed.trace` constructs a finite prefix trace
@@ -302,8 +302,8 @@ The arbitrary-path corollary remains open.
 
 The sufficient recurrence certificate for the main expansion is now separated
 from the exact manuscript-facing restricted predicate; see
-`REDUCTION_CERTIFICATE.md`. Its extra one-leading-east identity will be proved
-independently for both concrete models. The final expansion remains
+`REDUCTION_CERTIFICATE.md`. Its two extra leading-east identities must be proved
+independently for both concrete models; the coloring witness is checked. The final expansion remains
 unconditional, and exact restricted-recursion uniqueness remains open.
 
 `orientationExpansionAt_concat` now proves independent orientation
@@ -314,3 +314,20 @@ and the finite sum. `HRVCongruence`, `OrientationInsert`, and
 The sufficient certificate and its coloring witness, generic third-bounce
 consequence, and ring-map transport are implemented; they are distinct from
 an unproved uniqueness assertion for the original restricted predicate.
+
+`orientationExpansionAt_unicellular` completes the independent orientation
+initial/product/unicellular milestone, corresponding to Proposition
+`O:e-mult-diag`, especially manuscript lines 2762–2820 for the edge bijection.
+`OrientationTransport` reindexes equal normal-edge sets;
+`OrientationInsertSum` splits the fresh edge into false/true summands and
+proves the corresponding HRV monomials. No coloring identity is used.
+`OrientationSpecializations` records the ordinary and shifted consequences.
+
+`SecondBounceGeneral` now exports unrestricted-middle DN coloring semantics;
+the original restricted theorem is a corollary with unchanged statement.
+The sufficient certificate explicitly includes NN and DN leading-east
+clauses, with coloring witnesses and map transport for both.
+`BounceCoordinates`, `BounceDecomposition`, and its properties separately
+certify the single-bounce coordinates, terminal-pair extraction, east-free
+parts, and closure under raising the final diagonal by a north step.
+These word facts do not assert generalized transformed-path validity or values.

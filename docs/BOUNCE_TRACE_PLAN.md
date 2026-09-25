@@ -39,3 +39,27 @@ Implemented: `BounceSeed.split`, `BounceSeed.dd_child`, and
 dd descent. The existence proof uses strong induction on prefix length.
 The source-word return index and all no-east restrictions are explicit.
 This certificate does not yet assert transformed-path validity or a value law.
+
+## Indexed decomposition for generalized bounce
+
+Retain the terminal pair in an indexed `BounceDecomposition Y U V s t`.
+The stop case mirrors `BounceTrace.stop`. A DD parent with child
+`A d = U s t V₀ d` has word `A dd V₁ d`; hence its flattened middle is
+`V₀ ++ d :: d :: V₁`, with TWO diagonals. This follows by cancelling the
+final diagonal in the child word equality. The unindexed trace should imply
+existence of this decomposition, with word equality and east-free parts.
+
+The source DD induction also needs the raised child `A n d`. Prove closure
+of the decomposition under inserting a north just before the final diagonal:
+`U s t V d` becomes `U s t (V ++ [n]) d`, preserving the terminal pair.
+Keep these word statements separate from path validity and value identities.
+The generic single ND consequence is checked for the sufficient certificate;
+its exact restricted-only version remains open. The DD induction requires
+both leading-east clauses recorded in `REDUCTION_CERTIFICATE.md`.
+
+The indexed geometry is now implemented: `BounceTrace.decompose`,
+`BounceDecomposition.word_eq`, `parts`, and `raiseFinal`.
+The last theorem uses the same child trace at a DD parent and extends the
+parent middle by north; no new semantic assumption enters this closure.
+`BounceSeed.singleBounce_coordinates` derives the endpoint return and strict
+gap directly from the word-count certificate.

@@ -53,7 +53,9 @@ A general-purpose symmetric-functions library is outside the scope.
   successors, strict measure decreases, and value identities for arbitrary
   invariants satisfying the recurrence. The diagonal-predecessor branch is open.
 - `BounceSeed.trace` constructs a terminating prefix bounce trace while
-  preserving the strict gap and exact return indices.
+  preserving the strict gap and exact return indices. `BounceTrace.decompose`
+  retains the terminal pair in an indexed certificate; its `raiseFinal` lemma
+  preserves the decomposition when a north precedes the final diagonal.
 - The independent orientation expression is now defined using finite normal
   edge choices and highest-reachable-vertex fibers. HRV maximality and
   idempotence, fiber nonemptiness, and empty-path normalization are proved.
@@ -62,8 +64,11 @@ A general-purpose symmetric-functions library is outside the scope.
   defined coloring and orientation expressions for every column and alphabet.
   `orientationExpansionAt_concat` proves orientation multiplicativity, with
   separate orientation-splitting and HRV transport modules.
-- `SatisfiesReductionRecursion` adds a separately named sufficient bounce
-  clause for the reduction proof. Its coloring witness, generic third-bounce
+  `orientationExpansionAt_unicellular` proves the independent orientation
+  unicellular identity. Transport, insertion sums, and shifted/unshifted
+  specializations are separate modules.
+- `SatisfiesReductionRecursion` adds two separately named leading-east bounce
+  clauses for the reduction proof. Its coloring witness, generic third-bounce
   consequence, and ring-map transport are checked. The original restricted
   predicate stays unchanged; its exact uniqueness claim remains open.
 - `coloringLLT_pair_unicellular` proves
@@ -77,7 +82,7 @@ relation and both single-bounce recurrence identities are proved.
 `coloringLLT_satisfiesRecursion` bundles these facts with empty normalization
 in a named recurrence predicate. The third single-bounce coloring relation is
 also proved. Generalized bounce,
-recurrence uniqueness, a terminating recursive invariant, the orientation recurrence identities,
+recurrence uniqueness, a terminating recursive invariant, the orientation bounce identities,
 and the full semantic bridge remain to be proved.
 
 ## Build and verification

@@ -272,10 +272,11 @@ Luna split it into `OrientationConcatSplit`, `OrientationConcatHRV`, and
 `ReflTransGen.lift` calls (4.34 makes endpoint arguments explicit), then
 verified the focused targets. No semantic definitions were changed.
 
-## Orientation unicellular relation (in progress)
+## Orientation unicellular relation (completed; locally checked)
 
 - Project ID: `17bb2b30-57ab-40bf-b054-9640ec896ffc`.
-- Task ID: `188a6fed-48fe-4246-99e8-26055f8683ba`, confirmed `IN_PROGRESS`.
+- Task ID: `188a6fed-48fe-4246-99e8-26055f8683ba`, confirmed `COMPLETE`
+  (2026-09-25 20:34 UTC).
 - Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/orientation-unicellular`.
 - Sixteen checked modules, 1243 lines, isolated Lean/Mathlib 4.28 snapshot.
 - Exact target `orientationExpansionAt_unicellular`: for every valid U d V
@@ -287,4 +288,32 @@ verified the focused targets. No semantic definitions were changed.
 
 The integrated multiplicativity/helper/certificate batch passed the default
 local build (1446 jobs), all 212 public axiom checks, global source guards,
-and immutable-reference checks. The unicellular job remains separate and active.
+and immutable-reference checks. The unicellular candidate has now returned and is being ported.
+
+The unicellular diff preserves every supplied statement and definition. Its
+only supplied-proof edit repairs `orientationAsc_insert` for Lean 4.28; this
+edit is unnecessary locally and is not imported. New lemmas are grouped as
+orientation transport, insertion sums, and the final unicellular relation.
+Luna owns the three new modules; primary retains local verification.
+
+The three unicellular modules pass the local focused build. The supplied
+4.28 normalization repair was not ported; the original checked4.34 helper
+remains unchanged. Ordinary and shifted specializations are also checked.
+
+## Orientation first bounce (in progress)
+
+- Project ID: `5546ba1c-a34c-4605-9485-a4e42436e5bd`.
+- Task ID: `5964d41a-b920-4466-9490-fcc39d4de751`, confirmed `IN_PROGRESS` (3%).
+- Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/orientation-first-bounce`.
+- Twenty-five checked modules, 2109 lines, isolated Lean/Mathlib4.28 snapshot.
+- Target `orientationExpansionAt_firstBounce_general`: unrestricted V,
+  multiplier `C(z+1)`, valid NN source and explicit endpoint return/strict gap.
+- Read-only manuscript excerpts contain the NN maps, HRV cases, and table.
+  The job may return modular partial progress; no HRV preservation, semantic
+  equality, or recurrence may be assumed. Primary and Terra identified the
+  changing strict edge and HRV-block switching as the substantive obstacle.
+- Observe the same project/task; local verification is required before integration.
+
+The integrated unicellular/geometry checkpoint passed the default local build
+(1454 jobs), all 235 public axiom checks, and global source/reference guards.
+Only standard Lean axioms occur; all local candidate ownership is released.
