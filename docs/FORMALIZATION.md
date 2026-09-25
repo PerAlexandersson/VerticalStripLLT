@@ -209,3 +209,29 @@ clause, `ColoringSwap.lean` supplies the swap involution, increasing/decreasing
 coloring equivalence, and monomial preservation. Its admissibility and ascent
 effects still require graph hypotheses. See `BOUNCE_PLAN.md` for the audited
 single-bounce scope and remaining proof decomposition.
+
+## First single-bounce identity delivered
+
+`FirstBounce.lean`, `coloringLLT_firstBounce`, proves the `nn` clause of
+Theorem `recursion` (851–871) directly for the coloring-defined polynomial,
+for every finite alphabet. Its word hypotheses are validity, the prefix-height
+return equation, the endpoint gap, and the manuscript's no-east middle word.
+The source coloring argument is at 2417–2519.
+
+`BounceScanners.lean` proves raw endpoint bounds and scanner swap facts.
+`FirstBounceGraph.lean` constructs the common background `R e e n W` and
+proves all four changed-edge identities, freshness, and swap invariance.
+`BounceWeight.lean` is independent of that geometry: its graph-conditional
+weight theorem uses the piecewise coloring involution. The final theorem
+combines these layers; it assumes no graph identities or recurrence.
+
+The scanner argument actually permits east steps in V under the remaining
+endpoint hypotheses. The public theorem retains the no-east hypothesis for
+matching the manuscript's bounce decomposition. Terra independently checked
+this strengthening and the displacement-preserving background.
+
+`WordCounts.lean` proves endpoint coordinates from the three step counts and
+north/east count equality for valid paths. `PolynomialCancellation.lean`
+proves nonzero q−1 and cancellation in `MvPolynomial σ (Polynomial ℤ)`.
+These are prerequisites for the separate recursion/termination work in
+`RECURSION_PLAN.md`; no recursive invariant or uniqueness theorem is claimed.

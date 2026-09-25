@@ -38,7 +38,10 @@ A general-purpose symmetric-functions library is outside the scope.
   symmetry hypotheses. `BouncePath.lean` and `PrefixScanners.lean` supply valid
   local step swaps and scanner decomposition at arbitrary prefix endpoints.
   `SecondBouncePath.lean` composes those swaps into the valid second successor.
-  The path geometry and full bounce identities remain open.
+  `FirstBounce.lean` now proves `coloringLLT_firstBounce`: the full
+  `U nn V d e W` to `U nn V e d W` identity with factor q, uniformly in the
+  finite alphabet. Its scanner, graph, and weight proofs are separate modules.
+  The second-bounce identity remains open.
 - `coloringLLT_pair_unicellular` proves
   `G_nnee − G_nene = (q−1) G_nde` for every finite alphabet.
 - In two variables, `coloringLLT_strictPair_eq_evalElementary_two` proves
@@ -46,7 +49,7 @@ A general-purpose symmetric-functions library is outside the scope.
   `G_nnee = e₁² + (q−1)e₂` by evaluating a separate formal expression.
 
 The general column initial condition, multiplicativity, and general unicellular
-relation are proved. The bounce relations,
+relation and first single-bounce identity are proved. The second bounce relation,
 recurrence uniqueness, a terminating recursive invariant, the orientation
 formula, and the full semantic bridge remain to be proved.
 

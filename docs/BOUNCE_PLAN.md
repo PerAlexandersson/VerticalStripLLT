@@ -135,3 +135,10 @@ fails, the transformed target's condition also fails; background
 inadmissibility likewise makes both weights zero. This should prove
 `weight(P,c)=weight(QII,T(c))` pointwise, then the second bounce sum identity.
 No division or cancellation of q is needed.
+
+## Implemented boundary
+
+The first identity and all its graph hypotheses are now locally checked in
+`BounceScanners.lean`, `FirstBounceGraph.lean`, `BounceWeight.lean`, and
+`FirstBounce.lean`. The second plan above is the active Aristotle target;
+its valid successor is already checked in `SecondBouncePath.lean`.

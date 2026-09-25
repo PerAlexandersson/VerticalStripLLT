@@ -13,3 +13,6 @@ import VerticalStripLLT.SwapSum
 import VerticalStripLLT.PrefixScanners
 import VerticalStripLLT.BouncePath
 import VerticalStripLLT.SecondBouncePath
+import VerticalStripLLT.FirstBounce
+import VerticalStripLLT.WordCounts
+import VerticalStripLLT.PolynomialCancellation

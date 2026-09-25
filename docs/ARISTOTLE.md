@@ -121,12 +121,14 @@ implementation files. Keep generated requests/results outside the checkout.
 - The local batch included `BouncePath.lean` and `PrefixScanners.lean`.
   Full build and all 74 public axiom checks passed with standard axioms only.
 
-## First bounce identity (active)
+## First bounce identity (completed and locally verified)
 
 - Project ID: `30bbdfee-3932-4a5d-84a7-bd0d29bf82e2`.
-- Task ID: `80bb72e2-fde2-415c-af6e-ffef30b9da06`, initially `QUEUED`.
-- Latest observation confirms `IN_PROGRESS`, 5 percent, with active scratch
-  proof development of scanner identities. The job has not been restarted.
+- Task ID: `80bb72e2-fde2-415c-af6e-ffef30b9da06`, confirmed `COMPLETE`, 100 percent.
+- Completion observed 2026-09-25 18:50 UTC; completed archive downloaded as
+  `result.tar.gz` and selected source as `completed-candidate.lean`.
+  The existing supplied definitions are unchanged; the added proof includes
+  the scanner geometry, edge symmetry, and coloring involution.
 - Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/first-bounce`.
 - Self-contained snapshot of fourteen checked local modules, including all
   swap-weight lemmas, prefix scanners, valid path swaps, and unicellular helpers.
@@ -141,6 +143,26 @@ implementation files. Keep generated requests/results outside the checkout.
 - Service uses Lean/Mathlib v4.28.0. Conditional rewrite names in the isolated
   snapshot were translated from `ite_eq_left/right` to `if_pos/neg` for that
   environment; the local source and pinned dependencies are unchanged.
+- Luna ported four separate scanner, graph, weight, and final theorem modules.
+  Primary fixed a path-step simplification and a command-scope issue; the
+  unchanged Lean 4.34 full build and all 101 public axiom checks pass.
+  Only standard Lean axioms occur. Terra independently audited source fidelity.
+
+## Second bounce identity (queued)
+
+- Project ID: `6bc089d7-87cb-4db2-b199-f4c4b4d05ee3`.
+- Task ID: `eccb0402-2bde-4fbe-8eaf-19847e0f41ca`, confirmed `QUEUED`.
+- Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/second-bounce`.
+- Submitted 2026-09-25 with nineteen locally checked source modules, including
+  the first-bounce scanner, graph, and weight helpers and the valid second
+  successor. Environment remains isolated Lean/Mathlib v4.28.0.
+- Exact target `coloringLLT_secondBounce`: for valid `U d n V d e W`, no east
+  steps in V, the return equation and gap, prove equality with
+  `U n d V e d W` for every finite alphabet.
+- The prompt includes independently audited graph equations for the common
+  background `U e n n V e e n W` and the interval-based coloring involution.
+  Graph identities must be derived from the word hypotheses; no new graph
+  assumptions or replacement semantics are accepted. No division is needed.
 - Observe this same task; do not restart merely because an observer expires.
 
 The API credential is loaded by the shared environment helper and is never
