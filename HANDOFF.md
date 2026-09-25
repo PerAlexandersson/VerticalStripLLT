@@ -39,7 +39,7 @@ bundle, or arbitrary-path semantic bridge is claimed complete.
 - `5a3b763`: sufficient-certificate route recorded before implementation.
 - `4d136c7`: orientation multiplicativity and generic single ND reduction.
 - `9a04105`: additional DN clause decision before implementation.
-- Current source batch: orientation unicellular and indexed bounce geometry.
+- `de6026f` (pushed): orientation unicellular and indexed bounce geometry.
 
 Full/default build: 1454 jobs. All 235 public axiom checks pass, using only
 `propext`, `Classical.choice`, and `Quot.sound`. Source and 100-column guards,
@@ -49,8 +49,9 @@ Logs under `/lake-cache/ai-projects/build/VerticalStripLLT/`:
 
 ## Live work and next action
 
-Issue #6's orientation initial/product/unicellular acceptance criteria are
-verified. All earlier issues #1–5 are complete.
+Issues #1–6 are closed. Issue #7 tracks the orientation bounce identities and
+recurrence certificate:
+https://github.com/PerAlexandersson/VerticalStripLLT/issues/7.
 
 Active Aristotle project: `5546ba1c-a34c-4605-9485-a4e42436e5bd`.
 Task: `5964d41a-b920-4466-9490-fcc39d4de751`, confirmed `IN_PROGRESS` (3%).
