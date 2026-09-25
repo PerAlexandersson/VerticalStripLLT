@@ -8,6 +8,9 @@
 - Architecture checkpoint `81b4885` was committed and pushed before any
   scaffolding. See `docs/FORMALIZATION.md` for the independent Astra review,
   source map, representation comparison, termination measure, and milestones.
+- Verified implementation checkpoint:
+  `cab97ea9b353ff62772e0e154323964013d2704e`, pushed to `origin/main`.
+  The subsequent handoff receipt changes documentation only.
 - Model: valid `n/d/e` words, finite coloring polynomials over `Polynomial ℤ`,
   and a separate ring of formal elementary expressions with an evaluation map.
 - Pinned Lean `v4.34.0`, Mathlib
