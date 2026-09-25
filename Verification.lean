@@ -63,3 +63,15 @@ import VerticalStripLLT
 #print axioms VerticalStripLLT.swapColors_involutive
 #print axioms VerticalStripLLT.prod_X_swapColors
 #print axioms VerticalStripLLT.swapColorEquiv
+#print axioms VerticalStripLLT.Step.endpointFrom_append
+#print axioms VerticalStripLLT.Step.normalFrom_append
+#print axioms VerticalStripLLT.Step.strictFrom_append
+#print axioms VerticalStripLLT.Step.validFrom_diagonalNorth_swap
+#print axioms VerticalStripLLT.Step.validFrom_diagonalEast_swap
+#print axioms VerticalStripLLT.SchroderPath.swapDiagonalNorth
+#print axioms VerticalStripLLT.SchroderPath.swapDiagonalEast
+#print axioms VerticalStripLLT.card_filter_swapColors
+#print axioms VerticalStripLLT.admissible_swapColors_iff
+#print axioms VerticalStripLLT.ascentCount_eq_swapColors_add_one
+#print axioms VerticalStripLLT.coloringWeight_eq_C_X_mul_swapColors
+#print axioms VerticalStripLLT.coloringLLT_swap_sum

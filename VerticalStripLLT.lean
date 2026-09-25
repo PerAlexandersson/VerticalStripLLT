@@ -9,3 +9,6 @@ import VerticalStripLLT.MarkedDiagonal
 import VerticalStripLLT.UnicellularWeight
 import VerticalStripLLT.Unicellular
 import VerticalStripLLT.ColoringSwap
+import VerticalStripLLT.SwapSum
+import VerticalStripLLT.PrefixScanners
+import VerticalStripLLT.BouncePath

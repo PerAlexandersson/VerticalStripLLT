@@ -19,7 +19,7 @@
   the unchanged normal/strict scanners are proved equal.
 - The elementary-coloring bijection proof came from a live Aristotle candidate,
   was ported by Luna, and passed local Lean 4.34 builds and axiom checks.
-- Full/default build and all 62 declarations in `Verification.lean` pass;
+- Full/default build and all 74 declarations in `Verification.lean` pass;
   only standard Lean axioms appear. Source guards and reference-integrity checks pass.
 - Primary `/root` owns strategy, integration, all current source files, and
   the sole project build slot. Current bounded assignments are below.
@@ -31,24 +31,27 @@ in `docs/BOUNCE_PLAN.md`. The general unicellular theorem has passed the local
 batch build and axiom audit; issue #3 is closed. The bounce milestone is issue
 https://github.com/PerAlexandersson/VerticalStripLLT/issues/4.
 
-Aristotle project `8099d4f4-4cb0-4b15-b617-ce2a18f3ee54` is newly submitted for
-the restricted swap-sum identity under explicit graph symmetry hypotheses.
-Task `6e7dc2fe-1962-4412-aeec-cac660f99fa4` is confirmed `IN_PROGRESS`.
-It contains the checked `ColoringSwap` primitives. Observe this same project;
-service completion will still require local porting and verification.
-Exact request/result provenance is in `docs/ARISTOTLE.md`.
+Aristotle project `30bbdfee-3932-4a5d-84a7-bd0d29bf82e2`, task
+`80bb72e2-fde2-415c-af6e-ffef30b9da06`, is newly submitted (initially `QUEUED`)
+for the full first-bounce identity with the exact word/return/gap hypotheses
+in `docs/BOUNCE_PLAN.md`. Its snapshot includes fourteen checked modules.
+The earlier swap-sum task completed and is integrated; do not resume it.
+Use the new exact handle and verify any candidate locally. Full provenance
+and immutable request locations are in `docs/ARISTOTLE.md`.
 
-All source assignments from the unicellular checkpoint are integrated and
-released. Luna `column_paths` ported the completed Aristotle proof into
-`Unicellular.lean`; Luna `path_invariants` authored `ColoringSwap.lean`.
-Terra `bounce_audit` returned a read-only review of the exact single-bounce
-hypotheses; primary reviewed it and recorded `docs/BOUNCE_PLAN.md`.
+Luna `path_invariants` authored `BouncePath.lean`; Luna `column_paths`
+authored `PrefixScanners.lean` and ported `SwapSum.lean` from Aristotle.
+All three modules are locally checked; source ownership has returned to
+primary. Terra independently checked the exact first-bounce word certificate
+and identified the faithful background `R ++ [east,east,north] ++ W`.
 
 User steering: keep modules separate, batch local compilation, and delegate
 bounded independent tasks in parallel to Aristotle and smaller models.
-Primary remains sole local builder. No delegated source edit is currently
-active; record exact ownership before the next assignment. No full bounce
-identity or recursive/orientation bridge is claimed.
+Primary remains sole local builder. No delegated source edits are active.
+The immediate independent local task is the second-bounce successor, using
+the two checked swaps and preservation of prefix endpoints. Record ownership
+before assigning it. No full bounce identity or recursive/orientation bridge
+is claimed.
 
 ## New declarations and source correspondence
 
@@ -96,6 +99,16 @@ All declarations below are under `VerticalStripLLT`.
   `prod_X_swapColors`, `swapColorEquiv`. No admissibility/ascent preservation
   without graph hypotheses is claimed.
 
+- `PrefixScanners.lean`: `Step.endpointFrom_append`, `normalFrom_append`,
+  `strictFrom_append`, all without prefix-validity hypotheses.
+- `BouncePath.lean`: `Step.validFrom_diagonalNorth_swap`,
+  `validFrom_diagonalEast_swap`; valid-path constructors `swapDiagonalNorth`,
+  `swapDiagonalEast` and their step-list simp lemmas.
+- `SwapSum.lean`: `swapVertexPair`, `card_filter_swapColors`,
+  `admissible_swapColors_iff`, `ascentCount_eq_swapColors_add_one`,
+  `coloringWeight_eq_C_X_mul_swapColors`, `coloringLLT_swap_sum`.
+  Explicit graph symmetry hypotheses remain to be proved for each bounce use.
+
 ## Ownership and checks
 
 Luna `path_invariants` authored `PathInvariants.lean`, `PathBounds.lean`,
@@ -105,11 +118,12 @@ and `Concat.lean`. Both returned their source and ran no builds. Primary
 integrated their work, fixed final normalization/API details, and compiled it.
 Neither Luna worker currently owns a file; record ownership before reassignment.
 
-One focused batch checked the two new modules; after fixing the candidate's
-Lean 4.34 filter simplification, the full/default build (1371 jobs) and `lake-workspace env lean Verification.lean` passed. Logs:
+The three returned modules were checked in a focused batch; after the final
+Lean 4.34 coercion/rewrite fixes, the full/default build (1374 jobs) and all
+74 axiom checks passed. Logs:
 
-- `/lake-cache/ai-projects/build/VerticalStripLLT/unicellular-build.log`
-- `/lake-cache/ai-projects/build/VerticalStripLLT/unicellular-axioms.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/swap-sum-build.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/swap-sum-axioms.log`
 
 No `sorry`, `admit`, custom `axiom`, `unsafe`, or `native_decide` in production
 source. Lean source is at most 100 columns. `git diff --check` passes and the
@@ -145,8 +159,7 @@ process exited. Do not infer build-slot ownership from an old lock or status not
 
 ## Remaining main-theorem work
 
-Single-bounce identities; bounce
-reduction; lexicographic decrease lemmas for `(size, east count, first-east
+Single-bounce identities; bounce reduction; lexicographic decrease lemmas for `(size, east count, first-east
 height)`; recurrence uniqueness; recursive elementary invariant and coloring
 bridge; independent orientation/HRV construction and its recurrence; ordinary
 expansion and shifted positivity; weighted degree and alphabet specialization.

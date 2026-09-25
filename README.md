@@ -34,6 +34,10 @@ A general-purpose symmetric-functions library is outside the scope.
   proved edge identities to give the general relation for every valid `U d V`.
 - `ColoringSwap.lean` provides the swap involution, its restricted-coloring
   equivalence, and vertex-monomial preservation for the upcoming bounce proofs.
+- `SwapSum.lean` proves the restricted swap-sum identity under explicit edge
+  symmetry hypotheses. `BouncePath.lean` and `PrefixScanners.lean` supply valid
+  local step swaps and scanner decomposition at arbitrary prefix endpoints.
+  The path geometry and full bounce identities remain open.
 - `coloringLLT_pair_unicellular` proves
   `G_nnee − G_nene = (q−1) G_nde` for every finite alphabet.
 - In two variables, `coloringLLT_strictPair_eq_evalElementary_two` proves

@@ -99,10 +99,10 @@ implementation files. Keep generated requests/results outside the checkout.
 - The batch containing `Unicellular.lean` and `ColoringSwap.lean` passed the
   full build and all 62 public axiom checks. Only standard Lean axioms occur.
 
-## Restricted swap sum (active)
+## Restricted swap sum (completed and locally verified)
 
 - Project ID: `8099d4f4-4cb0-4b15-b617-ce2a18f3ee54`.
-- Task ID: `6e7dc2fe-1962-4412-aeec-cac660f99fa4`, confirmed `IN_PROGRESS`.
+- Task ID: `6e7dc2fe-1962-4412-aeec-cac660f99fa4`, confirmed `COMPLETE`.
 - Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/swap-sum`.
 - Uses five checked source modules and the same isolated Lean/Mathlib v4.28
   setup. The new pair embedding swaps both vertex coordinates.
@@ -114,8 +114,32 @@ implementation files. Keep generated requests/results outside the checkout.
 - Supplied helpers include the checked coloring swap involution, increasing/
   decreasing coloring equivalence, and monomial preservation. The requested
   new work is admissibility invariance, ascent change, and sum reindexing.
-- Follow this same task on continuation; Luna ports candidates and primary
-  performs authoritative local checks in batches.
+- Completed archive retained as `result.tar.gz`; selected source extracted
+  as `completed-candidate.lean`. Existing supplied statements were unchanged.
+  Luna ported additions into `SwapSum.lean`. Primary fixed the final
+  involution-coercion elaboration and updated conditional-rewrite names.
+- The local batch included `BouncePath.lean` and `PrefixScanners.lean`.
+  Full build and all 74 public axiom checks passed with standard axioms only.
+
+## First bounce identity (active)
+
+- Project ID: `30bbdfee-3932-4a5d-84a7-bd0d29bf82e2`.
+- Task ID: `80bb72e2-fde2-415c-af6e-ffef30b9da06`, initially `QUEUED`.
+- Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/first-bounce`.
+- Self-contained snapshot of fourteen checked local modules, including all
+  swap-weight lemmas, prefix scanners, valid path swaps, and unicellular helpers.
+- Exact target `coloringLLT_firstBounce` takes the source word
+  `(U ++ [north,north] ++ V) ++ [diagonal,east] ++ W`, its validity, no east
+  steps in V, the prefix-height return condition, and the endpoint gap.
+  It must prove `G_P = C(q) * G_Q` for the constructed valid swapped path Q.
+- The request must prove graph symmetry and changed edges from these word
+  hypotheses; a graph-conditional substitute does not complete the target.
+  `docs/BOUNCE_PLAN.md` records the independently audited exact interface and
+  the common-background and piecewise-coloring-bijection proof outlines.
+- Service uses Lean/Mathlib v4.28.0. Conditional rewrite names in the isolated
+  snapshot were translated from `ite_eq_left/right` to `if_pos/neg` for that
+  environment; the local source and pinned dependencies are unchanged.
+- Observe this same task; do not restart merely because an observer expires.
 
 The API credential is loaded by the shared environment helper and is never
 passed on the command line or stored in this repository. Do not upload the

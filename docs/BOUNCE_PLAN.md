@@ -25,6 +25,10 @@ Monotonicity and the no-east condition certify the single return; formalizing
 that geometric correspondence is a separate obligation if a general bounce
 procedure is later introduced. See the bounce definition at 665–692.
 
+For case I, the return condition simplifies to
+`(endpointFrom 0 0 U).2 = (endpointFrom 0 0 R).1`. Terra separately audited
+this exact planned theorem interface, including the successor's validity gap.
+
 The successor words are
 
     QI  = U ++ [north,north] ++ V ++ [east,diagonal] ++ W
@@ -51,17 +55,32 @@ These are candidate scanner identities to prove, with membership/freshness
 facts exposed explicitly. Do not use them as assumptions in a theorem claimed
 to complete the paper's path relation.
 
+For case I the correct common background is the valid word
+`B = R ++ [east,east,north] ++ W`. The inserted north is essential: replacing
+`[diagonal,east]` by `[east,east]` alone would end one unit too low. The planned
+local equations are `normal(P)=insert(y,z) normal(B)`,
+`strict(P)=insert(i,z) strict(B)`, `normal(QI)=normal(B)`, and
+`strict(QI)=insert(y,z) strict(B)`. The strict edges of B should be swap
+invariant; its normal edges with `(i,y)` erased should also be swap invariant.
+These remain source-geometry obligations, not assumptions of the target
+path theorem.
+
 ## Coloring layer
 
 The checked `ColoringSwap.lean` implements the source swap (2422–2433) and
 proves involutivity and monomial preservation. It makes no claim about
 admissibility or ascents without graph hypotheses.
 
-A useful isolated next lemma is the restricted swap-sum identity on any path
+The checked `SwapSum.lean` proves the restricted swap-sum identity on any path
 whose strict edges are invariant under swapping i,y and whose normal edges,
-after erasing (i,y), are invariant under that swap. Prove the remaining ascent
-contribution changes by exactly one. The path-scanner work must later prove
+after erasing the normal edge (i,y), are invariant under that swap. Its proof
+shows the remaining ascent contribution changes by exactly one. The path-scanner work must prove
 these graph hypotheses in each use. This models Lemma `swapMap` (2436–2467).
+
+`PrefixScanners.lean` proves unconditional endpoint and scanner append laws.
+`BouncePath.lean` proves validity of `diagonal,north → north,diagonal` and,
+under the endpoint gap, `diagonal,east → east,diagonal`; it provides their
+valid-path constructors. These are geometry helpers, not bounce identities.
 
 Case I then partitions colorings by comparisons at i,y,z, using the identity
 map or the swap, to prove `G_P = C(q) * G_QI` (2473–2519). Case II partitions
@@ -69,3 +88,11 @@ by the two changed constraints: one identical class, one empty by transitivity,
 and two swapped classes with equal ascent count (2523–2658). It yields
 `G_P = G_QII`. Keep these finite-sum proofs independent of the recursive
 invariant and of the unresolved general bounce/termination arguments.
+
+For case I, primary also supplied Aristotle this finite bijection outline:
+leave a coloring fixed when both colors at i,y are below the color at z;
+otherwise swap the colors at i,y. Since z is distinct from i,y, this is an
+involution. The graph equations above and the checked swap-weight lemma
+should give `weight(P,c) = C(q) * weight(QI,T(c))` in every case. The remote
+request must prove the graph equations from word hypotheses, so its final
+target is the full recurrence-facing first-bounce identity.
