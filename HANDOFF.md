@@ -9,14 +9,22 @@
   and raw scanners satisfy endpoint bounds, translation, and append laws.
   `SchroderPath.concat` constructs the valid concatenation of two paths.
 - Earlier empty/singleton and size-two unicellular theorems remain checked.
+- Finite colorings split across a vertex concatenation, and independent sums
+  factor. Both local resolutions of a diagonal step preserve path validity;
+  the unchanged normal/strict scanners are proved equal.
 - The elementary-coloring bijection proof came from a live Aristotle candidate,
   was ported by Luna, and passed local Lean 4.34 builds and axiom checks.
-- Full/default build and all 31 declarations in `Verification.lean` pass;
+- Full/default build and all 39 declarations in `Verification.lean` pass;
   only standard Lean axioms appear. Source guards and reference-integrity checks pass.
 - Primary `/root` owns strategy, integration, all current source files, and
   the sole project build slot. No local build or delegated source edit is active.
 
 ## Immediate next action
+
+The two Luna assignments are integrated and released: `path_invariants`
+authored `UnicellularPath.lean`; `column_paths` authored `ColoringSplit.lean`.
+Neither ran a build. Primary verified their corrected candidates and retains
+the sole project build slot. No delegated edits remain active.
 
 Pursue issue https://github.com/PerAlexandersson/VerticalStripLLT/issues/2:
 prove `coloringLLT (P.concat Q) m = coloringLLT P m * coloringLLT Q m`.
@@ -29,10 +37,16 @@ only one active project. Request and result provenance: `docs/ARISTOTLE.md`.
 Luna should implement/port the next candidate; primary remains sole builder.
 
 Local proof outline: separate left and shifted right graph components with
-scanner bounds and append/translation; split colorings using `finSumFinEquiv`
-and `Equiv.sumArrowEquivProdArrow`; factor admissibility; add ascent counts;
+scanner bounds and append/translation; split colorings using
+`coloringSplitEquiv`; factor admissibility; add ascent counts;
 use `Fin.prod_univ_add` and factor the finite coloring sum. Nothing here permits
 replacing the coloring polynomial by a recursively defined object.
+
+The coloring equivalence and finite-sum factorization are now available in
+`ColoringSplit.lean`. An independent next local step is the marked endpoint
+and edge-insertion identities for the general unicellular relation; see
+the final section of `docs/FORMALIZATION.md` for its proof decomposition and
+https://github.com/PerAlexandersson/VerticalStripLLT/issues/3 for its scope.
 
 ## New declarations and source correspondence
 
@@ -56,6 +70,11 @@ All declarations below are under `VerticalStripLLT`.
   `normalFrom_append_of_valid`, `strictFrom_append_of_valid`,
   `normalFrom_translate`, `strictFrom_translate`; `SchroderPath.concat`,
   `concat_steps`. Coloring multiplicativity itself is still open.
+- `ColoringSplit.lean`: `coloringSplitEquiv`, forward/inverse restriction
+  simp lemmas, `sum_colorings_split`, `sum_colorings_split_mul`.
+- `UnicellularPath.lean`: `Step.validFrom_resolve`, `normalFrom_resolve`,
+  `strictFrom_resolve`; `SchroderPath.resolveNorthEast`, `resolveEastNorth`,
+  and their step-list simp lemmas. The general polynomial relation is open.
 
 ## Ownership and checks
 
@@ -66,11 +85,11 @@ and `Concat.lean`. Both returned their source and ran no builds. Primary
 integrated their work, fixed final normalization/API details, and compiled it.
 Neither Luna worker currently owns a file; record ownership before reassignment.
 
-Focused checks passed for every new module, then the full/default build
-(1364 jobs) and `lake-workspace env lean Verification.lean` passed. Logs:
+Focused checks passed for both new modules, then the full/default build
+(1366 jobs) and `lake-workspace env lean Verification.lean` passed. Logs:
 
-- `/lake-cache/ai-projects/build/VerticalStripLLT/general-column-build.log`
-- `/lake-cache/ai-projects/build/VerticalStripLLT/general-column-axioms.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/coloring-split-build.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/coloring-split-axioms.log`
 
 No `sorry`, `admit`, custom `axiom`, `unsafe`, or `native_decide` in production
 source. Lean source is at most 100 columns. `git diff --check` passes and the

@@ -62,6 +62,9 @@ implementation files. Keep generated requests/results outside the checkout.
   decomposition, coloring equivalence, ascent, and finite-sum proof outline.
 - Same service/local toolchain difference applies. Use current SDK status and
   this exact handle on continuation; do not restart because an observer expired.
+- Latest checkpoint observation: `IN_PROGRESS`, 7 percent. Live events show
+  dependency/toolchain adjustments and build diagnostics, with no proof
+  candidate yet extracted. The local toolchain and manifest are unchanged.
 
 The API credential is loaded by the shared environment helper and is never
 passed on the command line or stored in this repository. Do not upload the

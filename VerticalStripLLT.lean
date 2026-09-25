@@ -2,3 +2,5 @@ import VerticalStripLLT.SmallCases
 import VerticalStripLLT.PathBounds
 import VerticalStripLLT.ColumnBase
 import VerticalStripLLT.Concat
+import VerticalStripLLT.ColoringSplit
+import VerticalStripLLT.UnicellularPath

@@ -176,3 +176,23 @@ concatenation and proves append/translation laws for validity and both edge
 scanners. These establish the graph foundations of milestone 3. The coloring
 multiplicativity identity and finite-alphabet specialization are still open;
 we do not mark all of milestone 3 complete.
+
+## Supporting finite-sum and local-path identities
+
+`ColoringSplit.lean` supplies `coloringSplitEquiv`, `sum_colorings_split`, and
+`sum_colorings_split_mul` for all sizes and alphabet cardinalities, including
+zero. These isolate the finite-sum step of coloring multiplicativity from the
+still-required graph and weight factorization.
+
+`UnicellularPath.lean` proves that a valid `U d V` has valid resolutions
+`U ne V` and `U en V`. It also proves that `U en V` has the same normal-edge
+scanner as `U d V`, and the two resolutions have the same strict-edge scanner.
+This begins the general relation in Proposition `coloringProperties` (iii),
+manuscript lines 2341–2352; it does not yet prove that polynomial relation.
+
+The next local obligations are to locate the endpoint `(x,y)` of `U`, prove
+that the marked diagonal gives a valid vertex pair, and characterize the two
+changed edge sets by inserting that pair. Strict/normal disjointness then
+shows the inserted normal edge is new. Split the colorings according to
+`c x < c y`; the pointwise weight identity yields the general unicellular
+relation by summation. No recursive invariant is used in this proof.

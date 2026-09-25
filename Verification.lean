@@ -32,3 +32,11 @@ import VerticalStripLLT
 #print axioms VerticalStripLLT.increasingColoringSum_eq_esymm
 #print axioms VerticalStripLLT.coloringLLT_column
 #print axioms VerticalStripLLT.coloringLLT_column_eq_evalElementary
+#print axioms VerticalStripLLT.coloringSplitEquiv
+#print axioms VerticalStripLLT.sum_colorings_split
+#print axioms VerticalStripLLT.sum_colorings_split_mul
+#print axioms VerticalStripLLT.Step.validFrom_resolve
+#print axioms VerticalStripLLT.Step.normalFrom_resolve
+#print axioms VerticalStripLLT.Step.strictFrom_resolve
+#print axioms VerticalStripLLT.SchroderPath.resolveNorthEast
+#print axioms VerticalStripLLT.SchroderPath.resolveEastNorth

@@ -24,6 +24,9 @@ A general-purpose symmetric-functions library is outside the scope.
 - `SchroderPath.concat` concatenates arbitrary valid paths. The raw path and
   edge scanners satisfy append and translation laws; coloring multiplicativity
   remains the next proof obligation.
+- `coloringSplitEquiv` and `sum_colorings_split_mul` split finite colorings and
+  factor independent sums. Diagonal steps can be resolved into `ne` or `en`
+  while preserving validity; the unchanged edge scanners are proved equal.
 - `coloringLLT_pair_unicellular` proves
   `G_nnee − G_nene = (q−1) G_nde` for every finite alphabet.
 - In two variables, `coloringLLT_strictPair_eq_evalElementary_two` proves
