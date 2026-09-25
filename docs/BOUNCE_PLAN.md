@@ -1,7 +1,7 @@
 # Single-bounce proof plan
 
 This records the audited proof decomposition. The first single-bounce identity
-is now proved; the second remains in progress. Terra independently audited the
+and the second are now proved. Terra independently audited the
 author manuscript and finite-word model; primary reviewed the proposal. Source
 references are to the immutable `main.tex` snapshot.
 
@@ -141,5 +141,7 @@ No division or cancellation of q is needed.
 
 The first identity and all its graph hypotheses are now locally checked in
 `BounceScanners.lean`, `FirstBounceGraph.lean`, `BounceWeight.lean`, and
-`FirstBounce.lean`. The second plan above is the active Aristotle target;
-its valid successor is already checked in `SecondBouncePath.lean`.
+`FirstBounce.lean`. The second identity and all its graph hypotheses are checked in the parallel
+`SecondBounceScanners`, `SecondBounceGraph`, `SecondBounceWeight`, and
+`SecondBounce` modules. `coloringLLT_satisfiesRecursion` bundles these with
+the independently proved initial, product, and unicellular clauses.

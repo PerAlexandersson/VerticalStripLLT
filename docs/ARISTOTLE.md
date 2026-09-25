@@ -148,12 +148,16 @@ implementation files. Keep generated requests/results outside the checkout.
   unchanged Lean 4.34 full build and all 101 public axiom checks pass.
   Only standard Lean axioms occur. Terra independently audited source fidelity.
 
-## Second bounce identity (in progress)
+## Second bounce identity (completed and locally verified)
 
 - Project ID: `6bc089d7-87cb-4db2-b199-f4c4b4d05ee3`.
-- Task ID: `eccb0402-2bde-4fbe-8eaf-19847e0f41ca`, confirmed `IN_PROGRESS`.
-- Latest observation: 4 percent, developing the two-strict-edge weight
-  identity and interval coloring involution.
+- Task ID: `eccb0402-2bde-4fbe-8eaf-19847e0f41ca`, confirmed `COMPLETE`.
+- Completed 2026-09-25 19:13 UTC; archive and selected completed source
+  retained in the request directory. Terra audited unchanged source semantics
+  and exact boundary cases. Luna ported four modules; primary fixed namespace,
+  list normalization, and finite-set simplification details.
+- Local full build and public axiom audit passed. The coloring recurrence
+  bundle is also checked; no recursive object or expansion is assumed.
 - Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/second-bounce`.
 - Submitted 2026-09-25 with nineteen locally checked source modules, including
   the first-bounce scanner, graph, and weight helpers and the valid second
@@ -170,3 +174,19 @@ implementation files. Keep generated requests/results outside the checkout.
 The API credential is loaded by the shared environment helper and is never
 passed on the command line or stored in this repository. Do not upload the
 workspace or reference snapshot wholesale; requests contain only needed inputs.
+
+## Third single-bounce identity (in progress)
+
+- Project ID: `13d18bc3-ffad-4cb1-9807-9b4d3cb4cb04`.
+- Task ID: `372dfa89-c025-4779-8611-1fad2f31a341`, confirmed `IN_PROGRESS`.
+- Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/third-bounce`.
+- Contains twenty-four checked source modules in the isolated Lean/Mathlib
+  4.28 environment. The sole target asks for valid Q=`U nd V ed W` and
+  R=`U dn V ed W`, and `G_(U nd V de W)=(q−1)G_Q+qG_R` for every alphabet.
+  Validity, return, gap, and no-east middle hypotheses match the third
+  single-bounce case. Target validity must be proved, not assumed.
+- The prompt supplies the shared background and exact changed-edge plan,
+  and warns against applying a restricted-middle recurrence to eV. This
+  concrete coloring theorem does not assert the generic restricted-recurrence
+  implication discussed in `RESTRICTED_BOUNCE_AUDIT.md`.
+- Observe the same live job. Returned source requires local 4.34 verification.

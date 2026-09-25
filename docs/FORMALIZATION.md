@@ -235,3 +235,25 @@ north/east count equality for valid paths. `PolynomialCancellation.lean`
 proves nonzero q−1 and cancellation in `MvPolynomial σ (Polynomial ℤ)`.
 These are prerequisites for the separate recursion/termination work in
 `RECURSION_PLAN.md`; no recursive invariant or uniqueness theorem is claimed.
+
+## Coloring recurrence delivered
+
+`SecondBounce.lean`, `coloringLLT_secondBounce`, proves the `dn` recurrence
+clause and the source's single-bounce Theorem `colorings:bounceII` (2523–2535)
+uniformly in finite alphabets. `SecondBounceScanners.lean` compares the local
+prefixes; `SecondBounceGraph.lean` reuses the first-bounce background and
+proves the inserted edges and symmetries; `SecondBounceWeight.lean` proves
+the interval-based coloring involution, including equality boundary cases.
+
+`Recursion.lean` defines `SatisfiesRecursion` with named fields for empty
+normalization and the five recurrence clauses. It is generic in a commutative
+ring, q, elementary values, and a path invariant. The bounce fields retain
+no-east middle words. `ColoringRecursion.lean`,
+`coloringLLT_satisfiesRecursion`, supplies every field for the independently
+defined coloring sum. This is a semantic recurrence theorem, not a recursive
+definition or a uniqueness/expansion theorem.
+
+The third and arbitrary-length bounce identities remain open. The restricted
+recurrence audit in `RESTRICTED_BOUNCE_AUDIT.md` records a source-proof step
+that needs justification in the generic layer; it does not invalidate any
+checked coloring identity or establish a counterexample to the manuscript.

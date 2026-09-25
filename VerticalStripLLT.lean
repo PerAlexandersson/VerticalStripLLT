@@ -18,3 +18,5 @@ import VerticalStripLLT.WordCounts
 import VerticalStripLLT.PolynomialCancellation
 import VerticalStripLLT.ColumnCharacterization
 import VerticalStripLLT.FirstEast
+import VerticalStripLLT.SecondBounce
+import VerticalStripLLT.ColoringRecursion

@@ -41,7 +41,9 @@ A general-purpose symmetric-functions library is outside the scope.
   `FirstBounce.lean` now proves `coloringLLT_firstBounce`: the full
   `U nn V d e W` to `U nn V e d W` identity with factor q, uniformly in the
   finite alphabet. Its scanner, graph, and weight proofs are separate modules.
-  The second-bounce identity remains open.
+  `SecondBounce.lean` proves the second identity `U dn V de W` to
+  `U nd V ed W`, using the same graph background and an interval-based
+  coloring involution.
 - `ColumnCharacterization.lean` proves the converse: every valid path with
   exactly one east step is a column. `FirstEast.lean` defines the total
   first-east height and identifies it with the prefix endpoint height.
@@ -52,7 +54,9 @@ A general-purpose symmetric-functions library is outside the scope.
   `G_nnee = e₁² + (q−1)e₂` by evaluating a separate formal expression.
 
 The general column initial condition, multiplicativity, and general unicellular
-relation and first single-bounce identity are proved. The second bounce relation,
+relation and both single-bounce recurrence identities are proved.
+`coloringLLT_satisfiesRecursion` bundles these facts with empty normalization
+in a named recurrence predicate. The third/generalized bounce relations,
 recurrence uniqueness, a terminating recursive invariant, the orientation
 formula, and the full semantic bridge remain to be proved.
 

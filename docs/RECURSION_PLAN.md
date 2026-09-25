@@ -44,8 +44,10 @@ chosen once the generalized-bounce interface is available.
 Theorem `bounce_reduction` (1853–1993) keeps the no-east restriction on V and
 allows an arbitrary number of bounce points. Its induction measure is the
 number of bounce points, separate from the triple above. The one-bounce base
-uses the two recurrence clauses and the derived north/diagonal relation from
-`equivalentRelations`.
+uses the two recurrence clauses and the north/diagonal relation from
+`equivalentRelations`. Deriving that third relation from the restricted
+recurrence has a newly identified proof obligation; see
+`RESTRICTED_BOUNCE_AUDIT.md`. Do not assume it as already derived.
 
 For more bounce points, expose two consecutive diagonal steps at the next
 return and apply the unicellular relation. The resulting terms use the
