@@ -60,8 +60,8 @@ Names in this table are planned interfaces, not claims of completed proofs.
 | Colorings, 1101–1111; `lltDefinition`, 1137–1144 | `admissible`, `ascentCount`, `coloringLLT`, defined directly by finite coloring sums. |
 | Theorem `recursion`, 816–875 | `SatisfiesRecursion`, `recursion_unique`, eventually `existsUnique_recursion`. Include empty-path normalization explicitly. |
 | Theorem `LLT`, 1155–1182 | `coloringLLT_columnPath`, `coloringLLT_concat`, `coloringLLT_unicellular`, two single-bounce relations, `coloringLLT_satisfiesRecursion`. The full source theorem also contains the third bounce type and arbitrary bounce length. |
-| Orientations, 1267–1276 | `Orientation`, `orientationAscentCount`: choose directions for normal edges, force strict edges upward. |
-| HRV, 1315–1326 | `upwardReachable`, `highestReachable`, `hrvBlockSizes`: use reflexive reachability through strict and ascending edges only. |
+| Orientations, 1267–1276 | `Orientation`, `orientationAsc`: choose directions for normal edges, force strict edges upward. |
+| HRV, 1315–1326 | `reachable`, `hrv`, `hrvFiber`, `hrvMonomial`: use reflexive reachability through strict and ascending edges only. |
 | `conjFormula`, 1349–1355 | `orientationExpansion`: sum `(X-1)^asc` times formal elementary monomials. A separately named shifted expansion uses `X^asc`. |
 | Theorem `LLTe`, 1361–1364 | `orientationExpansion_satisfiesRecursion`, proved by the orientation bijections. |
 | Corollary `expansion`, 1369–1373 | `coloringLLT_eq_eval_orientationExpansion P m`, followed by the shifted identity and nonnegative formal coefficients. |
@@ -280,3 +280,15 @@ The conditional first-east product and north-predecessor branches are now
 an arbitrary commutative-ring recurrence witness and include exact strict
 measure decreases. They do not yet constitute an exhaustive reduction or a
 uniqueness proof. See `RECURSION_PLAN.md` for the remaining diagonal branch.
+
+The orientation model is now defined independently in `Orientation`, `HRV`,
+and `OrientationExpansion`: `orientationExpansionAt` isolates the ascent
+parameter, with unshifted and shifted wrappers. Reachability maximality,
+HRV idempotence, fiber nonemptiness, and empty-path normalization are proved.
+The detailed representation decision is `ORIENTATION_MODEL.md`; no nonempty
+orientation recurrence or equality with coloring semantics is yet claimed.
+
+`BounceSeed.split` and `BounceSeed.dd_child` preserve the exact return index
+and the strict child gap. `BounceSeed.trace` constructs a finite prefix trace
+by strong induction on word length. This is a word-geometry certificate;
+transformed-path validity and generalized-bounce value identities are separate.

@@ -27,3 +27,5 @@ import VerticalStripLLT.RecursionMap
 import VerticalStripLLT.ThirdBounce
 import VerticalStripLLT.NorthPredecessor
 import VerticalStripLLT.ProductReduction
+import VerticalStripLLT.BounceTrace
+import VerticalStripLLT.OrientationExpansion

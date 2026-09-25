@@ -52,6 +52,11 @@ A general-purpose symmetric-functions library is outside the scope.
 - `firstEast_north_reduction` and `firstEast_product_reduction` package valid
   successors, strict measure decreases, and value identities for arbitrary
   invariants satisfying the recurrence. The diagonal-predecessor branch is open.
+- `BounceSeed.trace` constructs a terminating prefix bounce trace while
+  preserving the strict gap and exact return indices.
+- The independent orientation expression is now defined using finite normal
+  edge choices and highest-reachable-vertex fibers. HRV maximality and
+  idempotence, fiber nonemptiness, and empty-path normalization are proved.
 - `coloringLLT_pair_unicellular` proves
   `G_nnee − G_nene = (q−1) G_nde` for every finite alphabet.
 - In two variables, `coloringLLT_strictPair_eq_evalElementary_two` proves
@@ -63,8 +68,8 @@ relation and both single-bounce recurrence identities are proved.
 `coloringLLT_satisfiesRecursion` bundles these facts with empty normalization
 in a named recurrence predicate. The third single-bounce coloring relation is
 also proved. Generalized bounce,
-recurrence uniqueness, a terminating recursive invariant, the orientation
-formula, and the full semantic bridge remain to be proved.
+recurrence uniqueness, a terminating recursive invariant, the orientation recurrence identities,
+and the full semantic bridge remain to be proved.
 
 ## Build and verification
 

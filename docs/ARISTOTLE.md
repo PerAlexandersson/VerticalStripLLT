@@ -228,3 +228,14 @@ workspace or reference snapshot wholesale; requests contain only needed inputs.
   unrestricted recurrence, or coloring semantics. It records the circular
   local diagram and the need for a new global argument. This is an open proof
   search, not an established implication. Observe this same task.
+
+## Orientation column (prepared; submission rejected by service capacity)
+
+- Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/orientation-column`.
+- Eight locally checked modules, 560 lines, isolated Lean/Mathlib 4.28 snapshot.
+- Target: `orientationExpansionAt_column k z`, uniform in `z : Polynomial ℤ`.
+  Unique orientation, strict-chain reachability, constant HRV, and one fiber
+  give `elementary k.succPNat`. Terra independently audited the proof outline.
+- Submission on 2026-09-25 was rejected: too many projects in progress. No
+  project/task ID exists. Do not cancel the generic bounce search to make room.
+  Luna is assigned the small local proof while that job continues.

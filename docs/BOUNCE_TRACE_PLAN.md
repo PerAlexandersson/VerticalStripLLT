@@ -33,3 +33,9 @@ peeling a dd parent gives the source's U s t V' dd V'' d decomposition.
 The nd semantic branch for an arbitrary restricted-recurrence witness is
 still open; see `RESTRICTED_BOUNCE_AUDIT.md`. Geometry must not smuggle in an
 unrestricted recurrence, uniqueness, or the coloring-specific third bounce.
+
+Implemented: `BounceSeed.split`, `BounceSeed.dd_child`, and
+`BounceSeed.trace`. `BounceTrace` records terminal non-dd pairs and recursive
+dd descent. The existence proof uses strong induction on prefix length.
+The source-word return index and all no-east restrictions are explicit.
+This certificate does not yet assert transformed-path validity or a value law.

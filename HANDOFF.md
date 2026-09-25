@@ -12,8 +12,11 @@ clauses are `coloringLLT_column`, `coloringLLT_concat`,
 `coloringLLT_thirdBounce` now additionally constructs both valid successors
 and proves the third single-bounce relation. It uses a separately proved
 `coloringLLT_firstBounce_general` with arbitrary middle words and explicit
-q−1 cancellation. No recursive invariant, uniqueness theorem, orientation
-expansion, or full semantic bridge is assumed or claimed complete.
+q−1 cancellation. The independent finite orientation expression is now defined,
+with HRV maximality/idempotence, fiber nonemptiness, and empty normalization.
+`BounceSeed.trace` constructs the terminating prefix geometry certificate.
+No recursive invariant, uniqueness theorem, orientation recurrence bundle,
+or full semantic bridge is assumed or claimed complete.
 
 Recent source checkpoints, all pushed on private `main`:
 
@@ -21,17 +24,18 @@ Recent source checkpoints, all pushed on private `main`:
 - `275fb72`: second bounce and the normalized coloring recurrence bundle.
 - `c75046c`: valid word reductions and recurrence transport through ring maps.
 - `2aad0c1`: third single-bounce coloring relation.
+- `4d57097`: generic product and north-predecessor reduction certificates.
 
-Reduction checkpoint: full/default build (1429 jobs), all 155 public axiom checks, source guards,
+Orientation/trace checkpoint: full/default build (1434 jobs), all 172 public axiom checks, source guards,
 line-length checks, `git diff --check`, and immutable-reference checks pass.
 Only standard Lean axioms occur. Logs:
 
-- `/lake-cache/ai-projects/build/VerticalStripLLT/reduction-full-build.log`
-- `/lake-cache/ai-projects/build/VerticalStripLLT/reduction-axioms.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/orientation-trace-full-build.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/orientation-trace-axioms.log`
 
 ## Live work and next action
 
-Issues #1–4 are completed. Issue #5 tracks first-east reduction certificates:
+Issues #1–5 are completed. The first-east reduction checkpoint is `4d57097`:
 https://github.com/PerAlexandersson/VerticalStripLLT/issues/5.
 
 The product and north-predecessor certificates have passed the batched focused
@@ -46,10 +50,11 @@ Aristotle project `09862def-0239-41ee-a563-b12536df8d1f`, task
 open by the restricted-bounce audit. Do not assume its result or restart it
 merely because an observer expires. Provenance is in `docs/ARISTOTLE.md`.
 
-Next: checkpoint the verified reductions, then build the generalized-bounce
-geometry certificate and independent orientation/HRV expression. Terra's
-corrected trace uses a decreasing prefix word with its own strict gap; a
-single fixed-word index with only a weak gap is insufficient.
+Next: verify the orientation column identity, then its multiplicativity and
+unicellular relation. In parallel, turn the terminating bounce trace into
+valid generalized-bounce transformations. The restricted generic nd value
+step remains an open proof obligation under Aristotle search. Terra's corrected
+trace uses a decreasing prefix word with its own strict gap.
 
 ## Ownership and build discipline
 
@@ -61,10 +66,16 @@ each invocation, use `lake-workspace`, and use reduced priority. Never use
 plain Lake or change dependencies to fit a remote candidate.
 
 Both reduction-file assignments are released to primary after focused verification.
-New build-free assignment: `path_invariants` owns only new `BounceSeed.lean`,
-implementing the geometry interfaces in `docs/BOUNCE_TRACE_PLAN.md`.
-`bounce_audit` performs a read-only orientation/HRV representation audit.
-`column_paths` is idle. Primary owns all other files and the build slot.
+`path_invariants` returned `BounceSeed.lean`; ownership released to primary.
+`bounce_audit` completed its read-only orientation/HRV representation audit.
+`column_paths` returned `Orientation.lean` and `HRV.lean`; ownership released
+to primary for the batched focused check. New build-free assignment:
+`column_paths` returned `OrientationExpansion.lean`; ownership is released
+to primary for integration. Primary owns all other
+files and the build slot. `path_invariants` returned `BounceTrace.lean`;
+primary now owns all returned candidates. New build-free assignment:
+`column_paths` owns only new `OrientationColumn.lean`, proving the strict-column
+initial condition from the checked orientation/HRV definitions.
 
 The user requests modular code, sparse/batched compilation, and bounded
 parallel delegation to Aristotle and smaller Claude/Luna/Terra models.
@@ -123,3 +134,9 @@ Previous goal turn and this continuation both made verified proof progress.
 The full ordinary expansion remains unfinished; no completion/blocking audit
 has been claimed. Older inventories and history are archived under
 `docs/archive/` and preserved in Git.
+
+Aristotle rejected the independent orientation-column submission because the
+account already has the maximum number of active projects. No new project was
+created. The exact checked request is prepared under external `orientation-column/`.
+Keep the existing generic bounce job; Luna can implement the column meanwhile.
+This service capacity limit does not block local proof progress.
