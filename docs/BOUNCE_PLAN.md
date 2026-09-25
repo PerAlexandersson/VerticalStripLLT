@@ -81,6 +81,8 @@ these graph hypotheses in each use. This models Lemma `swapMap` (2436–2467).
 `BouncePath.lean` proves validity of `diagonal,north → north,diagonal` and,
 under the endpoint gap, `diagonal,east → east,diagonal`; it provides their
 valid-path constructors. These are geometry helpers, not bounce identities.
+`SecondBouncePath.lean` proves the initial swap preserves its prefix endpoint
+and constructs `secondBounceSuccessor` by composing the two valid swaps.
 
 Case I then partitions colorings by comparisons at i,y,z, using the identity
 map or the swap, to prove `G_P = C(q) * G_QI` (2473–2519). Case II partitions
@@ -96,3 +98,40 @@ involution. The graph equations above and the checked swap-weight lemma
 should give `weight(P,c) = C(q) * weight(QI,T(c))` in every case. The remote
 request must prove the graph equations from word hypotheses, so its final
 target is the full recurrence-facing first-bounce identity.
+
+## Direct second-bounce coloring switch
+
+Primary proposed and Terra independently checked the following more explicit
+II proof. This remains a proof plan until its scanner and weight statements
+are checked in Lean.
+
+Use `B = U ++ [east,north,north] ++ V ++ [east,east,north] ++ W`. Both local
+replacements preserve displacement. Write N and S for its normal and strict
+edges. The planned equations are
+
+    normal(P) = insert (y,z) N
+    strict(P) = insert (a,i) (insert (i,z) S)
+    normal(QII) = insert (a,i) N
+    strict(QII) = insert (a,y) (insert (y,z) S).
+
+The two inserted normal edges are fresh. Also `(i,y) ∈ N`; S and
+`N.erase(i,y)` are swap invariant. The path hypotheses imply `a<i<y<z`,
+including finiteness of all four vertices. The initial diagonal supplies
+`a<i`; the final gap supplies `y<z`.
+
+Set `A=c a`, `I=c i`, `Y=c y`, `Z=c z`. Leave c fixed when both I and Y
+lie strictly in `(A,Z)`; otherwise swap i,y. This is an involution because
+a,z are fixed and the interval predicate is symmetric. Background strict
+admissibility is preserved. For `A<I<Z`, there are three exhaustive cases:
+
+- Both I,Y are in `(A,Z)`: use identity; each path gains one normal ascent.
+- `Y≤A<I<Z`: swap; P gains one local ascent, Q gains none, and the background
+  ascent count increases by one under the swap.
+- `A<I<Z≤Y`: swap; P gains none, Q gains one, and the background ascent count
+  decreases by one under the swap.
+
+Equality at Y=A or Y=Z is included. If the source's local strict condition
+fails, the transformed target's condition also fails; background
+inadmissibility likewise makes both weights zero. This should prove
+`weight(P,c)=weight(QII,T(c))` pointwise, then the second bounce sum identity.
+No division or cancellation of q is needed.

@@ -75,3 +75,5 @@ import VerticalStripLLT
 #print axioms VerticalStripLLT.ascentCount_eq_swapColors_add_one
 #print axioms VerticalStripLLT.coloringWeight_eq_C_X_mul_swapColors
 #print axioms VerticalStripLLT.coloringLLT_swap_sum
+#print axioms VerticalStripLLT.Step.endpointFrom_diagonalNorth_swap
+#print axioms VerticalStripLLT.SchroderPath.secondBounceSuccessor

@@ -19,7 +19,7 @@
   the unchanged normal/strict scanners are proved equal.
 - The elementary-coloring bijection proof came from a live Aristotle candidate,
   was ported by Luna, and passed local Lean 4.34 builds and axiom checks.
-- Full/default build and all 74 declarations in `Verification.lean` pass;
+- Full/default build and all 76 declarations in `Verification.lean` pass;
   only standard Lean axioms appear. Source guards and reference-integrity checks pass.
 - Primary `/root` owns strategy, integration, all current source files, and
   the sole project build slot. Current bounded assignments are below.
@@ -32,7 +32,7 @@ batch build and axiom audit; issue #3 is closed. The bounce milestone is issue
 https://github.com/PerAlexandersson/VerticalStripLLT/issues/4.
 
 Aristotle project `30bbdfee-3932-4a5d-84a7-bd0d29bf82e2`, task
-`80bb72e2-fde2-415c-af6e-ffef30b9da06`, is newly submitted (initially `QUEUED`)
+`80bb72e2-fde2-415c-af6e-ffef30b9da06`, is confirmed `IN_PROGRESS` (latest observation 5 percent)
 for the full first-bounce identity with the exact word/return/gap hypotheses
 in `docs/BOUNCE_PLAN.md`. Its snapshot includes fourteen checked modules.
 The earlier swap-sum task completed and is integrated; do not resume it.
@@ -47,11 +47,14 @@ and identified the faithful background `R ++ [east,east,north] ++ W`.
 
 User steering: keep modules separate, batch local compilation, and delegate
 bounded independent tasks in parallel to Aristotle and smaller models.
-Primary remains sole local builder. No delegated source edits are active.
-The immediate independent local task is the second-bounce successor, using
-the two checked swaps and preservation of prefix endpoints. Record ownership
-before assigning it. No full bounce identity or recursive/orientation bridge
-is claimed.
+Primary remains sole local builder. Luna returned `SecondBouncePath.lean`;
+its endpoint lemma and valid successor passed local checks. Terra separately
+validated the proposed second-bounce background and coloring involution,
+including equality boundary cases. The complete plan is in `BOUNCE_PLAN.md`.
+No delegated source edit or local build is active. The next remote target after
+first-bounce integration is the second identity, reusing the graph/switch
+infrastructure rather than reproving it. No full bounce identity or
+recursive/orientation bridge is claimed.
 
 ## New declarations and source correspondence
 
@@ -109,6 +112,10 @@ All declarations below are under `VerticalStripLLT`.
   `coloringWeight_eq_C_X_mul_swapColors`, `coloringLLT_swap_sum`.
   Explicit graph symmetry hypotheses remain to be proved for each bounce use.
 
+- `SecondBouncePath.lean`: `Step.endpointFrom_diagonalNorth_swap`,
+  `SchroderPath.secondBounceSuccessor`, `secondBounceSuccessor_steps`.
+  These prove successor validity only, not the coloring identity.
+
 ## Ownership and checks
 
 Luna `path_invariants` authored `PathInvariants.lean`, `PathBounds.lean`,
@@ -118,12 +125,12 @@ and `Concat.lean`. Both returned their source and ran no builds. Primary
 integrated their work, fixed final normalization/API details, and compiled it.
 Neither Luna worker currently owns a file; record ownership before reassignment.
 
-The three returned modules were checked in a focused batch; after the final
-Lean 4.34 coercion/rewrite fixes, the full/default build (1374 jobs) and all
-74 axiom checks passed. Logs:
+The three swap-support modules passed their batch checks. The subsequent
+second-successor module passed its focused check, then the full/default build
+(1375 jobs) and all 76 axiom checks passed. Logs:
 
-- `/lake-cache/ai-projects/build/VerticalStripLLT/swap-sum-build.log`
-- `/lake-cache/ai-projects/build/VerticalStripLLT/swap-sum-axioms.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/second-bounce-path-build.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/second-bounce-path-axioms.log`
 
 No `sorry`, `admit`, custom `axiom`, `unsafe`, or `native_decide` in production
 source. Lean source is at most 100 columns. `git diff --check` passes and the
@@ -148,6 +155,8 @@ process exited. Do not infer build-slot ownership from an old lock or status not
 - General unicellular relation and swap primitives: `f7bb5b4`, pushed;
   full build and 62 public axiom checks pass. Issue #3 is closed; issue #4
   tracks the remaining two single-bounce recursion clauses.
+- Restricted swap sum and bounce path helpers: `b92dbb5`, pushed;
+  full build and 74 public axiom checks pass.
 - Private repository, branch `main`. No branch, remote, or account changes.
 - Lean `v4.34.0`, Mathlib `5ed2965256430c3649e86755f9576b54eca72435`.
 - Wrapper package-directory warning is expected; never respond with `lake update`.

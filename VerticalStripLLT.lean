@@ -12,3 +12,4 @@ import VerticalStripLLT.ColoringSwap
 import VerticalStripLLT.SwapSum
 import VerticalStripLLT.PrefixScanners
 import VerticalStripLLT.BouncePath
+import VerticalStripLLT.SecondBouncePath

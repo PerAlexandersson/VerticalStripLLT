@@ -37,6 +37,7 @@ A general-purpose symmetric-functions library is outside the scope.
 - `SwapSum.lean` proves the restricted swap-sum identity under explicit edge
   symmetry hypotheses. `BouncePath.lean` and `PrefixScanners.lean` supply valid
   local step swaps and scanner decomposition at arbitrary prefix endpoints.
+  `SecondBouncePath.lean` composes those swaps into the valid second successor.
   The path geometry and full bounce identities remain open.
 - `coloringLLT_pair_unicellular` proves
   `G_nnee − G_nene = (q−1) G_nde` for every finite alphabet.

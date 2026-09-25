@@ -125,6 +125,8 @@ implementation files. Keep generated requests/results outside the checkout.
 
 - Project ID: `30bbdfee-3932-4a5d-84a7-bd0d29bf82e2`.
 - Task ID: `80bb72e2-fde2-415c-af6e-ffef30b9da06`, initially `QUEUED`.
+- Latest observation confirms `IN_PROGRESS`, 5 percent, with active scratch
+  proof development of scanner identities. The job has not been restarted.
 - Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/first-bounce`.
 - Self-contained snapshot of fourteen checked local modules, including all
   swap-weight lemmas, prefix scanners, valid path swaps, and unicellular helpers.
