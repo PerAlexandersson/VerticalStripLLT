@@ -148,10 +148,12 @@ implementation files. Keep generated requests/results outside the checkout.
   unchanged Lean 4.34 full build and all 101 public axiom checks pass.
   Only standard Lean axioms occur. Terra independently audited source fidelity.
 
-## Second bounce identity (queued)
+## Second bounce identity (in progress)
 
 - Project ID: `6bc089d7-87cb-4db2-b199-f4c4b4d05ee3`.
-- Task ID: `eccb0402-2bde-4fbe-8eaf-19847e0f41ca`, confirmed `QUEUED`.
+- Task ID: `eccb0402-2bde-4fbe-8eaf-19847e0f41ca`, confirmed `IN_PROGRESS`.
+- Latest observation: 4 percent, developing the two-strict-edge weight
+  identity and interval coloring involution.
 - Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/second-bounce`.
 - Submitted 2026-09-25 with nineteen locally checked source modules, including
   the first-bounce scanner, graph, and weight helpers and the valid second

@@ -16,3 +16,5 @@ import VerticalStripLLT.SecondBouncePath
 import VerticalStripLLT.FirstBounce
 import VerticalStripLLT.WordCounts
 import VerticalStripLLT.PolynomialCancellation
+import VerticalStripLLT.ColumnCharacterization
+import VerticalStripLLT.FirstEast

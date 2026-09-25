@@ -79,3 +79,17 @@ identify a recursively defined expression with `coloringLLT`. Preserve the
 named coloring bridge and the separate orientation/HRV bridge required by
 `FORMALIZATION.md`. Generalized bounce is an unfinished dependency to prove,
 not an external blocker or a reason to add assumptions to the main theorem.
+
+## Implemented word prerequisites
+
+`ColumnCharacterization.lean` proves `Step.valid_one_east_column` and
+`Step.valid_one_east_column_size`: every valid path with exactly one east
+step has word `north :: replicate k diagonal ++ [east]` and size `k+1`.
+This supplies the converse classification needed by the one-east case.
+
+`FirstEast.lean` defines total `Step.firstEastHeightFrom` and
+`Step.firstEastHeight` (zero when no east occurs). It proves the first-east
+word decomposition, the count formula for its height, and
+`Step.firstEastHeight_append_east`, identifying that height with the prefix
+endpoint's second coordinate. These facts establish the intended measure's
+meaning; strict decreases and the complete recursive reduction are still open.

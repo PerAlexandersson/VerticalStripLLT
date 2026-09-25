@@ -102,3 +102,9 @@ import VerticalStripLLT
 #print axioms VerticalStripLLT.coloringWeight_insert_strict
 #print axioms VerticalStripLLT.coloringLLT_eq_C_X_mul_of_edges
 #print axioms VerticalStripLLT.coloringLLT_firstBounce
+#print axioms VerticalStripLLT.Step.valid_one_east_column
+#print axioms VerticalStripLLT.Step.valid_one_east_column_size
+#print axioms VerticalStripLLT.Step.firstEastHeightFrom_append_east
+#print axioms VerticalStripLLT.Step.exists_east_decomposition
+#print axioms VerticalStripLLT.Step.firstEastHeight_eq_counts
+#print axioms VerticalStripLLT.Step.firstEastHeight_append_east

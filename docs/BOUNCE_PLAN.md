@@ -1,8 +1,9 @@
 # Single-bounce proof plan
 
-This is a planned interface, not a proved bounce theorem. Terra independently
-audited the author manuscript and current finite-word model; primary reviewed
-the proposal. Source references are to the immutable `main.tex` snapshot.
+This records the audited proof decomposition. The first single-bounce identity
+is now proved; the second remains in progress. Terra independently audited the
+author manuscript and finite-word model; primary reviewed the proposal. Source
+references are to the immutable `main.tex` snapshot.
 
 ## Scope and path certificate
 
@@ -62,8 +63,8 @@ local equations are `normal(P)=insert(y,z) normal(B)`,
 `strict(P)=insert(i,z) strict(B)`, `normal(QI)=normal(B)`, and
 `strict(QI)=insert(y,z) strict(B)`. The strict edges of B should be swap
 invariant; its normal edges with `(i,y)` erased should also be swap invariant.
-These remain source-geometry obligations, not assumptions of the target
-path theorem.
+These source-geometry obligations are now proved in `FirstBounceGraph.lean`;
+they are not assumptions of the target path theorem.
 
 ## Coloring layer
 

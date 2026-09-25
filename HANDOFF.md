@@ -17,13 +17,14 @@ Latest source checkpoints, all pushed on private `main`:
 - `f7bb5b4`: general unicellular identity and color-swap primitives.
 - `b92dbb5`: restricted swap sum, prefix scanners, valid local path swaps.
 - `36cc80a`: second-bounce successor and audited coloring-involution plans.
+- `c795bc4`: first-bounce identity, modular graph/weight proofs, recursion helpers.
 
-Full/default build (1409 jobs), all 101 public axiom checks, source guards,
+Full/default build (1411 jobs), all 107 public axiom checks, source guards,
 line-length checks, `git diff --check`, and immutable-reference checks pass.
 Only standard Lean axioms occur. Logs:
 
-- `/lake-cache/ai-projects/build/VerticalStripLLT/first-bounce-full-build.log`
-- `/lake-cache/ai-projects/build/VerticalStripLLT/first-bounce-axioms.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/first-east-full-build.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/first-east-axioms.log`
 
 ## Live work and next action
 
@@ -36,7 +37,9 @@ and the direct coloring involutions, including equality boundary cases.
 Aristotle's first-bounce proof is complete, ported into four modules by Luna,
 independently audited by Terra, and locally verified by primary.
 Second-bounce project `6bc089d7-87cb-4db2-b199-f4c4b4d05ee3`, task
-`eccb0402-2bde-4fbe-8eaf-19847e0f41ca`, is confirmed `QUEUED` (2026-09-25).
+`eccb0402-2bde-4fbe-8eaf-19847e0f41ca`, is confirmed `IN_PROGRESS` (4 percent, 2026-09-25);
+the current event develops the two-strict-edge weight identity and coloring
+involution.
 It must derive the graph geometry and full second identity from word
 hypotheses; its request includes nineteen checked source modules.
 Observe this same task; do not restart merely because an observer expires.
@@ -50,20 +53,28 @@ Prompt/output: `/lake-cache/ai-projects/requests/VerticalStripLLT/recursion-audi
 No nested Claude process remains active.
 
 Next: port and locally verify the second-bounce candidate when returned.
-Meanwhile the next bounded word task is converse column classification using
-`Step.endpointFrom_counts` and `SchroderPath.northCount_eq_eastCount`.
+The converse column classification and first-east height API are checked.
+The next bounded word task is proving valid north/east contraction and the
+exact east-count/first-east-height decreases in the unicellular reduction.
 Generalized bounce and exact decrease certificates follow; see
 `docs/RECURSION_PLAN.md` for the audited decomposition.
 
 ## Ownership and build discipline
 
 Primary `/root` owns strategy, integration, and the sole project build slot.
-Both Luna port assignments are complete and ownership has returned to primary:
+The first-bounce Luna port assignments are complete; primary owns:
 `BounceScanners.lean`, `FirstBounceGraph.lean`, `BounceWeight.lean`,
 `FirstBounce.lean`, `WordCounts.lean`, and `PolynomialCancellation.lean`.
 The full build and axiom checkpoint passed; no local build is active.
 Terra independently audited the completed first-bounce candidate and confirmed
 source fidelity, unchanged definitions, and derived graph hypotheses.
+
+`ColumnCharacterization.lean` and `FirstEast.lean` are now primary-owned,
+locally verified, and included in the full/default build and axiom audit.
+Exact public declarations: `Step.valid_one_east_column`,
+`Step.valid_one_east_column_size`, `Step.firstEastHeightFrom_append_east`,
+`Step.exists_east_decomposition`, `Step.firstEastHeight_eq_counts`, and
+`Step.firstEastHeight_append_east`. No subagent owns an active edit.
 
 The user explicitly requests modular code, sparse/batched compilation, and
 parallel bounded delegation to Aristotle and smaller Claude/Luna/Terra models.
@@ -112,5 +123,9 @@ and its recurrence; ordinary expansion, shifted positivity, degree/stability.
 The manuscript's `F_ne=1` typo is resolved as `e₁`. Cancellation of q−1 over
 integral coefficient rings must be justified explicitly.
 
-Previous goal turn: verified progress. This continuation has further checked
-proof progress and confirmed live auxiliary jobs; no blocking audit applies.
+Current checkpoint after `c795bc4`: converse column classification and the
+first-east measure API, with the checks above. Primary repaired only proof
+normalization and import details in the returned Luna candidates. No local
+process remains active; the single remote Aristotle job is recorded above.
+The issue #4 progress comment links the first-bounce checkpoint; the issue
+remains open until both bounce identities are checked. No blocker applies.

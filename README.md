@@ -42,6 +42,9 @@ A general-purpose symmetric-functions library is outside the scope.
   `U nn V d e W` to `U nn V e d W` identity with factor q, uniformly in the
   finite alphabet. Its scanner, graph, and weight proofs are separate modules.
   The second-bounce identity remains open.
+- `ColumnCharacterization.lean` proves the converse: every valid path with
+  exactly one east step is a column. `FirstEast.lean` defines the total
+  first-east height and identifies it with the prefix endpoint height.
 - `coloringLLT_pair_unicellular` proves
   `G_nnee − G_nene = (q−1) G_nde` for every finite alphabet.
 - In two variables, `coloringLLT_strictPair_eq_evalElementary_two` proves
