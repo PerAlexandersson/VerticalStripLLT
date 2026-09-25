@@ -18,13 +18,20 @@ A general-purpose symmetric-functions library is outside the scope.
   have increasing endpoints. For arbitrary `k`, `column k` constructs `n d^k e`,
   with no normal edges and precisely consecutive strict edges; its admissible
   colorings are exactly the strictly increasing maps.
+- `coloringLLT_column` proves `G_(n d^k e) = e_(k+1)` for every `k` and every
+  finite alphabet. Its finite-subset bijection proof came from Aristotle and
+  was ported by Luna and checked locally.
+- `SchroderPath.concat` concatenates arbitrary valid paths. The raw path and
+  edge scanners satisfy append and translation laws; coloring multiplicativity
+  remains the next proof obligation.
 - `coloringLLT_pair_unicellular` proves
   `G_nnee − G_nene = (q−1) G_nde` for every finite alphabet.
 - In two variables, `coloringLLT_strictPair_eq_evalElementary_two` proves
   `G_nde = e₂`, and `coloringLLT_normalPair_eq_evalElementary_two` proves
   `G_nnee = e₁² + (q−1)e₂` by evaluating a separate formal expression.
 
-These are the first base and recursion cases. General bounce relations,
+The general column initial condition and the first local recursion case are
+proved. Coloring multiplicativity, general unicellular and bounce relations,
 recurrence uniqueness, a terminating recursive invariant, the orientation
 formula, and the full semantic bridge remain to be proved.
 

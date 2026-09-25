@@ -19,3 +19,16 @@ import VerticalStripLLT
 #print axioms VerticalStripLLT.SchroderPath.column_strict_mem_iff
 #print axioms VerticalStripLLT.SchroderPath.column_ascentCount
 #print axioms VerticalStripLLT.SchroderPath.admissible_column_iff
+#print axioms VerticalStripLLT.Step.validFrom_bounds
+#print axioms VerticalStripLLT.Step.normalFrom_upper_bound
+#print axioms VerticalStripLLT.Step.strictFrom_upper_bound
+#print axioms VerticalStripLLT.Step.validFrom_translate
+#print axioms VerticalStripLLT.Step.validFrom_append_of_valid
+#print axioms VerticalStripLLT.Step.normalFrom_append_of_valid
+#print axioms VerticalStripLLT.Step.strictFrom_append_of_valid
+#print axioms VerticalStripLLT.Step.normalFrom_translate
+#print axioms VerticalStripLLT.Step.strictFrom_translate
+#print axioms VerticalStripLLT.SchroderPath.concat
+#print axioms VerticalStripLLT.increasingColoringSum_eq_esymm
+#print axioms VerticalStripLLT.coloringLLT_column
+#print axioms VerticalStripLLT.coloringLLT_column_eq_evalElementary

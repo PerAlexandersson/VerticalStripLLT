@@ -161,3 +161,18 @@ the alphabet size; the last interprets `e₁²+(q−1)e₂` in two variables.
 `coloringLLT_empty` fixes the size-zero normalization. The original Astra
 reviewer also independently checked the implemented path decoder and found
 its zero-based normal/strict edge conventions faithful to the source.
+
+## General base case and concatenation foundations delivered
+
+Related Lean: `ColumnBase.lean`, `coloringLLT_column` and
+`coloringLLT_column_eq_evalElementary` establish the full initial condition
+`G_(n d^k e)=e_(k+1)` for every finite alphabet, including an empty alphabet.
+`ElementaryColorings.lean`, `increasingColoringSum_eq_esymm`, gives the finite
+subset bijection used in this proof; its candidate originated from Aristotle.
+
+`PathInvariants.lean` proves orderedness and disjointness of graph edges.
+`PathBounds.lean` provides endpoint bounds. `Concat.lean` defines valid path
+concatenation and proves append/translation laws for validity and both edge
+scanners. These establish the graph foundations of milestone 3. The coloring
+multiplicativity identity and finite-alphabet specialization are still open;
+we do not mark all of milestone 3 complete.

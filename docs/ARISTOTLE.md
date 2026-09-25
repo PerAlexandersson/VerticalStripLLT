@@ -20,8 +20,20 @@ implementation files. Keep generated requests/results outside the checkout.
   enumerations via `Finset.orderEmbOfFin`.
 - Environment warning: service reports Lean 4.28.0; local target is Lean 4.34.0,
   Mathlib `5ed2965256430c3649e86755f9576b54eca72435`. Port and verify locally.
-- Task ID: `1ffc730d-dfb2-4d27-9d61-b0f0cc851e0f`; SDK query confirmed
-  `IN_PROGRESS`. No proof integrated yet.
+- Task ID: `1ffc730d-dfb2-4d27-9d61-b0f0cc851e0f`.
+- Its live event contained a complete candidate using `Finset.sum_bij` and
+  `Finset.orderEmbOfFin_unique`. The event body is retained externally as
+  `candidate-body.lean` in the request directory. An interim downloaded archive
+  still contained the original placeholder, so this is explicitly event-based
+  provenance, not a claimed completed service export.
+- Luna ported that candidate to `VerticalStripLLT/ElementaryColorings.lean`.
+  Primary's Lean 4.34 focused and full builds passed; the public axiom audit
+  showed only standard Lean axioms. `ColumnBase.lean` combines the result with
+  the graph characterization to prove the general column initial condition.
+- After this exact proof was locally verified, primary canceled the redundant
+  still-running service task to free capacity for multiplicativity. SDK status
+  was explicitly re-read as `CANCELED`. This was not an observation timeout or
+  a claim that the service completed its own run.
 
 ## Prepared concatenation request
 
@@ -33,6 +45,23 @@ implementation files. Keep generated requests/results outside the checkout.
   while the first task is running. There is no accepted second project ID.
 - Do not resubmit until capacity is available and local task ownership has been
   reconciled; Luna may implement these elementary structural inductions locally.
+- Superseded: Luna implemented these laws in `Concat.lean`, and primary fixed
+  the last normalization steps and verified them. No remote submission needed.
+
+## Coloring multiplicativity (active)
+
+- Project ID: `0ae224b5-c423-4820-80fe-66635b0c8c93`.
+- Task ID: `1f6544ca-c869-470a-8f4a-514afa8ca2a8`.
+- SDK query confirmed `IN_PROGRESS` after submission.
+- Request directory:
+  `/lake-cache/ai-projects/requests/VerticalStripLLT/coloring-concat`.
+- Self-contained snapshot of the checked path, bounds, concat, polynomial, and
+  coloring definitions; no private reference material or credentials uploaded.
+- Exact target: `coloringLLT (P.concat Q) m = coloringLLT P m * coloringLLT Q m`
+  for all valid paths and finite alphabets. The request includes the graph
+  decomposition, coloring equivalence, ascent, and finite-sum proof outline.
+- Same service/local toolchain difference applies. Use current SDK status and
+  this exact handle on continuation; do not restart because an observer expired.
 
 The API credential is loaded by the shared environment helper and is never
 passed on the command line or stored in this repository. Do not upload the

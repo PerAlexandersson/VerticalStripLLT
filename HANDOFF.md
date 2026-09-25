@@ -1,164 +1,116 @@
 # VerticalStripLLT handoff
 
-## Current status
+## Current state
 
-- General graph foundations and strict-column model now compile: both edge
-  sets have increasing endpoints and are disjoint; `column k` has exactly
-  consecutive strict edges, no normal edges, and admissibility `StrictMono`.
-  This advances the general base case; its elementary sum identity is still
-  being searched by Aristotle. Concatenation is under implementation.
-- First end-to-end slice complete, 2026-09-25, on `main` in the private
-  `PerAlexandersson/VerticalStripLLT` repository. Full package build and public
-  axiom audit pass. The ordinary theorem as a whole is still open.
-- Architecture checkpoint `81b4885` was committed and pushed before any
-  scaffolding. See `docs/FORMALIZATION.md` for the independent Astra review,
-  source map, representation comparison, termination measure, and milestones.
-- Verified implementation checkpoint:
-  `cab97ea9b353ff62772e0e154323964013d2704e`, pushed to `origin/main`.
-  The subsequent handoff receipt changes documentation only.
-- Model: valid `n/d/e` words, finite coloring polynomials over `Polynomial ℤ`,
-  and a separate ring of formal elementary expressions with an evaluation map.
-- Pinned Lean `v4.34.0`, Mathlib
-  `5ed2965256430c3649e86755f9576b54eca72435`; dependency closure is tracked.
-- Primary `/root` remains strategy, source, integration, and sole build owner.
-  No build is running. Active assignments below supersede the completed-slice
-  ownership record while this increment is in progress.
+- Ordinary LLT expansion remains the active goal; it is not yet proved.
+- General initial condition is proved: `coloringLLT_column` gives
+  `G_(n d^k e) = e_(k+1)` for every k and every finite alphabet.
+- Path edges have increasing endpoints, strict and normal edges are disjoint,
+  and raw scanners satisfy endpoint bounds, translation, and append laws.
+  `SchroderPath.concat` constructs the valid concatenation of two paths.
+- Earlier empty/singleton and size-two unicellular theorems remain checked.
+- The elementary-coloring bijection proof came from a live Aristotle candidate,
+  was ported by Luna, and passed local Lean 4.34 builds and axiom checks.
+- Full/default build and all 31 declarations in `Verification.lean` pass;
+  only standard Lean axioms appear. Source guards and reference-integrity checks pass.
+- Primary `/root` owns strategy, integration, all current source files, and
+  the sole project build slot. No local build or delegated source edit is active.
 
-## Active continuation
+## Immediate next action
 
-- Previous turn: progress (reviewed architecture and verified first slice).
-- User requests continued work on the full ordinary expansion, with Luna doing
-  most implementation and Aristotle used whenever useful. Goal remains active.
-- Primary owns integration, docs, verification, Aristotle job preparation and
-  monitoring, and the sole build slot.
-- Luna `path_invariants` completed `PathInvariants.lean`; primary compiled it,
-  adopted it, and removed unused simp arguments. No file currently delegated
-  to that worker. Public raw scanner lower-bound lemmas were retained for
-  later graph concatenation proofs.
-- `Column.lean` is now compiled and returned to primary for integration.
-  Luna `column_paths` next owns only new `VerticalStripLLT/Concat.lean`,
-  implementing the six raw append/translation laws and path concatenation.
-- Other project files and immutable references are not delegated.
-- Milestone issue: https://github.com/PerAlexandersson/VerticalStripLLT/issues/1.
-- Aristotle CLI is available despite absence from MCP. The general increasing
-  coloring / elementary identity is running as project
-  `262ce79f-3c8a-4e6a-83f7-6fcf6a6c9eb6`; exact task, request paths, environment
-  mismatch, and a capacity-rejected second request are in `docs/ARISTOTLE.md`.
+Pursue issue https://github.com/PerAlexandersson/VerticalStripLLT/issues/2:
+prove `coloringLLT (P.concat Q) m = coloringLLT P m * coloringLLT Q m`.
 
-New exact public interfaces are `Step.normalFrom_lower_bound`,
-`Step.strictFrom_lower_bound`, `Step.normalFrom_lt`,
-`Step.strictFrom_lt_of_valid`, `Step.normalFrom_strictFrom_disjoint`,
-`SchroderPath.normalEdges_lt`, `strictEdges_lt`,
-`normalEdges_disjoint_strictEdges`, `column`, `column_normalEdges`,
-`column_strict_mem_iff`, `column_strictEdges`, `column_ascentCount`, and
-`admissible_column_iff`. Namespace is `VerticalStripLLT` throughout.
+Aristotle project `0ae224b5-c423-4820-80fe-66635b0c8c93`, task
+`1f6544ca-c869-470a-8f4a-514afa8ca2a8`, is confirmed `IN_PROGRESS` on that exact
+statement. Recheck this handle and inspect returned candidates; do not create
+another job merely because observation timed out. The service currently allows
+only one active project. Request and result provenance: `docs/ARISTOTLE.md`.
+Luna should implement/port the next candidate; primary remains sole builder.
 
-Build discipline improvement: commands now abort if the process guard sees
-any Lean/Lake process. An initial continuation check displayed two short-lived
-processes that had exited by the immediate follow-up inspection; ownership
-could not be reconstructed. No other worker was stopped or reconfigured.
+Local proof outline: separate left and shifted right graph components with
+scanner bounds and append/translation; split colorings using `finSumFinEquiv`
+and `Equiv.sumArrowEquivProdArrow`; factor admissibility; add ascent counts;
+use `Fin.prod_univ_add` and factor the finite coloring sum. Nothing here permits
+replacing the coloring polynomial by a recursively defined object.
 
-Graph/column checkpoint checks: focused build of `PathInvariants` and `Column`,
-then full/default build (1360 jobs), and `Verification.lean` all passed. The
-18 audited declarations use only the standard axioms; the new files are free
-of placeholders. Axiom log is
-`/lake-cache/ai-projects/build/VerticalStripLLT/graph-column-axioms.log`.
-Untracked `Concat.lean` is a separate active candidate and is excluded from
-this verified checkpoint and root imports until its focused check passes.
+## New declarations and source correspondence
 
-## Completed declarations
+All declarations below are under `VerticalStripLLT`.
 
-All names are in namespace `VerticalStripLLT`.
+- `PathInvariants.lean`: `Step.normalFrom_lower_bound`,
+  `strictFrom_lower_bound`, `normalFrom_lt`, `strictFrom_lt_of_valid`,
+  `normalFrom_strictFrom_disjoint`; `SchroderPath.normalEdges_lt`,
+  `strictEdges_lt`, `normalEdges_disjoint_strictEdges`.
+- `PathBounds.lean`: `Step.validFrom_bounds`, `normalFrom_upper_bound`,
+  `strictFrom_upper_bound`.
+- `Column.lean`: `SchroderPath.column`, `column_normalEdges`,
+  `column_strict_mem_iff`, `column_strictEdges`, `column_ascentCount`,
+  `admissible_column_iff`.
+- `ElementaryColorings.lean`: `increasingColoringSum`,
+  `increasingColoringSum_eq_esymm`, including degree zero and empty alphabet.
+- `ColumnBase.lean`: `coloringLLT_column`,
+  `coloringLLT_column_eq_evalElementary`. This is Theorem `recursion` (i) and
+  Proposition `coloringProperties` (i), manuscript lines 823–828, 2306–2321.
+- `Concat.lean`: `Step.validFrom_translate`, `validFrom_append_of_valid`,
+  `normalFrom_append_of_valid`, `strictFrom_append_of_valid`,
+  `normalFrom_translate`, `strictFrom_translate`; `SchroderPath.concat`,
+  `concat_steps`. Coloring multiplicativity itself is still open.
 
-| File | Declarations and verified scope |
-| --- | --- |
-| `VerticalStripLLT/Path.lean` | `Step`, `Step.validFrom`, `Step.normalFrom`, `Step.strictFrom`, `SchroderPath`; empty/singleton/strictPair/normalPair/disconnectedPair paths and their exact edge-set lemmas. |
-| `VerticalStripLLT/Polynomial.lean` | `Q`, `XPoly`, `EExpansion`, `elementary`, `evalElementary`, `evalElementary_C`, `evalElementary_elementary`. |
-| `VerticalStripLLT/Coloring.lean` | `admissible`, `ascentCount`, `coloringWeight`, `coloringLLT`; directly defined from finite colorings, independently of recursion. |
-| `VerticalStripLLT/SmallCases.lean` | `coloringLLT_empty`, `coloringLLT_singleton`, `coloringWeight_pair_relation`, `coloringLLT_pair_unicellular`: all finite alphabets, including zero. |
-| Same | `coloringLLT_strictPair_two`, `coloringLLT_normalPair_two`, `coloringLLT_disconnectedPair_two`: explicit two-variable polynomials. |
-| Same | `coloringLLT_strictPair_eq_evalElementary_two`, `normalPairExpansion`, `coloringLLT_normalPair_eq_evalElementary_two`: two-variable semantic identities `G_nde=e₂` and `G_nnee=e₁²+(q−1)e₂`. |
+## Ownership and checks
 
-There is no general recursive invariant yet. The last two identities are small
-semantic bridges, not the full ordinary expansion or orientation theorem.
+Luna `path_invariants` authored `PathInvariants.lean`, `PathBounds.lean`,
+ported Aristotle's draft into `ElementaryColorings.lean`, and proved the
+column bridge in `ColumnBase.lean`. Luna `column_paths` authored `Column.lean`
+and `Concat.lean`. Both returned their source and ran no builds. Primary
+integrated their work, fixed final normalization/API details, and compiled it.
+Neither Luna worker currently owns a file; record ownership before reassignment.
 
-## Verification
+Focused checks passed for every new module, then the full/default build
+(1364 jobs) and `lake-workspace env lean Verification.lean` passed. Logs:
 
-Primary checked the process list for active Lean/Lake processes before each
-build; none from other projects were active. All commands ran sequentially
-through `lake-workspace` with a 20-minute bound and reduced CPU priority.
+- `/lake-cache/ai-projects/build/VerticalStripLLT/general-column-build.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/general-column-axioms.log`
 
-- Focused `lake-workspace build VerticalStripLLT.SmallCases`: passed.
-- Full/default `lake-workspace build`: passed (1321 jobs, mostly cached).
-- `lake-workspace env lean Verification.lean`: passed. All 11 audited public
-  declarations depend only on `propext`, `Classical.choice`, `Quot.sound`.
-- Source scan: no `sorry`, `admit`, custom `axiom`, `unsafe`, or `native_decide`.
-- `git diff --check` and Lean line-width check (100 columns): passed.
-- Reference snapshot unchanged relative to `130f7e8`.
-- No project-local `.lake/packages` or `.lake/build`; outputs are external.
-- Logs: `/lake-cache/ai-projects/build/VerticalStripLLT/first-slice-build.log`
-  and `first-slice-axioms.log` in the same directory.
+No `sorry`, `admit`, custom `axiom`, `unsafe`, or `native_decide` in production
+source. Lean source is at most 100 columns. `git diff --check` passes and the
+reference snapshot is unchanged from `130f7e8`. No local `.lake/packages` or
+`.lake/build`. Only primary invokes `lake-workspace`, with reduced priority,
+a 20-minute compiler bound, and a process guard that aborts if Lean/Lake is active.
+An axiom run was correctly deferred while RealRooted built; it ran after that
+process exited. Do not infer build-slot ownership from an old lock or status note.
 
-The wrapper's temporary external package override emits a manifest
-packages-directory warning. It is expected, does not invalidate these checks,
-and is not an instruction to update dependencies. Do not run plain Lake.
+## Repository checkpoints and environment
 
-## Review and ownership record
+- Initialization preserved: `830cc6b`, `130f7e8`.
+- Reviewed architecture, committed before scaffolding: `81b4885`.
+- First verified slice: `cab97ea9b353ff62772e0e154323964013d2704e`.
+- General graph invariants and column characterization: `4d0fddd`, pushed.
+- The next checkpoint contains the general elementary base case and raw
+  concatenation laws. Milestone issue #1 tracks that completed increment.
+- Private repository, branch `main`. No branch, remote, or account changes.
+- Lean `v4.34.0`, Mathlib `5ed2965256430c3649e86755f9576b54eca72435`.
+- Wrapper package-directory warning is expected; never respond with `lake update`.
+- SSH push authentication is unavailable; use the existing invocation-local
+  HTTPS rewrite and `gh auth git-credential` without changing the remote.
+- Lean MCP defaults to RealRooted: use explicit-root read-only search and local
+  wrapper checks. AXLE is available. Aristotle CLI works; it advertises Lean
+  4.28, so all candidates must be verified against the local pinned environment.
 
-- Astra `/root/architecture_review`: completed independent planning before
-  architecture/scaffolding, then a read-only audit of the compiled path decoder
-  and theorem scope. No semantic blocker found; no edits or builds.
-- Luna `/root/finite_sum_api`: bounded read-only Mathlib API audit after the
-  architecture commit. Returned finite-function sum equivalences and elementary
-  polynomial API notes; no edits or builds. Primary checked and integrated the
-  useful suggestions locally.
-- Primary authored all source/configuration/documentation and owns the entire
-  project source lane. Reference files remain immutable. No build-slot transfer.
+## Remaining main-theorem work
 
-## Next step and remaining obligations
+Coloring multiplicativity; general unicellular and bounce identities; bounce
+reduction; lexicographic decrease lemmas for `(size, east count, first-east
+height)`; recurrence uniqueness; recursive elementary invariant and coloring
+bridge; independent orientation/HRV construction and its recurrence; ordinary
+expansion and shifted positivity; weighted degree and alphabet specialization.
+The full theorem must compare independently defined semantic objects.
 
-Next bounded milestone: prove graph-edge orderedness/disjointness, formalize
-path concatenation and its coloring identity, and extend the strict-chain
-base case `n d^k e = e_(k+1)` to arbitrary finite alphabets.
+The manuscript's `F_ne=1` sentence is a typo: we use `e₁`. Division by `q−1`
+requires justified cancellation in our integral coefficient model. References
+under `references/alexandersson-sulzgruber-2022/` are immutable. No circular,
+cumulant, or flip-component work has begun. See `docs/FORMALIZATION.md` for the
+complete source map and `docs/archive/handoff-first-slice.md` for initial history.
 
-Subsequent work: general unicellular and bounce identities; bounce reduction;
-lexicographic decrease lemmas for `(size, east-step count, first-east height)`;
-recurrence uniqueness; the terminating elementary invariant and named coloring
-bridge; independent orientation/HRV expression and its recurrence; expansion,
-shifted positivity, degree preservation, and finite-alphabet stability.
-
-The source's `F_ne=1` sentence is a typo: we use `e₁`. Source division by
-`q−1` must become justified cancellation in the integral coefficient model.
-Formal expression evaluation in a fixed small alphabet is not assumed injective.
-Circular LLTs, cumulants, and flip-component work have not begun.
-
-## Repository and tools
-
-- Preserved initialization commits: `830cc6b` and `130f7e8`.
-- Runtime registry and `codex mcp list` inspected. Lean MCP local search works
-  with an explicit Mathlib root, but its default server starts in RealRooted;
-  avoid build/LSP commands that could target that package. See the project
-  suggestion in `suggestions/project-tool-routing.md`.
-- AXLE is available but was unnecessary for this slice. Aristotle is not
-  exposed in the runtime registry. No auxiliary proof-service requests were made.
-- Rust capability audit is recorded in `docs/FORMALIZATION.md`; no external
-  computation code or Rust changes were needed.
-- SSH remote authentication is unavailable here. Read and push via an
-  invocation-local HTTPS rewrite and the existing GitHub credential helper:
-
-  ```bash
-  git -c url.https://github.com/.insteadOf=git@github.com: \
-    -c credential.helper= -c 'credential.helper=!gh auth git-credential' \
-    push origin main
-  ```
-
-  The configured remote remains unchanged. No credentials are stored here.
-
-## Authoritative manuscript
-
-The author-supplied regular-file snapshot lives under
-`references/alexandersson-sulzgruber-2022/`. The formalization map uses Theorem
-`recursion`, Theorem `LLT`, Theorem `LLTe`, and Corollary `expansion` in
-`main.tex`. The original host source is
-`/home/paxinum/Dropbox/research-finished/GIT-LLT-e-Robin/LLT-E-expansion-bijective-proof`;
-Docker cannot access that mount. Do not edit the committed reference snapshot.
+Previous goal turn classification: progress. This continuation also makes
+verified proof progress; no blocking audit applies. The overall goal stays active.
