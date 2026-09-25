@@ -1,0 +1,14 @@
+import VerticalStripLLT
+
+-- Public theorem audit: expect only propext, Classical.choice, and Quot.sound.
+#print axioms VerticalStripLLT.SchroderPath.strictPair_normalEdges
+#print axioms VerticalStripLLT.SchroderPath.strictPair_strictEdges
+#print axioms VerticalStripLLT.coloringLLT_empty
+#print axioms VerticalStripLLT.coloringLLT_singleton
+#print axioms VerticalStripLLT.coloringWeight_pair_relation
+#print axioms VerticalStripLLT.coloringLLT_pair_unicellular
+#print axioms VerticalStripLLT.coloringLLT_strictPair_two
+#print axioms VerticalStripLLT.coloringLLT_normalPair_two
+#print axioms VerticalStripLLT.coloringLLT_disconnectedPair_two
+#print axioms VerticalStripLLT.coloringLLT_strictPair_eq_evalElementary_two
+#print axioms VerticalStripLLT.coloringLLT_normalPair_eq_evalElementary_two

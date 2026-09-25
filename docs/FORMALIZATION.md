@@ -150,3 +150,14 @@ enumeration program or polynomial sequence. No Rust changes are needed.
    shifted positivity and stable coefficient interface.
 
 Circular LLTs, cumulants, and flip components remain downstream.
+
+## First slice delivered
+
+Milestones 1 and 2 are complete. Related Lean:
+`VerticalStripLLT/SmallCases.lean`, especially `coloringLLT_singleton`,
+`coloringLLT_pair_unicellular`, and
+`coloringLLT_normalPair_eq_evalElementary_two`. The first two are uniform in
+the alphabet size; the last interprets `e₁²+(q−1)e₂` in two variables.
+`coloringLLT_empty` fixes the size-zero normalization. The original Astra
+reviewer also independently checked the implemented path decoder and found
+its zero-based normal/strict edge conventions faithful to the source.
