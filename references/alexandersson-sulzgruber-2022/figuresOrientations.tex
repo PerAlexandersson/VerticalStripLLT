@@ -1,0 +1,737 @@
+\documentclass[multi,crop,tikz,border=0pt,12pt]{standalone}
+
+\usepackage{latexsym,mathtools}
+\def\lineThickness{.7}
+\usetikzlibrary{decorations.pathmorphing,shapes}
+
+\definecolor{lightblue}{rgb}{0.8,0.8,1.0}
+
+\newcommand{\dn}{\downarrow}
+\newcommand{\dns}{\downarrow}	%Strict down-arrow for colorings
+\newcommand{\dnw}{\Downarrow}	%Weak downarrow for colorings
+
+\newcommand{\estep}{\texttt{e}}
+\newcommand{\dstep}{\texttt{d}}
+\newcommand{\nstep}{\texttt{n}}
+\newcommand{\bs}{{\kern-.08em\texttt{.}\kern-.13em}} %bounce separator
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% TIKZ CODE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tikzset{every picture/.append style={
+	scale=1,
+	baseline=(current bounding box.center),
+	x=1em,
+	y=1em,
+	thinLine/.style={line width=\lineThickness pt},
+	snaking/.style={decorate,decoration={zigzag,segment length=1.0mm,amplitude=0.15mm}},
+	thickLine/.style={line width=2*\lineThickness pt,line join=round},
+	fillGrey/.style={fill=black!10},
+	entries/.style={xshift=-0.5em,yshift=-0.5em,font=\small},
+	circled/.style={circle,draw,inner sep=0pt,minimum size=1em},
+	mydot/.style={circle,fill=black,inner sep=0pt,minimum size=1mm}
+  }
+}
+
+\tikzset{relationDiagram/.append style={
+	x=1.0em,
+	y=1.0em,
+	entries/.style={xshift=-0.5em,yshift=-0.5em,font=\small},
+}}
+
+\tikzset{
+	redBounceSS/.pic = {
+		code {
+			\draw[red,thickLine,->] (6,9)--(6,6)--(3,6);
+		}
+	},
+	redBounceLS/.pic = {
+		code {
+			\draw[red,thickLine,->] (6,10)--(6,6)--(3,6);
+		}
+	},
+	redBounceSL/.pic = {
+		code {
+			\draw[red,thickLine,->] (6,9)--(6,6)--(2,6);
+		}
+	},
+	redBounceLL/.pic = {
+		code {
+			\draw[red,thickLine,->] (6,10)--(6,6)--(2,6);
+		}
+	},
+	redBounceBigStart/.pic = {
+		code {
+			\draw[red,thickLine,->] (6,10)--(6,6)--(2,6);
+		}
+	},
+	redBounceBigRest/.pic = {
+		code {
+			\draw[red,thickLine,->] (2,6)--(2,2)--(0.2,2);
+		}
+	},
+	flipRects/.pic = {
+		code {
+			\fill[color=blue!10] (5.1,7.1) rectangle (6.9,8.9);
+			\fill[color=red!10]  (2.1,5.1) rectangle (4.9,6.9);
+		}
+	},
+	xyEdge/.pic = {
+		code {
+			\draw[entries] (6,7) node {#1};
+		}
+	},
+	xzEdge/.pic = {
+		code {
+			\draw[entries] (6,10) node {#1};
+		}
+	},
+	yzEdge/.pic = {
+		code {
+			\draw[entries] (7,10) node {#1};
+		}
+	},
+	vxEdge/.pic = {
+		code {
+			\draw[entries] (2,6) node {#1};
+		}
+	},
+	vyEdge/.pic = {
+		code {
+			\draw[entries] (2,7) node {#1};
+		}
+	},
+	wxEdge/.pic = {
+		code {
+			\draw[entries] (3,6) node {#1};
+		}
+	},
+	wyEdge/.pic = {
+		code {
+			\draw[entries] (3,7) node {#1};
+		}
+	},
+	wyGray/.pic = {
+		code {
+			\fill[fillGrey] (1.9,6)--(3,6)--(3,7.1)--(1.9,7.1)--cycle;
+			\draw (2,6)--(3,6)--(3,7);
+		}
+	},
+	vxGray/.pic = {
+		code {
+			\fill[fillGrey] (0.9,5)--(2,5)--(2,6.1)--(0.9,6.1)--cycle;
+			\draw[thickLine] (1,5)--(2,5)--(2,6);
+		}
+	},
+	wxyGray/.pic = {
+		code {
+			\fill[fillGrey] (1.9,5)--(3,5)--(3,7.1)--(1.9,7.1)--cycle;
+			\draw[thickLine] (2,5)--(3,5)--(3,7);
+		}
+	},
+	xzGray/.pic = {
+		code {
+			\fill[fillGrey] (4.9,9)--(6,9)--(6,10.01)--(4.9,10.01)--cycle;
+			\draw[thickLine] (5,9)--(6,9)--(6,10);
+		}
+	},
+	xyzGray/.pic = {
+		code {
+			\fill[fillGrey] (4.9,9)--(7,9)--(7,10.01)--(4.9,10.01)--cycle;
+			\draw[thickLine] (5,9)--(7,9)--(7,10);
+		}
+	}
+}
+
+\tikzset{
+	basicPathBig/.pic = {
+	code {
+	\fill[fillGrey] (0,1)--(0,10)--(9,10);
+	\fill[fill=white] 
+	(0,0)--(0,4)--(1,5)--(1,6)--(2,6)--(2,7)--(3,7)
+	--(5,9)--(5,10)--(9,10)--(9,9)--(7,7)--(6,7)
+	--(6,6)--(5,6)--(5,5)--(3,3)--(2,3)--(2,2)--(1,1)--(0,0);
+	
+	%Default edge
+	\draw[thickLine] (1,5)--(1,6)--(2,6)--(2,7);
+	\draw[thickLine] (6,9.96)--(7,9.96);
+	
+	\draw[snaking] 
+	(9,9)--(7,7)--(6,7)--(6,6) 
+	(3,3)--(5,5)
+	(1,1)--(0,0)
+	(0,4)--(1,5)
+	(2,7)--(3,7)--(5,9);
+	
+	%Diag-thick
+	\draw[thickLine]
+	(7,7)--(6,7)--(6,6)--(5,6)--(5,5)
+	(3,3)--(2,3)--(2,2)--(1,2)--(1,1)
+	(9,9)--(9,10)--(10,10);
+
+	\draw[entries]
+	(2, 2)node{$v$}
+	(3, 3)node{$w$}
+	(6, 6)node{$x$}
+	(7, 7)node{$y$}
+	(10, 10)node{$z$};
+}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% END TIKZ CODE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%II:phiExample
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \begin{tikzpicture}
+% \fill[color=gray!5]  (1,1)--(1,9)--(9,9);
+% \draw[thinLine,gray] (1,1)--(1,9)--(9,9);
+% 
+% \draw[thickLine] (1,1)--(1,2)--(2,2)--(2,3)--(3,3);
+% \draw[thickLine] (4,4)--(4,5)--(5,5)--(5,6)--(6,6);
+% \draw[thickLine] (8,8)--(8,9)--(9,9);
+%  
+% \draw[thickLine] (1,4)--(2,4)--(2,5)--(2,6);
+% \draw[thickLine] (4,8)--(4,9)--(5,9)--(6,9);
+% 
+% % Bounce
+% \draw[thickLine,->,red] (5,9)--(5,5)--(2,5);
+% 
+% \draw[snaking] 
+% (2,6)--(4,8)
+% (6,6)--(8,8)
+% (3,3)--(4,4);
+% 
+% \draw[entries]
+% (6,2) node{$U \nstep\bs\nstep V\dstep\bs\estep W$}
+% %
+% (5,9)node{$\to$}
+% % (2,5)node{$\to$}
+% (5,6)node{$\alpha$}
+% (6,9)node{$\beta$}
+% %
+% (9,9)node{$z$}
+% (6,6)node{$y$}
+% (5,5)node{$x$}
+% (3,3)node{$w$};
+% \end{tikzpicture}
+
+\begin{tikzpicture}[relationDiagram]
+\draw pic {basicPathBig};
+\draw pic {xzGray};
+\draw pic {vxGray};
+\draw pic {redBounceLL};
+\draw pic {xyEdge=$\alpha$};
+\draw pic {yzEdge=$\beta$};
+\draw pic {xzEdge=$\to$};
+\draw[entries] (7,1) node{$U \nstep\bs\nstep V\dstep\bs\estep W$};
+\end{tikzpicture}
+
+% 
+% \begin{tikzpicture}
+% \fill[color=gray!5]  (1,1)--(1,9)--(9,9);
+% \draw[thinLine,gray] (1,1)--(1,9)--(9,9);
+% 
+% \draw[thickLine] (1,1)--(1,2)--(2,2)--(2,3)--(3,3);
+% \draw[thickLine] (4,4)--(4,5)--(5,5)--(5,6)--(6,6);
+% \draw[thickLine] (8,8)--(8,9)--(9,9);
+%  
+% \draw[thickLine] (1,4)--(2,4)--(2,5)--(2,6);
+% \draw[thickLine] (4,8)--(5,8)--(5,9)--(6,9);
+% 
+% % Bounce
+% \draw[thickLine,->,red] (5,8)--(5,5)--(2,5);
+% 
+% \draw[snaking] (2,6)--(4,8);
+% \draw[snaking] (6,6)--(8,8);
+% \draw[snaking] (3,3)--(4,4);
+% 
+% \draw[entries]
+% (6,2) node{$U \nstep\bs\nstep V\estep\bs\dstep W$}
+% %
+% (6,9)node{$\to$}
+% (5,6)node{$\alpha$}
+% % (6,9)node{$\beta$}
+% %
+% (9,9)node{$z$}
+% (6,6)node{$y$}
+% (5,5)node{$x$}
+% (3,3)node{$w$}
+% % (2,2)node{$v$}
+% ;
+% \end{tikzpicture}
+
+
+\begin{tikzpicture}[relationDiagram]
+\draw pic {basicPathBig};
+\draw pic {xyzGray};
+% \draw pic {wyGray};
+\draw pic {vxGray};
+\draw pic {redBounceSL};
+% \draw pic {redBounceBigRest};
+\draw pic {xyEdge=$\alpha$};
+% \draw pic {yzEdge=$\beta$};
+\draw pic {yzEdge=$\to$};
+% \draw pic {vxEdge=$\to$};
+% \draw pic {wyEdge=$\to$};
+\draw[entries] (7,1) node{$U \nstep\bs\nstep V\estep\bs\dstep W$};
+\end{tikzpicture}
+
+
+
+
+%II:phiBarExample
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 
+% \begin{tikzpicture}
+% \fill[color=gray!5]  (1,1)--(1,9)--(9,9);
+% \draw[thinLine,gray] (1,1)--(1,9)--(9,9);
+% 
+% \draw[thickLine] (1,1)--(1,2)--(2,2)--(2,3)--(3,3);
+% \draw[thickLine] (4,4)--(4,5)--(5,5)--(5,6)--(6,6);
+% \draw[thickLine] (8,8)--(8,9)--(9,9);
+%  
+% \draw[thickLine] (1,4)--(2,4)--(2,5)--(2,6);
+% \draw[thickLine] (4,8)--(4,9)--(5,9)--(6,9);
+% 
+% % Bounce
+% \draw[thickLine,->,red] (5,9)--(5,5)--(2,5);
+% 
+% \draw[snaking] (2,6)--(4,8);
+% \draw[snaking] (6,6)--(8,8);
+% \draw[snaking] (3,3)--(4,4);
+% 
+% \draw[entries]
+% (6,2) node{$U \nstep\bs\nstep V\dstep\bs\estep W$}
+% %
+% (5,9)node{$\to$}
+% % (2,5)node{$\to$}
+% (5,6)node{$\alpha$}
+% (6,9)node{$\beta$}
+% %
+% (9,9)node{$z$}
+% (6,6)node{$y$}
+% (5,5)node{$x$}
+% (3,3)node{$w$}
+% % (2,2)node{$v$}
+% ;
+% \end{tikzpicture}
+
+
+
+\begin{tikzpicture}[relationDiagram]
+\draw pic {basicPathBig};
+\draw pic {xzGray};
+\draw pic {vxGray};
+\draw pic {redBounceLL};
+\draw pic {xyEdge=$\alpha$};
+\draw pic {yzEdge=$\beta$};
+\draw pic {xzEdge=$\to$};
+\draw[entries] (7,1) node{$U \nstep\bs\nstep V\dstep\bs\estep W$};
+\end{tikzpicture}
+
+% 
+% \begin{tikzpicture}
+% \fill[color=gray!5]  (1,1)--(1,9)--(9,9);
+% \draw[thinLine,gray] (1,1)--(1,9)--(9,9);
+% 
+% \draw[thickLine] (1,1)--(1,2)--(2,2)--(2,3)--(3,3);
+% \draw[thickLine] (4,4)--(4,5)--(5,5)--(5,6)--(6,6);
+% \draw[thickLine] (8,8)--(8,9)--(9,9);
+%  
+% \draw[thickLine] (1,4)--(2,4)--(2,5)--(2,6);
+% \draw[thickLine] (4,8)--(5,8)--(5,9)--(6,9);
+% 
+% % Bounce
+% \draw[thickLine,->,red] (5,8)--(5,5)--(2,5);
+% 
+% \draw[snaking] (2,6)--(4,8);
+% \draw[snaking] (6,6)--(8,8);
+% \draw[snaking] (3,3)--(4,4);
+% 
+% \draw[entries]
+% (6,2) node{$U \nstep\bs\nstep V\estep\bs\dstep W$}
+% %
+% (6,9)node{$\to$}
+% (5,6)node{$\to$}
+% % (6,9)node{$\beta$}
+% %
+% (9,9)node{$z$}
+% (6,6)node{$y$}
+% (5,5)node{$x$}
+% (3,3)node{$w$}
+% % (2,2)node{$v$}
+% ;
+% \end{tikzpicture}
+
+
+
+\begin{tikzpicture}[relationDiagram]
+\draw pic {basicPathBig};
+\draw pic {xyzGray};
+\draw pic {vxGray};
+\draw pic {redBounceSL};
+\draw pic {xyEdge=$\to$};
+\draw pic {yzEdge=$\to$};
+\draw[entries] (7,1) node{$U \nstep\bs\nstep V\estep\bs\dstep W$};
+\end{tikzpicture}
+
+
+%II:psiExample
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% 
+% \begin{tikzpicture}
+% \fill[color=gray!5]  (1,1)--(1,9)--(9,9);
+% \draw[thinLine,gray] (1,1)--(1,9)--(9,9);
+% 
+% \fill[color=blue!10] (4,6) rectangle (6,8);
+% \fill[color=red!10]  (2,4) rectangle (4,6);
+% 
+% \draw[thickLine] (1,1)--(1,2)--(2,2);
+% \draw[thickLine] (4,4)--(4,5)--(5,5)--(5,6)--(6,6);
+% \draw[thickLine] (8,8)--(8,9)--(9,9);
+%  
+% \draw[thickLine] (1,4)--(2,4)--(2,5)--(2,6);
+% \draw[thickLine] (4,8)--(4,9)--(5,9)--(6,9);
+% 
+% % Bounce
+% \draw[thickLine,->,red] (5,9)--(5,5)--(2,5);
+% 
+% \draw[snaking] (2,6)--(4,8);
+% \draw[snaking] (6,6)--(8,8);
+% \draw[snaking] (2,2)--(4,4);
+% 
+% \draw[entries]
+% (6,2) node{$U \nstep\bs\nstep V\dstep\bs\estep W$}
+% (5,7.5)node{$\heartsuit$}
+% (6,7.5)node{$\spadesuit$}
+% (3.5,5)node{$\clubsuit$}
+% (3.5,6)node{$\diamondsuit$}
+% %
+% (5,9)node{$\to$}
+% (5,6)node{$\alpha$}
+% (6,9)node{$\beta$}
+% %
+% (9,9)node{$z$}
+% (6,6)node{$y$}
+% (5,5)node{$x$}
+% (2,2)node{$v$};
+% \end{tikzpicture}
+
+
+\begin{tikzpicture}[relationDiagram]
+\draw pic {basicPathBig};
+\draw pic {xzGray};
+\draw pic {vxGray};
+%
+\draw pic {flipRects};
+%
+\draw pic {redBounceLL};
+%
+\draw[entries]
+(6,8.5)node{$\heartsuit$}
+(7,8.5)node{$\spadesuit$}
+(4,6)node{$\clubsuit$}
+(4,7)node{$\diamondsuit$};
+\draw pic {xyEdge=$\alpha$};
+\draw pic {yzEdge=$\beta$};
+\draw pic {xzEdge=$\to$};
+\draw[entries] (7,1) node{$U \nstep\bs\nstep V\dstep\bs\estep W$};
+\end{tikzpicture}
+
+% 
+% \begin{tikzpicture}
+% \fill[color=gray!5]  (1,1)--(1,9)--(9,9);
+% \draw[thinLine,gray] (1,1)--(1,9)--(9,9);
+% 
+% \fill[color=blue!10] (4,6) rectangle (6,8);
+% \fill[color=red!10]  (2,4) rectangle (4,6);
+% 
+% \draw[thickLine] (1,1)--(1,2)--(2,2);
+% \draw[thickLine] (4,4)--(4,5)--(5,5)--(5,6)--(6,6);
+% \draw[thickLine] (8,8)--(8,9)--(9,9);
+%  
+% \draw[thickLine] (1,4)--(2,4)--(2,5)--(2,6);
+% \draw[thickLine] (4,8)--(5,8)--(5,9)--(6,9);
+% 
+% % Bounce
+% \draw[thickLine,->,red] (5,8)--(5,5)--(2,5);
+% 
+% \draw[snaking] (2,6)--(4,8);
+% \draw[snaking] (6,6)--(8,8);
+% \draw[snaking] (2,2)--(4,4);
+% 
+% \draw[entries]
+% (6,2) node{$U \nstep\bs\nstep V\estep\bs\dstep W$}
+% (6,7.5)node{$\heartsuit$}
+% (5,7.5)node{$\spadesuit$}
+% (3.5,6)node{$\clubsuit$}
+% (3.5,5)node{$\diamondsuit$}
+% %
+% (6,9)node{$\to$}
+% (5,6)node{$\dn$}
+% %
+% (9,9)node{$z$}
+% (6,6)node{$y$}
+% (5,5)node{$x$}
+% (2,2)node{$v$};
+% \end{tikzpicture}
+
+
+
+\begin{tikzpicture}[relationDiagram]
+\draw pic {basicPathBig};
+\draw pic {xyzGray};
+\draw pic {vxGray};
+%
+\draw pic {flipRects};
+%
+\draw pic {redBounceSL};
+%
+\draw[entries]
+(6,8.5)node{$\spadesuit$}
+(7,8.5)node{$\heartsuit$}
+(4,6)node{$\diamondsuit$}
+(4,7)node{$\clubsuit$};
+\draw pic {xyEdge=$\dn$};
+\draw pic {yzEdge=$\to$};
+\draw[entries] (7,1) node{$U \nstep\bs\nstep V\estep\bs\dstep W$};
+\end{tikzpicture}
+
+%IV:phiExample
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 
+% \begin{tikzpicture}
+% \fill[color=gray!5]  (1,1)--(1,9)--(9,9);
+% \draw[thinLine,gray] (1,1)--(1,9)--(9,9);
+% 
+% \draw[thickLine] (1,1)--(1,2)--(2,2);
+% \draw[thickLine] (4,4)--(4,5)--(5,5)--(5,6)--(6,6);
+% \draw[thickLine] (8,8)--(8,9)--(9,9);
+%  
+% \draw[thickLine] (1,4)--(1,5)--(2,5)--(2,6);
+% \draw[thickLine] (4,8)--(4,9)--(5,9)--(6,9);
+% 
+% % Bounce
+% \draw[thickLine,->,red] (5,9)--(5,5)--(2,5);
+% 
+% \draw[snaking] (2,6)--(4,8);
+% \draw[snaking] (6,6)--(8,8);
+% \draw[snaking] (2,2)--(4,4);
+% 
+% \draw[entries]
+% (6,2) node{$U \dstep\bs\nstep V\dstep\bs\estep W$}
+% %
+% (5,9)node{$\to$}
+% (2,5)node{$\to$}
+% (5,6)node{$\beta$}
+% (6,9)node{$\alpha$}
+% %
+% (9,9)node{$z$}
+% (6,6)node{$y$}
+% (5,5)node{$x$}
+% (2,2)node{$v$};
+% \end{tikzpicture}
+
+
+\begin{tikzpicture}[relationDiagram]
+\draw pic {basicPathBig};
+\draw pic {xzGray};
+\draw pic {vxGray};
+\draw pic {redBounceLL};
+\draw pic {xyEdge=$\beta$};
+\draw pic {xzEdge=$\to$};
+\draw pic {vxEdge=$\to$};
+\draw pic {yzEdge=$\alpha$};
+\draw[entries] (7,1) node{$U \dstep\bs\nstep V\dstep\bs\estep W$};
+\end{tikzpicture}
+
+% 
+% \begin{tikzpicture}
+% \fill[color=gray!5]  (1,1)--(1,9)--(9,9);
+% \draw[thinLine,gray] (1,1)--(1,9)--(9,9);
+% 
+% \draw[thickLine] (1,1)--(1,2)--(2,2);
+% \draw[thickLine] (4,4)--(4,5)--(5,5)--(5,6)--(6,6);
+% \draw[thickLine] (8,8)--(8,9)--(9,9);
+%  
+% \draw[thickLine] (1,4)--(1,5)--(1,6)--(2,6);
+% \draw[thickLine] (4,8)--(5,8)--(5,9)--(6,9);
+% 
+% % Bounce
+% \draw[thickLine,->,red] (5,8)--(5,5)--(1,5);
+% 
+% \draw[snaking] (2,6)--(4,8);
+% \draw[snaking] (6,6)--(8,8);
+% \draw[snaking] (2,2)--(4,4);
+% 
+% \draw[entries]
+% (6,2) node{$U \nstep\bs\dstep V\estep\bs\dstep W$}
+% %
+% (2,6)node{$\to$}
+% (6,9)node{$\to$}
+% (5,6)node{$\beta$}
+% (2,5)node{$\alpha$}
+% %
+% (9,9)node{$z$}
+% (6,6)node{$y$}
+% (5,5)node{$x$}
+% (2,2)node{$v$};
+% \end{tikzpicture}
+
+
+\begin{tikzpicture}[relationDiagram]
+\draw pic {basicPathBig};
+\draw pic {xyzGray};
+\draw pic {redBounceSL};
+\draw pic {xyEdge=$\beta$};
+\draw pic {vyEdge=$\to$};
+\draw pic {vxEdge=$\alpha$};
+\draw pic {yzEdge=$\to$};
+\draw[entries] (7,1) node{$U \nstep\bs\dstep V\estep\bs\dstep W$};
+\end{tikzpicture}
+
+
+
+
+%IV:psiExample
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 
+% \begin{tikzpicture}
+% \fill[color=gray!5]  (1,1)--(1,9)--(9,9);
+% \draw[thinLine,gray] (1,1)--(1,9)--(9,9);
+% 
+% \fill[color=blue!10] (4,6) rectangle (6,8);
+% \fill[color=red!10]  (2,4) rectangle (4,6);
+% 
+% \draw[thickLine] (1,1)--(1,2)--(2,2);
+% \draw[thickLine] (4,4)--(4,5)--(5,5)--(5,6)--(6,6);
+% \draw[thickLine] (8,8)--(8,9)--(9,9);
+%  
+% \draw[thickLine] (1,4)--(1,5)--(2,5)--(2,6);
+% \draw[thickLine] (4,8)--(4,9)--(5,9)--(6,9);
+% 
+% % Bounce
+% \draw[thickLine,->,red] (5,9)--(5,5)--(2,5);
+% 
+% \draw[snaking] (2,6)--(4,8);
+% \draw[snaking] (6,6)--(8,8);
+% \draw[snaking] (2,2)--(4,4);
+% 
+% \draw[entries]
+% (6,2) node{$U \dstep\bs\nstep V\dstep\bs\estep W$}
+% (5,7.5)node{$\heartsuit$}
+% (6,7.5)node{$\spadesuit$}
+% (3.5,5)node{$\clubsuit$}
+% (3.5,6)node{$\diamondsuit$}
+% %
+% (5,9)node{$\to$}
+% (2,5)node{$\to$}
+% (5,6)node{$\beta$}
+% (6,9)node{$\alpha$}
+% %
+% (9,9)node{$z$}
+% (6,6)node{$y$}
+% (5,5)node{$x$}
+% (2,2)node{$v$};
+% \end{tikzpicture}
+
+
+\begin{tikzpicture}[relationDiagram]
+\draw pic {basicPathBig};
+\draw pic {xzGray};
+\draw pic {vxGray};
+%
+\draw pic {flipRects};
+%
+\draw pic {redBounceLL};
+\draw[entries]
+(6,8.5)node{$\heartsuit$}
+(7,8.5)node{$\spadesuit$}
+(4,6)node{$\clubsuit$}
+(4,7)node{$\diamondsuit$};
+\draw pic {xyEdge=$\beta$};
+\draw pic {yzEdge=$\alpha$};
+\draw pic {vxEdge=$\to$};
+\draw pic {xzEdge=$\to$};
+\draw[entries] (7,1) node{$U \dstep\bs\nstep V\dstep\bs\estep W$};
+\end{tikzpicture}
+
+% 
+% \begin{tikzpicture}
+% \fill[color=gray!5]  (1,1)--(1,9)--(9,9);
+% \draw[thinLine,gray] (1,1)--(1,9)--(9,9);
+% 
+% \fill[color=blue!10] (4,6) rectangle (6,8);
+% \fill[color=red!10]  (2,4) rectangle (4,6);
+% 
+% \draw[thickLine] (1,1)--(1,2)--(2,2);
+% \draw[thickLine] (4,4)--(4,5)--(5,5)--(5,6)--(6,6);
+% \draw[thickLine] (8,8)--(8,9)--(9,9);
+%  
+% \draw[thickLine] (1,4)--(1,5)--(1,6)--(2,6);
+% \draw[thickLine] (4,8)--(5,8)--(5,9)--(6,9);
+% 
+% % Bounce
+% \draw[thickLine,->,red] (5,8)--(5,5)--(1,5);
+% 
+% \draw[snaking] (2,6)--(4,8);
+% \draw[snaking] (6,6)--(8,8);
+% \draw[snaking] (2,2)--(4,4);
+% 
+% \draw[entries]
+% (6,2) node{$U \nstep\bs\dstep V\estep\bs\dstep W$}
+% (6,7.5)node{$\heartsuit$}
+% (5,7.5)node{$\spadesuit$}
+% (3.5,6)node{$\clubsuit$}
+% (3.5,5)node{$\diamondsuit$}
+% %
+% (6,9)node{$\to$}
+% (2,6)node{$\to$}
+% (5,6)node{$\alpha$}
+% (2,5)node{$\beta$}
+% %
+% (9,9)node{$z$}
+% (6,6)node{$y$}
+% (5,5)node{$x$}
+% (2,2)node{$v$};
+% \end{tikzpicture}
+
+
+\begin{tikzpicture}[relationDiagram]
+\draw pic {basicPathBig};
+\draw pic {xyzGray};
+%
+\draw pic {flipRects};
+%
+\draw[red,thickLine,->] (6,9)--(6,6)--(1,6);
+%
+\draw[entries]
+(6,8.5)node{$\spadesuit$}
+(7,8.5)node{$\heartsuit$}
+(4,6)node{$\diamondsuit$}
+(4,7)node{$\clubsuit$};
+\draw pic {xyEdge=$\alpha$};
+\draw pic {yzEdge=$\to$};
+\draw pic {vyEdge=$\to$};
+\draw pic {vxEdge=$\beta$};
+\draw[entries] (7,1) node{$U \nstep\bs\dstep V\estep\bs\dstep W$};
+\end{tikzpicture}
+
+\end{document}

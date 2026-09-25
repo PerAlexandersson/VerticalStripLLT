@@ -29,3 +29,15 @@
 
 No files are currently delegated. The primary Astra worker owns integration
 and the sole project build slot once launched.
+
+## Authoritative manuscript source
+
+The author supplied the original source at:
+
+`/home/paxinum/Dropbox/research-finished/GIT-LLT-e-Robin/LLT-E-expansion-bijective-proof`
+
+Docker workers cannot access that mount directly. A regular-file snapshot of
+the principal manuscript and its figure-definition files is committed under
+`references/alexandersson-sulzgruber-2022/`. The main formalization map should
+start from Theorem `recursion`, Theorem `LLT`, Theorem `LLTe`, and Corollary
+`expansion` in `references/alexandersson-sulzgruber-2022/main.tex`.
