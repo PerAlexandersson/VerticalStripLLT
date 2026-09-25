@@ -86,8 +86,8 @@ process exited. Do not infer build-slot ownership from an old lock or status not
 - Reviewed architecture, committed before scaffolding: `81b4885`.
 - First verified slice: `cab97ea9b353ff62772e0e154323964013d2704e`.
 - General graph invariants and column characterization: `4d0fddd`, pushed.
-- The next checkpoint contains the general elementary base case and raw
-  concatenation laws. Milestone issue #1 tracks that completed increment.
+- General elementary base case and raw concatenation laws: `961bc99`, pushed.
+  Milestone issue #1 is complete; coloring multiplicativity continues in #2.
 - Private repository, branch `main`. No branch, remote, or account changes.
 - Lean `v4.34.0`, Mathlib `5ed2965256430c3649e86755f9576b54eca72435`.
 - Wrapper package-directory warning is expected; never respond with `lake update`.
