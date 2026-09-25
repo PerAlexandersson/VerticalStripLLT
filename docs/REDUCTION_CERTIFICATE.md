@@ -12,9 +12,9 @@ clauses. The audit and external bounded candidate are recorded separately in
 
 For proving the main corollary, introduce a separate
 `SatisfiesReductionRecursion q e F` extending `SatisfiesRecursion q e F` by
-one extra field: the first-bounce identity with middle eV, where V has no east
-steps, with the same valid-word, return, and strict-gap certificates. The
-extra identity must be proved directly for each concrete semantic model.
+two extra fields: the first- and second-bounce identities with middle eV,
+where V has no east steps, with the same valid-word, return, and strict-gap
+certificates. Each extra identity must be proved directly for each model.
 It is not an assumption in the final LLT expansion theorem.
 
 The full unrestricted first-bounce identities are available from the source:
@@ -24,7 +24,7 @@ The former restrictions are commented out in the immutable manuscript. The
 coloring NN identity is already independently checked as
 `coloringLLT_firstBounce_general`; its DN graph proof also does not use hV.
 Prove the unrestricted orientation identities from the orientation bijections.
-Specializing NN at eV then supplies the additional field for both models.
+Specializing NN and DN at eV supplies the additional fields for both models.
 
 Reduction sequence:
 
@@ -61,3 +61,15 @@ both valid successors and uses the seven local equations followed by explicit
 nonzero-factor cancellation. The map theorem transports identities only;
 it does not claim preservation of the domain/cancellation hypotheses.
 Generalized bounce and lexicographic uniqueness remain open.
+
+## DD-induction correction
+
+A subsequent primary/Terra source audit identified the second leading-east
+requirement at `LLTe_1`, lines 1927–1933: the local DN relation applied before
+the induction hypothesis has middle eV''. The initially implemented NN-only
+certificate suffices for the checked single ND consequence, but does not by
+itself justify this DD step. Add the DN-leading-east field explicitly and
+transport/prove it alongside NN. The original restricted predicate remains
+unchanged. Both unrestricted coloring semantic statements follow from their
+existing graph proofs; the direct orientation bounce statements must still
+be proved. No generic leading-east implication has been inferred silently.

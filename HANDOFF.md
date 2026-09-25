@@ -30,6 +30,7 @@ Recent pushed checkpoints:
 - `73e8183`: orientation/HRV model and terminating bounce trace.
 - `5a33ef9`: uniform orientation column formula and coloring bridge.
 - `5a3b763`: reviewed sufficient-certificate proof route, recorded before implementation.
+- `4d136c7`: orientation multiplicativity and generic single ND reduction.
 
 Current source batch: full/default build (1446 jobs), all 212 public axiom
 checks, global source/line-length guards, immutable-reference/initial-commit
@@ -66,7 +67,13 @@ degree/stability as further requirements of the full objective.
 
 Primary `/root` owns strategy, integration, all source files, and the sole
 project build slot. All Luna/Terra implementation tasks are returned and
-released. No local Lean build or nested Claude process is active.
+released. New build-free assignment: `path_invariants` owns only
+`SecondBounceGeneral.lean`. `column_paths` owns only `BounceCoordinates.lean`,
+converting east-free prefix counts to the endpoint certificates.
+The unrestricted coloring DN candidate has returned to primary.
+New build-free assignment: `path_invariants` owns `ReductionRecursion.lean`,
+`ReductionRecursionMap.lean`, and `ColoringReductionRecursion.lean` to add and
+transport the explicitly required second leading-east clause. No local Lean build or nested Claude process is active.
 `bounce_audit` has a read-only follow-up audit of the generalized-bounce trace
 interface; it owns no file. No other worker owns an active edit.
 
@@ -110,3 +117,10 @@ infer submission success solely from CLI exit zero; require project/task IDs.
 All generated requests, archives, and audit candidates stay outside the checkout.
 Previous goal turns and this continuation made verified proof progress; the
 full objective remains active. Older inventories are under `docs/archive/`.
+
+New source audit in progress: the DD induction at manuscript LLTe_1 uses a DN
+instance with middle eV'', so the current NN-only additional field does not
+yet justify the generalized-bounce step. Terra is checking the exact need for
+a second leading-east clause; both concrete semantic proofs support the
+unrestricted DN statement. The already checked generic single ND theorem
+remains valid with its current hypotheses.
