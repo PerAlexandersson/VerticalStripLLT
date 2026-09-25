@@ -2,6 +2,11 @@
 
 ## Current status
 
+- General graph foundations and strict-column model now compile: both edge
+  sets have increasing endpoints and are disjoint; `column k` has exactly
+  consecutive strict edges, no normal edges, and admissibility `StrictMono`.
+  This advances the general base case; its elementary sum identity is still
+  being searched by Aristotle. Concatenation is under implementation.
 - First end-to-end slice complete, 2026-09-25, on `main` in the private
   `PerAlexandersson/VerticalStripLLT` repository. Full package build and public
   axiom audit pass. The ordinary theorem as a whole is still open.
@@ -16,7 +21,50 @@
 - Pinned Lean `v4.34.0`, Mathlib
   `5ed2965256430c3649e86755f9576b54eca72435`; dependency closure is tracked.
 - Primary `/root` remains strategy, source, integration, and sole build owner.
-  No build is running and no file is delegated.
+  No build is running. Active assignments below supersede the completed-slice
+  ownership record while this increment is in progress.
+
+## Active continuation
+
+- Previous turn: progress (reviewed architecture and verified first slice).
+- User requests continued work on the full ordinary expansion, with Luna doing
+  most implementation and Aristotle used whenever useful. Goal remains active.
+- Primary owns integration, docs, verification, Aristotle job preparation and
+  monitoring, and the sole build slot.
+- Luna `path_invariants` completed `PathInvariants.lean`; primary compiled it,
+  adopted it, and removed unused simp arguments. No file currently delegated
+  to that worker. Public raw scanner lower-bound lemmas were retained for
+  later graph concatenation proofs.
+- `Column.lean` is now compiled and returned to primary for integration.
+  Luna `column_paths` next owns only new `VerticalStripLLT/Concat.lean`,
+  implementing the six raw append/translation laws and path concatenation.
+- Other project files and immutable references are not delegated.
+- Milestone issue: https://github.com/PerAlexandersson/VerticalStripLLT/issues/1.
+- Aristotle CLI is available despite absence from MCP. The general increasing
+  coloring / elementary identity is running as project
+  `262ce79f-3c8a-4e6a-83f7-6fcf6a6c9eb6`; exact task, request paths, environment
+  mismatch, and a capacity-rejected second request are in `docs/ARISTOTLE.md`.
+
+New exact public interfaces are `Step.normalFrom_lower_bound`,
+`Step.strictFrom_lower_bound`, `Step.normalFrom_lt`,
+`Step.strictFrom_lt_of_valid`, `Step.normalFrom_strictFrom_disjoint`,
+`SchroderPath.normalEdges_lt`, `strictEdges_lt`,
+`normalEdges_disjoint_strictEdges`, `column`, `column_normalEdges`,
+`column_strict_mem_iff`, `column_strictEdges`, `column_ascentCount`, and
+`admissible_column_iff`. Namespace is `VerticalStripLLT` throughout.
+
+Build discipline improvement: commands now abort if the process guard sees
+any Lean/Lake process. An initial continuation check displayed two short-lived
+processes that had exited by the immediate follow-up inspection; ownership
+could not be reconstructed. No other worker was stopped or reconfigured.
+
+Graph/column checkpoint checks: focused build of `PathInvariants` and `Column`,
+then full/default build (1360 jobs), and `Verification.lean` all passed. The
+18 audited declarations use only the standard axioms; the new files are free
+of placeholders. Axiom log is
+`/lake-cache/ai-projects/build/VerticalStripLLT/graph-column-axioms.log`.
+Untracked `Concat.lean` is a separate active candidate and is excluded from
+this verified checkpoint and root imports until its focused check passes.
 
 ## Completed declarations
 

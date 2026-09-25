@@ -12,3 +12,10 @@ import VerticalStripLLT
 #print axioms VerticalStripLLT.coloringLLT_disconnectedPair_two
 #print axioms VerticalStripLLT.coloringLLT_strictPair_eq_evalElementary_two
 #print axioms VerticalStripLLT.coloringLLT_normalPair_eq_evalElementary_two
+#print axioms VerticalStripLLT.SchroderPath.normalEdges_lt
+#print axioms VerticalStripLLT.SchroderPath.strictEdges_lt
+#print axioms VerticalStripLLT.SchroderPath.normalEdges_disjoint_strictEdges
+#print axioms VerticalStripLLT.SchroderPath.column_normalEdges
+#print axioms VerticalStripLLT.SchroderPath.column_strict_mem_iff
+#print axioms VerticalStripLLT.SchroderPath.column_ascentCount
+#print axioms VerticalStripLLT.SchroderPath.admissible_column_iff

@@ -14,6 +14,10 @@ A general-purpose symmetric-functions library is outside the scope.
 
 - The empty path has value `1`, and `ne` has value `e₁`, for every finite alphabet.
 - `nde`, `nnee`, and `nene` decode to a strict edge, a normal edge, and no edge.
+- For every valid path, normal and strict edge sets are disjoint and both
+  have increasing endpoints. For arbitrary `k`, `column k` constructs `n d^k e`,
+  with no normal edges and precisely consecutive strict edges; its admissible
+  colorings are exactly the strictly increasing maps.
 - `coloringLLT_pair_unicellular` proves
   `G_nnee − G_nene = (q−1) G_nde` for every finite alphabet.
 - In two variables, `coloringLLT_strictPair_eq_evalElementary_two` proves
