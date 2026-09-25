@@ -147,3 +147,12 @@ import VerticalStripLLT
 #print axioms VerticalStripLLT.coloringLLT_congr_steps
 #print axioms VerticalStripLLT.coloringLLT_firstBounce_general
 #print axioms VerticalStripLLT.coloringLLT_thirdBounce
+#print axioms VerticalStripLLT.Step.eastCount_append
+#print axioms VerticalStripLLT.Step.eastCount_cons_east
+#print axioms VerticalStripLLT.Step.eastCount_eq_zero_of_not_mem
+#print axioms VerticalStripLLT.Step.east_mem_of_eastCount_pos
+#print axioms VerticalStripLLT.Step.endpointFrom_append_east_of_gap
+#print axioms VerticalStripLLT.SchroderPath.invariant_congr
+#print axioms VerticalStripLLT.SchroderPath.pos_of_steps_ne_nil
+#print axioms VerticalStripLLT.firstEast_north_reduction
+#print axioms VerticalStripLLT.firstEast_product_reduction

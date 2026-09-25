@@ -104,8 +104,8 @@ the north-predecessor reduction; the full exhaustive certificate is still open.
 
 `PathSplit.lean` constructs `prefixAtReturn` of size k and `suffixAtReturn`
 of size n−k from a valid concatenated word whose prefix ends at `(k,k)`.
-The suffix validity is translated back to the origin. Strict positivity and
-strict size decreases for the first-east split remain to be proved.
+The suffix validity is translated back to the origin. `ProductReduction.lean` now proves strict positivity and strict size decreases
+for the first-east split, and factorization for any `SatisfiesRecursion` witness.
 `NonemptyPath.lean` proves that size zero is equivalent to the empty word,
 and that every positive-size path contains an east step.
 
@@ -113,3 +113,11 @@ and that every positive-size path contains an east step.
 field through a ring homomorphism. In particular it will transport formal
 orientation recurrences through `evalElementary`, once those recurrences have
 been independently proved. It does not assume their existence.
+
+`NorthPredecessor.lean`, `firstEast_north_reduction`, packages both valid
+successors, the strict east-count decrease for contraction, the strict
+first-east-height decrease for the swap, and the generic value identity.
+`ProductReduction.lean`, `firstEast_product_reduction`, supplies positive
+factors of strictly smaller size when the first-east prefix has gap one and
+the source has at least two east steps. These are conditional branches;
+exhaustive branch selection and the diagonal-predecessor branch remain open.

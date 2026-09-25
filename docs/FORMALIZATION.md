@@ -274,3 +274,9 @@ proved nonzero factor q−1. The first-bounce instance with middle eV uses the
 new unrestricted coloring theorem. It is never inferred from the restricted
 `SatisfiesRecursion` predicate. Thus the generic audit obligation remains
 separate from this completed concrete coloring proof.
+
+The conditional first-east product and north-predecessor branches are now
+`firstEast_product_reduction` and `firstEast_north_reduction`. Both work for
+an arbitrary commutative-ring recurrence witness and include exact strict
+measure decreases. They do not yet constitute an exhaustive reduction or a
+uniqueness proof. See `RECURSION_PLAN.md` for the remaining diagonal branch.

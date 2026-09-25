@@ -197,10 +197,11 @@ workspace or reference snapshot wholesale; requests contain only needed inputs.
   Existing supplied definitions are unchanged; the extra tactic import is
   `Mathlib.Tactic.LinearCombination`.
 
-## First-east product reduction (in progress)
+## First-east product reduction (completed and locally verified)
 
 - Project ID: `48e8781d-7ebb-4e80-a093-9bd7e674cf0c`.
-- Task ID: `22c118e9-b109-4fcc-9854-d93bfd73c353`, confirmed `IN_PROGRESS`.
+- Task ID: `22c118e9-b109-4fcc-9854-d93bfd73c353`, confirmed `COMPLETE`
+  (2026-09-25 19:44 UTC). Luna ported the candidate into `ProductReduction.lean`.
 - Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/first-east-split`.
 - Seventeen checked source modules, isolated Lean/Mathlib 4.28 snapshot.
 - Exact target `firstEast_product_reduction`: from a valid first-east word,
@@ -211,4 +212,19 @@ workspace or reference snapshot wholesale; requests contain only needed inputs.
   merely splitting words or assuming positive factor sizes is insufficient.
 - This generic product branch uses no extra bounce relation or coloring
   semantics, so it is independent of the restricted-bounce audit obligation.
-- Observe the same task; its returned candidate requires local verification.
+- Primary reviewed and verified the port: full/default build (1429 jobs),
+  all 155 public axiom checks, and source/reference guards pass.
+
+## Restricted first bounce with one leading east (in progress)
+
+- Project ID: `09862def-0239-41ee-a563-b12536df8d1f`.
+- Task ID: `1d8ce50d-cbb5-44fb-9f5a-a6680f35a163`, confirmed `IN_PROGRESS`.
+- Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/restricted-east-middle`.
+- Twenty-two checked modules, isolated Lean/Mathlib 4.28 snapshot.
+- Exact target `firstBounce_eastMiddle_of_recursion` extends the first-bounce
+  equation to middle eV, where V has no east step, for an arbitrary invariant
+  satisfying the existing restricted recurrence in `MvPolynomial σ Q`.
+- The prompt explicitly excludes assuming uniqueness, third bounce, an
+  unrestricted recurrence, or coloring semantics. It records the circular
+  local diagram and the need for a new global argument. This is an open proof
+  search, not an established implication. Observe this same task.

@@ -20,47 +20,51 @@ Recent source checkpoints, all pushed on private `main`:
 - `91bee5f`: converse column classification and first-east height API.
 - `275fb72`: second bounce and the normalized coloring recurrence bundle.
 - `c75046c`: valid word reductions and recurrence transport through ring maps.
-- This checkpoint after `c75046c`: third single-bounce coloring relation.
+- `2aad0c1`: third single-bounce coloring relation.
 
-Full/default build (1427 jobs), all 146 public axiom checks, source guards,
+Reduction checkpoint: full/default build (1429 jobs), all 155 public axiom checks, source guards,
 line-length checks, `git diff --check`, and immutable-reference checks pass.
 Only standard Lean axioms occur. Logs:
 
-- `/lake-cache/ai-projects/build/VerticalStripLLT/third-bounce-full-build.log`
-- `/lake-cache/ai-projects/build/VerticalStripLLT/third-bounce-axioms.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/reduction-full-build.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/reduction-axioms.log`
 
 ## Live work and next action
 
 Issues #1–4 are completed. Issue #5 tracks first-east reduction certificates:
 https://github.com/PerAlexandersson/VerticalStripLLT/issues/5.
 
-Aristotle project `48e8781d-7ebb-4e80-a093-9bd7e674cf0c`, task
-`22c118e9-b109-4fcc-9854-d93bfd73c353`, is confirmed `IN_PROGRESS`.
-Its target `firstEast_product_reduction` must construct two positive-size
-factors, both strictly smaller than the source, and prove factorization for
-an arbitrary invariant satisfying `SatisfiesRecursion`. It uses seventeen
-checked source modules and no coloring-specific assumption.
+The product and north-predecessor certificates have passed the batched focused
+build, full/default build, and all public axiom checks. Primary reviewed both
+and integrated their root imports and public audit entries. The product proof came from completed Aristotle project
+`48e8781d-7ebb-4e80-a093-9bd7e674cf0c`, task
+`22c118e9-b109-4fcc-9854-d93bfd73c353`, ported by Luna.
 
-Observe this same job; do not restart merely because an observer expires.
-All remote provenance, inputs, outputs, and environments are recorded in
-`docs/ARISTOTLE.md`. Generated requests and archives stay under external
-`/lake-cache/ai-projects/requests/VerticalStripLLT/`.
+Aristotle project `09862def-0239-41ee-a563-b12536df8d1f`, task
+`1d8ce50d-cbb5-44fb-9f5a-a6680f35a163`, is `IN_PROGRESS` on
+`firstBounce_eastMiddle_of_recursion`, the precise generic implication left
+open by the restricted-bounce audit. Do not assume its result or restart it
+merely because an observer expires. Provenance is in `docs/ARISTOTLE.md`.
 
-Next: port and verify that product branch. The parallel bounded task is a
-north-predecessor semantic reduction combining `NorthEastReduction.lean`
-with the generic unicellular recurrence and exact measure decreases.
-After those cases, develop the generalized-bounce certificate and reduction;
-then recurrence uniqueness and the independent orientation/HRV expression.
-Keep ordinary expansion, shifted positivity, and degree/stability in scope.
+Next: checkpoint the verified reductions, then build the generalized-bounce
+geometry certificate and independent orientation/HRV expression. Terra's
+corrected trace uses a decreasing prefix word with its own strict gap; a
+single fixed-word index with only a weak gap is insufficient.
 
 ## Ownership and build discipline
 
 Primary `/root` owns strategy, integration, every current source file, and
-the sole project build slot. Both Luna ports and Terra audits are complete;
-no subagent owns an active edit. No local Lean build is active. All local
+the sole project build slot. Reduction ports are complete;
+new disjoint build-free assignments are recorded below. No local Lean build is active. All local
 checks remain serialized globally; inspect running Lean/Lake processes before
 each invocation, use `lake-workspace`, and use reduced priority. Never use
 plain Lake or change dependencies to fit a remote candidate.
+
+Both reduction-file assignments are released to primary after focused verification.
+New build-free assignment: `path_invariants` owns only new `BounceSeed.lean`,
+implementing the geometry interfaces in `docs/BOUNCE_TRACE_PLAN.md`.
+`bounce_audit` performs a read-only orientation/HRV representation audit.
+`column_paths` is idle. Primary owns all other files and the build slot.
 
 The user requests modular code, sparse/batched compilation, and bounded
 parallel delegation to Aristotle and smaller Claude/Luna/Terra models.

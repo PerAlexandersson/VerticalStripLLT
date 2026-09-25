@@ -49,6 +49,9 @@ A general-purpose symmetric-functions library is outside the scope.
 - `ColumnCharacterization.lean` proves the converse: every valid path with
   exactly one east step is a column. `FirstEast.lean` defines the total
   first-east height and identifies it with the prefix endpoint height.
+- `firstEast_north_reduction` and `firstEast_product_reduction` package valid
+  successors, strict measure decreases, and value identities for arbitrary
+  invariants satisfying the recurrence. The diagonal-predecessor branch is open.
 - `coloringLLT_pair_unicellular` proves
   `G_nnee − G_nene = (q−1) G_nde` for every finite alphabet.
 - In two variables, `coloringLLT_strictPair_eq_evalElementary_two` proves
