@@ -29,6 +29,7 @@ Recent source checkpoints, all pushed on private `main`:
 - `2aad0c1`: third single-bounce coloring relation.
 - `4d57097`: generic product and north-predecessor reduction certificates.
 - `73e8183`: orientation/HRV model and terminating bounce trace.
+- `5a33ef9`: uniform orientation column formula and coloring bridge.
 
 Column bridge checkpoint: full/default build (1436 jobs), all 176 public axiom
 checks, source guards,
@@ -45,23 +46,33 @@ and unicellular identities; its column criterion is complete:
 https://github.com/PerAlexandersson/VerticalStripLLT/issues/6.
 
 Aristotle project `09862def-0239-41ee-a563-b12536df8d1f`, task
-`1d8ce50d-cbb5-44fb-9f5a-a6680f35a163`, is `IN_PROGRESS` on
-`firstBounce_eastMiddle_of_recursion`, the precise generic implication left
-open by the restricted-bounce audit. Do not assume its result or restart it
-merely because an observer expires. Provenance is in `docs/ARISTOTLE.md`.
+`1d8ce50d-cbb5-44fb-9f5a-a6680f35a163`, is terminal `COMPLETE_WITH_ERRORS`.
+The requested generic implication remains unproved. Its archive contains a
+candidate bounded nonderivability theorem through size four; Terra is auditing
+it read-only. This does not give a global counterexample. See the remote ledger.
+
+Aristotle project `1d37e685-a581-4682-9b48-08fdcd5f3be6`, task
+`d1be4127-7c06-4481-b02c-2da410c82198`, is confirmed `IN_PROGRESS` on
+`orientationExpansionAt_concat`, using checked graph identities and exact HRV
+semantics. Observe this same job; do not restart because an observer expires.
 
 Next: prove orientation multiplicativity and the unicellular relation. In parallel, turn the terminating bounce trace into
 valid generalized-bounce transformations. The restricted generic nd value
-step remains an open proof obligation under Aristotle search. Terra's corrected
+step remains open after the terminal unsuccessful Aristotle search. The
+reviewed sufficient-certificate route is `docs/REDUCTION_CERTIFICATE.md`;
+its additional semantic field must be proved for both models. Terra's corrected
 trace uses a decreasing prefix word with its own strict gap.
 
 ## Ownership and build discipline
 
-Primary `/root` owns strategy, integration, all source files, and the sole
-project build slot. All Luna assignments have returned and released ownership.
-The final column bridge passed primary verification. Terra completed
-its read-only bounce, orientation, and column proof audits. No agent owns an
-active edit; no local Lean build is active.
+Primary `/root` owns strategy, integration, and the sole project build slot.
+Build-free ownership for this continuation:
+
+- `column_paths`: returned `HRVCongruence.lean`; primary owns integration.
+- `path_invariants`: owns `OrientationInsert.lean` again for fixes from the focused build.
+- `bounce_audit`: read-only audit of the terminal Aristotle bounded candidate.
+
+Primary owns all other files. No local Lean build is active.
 
 Keep all local builds serialized globally. Inspect running Lean/Lake processes
 before each invocation; use `lake-workspace` with reduced priority. Never use

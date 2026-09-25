@@ -46,3 +46,13 @@ The column case is proved in `OrientationColumn.lean`: the unique orientation
 has zero ascents, every vertex reaches the final vertex, and the only nonempty
 HRV fiber has size k+1. `ColumnBridge.lean` combines this independent proof
 with the previously checked coloring column theorem, uniformly in alphabet size.
+
+For the next identities, keep HRV transport separate from combinatorial
+orientation choices. `HRVCongruence.lean` will transfer reachability, maxima,
+fibers, and monomials from equality of upward-step relations on the same
+vertices. `OrientationInsert.lean` will split a fresh normal-edge direction
+from the remaining orientation and count its extra ascent. These are the two
+independent ingredients for the unicellular orientation bijection.
+Concatenation uses the already checked disjoint graph decomposition, transports
+reachability through `Fin.castAdd` and `Fin.natAdd`, then factors the fibers,
+monomial, and finite sum. No coloring/expansion equality is assumed.

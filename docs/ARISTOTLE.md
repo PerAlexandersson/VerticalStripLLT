@@ -215,10 +215,11 @@ workspace or reference snapshot wholesale; requests contain only needed inputs.
 - Primary reviewed and verified the port: full/default build (1429 jobs),
   all 155 public axiom checks, and source/reference guards pass.
 
-## Restricted first bounce with one leading east (in progress)
+## Restricted first bounce with one leading east (target not proved)
 
 - Project ID: `09862def-0239-41ee-a563-b12536df8d1f`.
-- Task ID: `1d8ce50d-cbb5-44fb-9f5a-a6680f35a163`, confirmed `IN_PROGRESS`.
+- Task ID: `1d8ce50d-cbb5-44fb-9f5a-a6680f35a163`, terminal `COMPLETE_WITH_ERRORS`
+  (2026-09-25 20:11 UTC).
 - Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/restricted-east-middle`.
 - Twenty-two checked modules, isolated Lean/Mathlib 4.28 snapshot.
 - Exact target `firstBounce_eastMiddle_of_recursion` extends the first-bounce
@@ -241,3 +242,25 @@ workspace or reference snapshot wholesale; requests contain only needed inputs.
   Luna implemented the local proof; primary repaired API/type details and
   verified the column bridge. Full/default build (1436 jobs), all 176 public
   axiom checks, and source/reference guards pass. Do not resubmit this target.
+
+The restricted-bounce archive contains an unchanged target with its placeholder,
+plus `firstBounce_eastMiddle_not_derivable_up_to_size_four`, a separate bounded
+candidate. Terra audited clause coverage, enumeration completeness arguments,
+and source preservation read-only. It is not locally verified or imported.
+Its `e ≡ 1` witness does not disprove the full recurrence, nor the manuscript's
+specific elementary-generator setting. See `RESTRICTED_BOUNCE_AUDIT.md`.
+A remote namespace-closing repair preserves local Lean EOF scoping; primary
+made that close explicit in `ThirdBouncePath.lean` for future flattened inputs.
+
+## Orientation multiplicativity (in progress)
+
+- Project ID: `1d37e685-a581-4682-9b48-08fdcd5f3be6`.
+- Task ID: `d1be4127-7c06-4481-b02c-2da410c82198`, confirmed `IN_PROGRESS`.
+- Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/orientation-concat`.
+- Ten checked modules, 922 lines, isolated Lean/Mathlib 4.28 snapshot.
+- Exact target `orientationExpansionAt_concat`: multiplicativity for every
+  pair of valid paths and every ascent parameter z, including zero-size paths.
+- Supplied graph block identities are already checked. The job must prove
+  the orientation equivalence, HRV transport, fiber and ascent factorization,
+  and finite sum identity. No coloring/expansion equality or recurrence law
+  may be assumed. Observe this same job; returned proofs need local validation.

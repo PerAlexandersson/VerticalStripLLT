@@ -74,3 +74,32 @@ so that theorem would not automatically license the eV instance anyway.
 
 The generic missing implication remains open. The direct coloring third-bounce
 proof can use already derived unrestricted scanner facts without this issue.
+
+## Bounded Aristotle candidate, 2026-09-25
+
+The isolated generic implication search terminated `COMPLETE_WITH_ERRORS`;
+the requested target remains unproved. Its separate candidate theorem
+`firstBounce_eastMiddle_not_derivable_up_to_size_four` constructs a witness
+for the size-at-most-four truncation with e identically 1. For
+U=[north], V=[], W=[east], its source and swapped values differ by q−1
+instead of satisfying the requested relation. The archive reports a kernel
+proof via exhaustive bounded enumeration and polynomial-list arithmetic.
+
+Terra audited the exact six bounded clauses, path/split completeness arguments,
+and lack of placeholders in that new section. Primary has not locally built
+the roughly 400-line candidate; it remains external audit material, not a
+project theorem. The only remaining placeholder is the original target.
+One archive docstring has W=[]; the actual theorem correctly uses W=[east].
+
+If locally validated, the result excludes an argument using only recurrence
+instances through size four for arbitrary supplied e. It does not establish
+nonimplication from the full recurrence, and e≡1 is not the manuscript's
+independent elementary-generator specialization. The report's larger-size
+Python explorations are unverified and do not justify a global conclusion.
+
+We retain the archived evidence and continue the concrete orientation proof.
+A possible alternative route to the main expansion is to prove the stronger
+unrestricted single-bounce identities independently for both concrete models,
+then apply a uniqueness theorem with those proved hypotheses. That route would
+leave the manuscript's exact restricted-recursion uniqueness theorem open;
+it must not alter `SatisfiesRecursion` or add assumptions to the final expansion.

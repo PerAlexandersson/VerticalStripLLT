@@ -299,3 +299,9 @@ are `orientationExpansion_column` and `shiftedOrientationExpansion_column`.
 `coloringLLT_column_eq_eval_orientationExpansion k m` is the resulting
 end-to-end equality for all columns and all finite alphabets, including zero.
 The arbitrary-path corollary remains open.
+
+The sufficient recurrence certificate for the main expansion is now separated
+from the exact manuscript-facing restricted predicate; see
+`REDUCTION_CERTIFICATE.md`. Its extra one-leading-east identity will be proved
+independently for both concrete models. The final expansion remains
+unconditional, and exact restricted-recursion uniqueness remains open.
