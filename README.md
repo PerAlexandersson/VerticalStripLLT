@@ -60,6 +60,12 @@ A general-purpose symmetric-functions library is outside the scope.
   `orientationExpansionAt_column` proves the column initial condition.
   `coloringLLT_column_eq_eval_orientationExpansion` identifies the independently
   defined coloring and orientation expressions for every column and alphabet.
+  `orientationExpansionAt_concat` proves orientation multiplicativity, with
+  separate orientation-splitting and HRV transport modules.
+- `SatisfiesReductionRecursion` adds a separately named sufficient bounce
+  clause for the reduction proof. Its coloring witness, generic third-bounce
+  consequence, and ring-map transport are checked. The original restricted
+  predicate stays unchanged; its exact uniqueness claim remains open.
 - `coloringLLT_pair_unicellular` proves
   `G_nnee − G_nene = (q−1) G_nde` for every finite alphabet.
 - In two variables, `coloringLLT_strictPair_eq_evalElementary_two` proves

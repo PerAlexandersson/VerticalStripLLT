@@ -3,142 +3,110 @@
 ## Current state
 
 The ordinary LLT expansion remains the active goal; it is not yet proved.
-The coloring-defined finite-variable polynomial satisfies the full normalized
-recurrence predicate: `coloringLLT_satisfiesRecursion`. Independently checked
-clauses are `coloringLLT_column`, `coloringLLT_concat`,
-`coloringLLT_unicellular`, `coloringLLT_firstBounce`, and
-`coloringLLT_secondBounce`, uniformly in every finite alphabet.
+The coloring polynomial satisfies `coloringLLT_satisfiesRecursion`, and all
+three single-bounce coloring identities are checked independently.
 
-`coloringLLT_thirdBounce` now additionally constructs both valid successors
-and proves the third single-bounce relation. It uses a separately proved
-`coloringLLT_firstBounce_general` with arbitrary middle words and explicit
-q−1 cancellation. The independent finite orientation expression is now defined,
-with HRV maximality/idempotence, fiber nonemptiness, and empty normalization.
-`orientationExpansionAt_column` proves its strict-column value for any ascent
-parameter. `coloringLLT_column_eq_eval_orientationExpansion` is the complete
-bridge for every column and every finite alphabet.
-`BounceSeed.trace` constructs the terminating prefix geometry certificate.
-No recursive invariant, uniqueness theorem, orientation recurrence bundle,
-or full semantic bridge is assumed or claimed complete.
+The independently defined orientation expression has checked empty and column
+values and multiplicativity: `orientationExpansionAt_empty`,
+`orientationExpansionAt_column`, and `orientationExpansionAt_concat`.
+`coloringLLT_column_eq_eval_orientationExpansion` proves the full bridge for
+all columns and all finite alphabets. Orientation splitting, ascent counts,
+reachability/HRV transport, and fiber factorization live in separate modules.
+`HRVCongruence`, `OrientationInsert`, and `OrientationInsertStep` supply checked
+fresh-edge primitives for the next unicellular proof.
 
-Recent source checkpoints, all pushed on private `main`:
+The separately named `SatisfiesReductionRecursion` adds one leading-east
+first-bounce clause to the unchanged manuscript-facing `SatisfiesRecursion`.
+Its coloring witness, `SatisfiesReductionRecursion.thirdBounce`, and
+`SatisfiesReductionRecursion.map` are checked. The generic third bounce uses
+explicit q−1 cancellation and constructs both valid successors. The map theorem
+transports identities without assuming preservation of cancellation.
+No generalized-bounce value theorem, uniqueness theorem, orientation recurrence
+bundle, or full semantic bridge is claimed complete.
 
-- `91bee5f`: converse column classification and first-east height API.
-- `275fb72`: second bounce and the normalized coloring recurrence bundle.
-- `c75046c`: valid word reductions and recurrence transport through ring maps.
-- `2aad0c1`: third single-bounce coloring relation.
-- `4d57097`: generic product and north-predecessor reduction certificates.
+Recent pushed checkpoints:
+
+- `4d57097`: generic product and north-predecessor reductions.
 - `73e8183`: orientation/HRV model and terminating bounce trace.
 - `5a33ef9`: uniform orientation column formula and coloring bridge.
+- `5a3b763`: reviewed sufficient-certificate proof route, recorded before implementation.
 
-Column bridge checkpoint: full/default build (1436 jobs), all 176 public axiom
-checks, source guards,
-line-length checks, `git diff --check`, and immutable-reference checks pass.
-Only standard Lean axioms occur. Logs:
+Current source batch: full/default build (1446 jobs), all 212 public axiom
+checks, global source/line-length guards, immutable-reference/initial-commit
+checks, and external-cache checks pass. Only standard Lean axioms occur.
+Logs are under `/lake-cache/ai-projects/build/VerticalStripLLT/`:
 
-- `/lake-cache/ai-projects/build/VerticalStripLLT/column-bridge-full-build.log`
-- `/lake-cache/ai-projects/build/VerticalStripLLT/column-bridge-axioms.log`
+- `orientation-product-full-build.log`
+- `orientation-product-axioms.log`
 
 ## Live work and next action
 
-Issues #1–5 are completed. Issue #6 tracks the orientation initial, product,
-and unicellular identities; its column criterion is complete:
+Issues #1–5 are complete. Issue #6 tracks the orientation initial, product,
+and unicellular identities; its column and product criteria are complete:
 https://github.com/PerAlexandersson/VerticalStripLLT/issues/6.
 
-Aristotle project `09862def-0239-41ee-a563-b12536df8d1f`, task
-`1d8ce50d-cbb5-44fb-9f5a-a6680f35a163`, is terminal `COMPLETE_WITH_ERRORS`.
-The requested generic implication remains unproved. Its archive contains a
-candidate bounded nonderivability theorem through size four; Terra is auditing
-it read-only. This does not give a global counterexample. See the remote ledger.
+Aristotle project `17bb2b30-57ab-40bf-b054-9640ec896ffc`, task
+`188a6fed-48fe-4246-99e8-26055f8683ba`, is confirmed `IN_PROGRESS` on
+`orientationExpansionAt_unicellular`. Observe this same job; do not restart
+because an observer expires. Its checked input has sixteen modules and the
+fresh-edge helpers. Provenance and request directories are in `docs/ARISTOTLE.md`.
 
-Aristotle project `1d37e685-a581-4682-9b48-08fdcd5f3be6`, task
-`d1be4127-7c06-4481-b02c-2da410c82198`, is confirmed `IN_PROGRESS` on
-`orientationExpansionAt_concat`, using checked graph identities and exact HRV
-semantics. Observe this same job; do not restart because an observer expires.
+The previous multiplicativity job `1d37e685-a581-4682-9b48-08fdcd5f3be6`,
+task `d1be4127-7c06-4481-b02c-2da410c82198`, completed and is integrated.
+Its supplied modules were byte-for-byte unchanged. Luna ported three modules;
+primary repaired namespace and two `ReflTransGen.lift` API details.
 
-Next: prove orientation multiplicativity and the unicellular relation. In parallel, turn the terminating bounce trace into
-valid generalized-bounce transformations. The restricted generic nd value
-step remains open after the terminal unsuccessful Aristotle search. The
-reviewed sufficient-certificate route is `docs/REDUCTION_CERTIFICATE.md`;
-its additional semantic field must be proved for both models. Terra's corrected
-trace uses a decreasing prefix word with its own strict gap.
+Next: port/check the unicellular result, then prove the direct orientation
+bounce identities. In parallel, turn the checked prefix trace into valid
+generalized-bounce transformations and lexicographic uniqueness under the
+separately proved sufficient certificate. Preserve shifted positivity and
+degree/stability as further requirements of the full objective.
 
 ## Ownership and build discipline
 
-Primary `/root` owns strategy, integration, and the sole project build slot.
-Build-free ownership for this continuation:
+Primary `/root` owns strategy, integration, all source files, and the sole
+project build slot. All Luna/Terra implementation tasks are returned and
+released. No local Lean build or nested Claude process is active.
+`bounce_audit` has a read-only follow-up audit of the generalized-bounce trace
+interface; it owns no file. No other worker owns an active edit.
 
-- `column_paths`: returned `HRVCongruence.lean`; primary owns integration.
-- `path_invariants`: owns `OrientationInsert.lean` again for fixes from the focused build.
-- `bounce_audit`: read-only audit of the terminal Aristotle bounded candidate.
+Keep local builds serialized globally. Inspect Lean/Lake processes before
+each invocation; use `lake-workspace` with reduced priority, never plain Lake.
+Luna remains the default build-free implementation worker. Record disjoint
+ownership before new tasks. User-authorized Terra/Claude audits and Aristotle
+proof searches may run in parallel; primary alone checks and pushes source.
 
-Primary owns all other files. No local Lean build is active.
+## Source obligations and decisions
 
-Keep all local builds serialized globally. Inspect running Lean/Lake processes
-before each invocation; use `lake-workspace` with reduced priority. Never use
-plain Lake or change dependencies to fit a remote candidate.
+`docs/FORMALIZATION.md` is the source map. `docs/RECURSION_PLAN.md` records
+measures and the checked product/north branches. `docs/BOUNCE_TRACE_PLAN.md`
+records the strict-gap prefix trace. `docs/ORIENTATION_MODEL.md` records the
+independent finite orientation/HRV expression.
 
-The user requests modular code, sparse/batched compilation, and bounded
-parallel delegation to Aristotle and smaller Claude/Luna/Terra models.
-Luna remains the default implementation worker, build-free. Record disjoint
-file ownership here before every new assignment. Primary runs authoritative
-local checks and pushes coherent verified checkpoints.
+`docs/REDUCTION_CERTIFICATE.md` records the reviewed route to the unconditional
+main expansion through identities proved directly for both semantic models.
+Do not rename its stronger predicate to `SatisfiesRecursion`, assume its
+orientation witness, or claim original restricted uniqueness is proved.
 
-## Checked supporting modules and open proof obligation
-
-`WordCounts`, `ColumnCharacterization`, `FirstEast`, and `NonemptyPath`
-provide count/endpoint formulas, the one-east column converse, the total
-first-east height and its endpoint meaning, and east-step existence for
-positive-size paths. `NorthEastReduction` constructs the valid contraction
-and swap and proves their east-count/first-east-height changes. `PathSplit`
-constructs valid prefix/suffix paths at a diagonal return, translating the
-suffix to the origin. `RecursionMap` transports all recurrence fields through
-a ring homomorphism. Exact declarations and remaining decreases are in
-`docs/RECURSION_PLAN.md`.
-
-All three single-bounce proofs have separate path/scanner, graph, and
-weight/algebra modules. Their semantic identity statements are in
-`FirstBounce`, `SecondBounce`, and `ThirdBounce`. `Recursion` defines the
-faithful restricted predicate; `ColoringRecursion` proves its coloring witness.
-The durable source map is `docs/FORMALIZATION.md`.
-
-`docs/RESTRICTED_BOUNCE_AUDIT.md` records a generic proof obligation: the
-source's displayed third-bounce derivation invokes a first-bounce instance
-with middle eV, outside the restricted recurrence. Terra and Claude Sonnet
-independently checked the local diagram. This does not establish a global
-counterexample or nonimplication. Primary rejected Sonnet's unsupported
-stronger claim and speculative extra-bounce route. Do not silently strengthen
-`SatisfiesRecursion` or claim generic uniqueness from the concrete coloring
-proof. Its unrestricted first-bounce helper is proved independently.
-
-Both read-only Claude audits completed successfully; no nested Claude process
-remains active. Their external directories are `recursion-audit/` and
-`restricted-bounce-audit/`. No external blocker applies.
+The generic restricted-east-middle search terminated `COMPLETE_WITH_ERRORS`
+(project `09862def-0239-41ee-a563-b12536df8d1f`). Its target remains unproved.
+A separate size-at-most-four nonderivability candidate is archived externally
+and audited read-only by Terra, but not locally verified or imported. It does
+not refute the full recurrence or the manuscript's elementary specialization.
+See `docs/RESTRICTED_BOUNCE_AUDIT.md`. No external blocker applies.
 
 ## Environment
 
 Initialization commits `830cc6b`, `130f7e8` and reviewed architecture `81b4885`
-are preserved. Reference files are unchanged from `130f7e8`. Do not edit them.
+are preserved. Reference files are unchanged from `130f7e8`; never edit them.
 Lean is `v4.34.0`, Mathlib `5ed2965256430c3649e86755f9576b54eca72435`.
 The wrapper package-directory warning is expected; never run `lake update`.
-No local `.lake/packages` or `.lake/build` exists; dependencies/builds live
-under `/lake-cache/ai-projects`.
+No local `.lake/packages` or `.lake/build` exists. Use invocation-local HTTPS
+rewriting plus `gh auth git-credential` to push; configured remotes stay unchanged.
 
-Use invocation-local HTTPS rewriting plus `gh auth git-credential` to push;
-SSH authentication is unavailable, and configured remotes must stay unchanged.
-Lean MCP defaults to RealRooted: use explicit-root read-only searches and local
-wrapper checks. Aristotle uses isolated Lean/Mathlib 4.28 snapshots; local
-4.34 verification is authoritative. Never expose credentials or upload the
-workspace/reference snapshot wholesale.
-
-Previous goal turn and this continuation both made verified proof progress.
-The full ordinary expansion remains unfinished; no completion/blocking audit
-has been claimed. Older inventories and history are archived under
-`docs/archive/` and preserved in Git.
-
-Aristotle rejected the independent orientation-column submission because the
-account already has the maximum number of active projects. No new project was
-created. The exact checked request is prepared under external `orientation-column/`.
-Keep the existing generic bounce job; Luna implemented the column locally,
-and primary verified it. Do not resubmit the now-completed column target.
-This service capacity limit does not block local proof progress.
+Aristotle uses isolated Lean/Mathlib 4.28 snapshots; local 4.34 checks are
+authoritative. Only one remote project has been accepted concurrently. Never
+infer submission success solely from CLI exit zero; require project/task IDs.
+All generated requests, archives, and audit candidates stay outside the checkout.
+Previous goal turns and this continuation made verified proof progress; the
+full objective remains active. Older inventories are under `docs/archive/`.

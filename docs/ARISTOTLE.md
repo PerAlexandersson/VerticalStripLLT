@@ -252,10 +252,11 @@ specific elementary-generator setting. See `RESTRICTED_BOUNCE_AUDIT.md`.
 A remote namespace-closing repair preserves local Lean EOF scoping; primary
 made that close explicit in `ThirdBouncePath.lean` for future flattened inputs.
 
-## Orientation multiplicativity (in progress)
+## Orientation multiplicativity (completed; locally checked)
 
 - Project ID: `1d37e685-a581-4682-9b48-08fdcd5f3be6`.
-- Task ID: `d1be4127-7c06-4481-b02c-2da410c82198`, confirmed `IN_PROGRESS`.
+- Task ID: `d1be4127-7c06-4481-b02c-2da410c82198`, confirmed `COMPLETE`
+  (2026-09-25 20:20 UTC).
 - Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/orientation-concat`.
 - Ten checked modules, 922 lines, isolated Lean/Mathlib 4.28 snapshot.
 - Exact target `orientationExpansionAt_concat`: multiplicativity for every
@@ -264,3 +265,26 @@ made that close explicit in `ThirdBouncePath.lean` for future flattened inputs.
   the orientation equivalence, HRV transport, fiber and ascent factorization,
   and finite sum identity. No coloring/expansion equality or recurrence law
   may be assumed. Observe this same job; returned proofs need local validation.
+
+The multiplicativity candidate preserves every supplied module byte-for-byte.
+Luna split it into `OrientationConcatSplit`, `OrientationConcatHRV`, and
+`OrientationConcat`. Primary repaired the final namespace and the two
+`ReflTransGen.lift` calls (4.34 makes endpoint arguments explicit), then
+verified the focused targets. No semantic definitions were changed.
+
+## Orientation unicellular relation (in progress)
+
+- Project ID: `17bb2b30-57ab-40bf-b054-9640ec896ffc`.
+- Task ID: `188a6fed-48fe-4246-99e8-26055f8683ba`, confirmed `IN_PROGRESS`.
+- Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/orientation-unicellular`.
+- Sixteen checked modules, 1243 lines, isolated Lean/Mathlib 4.28 snapshot.
+- Exact target `orientationExpansionAt_unicellular`: for every valid U d V
+  and coefficient parameter z, the NE-minus-EN expression is C(z) times D.
+- Inputs include the checked marked-edge identities, fresh-edge orientation
+  equivalence and ascent count, upward-step effect, and HRV congruence. The
+  proof must establish the true/false orientation bijection and finite sums;
+  no coloring/expansion equality may be assumed. Observe this same job.
+
+The integrated multiplicativity/helper/certificate batch passed the default
+local build (1446 jobs), all 212 public axiom checks, global source guards,
+and immutable-reference checks. The unicellular job remains separate and active.

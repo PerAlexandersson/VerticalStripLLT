@@ -305,3 +305,12 @@ from the exact manuscript-facing restricted predicate; see
 `REDUCTION_CERTIFICATE.md`. Its extra one-leading-east identity will be proved
 independently for both concrete models. The final expansion remains
 unconditional, and exact restricted-recursion uniqueness remains open.
+
+`orientationExpansionAt_concat` now proves independent orientation
+multiplicativity for arbitrary valid paths, uniformly in the ascent parameter.
+Its modules separate edge/orientation splitting, reachability/HRV transport,
+and the finite sum. `HRVCongruence`, `OrientationInsert`, and
+`OrientationInsertStep` provide checked fresh-edge primitives for unicellular.
+The sufficient certificate and its coloring witness, generic third-bounce
+consequence, and ring-map transport are implemented; they are distinct from
+an unproved uniqueness assertion for the original restricted predicate.

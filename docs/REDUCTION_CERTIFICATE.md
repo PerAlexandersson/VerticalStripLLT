@@ -52,3 +52,12 @@ exact restricted-recursion uniqueness theorem. Keep that difference visible
 in the source map, handoff, and final theorem inventory. It is not legitimate
 to rename the stronger certificate to `SatisfiesRecursion` or claim the open
 restricted implication has been proved.
+
+Implemented: `SatisfiesReductionRecursion`,
+`coloringLLT_satisfiesReductionRecursion`,
+`SatisfiesReductionRecursion.thirdBounce`, and
+`SatisfiesReductionRecursion.map`. The generic third-bounce theorem constructs
+both valid successors and uses the seven local equations followed by explicit
+nonzero-factor cancellation. The map theorem transports identities only;
+it does not claim preservation of the domain/cancellation hypotheses.
+Generalized bounce and lexicographic uniqueness remain open.

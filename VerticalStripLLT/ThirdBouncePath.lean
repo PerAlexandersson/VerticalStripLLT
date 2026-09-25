@@ -56,3 +56,5 @@ theorem thirdBounce_corner_lt (U V : List Step)
   lia
 
 end Step
+
+end VerticalStripLLT
