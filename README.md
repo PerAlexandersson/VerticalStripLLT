@@ -57,6 +57,9 @@ A general-purpose symmetric-functions library is outside the scope.
 - The independent orientation expression is now defined using finite normal
   edge choices and highest-reachable-vertex fibers. HRV maximality and
   idempotence, fiber nonemptiness, and empty-path normalization are proved.
+  `orientationExpansionAt_column` proves the column initial condition.
+  `coloringLLT_column_eq_eval_orientationExpansion` identifies the independently
+  defined coloring and orientation expressions for every column and alphabet.
 - `coloringLLT_pair_unicellular` proves
   `G_nnee − G_nene = (q−1) G_nde` for every finite alphabet.
 - In two variables, `coloringLLT_strictPair_eq_evalElementary_two` proves

@@ -41,3 +41,8 @@ Mathlib APIs audited locally: `Relation.ReflTransGen`, its `refl`, `single`,
 `trans`, and induction; `Finset.max'`, `max'_mem`, `le_max'`, `max'_le`.
 Classical decidability is acceptable for finite reachability. A computable
 transitive-closure implementation is not required for the initial theorem.
+
+The column case is proved in `OrientationColumn.lean`: the unique orientation
+has zero ascents, every vertex reaches the final vertex, and the only nonempty
+HRV fiber has size k+1. `ColumnBridge.lean` combines this independent proof
+with the previously checked coloring column theorem, uniformly in alphabet size.

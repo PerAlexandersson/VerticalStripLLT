@@ -29,3 +29,4 @@ import VerticalStripLLT.NorthPredecessor
 import VerticalStripLLT.ProductReduction
 import VerticalStripLLT.BounceTrace
 import VerticalStripLLT.OrientationExpansion
+import VerticalStripLLT.ColumnBridge

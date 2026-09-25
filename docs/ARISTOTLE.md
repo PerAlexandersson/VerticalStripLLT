@@ -229,7 +229,7 @@ workspace or reference snapshot wholesale; requests contain only needed inputs.
   local diagram and the need for a new global argument. This is an open proof
   search, not an established implication. Observe this same task.
 
-## Orientation column (prepared; submission rejected by service capacity)
+## Orientation column (service rejected submission; completed locally)
 
 - Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/orientation-column`.
 - Eight locally checked modules, 560 lines, isolated Lean/Mathlib 4.28 snapshot.
@@ -238,4 +238,6 @@ workspace or reference snapshot wholesale; requests contain only needed inputs.
   give `elementary k.succPNat`. Terra independently audited the proof outline.
 - Submission on 2026-09-25 was rejected: too many projects in progress. No
   project/task ID exists. Do not cancel the generic bounce search to make room.
-  Luna is assigned the small local proof while that job continues.
+  Luna implemented the local proof; primary repaired API/type details and
+  verified the column bridge. Full/default build (1436 jobs), all 176 public
+  axiom checks, and source/reference guards pass. Do not resubmit this target.

@@ -173,3 +173,7 @@ import VerticalStripLLT
 #print axioms VerticalStripLLT.orientationExpansionAt_empty
 #print axioms VerticalStripLLT.orientationExpansion_empty
 #print axioms VerticalStripLLT.shiftedOrientationExpansion_empty
+#print axioms VerticalStripLLT.orientationExpansionAt_column
+#print axioms VerticalStripLLT.orientationExpansion_column
+#print axioms VerticalStripLLT.shiftedOrientationExpansion_column
+#print axioms VerticalStripLLT.coloringLLT_column_eq_eval_orientationExpansion

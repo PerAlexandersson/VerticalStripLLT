@@ -14,6 +14,9 @@ and proves the third single-bounce relation. It uses a separately proved
 `coloringLLT_firstBounce_general` with arbitrary middle words and explicit
 q−1 cancellation. The independent finite orientation expression is now defined,
 with HRV maximality/idempotence, fiber nonemptiness, and empty normalization.
+`orientationExpansionAt_column` proves its strict-column value for any ascent
+parameter. `coloringLLT_column_eq_eval_orientationExpansion` is the complete
+bridge for every column and every finite alphabet.
 `BounceSeed.trace` constructs the terminating prefix geometry certificate.
 No recursive invariant, uniqueness theorem, orientation recurrence bundle,
 or full semantic bridge is assumed or claimed complete.
@@ -25,24 +28,21 @@ Recent source checkpoints, all pushed on private `main`:
 - `c75046c`: valid word reductions and recurrence transport through ring maps.
 - `2aad0c1`: third single-bounce coloring relation.
 - `4d57097`: generic product and north-predecessor reduction certificates.
+- `73e8183`: orientation/HRV model and terminating bounce trace.
 
-Orientation/trace checkpoint: full/default build (1434 jobs), all 172 public axiom checks, source guards,
+Column bridge checkpoint: full/default build (1436 jobs), all 176 public axiom
+checks, source guards,
 line-length checks, `git diff --check`, and immutable-reference checks pass.
 Only standard Lean axioms occur. Logs:
 
-- `/lake-cache/ai-projects/build/VerticalStripLLT/orientation-trace-full-build.log`
-- `/lake-cache/ai-projects/build/VerticalStripLLT/orientation-trace-axioms.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/column-bridge-full-build.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/column-bridge-axioms.log`
 
 ## Live work and next action
 
-Issues #1–5 are completed. The first-east reduction checkpoint is `4d57097`:
-https://github.com/PerAlexandersson/VerticalStripLLT/issues/5.
-
-The product and north-predecessor certificates have passed the batched focused
-build, full/default build, and all public axiom checks. Primary reviewed both
-and integrated their root imports and public audit entries. The product proof came from completed Aristotle project
-`48e8781d-7ebb-4e80-a093-9bd7e674cf0c`, task
-`22c118e9-b109-4fcc-9854-d93bfd73c353`, ported by Luna.
+Issues #1–5 are completed. Issue #6 tracks the orientation initial, product,
+and unicellular identities; its column criterion is complete:
+https://github.com/PerAlexandersson/VerticalStripLLT/issues/6.
 
 Aristotle project `09862def-0239-41ee-a563-b12536df8d1f`, task
 `1d8ce50d-cbb5-44fb-9f5a-a6680f35a163`, is `IN_PROGRESS` on
@@ -50,32 +50,22 @@ Aristotle project `09862def-0239-41ee-a563-b12536df8d1f`, task
 open by the restricted-bounce audit. Do not assume its result or restart it
 merely because an observer expires. Provenance is in `docs/ARISTOTLE.md`.
 
-Next: verify the orientation column identity, then its multiplicativity and
-unicellular relation. In parallel, turn the terminating bounce trace into
+Next: prove orientation multiplicativity and the unicellular relation. In parallel, turn the terminating bounce trace into
 valid generalized-bounce transformations. The restricted generic nd value
 step remains an open proof obligation under Aristotle search. Terra's corrected
 trace uses a decreasing prefix word with its own strict gap.
 
 ## Ownership and build discipline
 
-Primary `/root` owns strategy, integration, every current source file, and
-the sole project build slot. Reduction ports are complete;
-new disjoint build-free assignments are recorded below. No local Lean build is active. All local
-checks remain serialized globally; inspect running Lean/Lake processes before
-each invocation, use `lake-workspace`, and use reduced priority. Never use
-plain Lake or change dependencies to fit a remote candidate.
+Primary `/root` owns strategy, integration, all source files, and the sole
+project build slot. All Luna assignments have returned and released ownership.
+The final column bridge passed primary verification. Terra completed
+its read-only bounce, orientation, and column proof audits. No agent owns an
+active edit; no local Lean build is active.
 
-Both reduction-file assignments are released to primary after focused verification.
-`path_invariants` returned `BounceSeed.lean`; ownership released to primary.
-`bounce_audit` completed its read-only orientation/HRV representation audit.
-`column_paths` returned `Orientation.lean` and `HRV.lean`; ownership released
-to primary for the batched focused check. New build-free assignment:
-`column_paths` returned `OrientationExpansion.lean`; ownership is released
-to primary for integration. Primary owns all other
-files and the build slot. `path_invariants` returned `BounceTrace.lean`;
-primary now owns all returned candidates. New build-free assignment:
-`column_paths` owns only new `OrientationColumn.lean`, proving the strict-column
-initial condition from the checked orientation/HRV definitions.
+Keep all local builds serialized globally. Inspect running Lean/Lake processes
+before each invocation; use `lake-workspace` with reduced priority. Never use
+plain Lake or change dependencies to fit a remote candidate.
 
 The user requests modular code, sparse/batched compilation, and bounded
 parallel delegation to Aristotle and smaller Claude/Luna/Terra models.
@@ -138,5 +128,6 @@ has been claimed. Older inventories and history are archived under
 Aristotle rejected the independent orientation-column submission because the
 account already has the maximum number of active projects. No new project was
 created. The exact checked request is prepared under external `orientation-column/`.
-Keep the existing generic bounce job; Luna can implement the column meanwhile.
+Keep the existing generic bounce job; Luna implemented the column locally,
+and primary verified it. Do not resubmit the now-completed column target.
 This service capacity limit does not block local proof progress.

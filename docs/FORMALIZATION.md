@@ -292,3 +292,10 @@ orientation recurrence or equality with coloring semantics is yet claimed.
 and the strict child gap. `BounceSeed.trace` constructs a finite prefix trace
 by strong induction on word length. This is a word-geometry certificate;
 transformed-path validity and generalized-bounce value identities are separate.
+
+`orientationExpansionAt_column k z` now proves the independent orientation
+initial condition uniformly in the ascent parameter z. Its specializations
+are `orientationExpansion_column` and `shiftedOrientationExpansion_column`.
+`coloringLLT_column_eq_eval_orientationExpansion k m` is the resulting
+end-to-end equality for all columns and all finite alphabets, including zero.
+The arbitrary-path corollary remains open.
