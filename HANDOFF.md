@@ -28,7 +28,8 @@
 
 Pursue the single-bounce coloring relations using the audited decomposition
 in `docs/BOUNCE_PLAN.md`. The general unicellular theorem has passed the local
-batch build and axiom audit; issue #3 is ready to close with this checkpoint.
+batch build and axiom audit; issue #3 is closed. The bounce milestone is issue
+https://github.com/PerAlexandersson/VerticalStripLLT/issues/4.
 
 Aristotle project `8099d4f4-4cb0-4b15-b617-ce2a18f3ee54` is newly submitted for
 the restricted swap-sum identity under explicit graph symmetry hypotheses.
@@ -130,6 +131,9 @@ process exited. Do not infer build-slot ownership from an old lock or status not
   pushed after full build, 39 axiom checks, and source/reference guards.
 - Coloring multiplicativity and unicellular helpers: `156aef3`, pushed;
   full build and 51 public axiom checks pass. Issue #2 is closed.
+- General unicellular relation and swap primitives: `f7bb5b4`, pushed;
+  full build and 62 public axiom checks pass. Issue #3 is closed; issue #4
+  tracks the remaining two single-bounce recursion clauses.
 - Private repository, branch `main`. No branch, remote, or account changes.
 - Lean `v4.34.0`, Mathlib `5ed2965256430c3649e86755f9576b54eca72435`.
 - Wrapper package-directory warning is expected; never respond with `lake update`.
