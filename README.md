@@ -22,11 +22,15 @@ A general-purpose symmetric-functions library is outside the scope.
   finite alphabet. Its finite-subset bijection proof came from Aristotle and
   was ported by Luna and checked locally.
 - `SchroderPath.concat` concatenates arbitrary valid paths. The raw path and
-  edge scanners satisfy append and translation laws; coloring multiplicativity
-  remains the next proof obligation.
+  edge scanners satisfy append and translation laws. `coloringLLT_concat`
+  proves coloring multiplicativity for all paths and finite alphabets, by
+  decomposing the graph, factoring each weight, and splitting the finite sum.
 - `coloringSplitEquiv` and `sum_colorings_split_mul` split finite colorings and
   factor independent sums. Diagonal steps can be resolved into `ne` or `en`
   while preserving validity; the unchanged edge scanners are proved equal.
+- `markedDiagonalEdge` locates the strict edge at a chosen diagonal step.
+  `coloringWeight_unicellular_of_edges` proves the local weight relation from
+  explicit edge-insertion hypotheses; the full path identity is still open.
 - `coloringLLT_pair_unicellular` proves
   `G_nnee − G_nene = (q−1) G_nde` for every finite alphabet.
 - In two variables, `coloringLLT_strictPair_eq_evalElementary_two` proves
@@ -34,7 +38,7 @@ A general-purpose symmetric-functions library is outside the scope.
   `G_nnee = e₁² + (q−1)e₂` by evaluating a separate formal expression.
 
 The general column initial condition and the first local recursion case are
-proved. Coloring multiplicativity, general unicellular and bounce relations,
+proved. General unicellular and bounce relations,
 recurrence uniqueness, a terminating recursive invariant, the orientation
 formula, and the full semantic bridge remain to be proved.
 

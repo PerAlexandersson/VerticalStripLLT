@@ -173,16 +173,19 @@ subset bijection used in this proof; its candidate originated from Aristotle.
 `PathInvariants.lean` proves orderedness and disjointness of graph edges.
 `PathBounds.lean` provides endpoint bounds. `Concat.lean` defines valid path
 concatenation and proves append/translation laws for validity and both edge
-scanners. These establish the graph foundations of milestone 3. The coloring
-multiplicativity identity and finite-alphabet specialization are still open;
-we do not mark all of milestone 3 complete.
+scanners. `ColoringConcat.lean`, `coloringLLT_concat`, now proves the coloring
+multiplicativity identity, using disjoint embedded edge sets and factoring
+admissibility, ascent counts, vertex monomials, and finite sums. This is
+Proposition `coloringProperties` (ii), manuscript lines 2323–2339. The proof
+candidate originated from Aristotle and was ported and checked locally.
+Finite-alphabet specialization remains open; milestone 3 is not fully complete.
 
 ## Supporting finite-sum and local-path identities
 
 `ColoringSplit.lean` supplies `coloringSplitEquiv`, `sum_colorings_split`, and
 `sum_colorings_split_mul` for all sizes and alphabet cardinalities, including
-zero. These isolate the finite-sum step of coloring multiplicativity from the
-still-required graph and weight factorization.
+zero. These isolate the finite-sum step of coloring multiplicativity from its
+graph and weight factorization.
 
 `UnicellularPath.lean` proves that a valid `U d V` has valid resolutions
 `U ne V` and `U en V`. It also proves that `U en V` has the same normal-edge
@@ -190,9 +193,14 @@ scanner as `U d V`, and the two resolutions have the same strict-edge scanner.
 This begins the general relation in Proposition `coloringProperties` (iii),
 manuscript lines 2341–2352; it does not yet prove that polynomial relation.
 
-The next local obligations are to locate the endpoint `(x,y)` of `U`, prove
-that the marked diagonal gives a valid vertex pair, and characterize the two
-changed edge sets by inserting that pair. Strict/normal disjointness then
-shows the inserted normal edge is new. Split the colorings according to
-`c x < c y`; the pointwise weight identity yields the general unicellular
-relation by summation. No recursive invariant is used in this proof.
+`MarkedDiagonal.lean` locates the endpoint `(x,y)` of `U`, constructs the
+marked vertex pair, and proves strict-edge membership. `UnicellularWeight.lean`
+proves the pointwise weight identity under the four explicit edge-set
+equalities, by splitting admissibility and the marked color inequality.
+
+The remaining local obligations are to characterize the two changed edge
+sets by insertion of the marked pair. Strict/normal disjointness shows that
+the inserted normal edge is new. The checked pointwise weight identity then
+yields the general unicellular relation by summation. No recursive invariant
+is used in this proof. Aristotle is searching this remaining step with the
+checked helpers as input; service status alone is not a local proof.

@@ -40,3 +40,15 @@ import VerticalStripLLT
 #print axioms VerticalStripLLT.Step.strictFrom_resolve
 #print axioms VerticalStripLLT.SchroderPath.resolveNorthEast
 #print axioms VerticalStripLLT.SchroderPath.resolveEastNorth
+#print axioms VerticalStripLLT.SchroderPath.disjoint_left_right_maps
+#print axioms VerticalStripLLT.SchroderPath.concat_normalEdges
+#print axioms VerticalStripLLT.SchroderPath.concat_strictEdges
+#print axioms VerticalStripLLT.admissible_concat_append
+#print axioms VerticalStripLLT.ascentCount_concat_append
+#print axioms VerticalStripLLT.coloringWeight_concat_append
+#print axioms VerticalStripLLT.coloringLLT_concat
+#print axioms VerticalStripLLT.Step.validFrom_suffix
+#print axioms VerticalStripLLT.Step.strictFrom_marked
+#print axioms VerticalStripLLT.Step.markedDiagonal_bounds
+#print axioms VerticalStripLLT.SchroderPath.markedDiagonalEdge_mem
+#print axioms VerticalStripLLT.coloringWeight_unicellular_of_edges

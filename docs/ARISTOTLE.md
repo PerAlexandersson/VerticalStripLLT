@@ -48,11 +48,11 @@ implementation files. Keep generated requests/results outside the checkout.
 - Superseded: Luna implemented these laws in `Concat.lean`, and primary fixed
   the last normalization steps and verified them. No remote submission needed.
 
-## Coloring multiplicativity (active)
+## Coloring multiplicativity (completed and locally verified)
 
 - Project ID: `0ae224b5-c423-4820-80fe-66635b0c8c93`.
 - Task ID: `1f6544ca-c869-470a-8f4a-514afa8ca2a8`.
-- SDK query confirmed `IN_PROGRESS` after submission.
+- SDK query confirmed `COMPLETE`, 100 percent, on 2026-09-25.
 - Request directory:
   `/lake-cache/ai-projects/requests/VerticalStripLLT/coloring-concat`.
 - Self-contained snapshot of the checked path, bounds, concat, polynomial, and
@@ -60,11 +60,38 @@ implementation files. Keep generated requests/results outside the checkout.
 - Exact target: `coloringLLT (P.concat Q) m = coloringLLT P m * coloringLLT Q m`
   for all valid paths and finite alphabets. The request includes the graph
   decomposition, coloring equivalence, ascent, and finite-sum proof outline.
-- Same service/local toolchain difference applies. Use current SDK status and
-  this exact handle on continuation; do not restart because an observer expired.
-- Latest checkpoint observation: `IN_PROGRESS`, 7 percent. Live events show
-  dependency/toolchain adjustments and build diagnostics, with no proof
-  candidate yet extracted. The local toolchain and manifest are unchanged.
+- Completed export retained as `result.tar.gz`; selected source extracted as
+  `completed-candidate.lean`. The diff preserves all existing definitions and
+  statements, adds helper lemmas, and replaces the final proof placeholder.
+- Luna ported its new declarations to `ColoringConcat.lean`. Primary repaired
+  remaining Lean 4.34 simplifier transparency differences, verified focused
+  and full builds, and audited the public theorems' axioms.
+- The result proves the disjoint graph decomposition, admissibility and ascent
+  factorization, pointwise weight multiplication, and `coloringLLT_concat`
+  for every path pair and finite alphabet. The finite sum uses `Fin.appendEquiv`.
+- The remote job changed its isolated toolchain to Lean 4.28 and used Mathlib
+  v4.28.0. The local toolchain and manifest remain unchanged at Lean 4.34.
+
+## General unicellular relation (active)
+
+- Project ID: `7cac7db7-a2d1-4c27-8522-9b43c7690ed8`.
+- Task ID: `2496607b-8e35-455c-9ee7-7a60c6ef4618`.
+- SDK query confirmed `IN_PROGRESS` after submission.
+- Request directory:
+  `/lake-cache/ai-projects/requests/VerticalStripLLT/general-unicellular`.
+- Self-contained snapshot of nine checked local modules, including path
+  resolutions, the marked diagonal, and the pointwise edge-insertion weight
+  identity. No reference material or credentials were uploaded.
+- Exact target: for a valid `U d V`, prove
+  `G_(U ne V) - G_(U en V) = C(q-1) * G_(U d V)` for every finite alphabet.
+- Remaining proof outline: scanner insertion identities by induction on U,
+  corresponding finset identities, freshness from strict/normal disjointness,
+  then the checked pointwise identity and summation.
+- This isolated request pins the observed service environment Lean/Mathlib
+  v4.28.0, avoiding the earlier initial toolchain mismatch. All returned
+  candidates must still pass the unchanged local Lean 4.34 environment.
+- Observe this exact handle; do not duplicate a live task after an observation
+  timeout. Luna should port its candidate; primary remains sole local builder.
 
 The API credential is loaded by the shared environment helper and is never
 passed on the command line or stored in this repository. Do not upload the

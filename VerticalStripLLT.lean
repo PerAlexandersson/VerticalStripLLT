@@ -4,3 +4,6 @@ import VerticalStripLLT.ColumnBase
 import VerticalStripLLT.Concat
 import VerticalStripLLT.ColoringSplit
 import VerticalStripLLT.UnicellularPath
+import VerticalStripLLT.ColoringConcat
+import VerticalStripLLT.MarkedDiagonal
+import VerticalStripLLT.UnicellularWeight
