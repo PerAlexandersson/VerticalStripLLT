@@ -21,27 +21,29 @@ Latest source checkpoints, all pushed on private `main`:
 - `36cc80a`: second-bounce successor and audited coloring-involution plans.
 - `c795bc4`: first-bounce identity, modular graph/weight proofs, recursion helpers.
 - `91bee5f`: converse column classification and first-east height API.
+- `275fb72`: second bounce and the coloring recurrence bundle; issue #4 closed.
 
-Full/default build (1417 jobs), all 126 public axiom checks, source guards,
+Full/default build (1421 jobs), all 140 public axiom checks, source guards,
 line-length checks, `git diff --check`, and immutable-reference checks pass.
 Only standard Lean axioms occur. Logs:
 
-- `/lake-cache/ai-projects/build/VerticalStripLLT/coloring-recursion-full-build.log`
-- `/lake-cache/ai-projects/build/VerticalStripLLT/coloring-recursion-axioms.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/recursion-support-full-build.log`
+- `/lake-cache/ai-projects/build/VerticalStripLLT/recursion-support-axioms.log`
 
 ## Live work and next action
 
-Issue #4 tracks the two single-bounce coloring identities:
+Issue #4 is closed with both single-bounce coloring identities proved:
 https://github.com/PerAlexandersson/VerticalStripLLT/issues/4.
-Issues #1–3 are completed. Read `docs/BOUNCE_PLAN.md` before implementing the
+Issues #1–4 are completed. Read `docs/BOUNCE_PLAN.md` before implementing the
 bounce geometry; it records independently audited word/endpoint hypotheses
 and the direct coloring involutions, including equality boundary cases.
 
 Both Aristotle single-bounce candidates are complete, ported by Luna,
 independently audited by Terra, and locally verified by primary. Issue #4
-is ready to close at this checkpoint.
+was closed after checkpoint `275fb72`.
 Third-bounce project `13d18bc3-ffad-4cb1-9807-9b4d3cb4cb04`, task
-`372dfa89-c025-4779-8611-1fad2f31a341`, is confirmed `IN_PROGRESS`.
+`372dfa89-c025-4779-8611-1fad2f31a341`, is confirmed `COMPLETE` (100 percent).
+Downloaded `third-bounce/completed-candidate.lean` is awaiting local port.
 It must construct both valid successor paths and prove the third coloring
 identity for every finite alphabet, with no assumed graph identities.
 All remote provenance, inputs, outputs, and environment details are in
@@ -54,15 +56,17 @@ see `docs/RECURSION_PLAN.md` for accepted conclusions and corrections.
 Prompt/output: `/lake-cache/ai-projects/requests/VerticalStripLLT/recursion-audit/`.
 No nested Claude process remains active.
 
-Next: verify the returned north/east reduction and diagonal-return path
-split candidates, then port the third-bounce result when available.
+Next: locally verify the returned third-bounce candidate. The north/east
+reduction, diagonal-return split, positive-path east-step lemma, and recurrence
+transport are all checked; declaration details are in `RECURSION_PLAN.md`.
 `RESTRICTED_BOUNCE_AUDIT.md` records a newly identified generic proof
 obligation: the displayed third-bounce derivation invokes a first-bounce
 instance with middle eV, outside the restricted recurrence. This is not a
-counterexample or a reason to change the target. Claude Sonnet is independently
-checking alternative decompositions/derivations in native exec session `63513`
-(20-minute cap, read-only). Prompt/output are under external
-`restricted-bounce-audit/`. Primary owns monitoring this child.
+counterexample or a reason to change the target. Claude Sonnet completed its independent read-only audit (session `63513`,
+exit 0). Primary accepted the local-diagram finding but rejected unsupported
+claims of global nonimplication and the speculative extra-bounce route; see
+`RESTRICTED_BOUNCE_AUDIT.md`. No nested Claude process remains active.
+Prompt/output are under external `restricted-bounce-audit/`.
 
 ## Ownership and build discipline
 
@@ -89,11 +93,16 @@ coloring-semantic witness. No recursive invariant is defined.
 Terra `bounce_audit` independently audits the candidate read-only.
 Primary owns integration, docs, source guards, and the sole local build slot.
 
-Next bounded assignments (build-free): `path_invariants` owns only
-`NorthEastReduction.lean` (valid local contraction/swap and measure changes);
-`column_paths` owns only `PathSplit.lean` (valid prefix/suffix splitting at a
-diagonal return). Both use checked APIs and remain independent of the remote
-third-bounce job. Primary owns all previously returned files.
+`NorthEastReduction.lean` and `PathSplit.lean` have passed focused builds;
+primary adopted them and is completing the full checkpoint. No active edits
+remain on those files. `NonemptyPath.lean` and `RecursionMap.lean` have also been returned and are
+primary-owned for final verification. No subagent currently owns an edit.
+
+All three third-bounce port files have been returned to primary:
+`ThirdBouncePath.lean`, `ThirdBounceWeight.lean`, and `ThirdBounce.lean`.
+Primary is checking imports and local syntax before their batch build.
+Terra audits the unchanged target and unrestricted helper read-only.
+No subagent currently owns an edit.
 
 The user explicitly requests modular code, sparse/batched compilation, and
 parallel bounded delegation to Aristotle and smaller Claude/Luna/Terra models.
@@ -142,9 +151,9 @@ and its recurrence; ordinary expansion, shifted positivity, degree/stability.
 The manuscript's `F_ne=1` typo is resolved as `e₁`. Cancellation of q−1 over
 integral coefficient rings must be justified explicitly.
 
-Current checkpoint after `91bee5f`: both single-bounce coloring identities
-and `coloringLLT_satisfiesRecursion`, with the checks above. Local Lean is idle.
-One remote Aristotle proof and one bounded read-only Claude audit are active;
-returned Luna word candidates await the next batch. Previous goal turn was
-verified progress; this continuation has further checked proof progress.
-No blocker applies.
+Current checkpoint after `275fb72`: checked north/east reduction, diagonal
+return split, positive-path east-step existence, and recurrence transport.
+Primary is verifying the third-bounce port next. Aristotle's third job and
+the nested Claude audit both completed; no new remote proof has been submitted.
+Previous goal turn was verified progress; this continuation has further
+checked proof progress. No blocker applies.

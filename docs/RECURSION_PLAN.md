@@ -95,3 +95,21 @@ word decomposition, the count formula for its height, and
 `Step.firstEastHeight_append_east`, identifying that height with the prefix
 endpoint's second coordinate. These facts establish the intended measure's
 meaning; strict decreases and the complete recursive reduction are still open.
+
+`NorthEastReduction.lean` constructs the valid `ne → d` contraction and
+`ne → en` swap under the strict prefix gap. It proves the east-count decrease
+for contraction, unchanged east count for the swap, and first-east-height
+decrease by one when U contains no east. These supply the arithmetic part of
+the north-predecessor reduction; the full exhaustive certificate is still open.
+
+`PathSplit.lean` constructs `prefixAtReturn` of size k and `suffixAtReturn`
+of size n−k from a valid concatenated word whose prefix ends at `(k,k)`.
+The suffix validity is translated back to the origin. Strict positivity and
+strict size decreases for the first-east split remain to be proved.
+`NonemptyPath.lean` proves that size zero is equivalent to the empty word,
+and that every positive-size path contains an east step.
+
+`RecursionMap.lean`, `SatisfiesRecursion.map`, transports every named recurrence
+field through a ring homomorphism. In particular it will transport formal
+orientation recurrences through `evalElementary`, once those recurrences have
+been independently proved. It does not assume their existence.

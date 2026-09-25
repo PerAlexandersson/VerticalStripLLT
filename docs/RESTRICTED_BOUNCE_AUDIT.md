@@ -3,8 +3,9 @@
 Status: a proof obligation identified during source audit, not a counterexample
 to the manuscript or a claim that its theorem is false. Terra checked the
 local relation diagram below; primary checked the cited source. A separate
-Claude Sonnet audit is examining possible alternative decompositions or
-noncircular derivations. Its prompt/output live in the external
+Claude Sonnet audit completed and independently confirmed the local diagram.
+Primary accepted that conclusion, with the corrections below. Its prompt/output
+live in the external
 `restricted-bounce-audit` request directory.
 
 The recurrence at `main.tex:851–871` restricts the middle word V to north and
@@ -52,3 +53,23 @@ the current Aristotle target. A future stronger relation interface may be
 useful, but any use in the ordinary expansion must discharge its assumptions
 independently for both the coloring and orientation expressions. The final
 ordinary expansion must remain unconditional for every valid path.
+
+## Review of the independent audit
+
+Sonnet independently recovered the same missing local instance. Its stronger
+sentence that the relation is “not implied” by the full restricted recurrence
+is not established by this analysis and is not adopted. The audit proves only
+that the displayed local diagram is insufficient; it supplies no global
+counterexample or proof of nonimplication.
+
+The proposed escape through an extra bounce point is also not adopted. Write
+`endpoint U=(a,i)` and the endpoint just before the final diagonal as `(i,j)`.
+Replacing initial nd by nne preserves displacement. In A=`U nn eV de W`,
+the westward return at height i+1 still meets the point after the first north
+step, incident to the following north step; the inserted east lies at height
+i+2. It does not create the suggested extra bounce at this start. Moreover,
+the generalized-bounce statement itself retains the no-east-middle condition,
+so that theorem would not automatically license the eV instance anyway.
+
+The generic missing implication remains open. The direct coloring third-bounce
+proof can use already derived unrestricted scanner facts without this issue.

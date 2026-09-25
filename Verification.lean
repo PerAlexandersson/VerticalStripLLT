@@ -127,3 +127,17 @@ import VerticalStripLLT
 #print axioms VerticalStripLLT.coloringLLT_eq_of_secondBounce_edges
 #print axioms VerticalStripLLT.coloringLLT_secondBounce
 #print axioms VerticalStripLLT.coloringLLT_satisfiesRecursion
+#print axioms VerticalStripLLT.Step.validFrom_contractNorthEast
+#print axioms VerticalStripLLT.Step.validFrom_swapNorthEast
+#print axioms VerticalStripLLT.Step.eastCount_northEast_contract
+#print axioms VerticalStripLLT.Step.eastCount_northEast_swap
+#print axioms VerticalStripLLT.Step.firstEastHeight_northEast_swap
+#print axioms VerticalStripLLT.SchroderPath.contractNorthEast
+#print axioms VerticalStripLLT.SchroderPath.swapNorthEast
+#print axioms VerticalStripLLT.Step.validFrom_prefix_of_endpoint
+#print axioms VerticalStripLLT.Step.validFrom_suffix_at_endpoint
+#print axioms VerticalStripLLT.SchroderPath.prefixAtReturn
+#print axioms VerticalStripLLT.SchroderPath.suffixAtReturn
+#print axioms VerticalStripLLT.SchroderPath.steps_eq_nil_iff
+#print axioms VerticalStripLLT.SchroderPath.east_mem_of_pos
+#print axioms VerticalStripLLT.SatisfiesRecursion.map

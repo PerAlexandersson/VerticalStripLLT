@@ -20,3 +20,7 @@ import VerticalStripLLT.ColumnCharacterization
 import VerticalStripLLT.FirstEast
 import VerticalStripLLT.SecondBounce
 import VerticalStripLLT.ColoringRecursion
+import VerticalStripLLT.NorthEastReduction
+import VerticalStripLLT.PathSplit
+import VerticalStripLLT.NonemptyPath
+import VerticalStripLLT.RecursionMap
