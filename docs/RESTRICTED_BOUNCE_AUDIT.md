@@ -49,7 +49,8 @@ as an unproved hypothesis.
 The concrete first/second coloring proofs already establish stronger graph
 facts for arbitrary middle words. Consequently the third coloring relation
 can be proved directly without resolving this generic implication. That is
-the current Aristotle target. A future stronger relation interface may be
+now locally verified as `coloringLLT_thirdBounce`, using the independently
+proved `coloringLLT_firstBounce_general`. A future stronger relation interface may be
 useful, but any use in the ordinary expansion must discharge its assumptions
 independently for both the coloring and orientation expressions. The final
 ordinary expansion must remain unconditional for every valid path.

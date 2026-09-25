@@ -175,10 +175,11 @@ The API credential is loaded by the shared environment helper and is never
 passed on the command line or stored in this repository. Do not upload the
 workspace or reference snapshot wholesale; requests contain only needed inputs.
 
-## Third single-bounce identity (in progress)
+## Third single-bounce identity (completed and locally verified)
 
 - Project ID: `13d18bc3-ffad-4cb1-9807-9b4d3cb4cb04`.
-- Task ID: `372dfa89-c025-4779-8611-1fad2f31a341`, confirmed `IN_PROGRESS`.
+- Task ID: `372dfa89-c025-4779-8611-1fad2f31a341`, confirmed `COMPLETE`
+  (2026-09-25 19:33 UTC). Archive and selected completed source are retained.
 - Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/third-bounce`.
 - Contains twenty-four checked source modules in the isolated Lean/Mathlib
   4.28 environment. The sole target asks for valid Q=`U nd V ed W` and
@@ -189,4 +190,25 @@ workspace or reference snapshot wholesale; requests contain only needed inputs.
   and warns against applying a restricted-middle recurrence to eV. This
   concrete coloring theorem does not assert the generic restricted-recurrence
   implication discussed in `RESTRICTED_BOUNCE_AUDIT.md`.
-- Observe the same live job. Returned source requires local 4.34 verification.
+- Luna ported path, helper, and final theorem modules. Primary repaired targeted
+  imports and list normalization. Terra independently audited the exact target,
+  derived prefix gap, legitimate unrestricted helper, and seven-equation
+  cancellation argument. Local full build and all 146 public axiom checks pass.
+  Existing supplied definitions are unchanged; the extra tactic import is
+  `Mathlib.Tactic.LinearCombination`.
+
+## First-east product reduction (in progress)
+
+- Project ID: `48e8781d-7ebb-4e80-a093-9bd7e674cf0c`.
+- Task ID: `22c118e9-b109-4fcc-9854-d93bfd73c353`, confirmed `IN_PROGRESS`.
+- Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/first-east-split`.
+- Seventeen checked source modules, isolated Lean/Mathlib 4.28 snapshot.
+- Exact target `firstEast_product_reduction`: from a valid first-east word,
+  gap one and at least two east steps, produce two valid factors with positive
+  sizes, both strictly smaller than n, and factorization for every supplied
+  invariant satisfying `SatisfiesRecursion` in a commutative ring.
+- The task must prove strict size bounds and dependent path identification;
+  merely splitting words or assuming positive factor sizes is insufficient.
+- This generic product branch uses no extra bounce relation or coloring
+  semantics, so it is independent of the restricted-bounce audit obligation.
+- Observe the same task; its returned candidate requires local verification.

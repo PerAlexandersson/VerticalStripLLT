@@ -141,3 +141,9 @@ import VerticalStripLLT
 #print axioms VerticalStripLLT.SchroderPath.steps_eq_nil_iff
 #print axioms VerticalStripLLT.SchroderPath.east_mem_of_pos
 #print axioms VerticalStripLLT.SatisfiesRecursion.map
+#print axioms VerticalStripLLT.Step.validFrom_northDiagonal_swap
+#print axioms VerticalStripLLT.Step.endpointFrom_thirdBounce_blocks
+#print axioms VerticalStripLLT.Step.thirdBounce_corner_lt
+#print axioms VerticalStripLLT.coloringLLT_congr_steps
+#print axioms VerticalStripLLT.coloringLLT_firstBounce_general
+#print axioms VerticalStripLLT.coloringLLT_thirdBounce

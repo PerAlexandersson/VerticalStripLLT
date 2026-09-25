@@ -253,7 +253,24 @@ no-east middle words. `ColoringRecursion.lean`,
 defined coloring sum. This is a semantic recurrence theorem, not a recursive
 definition or a uniqueness/expansion theorem.
 
-The third and arbitrary-length bounce identities remain open. The restricted
+The arbitrary-length bounce identities remain open. The restricted
 recurrence audit in `RESTRICTED_BOUNCE_AUDIT.md` records a source-proof step
 that needs justification in the generic layer; it does not invalidate any
 checked coloring identity or establish a counterexample to the manuscript.
+
+## Third single-bounce coloring identity delivered
+
+`ThirdBouncePath.lean` proves the valid reverse local swap `nd → dn` under
+the strict prefix gap, proves the common endpoint equations, and derives that
+gap from the return certificate. `ThirdBounceWeight.lean` proves invariance
+under equal step words and `coloringLLT_firstBounce_general` for arbitrary
+middle V directly from the graph lemmas.
+
+`ThirdBounce.lean`, `coloringLLT_thirdBounce`, constructs both valid successors
+Q=`U nd V ed W`, R=`U dn V ed W` and proves, for every finite alphabet,
+`G_(U nd V de W) = C(q−1)G_Q + C(q)G_R`. Its algebra combines four unicellular,
+two first-bounce, and one second-bounce identity, then cancels the already
+proved nonzero factor q−1. The first-bounce instance with middle eV uses the
+new unrestricted coloring theorem. It is never inferred from the restricted
+`SatisfiesRecursion` predicate. Thus the generic audit obligation remains
+separate from this completed concrete coloring proof.

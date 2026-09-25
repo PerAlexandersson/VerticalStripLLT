@@ -44,6 +44,8 @@ A general-purpose symmetric-functions library is outside the scope.
   `SecondBounce.lean` proves the second identity `U dn V de W` to
   `U nd V ed W`, using the same graph background and an interval-based
   coloring involution.
+  `ThirdBounce.lean` proves the third single-bounce relation, constructs both
+  valid successors, and uses explicit cancellation of q−1.
 - `ColumnCharacterization.lean` proves the converse: every valid path with
   exactly one east step is a column. `FirstEast.lean` defines the total
   first-east height and identifies it with the prefix endpoint height.
@@ -56,7 +58,8 @@ A general-purpose symmetric-functions library is outside the scope.
 The general column initial condition, multiplicativity, and general unicellular
 relation and both single-bounce recurrence identities are proved.
 `coloringLLT_satisfiesRecursion` bundles these facts with empty normalization
-in a named recurrence predicate. The third/generalized bounce relations,
+in a named recurrence predicate. The third single-bounce coloring relation is
+also proved. Generalized bounce,
 recurrence uniqueness, a terminating recursive invariant, the orientation
 formula, and the full semantic bridge remain to be proved.
 
