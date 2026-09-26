@@ -57,7 +57,7 @@ Earlier integration logs use prefixes `expansion-`, `uniqueness-`,
 - `d244170`: independent NN orientation bounce; 344 axiom checks.
 - `6c1f8ab`: all generalized bounces, first-east cases, and shift.
 - `91f5760`: sufficient-certificate uniqueness and coloring characterization.
-- Current completed batch: DN orientation identity, independent recurrence
+- `a1f64c4` (pushed): DN orientation identity, independent recurrence
   certificate, main expansion, positivity, degree, and alphabet stability.
 
 ## Ownership and remote work
@@ -81,10 +81,11 @@ The integrated proof has no hidden no-east hypothesis. Requests/candidates:
 `/lake-cache/ai-projects/requests/VerticalStripLLT/orientation-second-bounce`.
 All other completed remote provenance is in `docs/ARISTOTLE.md`.
 
-Issues #1–6 are closed. Issue #7 acceptance criteria are now locally satisfied:
+Issues #1–7 are closed. Issue #7 records the completed orientation milestone:
 https://github.com/PerAlexandersson/VerticalStripLLT/issues/7.
-Next maintenance step: push the verified completion checkpoint, close #7,
-and confirm clean Git state. No mathematical blocker remains for this scope.
+The verified completion checkpoint is pushed and #7 is closed. No active
+implementation task or mathematical blocker remains for this scope. Future
+work should start from a separately agreed downstream objective.
 
 ## Environment and durable references
 

@@ -36,5 +36,5 @@ flip-component work are outside this completed scope.
 
 Verification logs are external:
 `/lake-cache/ai-projects/build/VerticalStripLLT/completion-full-build.log` and
-`completion-axioms.log`. The final pushed source checkpoint is recorded in
-`HANDOFF.md`; generated output and remote request archives are not committed.
+`completion-axioms.log`. The final proved-source checkpoint is `a1f64c4`, pushed to private main;
+issue #7 is closed and the current handoff records released ownership; generated output and remote request archives are not committed.
