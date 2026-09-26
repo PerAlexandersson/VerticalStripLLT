@@ -29,6 +29,10 @@ unicellular and one-bounce identities cancel to give the desired reduction.
 The raised child need not have smaller area. See the exact `hOrdIH`,
 `hRaisedIH`, and `dd_step` mapping in the ND assembly note. The task does not
 require a no-loop theorem for arbitrary sequences of diagram rewrites.
+The original shortened-root target in any interior overlap is now proved
+cyclic, so both of its actual expressions vanish (`InteriorShortenCycle`).
+Use that zero term where it occurs; the remaining child equations still need
+the actual restarted contacts, rather than unchanged separated-case contacts.
 
 Direct and full NN/DN, direct ND, root-alias ND and separated ND are proved
 for both actual models. Their declarations are catalogued in

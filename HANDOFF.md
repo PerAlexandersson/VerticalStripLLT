@@ -16,9 +16,32 @@ child, not smaller area. The circular task is to complete that child-equation
 assembly after the checked one-bounce restart. Do not require termination of
 every arbitrary DD/DN/R1 rewrite sequence. Primary and independent Astra audit
 agree; see the ordinary-proof mapping in `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.
-This clarification changed documentation only; no new build was needed.
+That clarification was recorded at `6ae30bd` without a build.
 
-## Current verified checkpoint: `5266faa`
+## Current verified checkpoint: interior shortened-root cycle
+
+`Diagram.shortenEligible_not_admissible_of_interior_overlap` now proves that
+shortening the original eligible root of any acyclic interior-overlap source
+creates a strict cycle. The two corollaries
+`coloringLLT_shortenEligible_eq_zero_of_interior_overlap` and
+`shiftedOrientationExpansion_shortenEligible_eq_zero_of_interior_overlap`
+prove vanishing of the actual models at that target. The stronger statement
+needs neither saturation nor terminal strictness hypotheses. No source
+recurrence or full interior equality is claimed.
+
+Primary implemented the path transport after Luna returned build-free API
+notes. Independent Astra review approved the statement and proof. Focused and
+full builds passed (1880 full jobs); the complete axiom inventory checked
+1855 declarations against the standard-axiom whitelist. Source guards,
+100-column limit and diff whitespace passed. Logs are
+`interior-shorten-cycle-build.log`, `interior-shorten-cycle-full-build.log`,
+and `interior-shorten-cycle-axioms.log` in the external request directory.
+
+The next mathematical task remains matching the restarted raised-child
+equations with deleted-child equations into actual corner triples. The new
+lemma supplies a checked zero term for the original shortened root.
+
+## Previous semantic checkpoint: `5266faa`
 
 `ChainSingletonData.coloringLLT_shifted_eq_expansion` now proves the actual
 coloring–HRV equality for every strict chain plus one isolated vertex and every
@@ -50,22 +73,24 @@ whitespace pass. External logs `chain-singleton-checkpoint-build.log` and
 
 ## Ownership
 
-Primary owns all source, strategy, integration, remote jobs and the sole build
-slot. All delegated lanes are released. Luna ported selection/subset sums;
+Primary owns strategy, integration, remote jobs, all other source and the sole
+build slot. All delegated lanes are released. Luna ported selection/subset sums;
 Terra extracted insertion/coloring proofs; primary ported HRV and assembly,
 repaired Lean4.34 APIs, eliminated a slow congruence step, and verified everything.
 Astra independently audited actual semantics, winding, boundary cases and the
 unchanged final statement. No build-slot transfer occurred.
 
 Use only `lake-workspace`; check no other Lean/Lake process is active before
-every invocation. No source edits are pending from delegates.
+every invocation. No delegate source edits remain pending.
 
 ## Aristotle provenance
 
 The renewed full interior request is IN_PROGRESS in the existing project
 `65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, new task
-`a430cbfd-eb82-4070-b9c2-002ae875cb53`. Native observer session **55772** writes
-`circular-interior-with-chain-base/observer.log`. Observe this exact task;
+`a430cbfd-eb82-4070-b9c2-002ae875cb53`. Original observer **55772** lost its
+connection; task status remained IN_PROGRESS. Replacement native observer
+session **39014** writes
+`circular-interior-with-chain-base/observer-reconnected.log`. Observe this exact task;
 reconnect after transient observation failures without resubmitting it. This
 observer does not download: after completion explicitly download the project
 archive into `circular-interior-with-chain-base/result.tar.gz`.

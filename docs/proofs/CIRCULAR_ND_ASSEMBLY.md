@@ -53,6 +53,31 @@ Genuine loops along the strict contact walk are already zero cases for both
 actual models. This mapping was independently reviewed; it is a proof plan,
 not a claim that the remaining circular assembly has been formalized.
 
+## Shortening the original interior root gives zero
+
+`Diagram.shortenEligible_not_admissible_of_interior_overlap` now proves a
+uniform consequence of interior contact identification. Put
+Q = D.shortenEligible(t). The main and parallel strict tracks start together
+at res(x+1). Their common initial segment, identified by outgoing strict-edge
+uniqueness, leaves a suffix from res(t) to res(boundary(t)+1). Source
+acyclicity ensures that none of the suffix edges enters the changed root row,
+so the suffix survives in Q. Its new strict root edge points back to res(t),
+closing a cycle.
+
+The actual coloring polynomial of Q and its formal HRV expansion therefore
+both vanish, by the two corollaries in `InteriorShortenCycle.lean`. The proof
+needs only source acyclicity, an eligible root, a counted search and the
+interior identification; it does not require saturation or either terminal
+strictness assumption. This is a statement about the target diagram, not a
+claim that the acyclic source vanishes or satisfies the separated ND identity.
+
+For the remaining paired-child construction, this supplies a checked zero
+term whenever Q occurs. The other child equations must still be derived for
+their actual changed contacts. In the resolved child, the overlap identifies
+res(s+1) with res(t), changing eastGap(s) from zero to one. Thus the inherited
+shorter contact sequence must be replaced by the proved one-bounce restart;
+the ordinary raised-child equation cannot be copied with unchanged contacts.
+
 ## Completed disjoint terminal branch
 
 `Diagram.exists_nd_separated_reduction` proves the actual coloring and HRV
