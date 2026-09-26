@@ -774,8 +774,13 @@ identities remain open.
 - CLI continuation accepts at most five files. The initial eight-file attempt
   was rejected and created no task; the corrected upload succeeded. Observer
   and eventual download instructions are in HANDOFF.
-- Observation connections have dropped twice while the authoritative task
-  remained active. Both reconnects used this same task handle; no new task
+- Observation connections have dropped repeatedly while the authoritative task
+  remained active. All reconnects used this same task handle; no new task
   was created. The later local `InteriorShortenCycle` and `InteriorDNRestart`
   results are not in the submitted prefix. Include them if a further
   continuation is needed; do not assume the running task has received them.
+- The external `observe-existing-task.sh` now automates same-handle observation
+  reconnection, with authoritative status checks and a two-hour allowance.
+  Its source is retained with the request, and `bash -n` passed. It performs
+  no submission, continuation, cancellation or download. Handoff records the
+  native session and log paths; observation expiry is not proof-task completion.

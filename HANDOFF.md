@@ -53,6 +53,10 @@ and `interior-shorten-cycle-axioms.log` in the external request directory.
 The next mathematical task remains matching the restarted raised-child
 equations with deleted-child equations into actual corner triples. The new
 lemma supplies a checked zero term for the original shortened root.
+An independent audit also ruled out closing coefficient-one excursions using
+only degree bounds and constant-term equality: H=q^A W remains compatible
+whenever the excursion retains normal edges. This is a limitation of those
+constraints, not a counterexample to the actual polynomial equality.
 
 ## Previous semantic checkpoint: `5266faa`
 
@@ -100,14 +104,16 @@ every invocation. No delegate source edits remain pending.
 
 The renewed full interior request is IN_PROGRESS in the existing project
 `65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, new task
-`a430cbfd-eb82-4070-b9c2-002ae875cb53`. Original observer **55772** lost its
-connection; task status remained IN_PROGRESS. Replacement native observer
-session **39014** also lost its connection. Task status remained IN_PROGRESS;
-replacement session **59744** writes
-`circular-interior-with-chain-base/observer-reconnected-2.log`. Observe this exact task;
-reconnect after transient observation failures without resubmitting it. This
-observer does not download: after completion explicitly download the project
-archive into `circular-interior-with-chain-base/result.tar.gz`.
+`a430cbfd-eb82-4070-b9c2-002ae875cb53`. Earlier direct observers lost their
+connections while authoritative status remained active. Native session
+**50277** now runs the externally stored
+`circular-interior-with-chain-base/observe-existing-task.sh`. It rechecks
+authoritative status after disconnections and reconnects only to this task;
+it has a two-hour observation allowance and never submits, cancels or downloads.
+Current output is `observer-follow.log`, with `observed-status.log` for the
+latest authoritative status. A watcher timeout is not task termination.
+After completion explicitly download the project archive into
+`circular-interior-with-chain-base/result.tar.gz`.
 
 Input source is `5266faa`, 200 modules and 21658 Request lines. The exact
 unchanged target, source hashes, compatibility provenance and proof-route notes

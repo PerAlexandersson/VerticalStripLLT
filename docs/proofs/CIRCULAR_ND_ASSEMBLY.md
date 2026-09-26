@@ -245,6 +245,19 @@ This is an audited algebraic limitation, not an additional Lean assumption.
 There is no justification for building rotation machinery solely to solve the
 coefficient-one exit.
 
+Degree bounds and constant-term agreement do not fix this by themselves.
+Let A be the common sum of row areas along such an excursion, and let s_max
+be its largest strict-edge count. Those constraints on the common weighted
+defect H are only divisibility by q^(s_max+1) and q-degree at most A. If
+s_max<A, a formal nonzero assignment H=q^A W is still permitted: at each
+diagram with strict count s, the corresponding difference is q^(A-s) W.
+Here W is a nonzero coefficient of the appropriate variable degree. The
+assignment respects the stated bounds and conserved-defect equations; it
+does not claim to arise from either actual model. Reaching s_max=A would
+already reach the no-normal-edge semantic base. Thus these two additional
+constraints alone do not close an excursion that retains normal edges.
+Primary and independent Astra review checked this algebraic limitation.
+
 ## Audit of a terminal auxiliary shape
 
 Suppose an acyclic auxiliary diagram has exactly one nonstrict corner, at
