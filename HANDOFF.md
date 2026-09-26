@@ -1,150 +1,108 @@
 # VerticalStripLLT handoff
 
-## Active continuation: interior circular ND
+## Active continuation: deeper interior circular ND
 
 The full circular coloring–HRV equality remains open. The checked outer
-induction now has exactly one remaining input: `InteriorNDInductionStep`.
-Follow the author's one-bounce elimination strategy. Genuine strict cycles
-make both actual expressions vanish; contact overlap alone is not a cycle.
-No flip-component work or new examples in this increment.
+induction retains the explicit input `InteriorNDInductionStep`. First-contact
+interior overlap is now proved; deeper contacts remain. Follow the author's
+one-bounce elimination strategy. Strict cycles make both actual models vanish;
+overlap between offset contact tracks alone is not a cycle. No flip work.
 
-Latest pushed source checkpoint `372619c` adds the checked uniform
-strict-corner adjacency equivalence.
-Previous pushed source checkpoint: `78c07c3` (full separated-contact ND), following
-`8c8e8b5` (outer induction) and its handoff `0e5b104`.
-Exact interfaces:
+This checkpoint adds:
 
-- `Diagram.exists_nd_separated_reduction`: valid actual targets with doubled-area
-  drops two/four and both polynomial identities, for arbitrary counted depth.
-- `NDSeparatedHyp.dS_admissible_iff`: paired-chain conjugacy shows the lowered
-  and shortened intermediates are cyclic together, allowing coincident outer
-  endpoints. All inner-path separation follows from source hypotheses.
-- `Diagram.expansion_of_nd_separated` and `separatedNDInductionStep`: the semantic
-  induction step, using only smaller areas, discharges the separated input.
-- `Diagram.expansion_of_interior_nd_step`: the entire equality follows from the
-  sole remaining interior step. This is explicitly conditional, not completion.
+- `DDLocalData.oneBounce_restart_of_interior_overlap_at`, identifying the
+  actual restart root and terminal. The older existential theorem is a wrapper;
+  its public signature is preserved and its duplicated proof removed.
+- `Diagram.expansion_of_nd_interior_overlap_first_contact`: the full actual-model
+  bridge when the terminal upper vertex aliases the first contact. Both leaves
+  have doubled area D−1; no saturation or strict-rank hypothesis is needed.
+- `ChainSingletonData`: an exhaustive vertex equivalence and exact strict
+  relation, deriving acyclicity, strict coloring constraints and cross incidence.
+- `ChainSingletonData.coloringLLT_reindex`: a bijective reindexing of the actual
+  coloring sum, retaining its actual ascent count.
+- `ChainSingletonData.ascentCount_eq_base_add_gaps`: actual ascent count equals
+  a fixed internal/cross contribution plus occupied insertion-gap indicators.
+- `isolated_with_insertion_correction_sum`: the uniform weighted gap sum is
+  a two-term elementary expression. This is NOT yet the full chain-singleton
+  semantic bridge; polynomial assembly and the HRV calculation remain.
 
-Luna ported six appended `NDSeparated` modules. Primary repaired the local
-relation API, checked exact declaration parity (159 declarations), and added
-`NDSeparatedRecurrences`. Independent Astra review approved exact hypotheses,
-concrete targets, cyclic vanishing and seven-equation cancellation. No returned
-prefix was imported or existing mathematical definition changed.
+Previous source checkpoints: `372619c` (strict-corner adjacency), `78c07c3`
+(full separated ND), `8c8e8b5` (outer induction). The ordinary theorem remains
+fully proved. Initialization commits `830cc6b`, `130f7e8` and immutable references
+are preserved.
 
-Checks: full default build 1865 jobs; axiom inventory 1754 declarations, only
-propext, Classical.choice, Quot.sound. Source guards and new-source line lengths
-pass. External logs `circular-strict-corner-checkpoint-build.log` and
-`circular-strict-corner-checkpoint-axioms.log`. Previous checkpoint logs remain.
-Initialization commits `830cc6b` and `130f7e8` and immutable reference files
-remain intact. The axiom run waited for a RealRooted build to finish; no local
-Lean builds were run concurrently.
+Checks: full default build 1871 jobs; axiom inventory 1788 declarations, only
+propext, Classical.choice, Quot.sound. Source guards, changed-source line lengths
+and diff whitespace pass. External logs `circular-first-contact-checkpoint-build.log`
+and `circular-first-contact-checkpoint-axioms.log` under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/`. All local builds serialized.
 
-## Ownership and active remote work
+## Ownership
 
-Primary owns all source, strategy, integration, remote jobs and the sole
-serialized local build slot. All delegated lanes are released; no build-slot
-transfer occurred. Use only `lake-workspace`, checking for other Lean/Lake
-processes before each invocation. Delegates remain build-free.
+Primary owns all source, strategy, integration, remote jobs and the sole build
+slot. All delegated lanes are released. Use only `lake-workspace`; check no
+other Lean/Lake process is active before every invocation. No build-slot transfer.
 
-Terra's bounded strict-corner adjacency task returned without a candidate;
-the lane is released and no new file was created. Astra completed read-only
-audits of a possible chain-plus-isolated-vertex base and the author's strict-loop
-clarification. No local build was needed for these audits.
+Luna supplied insertion-coloring sums, cross-ascent algebra and the first-contact
+port. Terra supplied the coloring equivalence/reindexing. Primary repaired APIs,
+connected actual graph counts, deduplicated restart geometry, and verified all
+integrated source locally. Astra independently approved the strict-corner lemma,
+chain-singleton mathematical plan and the first-contact return. No remote prefix
+or unfinished target was imported into local source.
 
-Primary completed `Circular/StrictCornerAdjacency.lean`, using two edge lengths
-based at a common endpoint. Exact declarations: `length_le_of_strict_same_tail`,
-`naturalPairs_across_strict_corner_iff`, `normalPairs_across_strict_corner_iff`.
-Astra independently approved the hypotheses and lift argument. All delegated
-lanes are released; the build slot remains with primary. Luna's corrected API
-audit identifies `increasingColoringSum_eq_esymm`,
-`sum_strictMono_sigma_colorings_eq_prod_esymm`, and
-`rooted_chain_coloring_sum_eq_prod_esymm` as existing coloring infrastructure.
-Only the isolated-color insertion-gap partition needs new enumeration machinery.
+## Aristotle requests
 
-The strict-loop clarification is recorded in `CIRCULAR_ND_ASSEMBLY.md`:
-repetition within one strict walk forces zero, whereas the remaining interior
-contact identifies vertices of two offset tracks without closing a walk.
-The one-bounce restart is already checked; its auxiliary-area exit is open.
+The interior-overlap request finished COMPLETE_WITH_ERRORS:
+project `65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, task
+`c4f22d47-e2f8-4545-9ba5-9edb35be49e9`. Its final target retains one sorry and
+was excluded. The two completed appended lemmas were integrated as described
+above. External directory `circular-interior-expansion/` retains
+`completed-result.tar.gz`, `returned-Request.lean`, `returned-ARISTOTLE_SUMMARY.md`
+and observer/steering provenance. No active task remains there; do not poll it
+as live. Transient observer reconnects never resubmitted the task.
 
-Potential uniform base, mathematically audited but not formalized: a strict
-chain c_1,...,c_L and one isolated strict vertex v. Put a_j=[c_j→v normal],
-b_j=[v→c_j normal], I=#forward internal normal edges, M=sum_{j<L} a_j,
-A=I+M, r=M+b_1+a_L. Strict-corner geometry gives a_j=b_{j+1} for j<L.
-The coloring expression is q^A*(e_L*e_1+r*(q-1)*e_(L+1)); the independent
-shifted HRV expression is (1+q)^A*(e_L*e_1+r*q*e_(L+1)). For external selected
-sets U,V, admissibility says j<h for every j in U,h in V. Nonempty V or
-L in U gives one HRV fiber; otherwise the strict continuation dominates each
-external shortcut on the integer cover, giving fibers L and 1. This may
-supply a terminal base, but no theorem says every interior case reaches it.
+A narrower uniform chain-singleton semantic request is prepared in
+`circular-chain-singleton-expansion/`, not yet submitted. Its dependency closure
+has 70 modules (6526 prefix lines): compatible existing foundation proofs and
+six new locally checked modules. It includes no area/bounce assumptions or
+unfinished interior theorem. Exact new-source hashes, input module list and
+prefix provenance are retained. The target is the actual coloring–HRV equality
+for every `ChainSingletonData D k` and every finite alphabet, not a claim that
+all interior configurations reach this family.
 
-Read-only Claude Sonnet consultation 97026 finished normally without a proof.
-External prompt, JSONL output and `Review.md` are in `claude-interior-review/`.
-Primary and Astra audited it: defect transfer is valid existing algebra, while
-the proposed unrestricted no-repeat theorem fails on the already audited
-rotation route. A strategy stopping at semantic bases could avoid that cycle,
-but its termination is still unproved. No Lean changes follow from this review.
+Completed separated ND: project `361812e0-b73e-48b9-9ad7-dffe103615f6`, task
+`e58bd214-3a7c-4d47-ab01-e58521c293ad`. Its verified port has actual targets with
+area drops two/four and simultaneous cyclic vanishing of the paired intermediates.
+See `docs/ARISTOTLE.md` for provenance.
 
-Active Aristotle interior-overlap project:
-`65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, task
-`c4f22d47-e2f8-4545-9ba5-9edb35be49e9`. Reconnected observer session **43360**.
-The original wait/downloader 87017 exited after a server-connection interruption;
-the same remote task was confirmed running on reconnection. Observer 95345
-also lost its connection; replacement 10741 again confirmed the same task
-running. Observer 10741 also lost its connection; `aristotle tasks` confirmed
-the same task IN_PROGRESS before replacement 43360. No resubmission.
-Read `observer-reconnect-3.log` for current events. This observer does not download:
-after authoritative completion, use `aristotle download` for the same project,
-with destination `circular-interior-expansion/result.tar.gz`.
-External directory `circular-interior-expansion/` under
-`/lake-cache/ai-projects/requests/VerticalStripLLT/`. Observe this same handle;
-do not resubmit. The request includes 182 locally checked modules, the exact
-unchanged target, source hashes, `DoubleCornerReduction`, full separated ND,
-and proof-route notes retaining known failed shortcuts. Its source snapshot is
-`0e5b104` plus the checked new separated modules, pinned by exact hashes.
-The CLI may exit zero on API errors: inspect its log as well as exit status.
+## Mathematical route and next step
 
-Primary sent INSTRUCT steering to this same project after the corner checkpoint.
-`STRICT_CORNER_STEERING.md` and `strict-corner-steering.log` retain the exact
-message and accepted submission. It supplies the checked corner lemma and
-the independently audited, still unformalized chain-singleton formula while
-preserving the exact interior target. It explicitly does not assume that every
-interior configuration reaches this proposed base.
+1. Finish the uniform chain-singleton bridge using the checked gap machinery
+   and an independent HRV selection calculation; use it only where justified.
+2. Prove an exit for deeper interior contacts, then discharge the outer
+   induction input without extra assumptions.
+3. Transfer the independently proved HRV positivity and degree to coloring.
 
-Target `Diagram.expansion_of_nd_interior_overlap`: saturated, acyclic source,
-actual eligible counted interior ND search, and semantic IH below
-`(doubledArea, strictRank)` imply the actual coloring–HRV equality. No recurrence
-assumption, no-wrap condition or semantic redefinition is permitted.
+For a chain c_1,...,c_L and isolated strict vertex v, let a_j=[c_j→v normal],
+b_j=[v→c_j normal], I=#forward internal normals, M=sum_(j<L) a_j,
+A=I+M and r=M+b_1+a_L. Strict-corner geometry proves a_j=b_(j+1).
+The audited candidate formulas are q^A*(e_L*e_1+r*(q−1)*e_(L+1)) for coloring
+and (1+q)^A*(e_L*e_1+r*q*e_(L+1)) for shifted HRV. External selections U,V
+are acyclic iff each j in U is smaller than each h in V. Nonempty V or L in U
+gives one HRV fiber; otherwise strict continuation dominates cross shortcuts,
+giving fibers L and 1. The full formulas remain unformalized.
 
-Completed separated-ND project `361812e0-b73e-48b9-9ad7-dffe103615f6`, task
-`e58bd214-3a7c-4d47-ab01-e58521c293ad`, observer 45949 finished. Its original
-175-module prefix came from `0fc4d07`. Returned files and review provenance
-remain in `circular-separated-nd/`; see `docs/ARISTOTLE.md`.
+Known limitation: a DD resolved child has area D+1. A one-bounce DN restart
+preserves that auxiliary area. Strictifying a single exposed corner can return
+to area D without decreasing strict rank; unrestricted rewrite cycles do not
+imply strict cycles. Two missing corners give a checked smaller-area exit.
+The comparable-normal-endpoint base is also checked, but does not cover every
+interaction between strict components. The earlier read-only Sonnet proposal
+added no valid general termination argument. No theorem gap or counterexample
+to the full HRV formula has been established.
 
-## Next step and mathematical limits
-
-1. Finish the interior-overlap exit argument, then instantiate
-   `expansion_of_interior_nd_step` without hypotheses.
-2. Transfer the independently proved HRV positivity and degree to coloring.
-
-Already complete: full NN/DN, direct and root-alias ND, separated ND, strict-cycle
-vanishing, normal-comparability base, alphabet stability, two-corner auxiliary
-exit, and outer induction. Exact source links: `docs/CIRCULAR_STATUS.md`.
-Remaining obligations and failed shortcuts: `docs/CIRCULAR_GOALS.md` and
-`docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.
-
-The unresolved interior DD child has doubled area D+1. Mixed DD/neutral
-termination omits R1 strictification and does not prove exit existence.
-Two missing corners provide a checked exit below D, but one missing corner
-can lead to same-area strictification without smaller strict rank. Neither
-changing the root alone nor a component-partition refinement closes every case.
-The active request asks for this mathematical argument, not more conditional
-assembly. Full NN/DN handle their larger-area auxiliaries by contact-count
-induction rather than incorrectly applying outer IH.
-
-Earlier checkpoints include `eb11c69` (alphabet/two-corner), `0fc4d07` (full DN),
-`3c7f3d4` (comparable base), `1d5005d` (direct ND/full NN), and `130efc2`
-(interior restart/mixed termination). Older history remains in
-`docs/archive/HANDOFF_THROUGH_INTERIOR_RESTART.md` and Git.
-
-Overleaf `LLT flip/main.tex` and `new-main.tex` are present; `old-main.tex` is
-absent. No Overleaf edits in this continuation. Author-supplied files under
-`references/alexandersson-sulzgruber-2022/` remain immutable.
+Exact checked interfaces: `docs/CIRCULAR_STATUS.md`. Remaining obligations and
+failed shortcuts: `docs/CIRCULAR_GOALS.md`, `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.
+History is retained in Git and `docs/archive/`. Overleaf `LLT flip/main.tex` and
+`new-main.tex` are present; no Overleaf edits in this continuation. The reference
+files under `references/alexandersson-sulzgruber-2022/` remain immutable.

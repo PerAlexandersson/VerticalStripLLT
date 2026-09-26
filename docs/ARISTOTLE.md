@@ -4,6 +4,24 @@ Aristotle results are proof candidates. Primary owns submissions, monitoring,
 downloads, integration, and local Lean 4.34 verification. Luna owns the assigned
 implementation files. Keep generated requests/results outside the checkout.
 
+## Interior ND partial return: first-contact case
+
+Project `65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, task
+`c4f22d47-e2f8-4545-9ba5-9edb35be49e9`, finished COMPLETE_WITH_ERRORS.
+The unchanged full interior target retains one sorry and was not integrated.
+The completed appended `InteriorFirstContact` module supplied an explicit-index
+restart and the semantic bridge for first-contact overlap. Luna ported it;
+primary placed the stronger geometry in `InteriorRestart`, replaced the older
+existential proof by a wrapper, and checked both declarations locally. Independent
+Astra review approved the hypotheses and the D−1 area bounds for both leaves.
+No returned compatibility prefix was imported into local source.
+
+External provenance is in `circular-interior-expansion/`:
+`completed-result.tar.gz`, `returned-Request.lean`, `returned-ARISTOTLE_SUMMARY.md`,
+the exact input snapshot and steering messages. All observer interruptions were
+reconnections to the same task; the final authoritative status is terminal.
+Deeper interior contacts remain unproved.
+
 ## Circular coloring subset expansion (completed and locally verified)
 
 - Project ID: `40998e1f-04ed-473c-9d58-5656253cfa9d`.

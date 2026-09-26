@@ -4,23 +4,24 @@ set_option backward.isDefEq.respectTransparency false
 
 namespace VerticalStripLLT.Circular.Diagram.DDLocalData
 
-theorem exists_oneBounce_restart_of_interior_overlap
+/-- The interior-overlap restart of the resolved DD child, with the restart root and
+terminal row identified explicitly as iterates of the original boundary. -/
+theorem oneBounce_restart_of_interior_overlap_at
     {n : ℕ} {D : Diagram n} {t x : ℤ} {k : ℕ}
     (B : D.DDLocalData t) (ht : D.EligibleDE t) (ha : D.edgeData.Admissible ∅)
     (h : ReverseBounceN D t x (k + 1))
     (hx : ¬ D.strictAt x) (hx1 : D.strictAt (x + 1))
-    (hinner : ∃ i : ℕ, 1 ≤ i ∧ i ≤ k + 1 ∧
-      D.residue (D.boundary^[i] t) = D.residue (x + 1)) :
-    ∃ s y : ℤ, B.resolved.EligibleDE s ∧
-      ReverseBounceN B.resolved s y 0 ∧ ¬ B.resolved.strictAt (y + 1) := by
+    {i : ℕ} (hi1 : 1 ≤ i) (hik : i ≤ k + 1)
+    (hires : D.residue (D.boundary^[i] t) = D.residue (x + 1)) :
+    B.resolved.EligibleDE (D.boundary^[k + 2 - i] t) ∧
+      ReverseBounceN B.resolved (D.boundary^[k + 2 - i] t) (D.boundary^[k + 3 - i] t) 0 ∧
+      ¬ B.resolved.strictAt (D.boundary^[k + 3 - i] t + 1) := by
   have hn : 2 ≤ n := by
     have := ht.2.1
     have := D.area.bound (D.residue t)
     lia
   obtain ⟨hx, hdd, hgx, -⟩ := (D.reverseBounceN_iff_iterate).mp h
-  obtain ⟨i, hi1, hik, hires⟩ := hinner
   subst hx
-  -- Propagate the overlap along the main and parallel strict chains.
   have hprop : ∀ l, l ≤ i →
       D.residue (D.boundary^[i - l] t) = D.residue (D.boundary^[k + 2 - l] t + 1) := by
     intro l
@@ -40,7 +41,6 @@ theorem exists_oneBounce_restart_of_interior_overlap
     exact B.hfg (D.strict_edge_eq_of_head_eq B.hf B.hg hgf.symm)
   have hT := hprop i le_rfl
   rw [Nat.sub_self, Function.iterate_zero_apply] at hT
-  -- The overlap cannot occur at the last contact row.
   have hik' : i ≤ k := by
     by_contra hcon
     have hi : i = k + 1 := by lia
@@ -50,11 +50,13 @@ theorem exists_oneBounce_restart_of_interior_overlap
   rw [show i - (i - 1) = 1 by lia, Function.iterate_one,
     show k + 2 - (i - 1) = (k + 2 - i) + 1 by lia] at hB
   set j := k + 2 - i with hj
+  have hj3 : k + 3 - i = j + 1 := by lia
+  rw [hj3]
   have hj2 : 2 ≤ j := by lia
   have hjk : j ≤ k + 1 := by lia
   set s := D.boundary^[j] t with hs
   have hys : D.boundary^[j + 1] t = D.boundary s := Function.iterate_succ_apply' _ _ _
-  rw [hys] at hB
+  rw [hys] at hB ⊢
   set y := D.boundary s with hy
   obtain ⟨hgs, hss, hss1⟩ := hdd j (by lia) hjk
   change D.eastGap s = 0 at hgs
@@ -73,7 +75,6 @@ theorem exists_oneBounce_restart_of_interior_overlap
   have hbt : D.residue (D.boundary t) ≠ D.residue t := by
     have := bounce_residue_ne_root ht.1 ha hdd 1 le_rfl (by lia)
     rwa [Function.iterate_one] at this
-  -- Boundary data of the resolved diagram at `s`, `s + 1`, `y`, `y + 1`.
   have hbs1 : D.boundary (s + 1) = y + 1 := by
     unfold eastGap at hgs
     rw [ite_eq_left hss] at hgs
@@ -115,11 +116,23 @@ theorem exists_oneBounce_restart_of_interior_overlap
     rw [B.resolved_eastGap_of_ne y hy0 hy1 (by rw [← hB]; exact D.residue_p_ne_succ hn _)
       (by rw [← hB]; exact hbt) hy2]
     exact hgy
-  refine ⟨s, y, ⟨hrss, harea_s, ?_⟩, ?_, hny1⟩
+  refine ⟨⟨hrss, harea_s, ?_⟩, ?_, hny1⟩
   · unfold eastGap
     rw [ite_eq_left hrss, hrbs, hrbs1]
     norm_num
   · rw [ReverseBounceN.zero_iff]
     exact ⟨hrbs.symm, hrgy, fun hc => hny1 hc.2⟩
+
+theorem exists_oneBounce_restart_of_interior_overlap
+    {n : ℕ} {D : Diagram n} {t x : ℤ} {k : ℕ}
+    (B : D.DDLocalData t) (ht : D.EligibleDE t) (ha : D.edgeData.Admissible ∅)
+    (h : ReverseBounceN D t x (k + 1))
+    (hx : ¬ D.strictAt x) (hx1 : D.strictAt (x + 1))
+    (hinner : ∃ i : ℕ, 1 ≤ i ∧ i ≤ k + 1 ∧
+      D.residue (D.boundary^[i] t) = D.residue (x + 1)) :
+    ∃ s y : ℤ, B.resolved.EligibleDE s ∧
+      ReverseBounceN B.resolved s y 0 ∧ ¬ B.resolved.strictAt (y + 1)  := by
+  obtain ⟨i, hi1, hik, hires⟩ := hinner
+  exact ⟨_, _, B.oneBounce_restart_of_interior_overlap_at ht ha h hx hx1 hi1 hik hires⟩
 
 end VerticalStripLLT.Circular.Diagram.DDLocalData

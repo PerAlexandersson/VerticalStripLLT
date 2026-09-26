@@ -171,3 +171,6 @@ import VerticalStripLLT.Circular.DoubleCornerReduction
 import VerticalStripLLT.Circular.ExpansionInduction
 import VerticalStripLLT.Circular.NDInductionCases
 import VerticalStripLLT.Circular.StrictCornerAdjacency
+import VerticalStripLLT.Circular.ChainSingletonAscentCount
+import VerticalStripLLT.Circular.InsertionColorings
+import VerticalStripLLT.Circular.InteriorFirstContact

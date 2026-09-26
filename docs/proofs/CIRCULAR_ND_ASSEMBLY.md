@@ -59,6 +59,14 @@ move exits to area D−1; subsequent direct ND would likewise exit below D.
 A direct DN move preserves the auxiliary area, so its semantic equality alone
 does not justify applying outer area induction to its target.
 
+`Diagram.expansion_of_nd_interior_overlap_first_contact` now closes the case
+where x+1 aliases the first contact b(t). The explicit-index restart theorem
+`DDLocalData.oneBounce_restart_of_interior_overlap_at` identifies the new
+terminal as x itself in this case, so its lower row remains nonstrict and
+the restart is NN. The NN-shortened child and DD-deletion child both have
+doubled area D−1. This proof uses only lower-area induction, without saturation
+or strict rank. Deeper interior contacts remain open.
+
 The next geometric task is to track the restart through direct DN moves until
 an exit with a valid outer measure is reached. The missing strict head moves
 by the offset between the two overlapping chains, not necessarily by one
