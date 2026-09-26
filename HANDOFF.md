@@ -61,6 +61,31 @@ External logs under `/lake-cache/ai-projects/requests/VerticalStripLLT/`:
 formatting changes in the full build. No dependency update or local generated
 build directory was introduced.
 
+## Diamond exploration result
+
+The fixed-diagram diamond-to-chain straightening lemma is REFUTED, not open.
+See `docs/proofs/DIAMOND_STRAIGHTENING_AUDIT.md` for a general strict-component
+partition obstruction and an exact eight-state separating certificate.
+This does not refute the component conjecture.
+
+An auxiliary diamond and an HRV-preserving vertex swap repair the obstruction.
+Primary and independent Astra review checked a uniform overlap identity with
+arbitrary symmetric exterior. Without symmetry, an explicit exterior-swap
+correction remains and cancels for swap-invariant multiplicities. The open
+next task is component-labeled packet decomposition, swap balance, and a
+justified reduction of the resulting packets. No complete proof is claimed.
+
+Primary owns the notes and integration. Astra independently derived the
+obstruction and repair; Terra audited the existing HRV triangle APIs. All
+read-only delegate lanes are now released. No Lean build, new Lean theorem,
+remote request or Overleaf edit occurred.
+
+Rust capability check: read LIBRARY_GUIDE, ran cargo metadata, inspected
+LLT/HRV and exact linear algebra APIs. There is no public circular flip/diamond
+span API. A bounded one-off Python probe found and exactly checked the span
+obstruction; no polynomial family or shared Rust source was introduced.
+External artifacts and hashes are in the audit note. Whitespace checks pass.
+
 ## Component brainstorming continuation
 
 Completed research note: `docs/proofs/FLIP_COMPONENT_INDUCTION.md`. Astra and
@@ -75,8 +100,8 @@ as its signed correction, conditional on the recorded K identity. The uniform
 missing steps are simultaneous coloring/HRV transport, global reconstruction
 and enough independent equations to isolate each source component.
 A follow-up section proposes a shorter common-diamond straightening route.
-Its unresolved lemma is normalization of full component sums to chain-poset
-states; termination alone does not prove it. No such theorem is yet asserted.
+That fixed-diagram normalization statement is now refuted by the subsequent
+audit above. The repaired route allows auxiliary states and certified swaps.
 
 ## Ownership and next step
 

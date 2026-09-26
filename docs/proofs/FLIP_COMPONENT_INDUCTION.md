@@ -176,6 +176,12 @@ the uniform compatibility and isolation arguments remain open.
 
 ## A potentially shorter proof: straightening whole component sums
 
+**Subsequent audit:** the fixed-diagram diamond-and-chain statement below is
+false, even with signed rational coefficients. The exact obstruction and a
+repair using auxiliary states and an HRV-preserving swap are in
+[DIAMOND_STRAIGHTENING_AUDIT.md](DIAMOND_STRAIGHTENING_AUDIT.md). This section
+records the proposal that led to that audit, not an active conjecture.
+
 A follow-up independent review suggests separating the proof into two reusable
 facts. First, both K and H respect each valid global diamond relation
 

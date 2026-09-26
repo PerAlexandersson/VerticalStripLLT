@@ -9,8 +9,11 @@ There are no remaining proof obligations for the aggregate theorem.
 
 The next research task is the full flip-component identity. Its exact target
 and proved foundations are retained in [CIRCULAR_FLIPS.md](CIRCULAR_FLIPS.md).
-A complete component proof is not known here and must not be assumed; audit
-the proposed argument before deciding the next implementation goals.
+The [diamond audit](proofs/DIAMOND_STRAIGHTENING_AUDIT.md) refutes
+fixed-diagram straightening and gives an auxiliary-state repair with an
+explicit exterior-swap correction. The next proof target is component-labeled
+packet decomposition and cancellation of those corrections. A complete
+component proof is not known here and must not be assumed.
 Weak/strict omega translation is a separate bridge.
 
 The older manuscript proof outline also needs to be aligned with the checked
