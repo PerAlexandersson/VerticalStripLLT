@@ -1893,3 +1893,9 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.Diagram.shiftedOrientationExpansion_shortenEligible_eq_zero_of_interior_overlap
 #print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.resolved_strictAt_interior
 #print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.exists_oneBounceDNData_of_interior_overlap
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.interior_overlap_le_k
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.exists_interiorMergedComponent
+#print axioms VerticalStripLLT.Circular.Diagram.exists_interiorMergedComponent_of_overlap
+#print axioms VerticalStripLLT.Circular.Diagram.pairset_admissible_conjugate
+#print axioms VerticalStripLLT.Circular.Diagram.orientMono_conjugate
+#print axioms VerticalStripLLT.Circular.Diagram.orientSum_conjugate

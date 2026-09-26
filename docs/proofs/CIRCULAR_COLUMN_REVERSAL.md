@@ -25,9 +25,11 @@ res(b(t)+1), and `EligibleDE.parallel_end_free` makes it a strict sink.
 Strict predecessor/successor uniqueness then shows that this is the entire
 strict component and no strict edge joins it to the outside.
 
-The new `InteriorMergedComponent` module is assigned to the build-free Terra
-worker. Its certificate must be derived from the actual counted-contact
-hypotheses, rather than assumed in the final theorem.
+`Diagram.exists_interiorMergedComponent_of_overlap` in
+`InteriorMergedComponent.lean` now proves this chain certificate from the
+actual counted-contact hypotheses. It includes bounded injectivity and the
+free endpoints; component isolation via strict uniqueness remains to be
+packaged for the target module. Its focused/full builds and axiom checks pass.
 
 ## Columns and their reversal
 
@@ -137,8 +139,9 @@ There is only one strict sink in the moved component, and sigma fixes all
 other component vertices. Its movement stays in its column, so the order of
 all integer sink lifts is preserved, including across periods. Thus
 `Orientation.hrv_conjugate` and `hrvMonomial_conjugate` give actual HRV transport.
-The generic restricted-sum assembly is assigned to Luna in
-`OrientationSumConjugacy`.
+The generic restricted-sum assembly is now proved and locally verified in
+`OrientationSumConjugacy`: `pairset_admissible_conjugate`,
+`orientMono_conjugate`, and `orientSum_conjugate`.
 
 No inequality between the two forced-edge counts is needed. If F_D,F_Q are
 those counts, write the two shifted coloring polynomials as A^F_D C and
@@ -159,7 +162,8 @@ contain the chain and its source/root/contact properties, not a target diagram
 or the desired polynomial identity. This boundary was independently reviewed.
 
 The formulas and local geometric checks above have been audited by hand.
-The remaining Lean work is the contact-to-column construction, explicit valid
+The merged-chain extraction and generic restricted-sum transport are verified.
+The remaining Lean work is the chain-to-column construction, explicit valid
 target, edge/lift correspondence, and invocation of the existing outer IH.
 The active Aristotle request predates this construction and has not received
 it; it remains a separate proof search. No remote result or this note is

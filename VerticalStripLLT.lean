@@ -179,3 +179,5 @@ import VerticalStripLLT.Circular.ZeroRowsTransport
 import VerticalStripLLT.Circular.ChainSingletonExpansion
 import VerticalStripLLT.Circular.InteriorShortenCycle
 import VerticalStripLLT.Circular.InteriorDNRestart
+import VerticalStripLLT.Circular.InteriorMergedComponent
+import VerticalStripLLT.Circular.OrientationSumConjugacy

@@ -12,8 +12,9 @@ Author clarification rechecked against the ordinary proof: multiple contacts
 are eliminated by paired ordinary/raised child equations and cancellation.
 `SatisfiesReductionRecursion.generalizedThirdBounce_word` in
 `GeneralizedThirdBounce.lean` uses a shorter-prefix induction for the raised
-child, not smaller area. The circular task is to complete that child-equation
-assembly after the checked one-bounce restart. Do not require termination of
+child, not smaller area. Completing that circular child-equation assembly was
+the earlier route; the explicit column reversal below now gives a direct
+area-lowering candidate for the same remaining case. Do not require termination of
 every arbitrary DD/DN/R1 rewrite sequence. Primary and independent Astra audit
 agree; see the ordinary-proof mapping in `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.
 That clarification was recorded at `6ae30bd` without a build.
@@ -28,7 +29,30 @@ are in `docs/proofs/CIRCULAR_COLUMN_REVERSAL.md`. The next step is the uniform
 Lean construction and semantic assembly, not further example classification.
 `InteriorNDInductionStep` remains open until that integration is verified.
 
-## Current verified checkpoint: exact interior restart type
+## Current verified checkpoint: merged component and HRV transport
+
+`Diagram.exists_interiorMergedComponent_of_overlap` constructs the full
+merged chain from the counted interior overlap. Its `InteriorMergedComponent`
+certificate includes strict steps, bounded injectivity, adjacency jumps,
+source/root/sink identities, zero source gap, eligible root and free endpoints.
+No target diagram or polynomial equality is assumed. The supporting public
+DD-local results are `interior_overlap_le_k` and `exists_interiorMergedComponent`.
+
+`Diagram.pairset_admissible_conjugate`, `orientMono_conjugate` and
+`orientSum_conjugate` transport residual selected graphs and actual HRV sums
+under general finite/integer equivalences, including cyclic selections. Sink
+order and lift compatibility remain explicit hypotheses for the geometry module.
+
+Terra and Luna supplied build-free candidates; primary corrected local APIs,
+added certificate bounds and integrated them. Independent Astra review found
+no semantic defect. Focused and full builds passed (1883 full jobs); all 1863
+axiom-inventory declarations use only standard axioms. Source guards, line
+lengths and diff whitespace passed. External logs are
+`interior-column-foundation-build.log`, `interior-column-foundation-full-build.log`,
+and `interior-column-foundation-axioms.log`. Next: `InteriorColumnReversal`,
+then the explicit target and transport described in the proof note.
+
+## Previous verified checkpoint: exact interior restart type (`1de89f2`)
 
 `DDLocalData.resolved_strictAt_interior` proves that the restart terminal is
 strict for every index i≥2. Together with `InteriorRestart`,
@@ -60,9 +84,9 @@ full builds passed (1880 full jobs); the complete axiom inventory checked
 `interior-shorten-cycle-build.log`, `interior-shorten-cycle-full-build.log`,
 and `interior-shorten-cycle-axioms.log` in the external request directory.
 
-The next mathematical task remains matching the restarted raised-child
-equations with deleted-child equations into actual corner triples. The new
-lemma supplies a checked zero term for the original shortened root.
+The shortened-root lemma supplies a checked zero term for the earlier
+paired-child route. Matching those child equations remains unproved; the
+column-reversal construction is now the active route.
 An independent audit also ruled out closing coefficient-one excursions using
 only degree bounds and constant-term equality: H=q^A W remains compatible
 whenever the excursion retains normal edges. This is a limitation of those
@@ -116,16 +140,10 @@ wrapper is needed. Order on integer sinks must be checked explicitly; finite
 vertex relabeling alone does not suffice. All delegate lanes are released.
 Primary owns the normalization argument and documentation; no build transfer.
 
-Active source lane: Terra (`circular_colorings`) owns only the new
-`VerticalStripLLT/Circular/InteriorMergedComponent.lean`, constructing the full
-merged strict chain and its adjacency jump from counted interior contacts.
-It must remain build-free and return a focused candidate. Primary owns all
-imports, verification and integration. Astra is independently auditing the
-uniform column-reversal target area formula; no edit lane is assigned to it.
-
-Luna (`circular_data`) owns only new `Circular/OrientationSumConjugacy.lean`
-under `VerticalStripLLT/`, generalizing restricted orientation-sum transport
-from the existing alias proof. It is build-free; primary integrates and verifies.
+The merged-component and orientation-conjugacy candidates are now integrated
+and verified. All delegate edit lanes are released. Primary owns the next
+column-index and target-geometry modules. Astra completed the independent
+uniform target, module-boundary and source-semantic audits.
 
 Primary owns strategy, integration, remote jobs, all other source and the sole
 build slot. All delegated lanes are released. Luna ported selection/subset sums;
