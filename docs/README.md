@@ -36,6 +36,8 @@
 - [Restricted ordinary recurrence audit](RESTRICTED_BOUNCE_AUDIT.md): a separate
   open claim, unused by the proved ordinary expansion.
 - [Circular flip interfaces](CIRCULAR_FLIPS.md): downstream component scope.
+- [Component induction brainstorming](proofs/FLIP_COMPONENT_INDUCTION.md):
+  coloring redistribution, cross-ascent transfers and exact missing lemmas.
 - [Aristotle ledger](ARISTOTLE.md): request IDs, candidates, and local verification.
 - [Historical plans](archive/completed-plans/README.md): superseded implementation
   outlines and the original architecture audits. They are not active work lists.

@@ -61,6 +61,20 @@ External logs under `/lake-cache/ai-projects/requests/VerticalStripLLT/`:
 formatting changes in the full build. No dependency update or local generated
 build directory was introduced.
 
+## Component brainstorming continuation
+
+Completed research note: `docs/proofs/FLIP_COMPONENT_INDUCTION.md`. Astra and
+Terra reviewed the current manuscript and component notes read-only; neither
+edited or built. Primary wrote and checked the note and index. All delegate
+lanes are released. No Lean claims, builds, or Overleaf edits were made.
+
+Key refinement: the recorded target-span obstruction restricts to equal ascent
+number; the unweighted component theorem permits cross-ascent target terms.
+The first recorded obstruction can use a maximal-ascent target chain singleton
+as its signed correction, conditional on the recorded K identity. The uniform
+missing steps are simultaneous coloring/HRV transport, global reconstruction
+and enough independent equations to isolate each source component.
+
 ## Ownership and next step
 
 Primary owns strategy, final integration, this handoff and the sole local
