@@ -8,7 +8,7 @@ interior overlap is now proved; deeper contacts remain. Follow the author's
 one-bounce elimination strategy. Strict cycles make both actual models vanish;
 overlap between offset contact tracks alone is not a cycle. No flip work.
 
-This checkpoint adds:
+Latest pushed source checkpoint `4cb8f5d` adds:
 
 - `DDLocalData.oneBounce_restart_of_interior_overlap_at`, identifying the
   actual restart root and terminal. The older existential theorem is a wrapper;
@@ -61,8 +61,15 @@ above. External directory `circular-interior-expansion/` retains
 and observer/steering provenance. No active task remains there; do not poll it
 as live. Transient observer reconnects never resubmitted the task.
 
-A narrower uniform chain-singleton semantic request is prepared in
-`circular-chain-singleton-expansion/`, not yet submitted. Its dependency closure
+A narrower uniform chain-singleton semantic request is active in
+`circular-chain-singleton-expansion/`: project
+`004c658b-1194-4c5c-be93-a3799e73d7be`, task
+`40bf20a6-93f3-4fcb-8500-8739c2c8b234`, initially confirmed QUEUED.
+Native observer session **29734**, log `observer.log`. Observe this same task;
+do not resubmit after an observation interruption. This observer does not download;
+after authoritative completion run `aristotle download` for the same project
+to `circular-chain-singleton-expansion/result.tar.gz`. Inspect errors as well
+as CLI exit status. Input source commit `4cb8f5d`. Its dependency closure
 has 70 modules (6526 prefix lines): compatible existing foundation proofs and
 six new locally checked modules. It includes no area/bounce assumptions or
 unfinished interior theorem. Exact new-source hashes, input module list and

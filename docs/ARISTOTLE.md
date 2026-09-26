@@ -22,6 +22,25 @@ the exact input snapshot and steering messages. All observer interruptions were
 reconnections to the same task; the final authoritative status is terminal.
 Deeper interior contacts remain unproved.
 
+## Uniform chain-singleton semantic base (active)
+
+Project `004c658b-1194-4c5c-be93-a3799e73d7be`, task
+`40bf20a6-93f3-4fcb-8500-8739c2c8b234`, submitted from source `4cb8f5d`.
+Exact target: `ChainSingletonData.coloringLLT_shifted_eq_expansion`, the actual
+coloring–HRV equality for an exhaustive strict chain plus one isolated strict
+vertex, every chain length and every finite alphabet. No claim that every
+interior reduction reaches this family is included.
+
+External directory `circular-chain-singleton-expansion/` has a 70-module
+dependency closure, the exact target, locally checked source hashes,
+`PREFIX_PROVENANCE.md` and the independently audited `ProofRoute.md`.
+Existing bodies come from the previous service-compatible foundation prefix;
+six newly checked modules provide corner adjacency, actual coloring reindexing,
+actual ascent decomposition and weighted gap enumeration. No unfinished interior
+theorem or assumed semantic equality is included. Service proof candidates
+still require primary local Lean 4.34 verification. Current observer ownership
+and download instructions are in `HANDOFF.md`.
+
 ## Circular coloring subset expansion (completed and locally verified)
 
 - Project ID: `40998e1f-04ed-473c-9d58-5656253cfa9d`.
