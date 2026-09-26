@@ -51,7 +51,12 @@ shortcuts; no edits, builds, new examples or computations are authorized.
 
 Active Aristotle interior-overlap project:
 `65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, task
-`c4f22d47-e2f8-4545-9ba5-9edb35be49e9`. Native wait/downloader session **87017**.
+`c4f22d47-e2f8-4545-9ba5-9edb35be49e9`. Reconnected observer session **95345**.
+The original wait/downloader 87017 exited after a server-connection interruption;
+the same remote task was confirmed running on reconnection. No resubmission.
+Read `observer-reconnect.log` for current events. This observer does not download:
+after authoritative completion, use `aristotle download` for the same project,
+with destination `circular-interior-expansion/result.tar.gz`.
 External directory `circular-interior-expansion/` under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/`. Observe this same handle;
 do not resubmit. The request includes 182 locally checked modules, the exact

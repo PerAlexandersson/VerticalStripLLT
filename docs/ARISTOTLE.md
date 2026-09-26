@@ -677,7 +677,11 @@ identities remain open.
 ## Circular interior-overlap semantic step (active)
 
 - Project `65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, task
-  `c4f22d47-e2f8-4545-9ba5-9edb35be49e9`; native wait/downloader 87017.
+  `c4f22d47-e2f8-4545-9ba5-9edb35be49e9`; reconnected observer 95345.
+  Original wait/downloader 87017 lost its server connection and exited. The
+  same task was confirmed running on reconnection; no resubmission occurred.
+  Current events are in `observer-reconnect.log`. After completion, download
+  this project's archive explicitly; the replacement observer does not do so.
 - External directory `circular-interior-expansion/`, 182 checked modules:
   previous prefix, `DoubleCornerReduction`, and the six new separated-ND modules.
   Source base `0e5b104` plus exact checked new-file hashes. The unchanged target,
