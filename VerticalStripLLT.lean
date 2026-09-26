@@ -176,3 +176,4 @@ import VerticalStripLLT.Circular.InsertionColorings
 import VerticalStripLLT.Circular.InteriorFirstContact
 import VerticalStripLLT.Circular.ZeroCutGeometry
 import VerticalStripLLT.Circular.ZeroRowsTransport
+import VerticalStripLLT.Circular.ChainSingletonExpansion

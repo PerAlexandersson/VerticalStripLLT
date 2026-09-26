@@ -41,11 +41,11 @@ strictification or assert that a suitable next move exists. A single exposed
 corner can strictify back to area D without decreasing strict rank. Two distinct
 exposed corners already provide a checked smaller-area exit.
 
-The chain-plus-isolated-vertex semantic base is an active auxiliary task.
-Exact graph data, coloring reindexing, actual ascent decomposition and weighted
-insertion-gap sums are checked. The polynomial assembly and independent HRV
-selection count remain. Proving this base does not prove that every remaining
-interior configuration reaches it.
+The chain-plus-isolated-vertex semantic base is now proved uniformly by
+`ChainSingletonData.coloringLLT_shifted_eq_expansion`. It compares both actual
+models for every finite alphabet. Use it where its exact graph hypothesis is
+established; even a saturated deeper-interior source can have two isolated
+vertices, so this base does not by itself discharge the general interior step.
 
 Use the [ND assembly note](proofs/CIRCULAR_ND_ASSEMBLY.md) for the exact
 obligations and failed shortcuts. In particular, strict-loop vanishing does not

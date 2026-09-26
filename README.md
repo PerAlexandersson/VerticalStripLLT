@@ -94,6 +94,10 @@ two-step R1 exit below the original half-square area.
 Separated ND is now proved, including cyclic intermediate diagrams.
 The checked outer induction has one remaining input, the interior ND step;
 the unconditional circular theorem still requires its proof.
+The actual coloring–HRV equality is also proved uniformly for a strict chain
+plus one isolated vertex, including winding configurations and every finite
+alphabet. This supplies an additional semantic base, without assuming that
+all remaining interior sources belong to that family.
 See [verified circular results](docs/CIRCULAR_STATUS.md) and
 [remaining goals](docs/CIRCULAR_GOALS.md).
 

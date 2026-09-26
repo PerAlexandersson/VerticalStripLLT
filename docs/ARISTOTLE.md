@@ -711,14 +711,12 @@ identities remain open.
   Returned prefix edits were proof compatibility changes and removal of a
   duplicated theorem; none of that prefix was imported.
 
-## Circular interior-overlap semantic step (active)
+## Circular interior-overlap semantic step (completed with partial return)
 
 - Project `65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, task
-  `c4f22d47-e2f8-4545-9ba5-9edb35be49e9`; reconnected observer 10741.
-  Original wait/downloader 87017 lost its server connection and exited. The
-  same task was confirmed running on reconnection; no resubmission occurred.
-  Current events are in `observer-reconnect-2.log`. After completion, download
-  this project's archive explicitly; the replacement observer does not do so.
+  `c4f22d47-e2f8-4545-9ba5-9edb35be49e9`; COMPLETE_WITH_ERRORS.
+  Transient observer failures were handled by reconnecting the same task.
+  The completed archive and summary are retained externally. No task is live.
 - External directory `circular-interior-expansion/`, 182 checked modules:
   previous prefix, `DoubleCornerReduction`, and the six new separated-ND modules.
   Source base `0e5b104` plus exact checked new-file hashes. The unchanged target,
@@ -726,11 +724,31 @@ identities remain open.
 - Target `Diagram.expansion_of_nd_interior_overlap`: saturated, strictly acyclic
   source, actual eligible counted interior ND overlap, and the semantic bridge
   for every smaller outer measure imply the source bridge.
-- The earlier concurrent attempt was capacity-limited and created no task.
-  This submission succeeded after separated ND finished. Observe the existing
-  handle rather than resubmitting or cancelling other projects.
+- The target retains one sorry and was excluded. The completed explicit-index
+  restart and first-contact semantic proofs were locally integrated at `4cb8f5d`.
 - The outer induction is locally checked, and separated ND now discharges its
   other input. This interior target is the remaining mathematical obligation.
   Notes retain failed fixed-length slide/rank, coefficient-one rotation and
   component-partition shortcuts. The service must prove an actual exit, not
   weaken the target or add an assumed recurrence.
+
+## Circular chain-singleton semantic base (complete and locally verified)
+
+- Project `004c658b-1194-4c5c-be93-a3799e73d7be`, task
+  `40bf20a6-93f3-4fcb-8500-8739c2c8b234`; COMPLETE.
+- External directory `circular-chain-singleton-expansion/` retains input source
+  `4cb8f5d`, the 70-module closure, hashes, final archive, returned Request and
+  summary. The review snapshot and final return agree byte for byte.
+- Exact target `ChainSingletonData.coloringLLT_shifted_eq_expansion`, every k,m,
+  with only the exhaustive chain/singleton graph data as hypothesis. No winding,
+  alphabet-size, bounce or general semantic assumption was added.
+- Six appended blocks became `ChainSingletonSelection`, `Subsets`, `Insertion`,
+  `Orientations`, `Reduction`, `Expansion` (each has the `ChainSingleton` prefix).
+  All 58 returned proof declarations were retained. The remote prefix added one
+  normal-edge compatibility lemma already present locally; it was not imported.
+- Luna ported generic sums, Terra extracted coloring proofs, primary integrated
+  HRV/assembly and repaired APIs. One slow `congr` was replaced with explicit
+  addition congruence; no increased heartbeat limit was retained. Independent
+  Astra review confirmed actual semantics and winding-sensitive HRV comparison.
+- Local full build: 1879 jobs. Axiom inventory: 1852 declarations, standard
+  axioms only. The full circular theorem still requires the interior ND step.

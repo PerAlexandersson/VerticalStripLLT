@@ -91,9 +91,9 @@ The uniform strict-corner adjacency lemma is also checked in
 `StrictCornerAdjacency.lean`. For a strict edge a→b and a third vertex v,
 the normal edge a→v exists exactly when v→b does. The proof uses maximal
 outgoing length at a strict corner and monotonicity of the lifted boundary;
-it needs neither acyclicity nor a common no-wrap interval. This is an input
-to the proposed chain-plus-isolated-vertex base, not yet a proof of that base
-or of an exit from every interior diagram.
+it needs neither acyclicity nor a common no-wrap interval. It is now used in
+the proved chain-plus-isolated-vertex base described below. A general exit
+from every interior diagram remains open.
 
 `Diagram.coloringLLT_shifted_eq_expansion_of_normal_comparable` now proves the
 full semantic bridge whenever each normal edge has endpoints comparable by
@@ -207,7 +207,7 @@ comparable-endpoint base. The chain-plus-singleton base could apply only for
 d=1 and component sizes (n−1,1); even d=1 can require a more general two-chain
 argument. This is a mathematical classification audit, not yet a Lean theorem
 or a proved description of all configurations reached by the interior route.
-In particular, no claim that the active chain-singleton request closes all
+In particular, no claim that the completed chain-singleton base closes all
 deeper interior cases is justified.
 
 ## Zero-area cuts do not provide a new auxiliary exit
@@ -276,7 +276,32 @@ three components. In particular, neither strict-totality nor
 edge 0 -> 1 also joins different strict components.
 
 This refutes only those proposed classifications, not the desired HRV formula.
-It justifies retaining a general interior exit obligation after the active
-chain-singleton semantic request. No additional example module or computation
+It justifies retaining a general interior exit obligation after the completed
+chain-singleton semantic proof. No additional example module or computation
 was introduced; this is a proof-strategy counterexample, not a new theorem
 milestone.
+
+## Completed chain-singleton semantic base
+
+`ChainSingletonData.coloringLLT_shifted_eq_expansion` now proves the actual
+bridge for a strict chain c_1,...,c_L and one isolated strict vertex v, with
+arbitrary finite alphabet and L≥1. No no-wrap or bounce assumption is used.
+For a_j=[c_j→v normal], b_j=[v→c_j normal], corner geometry gives
+a_j=b_(j+1). Put I=#forward internal normals, M=sum_(j<L) a_j,
+A=I+M and r=M+b_1+a_L. Both evaluated expressions are proved equal to
+(1+q)^A * (e_1*e_L + r*q*e_(L+1)).
+
+On the coloring side, the isolated color occupies at most one strict insertion
+gap; the checked insertion sums give the displayed formula. On the HRV side,
+internal forward normals factor as (1+q)^I, while internal backward selected
+normals force a cycle. External outgoing/incoming position sets U,V are acyclic
+exactly when every j in U is smaller than every h in V. A selected incoming
+edge or an outgoing edge at the last chain vertex gives one sink and one fiber.
+Otherwise strict continuation dominates each external edge in the actual
+integer lift, so the HRV monomial remains e_1*e_L. Grouping nonempty V by its
+least member completes the finite selection sum.
+
+The six `ChainSingletonSelection`, `Subsets`, `Insertion`, `Orientations`,
+`Reduction`, `Expansion` modules separate these arguments (each filename
+has the `ChainSingleton` prefix). The local build and axiom inventory passed;
+this section records a completed semantic base, not a proposed recurrence.
