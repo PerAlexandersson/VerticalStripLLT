@@ -8,7 +8,7 @@ interior overlap is now proved; deeper contacts remain. Follow the author's
 one-bounce elimination strategy. Strict cycles make both actual models vanish;
 overlap between offset contact tracks alone is not a cycle. No flip work.
 
-Current source checkpoint adds zero-cut geometry and zero-row preservation:
+Pushed source checkpoint `5619f82` adds zero-cut geometry and zero-row preservation:
 
 - `Diagram.liftStep_interval`, `reflTransGen_interval` and
   `Orientation.liftedHRV_interval` confine actual lifted walks/HRV to one
@@ -80,7 +80,7 @@ as live. Transient observer reconnects never resubmitted the task.
 A narrower uniform chain-singleton semantic request is active in
 `circular-chain-singleton-expansion/`: project
 `004c658b-1194-4c5c-be93-a3799e73d7be`, task
-`40bf20a6-93f3-4fcb-8500-8739c2c8b234`, last confirmed IN_PROGRESS at 19 minutes.
+`40bf20a6-93f3-4fcb-8500-8739c2c8b234`, last confirmed IN_PROGRESS at 22 minutes.
 Native observer session **83953**, log `observer-reconnect.log`. Original observer
 29734 exited after a server-connection interruption; the same task was confirmed
 IN_PROGRESS before reconnection. No resubmission. Observe this same task;
@@ -134,6 +134,15 @@ seed has a unique area drop. If its area range is d>0, its strict graph has
 d+1 components; the chain-singleton base therefore does not cover this entire
 terminal class. Details and qualifications are in `CIRCULAR_ND_ASSEMBLY.md`.
 These are audited mathematical observations, not new Lean declarations.
+
+The stronger original-source shortcut is also ruled out: the saturated
+acyclic n=8 source with areas (3,4,4,4,3,4,5,5) has a genuine interior contact
+at i=2 but one six-vertex chain and two isolated vertices. Thus saturation
+does not force either the comparable-endpoint base or `ChainSingletonData`.
+The explicit source/contact check is retained in `CIRCULAR_ND_ASSEMBLY.md`.
+This turn was a strategy audit plus a verified wait on the same Aristotle task;
+no new local build was needed. Rust capabilities were inspected read-only;
+no new mathematical computation or cross-project edits were made.
 
 Exact checked interfaces: `docs/CIRCULAR_STATUS.md`. Remaining obligations and
 failed shortcuts: `docs/CIRCULAR_GOALS.md`, `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.

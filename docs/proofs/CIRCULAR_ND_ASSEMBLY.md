@@ -250,3 +250,33 @@ form one chain. A general chain-shuffle calculation needs the normal-edge
 incidences between different chains; component sizes alone do not determine
 either actual model. This paragraph records audited mathematics, not additional
 Lean declarations or a proved general exit.
+
+## Saturation does not force the chain-singleton base
+
+The restriction also fails for the original saturated source, not merely for
+an auxiliary terminal diagram. The following obstruction to that proposed
+classification occurs in the completed interior request's report and checks
+directly by hand:
+
+```
+n = 8
+area = (3,4,4,4,3,4,5,5)
+strict heads = {1,2,3,6,7} (exactly all corners)
+strict chain = 5 -> 1 -> 6 -> 2 -> 7 -> 3
+isolated strict vertices = 0, 4
+```
+
+The eligible root t=7 has boundary iterates
+7 -> 2 -> -2 -> -7 -> -11. Its root east gap is 2. The first three contacts
+are DD with east gap zero; x=-11 is ND, since its residue 5 is nonstrict
+while x+1 has strict residue 6. That residue equals the second contact -2,
+so this is a deeper interior overlap. The strict graph is acyclic, yet has
+three components. In particular, neither strict-totality nor
+`ChainSingletonData` follows from saturation and interior overlap. The normal
+edge 0 -> 1 also joins different strict components.
+
+This refutes only those proposed classifications, not the desired HRV formula.
+It justifies retaining a general interior exit obligation after the active
+chain-singleton semantic request. No additional example module or computation
+was introduced; this is a proof-strategy counterexample, not a new theorem
+milestone.
