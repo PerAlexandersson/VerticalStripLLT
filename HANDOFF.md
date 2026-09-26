@@ -43,6 +43,12 @@ serialized local build slot. All delegated lanes are released; no build-slot
 transfer occurred. Use only `lake-workspace`, checking for other Lean/Lake
 processes before each invocation. Delegates remain build-free.
 
+Additional read-only Claude Sonnet consultation: native process session 97026,
+20-minute timeout, only Read/Grep/Glob tools. Primary owns monitoring and cleanup.
+External prompt and JSONL output are in `claude-interior-review/`. It is asked
+for a concrete interior exit argument while retaining all known failed
+shortcuts; no edits, builds, new examples or computations are authorized.
+
 Active Aristotle interior-overlap project:
 `65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, task
 `c4f22d47-e2f8-4545-9ba5-9edb35be49e9`. Native wait/downloader session **87017**.
