@@ -65,7 +65,9 @@ A narrower uniform chain-singleton semantic request is active in
 `circular-chain-singleton-expansion/`: project
 `004c658b-1194-4c5c-be93-a3799e73d7be`, task
 `40bf20a6-93f3-4fcb-8500-8739c2c8b234`, initially confirmed QUEUED.
-Native observer session **29734**, log `observer.log`. Observe this same task;
+Native observer session **83953**, log `observer-reconnect.log`. Original observer
+29734 exited after a server-connection interruption; the same task was confirmed
+IN_PROGRESS before reconnection. No resubmission. Observe this same task;
 do not resubmit after an observation interruption. This observer does not download;
 after authoritative completion run `aristotle download` for the same project
 to `circular-chain-singleton-expansion/result.tar.gz`. Inspect errors as well
