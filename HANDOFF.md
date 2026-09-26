@@ -1,6 +1,58 @@
 # VerticalStripLLT handoff
 
-## Current checkpoint: neutral-bounce termination
+## Active continuation: full circular expansion
+
+Primary owns strategy, integration, all returned source, remote requests, and
+the sole globally serialized build slot. No build-slot transfer. User authorized
+circular continuation, bounded Luna/Terra delegation, and Aristotle proof search.
+Current build-free ownership:
+- Luna `circular_data`: new `Circular/RaiseStrict.lean`, local DN head extension
+  (returned, integration pending; excluded from this checkpoint).
+- Terra `circular_colorings`: returned contact-chain extraction; lane released.
+- Astra `circular_plan_review`: returned read-only seed-search and DN geometry audits.
+
+## Current checkpoint: circular search and NN coloring
+
+2026-09-26: the full circular expansion remains open. The following are proved
+for the actual finite circular model, without recurrence assumptions:
+- `Diagram.exists_complete_reverseBounce`: a corner-saturated acyclic diagram
+  with a normal edge has an eligible DE seed and a complete NN/DN/ND reverse
+  contact search. Restarts and DD descents decrease strict-ancestor depth.
+- `Diagram.ReverseBounce.exists_contacts`: strict integer main/parallel chains.
+- `Diagram.coloringLLT_firstBounce_geometry`: actual NN coloring recurrence
+  `LLT(D)=q*LLT(shortenStrict D)` for all finite alphabets, derived from local
+  boundary equalities/flags and the terminal area drop.
+- `Diagram.pairGraph_coloringLLT`: faithful endpoint-pair presentation of the
+  original edge-instance coloring semantics.
+- `periodicSwap_boundary_relation` and `Diagram.naturalPairs_erase_map_swap`:
+  natural exterior-edge invariance on the full periodic cover.
+- `Orientation.liftedHRV_conjugate`, `hrvMonomial_conjugate`, and
+  `hrvMonomial_periodicSwap`: transport of actual lifted-HRV maxima and fibers
+  under explicit lifted-step conjugacy and sink-order preservation.
+- Valid shortened strict target and exact changed endpoint sets.
+
+New source is modular: boundary/search, pair-coloring adapters, target geometry,
+and HRV transport have separate modules. No new examples or reference edits.
+Proof details and next DN constructor: `docs/proofs/CIRCULAR_BOUNCE_SEARCH.md`.
+Remaining: full NN/DN/ND semantic recurrences including DD propagation; actual
+DN contact adapter; geometric-area bookkeeping and final lexicographic induction.
+
+Aristotle supplied the periodic-swap and periodic-boundary proof candidates,
+ported and verified locally. Isolated actual NN orientation target remains
+active in project `4c8c3a9f-a32a-4643-92c4-c2f09d633686`, task
+`4e3adb0d-712e-4539-9487-7d388cd71335`. Request, observer log, and supplementary
+boundary proof are under the external requests directory `circular-nn-orientation`.
+An observer disconnect does not cancel the remote task. Do not duplicate it.
+Runtime registry and `codex mcp list` checked: AXLE present, Aristotle CLI present;
+Lean MCP points to RealRooted and is not used for this package.
+
+Default build passes (1749 jobs); all 754 axiom checks pass with only
+propext, Classical.choice, and Quot.sound. Source and 100-column guards pass.
+The initialization commits and references remain unchanged. Verification logs:
+`circular-bounce-search-checkpoint-build.log` and
+`circular-bounce-search-checkpoint-axioms.log` in the external build directory.
+
+## Previous checkpoint: neutral-bounce termination
 
 2026-09-26: the user's contradiction lemma is proved in the explicit full-bounce
 contact formulation, for arbitrary circular size and contact count. Ordinary

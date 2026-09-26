@@ -93,7 +93,13 @@ data: infinite iteration forces a strict cycle in the initial diagram, so its
 entire coloring LLT vanishes for every alphabet. The proof derives a decreasing
 strict-chain rank; it does not assume rank decrease or polynomial identities.
 See [the proof and precise interface](docs/proofs/NEUTRAL_BOUNCE_TERMINATION.md).
-Extraction of the contact data from a circular word-bounce decoder remains open.
+The circular reverse contact search now terminates by strict-ancestor depth,
+including restarts at earlier eligible markers, and extracts strict main/parallel
+contact chains. The first NN coloring recurrence is proved directly from periodic
+boundary geometry, with a valid shortened target. Lifted-HRV conjugacy and
+periodic exterior swap invariance are proved separately. The remaining bounce
+identities and the final circular induction are open; see
+[the search and recurrence interface](docs/proofs/CIRCULAR_BOUNCE_SEARCH.md).
 Concrete examples live under
 `VerticalStripLLT/Examples/` and are excluded from the main library imports.
 Cumulants remain outside the scope.

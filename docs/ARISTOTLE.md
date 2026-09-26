@@ -478,3 +478,45 @@ HRV conjugation (including the special corner vertex), and unrestricted V.
 No semantic assumption or hidden no-east restriction was introduced.
 The ordinary expansion now follows locally through the proved recurrence
 certificate and uniqueness; remote results alone were never authoritative.
+
+## Periodic adjacent swap (completed and locally checked)
+
+- Project `bbfa6e2c-81bb-45ad-b68d-7737d8386f28`, task
+  `8a5b564d-cdc3-4d8e-9b8b-04ff141b7d5b`, COMPLETE on 2026-09-26.
+- Request/results: external `periodic-adjacent-swap/` directory under the usual
+  VerticalStripLLT request root. Exact three modular/order statements retained.
+- Ported to `Circular/PeriodicSwap.lean`; only tactics/imports changed for
+  local 4.34, and the unused translation parameter is explicitly cleared.
+  The involution, periodicity, and strict order on separated pairs all compile.
+- Primary added the independently checked circular residue projection and
+  actual lifted-HRV/fiber-monomial applications. No recurrence is assumed.
+
+## Periodic natural-edge boundary swap (completed and locally checked)
+
+- Project `6cffe7ef-5943-458b-8619-dd7e2b17ac8f`, task
+  `502e5215-4324-49e9-a0c7-3146ddc18f60`, COMPLETE on 2026-09-26.
+- Request/results: external `periodic-boundary-swap/` directory.
+- Exact target `periodicSwap_boundary_relation` proves natural lifted-edge
+  invariance after excluding the periodic adjacent bridge. Its assumptions
+  are periodicity, equal adjacent boundary values, and avoided gap values.
+- The returned helpers and target are ported to `Circular/PeriodicBoundarySwap.lean`
+  and locally compiled; source statements and supplied prefix are unchanged.
+  This is a local exterior-incidence theorem, not the circular expansion.
+
+## Circular NN orientation recurrence (active isolated target)
+
+- Project `4c8c3a9f-a32a-4643-92c4-c2f09d633686`, task
+  `4e3adb0d-712e-4539-9487-7d388cd71335`, submitted 2026-09-26.
+- Request/results: external `circular-nn-orientation/` directory; exact statement
+  in `Target.txt`, module snapshot in `INPUT_MODULES.txt`.
+- Target `Diagram.shiftedOrientationExpansion_shortenStrict_NN`: the actual
+  circular HRV expansion equals `(X+1)` times the expansion of the constructed
+  shortened strict-corner diagram, under geometric NN contact hypotheses.
+  It does not ask for the full expansion or repeat the proved base cases.
+- Supplied 34-module checked prefix, adapted to isolated service Lean 4.28,
+  includes actual HRV conjugacy, periodic swap, and target edge-set changes.
+- A file supplement was rejected because uploads require an idle project.
+  No new task was created by that rejection. The checked boundary-swap proof
+  was then sent successfully as text INSTRUCT to the same active task.
+- Primary owns observation, integration, and all local verification. Service
+  output remains a candidate; no NN HRV recurrence is claimed yet.

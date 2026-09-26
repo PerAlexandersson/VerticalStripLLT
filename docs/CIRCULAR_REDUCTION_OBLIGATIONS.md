@@ -9,6 +9,22 @@ rank at 2399--2452.  The source itself labels the central bridge as missing.
 The corresponding editorial caveats are therefore mathematical obligations,
 not Lean elaboration work.
 
+## Current route (2026-09-26)
+
+The direct periodic-boundary route now proves complete reverse contact search,
+including marker restarts, and extracts the strict contact chains. It also
+proves the actual one-contact NN coloring recurrence and lifted-HRV transport
+under a lift-step conjugacy. See `proofs/CIRCULAR_BOUNCE_SEARCH.md` for the
+current declarations and precise remaining obligations.
+
+The retained-coloring/no-wrap construction below records an earlier candidate
+route. It is not an additional requirement of the current whole-diagram proof:
+neutral termination is already established by `FullNeutralBounce.strictRank_lt`.
+We now need to build its contact witness for the actual DN successor, prove
+all circular coloring/HRV identities, and close induction using doubled
+half-square area and strict rank. No recurrence certificate is substituted
+for the desired equality.
+
 ## Target to prove
 
 For every circular area sequence `a`, corner-restricted strict set `S`, and
