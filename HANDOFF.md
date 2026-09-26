@@ -50,6 +50,7 @@ injectivity alone do not give ordinary cut transport. Terra completed the
 read-only corner audit and external continuation-prefix packaging. Both lanes
 are released. Primary owns all repository files, requests, and the sole build slot.
 The component checkpoint `386d6a7` is pushed (568 axiom checks).
+The corner checkpoint `360c54a` is verified and pushed (613 axiom checks).
 
 Corner reduction focused build passes (1400 jobs):
 `Diagram.xQShift_coloringLLT_corner` and
@@ -229,3 +230,19 @@ are preserved; references remain unchanged from `130f7e8`.
 `docs/COEFFICIENT_OBLIGATIONS.md` records the now checked finite-degree boundary.
 The archived restricted-middle nonderivability candidate remains unverified
 and unused; it does not refute the full recurrence or main theorem.
+
+## Continuation ownership and retrieval
+
+Primary owns hosted Aristotle task `b6cda868-d1f9-4ec9-a51c-f81bff3c6354`
+on project `5835802e-8139-48b7-a07b-06add00f1f14`. Last confirmed state:
+`IN_PROGRESS`. The service owns its lifetime; no local process timeout or
+repository-write permission applies. Requests and future downloaded candidates
+belong under `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-expansion/`.
+No live local build remains, and all agent edit lanes are released.
+
+Next action: retrieve this same task's status/result, audit the exact theorem
+and every helper for unresolved placeholders, port only useful proved additions,
+and run the sole serialized local build plus axiom audit. Do not resubmit the
+zero-area family or claim a full circular/component theorem from the conditional
+reduction. No automatic conversation wake-up is configured; the hosted task
+survives a turn ending, but a later explicit check is needed to integrate it.
