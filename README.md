@@ -63,7 +63,8 @@ A general-purpose symmetric-functions library is outside the scope.
   separate modules. The DN and ND analogues now give all three generalized
   bounce reductions with valid successors and strict measure decreases.
   `firstEast_prefix_cases` supplies the exhaustive geometric case split;
-  recurrence uniqueness remains open.
+  `SatisfiesReductionRecursion.unique` now proves uniqueness for that
+  sufficient certificate by nested induction on size, east count, and height.
 - The independent orientation expression is now defined using finite normal
   edge choices and highest-reachable-vertex fibers. HRV maximality and
   idempotence, fiber nonemptiness, and empty-path normalization are proved.
@@ -95,8 +96,10 @@ relation and both single-bounce recurrence identities are proved.
 `coloringLLT_satisfiesRecursion` bundles these facts with empty normalization
 in a named recurrence predicate. The third single-bounce coloring relation is
 also proved. All three generalized bounce branches are proved;
-recurrence uniqueness, a terminating recursive invariant, the DN orientation bounce identity,
-and the full semantic bridge remain to be proved.
+the DN orientation bounce identity and the full orientation/coloring semantic
+bridge remain to be proved. `coloringLLT_eq_of_satisfiesReductionRecursion`
+identifies any invariant with a proved sufficient certificate with the
+coloring polynomial; the independent orientation certificate remains open.
 
 ## Build and verification
 

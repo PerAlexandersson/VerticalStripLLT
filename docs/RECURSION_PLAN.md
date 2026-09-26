@@ -183,3 +183,9 @@ No new abstract recursive invariant is necessary for this uniqueness proof.
 This proves uniqueness for the explicitly stronger sufficient certificate,
 not for the unchanged manuscript-facing restricted predicate. It will give
 the semantic bridge only after an independent orientation witness is proved.
+
+The implementation above now checks locally: `ReductionUniqueness.unique`
+(in namespace `SatisfiesReductionRecursion`) and the modular
+`BounceAgreement.bounce_agreement`. The finite-variable characterization is
+`coloringLLT_eq_of_satisfiesReductionRecursion`. The stronger-certificate
+boundary remains unchanged.

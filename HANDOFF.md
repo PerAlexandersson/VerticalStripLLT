@@ -30,8 +30,12 @@ ordinary and raised children, preserving BOTH diagonals in DD flattening.
 The stronger `SatisfiesReductionRecursion` explicitly adds both NN and DN
 leading-east clauses to the unchanged manuscript-facing `SatisfiesRecursion`.
 Do not claim restricted-recursion uniqueness or assume an orientation witness.
-Uniqueness, the independent DN orientation identity, the full recurrence
-bundle, and arbitrary-path coloring/orientation equality remain open.
+`SatisfiesReductionRecursion.unique` now proves uniqueness by nested induction
+on size, east count, and first-east height. `BounceAgreement` integrates the
+three terminal cases. `coloringLLT_eq_of_satisfiesReductionRecursion` identifies
+any invariant with a proved sufficient certificate with coloring LLT.
+The independent DN orientation identity, full orientation certificate, and
+arbitrary-path coloring/orientation equality remain open.
 The column semantic bridge is already checked for every finite alphabet.
 Positivity, weighted degree, and alphabet stability remain distinct obligations.
 
@@ -45,33 +49,34 @@ Positivity, weighted degree, and alphabet stability remain distinct obligations.
 - `de6026f`: orientation unicellular and indexed bounce geometry.
 - `9d3574c`: generalized NN with valid successor and measure decrease.
 - `d244170` (pushed): independent NN orientation bounce; 344 axiom checks.
+- `6c1f8ab` (pushed): all generalized bounces, first-east cases, and shift.
 
-Current integrated generalized-bounce/shift batch: default build 1479 jobs,
-355 public axiom checks, only `propext`, `Classical.choice`, and `Quot.sound`
+Current integrated uniqueness batch: default build 1482 jobs,
+358 public axiom checks, only `propext`, `Classical.choice`, and `Quot.sound`
 (or no axioms). Source/100-column guards, immutable references, initialization
 ancestry, and external-cache checks pass. Logs under
 `/lake-cache/ai-projects/build/VerticalStripLLT/`:
-`generalized-bounces-full-build.log` and `generalized-bounces-axioms.log`.
+`uniqueness-full-build.log` and `uniqueness-axioms.log`.
+The generalized-bounce checkpoint logs use prefix `generalized-bounces-`.
 The NN orientation checkpoint logs use prefix `orientation-nn-`.
 
 ## Live work and ownership
 
-Primary `/root` owns strategy, integration, all shared documentation, aggregate
-imports/verification, and the sole local build slot. All returned port,
-shift, and generalized-bounce modules are now primary-owned.
+Primary `/root` owns strategy, integration, documentation, aggregate imports,
+verification, all source files, and the sole local build slot. All delegated
+files are returned and checked; no subagent has active source ownership.
 
-- `bounce_audit` (Terra): returned uniqueness API notes without a candidate.
-  No missing mathematical branch identified; full induction remains primary work.
-  Next owns only `BounceAgreement.lean`, a smaller seed-branch agreement lemma
-  under agreement on same-size/same-east-count paths of smaller height.
-  Build-free; no other file ownership.
-- `path_invariants` (Luna): released port/specialization/DN-wrapper ownership.
-- `column_paths` (Luna): released shift ownership. Its earlier inadequate DN
-  single-bounce wrapper was replaced by the genuine checked Terra induction.
+- `bounce_audit` (Terra): implemented DN/ND induction and the bounce-agreement
+  helper, after independently auditing the orientation NN candidate.
+- `path_invariants` (Luna): ported the orientation NN modules and implemented
+  its specializations and the DN reduction package.
+- `column_paths` (Luna): implemented the parameter-shift candidate.
+- Primary repaired local normalization/API issues, implemented exhaustive
+  first-east geometry and nested uniqueness, and verified all integrations.
 
 Aristotle DN project `432e553c-fc15-4226-8795-9bc0b1786b28`, task
 `fa04e12e-eb5d-43e6-ac50-92e432384704`, accepted 2026-09-26 06:55 UTC.
-Last observed IN_PROGRESS, 6 percent, updated 07:01:59 UTC. Observe this same
+Last observed IN_PROGRESS, 14 percent, updated 07:10:34 UTC. Observe this same
 job; do not resubmit. Its isolated request directory is
 `/lake-cache/ai-projects/requests/VerticalStripLLT/orientation-second-bounce`.
 Target: `orientationExpansionAt_secondBounce_general`, unrestricted V and z,
@@ -81,8 +86,7 @@ path/graph identities. Provenance and completed NN job IDs: `docs/ARISTOTLE.md`.
 Issues #1–6 are closed; #7 tracks orientation bounce/certificate:
 https://github.com/PerAlexandersson/VerticalStripLLT/issues/7.
 
-Next: verify Terra's uniqueness candidate, then port/check the remote DN
-orientation proof when it returns. Assemble the independent orientation
+Next: port/check the remote DN orientation proof when it returns. Assemble the independent orientation
 certificate and transport it through `evalElementary` to obtain the coloring
 semantic bridge by uniqueness. No recursive object is identified with LLT
 merely by definition. Shifted positivity and degree/stability follow later.
@@ -104,7 +108,7 @@ Aristotle uses isolated4.28 snapshots; local builds remain authoritative.
 Keep requests/candidates outside the checkout; require project/task receipts.
 
 `docs/FORMALIZATION.md` maps declarations to the source; `RECURSION_PLAN.md`
-records exact uniqueness assembly. `COEFFICIENT_OBLIGATIONS.md` records shift,
+records the now checked uniqueness assembly. `COEFFICIENT_OBLIGATIONS.md` records shift,
 positivity, weighted-degree and stability boundaries. Other architecture notes:
 `BOUNCE_TRACE_PLAN.md`, `ORIENTATION_MODEL.md`, `REDUCTION_CERTIFICATE.md`.
 The older restricted-middle search ended COMPLETE_WITH_ERRORS. Its bounded

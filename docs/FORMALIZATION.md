@@ -368,3 +368,19 @@ geometric case split. Recurrence uniqueness is the next integration target.
 `OrientationShift` proves coefficient substitution q→q+1 maps the ordinary
 orientation expression to the independently defined shifted expression.
 Positivity and weighted homogeneity remain distinct unproved obligations.
+
+## Sufficient-certificate uniqueness delivered
+
+`SatisfiesReductionRecursion.unique` proves equality of any two invariants
+with the same sufficient reduction certificate over a domain where q−1 is
+nonzero. Its proof uses nested strong induction on size, east count, and
+first-east height. `BounceAgreement` handles the three terminal bounce cases
+by identifying successor words and applying lower-height agreement.
+`ColoringCharacterization.coloringLLT_eq_of_satisfiesReductionRecursion`
+(the declaration is in namespace `VerticalStripLLT`) specializes uniqueness
+to the coloring polynomial. Its recurrence hypothesis remains explicit.
+
+This is not uniqueness for the unchanged restricted manuscript predicate,
+and does not establish the orientation expansion until its independent DN
+identity and full certificate are proved. No recursive object is used as a
+replacement for either semantic definition.

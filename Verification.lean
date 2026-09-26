@@ -356,3 +356,6 @@ import VerticalStripLLT
 #print axioms VerticalStripLLT.SatisfiesReductionRecursion.generalizedThirdBounce_word
 #print axioms VerticalStripLLT.SatisfiesReductionRecursion.generalizedThirdBounce
 #print axioms VerticalStripLLT.firstEast_prefix_cases
+#print axioms VerticalStripLLT.SatisfiesReductionRecursion.bounce_agreement
+#print axioms VerticalStripLLT.SatisfiesReductionRecursion.unique
+#print axioms VerticalStripLLT.coloringLLT_eq_of_satisfiesReductionRecursion

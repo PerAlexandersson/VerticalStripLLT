@@ -48,3 +48,4 @@ import VerticalStripLLT.GeneralizedSecondBounce
 import VerticalStripLLT.GeneralizedSecondBounceReduction
 import VerticalStripLLT.GeneralizedThirdBounceReduction
 import VerticalStripLLT.FirstEastCases
+import VerticalStripLLT.ColoringCharacterization
