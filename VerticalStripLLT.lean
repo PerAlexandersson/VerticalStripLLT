@@ -1,10 +1,13 @@
-import VerticalStripLLT.SmallCases
+import VerticalStripLLT.EmptyBase
 import VerticalStripLLT.Circular.Coloring
 import VerticalStripLLT.Circular.EdgeBounds
 import VerticalStripLLT.Circular.OrientationSum
 import VerticalStripLLT.Circular.WalkBound
 import VerticalStripLLT.Circular.HRVDegree
 import VerticalStripLLT.Circular.HRVPositive
+import VerticalStripLLT.Circular.HRVRoots
+import VerticalStripLLT.Circular.ZeroArea
+import VerticalStripLLT.Circular.StrictCycleExpansion
 import VerticalStripLLT.PathBounds
 import VerticalStripLLT.ColumnBase
 import VerticalStripLLT.Concat

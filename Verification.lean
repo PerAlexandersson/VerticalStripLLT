@@ -1,5 +1,6 @@
 import VerticalStripLLT
 import VerticalStripLLT.Examples.Circular
+import VerticalStripLLT.Examples.Ordinary
 
 -- Public theorem audit: expect only propext, Classical.choice, and Quot.sound.
 #print axioms VerticalStripLLT.SchroderPath.strictPair_normalEdges
@@ -507,3 +508,18 @@ import VerticalStripLLT.Examples.Circular
 #print axioms VerticalStripLLT.Circular.naturalCast_naturalHRVMonomial
 #print axioms VerticalStripLLT.Circular.naturalCast_naturalShiftedOrientationExpansion
 #print axioms VerticalStripLLT.Circular.shiftedOrientationExpansion_coeff_nonneg
+
+#print axioms VerticalStripLLT.Circular.Diagram.area_le_one_of_no_normal
+#print axioms VerticalStripLLT.Circular.Diagram.edge_length_eq_one_of_no_normal
+#print axioms VerticalStripLLT.Circular.Diagram.edge_eq_of_head_eq_of_no_normal
+#print axioms VerticalStripLLT.Circular.Diagram.edge_eq_of_tail_eq_of_no_normal
+#print axioms VerticalStripLLT.Circular.EdgeData.not_Admissible_of_strict_incoming
+#print axioms VerticalStripLLT.Circular.EdgeData.not_admissibleColoring_of_strict_incoming
+#print axioms VerticalStripLLT.Circular.EdgeData.coloringLLT_eq_zero_of_strict_incoming
+#print axioms VerticalStripLLT.Circular.shiftedOrientationExpansion_eq_zero_of_strict_incoming
+#print axioms VerticalStripLLT.Circular.coloringLLT_shifted_eq_expansion_of_strict_incoming
+#print axioms VerticalStripLLT.Circular.Orientation.no_liftStep_from_liftedHRV
+#print axioms VerticalStripLLT.Circular.Orientation.residue_intCast_eq
+#print axioms VerticalStripLLT.Circular.Orientation.hrv_is_sink
+#print axioms VerticalStripLLT.Circular.Orientation.hrv_fixes_sink
+#print axioms VerticalStripLLT.Circular.Orientation.hrv_idempotent

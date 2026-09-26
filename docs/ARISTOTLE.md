@@ -75,6 +75,21 @@ implementation files. Keep generated requests/results outside the checkout.
 - Primary owns the live observation and eventual candidate audit. No claim
   that the full circular theorem is proved is made at submission.
 
+## Circular zero-area expansion (prepared; capacity rejection)
+
+- Request directory:
+  `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-zero-area`.
+- Exact target `coloringLLT_shifted_eq_expansion_of_no_normal`: the full
+  arbitrary-size zero non-strict area family, for every finite alphabet.
+- Prefix includes the checked general HRV foundations, zero-area edge bounds,
+  strict-cycle vanishing, HRV roots, and the general strict-chain enumerator.
+- Submission on 2026-09-26 was rejected by the service's concurrent-project
+  limit. No project or task was created. The main full-expansion request
+  remains active and takes priority; no task was canceled to submit this.
+- The full-expansion observer has twice lost its stream connection; a fresh
+  task query confirmed `IN_PROGRESS`. This is an observation failure, not a
+  failed or canceled proof request. Resume the same project when monitoring.
+
 ## Strict-chain elementary identity
 
 - Project ID: `262ce79f-3c8a-4e6a-83f7-6fcf6a6c9eb6`.

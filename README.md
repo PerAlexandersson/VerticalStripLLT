@@ -49,7 +49,8 @@ No recursive invariant is substituted for the coloring definition.
 The source map records this distinction and the correspondence to Theorem
 LLT, Theorem LLTe, and Corollary expansion.
 
-The initial small cases, uniform column bridge, finite path validity,
+The initial small cases are isolated under `Examples/`. The uniform column bridge,
+finite path validity,
 orientation bijections, HRV transport, coefficient substitution, positivity,
 and weighted-degree results remain separate modules. Aristotle supplied
 isolated proof candidates; Luna/Terra helped with ports and bounded proofs.
@@ -84,6 +85,7 @@ identity and acyclic lifted-walk bounds. Circular HRV is defined on the
 integer cover and proved to be the greatest reachable lift, independently of
 its representative. Its formal elementary expansion has degree n and
 nonnegative coefficients. Equality with the circular LLT coloring polynomial
-and the component identities remain in progress. Concrete new examples live under
+and the component identities remain in progress. The general incoming-strict-edge
+vanishing branch is proved; zero-area arcs are proved to have unit length. Concrete examples live under
 `VerticalStripLLT/Examples/` and are excluded from the main library imports.
 Cumulants remain outside the scope.

@@ -1,5 +1,5 @@
 import VerticalStripLLT.Recursion
-import VerticalStripLLT.SmallCases
+import VerticalStripLLT.EmptyBase
 import VerticalStripLLT.ColumnBase
 import VerticalStripLLT.ColoringConcat
 import VerticalStripLLT.Unicellular

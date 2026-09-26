@@ -30,8 +30,8 @@ Next supply the circular local reductions, same-state no-wrap invariant, and
 termination proof. `docs/CIRCULAR_REDUCTION_OBLIGATIONS.md` is a research note,
 not a proved certificate. The weak/h versus strict/e passage is omega.
 
-Verified foundation checkpoint `276bb93` is pushed. The subsequent HRV
-checkpoint proves `Orientation.isGreatest_liftedHRV`, `liftedHRV_translate`,
+Verified foundation checkpoint `276bb93` and HRV checkpoint `1ea6877` are
+pushed. The HRV checkpoint proves `Orientation.isGreatest_liftedHRV`, `liftedHRV_translate`,
 `residue_liftedHRV_eq_hrv`, weighted degree n, and nonnegative coefficients of
 the independently defined `Circular.shiftedOrientationExpansion`.
 
@@ -40,10 +40,24 @@ Aristotle project `5835802e-8139-48b7-a07b-06add00f1f14`, task
 expansion statement with the checked prefix. Primary owns the live observer,
 candidate audit, and all builds. Exact request: `docs/ARISTOTLE.md`.
 
-Current build-free lanes: Luna owns `Circular/ZeroArea.lean` (zero non-strict
-area forces unit-length natural arcs); Terra owns `Circular/StrictCycle.lean`
-(vanishing from incoming strict edges). These support the full induction base.
-All earlier files have returned to primary. No further examples are planned.
+Current build-free lanes: Terra owns new `Circular/ChainColorings.lean`,
+proving arbitrary finite disjoint-chain colorings factor into elementary
+polynomials. Luna owns new `Circular/ZeroAreaIncoming.lean`, relating strict
+incoming arcs to positive area and giving a zero-head cut witness. All prior
+files have returned to primary. Primary owns remaining source, root imports,
+Verification, docs, integration, and the sole build slot. No new examples.
+Ordinary examples now live under `Examples/Ordinary.lean`; `EmptyBase.lean`
+retains the needed recurrence base, and `SmallCases.lean` is a compatibility
+import of the examples.
+
+New verified general results: `ZeroArea` proves all arcs have length one when
+there are no non-strict arcs; `StrictCycleExpansion` proves both independent
+expressions vanish when every vertex has an incoming strict edge; `HRVRoots`
+proves HRV lands at sinks, fixes sinks, and is idempotent. The remaining
+zero-area branch needs a chain decomposition and HRV/coloring transport.
+A second Aristotle request for that full base family was prepared but rejected
+by the concurrent-project limit. No task was created or canceled. The main
+observer disconnected twice; a task query confirmed it remains `IN_PROGRESS`.
 
 ## Ownership, delegation, and checks
 
@@ -61,13 +75,15 @@ status was `COMPLETE_WITH_ERRORS` due to a malformed namespace wrapper,
 repaired without changing the mathematical statement. Only the full circular
 expansion request is active. Provenance is in `docs/ARISTOTLE.md`.
 
-The HRV checkpoint build passes (1691 jobs), and `Verification.lean` checks
-503 declarations. The prior foundation build separately checked the examples. Only standard Lean
-axioms occur. Logs under `/lake-cache/ai-projects/build/VerticalStripLLT/`:
-`circular-hrv-checkpoint-build.log`, `circular-hrv-checkpoint-axioms.log`;
-previous foundation logs use `circular-checkpoint-` instead.
-Examples were moved after checking their all-alphabet formulas; no further
-example-specific work is planned. No TeX compilation or enumeration was run.
+The current base/HRV-roots checkpoint passes the default full build and all
+517 declarations in `Verification.lean`; only standard Lean axioms occur.
+The examples were also checked explicitly after relocation. Logs under
+`/lake-cache/ai-projects/build/VerticalStripLLT/`:
+`circular-base-checkpoint-build.log`, `circular-base-checkpoint-axioms.log`,
+`circular-base-focused.log`, and `circular-roots-focused.log`.
+The previous HRV checkpoint checked 503 declarations. No TeX compilation or
+local combinatorial enumeration was run. New delegated files remain build-free
+until returned; they are not covered by these checks.
 
 ## Source and architecture
 
@@ -139,7 +155,7 @@ Earlier integration logs use prefixes `expansion-`, `uniqueness-`,
 - `a1f64c4` (pushed): DN orientation identity, independent recurrence
   certificate, main expansion, positivity, degree, and alphabet stability.
 
-## Ownership and remote work
+## Ordinary completion ownership and remote work (historical)
 
 Primary `/root` owns all source, strategy, integration, documentation, and the
 sole local build slot. All Luna/Terra assignments have returned and released

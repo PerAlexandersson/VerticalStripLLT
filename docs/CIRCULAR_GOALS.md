@@ -27,6 +27,23 @@ active Aristotle request `5835802e-8139-48b7-a07b-06add00f1f14`. It is not
 yet an exported Lean theorem. See `CIRCULAR_REDUCTION_OBLIGATIONS.md` for the
 parallel mathematical decomposition.
 
+## General induction-base progress
+
+`ZeroArea` proves that no non-strict arcs forces all natural arcs to have
+unit length and makes both endpoint maps injective. `StrictCycleExpansion`
+proves the full semantic equality whenever every vertex has an incoming
+strict arc: both independent expressions vanish. `HRVRoots` proves that
+actual HRV values are selected sinks, sinks are fixed, and HRV is idempotent.
+
+For the remaining zero-area branch, a missing incoming strict edge gives a
+head of area zero. Cutting before that head is valid because every arc is
+unit length. The binary runs form strict chains; k edges contribute e_(k+1).
+The ordinary APIs `coloringLLT_column_eq_evalElementary`,
+`shiftedOrientationExpansion_column`, `coloringLLT_concat`, and
+`shiftedOrientationExpansion_concat` can supply the algebra after transport.
+The chain decomposition and transport of actual lifted HRV remain to prove.
+This does not justify a cut for general circular diagrams.
+
 ## Completed first checkpoint
 
 1. `Diagram` encodes cyclic area bounds and corner-restricted strict edges.
@@ -83,9 +100,9 @@ No recurrence certificate is to be assumed in the final coloring theorem.
 
 ## Delegation and proof boundaries
 
-Luna owns circular data; Terra owns edge coloring and cycle-zero; primary owns
-adapters, small-case semantic identities, statement design and integration.
-Aristotle owns only the external candidate for the displayed algebraic lemma.
-Local builds remain serialized and primary-owned. Component work starts after
-these interfaces stabilize; weak/h and strict/e differ by the planned omega
-translation. No component claim is needed for these checkpoints.
+Primary owns strategy, integration, and all serialized local builds. Luna and
+Terra return bounded build-free implementation or API audits; current exact
+ownership is in `HANDOFF.md`. Aristotle's active request is the full circular
+semantic bridge. Component work uses complete global components and full
+lifted covers; weak/h and strict/e differ by the planned omega translation.
+No component claim is assumed by the circular aggregate theorem.
