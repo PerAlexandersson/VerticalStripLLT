@@ -18,7 +18,7 @@
 - [DD propagation](proofs/CIRCULAR_DD_PROPAGATION.md): completed NN/DN elimination.
 - [Direct ND](proofs/CIRCULAR_DIRECT_ND.md): the completed seven-relation proof.
 - [Interior column reversal](proofs/CIRCULAR_COLUMN_REVERSAL.md): the active
-  smaller-target reduction and remaining exterior/HRV transport.
+  smaller-target reduction, proved residual transport and remaining factorization.
 - [Earlier ND assembly](proofs/CIRCULAR_ND_ASSEMBLY.md): disjoint transport,
   cyclic intermediates and interior-restart exit accounting.
 - [ND overlap obstruction](proofs/CIRCULAR_ND_OVERLAP.md) and

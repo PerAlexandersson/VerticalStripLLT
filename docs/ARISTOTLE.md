@@ -784,3 +784,16 @@ identities remain open.
   Its source is retained with the request, and `bash -n` passed. It performs
   no submission, continuation, cancellation or download. Handoff records the
   native session and log paths; observation expiry is not proof-task completion.
+
+## Completed interior request after the chain-singleton base
+
+Project `65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, task
+`a430cbfd-eb82-4070-b9c2-002ae875cb53` finished COMPLETE_WITH_ERRORS.
+The final `expansion_of_nd_interior_overlap` remains a placeholder; its only
+new proved wrapper repeats the existing first-contact theorem. No returned
+source was integrated. The final source SHA256 is
+`680e6d017cb24fe780ec3356e220d4d3bb67670986355a7f693cbbe042b0f2e9`.
+The archive and inspected summaries are in the external
+`circular-interior-with-chain-base/` request directory. Its finite exploratory
+rank calculations are not a proof of an obstruction. Local column reversal
+and residual transport were developed after its input snapshot `5266faa`.

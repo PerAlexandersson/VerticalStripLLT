@@ -101,9 +101,10 @@ all remaining interior sources belong to that family.
 The merged strict component of an interior overlap, its column-reversal
 permutation and area profiles, and general restricted HRV sum transport are
 now proved. The actual smaller decorated target and its doubled-area decrease
-are also verified. Its periodic integer reversal and exact strict lifted-edge
-transport are proved. Exterior normal-edge transport, sink order and final
-Lean assembly remain in progress. See [the reduction plan](docs/proofs/CIRCULAR_COLUMN_REVERSAL.md).
+are also verified. Its periodic integer reversal transports strict and exterior
+normal edges, preserves integer sink order, and identifies the actual residual
+coloring and HRV sums. Restoring internal forced-edge factors and completing
+the lower-area induction remain in progress. See [the reduction plan](docs/proofs/CIRCULAR_COLUMN_REVERSAL.md).
 See [verified circular results](docs/CIRCULAR_STATUS.md) and
 [remaining goals](docs/CIRCULAR_GOALS.md).
 

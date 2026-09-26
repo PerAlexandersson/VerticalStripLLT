@@ -17,27 +17,25 @@ the empty alphabet, without recurrence or semantic assumptions.
 
 The active route is [column reversal](proofs/CIRCULAR_COLUMN_REVERSAL.md).
 The merged strict component, finite reversal, actual valid smaller target,
-doubled-area decrease, periodic integer reversal and exact strict lifted
-transport are proved. They are not remaining implementation tasks.
+doubled-area decrease, periodic integer reversal, strict/exterior edge transport,
+sink order and actual residual coloring/HRV equality are proved. They are not
+remaining implementation tasks.
 
-The target-specific obligations are:
+The remaining reduction steps are:
 
-1. Prove that an outside head's boundary cannot lie inside a moved column.
-   Its incoming interval therefore contains a whole column or none of it.
-2. Prove order preservation between distinct lifted columns and fixed outside
-   points. Together with periodicity, this preserves the bounds 0<length<n
-   for exterior edges. Distinct columns may be adjacent.
-3. Prove exterior normal-edge and lifted-edge correspondence. Strict component
-   heads already have the exact transported boundary; the old nonstrict source
-   needs its separate threshold formula. Outside heads keep their boundaries.
-4. Prove order preservation for all selected integer sinks. Finite graph
-   conjugacy alone does not identify the actual HRV fibers.
-5. Remove internal normal edges with the existing forced/descent APIs,
-   transport the residual coloring and orientation sums, and use the smaller
-   target's induction hypothesis. Cancel its nonzero forced-edge factor;
-   no comparison of source and target forced-edge counts is needed.
+1. Partition the internal normal edges by the order along the strict component
+   chain. For D this is `K.vertexEmbedding`; for Q it is that embedding followed
+   by `K.reversalPerm`. Forward internal edges are forced ascents and backward
+   internal edges are forced descents.
+2. Apply the existing forced/descent set APIs to both actual polynomial models.
+   Identify the remaining normal pairs with `Diagram.exteriorNormalPairs`,
+   whose coloring and HRV transport are now proved. Within each diagram, the
+   two models must use the same forced-edge count.
+3. Apply the smaller target's induction hypothesis and cancel its nonzero
+   coefficient factor. Restore the source factor. No comparison between the
+   source and target forced-edge counts is needed.
 
-These results must discharge `InteriorNDInductionStep` with its existing
+These steps must discharge `InteriorNDInductionStep` with its existing
 hypotheses. The conditional theorem `Diagram.expansion_of_interior_nd_step`
 then supplies the outer induction. No stronger geometric assumption may be
 added to the final circular theorem.

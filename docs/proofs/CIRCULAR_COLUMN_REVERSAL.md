@@ -2,8 +2,9 @@
 
 Status: the uniform valid target and its strict doubled-area decrease are now
 verified in Lean. The strict-head correspondence, periodic integer reversal
-and exact strict lifted transport are also verified. Exterior normal-edge
-transport, sink order and semantic assembly remain unfinished. The transport argument was independently
+and exact strict/exterior lifted transport are also verified. Integer sink
+order and actual residual coloring/HRV equality are checked. Restoring internal
+forced-edge factors, cancellation and the outer induction remain unfinished. The transport argument was independently
 audited by the primary and Astra reviewer. This is the intended discharge of
 `InteriorNDInductionStep`, not
 a replacement theorem with additional geometric hypotheses.
@@ -183,6 +184,13 @@ current column and moving that threshold changes only edges internal to the
 component. Hence every normal edge between this component and its complement
 is transported exactly. All other edges outside the component are unchanged.
 
+This geometry is now verified in `InteriorBoundaryAvoidance`,
+`InteriorLiftIntervals`, `InteriorReversalSource`, `InteriorExteriorBoundary`
+and `InteriorExteriorPairs`. The main integer statement
+`boundaryNaturalLift_reversal_iff` identifies the actual edge intervals, so
+positive lengths and winding are included. `normalPairs_reversal_iff` then
+identifies the finite normal pairs by removing the transported strict pairs.
+
 ## Actual polynomial transport
 
 Erase all normal edges internal to the merged strict chain. Forward ones
@@ -199,6 +207,12 @@ all integer sink lifts is preserved, including across periods. Thus
 The generic restricted-sum assembly is now proved and locally verified in
 `OrientationSumConjugacy`: `pairset_admissible_conjugate`,
 `orientMono_conjugate`, and `orientSum_conjugate`.
+
+The sink-order argument is now proved in `InteriorReversalSinkOrder` for
+arbitrary selected edge sets. `InteriorResidualTransport` proves the actual
+`orientSum_exterior_reversal` and `coloringLLT_exterior_reversal`, using the
+exact exterior pair sets from `InteriorResidualPairs`. Internal forced-factor
+restoration is the next unproved step.
 
 No inequality between the two forced-edge counts is needed. If F_D,F_Q are
 those counts, write the two shifted coloring polynomials as A^F_D C and
@@ -221,9 +235,9 @@ or the desired polynomial identity. This boundary was independently reviewed.
 The formulas and local geometric checks above have been audited by hand.
 The merged-chain extraction, component isolation, finite column permutation,
 original area profiles, actual valid smaller target, periodic integer lift,
-strict lifted transport and generic restricted-sum transport are verified.
-The remaining Lean work is exterior normal-edge correspondence, integer sink
-order and invocation of the existing outer IH.
-The active Aristotle request predates this construction and has not received
-it; it remains a separate proof search. No remote result or this note is
-treated as a substitute for the serialized local build and axiom checks.
+strict/exterior lifted transport, sink order and actual residual coloring/HRV
+transport are verified. The remaining Lean work restores the internal
+forced-edge factors, cancels the target factor and invokes the existing outer IH.
+The older Aristotle request ended with the full target unproved and is excluded.
+It predates this construction. No remote result or this note substitutes for
+the serialized local build and axiom checks.
