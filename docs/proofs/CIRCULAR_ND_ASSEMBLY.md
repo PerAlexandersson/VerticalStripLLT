@@ -94,3 +94,19 @@ geometry does not yet guarantee two missing corners: proving that a sequence
 exposes a second corner while retaining the first remains a separate task.
 Changing the root alone does not remove every interior case, because eligible
 roots require genuine area descents and a source can have only one such root.
+
+## Further measure audit (not a proved exit)
+
+Putting strict-component sizes before strict rank does not remove the known
+rank-increase issue. The relevant DD resolution splits a component of size L
+into L−1 and a singleton; neutral moves preserve component sizes. An eventual
+strictification that rejoins the singleton restores the original partition,
+even when strict rank increases. Rejoining a different singleton can also
+preserve the partition without giving a literal rotation. Thus a partition
+refinement alone does not close the unresolved branch.
+
+Joining the surviving chain to a different chain of size K≥2 would instead
+replace (L,K) by (L+K−1,1), increasing the sum of squared sizes by
+2(L−1)(K−1). This suggests an additional measure for that subcase, but both
+the incidence classification and the partition-preserving remainder still
+need proofs. No Lean theorem assumes this proposed classification.
