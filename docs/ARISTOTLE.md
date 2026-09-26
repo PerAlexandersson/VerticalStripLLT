@@ -671,8 +671,9 @@ identities remain open.
 
 ## Circular interior-overlap semantic step (prepared; capacity-limited)
 
-- External directory `circular-interior-expansion/`, the same checked prefix,
-  target and proof-development notes. No remote project/task was created.
+- External directory `circular-interior-expansion/`, the checked prefix plus
+  `DoubleCornerReduction` from `eb11c69` (176 modules), unchanged target and
+  updated hashes/proof-development notes. No remote project/task was created.
 - Target `Diagram.expansion_of_nd_interior_overlap`: saturated, strictly acyclic
   source, actual eligible counted interior ND overlap, and the semantic bridge
   for every smaller outer measure imply the source bridge.

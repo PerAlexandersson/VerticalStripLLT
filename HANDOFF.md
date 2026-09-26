@@ -7,7 +7,8 @@ one-bounce elimination strategy. A contact-track overlap alone is not a strict
 cycle; genuine directed strict cycles make both actual expressions vanish.
 No flip-component work or new examples in this increment.
 
-Latest pushed checkpoint: `f33cdc6` (full DN handoff), following `0fc4d07`, `3c7f3d4`
+Latest pushed checkpoint: `eb11c69` (alphabet stability/two-corner exit), following
+`f33cdc6` (full DN handoff), `0fc4d07`, `3c7f3d4`
 (comparable-edge base) and `1d5005d` (direct ND/full NN).
 
 Current verified increment: direct alphabet stability and the two-corner
@@ -68,6 +69,8 @@ Aristotle full DN project `ae819e79-2742-4965-9254-8eef5929cfa0`, task
 Astra audit approved mathematical fidelity and unchanged hypotheses.
 
 The interior-overlap request is fully prepared in `circular-interior-expansion/`.
+It now includes the checked `DoubleCornerReduction` module from `eb11c69`
+(176 modules), with unchanged target and updated hashes/proof-route notes.
 A concurrent submission was rejected: "You have too many projects in progress."
 No project/task ID was created for it. Submit this saved request after the active
 separated-ND task completes; do not cancel other projects to obtain a slot.
