@@ -118,7 +118,26 @@ in `CIRCULAR_FLIPS.md`.
 
 Primary owns strategy, integration, and all serialized local builds. Luna and
 Terra return bounded build-free implementation or API audits; current exact
-ownership is in `HANDOFF.md`. Aristotle's active request is the full circular
-semantic bridge. Component work uses complete global components and full
+ownership is in `HANDOFF.md`. Aristotle's narrowed continuation targets the remaining strict-corners case
+with the checked base proofs included. Component work uses complete global components and full
 lifted covers; weak/h and strict/e differ by the planned omega translation.
 No component claim is assumed by the circular aggregate theorem.
+
+## Verified corner reduction and exact remaining case
+
+`Diagram.xQShift_coloringLLT_corner` and
+`Diagram.shiftedOrientationExpansion_corner` give matching deletion/strictification
+recurrences for every non-strict corner. HRV transport preserves the full lifted
+relation. The induction measure is edge-count squared plus normal-edge-count.
+
+`expansion_of_strictCorners_positive` reduces the unrestricted identity to:
+
+    ∀ D : Diagram n,
+      (∀ e : Edge D.area, IsCorner e → e ∈ D.strict) →
+      D.edgeData.Admissible ∅ → D.edgeData.normalEdges.Nonempty →
+      ∀ m, xQShift m (D.coloringLLT m) =
+        evalElementary m (shiftedOrientationExpansion D).
+
+This displayed statement remains open. It is an explicit hypothesis of the
+reduction theorem. The zero-normal and strict-cycle branches are discharged
+by unconditional theorems. No example or finite-size test establishes this gap.

@@ -1,3 +1,4 @@
+import VerticalStripLLT.Circular.CornerReduction
 import VerticalStripLLT.EmptyBase
 import VerticalStripLLT.Circular.Coloring
 import VerticalStripLLT.Circular.EdgeBounds

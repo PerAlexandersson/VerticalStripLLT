@@ -54,7 +54,7 @@ implementation files. Keep generated requests/results outside the checkout.
   authoritative local build and axiom check. Do not describe the service
   status as `COMPLETE`.
 
-## Full circular elementary expansion (active)
+## Full circular elementary expansion (narrowed continuation active)
 
 - Project `5835802e-8139-48b7-a07b-06add00f1f14`, task
   `f726d73c-794d-4693-8a20-58660dab3545`, submitted 2026-09-26.
@@ -72,14 +72,33 @@ implementation files. Keep generated requests/results outside the checkout.
   names were translated to `if_neg`/`if_true`, and a local elaboration option
   was omitted. The definitions and theorem targets retain their semantics;
   returned work still requires local v4.34 integration and verification.
-- During this run, primary used INSTRUCT to inform the same active task that
-  the entire zero-normal family is already proved locally (`b7fe916`), and to
-  focus on all-corners-strict positive-normal-area reductions. No restart or
-  cancellation occurred. Exact steering is retained as `STEERING.md` in the
-  request directory. Live corner-reduction candidates are not locally proved
-  until exported, audited, and compiled.
-- Primary owns the live observation and eventual candidate audit. No claim
-  that the full circular theorem is proved is made at submission.
+- Primary first sent INSTRUCT steering away from rebuilding the proved zero-area
+  family. After the task continued duplicate base work, primary downloaded
+  `corner-checkpoint.lean` and canceled task `f726d73c-794d-4693-8a20-58660dab3545`.
+  Cancellation is confirmed; it is neither completion nor a failed proof.
+- The saved candidate contains one unproved `expansion_of_allCornersStrict`
+  helper. That helper and its final unconditioned alias were not imported.
+  Primary and Luna/Terra ported the useful corner geometry, coloring recurrence,
+  orientation bijections, and HRV transport into seven small modules.
+- `expansion_of_cornerReduction` instead exposes that missing helper as an
+  explicit hypothesis. The squared-edge-count termination proof is checked
+  locally. `expansion_of_strictCorners_positive` further removes the already
+  proved zero-normal and strict-cycle cases. Terra independently audited the
+  source correspondence and absence of circular reasoning.
+- `Continuation.lean` and `CONTINUATION_INPUT_MODULES.txt` include complete
+  local zero-normal proofs, strict-cycle vanishing, and corner reductions.
+  AXLE preflight `3ddb3baa-97b2-4d60-9524-0b3c03cde99f` on `lean-4.28.0`
+  reports no errors and only the intended remaining target as incomplete.
+  This is a prefix compatibility check, not a proof of the target.
+- Flattening renamed a colliding private helper and translated the RTC.lift
+  endpoint convention and `dite_eq_left` name for v4.28. No definitions or
+  mathematical statements were changed. Original `INPUT_MODULES.txt` is retained.
+- Primary submitted the continuation to the same project with
+  `CONTINUATION_PROMPT.md`, prohibiting duplicate bases, examples, circular
+  assumptions, and a final theorem depending on an unproved helper.
+- Continuation task `b6cda868-d1f9-4ec9-a51c-f81bff3c6354` is confirmed
+  `IN_PROGRESS`. The original task remains `CANCELED`. Primary owns observation
+  and any eventual local verification; no proof completion is claimed.
 
 ## Circular zero-area expansion (capacity rejection; now proved locally)
 
@@ -90,14 +109,13 @@ implementation files. Keep generated requests/results outside the checkout.
 - Prefix includes the checked general HRV foundations, zero-area edge bounds,
   strict-cycle vanishing, HRV roots, and the general strict-chain enumerator.
 - Submission on 2026-09-26 was rejected by the service's concurrent-project
-  limit. No project or task was created. The main full-expansion request
-  remains active and takes priority; no task was canceled to submit this.
+  limit. No project or task was created. At rejection, the main full-expansion request
+  was active; no task was canceled to submit this.
 - This family was subsequently proved locally using bounded Luna/Terra work
   and primary integration, in `Circular/ZeroAreaExpansion.lean`. The prepared
   request is superseded; do not submit it.
-- The full-expansion observer has repeatedly lost its stream connection; a fresh
-  task query confirmed `IN_PROGRESS`. This is an observation failure, not a
-  failed or canceled proof request. Resume the same project when monitoring.
+- Earlier full-expansion observer stream interruptions were observation failures.
+  The later deliberate cancellation is separately recorded above.
 
 ## Strict-chain elementary identity
 

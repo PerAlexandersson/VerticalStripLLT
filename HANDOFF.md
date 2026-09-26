@@ -37,16 +37,29 @@ pushed. The HRV checkpoint proves `Orientation.isGreatest_liftedHRV`, `liftedHRV
 the independently defined `Circular.shiftedOrientationExpansion`.
 
 Aristotle project `5835802e-8139-48b7-a07b-06add00f1f14`, task
-`f726d73c-794d-4693-8a20-58660dab3545`, is active on the full circular
-expansion statement with the checked prefix. Primary owns the live observer,
-candidate audit, and all builds. Exact request: `docs/ARISTOTLE.md`.
+`f726d73c-794d-4693-8a20-58660dab3545`, was canceled after preserving its corner-reduction candidate. The candidate
+left the all-corners-strict helper unproved. Primary has locally verified the
+useful recurrences and an explicitly conditional reduction; no full circular
+identity is claimed. Continuation task `b6cda868-d1f9-4ec9-a51c-f81bff3c6354` is now
+`IN_PROGRESS` on the same project, with an AXLE-preflighted prefix and only
+the strict-corners/acyclic/positive-normal case left. See `docs/ARISTOTLE.md`.
 
-All delegated files have returned. Primary owns all source, docs, integration,
-and the sole build slot, including new `Circular/ComponentSemantics.lean`.
-`StrictEdgeInjectivity`, `LiftCover`, and `Flip` pass focused checks. The flip
-witness derives the exchanged edge memberships and distinctness, then ascent
-invariance on complete global components. No general component identity is
-assumed. Exact interfaces: `docs/CIRCULAR_FLIPS.md`.
+Luna returned `Circular/StrictCycleVanishing.lean`; primary repaired and verified
+it. Luna completed the read-only mathematical audit: acyclicity and strict-edge
+injectivity alone do not give ordinary cut transport. Terra completed the
+read-only corner audit and external continuation-prefix packaging. Both lanes
+are released. Primary owns all repository files, requests, and the sole build slot.
+The component checkpoint `386d6a7` is pushed (568 axiom checks).
+
+Corner reduction focused build passes (1400 jobs):
+`Diagram.xQShift_coloringLLT_corner` and
+`Diagram.shiftedOrientationExpansion_corner` are independent matching recurrences.
+`expansion_of_cornerReduction` uses measure edge-count² + normal-edge-count.
+`expansion_of_strictCorners_positive` isolates the exact remaining hypothesis:
+all corners strict, strict relation acyclic, and at least one normal edge.
+The strict-cycle and zero-normal branches are proved without certificates.
+Both reduction theorems have explicit hypotheses; neither is the full bridge.
+
 
 Zero-area checkpoint `b7fe916` is verified and pushed. The full zero-area family is now proved by
 `Circular.coloringLLT_shifted_eq_expansion_of_no_normal` in
@@ -61,7 +74,9 @@ cut transport; the final zero-area proof instead uses fiber orders directly.
 A separate Aristotle request for that family was rejected by the concurrent
 project limit and is now superseded by the local proof. No task was created
 or canceled. The main full-expansion observer has had stream interruptions;
-it was reconnected to the same task and the service remains in progress.
+it was reconnected to the same task. After preserving `corner-checkpoint.lean`,
+primary canceled the redundant base-case work to port the corner reductions
+and resume with the now-proved base. Cancellation is not completion.
 Its current mathematical obstacle is the all-corners-strict reduction, not
 the proved zero-area base. No full circular equality is claimed.
 
@@ -78,10 +93,19 @@ Aristotle completed subset expansion project
 `8da2f9e8-2c92-4aaa-83a7-a88f6f36d257`. Both candidates are integrated and
 locally checked, with unchanged requested statements. The projected-reachability candidate is also locally checked; its service
 status was `COMPLETE_WITH_ERRORS` due to a malformed namespace wrapper,
-repaired without changing the mathematical statement. Only the full circular
-expansion request is active. Provenance is in `docs/ARISTOTLE.md`.
+repaired without changing the mathematical statement. The original full circular
+task is canceled; the narrowed continuation task is active. Provenance is in `docs/ARISTOTLE.md`.
 
-The component-foundation checkpoint passes the default full build and all
+The corner checkpoint default build passes (1715 jobs); all 613 axiom
+checks pass with only standard Lean axioms. Source and 100-column guards pass.
+Logs: `circular-corners-checkpoint-build.log`,
+`circular-corners-checkpoint-axioms.log`, and `circular-corner-reduction.log`. The root build briefly overlapped an external RealRooted
+build after primary failed to stop on the process precheck; it finished in
+about one second. Primary deferred the remaining audit until the slot clears
+and now gates invocations on an empty process check. No external job was
+stopped. This was a serialization mistake, not a build-slot transfer.
+
+The earlier component-foundation checkpoint passes the default full build and all
 568 declarations in `Verification.lean`; only standard Lean axioms occur.
 Source placeholder and 100-column guards pass. Logs under
 `/lake-cache/ai-projects/build/VerticalStripLLT/`:
