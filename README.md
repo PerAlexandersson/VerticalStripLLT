@@ -100,8 +100,9 @@ and the actual circular HRV expansion, using full periodic boundary geometry.
 Its valid shortened target decreases doubled geometric area by two. Lifted-HRV
 conjugacy, potential comparison, and periodic exterior swap invariance are
 proved separately. The complete DN search now produces a valid successor preserving half-square
-area and decreasing the strict-chain rank. The remaining bounce polynomial
-identities and the final circular induction are open; see
+area and decreasing the strict-chain rank. The direct DN coloring identity and the R1 half-square area decreases are also
+proved. The independent DN HRV identity, generalized bounce identities (including
+periodic ND overlaps), and the final circular induction remain open; see
 [the search and recurrence interface](docs/proofs/CIRCULAR_BOUNCE_SEARCH.md).
 Concrete examples live under
 `VerticalStripLLT/Examples/` and are excluded from the main library imports.

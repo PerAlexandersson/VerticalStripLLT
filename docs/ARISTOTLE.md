@@ -541,3 +541,18 @@ cases, with no ordinary-cut or no-wrap assumption. The coloring recurrence and
 area-decrease theorem are proved separately and combined into a checked NN
 semantic induction step. Generalized DD propagation and the other bounce
 identities remain open.
+
+## Circular direct DN orientation recurrence (active)
+
+- Project `a768ca01-7392-49a9-b695-339de82ec027`;
+  task `847a2439-f8d6-4124-8cb3-222377ca36f9`.
+- External request directory `circular-dn-orientation/`, 55 checked input
+  modules, exact final target in `Target.txt`.
+- Target: original `shiftedOrientationExpansion` is unchanged by actual
+  `dnSuccessor`, using constructor hypotheses and direct contact `f.tail=e.head`.
+- Strategy: generic lifted HRV diamond on each side, identical top reachability,
+  periodic adjacent-swap bottom matching; cyclic states contribute zero.
+- The source includes checked NN potential/conjugacy machinery. Local coloring
+  DN was proved independently while the remote job ran.
+- Observer reconnected after one stream interruption; same project/task.
+  No locally verified HRV DN result yet.

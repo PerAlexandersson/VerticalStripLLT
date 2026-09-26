@@ -913,3 +913,23 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.Diagram.shortenStrict_area_sum
 #print axioms VerticalStripLLT.Circular.Diagram.shortenStrict_doubledArea
 #print axioms VerticalStripLLT.Circular.Diagram.shortenStrict_doubledArea_lt
+
+#print axioms VerticalStripLLT.Circular.Diagram.raiseStrict_pairGraph_normalEdges
+#print axioms VerticalStripLLT.Circular.Diagram.dnSuccessor_pairGraph_normalEdges
+#print axioms VerticalStripLLT.Circular.Diagram.coloringLLT_dnSuccessor_of_pair_data
+#print axioms VerticalStripLLT.Circular.Diagram.deleteCorner_naturalPairs
+#print axioms VerticalStripLLT.Circular.Diagram.deleteCorner_pairGraph_strictEdges
+#print axioms VerticalStripLLT.Circular.Diagram.deleteStrictCorner_pairGraph_normalEdges
+#print axioms VerticalStripLLT.Circular.Diagram.deleteCorner_boundary
+#print axioms VerticalStripLLT.Circular.Diagram.deleteStrictCorner_not_strictAt
+#print axioms VerticalStripLLT.Circular.Diagram.deleteCorner_not_strictAt
+#print axioms VerticalStripLLT.Circular.Diagram.deleteStrictCorner_surviving_gap
+#print axioms VerticalStripLLT.Circular.Diagram.dn_deleted_boundary_same
+#print axioms VerticalStripLLT.Circular.Diagram.coloringLLT_dnSuccessor
+#print axioms VerticalStripLLT.Circular.Diagram.xQShift_coloringLLT_dnSuccessor
+#print axioms VerticalStripLLT.Circular.Diagram.deleteCorner_area_sum
+#print axioms VerticalStripLLT.Circular.Diagram.deleteCorner_strict_card
+#print axioms VerticalStripLLT.Circular.Diagram.deleteCorner_doubledArea
+#print axioms VerticalStripLLT.Circular.Diagram.strictify_strict_card
+#print axioms VerticalStripLLT.Circular.Diagram.strictify_area_sum
+#print axioms VerticalStripLLT.Circular.Diagram.strictify_doubledArea
