@@ -16,6 +16,38 @@ For a complete flip component C, sum these expressions over A in C. The
 target is K_C=E_C. The letter E here avoids confusing this expression with
 the weak/complete-basis expression H in the earlier diamond notes.
 
+## Strict decorations can be forgotten without splitting components
+
+The full component theorem reduces to the undecorated case S=empty. This is
+an exact component identification, not a slicing hypothesis.
+
+On the integer cover write b(v) for the first incoming neighbor of v. A
+corner u->v satisfies u=b(v) and b(v+1)>u. It cannot be the left short edge
+in a natural triangle u<v<w<u+n: monotonicity gives b(w)>u, excluding the
+required long edge u->w. It cannot be the right short edge in a triangle
+a<u<v<a+n: naturalness of a->v would require b(v)<=a<u=b(v). The argument
+works for every periodic translate.
+
+Only short edges are toggled by a flip. Consequently the selected status of
+EVERY natural corner is constant throughout each undecorated flip component.
+For a diagram with strict corner set S, the map
+
+    A -> S union A
+
+from its normal selections to undecorated selections preserves the entire
+selected relation. Its image on any complete decorated component is an ENTIRE
+undecorated component: every flip there avoids S, and removing S gives the
+inverse flip. Admissibility, integer lifted paths, cover tests, strict-order
+enumerators and actual HRV fibers are identical. Ascent counts differ by the
+constant |S|, which does not affect the unweighted component identity.
+
+Thus proving the component formula for all undecorated circular diagrams is
+equivalent to proving it with all permitted strict decorations. Primary and
+Astra independently checked the geometry. This reduction does not prove
+diamond-to-chain normalization in the undecorated case; that remains a
+separate substantive issue. In particular, cover-flip diamonds are only a
+subset of the available selected-long valuation identities.
+
 ## Reconstruction after deleting sinks
 
 Fix a subset T of the vertex set. Restrict attention to orientations A in C

@@ -71,6 +71,13 @@ Primary owns strategy and notes. Astra reviewed the sink-deletion proof route;
 Terra audited induced circular restriction. Both delegates were read-only and
 build-free. The active goal remains unproved.
 
+New proved mathematical reduction: forgetting strict decorations identifies
+each full component with an ENTIRE undecorated component. Natural corners can
+never be short edges of a triangle, so no flip toggles them. Selected graphs,
+coloring enumerators and lifted HRV remain identical; ascent shifts by |S|.
+Primary and Astra checked the proof in `COMPONENT_SINK_BRANCHING.md`.
+This reduces the full goal to S=empty without replacing the original scope.
+
 `docs/proofs/COMPONENT_SINK_BRANCHING.md` records a proved mathematical
 reconstruction lemma: restrictions obtained by deleting a fixed sink subset
 have constant multiplicity on complete smaller flip components. The remaining
