@@ -2,6 +2,10 @@ import VerticalStripLLT
 import VerticalStripLLT.Examples.Circular
 import VerticalStripLLT.Examples.Ordinary
 
+#print axioms VerticalStripLLT.Circular.Diagram.length_le_of_strict_same_tail
+#print axioms VerticalStripLLT.Circular.Diagram.naturalPairs_across_strict_corner_iff
+#print axioms VerticalStripLLT.Circular.Diagram.normalPairs_across_strict_corner_iff
+
 -- Public theorem audit: expect only propext, Classical.choice, and Quot.sound.
 #print axioms VerticalStripLLT.SchroderPath.strictPair_normalEdges
 #print axioms VerticalStripLLT.SchroderPath.strictPair_strictEdges

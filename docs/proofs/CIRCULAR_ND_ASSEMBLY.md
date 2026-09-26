@@ -79,6 +79,14 @@ its sole unproved input.
 
 ## A proved additional exit
 
+The uniform strict-corner adjacency lemma is also checked in
+`StrictCornerAdjacency.lean`. For a strict edge a→b and a third vertex v,
+the normal edge a→v exists exactly when v→b does. The proof uses maximal
+outgoing length at a strict corner and monotonicity of the lifted boundary;
+it needs neither acyclicity nor a common no-wrap interval. This is an input
+to the proposed chain-plus-isolated-vertex base, not yet a proof of that base
+or of an exit from every interior diagram.
+
 `Diagram.coloringLLT_shifted_eq_expansion_of_normal_comparable` now proves the
 full semantic bridge whenever each normal edge has endpoints comparable by
 strict reachability, in either direction. It does not require strict acyclicity

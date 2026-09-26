@@ -8,7 +8,8 @@ Follow the author's one-bounce elimination strategy. Genuine strict cycles
 make both actual expressions vanish; contact overlap alone is not a cycle.
 No flip-component work or new examples in this increment.
 
-Latest pushed source checkpoint: `78c07c3` (full separated-contact ND), following
+This checkpoint adds the checked uniform strict-corner adjacency equivalence.
+Previous pushed source checkpoint: `78c07c3` (full separated-contact ND), following
 `8c8e8b5` (outer induction) and its handoff `0e5b104`.
 Exact interfaces:
 
@@ -28,10 +29,10 @@ relation API, checked exact declaration parity (159 declarations), and added
 concrete targets, cyclic vanishing and seven-equation cancellation. No returned
 prefix was imported or existing mathematical definition changed.
 
-Checks: full default build 1864 jobs; axiom inventory 1751 declarations, only
+Checks: full default build 1865 jobs; axiom inventory 1754 declarations, only
 propext, Classical.choice, Quot.sound. Source guards and new-source line lengths
-pass. External logs `circular-separated-checkpoint-build.log` and
-`circular-separated-checkpoint-axioms.log`. Previous checkpoint logs remain.
+pass. External logs `circular-strict-corner-checkpoint-build.log` and
+`circular-strict-corner-checkpoint-axioms.log`. Previous checkpoint logs remain.
 Initialization commits `830cc6b` and `130f7e8` and immutable reference files
 remain intact. The axiom run waited for a RealRooted build to finish; no local
 Lean builds were run concurrently.
@@ -47,6 +48,16 @@ Terra's bounded strict-corner adjacency task returned without a candidate;
 the lane is released and no new file was created. Astra completed read-only
 audits of a possible chain-plus-isolated-vertex base and the author's strict-loop
 clarification. No local build was needed for these audits.
+
+Primary completed `Circular/StrictCornerAdjacency.lean`, using two edge lengths
+based at a common endpoint. Exact declarations: `length_le_of_strict_same_tail`,
+`naturalPairs_across_strict_corner_iff`, `normalPairs_across_strict_corner_iff`.
+Astra independently approved the hypotheses and lift argument. All delegated
+lanes are released; the build slot remains with primary. Luna's corrected API
+audit identifies `increasingColoringSum_eq_esymm`,
+`sum_strictMono_sigma_colorings_eq_prod_esymm`, and
+`rooted_chain_coloring_sum_eq_prod_esymm` as existing coloring infrastructure.
+Only the isolated-color insertion-gap partition needs new enumeration machinery.
 
 The strict-loop clarification is recorded in `CIRCULAR_ND_ASSEMBLY.md`:
 repetition within one strict walk forces zero, whereas the remaining interior
@@ -73,12 +84,13 @@ but its termination is still unproved. No Lean changes follow from this review.
 
 Active Aristotle interior-overlap project:
 `65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, task
-`c4f22d47-e2f8-4545-9ba5-9edb35be49e9`. Reconnected observer session **10741**.
+`c4f22d47-e2f8-4545-9ba5-9edb35be49e9`. Reconnected observer session **43360**.
 The original wait/downloader 87017 exited after a server-connection interruption;
 the same remote task was confirmed running on reconnection. Observer 95345
 also lost its connection; replacement 10741 again confirmed the same task
-running. No resubmission.
-Read `observer-reconnect-2.log` for current events. This observer does not download:
+running. Observer 10741 also lost its connection; `aristotle tasks` confirmed
+the same task IN_PROGRESS before replacement 43360. No resubmission.
+Read `observer-reconnect-3.log` for current events. This observer does not download:
 after authoritative completion, use `aristotle download` for the same project,
 with destination `circular-interior-expansion/result.tar.gz`.
 External directory `circular-interior-expansion/` under
