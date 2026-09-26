@@ -45,6 +45,7 @@ arbitrary-path semantic bridge remain open.
 - `4d136c7`: orientation multiplicativity and generic single ND reduction.
 - `9a04105`: additional DN clause decision before implementation.
 - `de6026f` (pushed): orientation unicellular and indexed bounce geometry.
+- `9d3574c` (pushed): generalized NN bounce with valid successor and measure drop.
 
 Full/default build: 1463 jobs. All 259 public axiom checks pass, using only
 `propext`, `Classical.choice`, and `Quot.sound`. Source and 100-column guards,
@@ -65,7 +66,12 @@ unrestricted middle V and multiplier `C(z+1)`. The supplied input prefix is
 byte-for-byte unchanged. It has seven helper groups plus the final theorem,
 about 1170 new lines. Candidate source is at
 `/lake-cache/ai-projects/requests/VerticalStripLLT/orientation-first-bounce/completed-candidate.lean`.
-It has NOT yet passed local verification; no active Aristotle job remains.
+The eight modules pass the focused local build; the ordinary/shifted
+specializations and aggregate axiom checks are being integrated.
+Active Aristotle DN project `432e553c-fc15-4226-8795-9bc0b1786b28`, task
+`fa04e12e-eb5d-43e6-ac50-92e432384704`, accepted 2026-09-26 06:55 UTC.
+Its isolated request is under `orientation-second-bounce`; it reuses the
+locally verified NN helpers and checked DN graph identities.
 Provenance is in `docs/ARISTOTLE.md`. The earlier unicellular job is integrated.
 
 Next: port and check the NN orientation modules, then submit the isolated DN
@@ -79,13 +85,31 @@ then transport the independently proved orientation certificate through
 
 ## Ownership and build discipline
 
-Primary `/root` owns strategy, integration, shared docs, all source, and the
-sole local build slot. All subagent ownership is returned and released.
-Luna supplied word adapters, prefix geometry, and measure candidates; Terra
-supplied the linear DD diagram. Primary completed the path normalization,
-terminal validity, coordinate transport, and NN strong-induction integration.
-No local Lean build or nested Claude process is active. Record new disjoint
-ownership before assigning the orientation port or generalized DN work.
+Primary `/root` owns strategy, integration, shared docs, and the sole build
+slot. The eight NN port modules were returned frozen and are now primary-owned.
+Terra independently passed their semantic fidelity audit.
+The first DN candidate only repeated the existing single-bounce case and is
+not accepted as the generalized theorem. Ownership of that candidate transfers
+to `bounce_audit` (Terra) for the actual strong induction, build-free.
+Assignments after checkpoint `9d3574c`:
+
+- `path_invariants`: only new `BounceHRVCore.lean`, `BounceOrientationOps.lean`,
+  `BounceRelations.lean`, `BounceDistinguished.lean`, `BounceTransport.lean`,
+  `BounceMatching.lean`, `BounceAssembly.lean`, and `OrientationFirstBounce.lean`;
+  mechanical port of the completed Aristotle NN candidate.
+- `column_paths`: released its incomplete DN candidate; no active ownership.
+- `bounce_audit`: owns only `GeneralizedSecondBounce.lean`, adapting the checked
+  generalized NN strong induction to DN with endpoint-preserving terminal swap.
+
+- `path_invariants`: after returning the port, owns only new
+  `OrientationFirstBounceSpecializations.lean`, ordinary/shifted NN corollaries;
+  now returned frozen to primary.
+
+- `column_paths`: new bounded task owns only `OrientationShift.lean`: coefficient
+  substitution q to q+1 on the actual orientation sum, build-free.
+
+All existing files and aggregate imports/axiom inventory remain primary-owned.
+No local Lean build or nested Claude process is active.
 
 Before each local invocation inspect Lean/Lake processes globally. Use only
 `lake-workspace`, with reduced priority and external caches. Record disjoint

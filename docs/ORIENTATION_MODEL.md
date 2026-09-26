@@ -61,7 +61,10 @@ The product and unicellular identities are now independently proved.
 `OrientationTransport`, `OrientationInsertSum`, and `OrientationUnicellular`
 separate equal-normal-edge transport, the two fresh-edge summands, and the
 final relation. `OrientationSpecializations` gives both parameter choices.
-The next NN bounce changes the strict-edge relation and requires additional
+The NN bounce changes the strict-edge relation and requires additional
 HRV analysis: normal-edge deletion alone need not preserve HRV. The isolated
-Aristotle request uses the checked graph symmetries and manuscript maps
+Aristotle proof uses the checked graph symmetries and manuscript maps
 phi/phibar/psi; none of their HRV properties is assumed as a new axiom.
+Its modular port now passes the local build. The actual HRV/fiber bridges and
+matching bijection have also passed an independent read-only fidelity audit.
+DN remains open and is the next isolated orientation request.

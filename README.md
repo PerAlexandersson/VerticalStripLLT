@@ -72,6 +72,9 @@ A general-purpose symmetric-functions library is outside the scope.
   `orientationExpansionAt_unicellular` proves the independent orientation
   unicellular identity. Transport, insertion sums, and shifted/unshifted
   specializations are separate modules.
+  `orientationExpansionAt_firstBounce_general` proves the independent NN
+  orientation bounce for unrestricted middle words and every parameter z.
+  Its HRV transport, matching bijection, and sum assembly are separate modules.
 - `SatisfiesReductionRecursion` adds two separately named leading-east bounce
   clauses for the reduction proof. Its coloring witness, generic third-bounce
   consequence, and ring-map transport are checked. The original restricted
@@ -87,7 +90,7 @@ relation and both single-bounce recurrence identities are proved.
 `coloringLLT_satisfiesRecursion` bundles these facts with empty normalization
 in a named recurrence predicate. The third single-bounce coloring relation is
 also proved. The generalized NN branch is proved; generalized DN/ND,
-recurrence uniqueness, a terminating recursive invariant, the orientation bounce identities,
+recurrence uniqueness, a terminating recursive invariant, the DN orientation bounce identity,
 and the full semantic bridge remain to be proved.
 
 ## Build and verification

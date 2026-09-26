@@ -300,7 +300,7 @@ The three unicellular modules pass the local focused build. The supplied
 4.28 normalization repair was not ported; the original checked4.34 helper
 remains unchanged. Ordinary and shifted specializations are also checked.
 
-## Orientation first bounce (completed; local port pending)
+## Orientation first bounce (completed; locally checked)
 
 - Project ID: `5546ba1c-a34c-4605-9485-a4e42436e5bd`.
 - Task ID: `5964d41a-b920-4466-9490-fcc39d4de751`, confirmed `COMPLETE`
@@ -323,6 +323,23 @@ The NN candidate was downloaded and inspected on 2026-09-26. Its supplied
 input prefix is byte-for-byte unchanged (82,141 characters). Seven new helper
 groups separate general reachability maxima, orientation operations, upward
 relations, distinguished-vertex formulas, HRV transport, matching, and sum
-assembly. About 1170 lines await a modular local 4.34 port and axiom audit.
+assembly. The roughly 1170-line proof is ported into eight modules and locally checked.
+The only proof repair replaces `ring` by `ac_rfl` for ascent-count addition;
+the conditional API names and `push Not` syntax follow local Lean4.34.
+Terra independently checked statement fidelity, HRV bridges, and the matching
+bijection. Ordinary/shifted corollaries use narrow coefficient equalities.
 The independent generalized NN reduction meanwhile passes the local default
 build (1463 jobs) and all 259 public axiom checks.
+
+## Orientation second bounce (active)
+
+- Project ID: `432e553c-fc15-4226-8795-9bc0b1786b28`.
+- Task ID: `fa04e12e-eb5d-43e6-ac50-92e432384704`, accepted
+  2026-09-26 06:55 UTC.
+- Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/orientation-second-bounce`.
+- Target `orientationExpansionAt_secondBounce_general`, unrestricted middle V
+  and parameter z, equality with the DN successor and no scalar multiplier.
+- Inputs reuse the checked NN helpers and the checked DN path/graph modules
+  in an isolated 4.28 snapshot. Manuscript excerpts include the DN bijection
+  and table. No recurrence or semantic bridge may be assumed.
+- Observe this same project/task; local verification remains authoritative.

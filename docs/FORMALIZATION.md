@@ -341,3 +341,18 @@ the common linear DD diagram
 with explicit successor validity and two induction equations. The word
 adapter `SchroderPath.evalWord` never asserts a recurrence for invalid words.
 Generalized DN/ND and the manuscript's exact restricted uniqueness remain open.
+
+## Independent NN orientation bounce delivered
+
+Manuscript `orientations:bounceI` (2924–2944) is
+`orientationExpansionAt_firstBounce_general`. It allows unrestricted middle V
+and parameter z, with coefficient C(z+1). The ordinary and shifted corollaries
+are in `OrientationFirstBounceSpecializations`.
+
+The proof uses the actual orientation sum. `BounceHRVCore` connects arbitrary
+relation maxima to `hrv` and the fiber monomial. `BounceOrientationOps`,
+`BounceRelations`, `BounceDistinguished`, and `BounceTransport` separate the
+edge choices and HRV transport. `BounceMatching` proves the matching bijection
+and its ascent/monomial properties; `BounceAssembly` sums it.
+No recursive invariant or coloring/orientation equality is assumed. The
+independent DN orientation identity and full semantic bridge remain open.
