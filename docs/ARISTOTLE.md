@@ -20,9 +20,10 @@ External provenance is in `circular-interior-expansion/`:
 `completed-result.tar.gz`, `returned-Request.lean`, `returned-ARISTOTLE_SUMMARY.md`,
 the exact input snapshot and steering messages. All observer interruptions were
 reconnections to the same task; the final authoritative status is terminal.
-Deeper interior contacts remain unproved.
+Deeper contacts remained unproved in this return. The local column-reversal
+proof now closes the full interior step; see [circular completion](CIRCULAR_COMPLETION.md).
 
-## Uniform chain-singleton semantic base (active)
+## Uniform chain-singleton semantic base (completed and locally verified)
 
 Project `004c658b-1194-4c5c-be93-a3799e73d7be`, task
 `40bf20a6-93f3-4fcb-8500-8739c2c8b234`, submitted from source `4cb8f5d`.
@@ -37,9 +38,10 @@ dependency closure, the exact target, locally checked source hashes,
 Existing bodies come from the previous service-compatible foundation prefix;
 six newly checked modules provide corner adjacency, actual coloring reindexing,
 actual ascent decomposition and weighted gap enumeration. No unfinished interior
-theorem or assumed semantic equality is included. Service proof candidates
-still require primary local Lean 4.34 verification. Current observer ownership
-and download instructions are in `HANDOFF.md`.
+theorem or assumed semantic equality is included. The successful candidate was
+integrated and locally verified at `5266faa`.
+No live observer remains. The subsequent full-interior request also terminated
+with its target unfinished; its provenance is recorded in `HANDOFF.md`.
 
 ## Circular coloring subset expansion (completed and locally verified)
 

@@ -1,5 +1,12 @@
 # Interior contact overlap and the one-bounce reduction
 
+> **Historical note.** This document records the exploratory obstruction and
+> intermediate proof routes that preceded the completed aggregate theorem.
+> The checked implementation is now in `InteriorReversalReduction.lean`,
+> `ComponentFactorization.lean`, and `Expansion.lean`. Statements below about
+> an unfinished full theorem describe this earlier snapshot and are not the
+> current project status.
+
 The root-alias reduction is proved, but its complement is not automatically
 the ordinary R4 case. The terminal upper contact can meet an interior main
 contact even when it differs from the root. The following obstruction was

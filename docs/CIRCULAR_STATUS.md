@@ -1,9 +1,10 @@
 # Verified circular results
 
-The full coloring–HRV equality remains open. This table records completed
-uniform results; [CIRCULAR_GOALS.md](CIRCULAR_GOALS.md) contains only the
-remaining work. Names below lie under `VerticalStripLLT.Circular` unless
-otherwise indicated. Current build and axiom counts are in [HANDOFF](../HANDOFF.md).
+The full coloring–HRV equality is now proved. This table records completed
+uniform results; [CIRCULAR_GOALS.md](CIRCULAR_GOALS.md) contains downstream
+work. Names below lie under
+`VerticalStripLLT.Circular` unless otherwise indicated. Current build and
+axiom counts are in [HANDOFF](../HANDOFF.md).
 
 | Result | Checked interface |
 | --- | --- |
@@ -40,7 +41,7 @@ otherwise indicated. Current build and axiom counts are in [HANDOFF](../HANDOFF.
 | Every deeper interior restart is DN | `DDLocalData.resolved_strictAt_interior`, `DDLocalData.exists_oneBounceDNData_of_interior_overlap`; [InteriorDNRestart](../VerticalStripLLT/Circular/InteriorDNRestart.lean). Produces actual DN constructor data for every contact index at least two. |
 | Exact DD half-square accounting and semantic assembly | `DDLocalData.resolved_doubledArea`, `deleted_doubledArea`, `expansion_of_children`; [DDResolvedMeasure](../VerticalStripLLT/Circular/DDResolvedMeasure.lean), [DDRecurrences](../VerticalStripLLT/Circular/DDRecurrences.lean) |
 | Auxiliary exit with two distinct nonstrict corners | `Diagram.expansion_of_two_nonstrict_corners`, `DDLocalData.expansion_of_resolved_two_corners`; [DoubleCornerReduction](../VerticalStripLLT/Circular/DoubleCornerReduction.lean) |
-| Outer induction with one explicit open interior ND input | `Diagram.expansion_of_interior_nd_step`; [ExpansionInduction](../VerticalStripLLT/Circular/ExpansionInduction.lean), [NDInductionCases](../VerticalStripLLT/Circular/NDInductionCases.lean), [NDSeparatedRecurrences](../VerticalStripLLT/Circular/NDSeparatedRecurrences.lean). This is conditional assembly, not the full circular theorem. |
+| Outer induction and interior ND input | `interiorNDInductionStep`, `Diagram.expansion_of_interior_nd_step`; [ExpansionInduction](../VerticalStripLLT/Circular/ExpansionInduction.lean), [NDInductionCases](../VerticalStripLLT/Circular/NDInductionCases.lean), [NDSeparatedRecurrences](../VerticalStripLLT/Circular/NDSeparatedRecurrences.lean). The former conditional input is now discharged. |
 | Uniform direct ND constructor geometry | `Diagram.exists_ndLocalData`, `lowerStrict_strictAt_iff`, `lowerStrict_boundary`; [NDLocalData](../VerticalStripLLT/Circular/NDLocalData.lean), [LowerStrictRows](../VerticalStripLLT/Circular/LowerStrictRows.lean) |
 | Raised side of the NN/DD closing triple | `DDLocalData.resolved_shorten_eq_unstrict`; [DDClosingNN](../VerticalStripLLT/Circular/DDClosingNN.lean), with canonical roots in [EligibleShorten](../VerticalStripLLT/Circular/EligibleShorten.lean) |
 | Direct ND for both actual models and area induction | `Diagram.exists_oneBounce_nd_reduction`, `Diagram.expansion_of_oneBounce_nd`; [OneBounceND](../VerticalStripLLT/Circular/OneBounceND.lean), [OneBounceNDRecurrences](../VerticalStripLLT/Circular/OneBounceNDRecurrences.lean) |
@@ -51,7 +52,8 @@ otherwise indicated. Current build and axiom counts are in [HANDOFF](../HANDOFF.
 | Complete overlapping ND induction step | `Diagram.exists_nd_alias_reduction`, `Diagram.expansion_of_nd_alias`, `AliasContacts.target_admissible_iff`; actual coloring/HRV factors and doubled-area drop six in [AliasRecurrences](../VerticalStripLLT/Circular/AliasRecurrences.lean) |
 | Forced ascent/descent factors for actual models | [ForcedColoring](../VerticalStripLLT/Circular/ForcedColoring.lean), [ForcedOrientation](../VerticalStripLLT/Circular/ForcedOrientation.lean) |
 | Uniform interior smaller target and strict lifted transport | `InteriorMergedComponent.reversalTarget_doubledArea_lt`, `reversalHeads_eq_image`, `reversalArea_reversed_length`, `reversalLift_residue`, `reversalLift_add_period`, `boundary_reversalLift_of_strictAt`, `liftStep_empty_reversal_iff`; [target](../VerticalStripLLT/Circular/InteriorReversalTarget.lean), [lift](../VerticalStripLLT/Circular/InteriorReversalLift.lean), [strict transport](../VerticalStripLLT/Circular/InteriorReversalStrict.lean). Exterior normals and sink order are covered by the following transport result. |
-| Actual exterior coloring and HRV transport | `InteriorMergedComponent.boundaryNaturalLift_reversal_iff`, `normalPairs_reversal_iff`, `reversalLift_order_sinks`, `liftStep_exterior_reversal_iff`, `orientSum_exterior_reversal`, `coloringLLT_exterior_reversal`; [exterior geometry](../VerticalStripLLT/Circular/InteriorExteriorBoundary.lean), [actual residual sums](../VerticalStripLLT/Circular/InteriorResidualTransport.lean). Retains all strict edges and removes exactly internal normal edges; final forced-factor cancellation remains. |
+| Actual exterior coloring and HRV transport | `InteriorMergedComponent.boundaryNaturalLift_reversal_iff`, `normalPairs_reversal_iff`, `reversalLift_order_sinks`, `liftStep_exterior_reversal_iff`, `orientSum_exterior_reversal`, `coloringLLT_exterior_reversal`; [exterior geometry](../VerticalStripLLT/Circular/InteriorExteriorBoundary.lean), [actual residual sums](../VerticalStripLLT/Circular/InteriorResidualTransport.lean). Retains all strict edges and removes exactly internal normal edges. |
+| Full aggregate circular expansion | `coloringLLT_shifted_eq_eval_shiftedOrientationExpansion`, `coloringLLT_shifted_eq_orientation_sum`, `coloringLLT_shifted_e_positive`; [Expansion](../VerticalStripLLT/Circular/Expansion.lean), [InteriorReversalReduction](../VerticalStripLLT/Circular/InteriorReversalReduction.lean), [ComponentFactorization](../VerticalStripLLT/Circular/ComponentFactorization.lean). |
 
 Theorem explanations remain in [proofs/](README.md#proof-explanations).
 Early examples are isolated in `VerticalStripLLT/Examples/` and excluded from

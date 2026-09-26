@@ -2,7 +2,7 @@
 
 The independent Astra review and primary source/API audit selected this
 architecture on 2026-09-26. Completed milestones are now indexed in
-[CIRCULAR_STATUS.md](CIRCULAR_STATUS.md); only remaining obligations appear in
+[CIRCULAR_STATUS.md](CIRCULAR_STATUS.md); downstream work appears in
 [CIRCULAR_GOALS.md](CIRCULAR_GOALS.md). The original dated plan and source
 hashes are retained in the [planning archive](archive/completed-plans/circular-initial-architecture.md).
 
@@ -15,11 +15,12 @@ is also present. Old line numbers and hashes describe the initial audit, not
 the current manuscript. The committed ordinary reference under `references/`
 remains immutable.
 
-The aggregate target is `thm:circular-e-expansion`. The complete-component
+The aggregate theorem `thm:circular-e-expansion` is proved in Lean; see
+[CIRCULAR_COMPLETION.md](CIRCULAR_COMPLETION.md). The complete-component
 claim `conj:circular-component-h` is downstream and remains unproved.
 The authorized manuscript TODO for the missing neutral-termination argument
 was recorded previously; its Lean proof is now complete. Manuscript incorporation
-and the full circular semantic theorem are separate tasks.
+of the completed proofs remains a separate writing task.
 
 ## Adopted finite model
 
@@ -59,7 +60,7 @@ translation remains part of the downstream component work.
 | Lifted highest reachable vertex | `ReachableMaximum.lean`, `HRV.lean` |
 | R1, direct NN, direct DN | `CornerDiagram.lean`, `FirstBounceRecurrences.lean`, `SecondBounceRecurrences.lean` |
 | Neutral termination and full DN geometry | `NeutralTermination.lean`, `DNRealization.lean`, `GeometricArea.lean` |
-| Generalized bounce/aggregate expansion | Remaining obligations in `CIRCULAR_GOALS.md` |
+| Full aggregate expansion | `Circular/Expansion.lean`; interior overlap closed by `InteriorReversalReduction.lean` |
 | Full lifted flips and components | `LiftCover.lean`, `Flip.lean`, `ComponentSemantics.lean`; [scope](CIRCULAR_FLIPS.md) |
 
 Primary owns strategy, integration, and globally serialized `lake-workspace`

@@ -1,13 +1,13 @@
 # Interior overlap by column reversal
 
-Status: the uniform valid target and its strict doubled-area decrease are now
-verified in Lean. The strict-head correspondence, periodic integer reversal
-and exact strict/exterior lifted transport are also verified. Integer sink
-order and actual residual coloring/HRV equality are checked. Restoring internal
-forced-edge factors, cancellation and the outer induction remain unfinished. The transport argument was independently
-audited by the primary and Astra reviewer. This is the intended discharge of
-`InteriorNDInductionStep`, not
-a replacement theorem with additional geometric hypotheses.
+Status: the full column-reversal reduction and aggregate circular expansion
+are now verified in Lean. The valid smaller target, strict-head
+correspondence, periodic integer reversal, exact strict/exterior transport,
+sink order, residual coloring/HRV equality, internal forced factors,
+cancellation, and outer induction are all represented by checked declarations.
+The default full build and axiom inventory have passed. This is the intended
+discharge of `InteriorNDInductionStep`, with no additional geometric
+hypotheses.
 
 ## Extracting the component
 
@@ -212,7 +212,8 @@ The sink-order argument is now proved in `InteriorReversalSinkOrder` for
 arbitrary selected edge sets. `InteriorResidualTransport` proves the actual
 `orientSum_exterior_reversal` and `coloringLLT_exterior_reversal`, using the
 exact exterior pair sets from `InteriorResidualPairs`. Internal forced-factor
-restoration is the next unproved step.
+restoration is implemented in `ComponentFactorization.lean` and used by
+`InteriorReversalReduction.lean`.
 
 No inequality between the two forced-edge counts is needed. If F_D,F_Q are
 those counts, write the two shifted coloring polynomials as A^F_D C and
@@ -236,8 +237,8 @@ The formulas and local geometric checks above have been audited by hand.
 The merged-chain extraction, component isolation, finite column permutation,
 original area profiles, actual valid smaller target, periodic integer lift,
 strict/exterior lifted transport, sink order and actual residual coloring/HRV
-transport are verified. The remaining Lean work restores the internal
-forced-edge factors, cancels the target factor and invokes the existing outer IH.
-The older Aristotle request ended with the full target unproved and is excluded.
-It predates this construction. No remote result or this note substitutes for
-the serialized local build and axiom checks.
+transport are verified. The default full build and axiom inventory passed.
+The older Aristotle request ended with the full target
+unproved and is historical; it is excluded from the checked route. It predates
+this construction. No remote result or this note substitutes for the
+serialized local build and axiom checks.

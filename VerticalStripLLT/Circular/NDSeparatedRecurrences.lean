@@ -29,7 +29,7 @@ theorem separatedNDInductionStep (n m : ℕ) : SeparatedNDInductionStep n m := b
   intro D t x k _ ha ht h hx hx1 hsep ih
   exact D.expansion_of_nd_separated ha ht h hx hx1 hsep m (fun Q hQ => ih Q (Or.inl hQ))
 
-/-- Only the interior-overlap ND step remains as a semantic hypothesis. -/
+/-- Assembly from an interior-overlap proof, supplied by `interiorNDInductionStep` downstream. -/
 theorem Diagram.expansion_of_interior_nd_step {n m : ℕ}
     (D : Diagram n) (hinterior : InteriorNDInductionStep n m) :
     xQShift m (D.coloringLLT m) =

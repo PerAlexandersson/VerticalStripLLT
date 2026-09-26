@@ -2,14 +2,14 @@ import VerticalStripLLT.Circular.ExpansionInduction
 import VerticalStripLLT.Circular.OneBounceNDRecurrences
 import VerticalStripLLT.Circular.AliasRecurrences
 
-/-! The two remaining ND obligations suffice for the full outer induction.
+/-! The separated and interior ND interfaces suffice for the full outer induction.
 These are explicit hypotheses, not assertions that the obligations are proved. -/
 
 namespace VerticalStripLLT.Circular
 
 open Diagram
 
-/-- The unresolved separated ND step with at least one DD contact. -/
+/-- The separated ND step with at least one DD contact. -/
 def SeparatedNDInductionStep (n m : ℕ) : Prop :=
   ∀ (D : Diagram n) (t x : ℤ) (k : ℕ),
     (∀ e : Edge D.area, IsCorner e → e ∈ D.strict) →
@@ -24,7 +24,7 @@ def SeparatedNDInductionStep (n m : ℕ) : Prop :=
     xQShift m (D.coloringLLT m) =
       evalElementary m (shiftedOrientationExpansion D)
 
-/-- The unresolved interior-overlap ND step; the source is saturated. -/
+/-- The interior-overlap ND step; the source is saturated. -/
 def InteriorNDInductionStep (n m : ℕ) : Prop :=
   ∀ (D : Diagram n) (t x : ℤ) (k : ℕ),
     (∀ e : Edge D.area, IsCorner e → e ∈ D.strict) →
@@ -64,7 +64,7 @@ theorem ndInductionStep_of_remaining_cases {n m : ℕ}
       · exact hinterior D t x k hsat ha ht hk hx hx1
           ⟨i, by lia, hi, heq⟩ ih
 
-/-- Conditional assembly of the full circular equality from the two named open ND steps. -/
+/-- Conditional assembly of the full circular equality from the two named ND steps. -/
 theorem Diagram.expansion_of_remaining_nd_cases {n m : ℕ}
     (hseparated : SeparatedNDInductionStep n m)
     (hinterior : InteriorNDInductionStep n m) (D : Diagram n) :

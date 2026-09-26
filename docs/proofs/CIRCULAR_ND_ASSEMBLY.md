@@ -1,5 +1,10 @@
 # Circular ND assembly: separated branch and interior overlap
 
+> **Historical note.** The exploratory separation and interior-obligation
+> narrative below predates the completed aggregate proof. The current checked
+> assembly is exported by `Expansion.lean`; earlier “remaining” labels here
+> describe superseded proof-search snapshots.
+
 This note separates the completed disjoint reduction from the remaining interior
 obligation. Direct ND and full NN elimination were checked at `1d5005d`; see
 [CIRCULAR_DIRECT_ND.md](CIRCULAR_DIRECT_ND.md) and
@@ -447,3 +452,8 @@ The six `ChainSingletonSelection`, `Subsets`, `Insertion`, `Orientations`,
 `Reduction`, `Expansion` modules separate these arguments (each filename
 has the `ChainSingleton` prefix). The local build and axiom inventory passed;
 this section records a completed semantic base, not a proposed recurrence.
+
+The earlier open-obligation language in this historical note is superseded by
+the checked `InteriorReversalReduction` and `Expansion` route. Retain this
+file for proof-search provenance, not as the current list of missing
+theorems.

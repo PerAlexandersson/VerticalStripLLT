@@ -5,9 +5,10 @@ Read `/workspace/AGENTS.md`, `/workspace/lean/AGENTS.md`, this file, and
 
 ## Scope
 
-Formalize the ordinary Alexandersson--Sulzgruber vertical-strip LLT expansion
-before attempting circular LLTs, cumulants, or the flip-component conjecture.
-Begin with the smallest faithful finite-degree model; do not build a general
+The ordinary Alexandersson--Sulzgruber expansion is complete. The user then
+authorized the circular development; its aggregate HRV formula is also proved.
+See `docs/CIRCULAR_COMPLETION.md`. Flip-component expansion remains an open
+downstream claim. Retain the faithful finite-degree model; do not build a general
 symmetric-functions library without an explicit demonstrated need and user
 approval.
 
@@ -45,9 +46,9 @@ Prefer explicit finite combinatorial models:
 Do not call an object the usual LLT polynomial solely because it was defined by
 the recurrence. Preserve the semantic bridge as a named milestone.
 
-Keep the ordinary theorem independent of the unresolved circular no-wrap and
-flip-component arguments. The current circular paper is a downstream client,
-not an initial formalization target.
+Keep the ordinary theorem independent of circular and flip-component arguments.
+Keep the proved aggregate circular theorem independent of the unresolved
+flip-component expansion; aggregate positivity does not prove component positivity.
 
 ## Lean workflow
 

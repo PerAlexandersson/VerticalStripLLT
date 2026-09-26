@@ -47,12 +47,12 @@ Related Lean: `HRVStepComparison.lean`, `HRVTriangle.lean`,
 `Diagram.expansion_iff_secondBounce` combines the independent identities into
 an equivalence of the actual semantic bridge for source and target.
 
-## Remaining boundary
+## Historical boundary
 
-Direct DN does not by itself establish full bounce recurrences. Intermediate
-DD contacts require auxiliary induction on contact count, using two R1
-resolutions and the direct DN move. Some auxiliary diagrams have larger area;
-the final area induction cannot justify these intermediate identities.
-The overlapping ND case now has its own verified reduction. Nonoverlapping
-ND still requires its geometric recurrence.
-The full circular expansion remains open.
+Direct DN is one component of the completed aggregate proof. Intermediate DD
+contacts, separated ND contacts, and the interior-overlap branch are handled by
+the auxiliary modules cited in `CIRCULAR_STATUS.md`; the exported theorem is
+`coloringLLT_shifted_eq_eval_shiftedOrientationExpansion` in `Expansion.lean`.
+The earlier description of these branches as an open obligation predates the
+completed `ExpansionInduction` and column-reversal route and is retained only
+as historical context. The default full build and axiom inventory have passed.

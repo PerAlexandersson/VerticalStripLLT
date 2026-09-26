@@ -74,7 +74,8 @@ noncomputable def hrvMonomial (θ : Orientation D) : EExpansion :=
 
 end Orientation
 
-/-- Independently defined circular HRV expansion. Equality with LLT remains a theorem target. -/
+/-- Independently defined circular HRV expansion.
+Its equality with LLT is proved in `Circular.Expansion`. -/
 noncomputable def shiftedOrientationExpansion (D : Diagram n) : EExpansion :=
   ∑ θ : Orientation D,
     MvPolynomial.C (Polynomial.X ^ θ.val.card) * θ.hrvMonomial

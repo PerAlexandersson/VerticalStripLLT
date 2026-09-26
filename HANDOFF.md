@@ -1,89 +1,83 @@
 # VerticalStripLLT handoff
 
-## Active continuation: circular coloring–HRV equality
+## Completed: full aggregate circular HRV formula
 
-The full circular theorem remains open. The checked outer induction has one
-explicit input, `InteriorNDInductionStep`. Ordinary expansion, first-contact
-interior overlap, direct/root-alias/separated ND, and complete NN/DN are proved.
-Strict cycles make both actual models vanish; overlapping offset contact tracks
-alone do not form a cycle. No flip work is active.
+The ordinary and aggregate circular LLT expansions are proved. The circular
+formula holds for every manuscript circular Dyck/Motzkin diagram and every
+finite alphabet, including the empty alphabet. No recurrence, acyclicity,
+saturation or no-wrap hypothesis remains in the final theorem.
 
-The active route constructs a smaller diagram by reversing the columns of the
-merged strict component. Both its validity and strict doubled-area decrease
-were verified at `e2f3479`. Its actual strict graph and positive integer lifts
-are proved to be transported by the reversal (`e88d287`). Exterior normal-edge
-transport, sink order and actual residual coloring/HRV equality are now verified.
-Restoring forced factors and applying the lower-area induction remain. Exact formulas are in
-`docs/proofs/CIRCULAR_COLUMN_REVERSAL.md`.
+Public declarations in `VerticalStripLLT/Circular/Expansion.lean`, namespace
+`VerticalStripLLT.Circular`:
 
-The user's one-bounce strategy remains the surrounding reduction. Do not assume
-termination of every arbitrary DD/DN/R1 rewrite sequence. The earlier ordinary
-paired-child route uses a shorter-prefix induction for its raised child, not
-smaller area; see `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.
+- `coloringLLT_shifted_eq_eval_shiftedOrientationExpansion`;
+- `coloringLLT_shifted_eq_orientation_sum`;
+- `coloringLLT_shifted_e_positive` (one expression for all alphabets,
+  nonnegative q-coefficients, weighted degree n).
 
-## Current checkpoint: actual residual coloring and HRV transport
+The coloring sum and integer-cover HRV expression are independently defined.
+See `docs/CIRCULAR_COMPLETION.md` for the source correspondence and scope audit.
+The flip-component identity remains unproved; aggregate positivity does not
+establish component positivity. The user explicitly notes that a complete
+component proof may not yet be known. No component proof is assumed here.
 
-`InteriorResidualTransport` proves:
+## Final checked increment
 
-- `liftStep_exterior_reversal_iff`: every exterior normal-edge selection has
-  exactly its transported integer lifted graph.
-- `orientSum_exterior_reversal`: the actual restricted HRV sums agree,
-  including cyclic selections.
-- `coloringLLT_exterior_reversal`: actual residual coloring sums agree for
-  every finite alphabet.
+The previous pushed checkpoint is `5f6cd6f` (actual residual coloring and HRV
+transport). This completion adds four modules:
 
-The residual graphs retain all strict edges and remove exactly those normal
-edges whose two endpoints are in the merged component. These are consequences
-of the concrete target, not extra transport or semantic hypotheses.
+- `ComponentFactorization`: strict-chain comparability partitions internal
+  normal edges; both actual models have the same forced factor within each
+  diagram. `expansion_iff_component_residual` cancels its nonzero scalar.
+- `InteriorComponentPaths`: source and actual reversal-target strict
+  comparability, derived from the concrete component geometry.
+- `InteriorReversalReduction`: `expansion_of_reversalTarget`,
+  `Diagram.expansion_of_nd_interior_overlap` and `interiorNDInductionStep`
+  discharge the unchanged interior induction interface using a strictly
+  smaller doubled-area target.
+- `Circular.Expansion`: unconditional aggregate equality and positivity.
 
-Supporting modules separate the geometry:
+Independent Astra review approved source fidelity, scope, actual residual
+semantics, all-alphabet cancellation and the final induction hypotheses.
+Luna supplied component-path candidates and documentation cleanup; Terra
+reviewed scalar APIs. Primary corrected, integrated and verified the code.
 
-- `InteriorBoundaryAvoidance.boundary_avoids_column_interior`: outside heads
-  cannot have boundaries inside a column; the component sink uses the eligible
-  root's skipped boundary value.
-- `InteriorLiftIntervals`: lifted column containment and order comparisons
-  against outside points; no global monotonicity of reversal is asserted.
-- `InteriorReversalSource`: the nonstrict source's exact boundary formula and
-  the unchanged comparisons against exterior tails.
-- `InteriorExteriorBoundary.boundaryNaturalLift_reversal_iff`: actual exterior
-  integer edge intervals in both directions, including winding.
-- `InteriorExteriorPairs`: actual finite strict, natural and normal pair
-  correspondence.
-- `InteriorReversalSinkOrder.reversalLift_order_sinks`: order on all integer
-  sinks, for arbitrary selected edge sets.
-- `InteriorResidualPairs`: exact residual pair sets and permutation equalities.
+Verification passed with Lean 4.34 and the pinned Mathlib manifest:
 
-Focused builds passed, ending with 1519 jobs for residual transport. Full default
-build passed (1904 jobs); all 2015 inventory declarations use only standard
-axioms. Source guards, 100-column limit and whitespace checks pass. Independent
-Astra audits approved both geometry and actual polynomial semantics.
-
-Luna supplied the boundary-singleton, sink-order and residual-set candidates;
-Terra supplied the exterior fixed-point candidate. Primary completed full
-interval, avoidance, source, exterior-edge and residual transport proofs and
-corrected the candidate APIs. Only primary invoked local builds.
-
-Previous verified checkpoint `e88d287`: strict integer-lift transport, full build
-1896 jobs and 1982 standard-only axiom declarations. Earlier source/target and
-ordinary checkpoints remain in the archive and Git.
-
-## Ownership and verification
-
-All delegate edit lanes are released. Primary owns strategy, integration,
-remote requests and the sole local build slot. No build-slot transfer occurred.
-Use only `lake-workspace`, check for other Lean/Lake processes before each
-invocation, and keep generated outputs outside the checkout. Lean MCP still
-targets RealRooted, so it is not used for implicit project checks.
+- Focused `Circular.Expansion` build: 1772 jobs.
+- Full default `lake-workspace build`: 1908 jobs.
+- `lake-workspace env lean Verification.lean`: all 2037 inventory declarations
+  present in exact order; only `propext`, `Classical.choice`, `Quot.sound`.
+- No proof placeholders, custom axioms, native unchecked proofs or unsafe
+  declarations; Lean source width ≤100; `git diff --check` passes.
+- Initialization commits `830cc6b`, `130f7e8` remain ancestors; immutable
+  `references/alexandersson-sulzgruber-2022/` unchanged from initialization.
 
 External logs under `/lake-cache/ai-projects/requests/VerticalStripLLT/`:
-`interior-exterior-geometry-build.log`, `interior-residual-transport-build.log`,
-`interior-residual-transport-full-build.log`, and
-`interior-residual-transport-axioms.log`.
+`circular-expansion-build.log`, `circular-expansion-full-build.log`,
+`circular-expansion-axioms.log`. The final four modules were compiled after
+formatting changes in the full build. No dependency update or local generated
+build directory was introduced.
 
-Earlier detailed checkpoints and ownership history are retained in
-`docs/archive/circular-interior-checkpoints-through-e2f3479.md` and Git.
-Initialization commits `830cc6b`, `130f7e8` and immutable manuscript references
-remain preserved. No Overleaf edits in this continuation.
+## Ownership and next step
+
+Primary owns strategy, final integration, this handoff and the sole local
+build slot. All delegate edit lanes, including Luna's documentation cleanup, are released.
+No build-slot transfer occurred. No local build or remote proof request is active.
+Use only `lake-workspace`; check for other Lean/Lake processes before every
+invocation. Lean MCP targets RealRooted and is not used for implicit checks.
+
+There are no remaining proof obligations for the aggregate circular goal.
+The next research stage is an audit of the full flip-component identity in
+`docs/CIRCULAR_FLIPS.md`: distinguish proved foundations from conjectural
+component steps before implementation. The strict/weak omega translation is
+separate. Updating the older manuscript proof outline to the verified route
+is a writing task; no Overleaf changes were made in this checkpoint.
+
+Historical ownership and geometric checkpoints remain in Git and
+`docs/archive/circular-interior-checkpoints-through-e2f3479.md`. Superseded
+ND proof-search notes are explicitly marked historical; their unused auxiliary
+claims are not asserted to have been proved by the final expansion theorem.
 
 ## Aristotle provenance
 
@@ -106,28 +100,3 @@ remote proof task remains; do not restart an observer for this completed task.
 The successful chain-singleton request was already integrated at `5266faa`.
 Older request and compatibility provenance is retained in `docs/ARISTOTLE.md`
 and the archived handoff. Local Lean4.34 verification remains authoritative.
-
-## Next proof obligations
-
-Restore the internal normal-edge factors for D and its actual reversal target.
-For D use `K.vertexEmbedding`; for Q use this embedding followed by
-`K.reversalPerm`. The strict chain orders all component vertices, so every
-internal normal edge is either a forced ascent or a forced descent. Apply the
-existing coloring/orientation forced-set and descent-set lemmas, and identify
-the remaining normal pairs with `Diagram.exteriorNormalPairs`.
-
-Both factorization counts must count the same normal-edge sets within each
-model; no comparison between the source and target counts is required.
-The checked residual coloring equality and HRV equality identify the common
-remaining expressions. Apply the outer IH to Q using
-`reversalTarget_doubledArea_lt`, cancel its nonzero (1+q) coefficient factor,
-and restore D's factor. This must discharge the unchanged
-`InteriorNDInductionStep`, not a strengthened variant.
-
-Then instantiate the checked outer induction and transfer the already-proved
-HRV coefficient positivity/weighted degree to actual coloring polynomials,
-for every finite alphabet. The full circular theorem is not yet proved.
-
-If further remote proof search is useful, supply the updated verified prefix
-and isolate this factorization/cancellation step. The completed old task did
-not receive any of the column-reversal construction or transport modules.

@@ -5,8 +5,11 @@
 - [Ordinary completion audit](COMPLETION.md): unconditional expansion,
   positivity, degree, and alphabet compatibility.
 - [Ordinary source and representation map](FORMALIZATION.md).
+- [Circular completion audit](CIRCULAR_COMPLETION.md): full aggregate HRV
+  formula, e-positivity, source correspondence and verification.
 - [Verified circular results](CIRCULAR_STATUS.md).
-- [Remaining circular obligations](CIRCULAR_GOALS.md): the active proof agenda.
+- [Circular downstream work](CIRCULAR_GOALS.md): open component identity and
+  manuscript exposition.
 - [Circular architecture and source map](CIRCULAR_FORMALIZATION_PLAN.md).
 - [HANDOFF](../HANDOFF.md): current ownership, checks, remote task, and next step.
 
@@ -17,14 +20,14 @@
 - [Direct DN recurrence](proofs/CIRCULAR_DN_RECURRENCE.md).
 - [DD propagation](proofs/CIRCULAR_DD_PROPAGATION.md): completed NN/DN elimination.
 - [Direct ND](proofs/CIRCULAR_DIRECT_ND.md): the completed seven-relation proof.
-- [Interior column reversal](proofs/CIRCULAR_COLUMN_REVERSAL.md): the active
-  smaller-target reduction, proved residual transport and remaining factorization.
+- [Interior column reversal](proofs/CIRCULAR_COLUMN_REVERSAL.md): completed
+  smaller-target reduction, residual transport, factorization and cancellation.
 - [Earlier ND assembly](proofs/CIRCULAR_ND_ASSEMBLY.md): disjoint transport,
   cyclic intermediates and interior-restart exit accounting.
 - [ND overlap obstruction](proofs/CIRCULAR_ND_OVERLAP.md) and
   [uniform root-overlap reduction](proofs/CIRCULAR_ND_ALIAS_REDUCTION.md).
-- [Interior ND overlap](proofs/CIRCULAR_ND_INTERIOR_OVERLAP.md): an additional
-  case with a proved one-bounce restart; final assembly remains.
+- [Interior ND overlap](proofs/CIRCULAR_ND_INTERIOR_OVERLAP.md): historical
+  obstruction analysis and the now-completed local restart route.
 
 ## Retained qualifications and provenance
 

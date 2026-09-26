@@ -64,7 +64,7 @@ In this workspace, first confirm no other Lean/Lake build is active, then run
 these commands sequentially from the project root:
 
 ```bash
-lake-workspace build VerticalStripLLT.Expansion
+lake-workspace build VerticalStripLLT.Expansion VerticalStripLLT.Circular.Expansion
 lake-workspace build
 lake-workspace env lean Verification.lean
 ```
@@ -78,35 +78,29 @@ See [the documentation index](docs/README.md),
 [ordinary source map](docs/FORMALIZATION.md), and [current handoff](HANDOFF.md).
 The author-supplied manuscript under `references/` is immutable.
 
-The circular development uses natural head/length edges and highest reachable
-vertices on the integer cover. The direct NN/DN identities are proved for both
-actual models, along with R1, strict-cycle vanishing, the no-normal-edge base,
-complete bounce search, and neutral termination. The overlapping ND branch
-has proved actual polynomial identities and a complete area-induction step.
-Both DD children are proved for NN/DN searches, and interior ND overlap is
-proved to restart at one bounce. Mixed DD/neutral auxiliary sequences terminate
-on acyclic strict graphs. Direct ND now gives both actual identities and area drops two/four; full NN
-elimination is also complete. Full DN elimination preserves area and decreases strict rank. The remaining
-ND assembly and final circular induction are still in progress.
-Circular alphabet compatibility is proved directly from the coloring sum.
-An auxiliary diagram with two distinct nonstrict corners has a checked
-two-step R1 exit below the original half-square area.
-Separated ND is now proved, including cyclic intermediate diagrams.
-The checked outer induction has one remaining input, the interior ND step;
-the unconditional circular theorem still requires its proof.
-The actual coloring–HRV equality is also proved uniformly for a strict chain
-plus one isolated vertex, including winding configurations and every finite
-alphabet. This supplies an additional semantic base, without assuming that
-all remaining interior sources belong to that family.
-The merged strict component of an interior overlap, its column-reversal
-permutation and area profiles, and general restricted HRV sum transport are
-now proved. The actual smaller decorated target and its doubled-area decrease
-are also verified. Its periodic integer reversal transports strict and exterior
-normal edges, preserves integer sink order, and identifies the actual residual
-coloring and HRV sums. Restoring internal forced-edge factors and completing
-the lower-area induction remain in progress. See [the reduction plan](docs/proofs/CIRCULAR_COLUMN_REVERSAL.md).
-See [verified circular results](docs/CIRCULAR_STATUS.md) and
-[remaining goals](docs/CIRCULAR_GOALS.md).
+## Circular expansion
+
+The full circular HRV formula and e-positivity are also proved for every valid
+circular Dyck/Motzkin diagram and every finite alphabet, including the empty
+alphabet. The public declarations in
+[Circular/Expansion.lean](VerticalStripLLT/Circular/Expansion.lean) are:
+
+- `Circular.coloringLLT_shifted_eq_eval_shiftedOrientationExpansion`
+- `Circular.coloringLLT_shifted_eq_orientation_sum`
+- `Circular.coloringLLT_shifted_e_positive`
+
+The coloring sum and the integer-cover highest-reachable-vertex expansion are
+independently defined. The equality has no recurrence, acyclicity, saturation,
+or no-wrap hypothesis. One elementary expression works for all alphabets,
+with nonnegative q-coefficients and weighted degree n.
+
+The proof uses the half-square area statistic and strict rank. Strict cycles
+vanish; one-bounce relations handle local reductions. For interior overlap,
+reversing the columns of the merged strict component gives a valid diagram
+with strictly smaller doubled area. The actual residual coloring and HRV sums
+agree under this reversal; factoring and cancelling forced internal edges
+closes the induction. See the [completion audit](docs/CIRCULAR_COMPLETION.md)
+and [proof explanation](docs/proofs/CIRCULAR_COLUMN_REVERSAL.md).
 
 Examples are isolated under `VerticalStripLLT/Examples/` and excluded from the
 main library imports. Complete flip-component expansions are downstream;
