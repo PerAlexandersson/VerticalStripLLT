@@ -108,3 +108,23 @@ replace (L,K) by (L+K−1,1), increasing the sum of squared sizes by
 2(L−1)(K−1). This suggests an additional measure for that subcase, but both
 the incidence classification and the partition-preserving remainder still
 need proofs. No Lean theorem assumes this proposed classification.
+
+## Extended-termination review
+
+A read-only Sonnet consultation proposed tracking the semantic defect through
+DD, neutral and single-corner strictification steps. The algebra is valid:
+if every deletion side is below the original area and hence has zero defect,
+then q times the source defect equals q times the final strictified defect.
+Cancellation transfers the defect without comparing ranks. This is already
+implicit in the coefficient-one issue above and supplies no new geometric exit.
+
+The proposed unrestricted no-repeat theorem for this enlarged relation fails:
+the previously audited rotation route can be repeated equivariantly until the
+finite-order rotation returns to the original acyclic diagram. That witness
+is covered by the comparable-endpoint base, so a strategy forced to stop at
+such bases might avoid it; the strategy and termination invariant would still
+require proofs. Arbitrary additional DD steps can also raise the auxiliary
+area enough that a deletion side is no longer below the original area. The
+side-term condition cannot be omitted. Primary and independent Astra review
+rejected the unrestricted termination proposal; no such Lean assumption or
+theorem was added.
