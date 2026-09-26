@@ -7,10 +7,19 @@ one-bounce elimination strategy. A contact-track overlap alone is not a strict
 cycle; genuine directed strict cycles make both actual expressions vanish.
 No flip-component work or new examples in this increment.
 
-Latest pushed checkpoint: `0fc4d07` (full DN), following `3c7f3d4`
+Latest pushed checkpoint: `f33cdc6` (full DN handoff), following `0fc4d07`, `3c7f3d4`
 (comparable-edge base) and `1d5005d` (direct ND/full NN).
 
-Current verified increment: full DN elimination, with exact declarations
+Current verified increment: direct alphabet stability and the two-corner
+auxiliary exit. Exact new interfaces are `EdgeData.specializeLast_coloringLLT`,
+`Diagram.specializeLast_coloringLLT`,
+`Diagram.expansion_of_two_nonstrict_corners`, and
+`DDLocalData.expansion_of_resolved_two_corners`. The alphabet theorem follows
+from the coloring sum without the unfinished circular bridge. The two-corner
+exit uses two actual R1 identities; its geometric hypothesis still needs to be
+established where this exit is used in the remaining overlap argument.
+
+Previous verified increment: full DN elimination, with exact declarations
 `Diagram.exists_dn_reduction` and `Diagram.expansion_of_dn`. The actual
 successor preserves doubled half-square area, decreases strict rank, remains
 strictly acyclic and preserves both independently defined polynomial models.
@@ -23,11 +32,11 @@ Already complete: full NN (`expansion_of_nn`), direct ND
 vanishing, and the normal-comparability semantic base. Exact source links and
 all previous completed interfaces are in `docs/CIRCULAR_STATUS.md`.
 
-Checks: full default build 1852 jobs; axiom inventory 1576 declarations, only
+Checks: full default build 1855 jobs; axiom inventory 1583 declarations, only
 propext, Classical.choice, Quot.sound. Source guards, line lengths and relative
 documentation links pass. Reference files remain unchanged. External logs:
-`circular-full-dn-checkpoint-build.log`,
-`circular-full-dn-checkpoint-axioms.log`. Earlier NN/ND and comparable-base logs
+`circular-alphabet-corner-checkpoint-build.log`,
+`circular-alphabet-corner-checkpoint-axioms.log`. Earlier DN/NN/ND and comparable-base logs
 are retained. Initialization commits `830cc6b` and `130f7e8` remain intact.
 
 ## Ownership and active work
@@ -36,9 +45,15 @@ Primary owns strategy, integration, source, remote jobs and the sole globally
 serialized local build slot. Use only `lake-workspace`; check for other Lean
 builds before every invocation. No build-slot transfer has occurred.
 
-Luna supplied bounded ports and direct NN/DN interfaces; primary repaired and
-verified them. All delegated file lanes are released. Primary owns all current
-source and checks. Active Aristotle separated-ND project `361812e0-b73e-48b9-9ad7-dffe103615f6`,
+Terra supplied `ColoringAlphabet` and Luna supplied `DoubleCornerReduction`.
+Primary repaired and verified these, added the generic finite-sum argument and
+Diagram wrapper in `AlphabetStability`, and added the DD two-corner wrapper.
+All delegated edit lanes are released. Primary owns all source and checks.
+All delegates remain build-free.
+Astra's read-only draft audit found no additional primitive circular base or
+root-selection condition; the intended local elimination still needs explicit
+interior exit accounting. Active Aristotle separated-ND project
+`361812e0-b73e-48b9-9ad7-dffe103615f6`,
 task `e58bd214-3a7c-4d47-ab01-e58521c293ad`. Native observer session 45949;
 request/result directory `circular-separated-nd/` under the external requests
 cache. Source commit `0fc4d07`; 175 modules, exact target and hashes retained.

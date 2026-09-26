@@ -1610,3 +1610,10 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.Diagram.expansion_of_dn
 #print axioms VerticalStripLLT.C_X_ne_zero_xPoly
 #print axioms VerticalStripLLT.C_X_ne_zero_eExpansion
+#print axioms VerticalStripLLT.Circular.EdgeData.specializeLast_monomial_castSucc
+#print axioms VerticalStripLLT.Circular.EdgeData.specializeLast_coloringWeight_castSucc
+#print axioms VerticalStripLLT.Circular.EdgeData.specializeLast_coloringWeight_eq_zero_of_last
+#print axioms VerticalStripLLT.Circular.EdgeData.specializeLast_coloringLLT
+#print axioms VerticalStripLLT.Circular.Diagram.specializeLast_coloringLLT
+#print axioms VerticalStripLLT.Circular.Diagram.expansion_of_two_nonstrict_corners
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.expansion_of_resolved_two_corners

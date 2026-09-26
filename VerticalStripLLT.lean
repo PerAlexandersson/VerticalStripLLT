@@ -159,3 +159,5 @@ import VerticalStripLLT.ColoringCharacterization
 import VerticalStripLLT.Expansion
 import VerticalStripLLT.OrientationSecondBounceSpecializations
 import VerticalStripLLT.ExpansionStability
+import VerticalStripLLT.Circular.AlphabetStability
+import VerticalStripLLT.Circular.DoubleCornerReduction

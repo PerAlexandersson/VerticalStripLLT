@@ -78,3 +78,19 @@ through all vertices. This base can close some overlap configurations without
 finding a smaller diagram. It does not by itself handle remaining interactions
 between distinct strict components. The general interior exit classification
 remains open.
+
+## A proved two-corner exit
+
+`Diagram.expansion_of_two_nonstrict_corners` closes any auxiliary diagram T
+with doubled area at most a+1 and two distinct nonstrict corners, assuming the
+semantic bridge below area a. Strictify the first corner to obtain S, then
+resolve the second corner in S. The three leaves have doubled areas
+T−2, T−3 and T−2, respectively. Both models satisfy the same two R1 identities,
+so the bridge for the leaves proves the bridge for T. The DD wrapper is
+`DDLocalData.expansion_of_resolved_two_corners`.
+
+This supplies an additional exit without a rank comparison. The restart
+geometry does not yet guarantee two missing corners: proving that a sequence
+exposes a second corner while retaining the first remains a separate task.
+Changing the root alone does not remove every interior case, because eligible
+roots require genuine area descents and a source can have only one such root.

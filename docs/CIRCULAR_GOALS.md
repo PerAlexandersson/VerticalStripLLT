@@ -64,8 +64,9 @@ strict rank. Supply the remaining ND elimination and use the
 proved complete reverse search to exhaust all cases.
 
 After the semantic bridge, transfer the independently proved HRV coefficient
-positivity and degree to the coloring polynomial, and add the circular
-alphabet-specialization interface. The neutral-termination lemma, selected
+positivity and degree to the coloring polynomial. The last-variable
+alphabet-specialization interface is already proved directly from coloring
+semantics. The neutral-termination lemma, selected
 subset expansion, HRV construction, and direct recurrences are completed
 results, not new work items.
 

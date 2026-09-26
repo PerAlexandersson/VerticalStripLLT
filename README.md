@@ -88,6 +88,9 @@ proved to restart at one bounce. Mixed DD/neutral auxiliary sequences terminate
 on acyclic strict graphs. Direct ND now gives both actual identities and area drops two/four; full NN
 elimination is also complete. Full DN elimination preserves area and decreases strict rank. The remaining
 ND assembly and final circular induction are still in progress.
+Circular alphabet compatibility is proved directly from the coloring sum.
+An auxiliary diagram with two distinct nonstrict corners has a checked
+two-step R1 exit below the original half-square area.
 See [verified circular results](docs/CIRCULAR_STATUS.md) and
 [remaining goals](docs/CIRCULAR_GOALS.md).
 
