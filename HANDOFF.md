@@ -18,6 +18,15 @@ every arbitrary DD/DN/R1 rewrite sequence. Primary and independent Astra audit
 agree; see the ordinary-proof mapping in `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.
 That clarification was recorded at `6ae30bd` without a build.
 
+New mathematical lead (hand-audited, not yet a Lean theorem): a permutation
+within strict-component blocks lowers the previously obstructing (6,2)-chain
+source from doubled area 60 to 50. Coloring and actual lifted HRV acquire the
+same shifted factor (1+q)^2. Primary and independent Astra checked strict
+edges, external normal incidences and sink-order transport. The remaining
+obligation is a uniform valid target construction for arbitrary interior
+contacts; this witness does not discharge `InteriorNDInductionStep`.
+See the component relabeling section of `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.
+
 ## Current verified checkpoint: exact interior restart type
 
 `DDLocalData.resolved_strictAt_interior` proves that the restart terminal is
@@ -89,6 +98,22 @@ whitespace pass. External logs `chain-singleton-checkpoint-build.log` and
 `/lake-cache/ai-projects/requests/VerticalStripLLT/`. Builds were globally serialized.
 
 ## Ownership
+
+The read-only Sonnet audit finished successfully (native session 48395).
+It identified the exact failure of merely changing the distinguished root in
+the existing alias constructor: every interior contact has east gap zero,
+whereas `aliasLower` requires a positive strict-root gap. This rules out that
+constructor application, not other relabelings. Primary checked the relevant
+source hypotheses. Prompt and result are external `interior-alias-consultation.txt`
+and `interior-alias-consultation.jsonl`; no source or build tools were supplied.
+
+Luna (`circular_data`) completed the bounded read-only API audit. Existing
+forced-edge erasure, pair-graph relabeling and `HRVConjugacy` suffice once the
+geometric data are supplied. An orientation-sum reindexing wrapper could reduce
+repetition, but is not a new mathematical obstruction. No duplicate coloring
+wrapper is needed. Order on integer sinks must be checked explicitly; finite
+vertex relabeling alone does not suffice. All delegate lanes are released.
+Primary owns the normalization argument and documentation; no build transfer.
 
 Primary owns strategy, integration, remote jobs, all other source and the sole
 build slot. All delegated lanes are released. Luna ported selection/subset sums;

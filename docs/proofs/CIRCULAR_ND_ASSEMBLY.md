@@ -365,6 +365,58 @@ chain-singleton semantic proof. No additional example module or computation
 was introduced; this is a proof-strategy counterexample, not a new theorem
 milestone.
 
+## Component relabeling: a new lowering mechanism under investigation
+
+The two-chain witness above admits an area-lowering target after a permutation
+inside its long strict component:
+
+```
+D area = (4,4,4,4,3,4,5,5), strict heads = {0,1,2,3,6,7}
+Q area = (4,4,4,4,3,3,3,3), strict heads = {0,1,2,3,5,6}
+permutation pi = (5 7)(1 3)
+```
+
+Both are valid diagrams. The strict chains of D are
+5 -> 1 -> 6 -> 2 -> 7 -> 3 and 4 -> 0; pi maps these to the strict chains of Q.
+The normal edges between different strict components are precisely
+{5,6,7} -> 0, 0 -> {1,2,3}, {1,2,3} -> 4 and 4 -> {5,6,7}.
+These sets are preserved by pi. Forward internal normals number six in D and
+four in Q; backward internal normals never ascend in an admissible coloring
+and force a cycle when selected in an orientation. Erasing internal normals
+therefore gives LLT_D(q) = q^2 LLT_Q(q) for every finite alphabet.
+
+There is also an actual lifted HRV transport. Extend pi periodically on the
+integers, permuting within [1,3] and [5,7] and their translates, fixing the
+separators 0 and 4. Each retained strict or cross-component edge has its
+positive lift transported correctly. Every selected sink is a strict sink:
+the possible source lifts are 3 and 0 modulo 8, mapped respectively to 1
+and 0. Their order is preserved, including across periods. Thus the hypotheses
+of `Orientation.liftedHRV_conjugate` hold after internal-edge removal, and
+the forced-edge factors yield shiftedHRV_D = (1+q)^2 shiftedHRV_Q.
+The area sums are 33 and 28 and both diagrams have six strict edges, giving
+doubled areas 60 and 50.
+
+Primary and independent Astra checked this calculation by hand. It is research
+evidence for a general construction, not a new Lean example or a proof that
+every interior source has such a target. In particular, an arbitrary
+permutation within component blocks need not preserve external incidence,
+positive strict-edge lifts, or the cyclic area inequalities.
+
+A sufficient uniform transport criterion would specify a valid target diagram,
+a periodic lift permutation conjugating strict and residual normal steps,
+order preservation on the periodic strict sinks, and the counts of forced
+forward internal normals. Existing forced-erasure and HRV-conjugacy lemmas
+supply much of the semantic argument. The main outstanding work is constructing
+such data with lower area for arbitrary interior contacts.
+
+The narrower proposal of simply changing the root in `aliasLower` does not
+provide this construction. Every counted bounce contact has east gap zero;
+the existing alias constructor requires a positive east gap at its strict root.
+Residue equality preserves the gap (the boundary itself is equivariant under
+period translation, rather than periodic). A read-only Sonnet audit identified
+this failed hypothesis, checked against `CountedBounce` and `AliasArea` by the
+primary. It excludes that direct constructor application only.
+
 ## Completed chain-singleton semantic base
 
 `ChainSingletonData.coloringLLT_shifted_eq_expansion` now proves the actual
