@@ -79,3 +79,48 @@ See [remaining goals](../CIRCULAR_GOALS.md).
 
 After these facts, the checked independent model identities supply all six
 algebraic equations. Full circular induction remains a separate final step.
+
+## Auxiliary termination and half-square accounting
+
+`DDResolvedMeasure` proves that the resolved child preserves the raw area sum
+and loses exactly one strict edge. Its doubled geometric area is therefore
+D+1. The deletion child loses one full cell and one strict edge, so its doubled
+area is D−1. `DDRecurrences.expansion_of_children` cancels the actual q factor
+once both child semantic equalities are available; `expansion_of_resolved`
+uses outer area induction only for the deletion child.
+
+`LocalEliminationTermination` considers concrete DD resolutions and full neutral
+bounces. On a strictly acyclic diagram, each preserves strict acyclicity and
+strictly decreases `(strict.card, strictRank)` lexicographically: DD decreases
+the first coordinate, neutral preserves it and decreases the second. Thus an
+infinite such sequence forces a strict cycle in the initial diagram, and both
+actual polynomial expressions vanish. This proves termination of those
+auxiliary segments. It does not supply existence of a next move, include R1
+strictification, or replace the remaining cancellation/area assembly.
+
+## Concrete closing triple
+
+The next geometric task can be stated without any new polynomial assumptions.
+For NN put T=shorten the original root f in D. Let U shorten the moved strict
+edge a→c+1 in R, and let V shorten e:a→c in E. Apply direct DN to V at c,
+with root f, to obtain W. The required equalities of actual diagrams are
+
+```
+U = T.unstrict(e),       W = T.deleteCorner(e),
+```
+
+with e transported into T. Relative to D, the area entries of T and U drop
+one at t; those of V drop one at c and c+1; those of W drop one at c and t.
+Their strict heads and corner lengths agree as well. R1 then gives
+`F(U)−F(W)=q F(T)`, and direct DN gives `F(V)=F(W)`. The two smaller-count NN
+identities give `F(R)=(q+1)F(U)` and `F(E)=(q+1)F(V)`. Substitution into the
+checked source resolution cancels q and proves the full NN identity with
+final doubled-area decrease two.
+
+For DN, replace T by the canonical `dnSuccessor` determined by the terminal
+strict edge and original root. The child successors have the same extra
+terminal-row update; contact separation permits commuting it through the
+closing triple. Their coefficients are one. A bare `FullNeutralBounce` witness
+is insufficient for this identification: use the canonical target's actual
+area rows and strict edges. These geometric closing equalities are not yet
+exported theorems.

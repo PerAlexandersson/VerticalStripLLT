@@ -39,7 +39,8 @@ and the full circular semantic theorem are separate tasks.
   It is not a recursive object renamed as the coloring LLT.
 - The primary measure is doubled geometric half-square area,
   `2 * sum area - strict.card`. Neutral moves use strict-chain rank second.
-  Local DD elimination uses auxiliary contact-count bookkeeping.
+  Local DD elimination uses auxiliary contact-count bookkeeping; mixed
+  DD/neutral segments use `(strict.card, strictRank)` for termination.
 - User clarification: reduce to one-bounce relations before projecting the
   geometry to the circle; genuine strict loops vanish. Do not assume a global
   multi-bounce R4 identity for periodically identified contact tracks.

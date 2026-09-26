@@ -26,20 +26,25 @@ is not a prerequisite and must not be assumed.
 The actual q-weighted DD resolution is proved for both models. Both smaller
 search children for NN/DN are supplied by the deletion and resolved-child
 lemmas (current local checks are in HANDOFF). Finish the geometric elimination
-and its well-foundedness/area accounting, then apply the direct local identities.
+and its cancellation/area accounting, then apply the direct local identities.
+`LocalEliminationStep.measure_lt` already proves termination of mixed concrete
+DD/neutral segments by `(strict.card, strictRank)`; it does not include R1
+strictification or prove that a suitable next move always exists.
 Some auxiliary diagrams temporarily have larger half-square area.
 
 The [interior-overlap analysis](proofs/CIRCULAR_ND_INTERIOR_OVERLAP.md) explains
 why applying full R4 immediately is invalid, and why this does not invalidate
 the intended one-bounce route. In the displayed witnesses DD elimination
-creates an earlier restart, followed by direct NN. Uniformly an interior
-collision should restart at a one-bounce NN or DN contact; prove this from
-actual search geometry. Account explicitly for neutral moves at an auxiliary
+creates an earlier restart, followed by direct NN. The uniform interior
+restart is now proved by `DDLocalData.exists_oneBounce_restart_of_interior_overlap`.
+Account explicitly for neutral moves at an auxiliary
 area level before invoking the outer induction.
 
 The root-overlap branch is independently complete through
 `Diagram.expansion_of_nd_alias`. Genuinely local ND relations still need their
-actual diagram transformations and two-model identities where used.
+actual diagram transformations and two-model identities where used. The
+[direct ND plan](proofs/CIRCULAR_DIRECT_ND.md) records the exact seven local
+identities and target area decreases.
 See [DD local elimination](proofs/CIRCULAR_DD_PROPAGATION.md) for the checked
 identities and the earlier algebraic propagation route.
 

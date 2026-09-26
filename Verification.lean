@@ -1363,3 +1363,30 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.resolved_selected_swap
 #print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.resolved_admissible
 #print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.resolved_dd_child
+
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.resolved_area_sum
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.resolved_head_image
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.resolved_strict_card
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.resolved_doubledArea
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.deleted_strict_card
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.deleted_doubledArea
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.expansion_of_children
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.expansion_of_resolved
+
+#print axioms VerticalStripLLT.Circular.Diagram.lowerStrict_strictAt_iff
+#print axioms VerticalStripLLT.Circular.Diagram.lowerStrict_boundary
+#print axioms VerticalStripLLT.Circular.Diagram.exists_ndLocalData
+#print axioms VerticalStripLLT.Circular.Diagram.NDLocalData.upper_head
+#print axioms VerticalStripLLT.Circular.Diagram.NDLocalData.lowered
+#print axioms VerticalStripLLT.Circular.Diagram.NDLocalData.shortened
+#print axioms VerticalStripLLT.Circular.Diagram.NDLocalData.shortened_doubledArea
+
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.exists_oneBounce_restart_of_interior_overlap
+
+#print axioms VerticalStripLLT.Circular.Diagram.localMeasure
+#print axioms VerticalStripLLT.Circular.Diagram.LocalEliminationStep.preserves_acyclic
+#print axioms VerticalStripLLT.Circular.Diagram.LocalEliminationStep.measure_lt
+#print axioms VerticalStripLLT.Circular.Diagram.not_admissible_of_infinite_local_elimination
+#print axioms VerticalStripLLT.Circular.Diagram.strict_cycle_of_infinite_local_elimination
+#print axioms VerticalStripLLT.Circular.Diagram.coloringLLT_eq_zero_of_infinite_local_elimination
+#print axioms VerticalStripLLT.Circular.Diagram.shiftedOrientationExpansion_eq_zero_of_infinite_local_elimination

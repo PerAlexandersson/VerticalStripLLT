@@ -599,7 +599,7 @@ identities remain open.
   compatibility without changing the checked prefix or target hypotheses.
   Full local build: 1824 jobs; axiom inventory: 1338 declarations, standard only.
 
-## Circular interior-overlap one-bounce restart (active)
+## Circular interior-overlap one-bounce restart (locally integrated)
 
 - Project `6654bca9-3649-4ebd-b9b8-ae1cc3050caa`, task
   `0f992037-5575-4c13-bd41-75c4694b8651`.
@@ -609,4 +609,21 @@ identities remain open.
   interior main contact acquires an eligible zero-DD NN/DN restart in the
   actual resolved diagram. Independent Astra review checked the indexing.
 - Uses the completed DD geometry prefix; no new polynomial assumptions or
-  generalized R4 identity. This is the sole active remote proof job.
+  generalized R4 identity. Completed remotely with only standard axioms.
+- Luna ported the final theorem only into `InteriorRestart.lean`; primary checked
+  it locally against the unchanged project definitions and helpers. No prefix
+  replacement, added hypotheses, or local proof repairs were needed beyond
+  current tactic names.
+
+## Circular direct one-bounce ND (active)
+
+- Project `7f814d1b-422f-469b-b0f8-cc2696e9518e`, task
+  `bc03be2f-39de-4689-ba9b-4ab97ef9bb9c`.
+- External request directory: `circular-direct-nd/` (110 dependency modules).
+- Exact target `Diagram.exists_oneBounce_nd_reduction`: valid targets with
+  doubled-area decreases two and four, the actual coloring identity with
+  coefficients q−1 and q, and the actual shifted HRV identity with coefficients
+  q and q+1. Inputs are an eligible zero-DD ND search; no acyclicity hypothesis.
+- The [local proof plan](proofs/CIRCULAR_DIRECT_ND.md) gives seven actual NN/DN/R1
+  identities. Source hashes and module list are retained with the request.
+  Submitted after the restart task completed; sole active remote proof job.

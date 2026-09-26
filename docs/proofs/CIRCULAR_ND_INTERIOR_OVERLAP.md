@@ -73,7 +73,8 @@ interleaving the two strictly ordered color lists.
 The checked forced-set APIs can remove internal forward/backward normal
 edges while retaining every external interaction. Their output is a restricted
 pair graph/orientation sum. Reconstructing a smaller valid circular diagram
-from the consecutive-block shape remains the substantive missing step.
+from that shape was an alternative approach; it is not a prerequisite for
+the intended local elimination and restart proof.
 
 ## Local resolution of the displayed witnesses
 
@@ -95,8 +96,13 @@ example milestones.
 In general, if q_0=p_j is an interior collision and ℓ=r−j, the local DD
 resolution creates a positive gap at p_ℓ. Its first contacted row p_(ℓ−1)
 has upper neighbor c=p_(r−1), whose strict flag was removed. The restart
-therefore has no DD contacts: it is NN if ℓ=1 and DN otherwise. The final
-formal restart theorem must derive every row exclusion from the actual search.
+therefore has no DD contacts: it is NN if ℓ=1 and DN otherwise. The uniform
+`DDLocalData.exists_oneBounce_restart_of_interior_overlap` in
+[InteriorRestart](../../VerticalStripLLT/Circular/InteriorRestart.lean) now proves
+this conclusion, deriving every row exclusion from the actual search and strict
+acyclicity. Its proof propagates the contact identification using uniqueness of
+strict successors, excludes the length-one root, and verifies the new positive
+gap and zero-DD terminal directly. No additional no-wrap hypothesis is used.
 
 The DN branch is neutral at the auxiliary area level `doubledArea D + 1`.
 Its rank decreases, but the global proof must account for that auxiliary
