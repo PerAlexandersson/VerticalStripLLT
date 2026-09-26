@@ -75,7 +75,7 @@ implementation files. Keep generated requests/results outside the checkout.
 - Primary owns the live observation and eventual candidate audit. No claim
   that the full circular theorem is proved is made at submission.
 
-## Circular zero-area expansion (prepared; capacity rejection)
+## Circular zero-area expansion (capacity rejection; now proved locally)
 
 - Request directory:
   `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-zero-area`.
@@ -86,7 +86,10 @@ implementation files. Keep generated requests/results outside the checkout.
 - Submission on 2026-09-26 was rejected by the service's concurrent-project
   limit. No project or task was created. The main full-expansion request
   remains active and takes priority; no task was canceled to submit this.
-- The full-expansion observer has twice lost its stream connection; a fresh
+- This family was subsequently proved locally using bounded Luna/Terra work
+  and primary integration, in `Circular/ZeroAreaExpansion.lean`. The prepared
+  request is superseded; do not submit it.
+- The full-expansion observer has repeatedly lost its stream connection; a fresh
   task query confirmed `IN_PROGRESS`. This is an observation failure, not a
   failed or canceled proof request. Resume the same project when monitoring.
 

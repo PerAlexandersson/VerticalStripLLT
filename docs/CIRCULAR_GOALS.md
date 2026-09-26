@@ -35,14 +35,20 @@ proves the full semantic equality whenever every vertex has an incoming
 strict arc: both independent expressions vanish. `HRVRoots` proves that
 actual HRV values are selected sinks, sinks are fixed, and HRV is idempotent.
 
-For the remaining zero-area branch, a missing incoming strict edge gives a
-head of area zero. Cutting before that head is valid because every arc is
-unit length. The binary runs form strict chains; k edges contribute e_(k+1).
-The ordinary APIs `coloringLLT_column_eq_evalElementary`,
-`shiftedOrientationExpansion_column`, `coloringLLT_concat`, and
-`shiftedOrientationExpansion_concat` can supply the algebra after transport.
-The chain decomposition and transport of actual lifted HRV remain to prove.
-This does not justify a cut for general circular diagrams.
+The full zero-area family is now proved by
+`coloringLLT_shifted_eq_expansion_of_no_normal`, for every D with
+`D.edgeData.normalEdges = ∅` and every alphabet. The proof uses actual HRV
+fibers, whose reachability orders are finite chains. `RootedChainCertificate`
+constructs their increasing enumerations from acyclicity, root preservation,
+and fiber comparability; `ChainColorings` proves the arbitrary disjoint-chain
+product formula. The final theorem assumes no chain certificate or semantic
+identity. The empty-orientation branch vanishes on both sides.
+
+Separately, `CutOrder` proves cyclic area growth and the bound at a zero head;
+`ZeroAreaIncoming` provides such a head when incoming strict coverage fails.
+These are available for later cut transport, but the completed zero-area
+proof does not need a conversion to ordinary paths. This does not justify a
+cut for general circular diagrams.
 
 ## Completed first checkpoint
 

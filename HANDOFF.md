@@ -31,6 +31,7 @@ termination proof. `docs/CIRCULAR_REDUCTION_OBLIGATIONS.md` is a research note,
 not a proved certificate. The weak/h versus strict/e passage is omega.
 
 Verified foundation checkpoint `276bb93` and HRV checkpoint `1ea6877` are
+pushed. Base/roots/example-isolation checkpoint `5f5bcba` is verified and
 pushed. The HRV checkpoint proves `Orientation.isGreatest_liftedHRV`, `liftedHRV_translate`,
 `residue_liftedHRV_eq_hrv`, weighted degree n, and nonnegative coefficients of
 the independently defined `Circular.shiftedOrientationExpansion`.
@@ -40,24 +41,25 @@ Aristotle project `5835802e-8139-48b7-a07b-06add00f1f14`, task
 expansion statement with the checked prefix. Primary owns the live observer,
 candidate audit, and all builds. Exact request: `docs/ARISTOTLE.md`.
 
-Current build-free lanes: Terra owns new `Circular/ChainColorings.lean`,
-proving arbitrary finite disjoint-chain colorings factor into elementary
-polynomials. Luna owns new `Circular/ZeroAreaIncoming.lean`, relating strict
-incoming arcs to positive area and giving a zero-head cut witness. All prior
-files have returned to primary. Primary owns remaining source, root imports,
-Verification, docs, integration, and the sole build slot. No new examples.
-Ordinary examples now live under `Examples/Ordinary.lean`; `EmptyBase.lean`
-retains the needed recurrence base, and `SmallCases.lean` is a compatibility
-import of the examples.
+All Luna/Terra files and audits have returned; ownership is released. Primary
+owns all source, docs, integration, and the sole build slot. No new examples.
 
-New verified general results: `ZeroArea` proves all arcs have length one when
-there are no non-strict arcs; `StrictCycleExpansion` proves both independent
-expressions vanish when every vertex has an incoming strict edge; `HRVRoots`
-proves HRV lands at sinks, fixes sinks, and is idempotent. The remaining
-zero-area branch needs a chain decomposition and HRV/coloring transport.
-A second Aristotle request for that full base family was prepared but rejected
-by the concurrent-project limit. No task was created or canceled. The main
-observer disconnected twice; a task query confirmed it remains `IN_PROGRESS`.
+The full zero-area family is now proved by
+`Circular.coloringLLT_shifted_eq_expansion_of_no_normal` in
+`Circular/ZeroAreaExpansion.lean`: arbitrary n, D with no non-strict arcs,
+and every alphabet. The proof derives finite chain orders on the actual HRV
+fibers and constructs their coloring certificate; no certificate appears as
+a hypothesis of the final theorem. Empty orientation types give zero on both
+sides. Luna's read-only audit confirmed the statement and fiber semantics.
+`CutOrder` and `ZeroAreaIncoming` are verified general geometry for future
+cut transport; the final zero-area proof instead uses fiber orders directly.
+
+A separate Aristotle request for that family was rejected by the concurrent
+project limit and is now superseded by the local proof. No task was created
+or canceled. The main full-expansion observer has had stream interruptions;
+it was reconnected to the same task and the service remains in progress.
+Its current mathematical obstacle is the all-corners-strict reduction, not
+the proved zero-area base. No full circular equality is claimed.
 
 ## Ownership, delegation, and checks
 
@@ -75,15 +77,15 @@ status was `COMPLETE_WITH_ERRORS` due to a malformed namespace wrapper,
 repaired without changing the mathematical statement. Only the full circular
 expansion request is active. Provenance is in `docs/ARISTOTLE.md`.
 
-The current base/HRV-roots checkpoint passes the default full build and all
-517 declarations in `Verification.lean`; only standard Lean axioms occur.
-The examples were also checked explicitly after relocation. Logs under
+The zero-area expansion checkpoint passes the default full build and all
+542 declarations in `Verification.lean`; only standard Lean axioms occur.
+Source placeholder and 100-column guards pass. Logs under
 `/lake-cache/ai-projects/build/VerticalStripLLT/`:
-`circular-base-checkpoint-build.log`, `circular-base-checkpoint-axioms.log`,
-`circular-base-focused.log`, and `circular-roots-focused.log`.
-The previous HRV checkpoint checked 503 declarations. No TeX compilation or
-local combinatorial enumeration was run. New delegated files remain build-free
-until returned; they are not covered by these checks.
+`circular-zero-area-checkpoint-build.log`,
+`circular-zero-area-checkpoint-axioms.log`, and
+`circular-zero-area-expansion.log`. The previous base/roots checkpoint checked
+517 declarations. No TeX compilation or local combinatorial enumeration was
+run; all Luna/Terra tasks were build-free.
 
 ## Source and architecture
 

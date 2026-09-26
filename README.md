@@ -85,7 +85,7 @@ identity and acyclic lifted-walk bounds. Circular HRV is defined on the
 integer cover and proved to be the greatest reachable lift, independently of
 its representative. Its formal elementary expansion has degree n and
 nonnegative coefficients. Equality with the circular LLT coloring polynomial
-and the component identities remain in progress. The general incoming-strict-edge
-vanishing branch is proved; zero-area arcs are proved to have unit length. Concrete examples live under
+and the component identities remain in progress. The full zero non-strict area family is proved for every size and alphabet,
+using the actual HRV fibers and a general strict-chain coloring factorization. Concrete examples live under
 `VerticalStripLLT/Examples/` and are excluded from the main library imports.
 Cumulants remain outside the scope.
