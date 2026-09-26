@@ -101,8 +101,9 @@ Its valid shortened target decreases doubled geometric area by two. Lifted-HRV
 conjugacy, potential comparison, and periodic exterior swap invariance are
 proved separately. The complete DN search now produces a valid successor preserving half-square
 area and decreasing the strict-chain rank. The direct DN coloring identity and the R1 half-square area decreases are also
-proved. The independent DN HRV identity, generalized bounce identities (including
-periodic ND overlaps), and the final circular induction remain open; see
+proved. The independent DN HRV identity is also proved, with cyclic selections
+and arbitrary winding retained. Generalized bounce identities (including
+periodic ND overlaps) and the final circular induction remain open; see
 [the search and recurrence interface](docs/proofs/CIRCULAR_BOUNCE_SEARCH.md).
 The overlapping ND branch now has a valid successor with proved doubled-area
 decrease six, realized from the actual reverse bounce. Forced-edge factors for

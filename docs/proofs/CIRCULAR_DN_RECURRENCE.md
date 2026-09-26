@@ -23,12 +23,13 @@ only a geometric auxiliary: its polynomial is not identified with the source.
 Related Lean: `../../VerticalStripLLT/Circular/SecondBounceGeometry.lean`,
 `CornerBoundary.lean`, `CornerPairs.lean`, and `DNNormalPairs.lean`.
 
-## Independent HRV argument in progress
+## Checked independent HRV argument
 
-The exact actual-HRV equality is an isolated Aristotle task. It is not yet
-locally proved. The proposed proof uses the four-state potential identity
-already checked for NN, generalized to any lifted triangle with its long edge
-strict. On the source use triangle `(i,y,z)`; on the target use `(a,i,y)`.
+`Diagram.shiftedOrientationExpansion_dnSuccessor` now proves the exact
+actual-HRV equality locally. Aristotle supplied the candidate; primary and Luna
+ported its reusable lemmas and primary verified every module. The proof uses
+the four-state potential identity generalized to any lifted triangle with its
+long edge strict. On the source use triangle `(i,y,z)`; on the target use `(a,i,y)`.
 For each fixed exterior selected subset, the two middle monomials sum to the
 bottom plus the top. Cyclic selections contribute zero.
 
@@ -38,6 +39,13 @@ configurations correspond under the periodic `i/y` swap of the exterior
 subset. The strict outgoing edge at `i` separates source sinks; only order
 on sinks, rather than global order preservation, is required for HRV transport.
 The argument retains arbitrary winding.
+
+Related Lean: `HRVStepComparison.lean`, `HRVTriangle.lean`,
+`OrientationPairSum.lean`, `DNLocalData.lean`, `DNSwapGeometry.lean`,
+`DNTargetData.lean`, `DNOrientationBlocks.lean`, and
+`SecondBounceOrientation.lean` under `../../VerticalStripLLT/Circular/`.
+`Diagram.expansion_iff_secondBounce` combines the independent identities into
+an equivalence of the actual semantic bridge for source and target.
 
 ## Remaining boundary
 

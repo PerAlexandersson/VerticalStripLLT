@@ -2,48 +2,52 @@
 
 ## Active continuation: full circular expansion
 
-Current alias-foundation checkpoint (2026-09-26): primary owns all source,
-integration, documentation, remote requests, and the sole global build slot.
-All Luna/Terra edit lanes are released; no build-slot transfer occurred.
+Current direct-DN checkpoint (2026-09-26): the independent actual coloring and
+HRV identities are locally proved. Primary owns all returned source, strategy,
+integration, remote jobs, and the sole globally serialized build slot.
 
-New locally checked declarations:
-- `Diagram.exists_aliasTarget_of_reverseBounce`: the actual overlapping ND
-  search yields a valid diagram with the exact two-row update, unchanged
-  strict count, and doubled half-square area smaller by six.
-- `aliasTarget`, `aliasTarget_pairGraph_strictEdges`,
-  `aliasTarget_doubledArea`: explicit constructor, strict relation, and measure.
-- `PairGraph.coloringLLT_eraseNormal_forced` / `_descent` and
-  `Diagram.shiftedOrientationExpansion_forced_edge` / `_descent_edge`:
-  forced strict reachability removes a normal edge with the correct factor.
-- `adjacentSwap_involutive`, `_translate`, `_threshold_iff`, `_strictMonoOn`:
-  simultaneous disjoint periodic adjacent swaps for the overlap conjugacy.
-These are foundations, not the full overlap polynomial identity. Exact proof
-route: `docs/proofs/CIRCULAR_ND_ALIAS_REDUCTION.md`.
+Exact new public results:
+- `Diagram.shiftedOrientationExpansion_dnSuccessor`: actual direct DN HRV
+  invariance, using only the valid-successor hypotheses and direct contact.
+- `Diagram.expansion_iff_secondBounce`: the actual coloring/HRV semantic bridge
+  is equivalent for source and target; no recursive invariant is substituted.
+- `Diagram.tri_local_identity`: arbitrary lifted strict-triangle diamond,
+  including cyclic selections; modular transitive-closure and pair-sum APIs.
+- `Diagram.reverseBounce_iff_counted`: DD-counted search for induction across
+  different diagrams; `RawBounceContacts.main_parallel_disjoint` and
+  `next_residue_ne` exclude periodic contact collisions for NN/DN.
 
-Default build passes (1786 jobs); 957 axiom checks pass with only propext,
-Classical.choice, and Quot.sound. Source/100-column guards, initialization
-ancestry, immutable-reference checks, and diff whitespace checks pass.
-External logs: `circular-alias-foundation-build.log` and `-axioms.log`.
-Previous pushed checkpoint: `82c1f81` (direct DN coloring and R1 area decreases).
+Full default build passes (1798 jobs); all 1061 axiom checks pass with only
+propext, Classical.choice, Quot.sound. Source/100-column/diff guards pass.
+External logs: `circular-dn-complete-build.log`, `circular-dn-complete-axioms.log`.
+Previous pushed checkpoints: `9561ad0` (alias constructor/measure/search and
+forced-edge factors), `82c1f81` (DN coloring and R1 area decreases).
+
+Active bounded ownership: Luna `circular_data` owns only new
+`Circular/UnstrictCorner.lean` (same-area removal of a strict designation,
+inverse strictification, deletion compatibility, and actual R1 identities).
+It is build-free. All other agent lanes are released; no build-slot transfer.
+Astra's DD audit is recorded in `docs/proofs/CIRCULAR_DD_PROPAGATION.md`.
 
 Aristotle direct-DN project `a768ca01-7392-49a9-b695-339de82ec027`, task
-`847a2439-f8d6-4124-8cb3-222377ca36f9`, reports a completed server proof and is
-finishing its checks. Local integration remains pending. Request/observer:
-external `circular-dn-orientation/`; same-job stream reconnection is recorded
-in `observe-resumed.log`. No source acyclicity or ordinary-cut assumption.
-Prepared next request: external `circular-nd-alias/`, 62 module snapshots.
-Concurrent-project limit rejected its first submission; no project/task was
-created. Submit after DN completes; do not cancel DN or switch accounts.
+`847a2439-f8d6-4124-8cb3-222377ca36f9`, is complete and integrated. Final result
+and provenance are in external `circular-dn-orientation/` and `docs/ARISTOTLE.md`.
+Aristotle overlapping-ND project `eb5bc1c3-b026-45aa-9acb-6d3927797294`, task
+`55de8e35-31e7-4ff2-a476-f26ac24fe345`, remains active. Request and live observer
+are in external `circular-nd-alias/`. It seeks the actual two-model identities
+for the already verified area-decreasing alias target. Do not resubmit or
+switch accounts. The observer uses a native long-running exec session.
 
-Remaining: locally integrate direct-DN HRV; full DD propagation, alias-aware ND
-identities, and final circular induction. Keep the active full goal open.
-The alias natural-pair change removes old pairs `(f.tail,i)`, `(f.tail,f.head)`,
-`(next f.tail,f.head)`; target normal pairs remove `(f.tail,i)`,
-`(next f.tail,i)`, `(next f.tail,f.head)`. Do not conflate those identities.
+Next: complete explicit DD child transformations and contact transport, then
+apply contact-count induction separately to both models. Alias ND semantics
+are remote; nonoverlap ND and final `(doubledArea, strictRank)` induction remain.
+The full circular expansion is still open; preserve the active goal.
 
-Source-path drift: Overleaf `old-main.tex` is absent; `main.tex` now contains
-the former long draft and `new-main.tex` is present. No Overleaf edits in this
-continuation; earlier hashes and line references are historical.
+Overleaf path drift: `old-main.tex` is absent; `main.tex` holds the former long
+draft and `new-main.tex` is present. No Overleaf edits in this continuation.
+The author-supplied committed ordinary reference remains immutable.
+
+## Earlier checkpoints (historical)
 
 Primary owns strategy, integration, all returned source, remote requests, and
 the sole globally serialized build slot. No build-slot transfer. User authorized

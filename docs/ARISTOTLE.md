@@ -542,7 +542,7 @@ area-decrease theorem are proved separately and combined into a checked NN
 semantic induction step. Generalized DD propagation and the other bounce
 identities remain open.
 
-## Circular direct DN orientation recurrence (active)
+## Circular direct DN orientation recurrence (completed and locally checked)
 
 - Project `a768ca01-7392-49a9-b695-339de82ec027`;
   task `847a2439-f8d6-4124-8cb3-222377ca36f9`.
@@ -555,4 +555,22 @@ identities remain open.
 - The source includes checked NN potential/conjugacy machinery. Local coloring
   DN was proved independently while the remote job ran.
 - Observer reconnected after one stream interruption; same project/task.
-  No locally verified HRV DN result yet.
+  The exact target is now locally verified in `SecondBounceOrientation.lean`.
+  Generic triangle and endpoint-pair helpers are separate modules. Existing
+  local corner-boundary and normal-pair formulas replace duplicate service
+  proofs. `SecondBounceRecurrences.expansion_iff_secondBounce` (namespace
+  `Diagram`) combines the independently proved coloring and HRV identities.
+  No statement, definition, or axiom from the service prefix was substituted.
+
+## Circular overlapping ND reduction (active)
+
+- Project `eb5bc1c3-b026-45aa-9acb-6d3927797294`, task
+  `55de8e35-31e7-4ff2-a476-f26ac24fe345`.
+- External request/observer directory: `circular-nd-alias/` under this project's
+  requests cache. Submitted after the DN task completed; one remote task active.
+- Exact target `exists_nd_alias_reduction`: valid target, doubled-area drop six,
+  actual coloring factor q, and actual shifted-HRV factor q+1, for the full
+  periodic overlap branch of an acyclic reverse bounce.
+- The named constructor, strict-pair relation, measure, and search realization
+  are locally checked and supplied as fixed support. The semantic identities
+  remain proof targets. No ordinary-cut or recurrence assumption is allowed.
