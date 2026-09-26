@@ -5,9 +5,35 @@
 Primary owns strategy, integration, all returned source, remote requests, and
 the sole globally serialized build slot. No build-slot transfer. User authorized
 circular continuation, bounded Luna/Terra delegation, and Aristotle proof search.
-All bounded Luna/Terra source tasks returned; lanes released. Primary owns all
-integration repairs and new DN source. No build-slot transfer. Aristotle NN
-orientation search is active; its proof candidate is nearing external completion.
+Verified/pushed checkpoints: `d144cb6` (search/NN coloring) and `34617c8`
+(full DN realization and area/rank). All delegated lanes returned and are
+released; primary owns source/integration and the sole serialized build slot.
+Aristotle task `4e3adb0d-712e-4539-9487-7d388cd71335` is COMPLETE. Its actual
+NN orientation theorem is now locally checked in eight modular files; existing
+periodic-boundary helpers are reused. No remote task remains active.
+
+Newest exact declarations:
+- `Diagram.shiftedOrientationExpansion_shortenStrict_NN`: the original circular
+  HRV expansion satisfies the NN `(X+1)` recurrence; arbitrary winding retained.
+- `Diagram.coloringLLT_shortenStrict_NN` and
+  `xQShift_coloringLLT_shortenStrict_NN`: independent coloring identities using
+  exactly the same geometric hypotheses as the orientation theorem.
+- `Diagram.expansion_of_firstBounce_NN`: legitimate reduction to the smaller
+  target's semantic bridge; not the full circular theorem.
+- `Diagram.shortenStrict_doubledArea`: target doubled area plus two equals source.
+- `Orientation.admissible_of_potential` / `hrvMonomial_eq_of_potential`: actual
+  lifted-HRV potential comparison, reused in four-configuration matching.
+
+Astra's read-only audit confirms actual HRV semantics, cyclic-zero branches,
+full-period edge conjugacy, and no hidden ordinary cut/no-wrap assumption.
+The NN theorem is the single-contact geometric recurrence. Extension through
+intermediate DD contacts is still open, as are DN/ND polynomial identities
+and the final induction. The full circular expansion is NOT proved.
+
+Focused/default builds pass (1770 jobs); all 895 axiom checks pass using only
+propext, Classical.choice, and Quot.sound. Source and 100-column guards pass.
+The two initialization commits and reference files are unchanged. Logs: `circular-nn-checkpoint-build.log`
+and `circular-nn-checkpoint-axioms.log` in the external build directory.
 
 Current new declarations beyond the pushed search checkpoint:
 - `Diagram.exists_fullNeutralBounce_of_reverseBounce`: a complete acyclic DN
@@ -63,11 +89,10 @@ Remaining: full NN/DN/ND semantic recurrences including DD propagation; actual
 DN contact adapter; geometric-area bookkeeping and final lexicographic induction.
 
 Aristotle supplied the periodic-swap and periodic-boundary proof candidates,
-ported and verified locally. Isolated actual NN orientation target remains
-active in project `4c8c3a9f-a32a-4643-92c4-c2f09d633686`, task
+ported and verified locally. The completed NN orientation target is in project `4c8c3a9f-a32a-4643-92c4-c2f09d633686`, task
 `4e3adb0d-712e-4539-9487-7d388cd71335`. Request, observer log, and supplementary
 boundary proof are under the external requests directory `circular-nn-orientation`.
-An observer disconnect does not cancel the remote task. Do not duplicate it.
+The completed raw candidate is retained externally; do not resubmit this target.
 Runtime registry and `codex mcp list` checked: AXLE present, Aristotle CLI present;
 Lean MCP points to RealRooted and is not used for this package.
 

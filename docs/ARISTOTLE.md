@@ -486,7 +486,7 @@ certificate and uniqueness; remote results alone were never authoritative.
 - Request/results: external `periodic-adjacent-swap/` directory under the usual
   VerticalStripLLT request root. Exact three modular/order statements retained.
 - Ported to `Circular/PeriodicSwap.lean`; only tactics/imports changed for
-  local 4.34, and the unused translation parameter is explicitly cleared.
+  local 4.34, and the unused translation parameter is named `_hn`.
   The involution, periodicity, and strict order on separated pairs all compile.
 - Primary added the independently checked circular residue projection and
   actual lifted-HRV/fiber-monomial applications. No recurrence is assumed.
@@ -503,7 +503,7 @@ certificate and uniqueness; remote results alone were never authoritative.
   and locally compiled; source statements and supplied prefix are unchanged.
   This is a local exterior-incidence theorem, not the circular expansion.
 
-## Circular NN orientation recurrence (active isolated target)
+## Circular NN orientation recurrence (completed and locally checked)
 
 - Project `4c8c3a9f-a32a-4643-92c4-c2f09d633686`, task
   `4e3adb0d-712e-4539-9487-7d388cd71335`, submitted 2026-09-26.
@@ -518,5 +518,26 @@ certificate and uniqueness; remote results alone were never authoritative.
 - A file supplement was rejected because uploads require an idle project.
   No new task was created by that rejection. The checked boundary-swap proof
   was then sent successfully as text INSTRUCT to the same active task.
-- Primary owns observation, integration, and all local verification. Service
-  output remains a candidate; no NN HRV recurrence is claimed yet.
+- Task COMPLETE on 2026-09-26. Returned `result.tar.gz` and
+  `completed-candidate.lean` are retained externally, with per-module slices.
+  The service reports the exact target compiled with standard axioms only.
+- Only new helper proofs are ported; prefix repairs for service 4.28 are not
+  imported. The supplied periodic-boundary helpers reuse our already checked
+  module. Eight modules separate HRV potential comparison, local geometry,
+  edge swaps, orientation subsets, target reindexing, local identity, matching,
+  and sum assembly. Primary owns local integration and verification.
+- The local identity partitions four source configurations; HRV potential
+  comparisons prove the unchanged-monomial cases and acyclicity. The periodic
+  swap matches the bottom pair, while path substitution matches the top pair.
+  The statement remains the actual NN recurrence, with no recursion hypothesis.
+
+The candidate's final theorem now passes local Lean 4.34 verification. The
+input prefix's service-specific repairs were not imported. Local proof repairs
+supply explicit relation endpoints for `TransGen.mono/lift`, unfold `Function.onFun`
+where required, and use the current conditional API. Two unused hypotheses were
+removed from auxiliary lemmas; the requested final theorem is unchanged. The
+independent Astra audit confirms actual lifted-HRV semantics and all cyclic
+cases, with no ordinary-cut or no-wrap assumption. The coloring recurrence and
+area-decrease theorem are proved separately and combined into a checked NN
+semantic induction step. Generalized DD propagation and the other bounce
+identities remain open.

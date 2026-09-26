@@ -146,3 +146,22 @@ relation. The induction measure is edge-count squared plus normal-edge-count.
 This displayed statement remains open. It is an explicit hypothesis of the
 reduction theorem. The zero-normal and strict-cycle branches are discharged
 by unconditional theorems. No example or finite-size test establishes this gap.
+
+## Verified circular reductions (2026-09-26 continuation)
+
+The single-contact NN branch is now a complete semantic induction step:
+`Diagram.expansion_of_firstBounce_NN` uses independently proved coloring and
+actual HRV orientation recurrences. `shortenStrict_doubledArea` proves exact
+primary-measure decrease. This is not the generalized NN/DD theorem.
+
+The full reverse contact search, valid full DN successor, contact witness,
+acyclicity preservation, doubled-area preservation, and strict-rank decrease
+are all proved. The current complete DN geometry endpoint is
+`Diagram.exists_area_preserving_dn`.
+
+The next semantic targets are the circular DN coloring and HRV identities for
+`dnSuccessor`; prove their direct-contact cases first as uniform recurrences,
+then transport the NN/DN identities through arbitrary DD contact strings.
+The ND/R4 and positive R8 branches and final lexicographic induction remain
+open. No version of the full circular equality is claimed from these
+intermediate results. See `proofs/CIRCULAR_BOUNCE_SEARCH.md` for exact interfaces.

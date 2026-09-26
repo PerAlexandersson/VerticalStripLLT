@@ -86,6 +86,25 @@ periodic adjacent bridges from equal adjacent boundary values and the missing
 boundary value at the terminal DE gap. These are whole-period statements;
 there is no nonwrapping window assumption.
 
+## Independent NN orientation recurrence (now checked)
+
+`Diagram.shiftedOrientationExpansion_shortenStrict_NN` in
+`Circular/FirstBounceOrientation.lean` proves the `(X+1)` recurrence for the
+original HRV expansion. Its proof expands over subsets of normal edges, with
+cyclic subsets contributing zero. Relative to a base subset, there are four
+choices for the bridge and shortened edge. Actual lifted-HRV potential
+comparison proves their additive local identity. The bottom pair is matched
+by the full periodic swap; the top pair has identical reachability after
+substituting the two-step bridge/shortened-edge path for the old strict edge.
+The swap of base subsets preserves cardinality, giving the coefficient identity.
+
+`FirstBounceRecurrences` aligns both independent recurrences in the same
+coordinates and proves the semantic induction step, assuming equality only
+for its smaller target. `ShortenStrictMeasure` proves that target doubled area
+is exactly two less. These are uniform theorems for every circular size and
+finite alphabet, without a cut or no-wrap hypothesis. They currently concern
+a single NN contact; DD propagation is a separate remaining step.
+
 ## What remains for the full expansion
 
 The complete contact search is proved. It does not yet prove all successor
