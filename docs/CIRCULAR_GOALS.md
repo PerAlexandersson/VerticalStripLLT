@@ -23,7 +23,7 @@ theorem coloringLLT_shifted_eq_eval_shiftedOrientationExpansion
 ```
 
 This exact statement, with no recurrence or expansion assumptions, is the
-active Aristotle request `5835802e-8139-48b7-a07b-06add00f1f14`. It is not
+Aristotle request `5835802e-8139-48b7-a07b-06add00f1f14` (returned without proof). It is not
 yet an exported Lean theorem. See `CIRCULAR_REDUCTION_OBLIGATIONS.md` for the
 parallel mathematical decomposition.
 

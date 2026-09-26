@@ -32,6 +32,24 @@ Here an edge is represented by its terminal/head residue `h` and length
 Thus every proposed local operation below must be stated on head-based data
 `(a,S)` and prove that its altered strict edges are still corner edges.
 
+## Author's geometric area and direct termination proposal
+
+The author prefers A_geom = sum a_i - |S|/2, counting each strict corner as
+half a square. The branch decreases for R1/R2/R3/R4/R8 are respectively
+(1, 1/2), (1), (0), (1, 2), and (1/2, 3/2, 2). Thus doubled geometric area
+is a suitable integer primary measure. Terminal strict-only diagrams can
+have positive geometric area; their already proved formula is a stopping
+case independently of the value of that measure.
+
+The author recalls a contradiction proof: an indefinitely continued forward
+neutral-bounce procedure forces a directed cycle of strict edges. Formulate
+and prove the precise marked forward procedure and the cycle in one reached
+diagram. Its entire polynomial vanishes, and the neutral identities propagate
+vanishing backwards. This would establish termination on nonzero diagrams
+without requiring J as the reader-facing argument. Lilan may have a handwritten
+proof. A user-authorized TODO now records this missing lemma in current
+Overleaf main.tex. It is not yet a proved replacement for the obligations below.
+
 ## Area bookkeeping and current implementation
 
 The author reiterated that the circular proof should follow the draft's

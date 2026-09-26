@@ -11,10 +11,14 @@ circular argument in the existing outline; components require further detail.
 
 The working source is the author's Overleaf project
 `/home/paxinum/Dropbox/Apps/Overleaf/LLT flip/old-main.tex`, titled
-*Circular Vertical-Strip LLT Polynomials*. Its sibling `main.tex` is empty.
+*Circular Vertical-Strip LLT Polynomials*. Its sibling `main.tex` was empty
+at the initial audit; it now contains the rewritten draft.
 We use this substantive manuscript provisionally, together with its
 `EDITORIAL-AUDIT.md`. The separate `LLT-flips/llt-flips.tex` is an earlier
-ordinary flip-component draft. All these files remain read-only.
+ordinary flip-component draft. The original source files remain unchanged.
+On 2026-09-26 the user explicitly authorized a TODO addition to current
+`LLT flip/main.tex` for the missing neutral-bounce termination lemma; primary
+added it beside the strict-chain discussion. Details and hash are in HANDOFF.md.
 
 Hashes at the audit date, relative to the Overleaf directory:
 

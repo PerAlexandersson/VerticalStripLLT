@@ -54,7 +54,7 @@ implementation files. Keep generated requests/results outside the checkout.
   authoritative local build and axiom check. Do not describe the service
   status as `COMPLETE`.
 
-## Full circular elementary expansion (narrowed continuation active)
+## Full circular elementary expansion (continuation returned without proof)
 
 - Project `5835802e-8139-48b7-a07b-06add00f1f14`, task
   `f726d73c-794d-4693-8a20-58660dab3545`, submitted 2026-09-26.
@@ -96,9 +96,16 @@ implementation files. Keep generated requests/results outside the checkout.
 - Primary submitted the continuation to the same project with
   `CONTINUATION_PROMPT.md`, prohibiting duplicate bases, examples, circular
   assumptions, and a final theorem depending on an unproved helper.
-- Continuation task `b6cda868-d1f9-4ec9-a51c-f81bff3c6354` is confirmed
-  `IN_PROGRESS`. The original task remains `CANCELED`. Primary owns observation
-  and any eventual local verification; no proof completion is claimed.
+- Continuation task `b6cda868-d1f9-4ec9-a51c-f81bff3c6354` returned
+  `COMPLETE_WITH_ERRORS`. Primary downloaded `continuation-result.tar.gz` and
+  retained `returned-Continuation.lean` and `returned-CONTINUATION_REPORT.md`.
+  The target is still unproved; no new theorem was integrated. The original
+  task remains `CANCELED`, and no continuation is active.
+- The report lists circular bounce identities and termination as outstanding.
+  Its discussion of missing ordinary proofs reflects the isolated payload;
+  the full ordinary theorem is already checked in this repository. Reuse that
+  implementation when preparing narrower tasks. Numerical exploration in the
+  report was not imported or accepted as proof.
 
 The author subsequently emphasized the existing draft recurrences as the intended
 route. Primary sent their exact positive forms, the primary non-strict-area

@@ -41,8 +41,9 @@ Aristotle project `5835802e-8139-48b7-a07b-06add00f1f14`, task
 left the all-corners-strict helper unproved. Primary has locally verified the
 useful recurrences and an explicitly conditional reduction; no full circular
 identity is claimed. Continuation task `b6cda868-d1f9-4ec9-a51c-f81bff3c6354` is now
-`IN_PROGRESS` on the same project, with an AXLE-preflighted prefix and only
-the strict-corners/acyclic/positive-normal case left. See `docs/ARISTOTLE.md`.
+`COMPLETE_WITH_ERRORS`: the returned continuation leaves the intended target
+unproved and supplies a report rather than a proof. No new Lean proof was
+imported. There is no active Aristotle task in this lane. See `docs/ARISTOTLE.md`.
 
 Luna returned `Circular/StrictCycleVanishing.lean`; primary repaired and verified
 it. Luna completed the read-only mathematical audit: acyclicity and strict-edge
@@ -95,7 +96,7 @@ Aristotle completed subset expansion project
 locally checked, with unchanged requested statements. The projected-reachability candidate is also locally checked; its service
 status was `COMPLETE_WITH_ERRORS` due to a malformed namespace wrapper,
 repaired without changing the mathematical statement. The original full circular
-task is canceled; the narrowed continuation task is active. Provenance is in `docs/ARISTOTLE.md`.
+task is canceled; the narrowed continuation returned `COMPLETE_WITH_ERRORS`. Provenance is in `docs/ARISTOTLE.md`.
 
 The corner checkpoint default build passes (1715 jobs); all 613 axiom
 checks pass with only standard Lean axioms. Source and 100-column guards pass.
@@ -121,9 +122,11 @@ run; all Luna/Terra tasks were build-free.
 Independent Astra planning review preceded implementation. Architecture/source
 map: `docs/CIRCULAR_FORMALIZATION_PLAN.md` (pushed planning checkpoint `00be22e`).
 Exact targets/progress: `docs/CIRCULAR_GOALS.md`. Read-only source is Overleaf
-`LLT flip/old-main.tex` with its editorial audit; sibling `main.tex` is empty.
+`LLT flip/old-main.tex` with its editorial audit. The initial audit found
+`main.tex` empty; it now contains the rewritten draft.
 The earlier `LLT-flips/llt-flips.tex` is background. Source hashes are recorded
-in the plan; Overleaf and committed ordinary references remain unchanged.
+in the plan; old-main and committed ordinary references remain unchanged.
+The user-authorized TODO addition to current main.tex is recorded below.
 
 ## Completed ordinary expansion
 
@@ -243,18 +246,41 @@ builds were needed for this clarification. The local identities still need
 circular adapters and a full neutral-bounce progress proof; no component
 transport theorem is needed for the aggregate circular induction.
 
-## Continuation ownership and retrieval
+## Current author clarification and Overleaf edit
 
-Primary owns hosted Aristotle task `b6cda868-d1f9-4ec9-a51c-f81bff3c6354`
-on project `5835802e-8139-48b7-a07b-06add00f1f14`. Last confirmed state:
-`IN_PROGRESS`. The service owns its lifetime; no local process timeout or
-repository-write permission applies. Requests and future downloaded candidates
-belong under `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-expansion/`.
-No live local build remains, and all agent edit lanes are released.
+2026-09-26: author chose geometric area (each strict corner counts as half a
+square): A_geom = sum a_i - |S|/2. Use doubled geometric area in Lean when
+needed. The author recalls that indefinitely continuing the forward neutral
+bounce forces a strict directed cycle, and that Lilan may have a handwritten
+proof. This is a proposed direct termination lemma, not yet proved locally.
+A cycle entirely in one diagram's strict graph makes its entire LLT vanish;
+a cycle using additional selected normal edges only kills that selected term.
 
-Next action: retrieve this same task's status/result, audit the exact theorem
-and every helper for unresolved placeholders, port only useful proved additions,
-and run the sole serialized local build plus axiom audit. Do not resubmit the
-zero-area family or claim a full circular/component theorem from the conditional
-reduction. No automatic conversation wake-up is configured; the hosted task
-survives a turn ending, but a later explicit check is needed to integrate it.
+At the user's explicit request, primary added a `\todo` to Overleaf
+`LLT flip/main.tex` beside the strict-chain discussion (line 361). It states
+relation (3), asks for the precise forward iteration and contradiction proof,
+requires the cycle's strict edges to coexist in one reached diagram, explains
+vanishing propagation along the identities, and notes Lilan's possible paper
+proof. Existing old-main no-wrap TODO concerns the related selected-state gap.
+No other Overleaf content was changed, and no TeX build was run. The Overleaf
+directory has no Git repository. Current main.tex SHA-256 after the edit:
+`6e98c450e8742a3e20546a0de598c50bc96d2127efaa03b6dbd0ca8d717d28bf`.
+
+## Continuation result and next action
+
+Task `b6cda868-d1f9-4ec9-a51c-f81bff3c6354` on project
+`5835802e-8139-48b7-a07b-06add00f1f14` returned `COMPLETE_WITH_ERRORS`.
+Primary downloaded `continuation-result.tar.gz`, `returned-Continuation.lean`,
+`returned-CONTINUATION_REPORT.md`, and `returned-ARISTOTLE_SUMMARY.md` under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/circular-expansion/`.
+The requested hard theorem still has its target placeholder. No returned
+proof was imported. The report's suggestion that the ordinary theorem must
+be formalized is about the isolated payload: it is already proved in this
+repository and must be reused, not rebuilt. Reported numerical exploration
+is not accepted as proof and was not integrated.
+
+Primary owns all source/requests; edit lanes are released and no local build
+is active. Next: formulate the marked forward neutral-bounce transition and
+prove the author's strict-cycle-or-termination lemma; port circular coloring
+and HRV bounce identities using the existing ordinary implementation. Do not
+resubmit the same broad target or the already proved zero-normal family.
