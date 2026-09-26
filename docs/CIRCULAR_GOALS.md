@@ -48,10 +48,12 @@ The root-overlap branch is independently complete through
 `Diagram.expansion_of_nd_alias`. The direct one-bounce ND branch is also complete through
 `Diagram.expansion_of_oneBounce_nd`, with doubled-area drops two and four and
 no acyclicity assumption. Its [proof explanation](proofs/CIRCULAR_DIRECT_ND.md)
-records the seven local identities. The remaining ND work is elimination and
-restart assembly for a longer search, including its auxiliary-area accounting.
-The [remaining ND assembly](proofs/CIRCULAR_ND_ASSEMBLY.md) separates the
-disjoint transport and interior-restart exit obligations precisely.
+records the seven local identities. The separated-contact branch is now proved
+by `exists_nd_separated_reduction` and `expansion_of_nd_separated`, including
+simultaneous vanishing of cyclic intermediates. The remaining ND work is the
+interior-restart exit, including its auxiliary-area accounting. The
+[ND assembly](proofs/CIRCULAR_ND_ASSEMBLY.md) records the completed disjoint
+transport and the remaining interior obligation.
 See [DD local elimination](proofs/CIRCULAR_DD_PROPAGATION.md) for the checked
 identities and the earlier algebraic propagation route.
 
@@ -63,11 +65,12 @@ sources; strict cycles and no-normal-edge diagrams supply bases; complete
 reverse search covers NN, DN and ND. R1 and NN decrease area, and full DN
 preserves area while decreasing strict rank.
 
-`Diagram.expansion_of_remaining_nd_cases` isolates exactly two explicit inputs:
-`SeparatedNDInductionStep` and `InteriorNDInductionStep`. Direct ND and root alias
-are discharged internally. Prove these two inputs to instantiate the checked
-induction. These conditional declarations do not assert the full theorem and
-do not replace either independently defined polynomial by a recursive object.
+`Diagram.expansion_of_interior_nd_step` now has exactly one open input:
+`InteriorNDInductionStep`. The separated input of the earlier assembly is
+discharged by `separatedNDInductionStep`; direct ND and root alias are discharged
+internally. Prove the interior input to instantiate the checked induction.
+This conditional declaration does not assert the full theorem and does not
+replace either independently defined polynomial by a recursive object.
 
 After the semantic bridge, transfer the independently proved HRV coefficient
 positivity and degree to the coloring polynomial. The last-variable

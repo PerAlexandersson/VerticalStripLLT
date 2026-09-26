@@ -1,40 +1,38 @@
-# Remaining ND assembly after direct ND and NN elimination
+# Circular ND assembly: separated branch and interior overlap
 
-This note records unproved obligations. Direct ND and full NN elimination are
-locally checked at `1d5005d`; their explanations are in
+This note separates the completed disjoint reduction from the remaining interior
+obligation. Direct ND and full NN elimination were checked at `1d5005d`; see
 [CIRCULAR_DIRECT_ND.md](CIRCULAR_DIRECT_ND.md) and
 [CIRCULAR_DD_PROPAGATION.md](CIRCULAR_DD_PROPAGATION.md).
 The author's intended route uses one-bounce identities and local elimination.
 An unrestricted projected general R4 identity is not assumed.
 
-## Disjoint terminal branch
+## Completed disjoint terminal branch
 
-For `ReverseBounceN D t x k`, the terminal is `x = boundary^[k+1] t`.
-The relevant separation condition excludes the terminal upper vertex from
-all strict main heads, including the original root:
+`Diagram.exists_nd_separated_reduction` proves the actual coloring and HRV
+identities for `ReverseBounceN D t x k` under precisely
 
 ```lean
 ∀ i ≤ k, D.residue (D.boundary^[i] t) ≠ D.residue (x + 1)
 ```
 
-Strict incoming-edge uniqueness should propagate this condition to separation
-of the complete main and parallel contact paths. This is a geometry obligation,
-not an additional hypothesis for the final circular theorem.
+The six `NDSeparated` modules construct every intermediate diagram, transport
+the counted searches and identify the two targets, with doubled-area drops
+two/four. `NDSeparatedContacts` derives main/parallel separation from this
+hypothesis and source acyclicity; it assumes no common no-wrap interval.
 
-Let g be the terminal strict edge. As in direct ND, put N=unstrict g,
-E=delete g, S=lowerStrict g, and J=delete the lowered corner from E. The needed
-transport theorem retains the same DD count and root eligibility, with NN
-terminal type in N and J and DN terminal type in S. Root shortening must commute
-with these corner changes. Then four R1 identities, full NN twice and full DN
-once give the same seven-equation cancellation as direct ND, with final area
-drops two/four.
+As in direct ND, N=unstrict g, E=delete g, S=lowerStrict g, and
+J=delete the newly exposed lower corner from E. Full NN applies to N and J.
+The lowered S can be cyclic. `NDSeparatedHyp.dS_admissible_iff` proves that S
+and the root-shortened Q are acyclic together by paired-chain conjugacy. The
+external endpoints may coincide; their distinctness is not assumed. Thus full
+DN applies when S is acyclic, and both actual expressions vanish when S is
+cyclic. Four R1 identities, full NN twice and this DN identity give the seven
+relations needed by the checked cancellation lemma.
 
-Lowering g can create a strict cycle even when D is acyclic. In that case the
-corresponding root-shortened diagram Q must also be shown cyclic, so both terms
-in the needed DN identity vanish. One route is strict-path splicing; another uses the checked theorem
-`neutralExchange_acyclic_iff`, supplied with explicit separated inner paths
-rather than an acyclicity assumption on S. Endpoints of that
-exchange may coincide. Do not infer that S is acyclic from the source D alone.
+`Diagram.expansion_of_nd_separated` supplies the area-induction step.
+`separatedNDInductionStep` discharges the separated input of the outer assembly,
+and `Diagram.expansion_of_interior_nd_step` retains only the interior input.
 
 ## Interior terminal overlap
 
@@ -58,9 +56,9 @@ the original semantic difference by cancellation. The existing mixed DD/neutral 
 supplies neither this exit classification nor that comparison.
 
 The root-alias branch is already complete through `expansion_of_nd_alias`.
-These cases must be assembled with the disjoint branch, strict-cycle vanishing,
-and the half-square-area/strict-rank induction. None of the obligations above
-has yet been exported as a Lean theorem.
+The checked outer induction already assembles direct ND, root alias, disjoint
+ND, strict-cycle vanishing and the other branches. The interior exit remains
+its sole unproved input.
 
 ## A proved additional exit
 

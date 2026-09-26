@@ -655,31 +655,41 @@ identities remain open.
   edits and one duplicate theorem omitted; none of that prefix was imported.
 
 
-## Circular separated-contact ND (active)
+## Circular separated-contact ND (complete and locally verified)
 
 - Project `361812e0-b73e-48b9-9ad7-dffe103615f6`, task
-  `e58bd214-3a7c-4d47-ab01-e58521c293ad`; observer session 45949.
-- External directory `circular-separated-nd/`; 175 checked modules from
-  `0fc4d07`, exact target and source hashes retained.
-- Target `Diagram.exists_nd_separated_reduction`: the two actual ND identities
-  and area drops two/four when the terminal upper vertex avoids every strict
-  main head, including the root. All overlap cases remain separate obligations.
-- The request uses full NN/DN and four R1 identities, requiring concrete contact
-  transport and careful handling of cyclic lowered intermediates. It includes
-  `neutralExchange_acyclic_iff` and the normal-comparability semantic base.
-  It explicitly forbids strengthening separation to a global no-wrap condition.
+  `e58bd214-3a7c-4d47-ab01-e58521c293ad`; observer 45949 finished.
+- External directory `circular-separated-nd/`; original 175 checked modules
+  from `0fc4d07`, exact target, hashes, archive and returned summary retained.
+- `Diagram.exists_nd_separated_reduction` proves both actual ND identities and
+  area drops two/four. There is no added saturation or global no-wrap condition.
+- Six appended blocks became `NDSeparatedBasic`, `Contacts`, `Diagrams`,
+  `Identities`, `Cycles`, and `Relations` (each with the `NDSeparated` prefix).
+  Primary added `NDSeparatedRecurrences`; all pass the local Lean4.34 build.
+- Independent Astra review approved mathematical fidelity, actual diagram
+  identification, source-derived contact separation, coincident outer endpoints,
+  paired-chain cyclic equivalence and actual seven-relation cancellation.
+- Exact extraction parity: all 159 remote declarations retained. The local
+  compatibility repair restores explicit endpoints to `TransGen.mono`.
+  Returned prefix edits were proof compatibility changes and removal of a
+  duplicated theorem; none of that prefix was imported.
 
-## Circular interior-overlap semantic step (prepared; capacity-limited)
+## Circular interior-overlap semantic step (active)
 
-- External directory `circular-interior-expansion/`, the checked prefix plus
-  `DoubleCornerReduction` from `eb11c69` (176 modules), unchanged target and
-  updated hashes/proof-development notes. No remote project/task was created.
+- Project `65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, task
+  `c4f22d47-e2f8-4545-9ba5-9edb35be49e9`; native wait/downloader 87017.
+- External directory `circular-interior-expansion/`, 182 checked modules:
+  previous prefix, `DoubleCornerReduction`, and the six new separated-ND modules.
+  Source base `0e5b104` plus exact checked new-file hashes. The unchanged target,
+  proof-route notes and prior remote compatibility summary are retained.
 - Target `Diagram.expansion_of_nd_interior_overlap`: saturated, strictly acyclic
   source, actual eligible counted interior ND overlap, and the semantic bridge
   for every smaller outer measure imply the source bridge.
-- The concurrent submission was rejected because the account had too many
-  projects in progress. Submit the saved request when the separated-ND job
-  completes; no repeated retry loop or cancellation of other tasks.
-- The proof notes retain the failed fixed-length slide/rank shortcuts and the
-  coefficient-one rotation cancellation issue. They ask for a proved exit,
-  using actual recurrences and semantic bases, not a new hypothesis hiding it.
+- The earlier concurrent attempt was capacity-limited and created no task.
+  This submission succeeded after separated ND finished. Observe the existing
+  handle rather than resubmitting or cancelling other projects.
+- The outer induction is locally checked, and separated ND now discharges its
+  other input. This interior target is the remaining mathematical obligation.
+  Notes retain failed fixed-length slide/rank, coefficient-one rotation and
+  component-partition shortcuts. The service must prove an actual exit, not
+  weaken the target or add an assumed recurrence.

@@ -1,120 +1,95 @@
 # VerticalStripLLT handoff
 
-## Active continuation: full circular expansion
+## Active continuation: interior circular ND
 
-The full circular coloring–HRV equality remains open. Follow the author's
-one-bounce elimination strategy. A contact-track overlap alone is not a strict
-cycle; genuine directed strict cycles make both actual expressions vanish.
+The full circular coloring–HRV equality remains open. The checked outer
+induction now has exactly one remaining input: `InteriorNDInductionStep`.
+Follow the author's one-bounce elimination strategy. Genuine strict cycles
+make both actual expressions vanish; contact overlap alone is not a cycle.
 No flip-component work or new examples in this increment.
 
-Latest pushed source checkpoint: `8c8e8b5` (conditional outer induction), following
-`eb11c69` (alphabet stability/two-corner exit),
-`f33cdc6` (full DN handoff), `0fc4d07`, `3c7f3d4`
-(comparable-edge base) and `1d5005d` (direct ND/full NN).
+Latest pushed source checkpoint: `8c8e8b5` (outer induction); its handoff is
+`0e5b104`. Current verified increment: full separated-contact ND, ready to commit.
+Exact interfaces:
 
-Current verified increment: complete conditional outer induction, with
-`Diagram.expansion_of_nd_induction_step` and
-`Diagram.expansion_of_remaining_nd_cases`. The latter has precisely two open
-inputs, `SeparatedNDInductionStep` and `InteriorNDInductionStep`. All other
-branches are discharged internally using the actual models. Independent Astra
-review confirmed exhaustive cases, valid measure decreases and exact agreement
-with the two remote targets. This does not prove either remaining input.
+- `Diagram.exists_nd_separated_reduction`: valid actual targets with doubled-area
+  drops two/four and both polynomial identities, for arbitrary counted depth.
+- `NDSeparatedHyp.dS_admissible_iff`: paired-chain conjugacy shows the lowered
+  and shortened intermediates are cyclic together, allowing coincident outer
+  endpoints. All inner-path separation follows from source hypotheses.
+- `Diagram.expansion_of_nd_separated` and `separatedNDInductionStep`: the semantic
+  induction step, using only smaller areas, discharges the separated input.
+- `Diagram.expansion_of_interior_nd_step`: the entire equality follows from the
+  sole remaining interior step. This is explicitly conditional, not completion.
 
-Previous verified increment: direct alphabet stability and the two-corner
-auxiliary exit. Exact new interfaces are `EdgeData.specializeLast_coloringLLT`,
-`Diagram.specializeLast_coloringLLT`,
-`Diagram.expansion_of_two_nonstrict_corners`, and
-`DDLocalData.expansion_of_resolved_two_corners`. The alphabet theorem follows
-from the coloring sum without the unfinished circular bridge. The two-corner
-exit uses two actual R1 identities; its geometric hypothesis still needs to be
-established where this exit is used in the remaining overlap argument.
+Luna ported six appended `NDSeparated` modules. Primary repaired the local
+relation API, checked exact declaration parity (159 declarations), and added
+`NDSeparatedRecurrences`. Independent Astra review approved exact hypotheses,
+concrete targets, cyclic vanishing and seven-equation cancellation. No returned
+prefix was imported or existing mathematical definition changed.
 
-Previous verified increment: full DN elimination, with exact declarations
-`Diagram.exists_dn_reduction` and `Diagram.expansion_of_dn`. The actual
-successor preserves doubled half-square area, decreases strict rank, remains
-strictly acyclic and preserves both independently defined polynomial models.
-`IsDNTarget` describes actual rows; it is not a recurrence-defined invariant.
-Both DD children are handled by contact-count induction and a concrete closing
-triple, never by outer area induction at a larger diagram.
+Checks: full default build 1864 jobs; axiom inventory 1751 declarations, only
+propext, Classical.choice, Quot.sound. Source guards and new-source line lengths
+pass. External logs `circular-separated-checkpoint-build.log` and
+`circular-separated-checkpoint-axioms.log`. Previous checkpoint logs remain.
+Initialization commits `830cc6b` and `130f7e8` and immutable reference files
+remain intact. The axiom run waited for a RealRooted build to finish; no local
+Lean builds were run concurrently.
 
-Already complete: full NN (`expansion_of_nn`), direct ND
-(`expansion_of_oneBounce_nd`, area drops two/four), root-alias ND, strict-cycle
-vanishing, and the normal-comparability semantic base. Exact source links and
-all previous completed interfaces are in `docs/CIRCULAR_STATUS.md`.
+## Ownership and active remote work
 
-Checks: full default build 1857 jobs; axiom inventory 1589 declarations, only
-propext, Classical.choice, Quot.sound. Source guards, line lengths and relative
-documentation links pass. Reference files remain unchanged. External logs:
-`circular-induction-checkpoint-build.log`,
-`circular-induction-checkpoint-axioms.log`. Earlier alphabet/DN/NN/ND and comparable-base logs
-are retained. Initialization commits `830cc6b` and `130f7e8` remain intact.
+Primary owns all source, strategy, integration, remote jobs and the sole
+serialized local build slot. All delegated lanes are released; no build-slot
+transfer occurred. Use only `lake-workspace`, checking for other Lean/Lake
+processes before each invocation. Delegates remain build-free.
 
-## Ownership and active work
+Active Aristotle interior-overlap project:
+`65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, task
+`c4f22d47-e2f8-4545-9ba5-9edb35be49e9`. Native wait/downloader session **87017**.
+External directory `circular-interior-expansion/` under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/`. Observe this same handle;
+do not resubmit. The request includes 182 locally checked modules, the exact
+unchanged target, source hashes, `DoubleCornerReduction`, full separated ND,
+and proof-route notes retaining known failed shortcuts. Its source snapshot is
+`0e5b104` plus the checked new separated modules, pinned by exact hashes.
+The CLI may exit zero on API errors: inspect its log as well as exit status.
 
-Primary owns strategy, integration, source, remote jobs and the sole globally
-serialized local build slot. Use only `lake-workspace`; check for other Lean
-builds before every invocation. No build-slot transfer has occurred.
+Target `Diagram.expansion_of_nd_interior_overlap`: saturated, acyclic source,
+actual eligible counted interior ND search, and semantic IH below
+`(doubledArea, strictRank)` imply the actual coloring–HRV equality. No recurrence
+assumption, no-wrap condition or semantic redefinition is permitted.
 
-Terra supplied `ColoringAlphabet` and Luna supplied `DoubleCornerReduction`.
-Primary repaired and verified these, added the generic finite-sum argument and
-Diagram wrapper in `AlphabetStability`, and added the DD two-corner wrapper.
-All delegated edit lanes are released. Primary owns all source and checks.
-All delegates remain build-free.
-Luna's outer-induction lane returned without edits. Primary implemented and
-verified `ExpansionInduction` and `NDInductionCases`; Astra independently
-reviewed them. All delegated edit/review lanes are released. No recurrence-defined
-polynomial is introduced.
-Astra's read-only draft audit found no additional primitive circular base or
-root-selection condition; the intended local elimination still needs explicit
-interior exit accounting. Active Aristotle separated-ND project
-`361812e0-b73e-48b9-9ad7-dffe103615f6`,
-task `e58bd214-3a7c-4d47-ab01-e58521c293ad`. Native observer session 45949;
-request/result directory `circular-separated-nd/` under the external requests
-cache. Source commit `0fc4d07`; 175 modules, exact target and hashes retained.
-Observe this same task and integrate only appended proof modules after review.
-The CLI can exit zero on API errors, so inspect logs as well as exit status.
+Completed separated-ND project `361812e0-b73e-48b9-9ad7-dffe103615f6`, task
+`e58bd214-3a7c-4d47-ab01-e58521c293ad`, observer 45949 finished. Its original
+175-module prefix came from `0fc4d07`. Returned files and review provenance
+remain in `circular-separated-nd/`; see `docs/ARISTOTLE.md`.
 
-Aristotle full DN project `ae819e79-2742-4965-9254-8eef5929cfa0`, task
-`0216c708-f9a4-4baa-82d0-d98d33d8e293`, is complete and locally integrated in
-`DNReductionTarget`, `DNReductionDiamond`, `DNReduction`, and the primary's
-`FullDNRecurrences`. Shared shift-injectivity declarations moved unchanged to
-`QShiftInjective`; no duplicated service prefix was imported. Independent
-Astra audit approved mathematical fidelity and unchanged hypotheses.
+## Next step and mathematical limits
 
-The interior-overlap request is fully prepared in `circular-interior-expansion/`.
-It now includes the checked `DoubleCornerReduction` module from `eb11c69`
-(176 modules), with unchanged target and updated hashes/proof-route notes.
-A concurrent submission was rejected: "You have too many projects in progress."
-No project/task ID was created for it. Submit this saved request after the active
-separated-ND task completes; do not cancel other projects to obtain a slot.
-Its exact target is `expansion_of_nd_interior_overlap`, with saturated source
-and the explicit smaller `(doubledArea, strictRank)` semantic induction hypothesis.
-This is the unresolved interior exit argument, not an assumed recurrence. Astra's remaining ND audit,
-including rejected shortcuts, is in `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.
-Completed direct-ND and full-DN remote provenance is in `docs/ARISTOTLE.md`.
+1. Finish the interior-overlap exit argument, then instantiate
+   `expansion_of_interior_nd_step` without hypotheses.
+2. Transfer the independently proved HRV positivity and degree to coloring.
 
-## Next steps and limits
+Already complete: full NN/DN, direct and root-alias ND, separated ND, strict-cycle
+vanishing, normal-comparability base, alphabet stability, two-corner auxiliary
+exit, and outer induction. Exact source links: `docs/CIRCULAR_STATUS.md`.
+Remaining obligations and failed shortcuts: `docs/CIRCULAR_GOALS.md` and
+`docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.
 
-1. Prove separated-contact ND transport/cancellation, including cyclic
-   intermediates using strict-path splicing or paired-chain conjugacy.
-2. Finish interior-overlap ND elimination/restart assembly. Direct ND, root-alias
-   ND, and the uniform interior-overlap restart are already checked.
-3. Instantiate the checked outer induction with these two proved inputs, then
-   transfer the independent HRV positivity and degree statements to coloring.
+The unresolved interior DD child has doubled area D+1. Mixed DD/neutral
+termination omits R1 strictification and does not prove exit existence.
+Two missing corners provide a checked exit below D, but one missing corner
+can lead to same-area strictification without smaller strict rank. Neither
+changing the root alone nor a component-partition refinement closes every case.
+The active request asks for this mathematical argument, not more conditional
+assembly. Full NN/DN handle their larger-area auxiliaries by contact-count
+induction rather than incorrectly applying outer IH.
 
-`LocalEliminationStep.measure_lt` proves termination of mixed concrete DD/neutral
-segments by `(strict.card, strictRank)`. It does not cover R1 strictification
-or assert existence of a next move. Resolved DD children have doubled area D+1;
-outer induction alone cannot justify their semantic equality. Deleted children
-have area D−1. Preserve this distinction in the remaining ND assembly.
+Earlier checkpoints include `eb11c69` (alphabet/two-corner), `0fc4d07` (full DN),
+`3c7f3d4` (comparable base), `1d5005d` (direct ND/full NN), and `130efc2`
+(interior restart/mixed termination). Older history remains in
+`docs/archive/HANDOFF_THROUGH_INTERIOR_RESTART.md` and Git.
 
-Completed results: `docs/CIRCULAR_STATUS.md`. Remaining obligations:
-`docs/CIRCULAR_GOALS.md`. Proof explanations are indexed by `docs/README.md`.
-Earlier checkpoints: `130efc2` (interior restart/mixed termination), `398006c`
-(resolved DD child), `377ae36` (root-alias ND). Older chronology is retained in
-`docs/archive/HANDOFF_THROUGH_INTERIOR_RESTART.md`.
-
-Overleaf path drift: `old-main.tex` is absent; `main.tex` holds the former long
-draft and `new-main.tex` is present. No Overleaf edits in this continuation.
-Author-supplied files under `references/alexandersson-sulzgruber-2022/` remain
-immutable.
+Overleaf `LLT flip/main.tex` and `new-main.tex` are present; `old-main.tex` is
+absent. No Overleaf edits in this continuation. Author-supplied files under
+`references/alexandersson-sulzgruber-2022/` remain immutable.
