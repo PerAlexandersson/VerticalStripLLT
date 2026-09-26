@@ -8,8 +8,8 @@ Follow the author's one-bounce elimination strategy. Genuine strict cycles
 make both actual expressions vanish; contact overlap alone is not a cycle.
 No flip-component work or new examples in this increment.
 
-Latest pushed source checkpoint: `8c8e8b5` (outer induction); its handoff is
-`0e5b104`. Current verified increment: full separated-contact ND, ready to commit.
+Latest pushed source checkpoint: `78c07c3` (full separated-contact ND), following
+`8c8e8b5` (outer induction) and its handoff `0e5b104`.
 Exact interfaces:
 
 - `Diagram.exists_nd_separated_reduction`: valid actual targets with doubled-area
