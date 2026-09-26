@@ -32,6 +32,36 @@ Here an edge is represented by its terminal/head residue `h` and length
 Thus every proposed local operation below must be stated on head-based data
 `(a,S)` and prove that its altered strict edges are still corner edges.
 
+## Area bookkeeping and current implementation
+
+The author reiterated that the circular proof should follow the draft's
+ordinary area-reduction relations. We retain that as the primary route.
+For the displayed ordinary local configurations, the non-strict area changes
+in the ordered right-hand branches are:
+
+| Relation | Target area minus source area |
+| --- | --- |
+| R1 | −1, −1 |
+| R2 | −1 |
+| R3 | 0 |
+| R4 | −1, −2 |
+| R8 | −1, −2, −2 |
+
+These counts do not by themselves establish a valid circular move: the lifted
+exterior-incidence and corner conditions below still need proofs. Relation R3
+explains why area alone is insufficient and why the draft introduces J.
+The circular R1 coloring and HRV recurrences are now proved independently in
+`Diagram.xQShift_coloringLLT_corner` and
+`Diagram.shiftedOrientationExpansion_corner`. Their current Lean reduction uses
+edge-count² + normal-edge-count. That is the termination measure for this
+corner-only reduction, not the proposed full-bounce (area_ns, J) induction.
+
+On 2026-09-26 primary supplied the exact relations, area-first strategy,
+proposed J calculation, and exterior-incidence mechanism to the existing
+Aristotle continuation via INSTRUCT. The task was already active; no separate
+project or duplicate base-case task was launched. Exact message is retained
+externally as `circular-expansion/RELATIONS_STEERING.md`.
+
 ## The actual local transitions
 
 Write `t = q - 1`, as in the manuscript. After representing the affected local

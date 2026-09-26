@@ -100,6 +100,12 @@ implementation files. Keep generated requests/results outside the checkout.
   `IN_PROGRESS`. The original task remains `CANCELED`. Primary owns observation
   and any eventual local verification; no proof completion is claimed.
 
+The author subsequently emphasized the existing draft recurrences as the intended
+route. Primary sent their exact positive forms, the primary non-strict-area
+measure, proposed secondary J rank, and periodic exterior-incidence mechanism
+by INSTRUCT to the same running continuation. The message is retained as
+`RELATIONS_STEERING.md`; it preserves the theorem target and all definitions.
+
 ## Circular zero-area expansion (capacity rejection; now proved locally)
 
 - Request directory:

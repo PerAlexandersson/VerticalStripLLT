@@ -231,6 +231,18 @@ are preserved; references remain unchanged from `130f7e8`.
 The archived restricted-middle nonderivability candidate remains unverified
 and unused; it does not refute the full recurrence or main theorem.
 
+## Author clarification: use the draft's area recurrences
+
+2026-09-26: author emphasized the ordinary-style area induction already outlined
+in the draft. Primary and Terra rechecked R1/R2/R3/R4/R8; their ordinary branch
+area drops are recorded in `docs/CIRCULAR_REDUCTION_OBLIGATIONS.md`. R3 is
+neutral; the proposed secondary J rank addresses that case. Primary sent the
+exact system and J/exterior-incidence guidance to the same active Aristotle
+continuation via INSTRUCT (`RELATIONS_STEERING.md` externally). No Lean edits or
+builds were needed for this clarification. The local identities still need
+circular adapters and a full neutral-bounce progress proof; no component
+transport theorem is needed for the aggregate circular induction.
+
 ## Continuation ownership and retrieval
 
 Primary owns hosted Aristotle task `b6cda868-d1f9-4ec9-a51c-f81bff3c6354`
