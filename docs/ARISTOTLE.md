@@ -72,6 +72,12 @@ implementation files. Keep generated requests/results outside the checkout.
   names were translated to `if_neg`/`if_true`, and a local elaboration option
   was omitted. The definitions and theorem targets retain their semantics;
   returned work still requires local v4.34 integration and verification.
+- During this run, primary used INSTRUCT to inform the same active task that
+  the entire zero-normal family is already proved locally (`b7fe916`), and to
+  focus on all-corners-strict positive-normal-area reductions. No restart or
+  cancellation occurred. Exact steering is retained as `STEERING.md` in the
+  request directory. Live corner-reduction candidates are not locally proved
+  until exported, audited, and compiled.
 - Primary owns the live observation and eventual candidate audit. No claim
   that the full circular theorem is proved is made at submission.
 

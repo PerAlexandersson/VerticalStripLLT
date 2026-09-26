@@ -9,6 +9,8 @@ import VerticalStripLLT.Circular.HRVRoots
 import VerticalStripLLT.Circular.ZeroAreaExpansion
 import VerticalStripLLT.Circular.ZeroAreaIncoming
 import VerticalStripLLT.Circular.CutOrder
+import VerticalStripLLT.Circular.StrictEdgeInjectivity
+import VerticalStripLLT.Circular.ComponentSemantics
 import VerticalStripLLT.Circular.StrictCycleExpansion
 import VerticalStripLLT.PathBounds
 import VerticalStripLLT.ColumnBase

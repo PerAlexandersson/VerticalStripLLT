@@ -41,10 +41,14 @@ Aristotle project `5835802e-8139-48b7-a07b-06add00f1f14`, task
 expansion statement with the checked prefix. Primary owns the live observer,
 candidate audit, and all builds. Exact request: `docs/ARISTOTLE.md`.
 
-All Luna/Terra files and audits have returned; ownership is released. Primary
-owns all source, docs, integration, and the sole build slot. No new examples.
+All delegated files have returned. Primary owns all source, docs, integration,
+and the sole build slot, including new `Circular/ComponentSemantics.lean`.
+`StrictEdgeInjectivity`, `LiftCover`, and `Flip` pass focused checks. The flip
+witness derives the exchanged edge memberships and distinctness, then ascent
+invariance on complete global components. No general component identity is
+assumed. Exact interfaces: `docs/CIRCULAR_FLIPS.md`.
 
-The full zero-area family is now proved by
+Zero-area checkpoint `b7fe916` is verified and pushed. The full zero-area family is now proved by
 `Circular.coloringLLT_shifted_eq_expansion_of_no_normal` in
 `Circular/ZeroAreaExpansion.lean`: arbitrary n, D with no non-strict arcs,
 and every alphabet. The proof derives finite chain orders on the actual HRV
@@ -77,13 +81,13 @@ status was `COMPLETE_WITH_ERRORS` due to a malformed namespace wrapper,
 repaired without changing the mathematical statement. Only the full circular
 expansion request is active. Provenance is in `docs/ARISTOTLE.md`.
 
-The zero-area expansion checkpoint passes the default full build and all
-542 declarations in `Verification.lean`; only standard Lean axioms occur.
+The component-foundation checkpoint passes the default full build and all
+568 declarations in `Verification.lean`; only standard Lean axioms occur.
 Source placeholder and 100-column guards pass. Logs under
 `/lake-cache/ai-projects/build/VerticalStripLLT/`:
-`circular-zero-area-checkpoint-build.log`,
-`circular-zero-area-checkpoint-axioms.log`, and
-`circular-zero-area-expansion.log`. The previous base/roots checkpoint checked
+`circular-components-checkpoint-build.log`,
+`circular-components-checkpoint-axioms.log`, and
+`circular-components-focused.log`. The zero-area checkpoint checked 542. The previous base/roots checkpoint checked
 517 declarations. No TeX compilation or local combinatorial enumeration was
 run; all Luna/Terra tasks were build-free.
 

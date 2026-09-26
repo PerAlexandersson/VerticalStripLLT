@@ -104,6 +104,16 @@ proved secondary termination measure at fixed non-strict area. Keep these
 explicit targets separate from the unconditional orientation checkpoint.
 No recurrence certificate is to be assumed in the final coloring theorem.
 
+## Component foundations
+
+`LiftCover`, `Flip`, and `ComponentSemantics` use the full lifted cover
+relations and complete global connectivity. The exchanged memberships are
+derived from covers, yielding ascent invariance throughout a component.
+`component_strict_eq_elementary_of_no_normal` proves the component identity
+for the entire zero-normal family. The corresponding theorem for arbitrary
+circular diagrams is still open. Exact source/definition correspondence is
+in `CIRCULAR_FLIPS.md`.
+
 ## Delegation and proof boundaries
 
 Primary owns strategy, integration, and all serialized local builds. Luna and
