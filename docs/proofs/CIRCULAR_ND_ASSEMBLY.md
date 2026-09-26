@@ -367,6 +367,12 @@ milestone.
 
 ## Component relabeling: a new lowering mechanism under investigation
 
+The witness below led to a uniform target formula, subsequently audited by
+the primary and independent Astra reviewer. See
+[`CIRCULAR_COLUMN_REVERSAL.md`](CIRCULAR_COLUMN_REVERSAL.md) for the construction
+and current Lean obligations. The paragraphs below retain the motivating
+calculation; the uniform target is now explicit but not yet formally proved.
+
 The two-chain witness above admits an area-lowering target after a permutation
 inside its long strict component:
 

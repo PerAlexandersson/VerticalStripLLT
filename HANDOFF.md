@@ -18,14 +18,15 @@ every arbitrary DD/DN/R1 rewrite sequence. Primary and independent Astra audit
 agree; see the ordinary-proof mapping in `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.
 That clarification was recorded at `6ae30bd` without a build.
 
-New mathematical lead (hand-audited, not yet a Lean theorem): a permutation
-within strict-component blocks lowers the previously obstructing (6,2)-chain
-source from doubled area 60 to 50. Coloring and actual lifted HRV acquire the
-same shifted factor (1+q)^2. Primary and independent Astra checked strict
-edges, external normal incidences and sink-order transport. The remaining
-obligation is a uniform valid target construction for arbitrary interior
-contacts; this witness does not discharge `InteriorNDInductionStep`.
-See the component relabeling section of `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.
+New uniform construction (hand-audited, not yet a Lean theorem): reverse the
+columns of the merged strict component. With r=k+2, j=r-i and r=qj+s, the
+explicit target lowers raw area by 2q+1 if s=0 and 2q+2 otherwise. Primary
+and independent Astra checked corner validity, external normal incidences,
+positive lifts and sink-order transport. Cancellation avoids any assumption
+on the difference of forced-edge counts. Exact formulas and proof obligations
+are in `docs/proofs/CIRCULAR_COLUMN_REVERSAL.md`. The next step is the uniform
+Lean construction and semantic assembly, not further example classification.
+`InteriorNDInductionStep` remains open until that integration is verified.
 
 ## Current verified checkpoint: exact interior restart type
 
@@ -114,6 +115,17 @@ repetition, but is not a new mathematical obstruction. No duplicate coloring
 wrapper is needed. Order on integer sinks must be checked explicitly; finite
 vertex relabeling alone does not suffice. All delegate lanes are released.
 Primary owns the normalization argument and documentation; no build transfer.
+
+Active source lane: Terra (`circular_colorings`) owns only the new
+`VerticalStripLLT/Circular/InteriorMergedComponent.lean`, constructing the full
+merged strict chain and its adjacency jump from counted interior contacts.
+It must remain build-free and return a focused candidate. Primary owns all
+imports, verification and integration. Astra is independently auditing the
+uniform column-reversal target area formula; no edit lane is assigned to it.
+
+Luna (`circular_data`) owns only new `Circular/OrientationSumConjugacy.lean`
+under `VerticalStripLLT/`, generalizing restricted orientation-sum transport
+from the existing alias proof. It is build-free; primary integrates and verifies.
 
 Primary owns strategy, integration, remote jobs, all other source and the sole
 build slot. All delegated lanes are released. Luna ported selection/subset sums;
