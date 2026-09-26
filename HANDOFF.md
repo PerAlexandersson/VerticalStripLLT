@@ -7,7 +7,8 @@ one-bounce elimination strategy. A contact-track overlap alone is not a strict
 cycle; genuine directed strict cycles make both actual expressions vanish.
 No flip-component work or new examples in this increment.
 
-Latest pushed checkpoint: `eb11c69` (alphabet stability/two-corner exit), following
+Latest pushed source checkpoint: `8c8e8b5` (conditional outer induction), following
+`eb11c69` (alphabet stability/two-corner exit),
 `f33cdc6` (full DN handoff), `0fc4d07`, `3c7f3d4`
 (comparable-edge base) and `1d5005d` (direct ND/full NN).
 
