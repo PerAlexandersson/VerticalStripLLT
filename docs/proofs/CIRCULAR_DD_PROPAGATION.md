@@ -64,19 +64,18 @@ eligibility, one fewer DD contact, unchanged terminal type, and strict acyclicit
 `DDLocalData.resolved_area`, `resolved_boundary_rows`, and
 `resolved_strictAt_iff` identify the other child R exactly. Its boundary changes
 only at c+1 (down by one) and z (up by one), and its strict-row predicate loses
-exactly c. These formulas do not yet prove its complete child-search statement.
+exactly c. The complete resolved-child theorem
+`DDLocalData.resolved_dd_child` now proves raised-root eligibility, one fewer DD
+contact, both unchanged terminal flags, and strict acyclicity for NN/DN.
+`BounceIterates` expresses searches through boundary iterates and proves the
+needed residue exclusions. `resolved_selected_swap` conjugates each resolved
+strict edge into the original relation, giving `resolved_admissible`.
 
-The remaining explicit geometry is:
-
-1. Transport the shorter search to R, first retaining seed c and then using
-   equality of the new boundaries at c and c+1. The NN/DN hypothesis that x+1
-   is not strict is essential here; an overlapping ND terminal can meet z.
-   Main/parallel contact separation excludes the changed rows at every query.
-2. Prove eligibility at c+1, the same terminal type, and acyclicity of R.
-   For acyclicity, after unstricting h, c+1 is isolated; swapping c and c+1
-   conjugates that strict relation to the strict relation of R.
-3. Show the two child targets satisfy the next direct-DN constructor hypotheses.
-4. Identify the final R1 triple with the prescribed full NN or DN successor.
+For the algebraic propagation route, the remaining geometry is to show that
+the two child targets satisfy the next direct-DN hypotheses and identify the
+final R1 triple with the prescribed successor. The broader strategy is local
+DD elimination and restart; a general projected ND/R4 identity is not required.
+See [remaining goals](../CIRCULAR_GOALS.md).
 
 After these facts, the checked independent model identities supply all six
 algebraic equations. Full circular induction remains a separate final step.

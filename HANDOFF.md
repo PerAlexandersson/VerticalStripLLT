@@ -2,13 +2,13 @@
 
 ## Active continuation: full circular expansion
 
-Current pushed checkpoint `377ae36` (2026-09-26): the overlapping ND reduction
-is locally proved for the actual coloring and HRV expressions, including the
-complete area-induction step. Full default build: 1818 jobs. Axiom inventory:
-1307 declarations, only propext, Classical.choice, Quot.sound. Source guards,
-100-column limit, Markdown links, and immutable reference hashes pass.
-Primary owns all source, strategy, integration, remote jobs, and the sole local
-build slot. All local delegated edit lanes are released.
+Current verified increment (2026-09-26): complete resolved DD child for NN/DN.
+Full default build: 1824 jobs. Axiom inventory: 1338 declarations, only propext,
+Classical.choice, Quot.sound. Preceding pushed checkpoint: `c5be364` (strict
+selection semantics), after `377ae36` (actual overlapping ND induction).
+Primary owns strategy, integration, remote jobs, and the sole local build slot.
+Luna `circular_data` owns only new `Circular/DDResolvedMeasure.lean`, build-free;
+primary is reviewing that candidate separately. No build-slot transfer.
 
 Earlier pushed checkpoints: `79016bb` direct DN; `c6f48dd` DD resolution and
 deleted child; `9224524` completed-plan cleanup. Detailed completed results are
@@ -32,7 +32,7 @@ Exact DD interfaces:
 Luna's bounded candidates were adopted and repaired by primary. Terra returned
 without a candidate. Every edit lane is released; all files and the sole local
 build slot are primary-owned. No build-slot transfer occurred.
-The remaining DD argument is in `docs/proofs/CIRCULAR_DD_PROPAGATION.md`.
+Further DD assembly is described in `docs/proofs/CIRCULAR_DD_PROPAGATION.md`.
 
 User-requested documentation cleanup: `docs/README.md` routes to one current
 circular status table and one remaining-goals file. Completed ordinary plans,
@@ -67,20 +67,36 @@ All three modules and root build pass (1821 jobs); 1320 axiom checks pass
 with only standard axioms. Logs: `circular-strict-support-build.log` and
 `circular-strict-support-axioms.log`.
 
-Only active remote job: Aristotle project
+Aristotle resolved-DD-child job is locally integrated. Project
 `9dedc3e9-472c-4e5e-aa74-14f185dc95e1`, task
 `e598f460-d1cc-4c7c-add6-cccf40042f96`, resolved DD child.
 External request and native observer: `circular-dd-resolved-child/`.
 The exact final theorem combines raised-root eligibility, smaller count,
 terminal flags, and acyclicity. Do not resubmit or change accounts.
+Luna returned `BounceIterates`, `DDResolvedTransport`, and `DDResolvedChild`;
+primary adopted and checked the port. These three file lanes are released.
+Only the three new blocks from external `circular-dd-resolved-child/result/`
+were ported; the current checked prefix remains intact.
+`DDLocalData.resolved_dd_child` supplies eligibility, smaller count, preserved
+terminal flags, and acyclicity; `BounceIterates` and `DDResolvedTransport` supply
+its uniform helpers. Logs: `circular-dd-child-complete-build.log` and
+`circular-dd-child-complete-axioms.log` (1824 jobs / 1338 declarations).
 
-Next: complete explicit DD child transformations and contact transport, then
-apply contact-count induction separately to both models. Nonoverlap ND
-and final `(doubledArea, strictRank)` induction remain. The ND case split
-requires an additional interior-overlap branch: root ≠ terminal upper row
-does NOT imply disjoint contacts. Primary and Astra independently found
-acyclic saturated examples where both naive R4 targets have strict cycles.
-See `docs/proofs/CIRCULAR_ND_INTERIOR_OVERLAP.md`.
+Aristotle now owns only isolated interior-overlap restart geometry: project
+`6654bca9-3649-4ebd-b9b8-ae1cc3050caa`, task
+`0f992037-5575-4c13-bd41-75c4694b8651`; directory `circular-interior-restart/`.
+Native observer is active. The target asserts existence of an eligible zero-DD
+NN/DN restart in the resolved diagram. Independent Astra review checked the
+indexing and hypotheses. Only one remote proof task is active.
+
+Strategy correction from the user: complete reduction to one-bounce relations,
+as in the ordinary argument; genuine directed strict loops have zero polynomial.
+The failed full-R4 projection is an invalid shortcut, not evidence against that
+strategy. DD elimination/restart handles the n5/n7 interior-overlap witnesses.
+The uniform restart and global accounting for auxiliary area levels remain.
+Both witnesses pass independent exact coloring-vs-HRV Rust checks using the
+existing library test helper, without a new LLT implementation. See
+`docs/proofs/CIRCULAR_ND_INTERIOR_OVERLAP.md` for the corrected analysis.
 The full circular expansion is still open; preserve the active goal.
 
 Overleaf path drift: `old-main.tex` is absent; `main.tex` holds the former long

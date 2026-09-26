@@ -581,7 +581,7 @@ identities remain open.
   current tactic names. Full build: 1818 jobs; axiom inventory: 1307 declarations,
   only propext, Classical.choice, Quot.sound.
 
-## Circular resolved DD child (active)
+## Circular resolved DD child (locally integrated)
 
 - Project `9dedc3e9-472c-4e5e-aa74-14f185dc95e1`, task
   `e598f460-d1cc-4c7c-add6-cccf40042f96`.
@@ -593,4 +593,20 @@ identities remain open.
 - The 78-module geometry-only request omits downstream polynomial identities
   from three modules, retaining their definitions and hypotheses unchanged.
   It supplies checked resolved row formulas, full deletion-child transport,
-  and main/parallel contact separation. This is the only active remote job.
+  and main/parallel contact separation.
+- Remote proof completed and was ported into `BounceIterates`,
+  `DDResolvedTransport`, and `DDResolvedChild`. Primary repaired current API
+  compatibility without changing the checked prefix or target hypotheses.
+  Full local build: 1824 jobs; axiom inventory: 1338 declarations, standard only.
+
+## Circular interior-overlap one-bounce restart (active)
+
+- Project `6654bca9-3649-4ebd-b9b8-ae1cc3050caa`, task
+  `0f992037-5575-4c13-bd41-75c4694b8651`.
+- External request directory: `circular-interior-restart/`.
+- Exact target `DDLocalData.exists_oneBounce_restart_of_interior_overlap`:
+  an acyclic eligible counted ND search whose upper terminal aliases an
+  interior main contact acquires an eligible zero-DD NN/DN restart in the
+  actual resolved diagram. Independent Astra review checked the indexing.
+- Uses the completed DD geometry prefix; no new polynomial assumptions or
+  generalized R4 identity. This is the sole active remote proof job.

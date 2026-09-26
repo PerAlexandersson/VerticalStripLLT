@@ -1,3 +1,6 @@
+import VerticalStripLLT.Circular.BounceIterates
+import VerticalStripLLT.Circular.DDResolvedTransport
+import VerticalStripLLT.Circular.DDResolvedChild
 import VerticalStripLLT.Circular.LowerStrict
 import VerticalStripLLT.Circular.StrictFibers
 import VerticalStripLLT.Circular.StrictExpansion

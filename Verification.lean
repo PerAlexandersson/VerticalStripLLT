@@ -1344,3 +1344,22 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.Orientation.hrv_eq_of_reachable_of_empty
 #print axioms VerticalStripLLT.Circular.Orientation.same_hrv_comparable_of_empty
 #print axioms VerticalStripLLT.Circular.strictOrderEnumerator_eq_eval_hrvMonomial_of_empty
+
+#print axioms VerticalStripLLT.Circular.Diagram.DDContact
+#print axioms VerticalStripLLT.Circular.Diagram.reverseBounceN_iff_iterate
+#print axioms VerticalStripLLT.Circular.Diagram.bounce_strict_iterate
+#print axioms VerticalStripLLT.Circular.Diagram.bounce_main_step
+#print axioms VerticalStripLLT.Circular.Diagram.bounce_parallel_step
+#print axioms VerticalStripLLT.Circular.Diagram.bounce_reach
+#print axioms VerticalStripLLT.Circular.Diagram.bounce_residue_ne_root
+#print axioms VerticalStripLLT.Circular.Diagram.bounce_residue_ne_contact
+#print axioms VerticalStripLLT.Circular.Diagram.bounce_residue_ne_parallel_end
+#print axioms VerticalStripLLT.Circular.Diagram.bounce_succ_residue_ne_parallel_end
+#print axioms VerticalStripLLT.Circular.Diagram.bounce_succ_residue_ne_main
+#print axioms VerticalStripLLT.Circular.Diagram.unstrict_selected
+#print axioms VerticalStripLLT.Circular.Diagram.selected_of_mem_strict
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.resolved_boundary_ge
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.resolved_eastGap_of_ne
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.resolved_selected_swap
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.resolved_admissible
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.resolved_dd_child

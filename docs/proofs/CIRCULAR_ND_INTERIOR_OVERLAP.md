@@ -1,4 +1,4 @@
-# Interior contact overlap in the circular ND branch
+# Interior contact overlap and the one-bounce reduction
 
 The root-alias reduction is proved, but its complement is not automatically
 the ordinary R4 case. The terminal upper contact can meet an interior main
@@ -39,12 +39,13 @@ terminal `x=0`. The strict components are `0→4→1→5→2` and `3→6`.
 Thus the issue is not confined to a single strict component containing every
 vertex. The reviewer checked this configuration independently.
 
-The next reduction must distinguish genuinely disjoint contacts from all
-periodic overlaps, including interior collisions. The checked root-alias
-theorem and NN/DN separation remain valid. A new reduction, or an additional
-uniform semantic family covering the interior case, is required before the
-final induction can be assembled. No false separation lemma is assumed in
-the Lean source.
+This invalidates only the direct projection of the ordinary multi-bounce R4
+formula. It does not establish a gap in the author's one-bounce argument.
+The user explicitly clarified that preliminary local reductions must be
+performed first. Their changed diagrams can create an earlier positive-gap
+restart, so the failed direct projection is not the intended proof route.
+The two test diagrams satisfy the actual circular coloring–HRV identity under
+independent exact Rust evaluation (details below).
 
 For genuinely disjoint contacts, the intended targets are root shortening
 (doubled-area drop two) and terminal-head lowering followed by root shortening
@@ -73,3 +74,48 @@ The checked forced-set APIs can remove internal forward/backward normal
 edges while retaining every external interaction. Their output is a restricted
 pair graph/orientation sum. Reconstructing a smaller valid circular diagram
 from the consecutive-block shape remains the substantive missing step.
+
+## Local resolution of the displayed witnesses
+
+For the five-vertex diagram, the checked DD resolution gives
+`q F(D) = F(R) − F(E)` in the shifted variable. Here
+
+- R has areas `(2,3,4,3,2)` and strict heads `2,3,4`;
+- E is deletion of the parallel strict corner at head 2;
+- the change at old root 4 creates positive east gap at row 3 in R;
+- restart at row 3 gives a direct NN contact at rows 0 and 1.
+
+The direct NN target T and E both have doubled area `doubledArea D − 1`.
+Thus `q F(D) = (q+1) F(T) − F(E)` reduces the semantic equality to smaller
+area by cancellation. The seven-vertex witness has the same resolution,
+with R areas `(3,4,5,3,4,3,3)` and restart at row 4. Primary and independent
+Astra review agree on these traces. These specific traces are not new Lean
+example milestones.
+
+In general, if q_0=p_j is an interior collision and ℓ=r−j, the local DD
+resolution creates a positive gap at p_ℓ. Its first contacted row p_(ℓ−1)
+has upper neighbor c=p_(r−1), whose strict flag was removed. The restart
+therefore has no DD contacts: it is NN if ℓ=1 and DN otherwise. The final
+formal restart theorem must derive every row exclusion from the actual search.
+
+The DN branch is neutral at the auxiliary area level `doubledArea D + 1`.
+Its rank decreases, but the global proof must account for that auxiliary
+level before invoking the outer area induction. This is an unfinished proof
+obligation, not a counterexample to the one-bounce reduction strategy.
+
+## Independent exact check
+
+The existing Rust helper `assert_hrv_matches_direct_strict_llt` in
+`/workspace/rust/sym-poly/sym/tests/circular_hrv.rs` was run on both witnesses,
+using the library's direct coloring enumerator, q↦q+1 substitution, elementary
+conversion, and independent circular HRV enumeration. Both equalities pass.
+The five-vertex result is `(q+1)^4 e_5`; the seven-vertex result has terms
+`e_(5,2)`, `e_(6,1)`, and `e_7`, so it does not factor into separate chain terms.
+
+Rust source commit: `d53fb193af3c69adedbd9ec8592f87235d809ffa`; relevant files
+were clean. The bounded caller is external at
+`/tmp/verticalstrip-llt-interior-check/`, with output in this project's external
+`interior-overlap-exact-check.log`. It includes the existing helper directly;
+no LLT algorithm or polynomial-family generator was reimplemented. These
+finite checks corroborate the theorem in the witnesses and do not prove the
+uniform theorem.

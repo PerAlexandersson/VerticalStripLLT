@@ -15,39 +15,40 @@ and must include every finite alphabet, including the empty alphabet.
 [Verified results](CIRCULAR_STATUS.md) and [current ownership](../HANDOFF.md)
 are recorded separately.
 
-## DD propagation
+## Complete the reduction to one-bounce relations
 
-Direct NN and DN are proved for both models. Extend them through any number
-of DD contacts by induction on `ReverseBounceN`'s contact count, quantifying
-over the intermediate diagrams. Some intermediates have larger area.
+The user clarified the intended route: use the ordinary local elimination
+argument to reach one-bounce configurations. A genuine directed strict loop
+has zero polynomial, handled by the existing vanishing theorems. Counts and
+contact lists are auxiliary bookkeeping; a projected multi-bounce R4 identity
+is not a prerequisite and must not be assumed.
 
-The first DD elimination and the deletion child's counted transport,
-eligibility, terminal flags, and acyclicity have been checked locally.
-The remaining work is the raised child's corresponding transport, the final
-corner-triple identifications, and assembly of the generalized recurrences.
-See [the exact DD argument](proofs/CIRCULAR_DD_PROPAGATION.md).
+The actual q-weighted DD resolution is proved for both models. Both smaller
+search children for NN/DN are supplied by the deletion and resolved-child
+lemmas (current local checks are in HANDOFF). Finish the geometric elimination
+and its well-foundedness/area accounting, then apply the direct local identities.
+Some auxiliary diagrams temporarily have larger half-square area.
 
-## Remaining ND branches
+The [interior-overlap analysis](proofs/CIRCULAR_ND_INTERIOR_OVERLAP.md) explains
+why applying full R4 immediately is invalid, and why this does not invalidate
+the intended one-bounce route. In the displayed witnesses DD elimination
+creates an earlier restart, followed by direct NN. Uniformly an interior
+collision should restart at a one-bounce NN or DN contact; prove this from
+actual search geometry. Account explicitly for neutral moves at an auxiliary
+area level before invoking the outer induction.
 
-The overlapping ND branch is complete: `Diagram.expansion_of_nd_alias`
-supplies its actual area-induction step, including target acyclicity.
-
-Root nonalias does not imply disjoint contacts. An independently audited
-[interior-overlap obstruction](proofs/CIRCULAR_ND_INTERIOR_OVERLAP.md) makes both
-naive R4 targets cyclic, although the source is acyclic and saturated.
-
-For genuinely disjoint contacts, construct the R4/positive-R8 targets and
-prove the intermediate contact transports, actual two-model identities, and
-area decreases. Interior overlap requires a separate reduction or a uniform
-semantic theorem covering that family. Do not attempt to prove its false
-exclusion from acyclicity or from root nonalias.
+The root-overlap branch is independently complete through
+`Diagram.expansion_of_nd_alias`. Genuinely local ND relations still need their
+actual diagram transformations and two-model identities where used.
+See [DD local elimination](proofs/CIRCULAR_DD_PROPAGATION.md) for the checked
+identities and the earlier algebraic propagation route.
 
 ## Final induction and corollaries
 
 Use lexicographic induction on `(doubledArea, strictRank)`. Strict cycles and
 no-normal-edge diagrams already have their semantic base theorems. R1 and NN
 strictly decrease area; the complete DN target preserves area and decreases
-strict rank. Supply the remaining generalized/ND recurrences and use the
+strict rank. Supply the local elimination and remaining ND recurrences and use the
 proved complete reverse search to exhaust all cases.
 
 After the semantic bridge, transfer the independently proved HRV coefficient
