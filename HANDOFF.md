@@ -52,10 +52,12 @@ but its termination is still unproved. No Lean changes follow from this review.
 
 Active Aristotle interior-overlap project:
 `65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, task
-`c4f22d47-e2f8-4545-9ba5-9edb35be49e9`. Reconnected observer session **95345**.
+`c4f22d47-e2f8-4545-9ba5-9edb35be49e9`. Reconnected observer session **10741**.
 The original wait/downloader 87017 exited after a server-connection interruption;
-the same remote task was confirmed running on reconnection. No resubmission.
-Read `observer-reconnect.log` for current events. This observer does not download:
+the same remote task was confirmed running on reconnection. Observer 95345
+also lost its connection; replacement 10741 again confirmed the same task
+running. No resubmission.
+Read `observer-reconnect-2.log` for current events. This observer does not download:
 after authoritative completion, use `aristotle download` for the same project,
 with destination `circular-interior-expansion/result.tar.gz`.
 External directory `circular-interior-expansion/` under
