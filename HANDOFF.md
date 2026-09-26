@@ -28,8 +28,9 @@ must have explicit ownership and remain build-free locally.
 Planning checks: source hashes rechecked against the files read; source/API
 correspondence reviewed; `git diff --check` passed. References are unchanged
 from `130f7e8`, and both initialization commits remain ancestors. No Lean,
-Lake, TeX, or enumeration commands were run for this task. The documentation
-checkpoint is titled `Plan circular HRV and complete flip-component formalization`.
+Lake, TeX, or enumeration commands were run for this task. Documentation
+checkpoint `00be22e` is pushed to `origin/main`:
+`Plan circular HRV and complete flip-component formalization`.
 
 ## Completed ordinary expansion
 
