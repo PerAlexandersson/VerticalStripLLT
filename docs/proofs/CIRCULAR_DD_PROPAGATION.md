@@ -2,8 +2,8 @@
 
 NN elimination is now locally proved for every finite DD contact search by
 `Diagram.shifted_nn_of_counted` in `NNElimination.lean`. Its semantic induction
-step is `Diagram.expansion_of_nn`. The corresponding DN elimination remains
-open; the direct NN and DN identities are proved for both actual models.
+step is `Diagram.expansion_of_nn`. Full DN elimination is also checked through `Diagram.exists_dn_reduction`
+and `Diagram.expansion_of_dn` in `DNReduction` and `FullDNRecurrences`.
 
 We use the shifted variable: corner R1 has coefficient q. At the last DD
 contact, write c=b(z), a=b(c). The source D has strict edges
@@ -74,7 +74,7 @@ strict edge into the original relation, giving `resolved_admissible`.
 
 The NN child targets now satisfy the next direct-DN hypotheses, and their
 closing R1 triple is identified with the prescribed shortened successor.
-For DN the corresponding child-target identification remains open. The broader strategy is local
+For DN, `DNReductionDiamond` proves the corresponding child-target identification. The broader strategy is local
 DD elimination and restart; a general projected ND/R4 identity is not required.
 See [remaining goals](../CIRCULAR_GOALS.md).
 
@@ -128,5 +128,13 @@ area rows and strict edges. Both NN diagram identities are locally proved by
 `DDLocalData.closingDN_target_eq_deleteCorner`, with canonical roots supplied by
 `shortenEligible`. `DDClosingNNRecurrences` proves the actual difference formulas
 for coloring and HRV. `NNElimination` inducts on the DD count, applies both
-child identities, and cancels q. The corresponding DN closing triple remains
-open; its source targets retain the extra terminal-row update described above.
+child identities, and cancels q. The corresponding DN closing triple is now checked in `DNReductionDiamond`:
+`unstrict_isDNTarget` identifies the resolved child's target, and
+`deleted_target_models` supplies the direct DN move on the deleted child's
+target. `IsDNTarget` specifies actual area rows and strict heads, hence determines
+a unique complete diagram. `dnModelsClaim_all` proves both actual identities
+by induction on DD count. The final `exists_dn_reduction` adds target acyclicity,
+unchanged half-square area, and strict-rank decrease from the concrete neutral
+witness. Shift injectivity supplies the unshifted coloring identity for every
+alphabet. This completes the NN/DN elimination; the remaining ND branches and
+outer induction are separate obligations.

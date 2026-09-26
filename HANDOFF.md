@@ -7,33 +7,28 @@ one-bounce elimination strategy. A contact-track overlap alone is not a strict
 cycle; genuine directed strict cycles make both actual expressions vanish.
 No flip-component work or new examples in this increment.
 
-Latest pushed checkpoint: `1d5005d` (2026-09-26), following `aecea0f`:
+Latest pushed checkpoint: `3c7f3d4` (comparable-edge semantic base), following
+`1d5005d` (direct ND and full NN elimination).
 
-- `Diagram.exists_oneBounce_nd_reduction`: direct ND for both independently
-  defined models; doubled-area drops two/four, no acyclicity or no-wrap input.
-- `Diagram.expansion_of_oneBounce_nd`: both targets supplied by outer area
-  induction. Source: `Circular/OneBounceNDRecurrences.lean`.
-- `DDLocalData.closingDN_target_eq_deleteCorner`: deletion side of the NN
-  closing triple. `coloring_closing_nn` and `orientation_closing_nn` prove
-  the actual difference formulas using direct DN and R1.
-- `Diagram.shifted_nn_of_counted`: full NN identity for every DD count, by
-  induction over actual child searches and cancellation of q.
-- `Diagram.expansion_of_nn`: complete NN semantic induction step, final
-  doubled-area drop two. Source: `Circular/NNElimination.lean`.
+Current verified increment: full DN elimination, with exact declarations
+`Diagram.exists_dn_reduction` and `Diagram.expansion_of_dn`. The actual
+successor preserves doubled half-square area, decreases strict rank, remains
+strictly acyclic and preserves both independently defined polynomial models.
+`IsDNTarget` describes actual rows; it is not a recurrence-defined invariant.
+Both DD children are handled by contact-count induction and a concrete closing
+triple, never by outer area induction at a larger diagram.
 
-Next verified increment: the complete semantic base
-`coloringLLT_shifted_eq_expansion_of_normal_comparable` (including
-`coloringLLT_shifted_eq_expansion_of_strict_total`) and
-`neutralExchange_acyclic_iff`, which transports cycles under explicit separated
-inner paths without assuming acyclicity or distinct outer endpoints.
+Already complete: full NN (`expansion_of_nn`), direct ND
+(`expansion_of_oneBounce_nd`, area drops two/four), root-alias ND, strict-cycle
+vanishing, and the normal-comparability semantic base. Exact source links and
+all previous completed interfaces are in `docs/CIRCULAR_STATUS.md`.
 
-Checks: full default build 1847 jobs; axiom inventory 1560 declarations, only
-propext, Classical.choice, Quot.sound. No placeholders or unchecked native
-proofs; source guards, relative documentation links and immutable reference
-hashes pass. External request-directory logs:
-`circular-comparable-checkpoint-build.log`,
-`circular-comparable-checkpoint-axioms.log`; earlier NN/ND logs are retained.
-The two initialization commits `830cc6b` and `130f7e8` remain intact.
+Checks: full default build 1852 jobs; axiom inventory 1576 declarations, only
+propext, Classical.choice, Quot.sound. Source guards, line lengths and relative
+documentation links pass. Reference files remain unchanged. External logs:
+`circular-full-dn-checkpoint-build.log`,
+`circular-full-dn-checkpoint-axioms.log`. Earlier NN/ND and comparable-base logs
+are retained. Initialization commits `830cc6b` and `130f7e8` remain intact.
 
 ## Ownership and active work
 
@@ -41,35 +36,27 @@ Primary owns strategy, integration, source, remote jobs and the sole globally
 serialized local build slot. Use only `lake-workspace`; check for other Lean
 builds before every invocation. No build-slot transfer has occurred.
 
-Luna supplied bounded ND ports and direct NN/DN interfaces. Primary adopted,
-repaired and locally verified them. Luna returned `Circular/NeutralExchangeAcyclic.lean`; primary adopted the
-proof repairs and verified it locally. Luna returned API notes only for `Circular/ComparableExpansion.lean`; primary
-owns its implementation and local checks. All delegated lanes are released.
-Astra completed a read-only audit of the remaining longer-search ND assembly;
-its precise obligations and rejected shortcuts are recorded in
-`docs/proofs/CIRCULAR_ND_ASSEMBLY.md`. Terra has no active assignment.
+Luna supplied bounded ports and direct NN/DN interfaces; primary repaired and
+verified them. All delegated file lanes are released. Primary owns all current
+source and checks. No remote proof task is active.
 
-Completed direct-ND Aristotle project `7f814d1b-422f-469b-b0f8-cc2696e9518e`,
-task `bc03be2f-39de-4689-ba9b-4ab97ef9bb9c`, is locally integrated. Only appended
-proof modules were ported; existing mathematical definitions stayed unchanged.
-Independent Astra review checked the final hypotheses, seven relations and
-shift injectivity. Remote provenance: `docs/ARISTOTLE.md`.
+Aristotle full DN project `ae819e79-2742-4965-9254-8eef5929cfa0`, task
+`0216c708-f9a4-4baa-82d0-d98d33d8e293`, is complete and locally integrated in
+`DNReductionTarget`, `DNReductionDiamond`, `DNReduction`, and the primary's
+`FullDNRecurrences`. Shared shift-injectivity declarations moved unchanged to
+`QShiftInjective`; no duplicated service prefix was imported. Independent
+Astra audit approved mathematical fidelity and unchanged hypotheses.
 
-Sole active remote task: full DN elimination, project
-`ae819e79-2742-4965-9254-8eef5929cfa0`, task
-`0216c708-f9a4-4baa-82d0-d98d33d8e293`. Request, source hashes and native observer
-log are under `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-full-dn/`.
-Native observer session 48054 downloads `result.tar.gz` on completion. Observe
-this task; do not resubmit if the observer disconnects. Exact target
-`Diagram.exists_dn_reduction`: actual coloring/HRV identities, same half-square
-area, preserved strict acyclicity and decreased strict rank. It requests local
-DD elimination and a concrete DN closing triple, not projected ND/R4.
+The interior-overlap request target/proof notes are prepared externally in
+`circular-interior-expansion/`, not yet submitted. Astra's remaining ND audit,
+including rejected shortcuts, is in `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.
+Completed direct-ND and full-DN remote provenance is in `docs/ARISTOTLE.md`.
 
 ## Next steps and limits
 
-1. Integrate the actual full DN reduction after independent review and local
-   serialized checking; its geometry and termination are already proved.
-2. Finish longer-search ND elimination/restart assembly. Direct ND, root-alias
+1. Prove separated-contact ND transport/cancellation, including cyclic
+   intermediates using strict-path splicing or paired-chain conjugacy.
+2. Finish interior-overlap ND elimination/restart assembly. Direct ND, root-alias
    ND, and the uniform interior-overlap restart are already checked.
 3. Assemble outer half-square-area/strict-rank induction, then transfer the
    independent HRV positivity and degree statements to coloring.

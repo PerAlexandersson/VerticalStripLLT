@@ -1,3 +1,4 @@
+import VerticalStripLLT.QShiftInjective
 import VerticalStripLLT.Circular.OneBounceNDGeometry
 import VerticalStripLLT.Circular.FirstBounceRecurrences
 import VerticalStripLLT.Circular.SecondBounceRecurrences
@@ -6,30 +7,6 @@ import VerticalStripLLT.Circular.SecondBounceRecurrences
 actual shifted models, and the resulting one-bounce ND identity. -/
 
 set_option backward.isDefEq.respectTransparency false
-
-namespace VerticalStripLLT
-
-theorem qShift_injective : Function.Injective qShift := by
-  have key : ∀ r : Q, (qShift r).comp (Polynomial.X - 1) = r := by
-    intro r
-    simp [qShift, Polynomial.comp_assoc]
-  intro p q h
-  rw [← key p, ← key q, h]
-
-theorem xQShift_injective (m : ℕ) : Function.Injective (xQShift m) :=
-  MvPolynomial.map_injective _ qShift_injective
-
-theorem xQShift_C (m : ℕ) (p : Q) :
-    xQShift m (MvPolynomial.C p : XPoly m) = MvPolynomial.C (qShift p) := by
-  rw [xQShift, MvPolynomial.map_C]
-
-theorem qShift_X : qShift Polynomial.X = Polynomial.X + 1 := by
-  simp [qShift]
-
-theorem qShift_X_sub_one : qShift (Polynomial.X - 1) = Polynomial.X := by
-  simp [qShift]
-
-end VerticalStripLLT
 
 namespace VerticalStripLLT.Circular.Diagram
 

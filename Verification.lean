@@ -1593,3 +1593,20 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.Diagram.strictOrderEnumerator_eq_eval_orientMono_of_normal_comparable
 #print axioms VerticalStripLLT.Circular.Diagram.coloringLLT_shifted_eq_expansion_of_normal_comparable
 #print axioms VerticalStripLLT.Circular.Diagram.coloringLLT_shifted_eq_expansion_of_strict_total
+
+#print axioms VerticalStripLLT.Circular.Diagram.IsDNTarget
+#print axioms VerticalStripLLT.Circular.Diagram.strictAt_congr_residue
+#print axioms VerticalStripLLT.Circular.Diagram.residue_ne_of_strictAt
+#print axioms VerticalStripLLT.Circular.Diagram.IsDNTarget.eq
+#print axioms VerticalStripLLT.Circular.Diagram.dnSuccessor_isDNTarget
+#print axioms VerticalStripLLT.Circular.Diagram.exists_dn_data
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.unstrict_isDNTarget
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.deleted_target_models
+#print axioms VerticalStripLLT.Circular.Diagram.DNModelsClaim
+#print axioms VerticalStripLLT.Circular.Diagram.dnModelsClaim_zero
+#print axioms VerticalStripLLT.Circular.Diagram.dnModelsClaim_succ
+#print axioms VerticalStripLLT.Circular.Diagram.dnModelsClaim_all
+#print axioms VerticalStripLLT.Circular.Diagram.exists_dn_reduction
+#print axioms VerticalStripLLT.Circular.Diagram.expansion_of_dn
+#print axioms VerticalStripLLT.C_X_ne_zero_xPoly
+#print axioms VerticalStripLLT.C_X_ne_zero_eExpansion

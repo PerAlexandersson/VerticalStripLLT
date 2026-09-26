@@ -1,3 +1,7 @@
+import VerticalStripLLT.Circular.DNReductionTarget
+import VerticalStripLLT.Circular.DNReductionDiamond
+import VerticalStripLLT.Circular.DNReduction
+import VerticalStripLLT.Circular.FullDNRecurrences
 import VerticalStripLLT.Circular.ComparableExpansion
 import VerticalStripLLT.Circular.NeutralExchangeAcyclic
 import VerticalStripLLT.Circular.StrictVals

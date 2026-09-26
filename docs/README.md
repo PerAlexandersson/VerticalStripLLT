@@ -15,8 +15,7 @@
 - [Reverse bounce search](proofs/CIRCULAR_BOUNCE_SEARCH.md).
 - [Neutral-bounce termination](proofs/NEUTRAL_BOUNCE_TERMINATION.md).
 - [Direct DN recurrence](proofs/CIRCULAR_DN_RECURRENCE.md).
-- [DD propagation](proofs/CIRCULAR_DD_PROPAGATION.md): completed NN elimination
-  and remaining DN assembly.
+- [DD propagation](proofs/CIRCULAR_DD_PROPAGATION.md): completed NN/DN elimination.
 - [Direct ND](proofs/CIRCULAR_DIRECT_ND.md): the completed seven-relation proof.
 - [Remaining ND assembly](proofs/CIRCULAR_ND_ASSEMBLY.md): disjoint transport,
   cyclic intermediates and interior-restart exit accounting.

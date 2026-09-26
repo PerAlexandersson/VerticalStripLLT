@@ -86,8 +86,8 @@ has proved actual polynomial identities and a complete area-induction step.
 Both DD children are proved for NN/DN searches, and interior ND overlap is
 proved to restart at one bounce. Mixed DD/neutral auxiliary sequences terminate
 on acyclic strict graphs. Direct ND now gives both actual identities and area drops two/four; full NN
-elimination is also complete. DN elimination, the remaining ND assembly, and
-final circular induction remain in progress.
+elimination is also complete. Full DN elimination preserves area and decreases strict rank. The remaining
+ND assembly and final circular induction are still in progress.
 See [verified circular results](docs/CIRCULAR_STATUS.md) and
 [remaining goals](docs/CIRCULAR_GOALS.md).
 

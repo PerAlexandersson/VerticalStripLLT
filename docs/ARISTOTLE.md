@@ -633,7 +633,7 @@ identities remain open.
   Independent Astra review checked the seven actual identities, cyclic
   intermediates, shift injectivity, and exact hypotheses. No prefix replacement.
 
-## Circular full DN elimination (active)
+## Circular full DN elimination (locally integrated)
 
 - Project `ae819e79-2742-4965-9254-8eef5929cfa0`, task
   `0216c708-f9a4-4baa-82d0-d98d33d8e293`.
@@ -644,5 +644,12 @@ identities remain open.
 - The task explicitly requests elimination by direct DN and R1, with counted
   child searches and a concrete closing triple. No projected ND/R4 relation,
   new recurrence hypothesis, or no-wrap restriction. Source hashes and exact
-  target are retained externally. Native observer session 48054; observe this
-  task rather than submitting duplicates.
+  target are retained externally. The task is complete; observer 48054 finished.
+- Luna extracted `DNReductionTarget`, `DNReductionDiamond`, and `DNReduction`.
+  Primary repaired imports and checked them with the local pinned toolchain,
+  then added `FullDNRecurrences`. Existing shift-injectivity declarations moved
+  unchanged to `QShiftInjective` for shared use; the service duplicate was omitted.
+- Independent Astra audit confirmed concrete target identification, valid
+  count induction, cancellation, cyclic intermediate handling, and unchanged
+  final hypotheses. The remote flattened prefix had proof-script compatibility
+  edits and one duplicate theorem omitted; none of that prefix was imported.

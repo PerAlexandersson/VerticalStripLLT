@@ -26,14 +26,15 @@ is not a prerequisite and must not be assumed.
 The actual q-weighted DD resolution is proved for both models. Both smaller
 search children for NN/DN are supplied by the deletion and resolved-child
 lemmas. NN elimination and its final cancellation are now complete through
-`Diagram.expansion_of_nn`. Complete the corresponding DN closing triple and
-elimination, then assemble the remaining ND search configurations.
+`Diagram.expansion_of_nn`. The corresponding DN closing triple and elimination are now complete through
+`Diagram.exists_dn_reduction` and `Diagram.expansion_of_dn`. Assemble the
+remaining ND search configurations.
 `LocalEliminationStep.measure_lt` already proves termination of mixed concrete
 DD/neutral segments by `(strict.card, strictRank)`; it does not include R1
 strictification or prove that a suitable next move always exists.
 Some auxiliary diagrams temporarily have larger half-square area. Both sides of the concrete NN closing triple and its cancellation are proved.
-The DN analogue remains an auxiliary contact-count induction, not an invocation
-of outer area induction at a larger diagram.
+The DN analogue also uses auxiliary contact-count induction; it never invokes
+outer area induction at a larger diagram.
 
 The [interior-overlap analysis](proofs/CIRCULAR_ND_INTERIOR_OVERLAP.md) explains
 why applying full R4 immediately is invalid, and why this does not invalidate
@@ -59,7 +60,7 @@ identities and the earlier algebraic propagation route.
 Use lexicographic induction on `(doubledArea, strictRank)`. Strict cycles, no-normal-edge diagrams and diagrams whose normal endpoints
 are all strictly comparable already have their semantic base theorems. R1 and NN
 strictly decrease area; the complete DN target preserves area and decreases
-strict rank. Supply the local elimination and remaining ND recurrences and use the
+strict rank. Supply the remaining ND elimination and use the
 proved complete reverse search to exhaust all cases.
 
 After the semantic bridge, transfer the independently proved HRV coefficient
