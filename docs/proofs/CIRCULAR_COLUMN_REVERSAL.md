@@ -1,8 +1,9 @@
 # Interior overlap by column reversal
 
 Status: the uniform valid target and its strict doubled-area decrease are now
-verified in Lean. Strict/exterior edge correspondence, lifted transport and
-semantic assembly remain unfinished. The transport argument was independently
+verified in Lean. The strict-head correspondence, periodic integer reversal
+and exact strict lifted transport are also verified. Exterior normal-edge
+transport, sink order and semantic assembly remain unfinished. The transport argument was independently
 audited by the primary and Astra reviewer. This is the intended discharge of
 `InteriorNDInductionStep`, not
 a replacement theorem with additional geometric hypotheses.
@@ -56,8 +57,9 @@ The finite permutation is now verified as `InteriorMergedComponent.reversalPerm`
 with the actual column formula, involution and fixation off the component.
 `ColumnIndexReversal` supplies the bounded arithmetic permutation;
 `InteriorColumnGeometry.vertex_atOffset` verifies that these index columns are
-actual circular intervals. The periodic integer lift and its edge transport
-are still to be formalized.
+actual circular intervals. `InteriorReversalLift` now constructs the periodic
+integer involution, proves its residue correspondence and period translation,
+and `InteriorReversalStrict` proves its exact strict-edge transport.
 
 Let H_c be the positive circular distance from the start of C_(c-1) to the
 start of C_c, taking the predecessor of column zero to be column j-1.
@@ -153,7 +155,11 @@ proves `reversalTarget_strict_card` and `reversalTarget_doubledArea_lt`.
 `DiagramFromHeads` constructs genuine full-height corner edges and verifies
 head membership and cardinality. The independent source review, full build and
 axiom inventory passed. This establishes the target, not yet its semantic
-relation to the source.
+relation to the source. The strict part of that relation is now checked by
+`reversalHeads_eq_image`, `reversalArea_reversed_length`,
+`boundary_reversalLift_of_strictAt` and `liftStep_empty_reversal_iff`. In
+particular the boundary identity is an equality of integers, so no period
+ambiguity is hidden in a residue equality.
 
 ## Edges to other components
 
@@ -187,7 +193,7 @@ are already covered by the generic forced/descent erasure APIs.
 The residual coloring sums agree by vertex relabeling. Residual selected
 lifted graphs are conjugate by sigma. Every selected sink is a strict sink.
 There is only one strict sink in the moved component, and sigma fixes all
-other component vertices. Its movement stays in its column, so the order of
+vertices outside that component. Its movement stays in its column, so the order of
 all integer sink lifts is preserved, including across periods. Thus
 `Orientation.hrv_conjugate` and `hrvMonomial_conjugate` give actual HRV transport.
 The generic restricted-sum assembly is now proved and locally verified in
@@ -214,9 +220,10 @@ or the desired polynomial identity. This boundary was independently reviewed.
 
 The formulas and local geometric checks above have been audited by hand.
 The merged-chain extraction, component isolation, finite column permutation,
-original area profiles, actual valid smaller target, and generic restricted-sum
-transport are verified. The remaining Lean work is target-specific edge/lift
-correspondence and invocation of the existing outer IH.
+original area profiles, actual valid smaller target, periodic integer lift,
+strict lifted transport and generic restricted-sum transport are verified.
+The remaining Lean work is exterior normal-edge correspondence, integer sink
+order and invocation of the existing outer IH.
 The active Aristotle request predates this construction and has not received
 it; it remains a separate proof search. No remote result or this note is
 treated as a substitute for the serialized local build and axiom checks.

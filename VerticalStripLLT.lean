@@ -189,3 +189,8 @@ import VerticalStripLLT.Circular.ReversalDecrement
 import VerticalStripLLT.Circular.DiagramFromHeads
 import VerticalStripLLT.Circular.InteriorReversalArea
 import VerticalStripLLT.Circular.InteriorReversalTarget
+import VerticalStripLLT.Circular.ColumnDisplacement
+import VerticalStripLLT.Circular.InteriorReversalHeads
+import VerticalStripLLT.Circular.InteriorReversalDisplacement
+import VerticalStripLLT.Circular.InteriorReversalLift
+import VerticalStripLLT.Circular.InteriorReversalStrict

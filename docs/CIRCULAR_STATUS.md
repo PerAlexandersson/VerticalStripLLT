@@ -50,6 +50,7 @@ otherwise indicated. Current build and axiom counts are in [HANDOFF](../HANDOFF.
 | Full NN elimination to a smaller-area target | `Diagram.shifted_nn_of_counted`, `Diagram.expansion_of_nn`; [NNElimination](../VerticalStripLLT/Circular/NNElimination.lean) |
 | Complete overlapping ND induction step | `Diagram.exists_nd_alias_reduction`, `Diagram.expansion_of_nd_alias`, `AliasContacts.target_admissible_iff`; actual coloring/HRV factors and doubled-area drop six in [AliasRecurrences](../VerticalStripLLT/Circular/AliasRecurrences.lean) |
 | Forced ascent/descent factors for actual models | [ForcedColoring](../VerticalStripLLT/Circular/ForcedColoring.lean), [ForcedOrientation](../VerticalStripLLT/Circular/ForcedOrientation.lean) |
+| Uniform interior smaller target and strict lifted transport | `InteriorMergedComponent.reversalTarget_doubledArea_lt`, `reversalHeads_eq_image`, `reversalArea_reversed_length`, `reversalLift_residue`, `reversalLift_add_period`, `boundary_reversalLift_of_strictAt`, `liftStep_empty_reversal_iff`; [target](../VerticalStripLLT/Circular/InteriorReversalTarget.lean), [lift](../VerticalStripLLT/Circular/InteriorReversalLift.lean), [strict transport](../VerticalStripLLT/Circular/InteriorReversalStrict.lean). Exterior normals and sink order remain unproved. |
 
 Theorem explanations remain in [proofs/](README.md#proof-explanations).
 Early examples are isolated in `VerticalStripLLT/Examples/` and excluded from
