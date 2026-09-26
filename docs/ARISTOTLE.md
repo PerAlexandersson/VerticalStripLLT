@@ -846,3 +846,9 @@ and residual transport were developed after its input snapshot `5266faa`.
   was then updated; `bash -n` passed. Native session `36244` observes only the
   new task, with a two-hour allowance and reconnection/status logs in the same
   request directory. No Lean result or build has been introduced.
+- Inline follow-ups supplied the refuted descending sweep, the stronger
+  root-only locality obstruction, the ordinary active-set reduction, and the
+  exact circular deletion-defect formula. Receipts are `promotion-message.log`,
+  `locality-obstruction-message.log`, and `defect-formula-message.log`.
+  Each distinguishes proved structural facts from the still-open component
+  cancellation; the remote task is not asked to repeat finite audits.

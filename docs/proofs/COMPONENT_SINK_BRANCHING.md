@@ -302,3 +302,57 @@ data, as anticipated in the original component sketches.
 
 Primary derived this obstruction by hand and checked the four HRV maps with
 the Rust API; Astra independently checked the diagram and cover conditions.
+
+## Exact defect data, including circular winding
+
+The missing cancellation can be expressed using the deleted diagram and its
+incoming edges. This is an orientationwise identity, unlike the conjectural
+component cancellation.
+
+First take the ordinary largest sink n, put B=A\{n}, and let I be its selected
+incoming neighbors, including strict edges. Set
+
+    U = union_{i in I} {v : v reaches i in B}.
+
+Then the old n-fiber is U union {n}. If F_r denotes the HRV fiber of r in B,
+every vertex outside U retains its B-HRV, so the deletion defect is exactly
+
+    delta_n(A) = product_r e_|F_r|
+                   - e_|U| product_r e_|F_r\U|.
+
+In terms of f_r=|F_r| and u_r=|F_r intersect U|, this is
+
+    product_r e_(f_r) - e_(sum_r u_r) product_r e_(f_r-u_r).
+
+Here is the circular version for ANY fixed sink subset T. Put B=A\T, but
+perform comparisons on the ORIGINAL integer cover. For a retained lift v,
+let beta(v) be its greatest endpoint reachable within B. For each t in T,
+let R_t(v), when it exists, be the greatest reachable lift of t. Such a path
+consists of a B-path followed by one incoming edge to t. A path cannot pass
+through a removed sink, so
+
+    alpha_A(v) = max(beta(v), all defined R_t(v)).
+
+These candidates never tie: they end in distinct residues, with beta ending
+at a retained vertex. Let U_t consist of the retained residues for which
+R_t is the largest candidate. The definition is invariant under translating
+v by a period, since every candidate increases by the same period. Put
+U=union_t U_t. Then
+
+    shrink_T(E_A) = product_{t in T} e_|U_t|
+                     * product_{r outside T} e_|F_r(B)\U|,
+
+and the exact defect is E_B minus this expression. Products include empty
+fibers with e_0=1. A newly exposed B sink which was not an A sink has empty
+residual fiber automatically.
+
+Monotone compression of retained lifts transports beta and its fibers to the
+actual HRV data of the smaller diagram. It must NOT be applied to a removed
+sink when comparing beta and R_t. Missing R_t is an absent value (or minus
+infinity), never an arbitrary integer sentinel. If B is empty, all U_t are
+empty and the external empty-object convention makes both expressions 1.
+
+Primary and Terra derived the ordinary formula; primary derived the circular
+extension and Astra independently verified it. It gives explicit data for a
+possible signed cancellation or flip-graph flow. It does not show that the
+defects sum to zero over a component, which remains the central open step.

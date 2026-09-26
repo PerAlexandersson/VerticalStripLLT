@@ -87,7 +87,7 @@ and explicit proof-only instructions. Its same-task observation wrapper is
 running in native session `36244`, with a two-hour allowance and logs in that
 directory; IN_PROGRESS confirmed. See the ledger. No result was integrated.
 
-Research checkpoint `8f566ad` is pushed on private main. Whitespace checks
+Research checkpoints `8f566ad` and `1df6a5a` are pushed on private main. Whitespace checks
 passed; independent Astra and Luna reviews checked the reconstruction/induction
 boundary. No source build was appropriate for this documentation checkpoint.
 
@@ -109,6 +109,12 @@ The useful surviving ordinary reduction uses the successor-closed set
 Such a promotion must allow changes outside the immediate root triangles.
 Circular canonical lifts retain period-shift constraints and need an additional
 argument. These facts were sent to the active Aristotle task.
+The note now also gives the exact circular deletion defect: compare each
+retained vertex's maximum reachable endpoint in the deleted graph with its
+maximum reachable lifts of the removed sinks. This partitions the vertices
+reallocated to each removed root and expresses both elementary products
+explicitly. Astra verified this orientationwise identity; componentwise
+cancellation is still unproved. All local delegate lanes are released.
 `suggestions/flip-enumeration-api.md` records the pending Rust integration task;
 no shared Rust ownership or source has been taken over.
 
