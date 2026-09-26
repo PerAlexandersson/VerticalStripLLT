@@ -13,3 +13,8 @@ ended. Preserve events across reconnections, report terminal task status
 separately from observation errors, and download only after confirmed completion.
 
 This is a tooling proposal, not an installed watcher or active policy.
+
+Also observed: `continue --files` accepts an arbitrary number of paths in CLI
+help but the server rejects more than five. Document that limit in help and
+validate it locally before upload. Keep full provenance outside the five-file
+payload when necessary; do not drop proof prerequisites to meet the limit.

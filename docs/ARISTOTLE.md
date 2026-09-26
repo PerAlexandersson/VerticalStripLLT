@@ -752,3 +752,25 @@ identities remain open.
   Astra review confirmed actual semantics and winding-sensitive HRV comparison.
 - Local full build: 1879 jobs. Axiom inventory: 1852 declarations, standard
   axioms only. The full circular theorem still requires the interior ND step.
+
+## Renewed full interior ND step with the verified chain base (active)
+
+- Existing project `65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, new task
+  `a430cbfd-eb82-4070-b9c2-002ae875cb53`, confirmed QUEUED. The earlier failed
+  task remains terminal; this continuation has a new task handle.
+- Input source `5266faa`; 200-module closure, 21658 Request lines. External
+  directory `circular-interior-with-chain-base/` retains the exact target,
+  source hashes, per-module compatibility provenance and updated route notes.
+- The target is the unchanged `Diagram.expansion_of_nd_interior_overlap`.
+  New proved inputs include chain-singleton actual equality, explicit restart,
+  first-contact equality, and zero-row invariants. No assumed general bridge,
+  extra no-wrap condition or exclusion of the deeper case is added.
+- The request records the saturated n=8 source with two isolated vertices and
+  explains why the new base alone does not cover all sources. Conserved-defect,
+  zero-cut, rank and fixed-slide failures are retained to prevent repetition.
+- Independent Astra checked statement fidelity, dependency order, no duplicate
+  module markers and exactly one final placeholder. No new local source build
+  was needed for this packaging step; every source module is already checked.
+- CLI continuation accepts at most five files. The initial eight-file attempt
+  was rejected and created no task; the corrected upload succeeded. Observer
+  and eventual download instructions are in HANDOFF.

@@ -8,7 +8,7 @@ interior overlap is proved; deeper contacts remain. Follow the author's
 one-bounce elimination strategy. Strict cycles make both actual models vanish;
 overlap between offset contact tracks alone is not a cycle. No flip work.
 
-## Current verified checkpoint
+## Current verified checkpoint: `5266faa`
 
 `ChainSingletonData.coloringLLT_shifted_eq_expansion` now proves the actual
 coloring–HRV equality for every strict chain plus one isolated vertex and every
@@ -52,9 +52,26 @@ every invocation. No source edits are pending from delegates.
 
 ## Aristotle provenance
 
+The renewed full interior request is QUEUED in the existing project
+`65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, new task
+`a430cbfd-eb82-4070-b9c2-002ae875cb53`. Native observer session **55772** writes
+`circular-interior-with-chain-base/observer.log`. Observe this exact task;
+reconnect after transient observation failures without resubmitting it. This
+observer does not download: after completion explicitly download the project
+archive into `circular-interior-with-chain-base/result.tar.gz`.
+
+Input source is `5266faa`, 200 modules and 21658 Request lines. The exact
+unchanged target, source hashes, compatibility provenance and proof-route notes
+are retained in that external directory. Independent Astra review checked the
+target against `InteriorNDInductionStep`, dependency order and exactly one final
+placeholder. No old unfinished helper was included. The new semantic base,
+first-contact proof and zero-row invariants are inputs; the n=8 counterexample
+and other failed shortcuts are explicit. Eight-file submission was rejected
+before task creation; corrected five-file continuation succeeded. No duplicate.
+
 Chain-singleton project `004c658b-1194-4c5c-be93-a3799e73d7be`, task
-`40bf20a6-93f3-4fcb-8500-8739c2c8b234` finished COMPLETE. No active proof task
-remains. External directory `circular-chain-singleton-expansion/` retains
+`40bf20a6-93f3-4fcb-8500-8739c2c8b234` finished COMPLETE.
+External directory `circular-chain-singleton-expansion/` retains
 `result.tar.gz`, `returned-Request.lean`, `returned-ARISTOTLE_SUMMARY.md`,
 `review-prefix.diff` and exact input provenance from source `4cb8f5d`.
 Final Request SHA256:
@@ -86,7 +103,7 @@ The completed chain-singleton base is useful but does not cover every source:
 the saturated acyclic n=8 diagram with areas (3,4,4,4,3,4,5,5) has deeper contact
 i=2, one six-vertex strict chain and two isolated vertices. Details are in
 `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`. Do not infer a general exit from this base.
-A next proof-search request may use this newly verified semantic base while
+The active proof-search request uses the newly verified semantic base while
 retaining the full interior target and this counterexample to classification.
 
 Checkpoint `5619f82` proves zero-cut confinement and exact zero-row preservation
