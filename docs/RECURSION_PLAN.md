@@ -155,7 +155,31 @@ The word interface and linear DD step are now checked. In particular,
 `SatisfiesReductionRecursion.generalizedFirstBounce_word` proves arbitrary
 NN traces by strong induction on prefix length. Its exported
 `generalizedFirstBounce` returns a genuine valid path, the value identity,
-unchanged east count, and strict first-east-height decrease. DN/ND induction
-and exhaustive uniqueness remain open. `GeneralizedBouncePath` already
+unchanged east count, and strict first-east-height decrease. The DN/ND
+inductions and matching path packages are now checked as well; uniqueness
+remains open. `GeneralizedBouncePath` already
 provides valid successors for all three terminal pairs independently of the
 value induction. Terra audited the two-child induction and local DN geometry.
+
+## Exhaustive uniqueness implementation boundary
+
+All three generalized bounce packages now return valid successors, equal east
+counts, and strictly smaller first-east heights. `firstEast_prefix_cases`
+proves that every east-free prefix ending at the first east step either has
+gap one, ends north at a strict gap, or is a `BounceSeed`.
+
+Implement `SatisfiesReductionRecursion.unique` for two witnesses with the same
+q and column values in a domain and q−1 nonzero. Use nested strong induction
+on size n, east count, then first-east height. At n=0 use empty normalization.
+At east count one use `valid_one_east_column_size`. For larger east count,
+extract the first east step and apply `firstEast_prefix_cases`. Gap one uses
+product reduction and smaller sizes. The north branch uses unicellular
+reduction: the contracted path has smaller east count; the swapped path has
+smaller height. A bounce seed yields `trace.decompose`; `parts` excludes east
+and DD terminal pairs, leaving NN, DN, ND. Apply the corresponding generalized
+package for each witness and identify successors by their proved step words.
+
+No new abstract recursive invariant is necessary for this uniqueness proof.
+This proves uniqueness for the explicitly stronger sufficient certificate,
+not for the unchanged manuscript-facing restricted predicate. It will give
+the semantic bridge only after an independent orientation witness is proved.

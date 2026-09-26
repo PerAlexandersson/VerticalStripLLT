@@ -6,12 +6,13 @@ audit uses the pinned Mathlib revision, not current online documentation.
 
 ## Coefficient substitution
 
-Define the q-to-q+1 homomorphism on Q using
+The checked `OrientationShift.lean` defines the q-to-q+1 homomorphism on Q using
 `Polynomial.compRingHom (Polynomial.X + 1)`, then lift it to EExpansion with
-`MvPolynomial.map`. Prove that it fixes each `elementary k`, hence each
-`hrvMonomial`, and maps `orientationExpansion P` to
-`shiftedOrientationExpansion P`. Use the existing independent finite-sum
-definitions; do not define the shifted expression by this equality.
+`MvPolynomial.map`. Theorems `qShift_elementary` and `qShift_hrvMonomial`
+prove that it fixes elementary monomials. `qShift_orientationExpansionAt`
+commutes with the ascent parameter, and `qShift_orientationExpansion` maps
+`orientationExpansion P` to the independently defined
+`shiftedOrientationExpansion P`.
 
 Useful pinned APIs: `Polynomial.compRingHom` in
 `Mathlib/Algebra/Polynomial/Eval/Defs.lean`, and `MvPolynomial.map_C`,
@@ -48,5 +49,5 @@ to the coloring-defined LLT polynomial. The pinned finite elementary API
 already includes `aeval_esymm_eq_multiset_esymm`; inspect whether this or the
 powerset definition gives the smaller proof before adding new machinery.
 
-None of shift, positivity, weighted degree, or arbitrary-alphabet stability
-is currently claimed proved in this note.
+Shift is now proved. Positivity, weighted degree, and arbitrary-alphabet
+stability remain open.

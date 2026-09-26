@@ -43,3 +43,8 @@ import VerticalStripLLT.GeneralizedFirstBounce
 import VerticalStripLLT.WordThirdBounce
 import VerticalStripLLT.OrientationFirstBounce
 import VerticalStripLLT.OrientationFirstBounceSpecializations
+import VerticalStripLLT.OrientationShift
+import VerticalStripLLT.GeneralizedSecondBounce
+import VerticalStripLLT.GeneralizedSecondBounceReduction
+import VerticalStripLLT.GeneralizedThirdBounceReduction
+import VerticalStripLLT.FirstEastCases

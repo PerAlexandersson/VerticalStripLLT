@@ -60,7 +60,10 @@ A general-purpose symmetric-functions library is outside the scope.
   NN bounce by strong induction on prefix length, with a valid successor and
   strict first-east-height decrease. Word evaluation, local recurrence
   adapters, successor validity, DD coordinates, and the linear DD step are
-  separate modules. Generalized DN/ND and exhaustive uniqueness remain open.
+  separate modules. The DN and ND analogues now give all three generalized
+  bounce reductions with valid successors and strict measure decreases.
+  `firstEast_prefix_cases` supplies the exhaustive geometric case split;
+  recurrence uniqueness remains open.
 - The independent orientation expression is now defined using finite normal
   edge choices and highest-reachable-vertex fibers. HRV maximality and
   idempotence, fiber nonemptiness, and empty-path normalization are proved.
@@ -75,6 +78,8 @@ A general-purpose symmetric-functions library is outside the scope.
   `orientationExpansionAt_firstBounce_general` proves the independent NN
   orientation bounce for unrestricted middle words and every parameter z.
   Its HRV transport, matching bijection, and sum assembly are separate modules.
+  `qShift_orientationExpansion` proves that coefficient substitution q→q+1
+  gives the independently defined shifted orientation expression.
 - `SatisfiesReductionRecursion` adds two separately named leading-east bounce
   clauses for the reduction proof. Its coloring witness, generic third-bounce
   consequence, and ring-map transport are checked. The original restricted
@@ -89,7 +94,7 @@ The general column initial condition, multiplicativity, and general unicellular
 relation and both single-bounce recurrence identities are proved.
 `coloringLLT_satisfiesRecursion` bundles these facts with empty normalization
 in a named recurrence predicate. The third single-bounce coloring relation is
-also proved. The generalized NN branch is proved; generalized DN/ND,
+also proved. All three generalized bounce branches are proved;
 recurrence uniqueness, a terminating recursive invariant, the DN orientation bounce identity,
 and the full semantic bridge remain to be proved.
 

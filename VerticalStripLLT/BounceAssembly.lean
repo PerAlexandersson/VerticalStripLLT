@@ -58,4 +58,3 @@ end BounceHRV
 end VerticalStripLLT
 
 namespace VerticalStripLLT
-

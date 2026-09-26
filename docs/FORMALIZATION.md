@@ -356,3 +356,15 @@ edge choices and HRV transport. `BounceMatching` proves the matching bijection
 and its ascent/monomial properties; `BounceAssembly` sums it.
 No recursive invariant or coloring/orientation equality is assumed. The
 independent DN orientation identity and full semantic bridge remain open.
+
+The DN and ND cases of `bounce_reduction` are now proved as
+`SatisfiesReductionRecursion.generalizedSecondBounce_word` and
+`generalizedThirdBounce_word`. Separate `GeneralizedSecondBounceReduction`
+and `GeneralizedThirdBounceReduction` modules package the identities with
+valid paths, preserved east count, and strict first-east-height decrease.
+The independently checked `firstEast_prefix_cases` supplies the remaining
+geometric case split. Recurrence uniqueness is the next integration target.
+
+`OrientationShift` proves coefficient substitution q→q+1 maps the ordinary
+orientation expression to the independently defined shifted expression.
+Positivity and weighted homogeneity remain distinct unproved obligations.

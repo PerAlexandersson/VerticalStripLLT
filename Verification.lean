@@ -345,3 +345,14 @@ import VerticalStripLLT
 #print axioms VerticalStripLLT.orientationExpansionAt_firstBounce_general
 #print axioms VerticalStripLLT.orientationExpansion_firstBounce_general
 #print axioms VerticalStripLLT.shiftedOrientationExpansion_firstBounce_general
+#print axioms VerticalStripLLT.qShift
+#print axioms VerticalStripLLT.qShiftMap
+#print axioms VerticalStripLLT.qShift_elementary
+#print axioms VerticalStripLLT.qShift_hrvMonomial
+#print axioms VerticalStripLLT.qShift_orientationExpansionAt
+#print axioms VerticalStripLLT.qShift_orientationExpansion
+#print axioms VerticalStripLLT.SatisfiesReductionRecursion.generalizedSecondBounce_word
+#print axioms VerticalStripLLT.SatisfiesReductionRecursion.generalizedSecondBounce
+#print axioms VerticalStripLLT.SatisfiesReductionRecursion.generalizedThirdBounce_word
+#print axioms VerticalStripLLT.SatisfiesReductionRecursion.generalizedThirdBounce
+#print axioms VerticalStripLLT.firstEast_prefix_cases

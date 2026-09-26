@@ -3,139 +3,110 @@
 ## Current state
 
 The ordinary LLT expansion remains the active goal; it is not yet proved.
-The coloring polynomial satisfies `coloringLLT_satisfiesRecursion`; all three
-single-bounce coloring identities are independently checked.
+No external blocker applies. The authoritative reference files are immutable.
 
-The independent orientation model now has empty, column, product, and
-unicellular identities: `orientationExpansionAt_empty`,
-`orientationExpansionAt_column`, `orientationExpansionAt_concat`, and
-`orientationExpansionAt_unicellular`. `OrientationSpecializations` supplies
-ordinary/shifted product and unicellular corollaries. The last identity comes
-from Aristotle, ported by Luna and checked locally without changing any
-semantic definition. Equal-normal-edge transport, insertion sums, and the
-final identity occupy three separate modules.
-`coloringLLT_column_eq_eval_orientationExpansion` remains the uniform column
-bridge for all finite alphabets; arbitrary-path equality is still open.
+The independently defined coloring polynomial satisfies both
+`coloringLLT_satisfiesRecursion` and the stronger reduction certificate.
+All three single-bounce coloring identities are checked.
+The independent orientation expression has checked empty, column, product,
+unicellular, and unrestricted NN bounce identities. In particular,
+`orientationExpansionAt_firstBounce_general` holds for every middle V and
+parameter z, with multiplier C(z+1). Its eight-module Aristotle port uses
+actual HRV/fiber bridges and a proved matching bijection; Terra independently
+passed its fidelity audit. Ordinary and shifted specializations are checked.
+`qShift_orientationExpansion` now proves coefficient substitution q→q+1
+maps the ordinary expression to the separately defined shifted expression.
 
-`SatisfiesReductionRecursion` explicitly adds BOTH NN and DN leading-east
-clauses to the unchanged manuscript-facing `SatisfiesRecursion`. Its coloring
-witness, generic single ND consequence, and ring-map transport are checked.
-`coloringLLT_secondBounce_general` supplies unrestricted-middle DN semantics;
-the existing restricted theorem is now its corollary with unchanged statement.
-The DN extension was recorded in `9a04105` before implementation, following
-primary/Terra audit of manuscript `LLTe_1`.
+The arbitrary-length NN, DN, and ND bounce reductions are checked:
+`SatisfiesReductionRecursion.generalizedFirstBounce`,
+`generalizedSecondBounce`, and `generalizedThirdBounce`. Each returns valid
+successor paths, equal east counts, and strict first-east-height decreases.
+The DN and ND strong inductions are in separate word modules; their valid-path
+packages are in `GeneralizedSecondBounceReduction` and
+`GeneralizedThirdBounceReduction`. They use the checked linear `dd_step` with
+ordinary and raised children, preserving BOTH diagonals in DD flattening.
+`firstEast_prefix_cases` supplies the exhaustive return/north/bounce-seed split.
 
-Word geometry is modular and checked: `BounceSeed.singleBounce_coordinates`,
-`BounceTrace.decompose`, `BounceDecomposition.word_eq`, `parts`, and
-`raiseFinal`. DD flattening retains TWO diagonals. Raising the final diagonal
-by an inserted north preserves the terminal pair and trace conditions.
-`SatisfiesReductionRecursion.generalizedFirstBounce` now proves the NN
-relation for arbitrarily long bounce traces, returns a valid successor, and
-certifies unchanged east count and strictly smaller first-east height.
-Its strong induction uses both ordinary and raised child prefixes. The shared
-`dd_step` proves the linear DD diagram for two terminal replacements.
-Generalized DN/ND, uniqueness, the full orientation recurrence bundle, and the
-arbitrary-path semantic bridge remain open.
+The stronger `SatisfiesReductionRecursion` explicitly adds both NN and DN
+leading-east clauses to the unchanged manuscript-facing `SatisfiesRecursion`.
+Do not claim restricted-recursion uniqueness or assume an orientation witness.
+Uniqueness, the independent DN orientation identity, the full recurrence
+bundle, and arbitrary-path coloring/orientation equality remain open.
+The column semantic bridge is already checked for every finite alphabet.
+Positivity, weighted degree, and alphabet stability remain distinct obligations.
 
-## Verified checkpoints
+## Verification and checkpoints
 
-- `81b4885`: independently reviewed architecture before scaffolding.
+- `81b4885`: independent Astra architecture review before scaffolding.
 - `5a33ef9`: uniform column orientation formula and coloring bridge.
-- `5a3b763`: sufficient-certificate route recorded before implementation.
-- `4d136c7`: orientation multiplicativity and generic single ND reduction.
-- `9a04105`: additional DN clause decision before implementation.
-- `de6026f` (pushed): orientation unicellular and indexed bounce geometry.
-- `9d3574c` (pushed): generalized NN bounce with valid successor and measure drop.
+- `5a3b763`: stronger sufficient-certificate route before implementation.
+- `4d136c7`: orientation product and generic single ND reduction.
+- `9a04105`: DN leading-east clause decision before implementation.
+- `de6026f`: orientation unicellular and indexed bounce geometry.
+- `9d3574c`: generalized NN with valid successor and measure decrease.
+- `d244170` (pushed): independent NN orientation bounce; 344 axiom checks.
 
-Full/default build: 1463 jobs. All 259 public axiom checks pass, using only
-`propext`, `Classical.choice`, and `Quot.sound`. Source and 100-column guards,
-reference/initial-commit preservation, and external-cache checks pass.
-Logs under `/lake-cache/ai-projects/build/VerticalStripLLT/`:
-`generalized-nn-full-build.log` and `generalized-nn-axioms.log`.
+Current integrated generalized-bounce/shift batch: default build 1479 jobs,
+355 public axiom checks, only `propext`, `Classical.choice`, and `Quot.sound`
+(or no axioms). Source/100-column guards, immutable references, initialization
+ancestry, and external-cache checks pass. Logs under
+`/lake-cache/ai-projects/build/VerticalStripLLT/`:
+`generalized-bounces-full-build.log` and `generalized-bounces-axioms.log`.
+The NN orientation checkpoint logs use prefix `orientation-nn-`.
 
-## Live work and next action
+## Live work and ownership
 
-Issues #1–6 are closed. Issue #7 tracks the orientation bounce identities and
-recurrence certificate:
+Primary `/root` owns strategy, integration, all shared documentation, aggregate
+imports/verification, and the sole local build slot. All returned port,
+shift, and generalized-bounce modules are now primary-owned.
+
+- `bounce_audit` (Terra): returned uniqueness API notes without a candidate.
+  No missing mathematical branch identified; full induction remains primary work.
+  Next owns only `BounceAgreement.lean`, a smaller seed-branch agreement lemma
+  under agreement on same-size/same-east-count paths of smaller height.
+  Build-free; no other file ownership.
+- `path_invariants` (Luna): released port/specialization/DN-wrapper ownership.
+- `column_paths` (Luna): released shift ownership. Its earlier inadequate DN
+  single-bounce wrapper was replaced by the genuine checked Terra induction.
+
+Aristotle DN project `432e553c-fc15-4226-8795-9bc0b1786b28`, task
+`fa04e12e-eb5d-43e6-ac50-92e432384704`, accepted 2026-09-26 06:55 UTC.
+Last observed IN_PROGRESS, 6 percent, updated 07:01:59 UTC. Observe this same
+job; do not resubmit. Its isolated request directory is
+`/lake-cache/ai-projects/requests/VerticalStripLLT/orientation-second-bounce`.
+Target: `orientationExpansionAt_secondBounce_general`, unrestricted V and z,
+no multiplier. Supplied inputs reuse the locally checked NN helpers and DN
+path/graph identities. Provenance and completed NN job IDs: `docs/ARISTOTLE.md`.
+
+Issues #1–6 are closed; #7 tracks orientation bounce/certificate:
 https://github.com/PerAlexandersson/VerticalStripLLT/issues/7.
 
-Aristotle NN project `5546ba1c-a34c-4605-9485-a4e42436e5bd`, task
-`5964d41a-b920-4466-9490-fcc39d4de751`, completed 2026-09-25 21:13 UTC.
-Its candidate proves `orientationExpansionAt_firstBounce_general` with
-unrestricted middle V and multiplier `C(z+1)`. The supplied input prefix is
-byte-for-byte unchanged. It has seven helper groups plus the final theorem,
-about 1170 new lines. Candidate source is at
-`/lake-cache/ai-projects/requests/VerticalStripLLT/orientation-first-bounce/completed-candidate.lean`.
-The eight modules pass the focused local build; the ordinary/shifted
-specializations and aggregate axiom checks are being integrated.
-Active Aristotle DN project `432e553c-fc15-4226-8795-9bc0b1786b28`, task
-`fa04e12e-eb5d-43e6-ac50-92e432384704`, accepted 2026-09-26 06:55 UTC.
-Its isolated request is under `orientation-second-bounce`; it reuses the
-locally verified NN helpers and checked DN graph identities.
-Provenance is in `docs/ARISTOTLE.md`. The earlier unicellular job is integrated.
+Next: verify Terra's uniqueness candidate, then port/check the remote DN
+orientation proof when it returns. Assemble the independent orientation
+certificate and transport it through `evalElementary` to obtain the coloring
+semantic bridge by uniqueness. No recursive object is identified with LLT
+merely by definition. Shifted positivity and degree/stability follow later.
 
-Next: port and check the NN orientation modules, then submit the isolated DN
-orientation target using the resulting checked HRV/permutation API. In parallel,
-adapt the checked generalized NN strong induction to DN and ND using `dd_step`.
-The valid-word adapter and third-bounce wrapper are already checked; do not
-unfold the zero-on-invalid-word convention inside recurrence arguments.
-Finish the exhaustive first-east reduction and lexicographic uniqueness,
-then transport the independently proved orientation certificate through
-`evalElementary`. Shifted positivity and degree/stability remain requirements.
+## Build discipline and environment
 
-## Ownership and build discipline
+Only primary may invoke local Lean/Lake. Before EVERY invocation inspect global
+Lean/Lake processes; defer if another build is active. Use only
+`lake-workspace`, reduced priority, and external caches. Delegates are build-free.
+No build-slot transfer has occurred; no nested Claude process is active.
 
-Primary `/root` owns strategy, integration, shared docs, and the sole build
-slot. The eight NN port modules were returned frozen and are now primary-owned.
-Terra independently passed their semantic fidelity audit.
-The first DN candidate only repeated the existing single-bounce case and is
-not accepted as the generalized theorem. Ownership of that candidate transfers
-to `bounce_audit` (Terra) for the actual strong induction, build-free.
-Assignments after checkpoint `9d3574c`:
+Lean v4.34.0, Mathlib `5ed2965256430c3649e86755f9576b54eca72435`.
+The wrapper package-directory warning is expected; never run lake update or
+plain Lake. No `.lake/packages` or `.lake/build` exists in the project.
+Push with invocation-local HTTPS rewriting and `gh auth git-credential`,
+leaving configured remotes unchanged. Initialization commits `830cc6b` and
+`130f7e8` are preserved; references are unchanged from `130f7e8`.
+Aristotle uses isolated4.28 snapshots; local builds remain authoritative.
+Keep requests/candidates outside the checkout; require project/task receipts.
 
-- `path_invariants`: only new `BounceHRVCore.lean`, `BounceOrientationOps.lean`,
-  `BounceRelations.lean`, `BounceDistinguished.lean`, `BounceTransport.lean`,
-  `BounceMatching.lean`, `BounceAssembly.lean`, and `OrientationFirstBounce.lean`;
-  mechanical port of the completed Aristotle NN candidate.
-- `column_paths`: released its incomplete DN candidate; no active ownership.
-- `bounce_audit`: owns only `GeneralizedSecondBounce.lean`, adapting the checked
-  generalized NN strong induction to DN with endpoint-preserving terminal swap.
-
-- `path_invariants`: after returning the port, owns only new
-  `OrientationFirstBounceSpecializations.lean`, ordinary/shifted NN corollaries;
-  now returned frozen to primary.
-
-- `column_paths`: new bounded task owns only `OrientationShift.lean`: coefficient
-  substitution q to q+1 on the actual orientation sum, build-free.
-
-All existing files and aggregate imports/axiom inventory remain primary-owned.
-No local Lean build or nested Claude process is active.
-
-Before each local invocation inspect Lean/Lake processes globally. Use only
-`lake-workspace`, with reduced priority and external caches. Record disjoint
-ownership before new bounded tasks; Luna remains build-free. Authorized
-Terra/Claude audits and remote proof searches may run in parallel.
-
-## Source obligations and environment
-
-`docs/FORMALIZATION.md` is the source map; `RECURSION_PLAN.md` records measures.
-`BOUNCE_TRACE_PLAN.md`, `ORIENTATION_MODEL.md`, and `REDUCTION_CERTIFICATE.md`
-record the current decomposition and independently proved semantic route.
-Do not rename the stronger predicate, assume its orientation witness, or claim
-original restricted-recursion uniqueness is proved.
-
-The earlier restricted-east-middle search ended `COMPLETE_WITH_ERRORS`.
-Its separate bounded nonderivability candidate is archived and read-only
-reviewed but not locally verified/imported. It does not refute full recurrence
-or the manuscript elementary specialization. See `RESTRICTED_BOUNCE_AUDIT.md`.
-No external blocker applies; substantial proof obligations remain.
-
-Initialization `830cc6b`, `130f7e8` and architecture `81b4885` are preserved.
-Reference files are unchanged from `130f7e8`; never edit them. Lean v4.34.0,
-Mathlib `5ed2965256430c3649e86755f9576b54eca72435`. The wrapper package-dir
-warning is expected; never run lake update or plain Lake. No local
-`.lake/packages` or `.lake/build` exists. Push through invocation-local HTTPS
-rewriting and `gh auth git-credential`; leave configured remotes unchanged.
-Aristotle uses isolated 4.28 snapshots; local checks remain authoritative.
-Only one remote job has been accepted concurrently. Require project/task IDs,
-not just exit zero. Keep requests/candidates outside the checkout.
+`docs/FORMALIZATION.md` maps declarations to the source; `RECURSION_PLAN.md`
+records exact uniqueness assembly. `COEFFICIENT_OBLIGATIONS.md` records shift,
+positivity, weighted-degree and stability boundaries. Other architecture notes:
+`BOUNCE_TRACE_PLAN.md`, `ORIENTATION_MODEL.md`, `REDUCTION_CERTIFICATE.md`.
+The older restricted-middle search ended COMPLETE_WITH_ERRORS. Its bounded
+nonderivability candidate is neither locally verified nor imported and does
+not refute the full recurrence; see `RESTRICTED_BOUNCE_AUDIT.md`.

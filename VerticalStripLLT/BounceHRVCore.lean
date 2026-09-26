@@ -147,4 +147,3 @@ theorem fiberMono_conj (f1 f2 : Fin n → Fin n) (σ g : Equiv.Perm (Fin n))
 
 end BounceHRV
 end VerticalStripLLT
-
