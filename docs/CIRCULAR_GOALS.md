@@ -27,19 +27,15 @@ The remaining work is the raised child's corresponding transport, the final
 corner-triple identifications, and assembly of the generalized recurrences.
 See [the exact DD argument](proofs/CIRCULAR_DD_PROPAGATION.md).
 
-## ND branches
+## Nonoverlapping ND branch
 
-Separate the overlapping and nonoverlapping periodic edge cases.
+The overlapping ND branch is complete: `Diagram.expansion_of_nd_alias`
+supplies its actual area-induction step, including target acyclicity.
 
-- Overlap: the named `aliasTarget` is valid, realizes the actual reverse search,
-  and decreases doubled half-square area by six. Prove the actual coloring
-  factor q and shifted HRV factor q+1 using the forced-edge sets and simultaneous
-  periodic swap. [The uniform proof route](proofs/CIRCULAR_ND_ALIAS_REDUCTION.md)
-  records the exact exception sets. Aristotle is working on this bounded target.
-- Nonoverlap: construct the R4/positive-R8 target diagrams with their exact
-  strict/normal edge changes, derive both model identities from the checked
-  local relations, and prove the area decreases. Disjointness must be proved
-  from the contact geometry. Acyclicity alone does not exclude the overlap.
+For the remaining nonoverlap branch, construct the R4/positive-R8 target diagrams
+with their exact strict/normal edge changes, derive both model identities from
+the checked local relations, and prove the area decreases. Disjointness must
+follow from the contact geometry; acyclicity alone does not exclude overlap.
 
 ## Final induction and corollaries
 

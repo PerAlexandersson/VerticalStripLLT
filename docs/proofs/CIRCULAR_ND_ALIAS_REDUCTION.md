@@ -1,8 +1,11 @@
 # Reduction when the ND terminal and root share an edge orbit
 
-This note records the uniform mathematical route audited independently by Astra.
-The target diagram and forced-edge lemmas are locally checked. The full polynomial
-identities below are proof targets, not yet locally verified theorems.
+This note explains the completed uniform reduction. The full actual polynomial
+identities are locally checked as `Diagram.exists_nd_alias_reduction` in
+[AliasRecurrences.lean](../../VerticalStripLLT/Circular/AliasRecurrences.lean).
+`Diagram.expansion_of_nd_alias` gives the area-induction step, including
+preservation of strict acyclicity. Independent Astra review audited the
+Aristotle candidate before primary integration.
 
 Let the successive lower contact vertices be p_0,...,p_(r-1), and put
 q_j=p_j+1 on the integer cover. The root z has residue q_0 and strict tail
@@ -78,13 +81,16 @@ The swap preserves order on sinks, including when paths wind. Actual lifted-HRV
 conjugacy therefore matches the common monomials.
 
 The source has r forced ascent factors and the target r−1. Finite-subset
-factorization and cancellation give the target identities
+factorization and cancellation give the proved identities
 
 ```
 coloringLLT D m = C(q) * coloringLLT Q m
 shiftedOrientationExpansion D = C(q+1) * shiftedOrientationExpansion Q.
 ```
 
-These are a new periodic-overlap reduction with geometric area drop three,
-not an application of the ordinary disjoint-window ND relation. Formal assembly
-of the contact geometry, exception sets, and simultaneous-swap sums remains.
+The geometric half-square area drops by three (doubled area by six).
+`AliasReductionContacts` constructs the contact data; `AliasReductionRelations`
+proves strict/exterior lifted conjugacy; `AliasReductionForced` proves the
+coloring identity; `AliasReductionOrient` transports the actual HRV fibers.
+The common factor after shifting q is q+1, so the actual semantic bridge
+transfers directly from the smaller target.

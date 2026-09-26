@@ -22,7 +22,7 @@ otherwise indicated. Current build and axiom counts are in [HANDOFF](../HANDOFF.
 | DD count and NN/DN contact separation | `Diagram.reverseBounce_iff_counted`, `RawBounceContacts.main_parallel_disjoint`; [CountedBounce](../VerticalStripLLT/Circular/CountedBounce.lean), [RawBounceContacts](../VerticalStripLLT/Circular/RawBounceContacts.lean) |
 | DD local resolution and complete deletion child | `Diagram.exists_ddLocalData`, `DDLocalData.coloring_resolution`, `orientation_resolution`, `Diagram.delete_dd_child`; [DDLocalRealization](../VerticalStripLLT/Circular/DDLocalRealization.lean), [DDDeletedChild](../VerticalStripLLT/Circular/DDDeletedChild.lean) |
 | Exact resolved DD rows | `DDLocalData.resolved_area`, `resolved_boundary_rows`, `resolved_strictAt_iff`; [DDResolvedRows](../VerticalStripLLT/Circular/DDResolvedRows.lean), [DDResolvedStrict](../VerticalStripLLT/Circular/DDResolvedStrict.lean) |
-| Valid overlapping ND target and exact area decrease | `Diagram.exists_aliasTarget_of_reverseBounce`; [AliasRealization](../VerticalStripLLT/Circular/AliasRealization.lean), [AliasMeasure](../VerticalStripLLT/Circular/AliasMeasure.lean) |
+| Complete overlapping ND induction step | `Diagram.exists_nd_alias_reduction`, `Diagram.expansion_of_nd_alias`, `AliasContacts.target_admissible_iff`; actual coloring/HRV factors and doubled-area drop six in [AliasRecurrences](../VerticalStripLLT/Circular/AliasRecurrences.lean) |
 | Forced ascent/descent factors for actual models | [ForcedColoring](../VerticalStripLLT/Circular/ForcedColoring.lean), [ForcedOrientation](../VerticalStripLLT/Circular/ForcedOrientation.lean) |
 
 Theorem explanations remain in [proofs/](README.md#proof-explanations).

@@ -562,7 +562,7 @@ identities remain open.
   `Diagram`) combines the independently proved coloring and HRV identities.
   No statement, definition, or axiom from the service prefix was substituted.
 
-## Circular overlapping ND reduction (active)
+## Circular overlapping ND reduction (locally integrated)
 
 - Project `eb5bc1c3-b026-45aa-9acb-6d3927797294`, task
   `55de8e35-31e7-4ff2-a476-f26ac24fe345`.
@@ -572,5 +572,25 @@ identities remain open.
   actual coloring factor q, and actual shifted-HRV factor q+1, for the full
   periodic overlap branch of an acyclic reverse bounce.
 - The named constructor, strict-pair relation, measure, and search realization
-  are locally checked and supplied as fixed support. The semantic identities
-  remain proof targets. No ordinary-cut or recurrence assumption is allowed.
+  were supplied as fixed support. The exact final theorem now passes the local
+  pinned toolchain in `AliasRecurrences.lean`; eight modular helpers preserve
+  actual winding and HRV semantics. Primary added shifted coloring, target
+  acyclicity, and `expansion_of_nd_alias`. The service prefix was not imported.
+- Independent Astra audit found no extra final hypotheses or semantic changes.
+  Compatibility edits were `lia`, explicit transitive-closure endpoints, and
+  current tactic names. Full build: 1818 jobs; axiom inventory: 1307 declarations,
+  only propext, Classical.choice, Quot.sound.
+
+## Circular resolved DD child (active)
+
+- Project `9dedc3e9-472c-4e5e-aa74-14f185dc95e1`, task
+  `e598f460-d1cc-4c7c-add6-cccf40042f96`.
+- External request/observer directory: `circular-dd-resolved-child/`.
+- Exact target `DDLocalData.resolved_dd_child`: raised-root eligibility, one
+  fewer DD contact, preserved terminal flags, and inherited strict acyclicity.
+  Inputs are the concrete local geometry, actual counted search, eligible root,
+  source acyclicity, and NN/DN terminal flag. No recurrence assumptions.
+- The 78-module geometry-only request omits downstream polynomial identities
+  from three modules, retaining their definitions and hypotheses unchanged.
+  It supplies checked resolved row formulas, full deletion-child transport,
+  and main/parallel contact separation. This is the only active remote job.

@@ -53,17 +53,30 @@ immutable reference files were changed.
 Aristotle direct-DN project `a768ca01-7392-49a9-b695-339de82ec027`, task
 `847a2439-f8d6-4124-8cb3-222377ca36f9`, is complete and integrated. Final result
 and provenance are in external `circular-dn-orientation/` and `docs/ARISTOTLE.md`.
-Aristotle overlapping-ND project `eb5bc1c3-b026-45aa-9acb-6d3927797294`, task
-`55de8e35-31e7-4ff2-a476-f26ac24fe345`, is complete remotely. Final archive
-and extracted source are in external `circular-nd-alias/result/`. It supplies
-both actual identities with area drop six. Independent read-only Astra audit
-found faithful semantics and no extra final hypotheses. Primary will port only
-its eight new module blocks, using the current checked prefix and local `lia`.
-Local integration remains pending; do not count the result as locally proved.
+Overlapping ND is now locally proved. Primary integrated the Aristotle result
+from project `eb5bc1c3-b026-45aa-9acb-6d3927797294`, task
+`55de8e35-31e7-4ff2-a476-f26ac24fe345`, after independent read-only Astra audit.
+Exact public interfaces in `AliasRecurrences.lean`:
+- `Diagram.exists_nd_alias_reduction`: actual coloring factor q, actual shifted
+  HRV factor q+1, and doubled-area decrease six.
+- `AliasContacts.target_admissible_iff`: strict acyclicity is preserved.
+- `AliasContacts.shifted_coloring_identity`, `expansion_of_target`.
+- `Diagram.expansion_of_nd_alias`: complete area-induction step.
+All nine new modules and root import pass (1818 jobs); all 1307 axiom checks
+pass with only standard axioms. Logs: `circular-nd-alias-complete-build.log`,
+`circular-nd-alias-complete-axioms.log`. Primary owns all source; lanes released.
+DD checkpoint `c6f48dd` and documentation cleanup `9224524` are pushed.
+
+Only active remote job: Aristotle project
+`9dedc3e9-472c-4e5e-aa74-14f185dc95e1`, task
+`e598f460-d1cc-4c7c-add6-cccf40042f96`, resolved DD child.
+External request and native observer: `circular-dd-resolved-child/`.
+The exact final theorem combines raised-root eligibility, smaller count,
+terminal flags, and acyclicity. Do not resubmit or change accounts.
 
 Next: complete explicit DD child transformations and contact transport, then
-apply contact-count induction separately to both models. Alias ND semantics
-await local integration; nonoverlap ND and final `(doubledArea, strictRank)` induction remain.
+apply contact-count induction separately to both models. Nonoverlap ND
+and final `(doubledArea, strictRank)` induction remain.
 The full circular expansion is still open; preserve the active goal.
 
 Overleaf path drift: `old-main.tex` is absent; `main.tex` holds the former long
