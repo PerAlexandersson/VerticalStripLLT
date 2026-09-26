@@ -178,3 +178,4 @@ import VerticalStripLLT.Circular.ZeroCutGeometry
 import VerticalStripLLT.Circular.ZeroRowsTransport
 import VerticalStripLLT.Circular.ChainSingletonExpansion
 import VerticalStripLLT.Circular.InteriorShortenCycle
+import VerticalStripLLT.Circular.InteriorDNRestart

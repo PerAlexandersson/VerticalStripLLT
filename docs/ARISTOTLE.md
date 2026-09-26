@@ -756,7 +756,7 @@ identities remain open.
 ## Renewed full interior ND step with the verified chain base (active)
 
 - Existing project `65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, new task
-  `a430cbfd-eb82-4070-b9c2-002ae875cb53`, confirmed QUEUED. The earlier failed
+  `a430cbfd-eb82-4070-b9c2-002ae875cb53`, confirmed IN_PROGRESS. The earlier failed
   task remains terminal; this continuation has a new task handle.
 - Input source `5266faa`; 200-module closure, 21658 Request lines. External
   directory `circular-interior-with-chain-base/` retains the exact target,
@@ -774,3 +774,8 @@ identities remain open.
 - CLI continuation accepts at most five files. The initial eight-file attempt
   was rejected and created no task; the corrected upload succeeded. Observer
   and eventual download instructions are in HANDOFF.
+- Observation connections have dropped twice while the authoritative task
+  remained active. Both reconnects used this same task handle; no new task
+  was created. The later local `InteriorShortenCycle` and `InteriorDNRestart`
+  results are not in the submitted prefix. Include them if a further
+  continuation is needed; do not assume the running task has received them.

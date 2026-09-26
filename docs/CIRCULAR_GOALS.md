@@ -45,8 +45,11 @@ vertex aliases the first main contact, the restart is NN and both resulting
 leaves have area D−1. That entire case is proved by
 `Diagram.expansion_of_nd_interior_overlap_first_contact`.
 
-For deeper contacts the restart can be DN, preserving the raised auxiliary
-area. Prove a justified exit to smaller outer measure or an independent semantic
+For every deeper contact the restart is DN: this is now proved by
+`DDLocalData.exists_oneBounceDNData_of_interior_overlap`. Its constructor
+uses the independently defined DN successor and its checked identities;
+the move preserves the raised auxiliary area. Prove a justified exit to
+smaller outer measure or an independent semantic
 base. Mixed DD/neutral termination is checked, but does not include R1
 strictification or assert that a suitable next move exists. A single exposed
 corner can strictify back to area D without decreasing strict rank. Two distinct

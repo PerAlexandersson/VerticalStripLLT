@@ -18,7 +18,20 @@ every arbitrary DD/DN/R1 rewrite sequence. Primary and independent Astra audit
 agree; see the ordinary-proof mapping in `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.
 That clarification was recorded at `6ae30bd` without a build.
 
-## Current verified checkpoint: interior shortened-root cycle
+## Current verified checkpoint: exact interior restart type
+
+`DDLocalData.resolved_strictAt_interior` proves that the restart terminal is
+strict for every index i≥2. Together with `InteriorRestart`,
+`DDLocalData.exists_oneBounceDNData_of_interior_overlap` constructs actual
+DN successor data. First-contact NN is already solved; all deeper restarts
+are DN, so their neutral move still requires the subsequent child assembly.
+Terra supplied the bounded build-free candidate; primary corrected inequality
+arguments and constructor application, then verified it. Full build 1881 jobs;
+axiom inventory 1857 declarations, standard axioms only. Logs:
+`interior-dn-restart-build.log`, `interior-dn-restart-full-build.log`, and
+`interior-dn-restart-axioms.log` under the external request directory.
+
+## Shortened-root cycle checkpoint: `eb62e69`
 
 `Diagram.shortenEligible_not_admissible_of_interior_overlap` now proves that
 shortening the original eligible root of any acyclic interior-overlap source
@@ -89,8 +102,9 @@ The renewed full interior request is IN_PROGRESS in the existing project
 `65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, new task
 `a430cbfd-eb82-4070-b9c2-002ae875cb53`. Original observer **55772** lost its
 connection; task status remained IN_PROGRESS. Replacement native observer
-session **39014** writes
-`circular-interior-with-chain-base/observer-reconnected.log`. Observe this exact task;
+session **39014** also lost its connection. Task status remained IN_PROGRESS;
+replacement session **59744** writes
+`circular-interior-with-chain-base/observer-reconnected-2.log`. Observe this exact task;
 reconnect after transient observation failures without resubmitting it. This
 observer does not download: after completion explicitly download the project
 archive into `circular-interior-with-chain-base/result.tar.gz`.
@@ -127,8 +141,8 @@ See `docs/ARISTOTLE.md` for earlier completed requests.
 
 Prove a general exit for deeper interior contacts, then discharge
 `InteriorNDInductionStep` and transfer the already-proved HRV positivity/degree.
-The DD-resolved child has doubled area D+1. Its checked one-bounce restart can
-be DN and preserve that auxiliary area. Mixed DD/neutral termination alone
+The DD-resolved child has doubled area D+1. Its checked one-bounce restart is
+DN at every deeper contact and preserves that auxiliary area. Mixed DD/neutral termination alone
 neither supplies an exit nor covers R1 strictification. Two exposed corners
 provide a checked smaller-area exit; a single corner can return to area D
 without decreasing strict rank. Rotation alone preserves the scaled semantic

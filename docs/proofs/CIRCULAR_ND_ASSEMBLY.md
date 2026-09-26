@@ -121,6 +121,14 @@ the restart is NN. The NN-shortened child and DD-deletion child both have
 doubled area D−1. This proof uses only lower-area induction, without saturation
 or strict rank. Deeper interior contacts remain open.
 
+`InteriorDNRestart.lean` now distinguishes the other case exactly: for every
+contact index i at least two, the restart terminal is strict in the resolved
+child. Its iterate index k+3-i lies between 2 and k+1, so it is an original
+strict DD row and cannot equal the removed first-contact row. Together with
+the already-proved nonstrict upper terminal, this constructs actual
+`OneBounceDNData` at the restart root. Thus every deeper restart is DN; its
+neutral move alone does not close the outer induction.
+
 The next geometric task is to track the restart through direct DN moves until
 an exit with a valid outer measure is reached. The missing strict head moves
 by the offset between the two overlapping chains, not necessarily by one
