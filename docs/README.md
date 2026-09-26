@@ -18,6 +18,8 @@
 - [DD propagation](proofs/CIRCULAR_DD_PROPAGATION.md): completed NN elimination
   and remaining DN assembly.
 - [Direct ND](proofs/CIRCULAR_DIRECT_ND.md): the completed seven-relation proof.
+- [Remaining ND assembly](proofs/CIRCULAR_ND_ASSEMBLY.md): disjoint transport,
+  cyclic intermediates and interior-restart exit accounting.
 - [ND overlap obstruction](proofs/CIRCULAR_ND_OVERLAP.md) and
   [uniform root-overlap reduction](proofs/CIRCULAR_ND_ALIAS_REDUCTION.md).
 - [Interior ND overlap](proofs/CIRCULAR_ND_INTERIOR_OVERLAP.md): an additional

@@ -1,3 +1,5 @@
+import VerticalStripLLT.Circular.ComparableExpansion
+import VerticalStripLLT.Circular.NeutralExchangeAcyclic
 import VerticalStripLLT.Circular.StrictVals
 import VerticalStripLLT.Circular.OneBounceNDGeometry
 import VerticalStripLLT.Circular.OneBounceND

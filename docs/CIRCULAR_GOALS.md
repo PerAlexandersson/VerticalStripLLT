@@ -49,13 +49,15 @@ The root-overlap branch is independently complete through
 no acyclicity assumption. Its [proof explanation](proofs/CIRCULAR_DIRECT_ND.md)
 records the seven local identities. The remaining ND work is elimination and
 restart assembly for a longer search, including its auxiliary-area accounting.
+The [remaining ND assembly](proofs/CIRCULAR_ND_ASSEMBLY.md) separates the
+disjoint transport and interior-restart exit obligations precisely.
 See [DD local elimination](proofs/CIRCULAR_DD_PROPAGATION.md) for the checked
 identities and the earlier algebraic propagation route.
 
 ## Final induction and corollaries
 
-Use lexicographic induction on `(doubledArea, strictRank)`. Strict cycles and
-no-normal-edge diagrams already have their semantic base theorems. R1 and NN
+Use lexicographic induction on `(doubledArea, strictRank)`. Strict cycles, no-normal-edge diagrams and diagrams whose normal endpoints
+are all strictly comparable already have their semantic base theorems. R1 and NN
 strictly decrease area; the complete DN target preserves area and decreases
 strict rank. Supply the local elimination and remaining ND recurrences and use the
 proved complete reverse search to exhaust all cases.

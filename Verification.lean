@@ -1585,3 +1585,11 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.Diagram.shiftedOrientationExpansion_oneBounce_NN
 #print axioms VerticalStripLLT.Circular.Diagram.shifted_nn_of_counted
 #print axioms VerticalStripLLT.Circular.Diagram.expansion_of_nn
+
+#print axioms VerticalStripLLT.Circular.neutralExchange_acyclic_iff
+#print axioms VerticalStripLLT.Circular.EdgeData.strictOrderEnumerator_insert_of_strict_path
+#print axioms VerticalStripLLT.Circular.Diagram.strictOrderEnumerator_insert_of_strict_path
+#print axioms VerticalStripLLT.Circular.Diagram.strictOrderEnumerator_insert_of_reverse_strict_path
+#print axioms VerticalStripLLT.Circular.Diagram.strictOrderEnumerator_eq_eval_orientMono_of_normal_comparable
+#print axioms VerticalStripLLT.Circular.Diagram.coloringLLT_shifted_eq_expansion_of_normal_comparable
+#print axioms VerticalStripLLT.Circular.Diagram.coloringLLT_shifted_eq_expansion_of_strict_total

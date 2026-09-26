@@ -7,7 +7,7 @@ one-bounce elimination strategy. A contact-track overlap alone is not a strict
 cycle; genuine directed strict cycles make both actual expressions vanish.
 No flip-component work or new examples in this increment.
 
-Current verified checkpoint (2026-09-26), after pushed `aecea0f`:
+Latest pushed checkpoint: `1d5005d` (2026-09-26), following `aecea0f`:
 
 - `Diagram.exists_oneBounce_nd_reduction`: direct ND for both independently
   defined models; doubled-area drops two/four, no acyclicity or no-wrap input.
@@ -21,11 +21,18 @@ Current verified checkpoint (2026-09-26), after pushed `aecea0f`:
 - `Diagram.expansion_of_nn`: complete NN semantic induction step, final
   doubled-area drop two. Source: `Circular/NNElimination.lean`.
 
-Checks: full default build 1845 jobs; axiom inventory 1553 declarations, only
+Next verified increment: the complete semantic base
+`coloringLLT_shifted_eq_expansion_of_normal_comparable` (including
+`coloringLLT_shifted_eq_expansion_of_strict_total`) and
+`neutralExchange_acyclic_iff`, which transports cycles under explicit separated
+inner paths without assuming acyclicity or distinct outer endpoints.
+
+Checks: full default build 1847 jobs; axiom inventory 1560 declarations, only
 propext, Classical.choice, Quot.sound. No placeholders or unchecked native
 proofs; source guards, relative documentation links and immutable reference
 hashes pass. External request-directory logs:
-`circular-nn-nd-checkpoint-build.log`, `circular-nn-nd-checkpoint-axioms.log`.
+`circular-comparable-checkpoint-build.log`,
+`circular-comparable-checkpoint-axioms.log`; earlier NN/ND logs are retained.
 The two initialization commits `830cc6b` and `130f7e8` remain intact.
 
 ## Ownership and active work
@@ -35,9 +42,12 @@ serialized local build slot. Use only `lake-workspace`; check for other Lean
 builds before every invocation. No build-slot transfer has occurred.
 
 Luna supplied bounded ND ports and direct NN/DN interfaces. Primary adopted,
-repaired and locally verified them. All delegated file lanes are released.
-Astra is conducting a read-only audit of the remaining longer-search ND
-assembly and its auxiliary-area accounting. Terra has no active assignment.
+repaired and locally verified them. Luna returned `Circular/NeutralExchangeAcyclic.lean`; primary adopted the
+proof repairs and verified it locally. Luna returned API notes only for `Circular/ComparableExpansion.lean`; primary
+owns its implementation and local checks. All delegated lanes are released.
+Astra completed a read-only audit of the remaining longer-search ND assembly;
+its precise obligations and rejected shortcuts are recorded in
+`docs/proofs/CIRCULAR_ND_ASSEMBLY.md`. Terra has no active assignment.
 
 Completed direct-ND Aristotle project `7f814d1b-422f-469b-b0f8-cc2696e9518e`,
 task `bc03be2f-39de-4689-ba9b-4ab97ef9bb9c`, is locally integrated. Only appended
