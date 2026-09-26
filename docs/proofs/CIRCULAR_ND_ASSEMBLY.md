@@ -24,6 +24,35 @@ reduces this situation to a single NN or DN bounce. The outstanding work is
 the area accounting for the resulting auxiliary diagrams, as detailed below.
 No independent multibounce identity is needed as an assumption.
 
+## Exact ordinary-proof step to transport
+
+The author's clarification matches the proof of Theorem `bounce_reduction`
+in the immutable manuscript (`main.tex`, proof beginning at line 1882).
+We induct on the number of contacts and use the unicellular relation to
+obtain two child equations. The ordinary Lean proof implements this in
+`SatisfiesReductionRecursion.generalizedThirdBounce_word`:
+
+- `hOrdIH` uses `BounceSeed.dd_length_lt` on the ordinary child.
+- `hRaisedIH` uses `BounceSeed.raise_length_lt` and `child.raiseFinal` on the
+  raised child.
+- `SatisfiesReductionRecursion.dd_step` combines these equations with the
+  one-bounce and unicellular identities and cancels the nonzero coefficient.
+
+The auxiliary induction is on the chosen bounce prefix. In particular, the
+raised child's equation does not require its area to decrease. This is the
+precise distinction between deriving local reduction identities and applying
+the outer area induction to their final targets.
+
+The circular counterpart still needs the corresponding child-equation assembly
+and closing cancellation for deeper interior contacts. The checked restart
+already reaches one bounce; it is not an obstruction to doing so. A direct
+smaller-area exit is one sufficient way to finish the assembly, but is not the
+only acceptable proof route. Proving termination of every possible DD/DN/R1
+rewrite sequence is unnecessary and stronger than the ordinary argument.
+Genuine loops along the strict contact walk are already zero cases for both
+actual models. This mapping was independently reviewed; it is a proof plan,
+not a claim that the remaining circular assembly has been formalized.
+
 ## Completed disjoint terminal branch
 
 `Diagram.exists_nd_separated_reduction` proves the actual coloring and HRV

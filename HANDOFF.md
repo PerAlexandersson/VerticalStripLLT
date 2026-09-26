@@ -8,6 +8,16 @@ interior overlap is proved; deeper contacts remain. Follow the author's
 one-bounce elimination strategy. Strict cycles make both actual models vanish;
 overlap between offset contact tracks alone is not a cycle. No flip work.
 
+Author clarification rechecked against the ordinary proof: multiple contacts
+are eliminated by paired ordinary/raised child equations and cancellation.
+`SatisfiesReductionRecursion.generalizedThirdBounce_word` in
+`GeneralizedThirdBounce.lean` uses a shorter-prefix induction for the raised
+child, not smaller area. The circular task is to complete that child-equation
+assembly after the checked one-bounce restart. Do not require termination of
+every arbitrary DD/DN/R1 rewrite sequence. Primary and independent Astra audit
+agree; see the ordinary-proof mapping in `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.
+This clarification changed documentation only; no new build was needed.
+
 ## Current verified checkpoint: `5266faa`
 
 `ChainSingletonData.coloringLLT_shifted_eq_expansion` now proves the actual

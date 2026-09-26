@@ -23,6 +23,13 @@ has zero polynomial, handled by the existing vanishing theorems. Counts and
 contact lists are auxiliary bookkeeping; a projected multi-bounce R4 identity
 is not a prerequisite and must not be assumed.
 
+Transport the ordinary paired-child argument: the ordinary and raised child
+equations come from an auxiliary induction on the bounce prefix, then the
+unicellular and one-bounce identities cancel to give the desired reduction.
+The raised child need not have smaller area. See the exact `hOrdIH`,
+`hRaisedIH`, and `dd_step` mapping in the ND assembly note. The task does not
+require a no-loop theorem for arbitrary sequences of diagram rewrites.
+
 Direct and full NN/DN, direct ND, root-alias ND and separated ND are proved
 for both actual models. Their declarations are catalogued in
 [CIRCULAR_STATUS.md](CIRCULAR_STATUS.md); they are not new work items.
