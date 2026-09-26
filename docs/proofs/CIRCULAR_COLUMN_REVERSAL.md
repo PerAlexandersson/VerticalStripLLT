@@ -1,8 +1,10 @@
 # Interior overlap by column reversal
 
-Status: mathematical construction audited independently by the primary and
-Astra reviewer; the uniform Lean construction and semantic assembly remain
-unfinished. This is the intended discharge of `InteriorNDInductionStep`, not
+Status: the uniform valid target and its strict doubled-area decrease are now
+verified in Lean. Strict/exterior edge correspondence, lifted transport and
+semantic assembly remain unfinished. The transport argument was independently
+audited by the primary and Astra reviewer. This is the intended discharge of
+`InteriorNDInductionStep`, not
 a replacement theorem with additional geometric hypotheses.
 
 ## Extracting the component
@@ -145,9 +147,13 @@ The target's raw-area sum decreases strictly because every row weakly decreases
 and the eligible root strictly decreases. Together with unchanged strict-head
 cardinality, this proves doubled-area descent without evaluating the exact sum.
 
-Primary and independent Astra audited this finite proof route. It is the next
-construction task; the target diagram and these validity theorems are not yet
-Lean declarations.
+This finite proof route is now verified in `InteriorReversalArea` and
+`InteriorReversalTarget`. The latter defines the actual `reversalTarget` and
+proves `reversalTarget_strict_card` and `reversalTarget_doubledArea_lt`.
+`DiagramFromHeads` constructs genuine full-height corner edges and verifies
+head membership and cardinality. The independent source review, full build and
+axiom inventory passed. This establishes the target, not yet its semantic
+relation to the source.
 
 ## Edges to other components
 
@@ -208,9 +214,9 @@ or the desired polynomial identity. This boundary was independently reviewed.
 
 The formulas and local geometric checks above have been audited by hand.
 The merged-chain extraction, component isolation, finite column permutation,
-original area profiles and generic restricted-sum transport are verified.
-The remaining Lean work is the explicit valid target, edge/lift correspondence,
-and invocation of the existing outer IH.
+original area profiles, actual valid smaller target, and generic restricted-sum
+transport are verified. The remaining Lean work is target-specific edge/lift
+correspondence and invocation of the existing outer IH.
 The active Aristotle request predates this construction and has not received
 it; it remains a separate proof search. No remote result or this note is
 treated as a substitute for the serialized local build and axiom checks.

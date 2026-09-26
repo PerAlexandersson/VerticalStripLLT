@@ -19,17 +19,41 @@ every arbitrary DD/DN/R1 rewrite sequence. Primary and independent Astra audit
 agree; see the ordinary-proof mapping in `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.
 That clarification was recorded at `6ae30bd` without a build.
 
-New uniform construction (hand-audited, not yet a Lean theorem): reverse the
-columns of the merged strict component. With r=k+2, j=r-i and r=qj+s, the
-explicit target lowers raw area by 2q+1 if s=0 and 2q+2 otherwise. Primary
-and independent Astra checked corner validity, external normal incidences,
-positive lifts and sink-order transport. Cancellation avoids any assumption
-on the difference of forced-edge counts. Exact formulas and proof obligations
-are in `docs/proofs/CIRCULAR_COLUMN_REVERSAL.md`. The next step is the uniform
-Lean construction and semantic assembly, not further example classification.
+The explicit uniform target is now a verified valid diagram with strictly
+smaller doubled area. It reverses the columns of the merged strict component.
+The next step is proving its actual strict/exterior edge and integer-lift
+correspondence with the source, then semantic assembly. Primary and independent
+Astra audited this transport mathematically; it is not yet a Lean theorem.
+Cancellation avoids any assumption on the difference of forced-edge counts.
+Exact formulas and obligations are in `docs/proofs/CIRCULAR_COLUMN_REVERSAL.md`.
 `InteriorNDInductionStep` remains open until that integration is verified.
 
-## Current verified checkpoint: column permutation and area profiles
+## Current verified checkpoint: valid smaller decorated target
+
+`InteriorMergedComponent.reversalTarget` is an actual `Diagram n`, built from
+the verified `reversalArea` and explicit `reversalHeads`. The constructor
+requires no target-existence or semantic hypothesis. Theorems
+`reversalTarget_strict_card` and `reversalTarget_doubledArea_lt` prove unchanged
+strict cardinality and strict decrease of the outer induction's measure.
+`reversalArea_vertex_pos` handles the subtraction-two case using old area≥3.
+
+The four new modules are `ReversalDecrement`, `DiagramFromHeads`,
+`InteriorReversalArea`, and `InteriorReversalTarget`. Terra and Luna supplied
+build-free arithmetic and constructor candidates; primary corrected APIs and
+proved cyclic validity, corner validity, positivity and area decrease.
+Independent Astra review found no semantic or construction defect.
+
+Full build 1891 jobs; all 1946 axiom-inventory declarations use only standard
+axioms. Source guards, line lengths and diff whitespace pass. External logs:
+`interior-reversal-target-build.log`, `interior-reversal-target-full-build.log`,
+`interior-reversal-target-axioms.log`. No builds ran concurrently.
+
+Next: identify target strict edges under `reversalPerm`, then exterior normals
+and their positive lifts. The coloring/HRV transport and lower-area induction
+remain unproved for this target. The full theorem is still conditional on
+`InteriorNDInductionStep`.
+
+## Previous checkpoint: column permutation and area profiles (`e107a4f`)
 
 Four new modules are integrated and checked:
 
@@ -175,6 +199,10 @@ uniform target, module-boundary and source-semantic audits.
 All four column modules above are verified and delegate lanes are released.
 Primary owns the next target construction, all integration files and the sole
 global build slot. No delegate builds were run.
+
+The decrement, head constructor and actual smaller target are now integrated
+and verified. All delegate lanes are released. Primary owns the next edge/lift
+transport modules and integration. No build slot has been transferred.
 
 Primary owns strategy, integration, remote jobs, all other source and the sole
 build slot. All delegated lanes are released. Luna ported selection/subset sums;

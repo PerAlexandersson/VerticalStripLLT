@@ -185,3 +185,7 @@ import VerticalStripLLT.Circular.ColumnIndexReversal
 import VerticalStripLLT.Circular.InteriorComponentIsolation
 import VerticalStripLLT.Circular.InteriorColumnGeometry
 import VerticalStripLLT.Circular.InteriorColumnReversal
+import VerticalStripLLT.Circular.ReversalDecrement
+import VerticalStripLLT.Circular.DiagramFromHeads
+import VerticalStripLLT.Circular.InteriorReversalArea
+import VerticalStripLLT.Circular.InteriorReversalTarget
