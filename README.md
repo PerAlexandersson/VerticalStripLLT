@@ -88,6 +88,12 @@ nonnegative coefficients. Equality with the circular LLT coloring polynomial
 and the component identities remain in progress. The full zero non-strict area family is proved for every size and alphabet,
 using the actual HRV fibers and a general strict-chain coloring factorization. The manuscript's full lifted flips and complete global components are defined;
 ascent invariance and the zero-normal component identity are proved.
+Full forward neutral-bounce termination is now proved for explicit strict-contact
+data: infinite iteration forces a strict cycle in the initial diagram, so its
+entire coloring LLT vanishes for every alphabet. The proof derives a decreasing
+strict-chain rank; it does not assume rank decrease or polynomial identities.
+See [the proof and precise interface](docs/proofs/NEUTRAL_BOUNCE_TERMINATION.md).
+Extraction of the contact data from a circular word-bounce decoder remains open.
 Concrete examples live under
 `VerticalStripLLT/Examples/` and are excluded from the main library imports.
 Cumulants remain outside the scope.

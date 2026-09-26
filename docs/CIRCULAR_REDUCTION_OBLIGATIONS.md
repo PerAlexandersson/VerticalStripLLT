@@ -41,14 +41,17 @@ is a suitable integer primary measure. Terminal strict-only diagrams can
 have positive geometric area; their already proved formula is a stopping
 case independently of the value of that measure.
 
-The author recalls a contradiction proof: an indefinitely continued forward
-neutral-bounce procedure forces a directed cycle of strict edges. Formulate
-and prove the precise marked forward procedure and the cycle in one reached
-diagram. Its entire polynomial vanishes, and the neutral identities propagate
-vanishing backwards. This would establish termination on nonzero diagrams
-without requiring J as the reader-facing argument. Lilan may have a handwritten
-proof. A user-authorized TODO now records this missing lemma in current
-Overleaf main.tex. It is not yet a proved replacement for the obligations below.
+The author's contradiction lemma is now proved for the explicit full-bounce
+strict-contact formulation: an infinite forward sequence forces a strict cycle
+in the initial diagram, and its entire coloring LLT vanishes for every alphabet.
+See `proofs/NEUTRAL_BOUNCE_TERMINATION.md` and
+`Circular/NeutralTermination.lean`. The proof derives contact-path separation,
+strict-graph conjugacy, and decrease of the ancestor-depth weighted length rank.
+No rank-decrease certificate is assumed in the final theorem. Extraction from
+an automated circular word-bounce decoder and the polynomial recurrence identities
+remain separate obligations. Thus the proof resolves the contact-level neutral
+termination issue, without asserting the full circular expansion. Lilan may have
+a handwritten version; the Overleaf TODO still marks manuscript incorporation.
 
 ## Area bookkeeping and current implementation
 

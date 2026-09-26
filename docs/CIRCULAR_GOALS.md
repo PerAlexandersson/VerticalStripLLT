@@ -98,10 +98,15 @@ when there is an ordinary cut. The final desired equality replaces each total
 strict-order sum by the HRV elementary expansion; it does not assert that an
 individual orientation's strict-order enumerator equals its HRV monomial.
 
-The aggregate circular proof then needs geometric local reductions, a
-same-state retained-coloring invariant for returning bounce markers, and a
-proved secondary termination measure at fixed non-strict area. Keep these
-explicit targets separate from the unconditional orientation checkpoint.
+The aggregate circular proof still needs the geometric local reductions and
+their semantic identities. Neutral termination is now proved for explicit
+full-bounce contact data: `FullNeutralBounce.strictRank_lt` derives the decrease,
+and `strict_cycle_of_infinite_full_neutral_bounce` finds a strict cycle in the
+initial diagram of an infinite sequence. This uses whole-diagram strict graphs,
+without concatenating constraints across intermediate states. Extraction of
+these contact data from a circular word-bounce decoder remains open. See
+`proofs/NEUTRAL_BOUNCE_TERMINATION.md`. Keep these targets separate from the
+unconditional orientation checkpoint.
 No recurrence certificate is to be assumed in the final coloring theorem.
 
 ## Component foundations

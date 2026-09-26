@@ -1,12 +1,55 @@
 # VerticalStripLLT handoff
 
-## Current task: full circular expansion
+## Current checkpoint: neutral-bounce termination
 
-2026-09-26: user approved the circular/component plan and authorized
-Aristotle plus Luna/Terra implementation. Latest steering: target the full
-general statements; keep concrete examples under `VerticalStripLLT/Examples/`.
-The main library imports no new example modules. Ordinary expansion is complete.
-The general circular HRV expansion and flip-component theorem are not yet proved.
+2026-09-26: the user's contradiction lemma is proved in the explicit full-bounce
+contact formulation, for arbitrary circular size and contact count. Ordinary
+expansion remains proved; full circular expansion remains open.
+
+Primary owns all returned source, strategy, integration, docs, and the sole
+serialized build slot. Terra (`circular_colorings`) returned `StrictDepth`,
+`PairedSwap`, `NeutralExchange`, and `NeutralContacts`; Luna (`circular_data`)
+returned `NeutralRank`, `ParallelPaths`, `EdgeLength`, and `StrictEdgeEquiv`.
+Primary integrated/repaired their candidates and wrote `NeutralTransport` and
+`NeutralTermination`. Both bounded lanes are released and remained build-free.
+Astra independently reviewed the full-DN proof and final hypothesis boundary.
+No build-slot transfer occurred. Examples remain isolated.
+
+Exact new declarations in `Circular/NeutralTermination.lean`:
+- `FullNeutralBounce.preserves_acyclic`;
+- `FullNeutralBounce.strictRank_lt`;
+- `not_admissible_of_infinite_full_neutral_bounce`;
+- `strict_cycle_of_infinite_full_neutral_bounce`;
+- `coloringLLT_eq_zero_of_infinite_full_neutral_bounce`.
+
+The last two locate a cycle in the initial strict graph and make its independent
+coloring LLT zero for every finite alphabet. `FullNeutralBounce` records the full
+DN contact paths, free endpoints, next-residue relation, and exact strict-edge
+replacement. It does not assume separation, conjugacy, rank decrease, or LLT
+identities. These structural conclusions are derived in Lean. The rank is
+`Diagram.strictRank`, the sum of strict-ancestor depth at each edge head times
+its natural circular length. The main path is two vertices longer than the
+closed parallel component, proving disjointness. Exchanging the paths conjugates
+the strict graphs; only the two endpoint lengths change, by +1 and -1, so rank
+strictly decreases under acyclicity. An infinite natural descent is impossible.
+
+Proof and source interface: `docs/proofs/NEUTRAL_BOUNCE_TERMINATION.md`.
+Remaining interface: derive these contact data from a formal circular word-bounce
+decoder. Normal edges are unconstrained by the contact structure; half-square
+area preservation belongs to the actual DN word rewrite. The circular coloring
+and HRV bounce identities and existence of a terminal/area-decreasing reduction
+remain open. The neutral lemma does not establish the full circular expansion.
+Next implement the word/contact correspondence, reusing ordinary bounce geometry,
+then prove the circular semantic identities with the full periodic exterior.
+
+Focused and default builds pass (1726 jobs). All 669 axiom checks pass with
+only propext, Classical.choice, and Quot.sound. Source and 100-column guards
+pass. Both initialization commits and reference files are unchanged. Logs: `neutral-termination-checkpoint-build.log` and
+`neutral-termination-checkpoint-axioms.log` under the external build directory.
+This checkpoint follows pushed `d06e883`; record its commit below after checks.
+No TeX build, combinatorial enumeration, or new remote Aristotle job was run.
+The previous Aristotle continuation returned no proof; the bounded local proof
+and independent Astra review resolve this lemma without resubmitting that job.
 
 Verified circular foundations:
 
@@ -26,8 +69,8 @@ Verified circular foundations:
 The general semantic identity is independent of HRV and recurrence. It does
 not identify an individual selected-order enumerator with an HRV monomial.
 Actual lifted HRV and its reachability characterization are now proved.
-Next supply the circular local reductions, same-state no-wrap invariant, and
-termination proof. `docs/CIRCULAR_REDUCTION_OBLIGATIONS.md` is a research note,
+Next supply the remaining circular local reductions and word/contact bridge;
+the contact-level neutral termination proof is now complete. `docs/CIRCULAR_REDUCTION_OBLIGATIONS.md` is a research note,
 not a proved certificate. The weak/h versus strict/e passage is omega.
 
 Verified foundation checkpoint `276bb93` and HRV checkpoint `1ea6877` are
@@ -252,7 +295,8 @@ transport theorem is needed for the aggregate circular induction.
 square): A_geom = sum a_i - |S|/2. Use doubled geometric area in Lean when
 needed. The author recalls that indefinitely continuing the forward neutral
 bounce forces a strict directed cycle, and that Lilan may have a handwritten
-proof. This is a proposed direct termination lemma, not yet proved locally.
+proof. The contact-level version is now proved locally; see the current
+checkpoint above for the precise interface and remaining word adapter.
 A cycle entirely in one diagram's strict graph makes its entire LLT vanish;
 a cycle using additional selected normal edges only kills that selected term.
 
@@ -262,9 +306,12 @@ relation (3), asks for the precise forward iteration and contradiction proof,
 requires the cycle's strict edges to coexist in one reached diagram, explains
 vanishing propagation along the identities, and notes Lilan's possible paper
 proof. Existing old-main no-wrap TODO concerns the related selected-state gap.
-No other Overleaf content was changed, and no TeX build was run. The Overleaf
-directory has no Git repository. Current main.tex SHA-256 after the edit:
-`6e98c450e8742a3e20546a0de598c50bc96d2127efaa03b6dbd0ca8d717d28bf`.
+After proving the contact lemma, primary updated the same TODO to request
+manuscript incorporation and word/contact correspondence, with a Related Lean
+comment linking the theorem and proof note. No other Overleaf content changed,
+and no TeX build was run. The Overleaf directory has no Git repository.
+Current main.tex SHA-256 after that update:
+`f1c7be069cbd2c569576775b187a5a0f3b3782350f6d3ec515d5080098487a5f`.
 
 ## Continuation result and next action
 
@@ -280,7 +327,7 @@ repository and must be reused, not rebuilt. Reported numerical exploration
 is not accepted as proof and was not integrated.
 
 Primary owns all source/requests; edit lanes are released and no local build
-is active. Next: formulate the marked forward neutral-bounce transition and
-prove the author's strict-cycle-or-termination lemma; port circular coloring
-and HRV bounce identities using the existing ordinary implementation. Do not
+is active. The explicit contact lemma is now proved. Next: derive its contact
+data from the circular word procedure and port circular coloring/HRV bounce
+identities using the existing ordinary implementation. Do not
 resubmit the same broad target or the already proved zero-normal family.
