@@ -2,37 +2,48 @@
 
 ## Active continuation: full circular expansion
 
-Current DN checkpoint (2026-09-26): primary owns all returned source,
-integration, documentation, and the sole serialized build slot. All Luna/Terra
-edit lanes are released; no build-slot transfer occurred. New exact declarations:
-- `Diagram.coloringLLT_dnSuccessor` and `xQShift_coloringLLT_dnSuccessor`:
-  direct-contact DN for all sizes/alphabets, with all exterior geometry proved.
-- `dnSuccessor_pairGraph_normalEdges`: exact composed normal-edge change.
-- `deleteCorner_doubledArea` and `strictify_doubledArea`: R1 branches decrease
-  doubled half-square area by two and one respectively.
-- `CornerPairs` / `CornerBoundary`: deleting the first strict corner exposes
-  the previously proved NN exterior geometry without changing normal pairs.
-Default build passes (1777 jobs); all 914 axiom checks pass with only
-propext, Classical.choice, and Quot.sound. Source/100-column guards,
-initialization ancestry, and immutable-reference checks pass. Logs use prefix
-`circular-dn-coloring-checkpoint-` in the external build directory.
+Current alias-foundation checkpoint (2026-09-26): primary owns all source,
+integration, documentation, remote requests, and the sole global build slot.
+All Luna/Terra edit lanes are released; no build-slot transfer occurred.
+
+New locally checked declarations:
+- `Diagram.exists_aliasTarget_of_reverseBounce`: the actual overlapping ND
+  search yields a valid diagram with the exact two-row update, unchanged
+  strict count, and doubled half-square area smaller by six.
+- `aliasTarget`, `aliasTarget_pairGraph_strictEdges`,
+  `aliasTarget_doubledArea`: explicit constructor, strict relation, and measure.
+- `PairGraph.coloringLLT_eraseNormal_forced` / `_descent` and
+  `Diagram.shiftedOrientationExpansion_forced_edge` / `_descent_edge`:
+  forced strict reachability removes a normal edge with the correct factor.
+- `adjacentSwap_involutive`, `_translate`, `_threshold_iff`, `_strictMonoOn`:
+  simultaneous disjoint periodic adjacent swaps for the overlap conjugacy.
+These are foundations, not the full overlap polynomial identity. Exact proof
+route: `docs/proofs/CIRCULAR_ND_ALIAS_REDUCTION.md`.
+
+Default build passes (1786 jobs); 957 axiom checks pass with only propext,
+Classical.choice, and Quot.sound. Source/100-column guards, initialization
+ancestry, immutable-reference checks, and diff whitespace checks pass.
+External logs: `circular-alias-foundation-build.log` and `-axioms.log`.
+Previous pushed checkpoint: `82c1f81` (direct DN coloring and R1 area decreases).
 
 Aristotle direct-DN project `a768ca01-7392-49a9-b695-339de82ec027`, task
-`847a2439-f8d6-4124-8cb3-222377ca36f9`, remains active. Request/observer are under
-external `circular-dn-orientation/`. A stream interruption was reconnected to
-the same job (`observe-resumed.log`); no duplicate submission. It uses two HRV
-diamond identities and top/bottom matching, with no ordinary cut or source
-acyclicity assumption added. The HRV DN theorem is not locally proved yet.
+`847a2439-f8d6-4124-8cb3-222377ca36f9`, reports a completed server proof and is
+finishing its checks. Local integration remains pending. Request/observer:
+external `circular-dn-orientation/`; same-job stream reconnection is recorded
+in `observe-resumed.log`. No source acyclicity or ordinary-cut assumption.
+Prepared next request: external `circular-nd-alias/`, 62 module snapshots.
+Concurrent-project limit rejected its first submission; no project/task was
+created. Submit after DN completes; do not cancel DN or switch accounts.
 
-Astra's review found a real periodic ND alias case, so generalized ND cannot
-blindly reuse disjoint ordinary row edits. Details and the required alternative
-reduction are in `docs/proofs/CIRCULAR_ND_OVERLAP.md`. This affects the remaining
-full recurrence proof, not the checked direct NN/DN or full DN termination.
-Full DD propagation, alias-aware ND, and final circular induction remain open.
+Remaining: locally integrate direct-DN HRV; full DD propagation, alias-aware ND
+identities, and final circular induction. Keep the active full goal open.
+The alias natural-pair change removes old pairs `(f.tail,i)`, `(f.tail,f.head)`,
+`(next f.tail,f.head)`; target normal pairs remove `(f.tail,i)`,
+`(next f.tail,i)`, `(next f.tail,f.head)`. Do not conflate those identities.
 
-Source-path drift: Overleaf `old-main.tex` is currently absent; `main.tex` now
-contains the former long draft and `new-main.tex` is present. No Overleaf files
-were edited in this continuation. Earlier hashes/line references are historical.
+Source-path drift: Overleaf `old-main.tex` is absent; `main.tex` now contains
+the former long draft and `new-main.tex` is present. No Overleaf edits in this
+continuation; earlier hashes and line references are historical.
 
 Primary owns strategy, integration, all returned source, remote requests, and
 the sole globally serialized build slot. No build-slot transfer. User authorized

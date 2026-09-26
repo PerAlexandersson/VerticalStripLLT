@@ -104,6 +104,11 @@ area and decreasing the strict-chain rank. The direct DN coloring identity and t
 proved. The independent DN HRV identity, generalized bounce identities (including
 periodic ND overlaps), and the final circular induction remain open; see
 [the search and recurrence interface](docs/proofs/CIRCULAR_BOUNCE_SEARCH.md).
+The overlapping ND branch now has a valid successor with proved doubled-area
+decrease six, realized from the actual reverse bounce. Forced-edge factors for
+both coloring and actual HRV semantics are proved separately; the overlap
+polynomial identities remain open. See
+[the overlap reduction](docs/proofs/CIRCULAR_ND_ALIAS_REDUCTION.md).
 Concrete examples live under
 `VerticalStripLLT/Examples/` and are excluded from the main library imports.
 Cumulants remain outside the scope.
