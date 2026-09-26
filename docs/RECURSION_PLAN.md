@@ -121,3 +121,41 @@ first-east-height decrease for the swap, and the generic value identity.
 factors of strictly smaller size when the first-east prefix has gap one and
 the source has at least two east steps. These are conditional branches;
 exhaustive branch selection and the diagonal-predecessor branch remain open.
+
+## Word-valued proof interface for generalized bounce
+
+Use a small proof adapter `SchroderPath.evalWord F n w`: evaluate F on the
+valid path with word w when its Boolean validity check is true, and use zero
+otherwise. Every recurrence lemma for this adapter retains an explicit
+validity hypothesis. The zero convention is not a new LLT definition or a
+claim about invalid words. It lets the DD induction compare ordinary lists
+without repeatedly transporting dependent path proofs. The final theorem
+must return to F on valid paths via `evalWord_of_valid`.
+
+The generalized theorem will quantify over every continuation W and size n,
+a seed Y, an indexed `BounceDecomposition Y U V s t`, and validity of Y e W.
+Induct strongly on length Y; the raised child A n d is not structurally a
+subproof, so ordinary induction on the certificate alone is insufficient.
+At a DD parent Y=A dd V₁ d, the two children A d and A n d have strictly
+smaller length. Seed and decomposition closure for the raised child must be
+proved, not supplied as extra assumptions.
+
+Write A=U s t V₀. Unicellular resolution of the second DD step gives
+A d n e V₁ d e W minus A d e n V₁ d e W. The first term uses the local DN
+leading-east clause, followed by the raised-child induction hypothesis.
+The second uses the ordinary-child induction hypothesis, then local DN.
+For each terminal replacement B of A, these give B n e d V₁ e d W and
+B e n d V₁ e d W. Their difference recombines to
+(q−1) F_(B dd V₁ ed W). The NN, DN, ND terminal cases have coefficients
+q; 1; and (q−1),q respectively, so the same linear calculation covers all
+three. Cancellation is explicit. All local return/gap certificates and all
+intermediate valid words must be derived from the existing geometry.
+
+The word interface and linear DD step are now checked. In particular,
+`SatisfiesReductionRecursion.generalizedFirstBounce_word` proves arbitrary
+NN traces by strong induction on prefix length. Its exported
+`generalizedFirstBounce` returns a genuine valid path, the value identity,
+unchanged east count, and strict first-east-height decrease. DN/ND induction
+and exhaustive uniqueness remain open. `GeneralizedBouncePath` already
+provides valid successors for all three terminal pairs independently of the
+value induction. Terra audited the two-child induction and local DN geometry.

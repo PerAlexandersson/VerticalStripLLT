@@ -39,3 +39,5 @@ import VerticalStripLLT.OrientationConcat
 import VerticalStripLLT.BounceCoordinates
 import VerticalStripLLT.BounceDecompositionProperties
 import VerticalStripLLT.OrientationSpecializations
+import VerticalStripLLT.GeneralizedFirstBounce
+import VerticalStripLLT.WordThirdBounce

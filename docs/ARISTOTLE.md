@@ -300,10 +300,11 @@ The three unicellular modules pass the local focused build. The supplied
 4.28 normalization repair was not ported; the original checked4.34 helper
 remains unchanged. Ordinary and shifted specializations are also checked.
 
-## Orientation first bounce (in progress)
+## Orientation first bounce (completed; local port pending)
 
 - Project ID: `5546ba1c-a34c-4605-9485-a4e42436e5bd`.
-- Task ID: `5964d41a-b920-4466-9490-fcc39d4de751`, confirmed `IN_PROGRESS` (3%).
+- Task ID: `5964d41a-b920-4466-9490-fcc39d4de751`, confirmed `COMPLETE`
+  (2026-09-25 21:13 UTC).
 - Request directory: `/lake-cache/ai-projects/requests/VerticalStripLLT/orientation-first-bounce`.
 - Twenty-five checked modules, 2109 lines, isolated Lean/Mathlib4.28 snapshot.
 - Target `orientationExpansionAt_firstBounce_general`: unrestricted V,
@@ -317,3 +318,11 @@ remains unchanged. Ordinary and shifted specializations are also checked.
 The integrated unicellular/geometry checkpoint passed the default local build
 (1454 jobs), all 235 public axiom checks, and global source/reference guards.
 Only standard Lean axioms occur; all local candidate ownership is released.
+
+The NN candidate was downloaded and inspected on 2026-09-26. Its supplied
+input prefix is byte-for-byte unchanged (82,141 characters). Seven new helper
+groups separate general reachability maxima, orientation operations, upward
+relations, distinguished-vertex formulas, HRV transport, matching, and sum
+assembly. About 1170 lines await a modular local 4.34 port and axiom audit.
+The independent generalized NN reduction meanwhile passes the local default
+build (1463 jobs) and all 259 public axiom checks.

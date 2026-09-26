@@ -56,6 +56,11 @@ A general-purpose symmetric-functions library is outside the scope.
   preserving the strict gap and exact return indices. `BounceTrace.decompose`
   retains the terminal pair in an indexed certificate; its `raiseFinal` lemma
   preserves the decomposition when a north precedes the final diagonal.
+- `SatisfiesReductionRecursion.generalizedFirstBounce` proves the generalized
+  NN bounce by strong induction on prefix length, with a valid successor and
+  strict first-east-height decrease. Word evaluation, local recurrence
+  adapters, successor validity, DD coordinates, and the linear DD step are
+  separate modules. Generalized DN/ND and exhaustive uniqueness remain open.
 - The independent orientation expression is now defined using finite normal
   edge choices and highest-reachable-vertex fibers. HRV maximality and
   idempotence, fiber nonemptiness, and empty-path normalization are proved.
@@ -81,7 +86,7 @@ The general column initial condition, multiplicativity, and general unicellular
 relation and both single-bounce recurrence identities are proved.
 `coloringLLT_satisfiesRecursion` bundles these facts with empty normalization
 in a named recurrence predicate. The third single-bounce coloring relation is
-also proved. Generalized bounce,
+also proved. The generalized NN branch is proved; generalized DN/ND,
 recurrence uniqueness, a terminating recursive invariant, the orientation bounce identities,
 and the full semantic bridge remain to be proved.
 

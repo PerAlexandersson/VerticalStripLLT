@@ -29,8 +29,13 @@ Word geometry is modular and checked: `BounceSeed.singleBounce_coordinates`,
 `BounceTrace.decompose`, `BounceDecomposition.word_eq`, `parts`, and
 `raiseFinal`. DD flattening retains TWO diagonals. Raising the final diagonal
 by an inserted north preserves the terminal pair and trace conditions.
-No generalized-bounce value theorem, uniqueness, full orientation recurrence
-bundle, or arbitrary-path semantic bridge is claimed complete.
+`SatisfiesReductionRecursion.generalizedFirstBounce` now proves the NN
+relation for arbitrarily long bounce traces, returns a valid successor, and
+certifies unchanged east count and strictly smaller first-east height.
+Its strong induction uses both ordinary and raised child prefixes. The shared
+`dd_step` proves the linear DD diagram for two terminal replacements.
+Generalized DN/ND, uniqueness, the full orientation recurrence bundle, and the
+arbitrary-path semantic bridge remain open.
 
 ## Verified checkpoints
 
@@ -41,11 +46,11 @@ bundle, or arbitrary-path semantic bridge is claimed complete.
 - `9a04105`: additional DN clause decision before implementation.
 - `de6026f` (pushed): orientation unicellular and indexed bounce geometry.
 
-Full/default build: 1454 jobs. All 235 public axiom checks pass, using only
+Full/default build: 1463 jobs. All 259 public axiom checks pass, using only
 `propext`, `Classical.choice`, and `Quot.sound`. Source and 100-column guards,
 reference/initial-commit preservation, and external-cache checks pass.
 Logs under `/lake-cache/ai-projects/build/VerticalStripLLT/`:
-`unicellular-geometry-full-build.log` and `unicellular-geometry-axioms.log`.
+`generalized-nn-full-build.log` and `generalized-nn-axioms.log`.
 
 ## Live work and next action
 
@@ -53,37 +58,34 @@ Issues #1–6 are closed. Issue #7 tracks the orientation bounce identities and
 recurrence certificate:
 https://github.com/PerAlexandersson/VerticalStripLLT/issues/7.
 
-Active Aristotle project: `5546ba1c-a34c-4605-9485-a4e42436e5bd`.
-Task: `5964d41a-b920-4466-9490-fcc39d4de751`, confirmed `IN_PROGRESS` (3%).
-Target: `orientationExpansionAt_firstBounce_general`, unrestricted middle V
-and parameter z, multiplier `C(z+1)`. Twenty-five checked modules plus the
-relevant manuscript NN proof/table are supplied. The changing strict edge
-requires real HRV analysis; no HRV preservation or semantic equality is assumed.
-Observe this same job; do not restart because an observer expires.
-Request receipts and directories are recorded in `docs/ARISTOTLE.md`.
+Aristotle NN project `5546ba1c-a34c-4605-9485-a4e42436e5bd`, task
+`5964d41a-b920-4466-9490-fcc39d4de751`, completed 2026-09-25 21:13 UTC.
+Its candidate proves `orientationExpansionAt_firstBounce_general` with
+unrestricted middle V and multiplier `C(z+1)`. The supplied input prefix is
+byte-for-byte unchanged. It has seven helper groups plus the final theorem,
+about 1170 new lines. Candidate source is at
+`/lake-cache/ai-projects/requests/VerticalStripLLT/orientation-first-bounce/completed-candidate.lean`.
+It has NOT yet passed local verification; no active Aristotle job remains.
+Provenance is in `docs/ARISTOTLE.md`. The earlier unicellular job is integrated.
 
-The unicellular job `17bb2b30-57ab-40bf-b054-9640ec896ffc`, task
-`188a6fed-48fe-4246-99e8-26055f8683ba`, completed and is integrated. Its only
-supplied-proof edit was a 4.28 normalization repair, not imported locally;
-all supplied statements and definitions are unchanged.
-
-Next: inspect/port the NN orientation result, then handle DN and bundle the
-orientation recurrence. In parallel, use indexed bounce decomposition to
-construct valid generalized transformations and their value identities,
-then prove uniqueness with measure `(size, eastCount, firstEastHeight)`.
-Transport the orientation certificate through `evalElementary`, with
-cancellation proved in the target ring, to reach the unconditional expansion.
-Shifted positivity and degree/stability remain further requirements.
+Next: port and check the NN orientation modules, then submit the isolated DN
+orientation target using the resulting checked HRV/permutation API. In parallel,
+adapt the checked generalized NN strong induction to DN and ND using `dd_step`.
+The valid-word adapter and third-bounce wrapper are already checked; do not
+unfold the zero-on-invalid-word convention inside recurrence arguments.
+Finish the exhaustive first-east reduction and lexicographic uniqueness,
+then transport the independently proved orientation certificate through
+`evalElementary`. Shifted positivity and degree/stability remain requirements.
 
 ## Ownership and build discipline
 
-Primary `/root` owns strategy, integration, all source files, shared docs,
-and the sole local build slot. All Luna/Terra assignments are returned and
-released. `path_invariants` ported the orientation modules/corollaries and
-certificate edits; `column_paths` drafted the word geometry; `bounce_audit`
-provided read-only source reviews. Primary repaired dependent normalization
-and completed the raised-final closure proof. No local Lean build or nested
-Claude process is active. The remote Aristotle task above remains active.
+Primary `/root` owns strategy, integration, shared docs, all source, and the
+sole local build slot. All subagent ownership is returned and released.
+Luna supplied word adapters, prefix geometry, and measure candidates; Terra
+supplied the linear DD diagram. Primary completed the path normalization,
+terminal validity, coordinate transport, and NN strong-induction integration.
+No local Lean build or nested Claude process is active. Record new disjoint
+ownership before assigning the orientation port or generalized DN work.
 
 Before each local invocation inspect Lean/Lake processes globally. Use only
 `lake-workspace`, with reduced priority and external caches. Record disjoint

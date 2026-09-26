@@ -331,3 +331,13 @@ clauses, with coloring witnesses and map transport for both.
 certify the single-bounce coordinates, terminal-pair extraction, east-free
 parts, and closure under raising the final diagonal by a north step.
 These word facts do not assert generalized transformed-path validity or values.
+
+The NN case of manuscript `bounce_reduction` (1853–1993) is now proved for
+the explicitly stronger sufficient certificate as
+`SatisfiesReductionRecursion.generalizedFirstBounce`. It includes a valid
+successor and strict measure decrease; its value theorem has arbitrary
+continuation and path size. `SatisfiesReductionRecursion.dd_step` in `GeneralizedBounceDD.lean` proves
+the common linear DD diagram
+with explicit successor validity and two induction equations. The word
+adapter `SchroderPath.evalWord` never asserts a recurrence for invalid words.
+Generalized DN/ND and the manuscript's exact restricted uniqueness remain open.
