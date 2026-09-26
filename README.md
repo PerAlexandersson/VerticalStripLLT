@@ -91,6 +91,8 @@ ND assembly and final circular induction are still in progress.
 Circular alphabet compatibility is proved directly from the coloring sum.
 An auxiliary diagram with two distinct nonstrict corners has a checked
 two-step R1 exit below the original half-square area.
+The outer induction is checked with two explicit remaining ND inputs;
+the unconditional circular theorem still requires their proofs.
 See [verified circular results](docs/CIRCULAR_STATUS.md) and
 [remaining goals](docs/CIRCULAR_GOALS.md).
 

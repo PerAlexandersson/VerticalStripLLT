@@ -57,11 +57,17 @@ identities and the earlier algebraic propagation route.
 
 ## Final induction and corollaries
 
-Use lexicographic induction on `(doubledArea, strictRank)`. Strict cycles, no-normal-edge diagrams and diagrams whose normal endpoints
-are all strictly comparable already have their semantic base theorems. R1 and NN
-strictly decrease area; the complete DN target preserves area and decreases
-strict rank. Supply the remaining ND elimination and use the
-proved complete reverse search to exhaust all cases.
+The outer induction on `(doubledArea, strictRank)` is checked in
+`Diagram.expansion_of_nd_induction_step`. Corner reduction handles nonsaturated
+sources; strict cycles and no-normal-edge diagrams supply bases; complete
+reverse search covers NN, DN and ND. R1 and NN decrease area, and full DN
+preserves area while decreasing strict rank.
+
+`Diagram.expansion_of_remaining_nd_cases` isolates exactly two explicit inputs:
+`SeparatedNDInductionStep` and `InteriorNDInductionStep`. Direct ND and root alias
+are discharged internally. Prove these two inputs to instantiate the checked
+induction. These conditional declarations do not assert the full theorem and
+do not replace either independently defined polynomial by a recursive object.
 
 After the semantic bridge, transfer the independently proved HRV coefficient
 positivity and degree to the coloring polynomial. The last-variable

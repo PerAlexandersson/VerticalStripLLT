@@ -1617,3 +1617,9 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.Diagram.specializeLast_coloringLLT
 #print axioms VerticalStripLLT.Circular.Diagram.expansion_of_two_nonstrict_corners
 #print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.expansion_of_resolved_two_corners
+#print axioms VerticalStripLLT.Circular.NDInductionStep
+#print axioms VerticalStripLLT.Circular.Diagram.expansion_of_nd_induction_step
+#print axioms VerticalStripLLT.Circular.SeparatedNDInductionStep
+#print axioms VerticalStripLLT.Circular.InteriorNDInductionStep
+#print axioms VerticalStripLLT.Circular.ndInductionStep_of_remaining_cases
+#print axioms VerticalStripLLT.Circular.Diagram.expansion_of_remaining_nd_cases

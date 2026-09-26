@@ -11,7 +11,15 @@ Latest pushed checkpoint: `eb11c69` (alphabet stability/two-corner exit), follow
 `f33cdc6` (full DN handoff), `0fc4d07`, `3c7f3d4`
 (comparable-edge base) and `1d5005d` (direct ND/full NN).
 
-Current verified increment: direct alphabet stability and the two-corner
+Current verified increment: complete conditional outer induction, with
+`Diagram.expansion_of_nd_induction_step` and
+`Diagram.expansion_of_remaining_nd_cases`. The latter has precisely two open
+inputs, `SeparatedNDInductionStep` and `InteriorNDInductionStep`. All other
+branches are discharged internally using the actual models. Independent Astra
+review confirmed exhaustive cases, valid measure decreases and exact agreement
+with the two remote targets. This does not prove either remaining input.
+
+Previous verified increment: direct alphabet stability and the two-corner
 auxiliary exit. Exact new interfaces are `EdgeData.specializeLast_coloringLLT`,
 `Diagram.specializeLast_coloringLLT`,
 `Diagram.expansion_of_two_nonstrict_corners`, and
@@ -33,11 +41,11 @@ Already complete: full NN (`expansion_of_nn`), direct ND
 vanishing, and the normal-comparability semantic base. Exact source links and
 all previous completed interfaces are in `docs/CIRCULAR_STATUS.md`.
 
-Checks: full default build 1855 jobs; axiom inventory 1583 declarations, only
+Checks: full default build 1857 jobs; axiom inventory 1589 declarations, only
 propext, Classical.choice, Quot.sound. Source guards, line lengths and relative
 documentation links pass. Reference files remain unchanged. External logs:
-`circular-alphabet-corner-checkpoint-build.log`,
-`circular-alphabet-corner-checkpoint-axioms.log`. Earlier DN/NN/ND and comparable-base logs
+`circular-induction-checkpoint-build.log`,
+`circular-induction-checkpoint-axioms.log`. Earlier alphabet/DN/NN/ND and comparable-base logs
 are retained. Initialization commits `830cc6b` and `130f7e8` remain intact.
 
 ## Ownership and active work
@@ -51,6 +59,10 @@ Primary repaired and verified these, added the generic finite-sum argument and
 Diagram wrapper in `AlphabetStability`, and added the DD two-corner wrapper.
 All delegated edit lanes are released. Primary owns all source and checks.
 All delegates remain build-free.
+Luna's outer-induction lane returned without edits. Primary implemented and
+verified `ExpansionInduction` and `NDInductionCases`; Astra independently
+reviewed them. All delegated edit/review lanes are released. No recurrence-defined
+polynomial is introduced.
 Astra's read-only draft audit found no additional primitive circular base or
 root-selection condition; the intended local elimination still needs explicit
 interior exit accounting. Active Aristotle separated-ND project
@@ -86,8 +98,8 @@ Completed direct-ND and full-DN remote provenance is in `docs/ARISTOTLE.md`.
    intermediates using strict-path splicing or paired-chain conjugacy.
 2. Finish interior-overlap ND elimination/restart assembly. Direct ND, root-alias
    ND, and the uniform interior-overlap restart are already checked.
-3. Assemble outer half-square-area/strict-rank induction, then transfer the
-   independent HRV positivity and degree statements to coloring.
+3. Instantiate the checked outer induction with these two proved inputs, then
+   transfer the independent HRV positivity and degree statements to coloring.
 
 `LocalEliminationStep.measure_lt` proves termination of mixed concrete DD/neutral
 segments by `(strict.card, strictRank)`. It does not cover R1 strictification

@@ -161,3 +161,5 @@ import VerticalStripLLT.OrientationSecondBounceSpecializations
 import VerticalStripLLT.ExpansionStability
 import VerticalStripLLT.Circular.AlphabetStability
 import VerticalStripLLT.Circular.DoubleCornerReduction
+import VerticalStripLLT.Circular.ExpansionInduction
+import VerticalStripLLT.Circular.NDInductionCases
