@@ -1,19 +1,6 @@
-# Circular implementation goals
+# Remaining circular proof obligations
 
-The architecture is recorded in `CIRCULAR_FORMALIZATION_PLAN.md`. This ledger
-fixes the first proof targets before integration. Names are proposed until the
-corresponding module is checked. All polynomial equalities quantify over every
-finite alphabet, including zero. Circular size is positive.
-
-## General targets now take priority
-
-The user requested full statements and isolation of examples. The original
-first checkpoint below is complete; example modules are under `Examples/`.
-The general selected-orientation identity and acyclic walk bounds are locally
-proved. Actual lifted HRV, its greatest-reachability characterization,
-translation/lift independence, and the degree and coefficient positivity of
-the independent HRV expansion are also locally proved. The remaining main
-target is the full circular semantic bridge:
+The full theorem is still open:
 
 ```lean
 theorem coloringLLT_shifted_eq_eval_shiftedOrientationExpansion
@@ -22,146 +9,53 @@ theorem coloringLLT_shifted_eq_eval_shiftedOrientationExpansion
       evalElementary m (shiftedOrientationExpansion D)
 ```
 
-This exact statement, with no recurrence or expansion assumptions, is the
-Aristotle request `5835802e-8139-48b7-a07b-06add00f1f14` (returned without proof). It is not
-yet an exported Lean theorem. See `CIRCULAR_REDUCTION_OBLIGATIONS.md` for the
-parallel mathematical decomposition.
+This is a target, not an exported declaration. Both sides are independently
+defined. The eventual theorem must have no recurrence or semantic assumptions,
+and must include every finite alphabet, including the empty alphabet.
+[Verified results](CIRCULAR_STATUS.md) and [current ownership](../HANDOFF.md)
+are recorded separately.
 
-## General induction-base progress
+## DD propagation
 
-`ZeroArea` proves that no non-strict arcs forces all natural arcs to have
-unit length and makes both endpoint maps injective. `StrictCycleExpansion`
-proves the full semantic equality whenever every vertex has an incoming
-strict arc: both independent expressions vanish. `HRVRoots` proves that
-actual HRV values are selected sinks, sinks are fixed, and HRV is idempotent.
+Direct NN and DN are proved for both models. Extend them through any number
+of DD contacts by induction on `ReverseBounceN`'s contact count, quantifying
+over the intermediate diagrams. Some intermediates have larger area.
 
-The full zero-area family is now proved by
-`coloringLLT_shifted_eq_expansion_of_no_normal`, for every D with
-`D.edgeData.normalEdges = ∅` and every alphabet. The proof uses actual HRV
-fibers, whose reachability orders are finite chains. `RootedChainCertificate`
-constructs their increasing enumerations from acyclicity, root preservation,
-and fiber comparability; `ChainColorings` proves the arbitrary disjoint-chain
-product formula. The final theorem assumes no chain certificate or semantic
-identity. The empty-orientation branch vanishes on both sides.
+The first DD elimination and the deletion child's counted transport,
+eligibility, terminal flags, and acyclicity have been checked locally.
+The remaining work is the raised child's corresponding transport, the final
+corner-triple identifications, and assembly of the generalized recurrences.
+See [the exact DD argument](proofs/CIRCULAR_DD_PROPAGATION.md).
 
-Separately, `CutOrder` proves cyclic area growth and the bound at a zero head;
-`ZeroAreaIncoming` provides such a head when incoming strict coverage fails.
-These are available for later cut transport, but the completed zero-area
-proof does not need a conversion to ordinary paths. This does not justify a
-cut for general circular diagrams.
+## ND branches
 
-## Completed first checkpoint
+Separate the overlapping and nonoverlapping periodic edge cases.
 
-1. `Diagram` encodes cyclic area bounds and corner-restricted strict edges.
-   Edge instances retain their natural direction, including opposite arcs.
-2. `EdgeData.coloringLLT` is a direct coloring sum on a finite edge-instance
-   graph. `Diagram.edgeData` specializes it to circular diagrams.
-3. `EdgeData.strictOrderEnumerator_eq_zero_of_not_admissible`: a cycle in the
-   selected strict/ascending relation makes the strict coloring sum zero.
-4. For the two-vertex diagram with both natural arcs, prove the three cases:
-   no strict arcs gives `e₁² + 2q e₂` after the q→q+1 substitution;
-   one strict arc gives `e₂`; two strict arcs give zero.
-   These must be equalities with the independent coloring definition, not just
-   declared elementary expressions or bounded-alphabet calculations.
+- Overlap: the named `aliasTarget` is valid, realizes the actual reverse search,
+  and decreases doubled half-square area by six. Prove the actual coloring
+  factor q and shifted HRV factor q+1 using the forced-edge sets and simultaneous
+  periodic swap. [The uniform proof route](proofs/CIRCULAR_ND_ALIAS_REDUCTION.md)
+  records the exact exception sets. Aristotle is working on this bounded target.
+- Nonoverlap: construct the R4/positive-R8 target diagrams with their exact
+  strict/normal edge changes, derive both model identities from the checked
+  local relations, and prove the area decreases. Disjointness must be proved
+  from the contact geometry. Acyclicity alone does not exclude the overlap.
 
-## Unconditional orientation checkpoint
+## Final induction and corollaries
 
-Let N be the non-strict edge instances and A range over subsets of N. Write
-K_strict(A) for the coloring sum imposing every edge in S union A strictly.
-The exact semantic target is
+Use lexicographic induction on `(doubledArea, strictRank)`. Strict cycles and
+no-normal-edge diagrams already have their semantic base theorems. R1 and NN
+strictly decrease area; the complete DN target preserves area and decreases
+strict rank. Supply the remaining generalized/ND recurrences and use the
+proved complete reverse search to exhaust all cases.
 
-    xQShift m (G.coloringLLT m)
-      = Σ A ∈ N.powerset.filter G.Admissible,
-          C (Polynomial.X ^ A.card) * G.strictOrderEnumerator A m.
+After the semantic bridge, transfer the independently proved HRV coefficient
+positivity and degree to the coloring polynomial, and add the circular
+alphabet-specialization interface. The neutral-termination lemma, selected
+subset expansion, HRV construction, and direct recurrences are completed
+results, not new work items.
 
-First prove the sum over all subsets, then eliminate cyclic subsets with the
-cycle-zero theorem. This theorem applies to arbitrary finite edge-instance
-graphs; circular area geometry is not needed. A selects the ascending
-non-strict edges, so its cardinality is the orientation ascent count.
-
-Aristotle request `40998e1f-04ed-473c-9d58-5656253cfa9d` isolates the finite
-algebra behind this identity. For a finite index type I, edge set t, predicates
-ok and asc, weight w into a commutative semiring, and z, prove
-
-    Σ i, [ok i] (z+1)^#{e∈t : asc i e} w i
-      = Σ A⊆t, z^#A Σ i, [ok i and ∀e∈A, asc i e] w i.
-
-Brackets mean an indicator implemented by an if-expression. The request has
-no graph hypotheses, no HRV statement, and no circular source text.
-
-## Subsequent circular HRV targets
-
-Define lifted reachability using positive natural edge displacements, prove
-the acyclic span bound (n−1)², and take the greatest reachable lift before
-projecting. Establish translation invariance and agreement with ordinary HRV
-when there is an ordinary cut. The final desired equality replaces each total
-strict-order sum by the HRV elementary expansion; it does not assert that an
-individual orientation's strict-order enumerator equals its HRV monomial.
-
-The aggregate circular proof still needs the geometric local reductions and
-their semantic identities. Neutral termination is now proved for explicit
-full-bounce contact data: `FullNeutralBounce.strictRank_lt` derives the decrease,
-and `strict_cycle_of_infinite_full_neutral_bounce` finds a strict cycle in the
-initial diagram of an infinite sequence. This uses whole-diagram strict graphs,
-without concatenating constraints across intermediate states. Extraction of
-these contact data from a circular word-bounce decoder remains open. See
-`proofs/NEUTRAL_BOUNCE_TERMINATION.md`. Keep these targets separate from the
-unconditional orientation checkpoint.
-No recurrence certificate is to be assumed in the final coloring theorem.
-
-## Component foundations
-
-`LiftCover`, `Flip`, and `ComponentSemantics` use the full lifted cover
-relations and complete global connectivity. The exchanged memberships are
-derived from covers, yielding ascent invariance throughout a component.
-`component_strict_eq_elementary_of_no_normal` proves the component identity
-for the entire zero-normal family. The corresponding theorem for arbitrary
-circular diagrams is still open. Exact source/definition correspondence is
-in `CIRCULAR_FLIPS.md`.
-
-## Delegation and proof boundaries
-
-Primary owns strategy, integration, and all serialized local builds. Luna and
-Terra return bounded build-free implementation or API audits; current exact
-ownership is in `HANDOFF.md`. Aristotle's narrowed continuation targets the remaining strict-corners case
-with the checked base proofs included. Component work uses complete global components and full
-lifted covers; weak/h and strict/e differ by the planned omega translation.
-No component claim is assumed by the circular aggregate theorem.
-
-## Verified corner reduction and exact remaining case
-
-`Diagram.xQShift_coloringLLT_corner` and
-`Diagram.shiftedOrientationExpansion_corner` give matching deletion/strictification
-recurrences for every non-strict corner. HRV transport preserves the full lifted
-relation. The induction measure is edge-count squared plus normal-edge-count.
-
-`expansion_of_strictCorners_positive` reduces the unrestricted identity to:
-
-    ∀ D : Diagram n,
-      (∀ e : Edge D.area, IsCorner e → e ∈ D.strict) →
-      D.edgeData.Admissible ∅ → D.edgeData.normalEdges.Nonempty →
-      ∀ m, xQShift m (D.coloringLLT m) =
-        evalElementary m (shiftedOrientationExpansion D).
-
-This displayed statement remains open. It is an explicit hypothesis of the
-reduction theorem. The zero-normal and strict-cycle branches are discharged
-by unconditional theorems. No example or finite-size test establishes this gap.
-
-## Verified circular reductions (2026-09-26 continuation)
-
-The single-contact NN branch is now a complete semantic induction step:
-`Diagram.expansion_of_firstBounce_NN` uses independently proved coloring and
-actual HRV orientation recurrences. `shortenStrict_doubledArea` proves exact
-primary-measure decrease. This is not the generalized NN/DD theorem.
-
-The full reverse contact search, valid full DN successor, contact witness,
-acyclicity preservation, doubled-area preservation, and strict-rank decrease
-are all proved. The current complete DN geometry endpoint is
-`Diagram.exists_area_preserving_dn`.
-
-The next semantic targets are the circular DN coloring and HRV identities for
-`dnSuccessor`; prove their direct-contact cases first as uniform recurrences,
-then transport the NN/DN identities through arbitrary DD contact strings.
-The ND/R4 and positive R8 branches and final lexicographic induction remain
-open. No version of the full circular equality is claimed from these
-intermediate results. See `proofs/CIRCULAR_BOUNCE_SEARCH.md` for exact interfaces.
+Complete flip-component expansions and omega translation remain downstream;
+see [the retained component interfaces](CIRCULAR_FLIPS.md). They are not
+prerequisites for the aggregate circular theorem. No new examples or general
+symmetric-functions library are planned.

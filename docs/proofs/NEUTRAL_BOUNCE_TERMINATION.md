@@ -128,7 +128,11 @@ conjugacy, and rank decrease are conclusions, not fields.
 - `coloringLLT_eq_zero_of_infinite_full_neutral_bounce`.
 
 The last theorem quantifies over every finite alphabet and uses the independent
-coloring sum. There are no recurrence or vanishing assumptions. The contact
-formulation is formalized; extracting these contacts from an automated circular
-word-bounce decoder remains to be implemented and proved. This is distinct from
-the circular coloring/HRV recurrence identities, which also remain open.
+coloring sum. There are no recurrence or vanishing assumptions. The complete
+reverse search and its contact extraction are now proved in `BounceSearch`,
+`ReverseBounceContacts`, and `DNRealization`. `GeometricArea` proves the actual
+DN successor preserves half-square area and decreases strict rank. No separate
+word decoder is required by this direct periodic-boundary implementation.
+
+Direct coloring and HRV NN/DN identities are also proved. Their generalized
+DD propagation and ND branches remain in [the active goals](../CIRCULAR_GOALS.md).

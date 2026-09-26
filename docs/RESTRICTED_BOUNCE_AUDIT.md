@@ -97,9 +97,10 @@ nonimplication from the full recurrence, and e≡1 is not the manuscript's
 independent elementary-generator specialization. The report's larger-size
 Python explorations are unverified and do not justify a global conclusion.
 
-We retain the archived evidence and continue the concrete orientation proof.
-A possible alternative route to the main expansion is to prove the stronger
-unrestricted single-bounce identities independently for both concrete models,
-then apply a uniqueness theorem with those proved hypotheses. That route would
-leave the manuscript's exact restricted-recursion uniqueness theorem open;
-it must not alter `SatisfiesRecursion` or add assumptions to the final expansion.
+The concrete ordinary expansion is now proved through the stronger sufficient
+certificate. Both models independently satisfy its unrestricted single-bounce
+instances, and `SatisfiesReductionRecursion.unique` supplies uniqueness.
+See [REDUCTION_CERTIFICATE.md](REDUCTION_CERTIFICATE.md) and
+[COMPLETION.md](COMPLETION.md). This does not resolve generic uniqueness or the
+third-bounce implication from the unchanged restricted `SatisfiesRecursion`.
+The bounded candidate above remains external, not a locally checked theorem.

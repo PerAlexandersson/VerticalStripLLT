@@ -1,3 +1,6 @@
+> Historical plan. Completed results are in [COMPLETION](../../COMPLETION.md).
+> The remaining restricted-recursion issue is in [the current audit](../../RESTRICTED_BOUNCE_AUDIT.md).
+
 # Recursion and termination prerequisites
 
 Claude Sonnet independently audited the source and current model, read-only.

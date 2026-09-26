@@ -105,22 +105,13 @@ is exactly two less. These are uniform theorems for every circular size and
 finite alphabet, without a cut or no-wrap hypothesis. They currently concern
 a single NN contact; DD propagation is a separate remaining step.
 
-## What remains for the full expansion
+## Current proof boundary
 
-The complete contact search is proved. It does not yet prove all successor
-updates or the required polynomial identities. The remaining work is to:
-
-1. instantiate the coloring and HRV recurrence adapters for every terminal
-   contact type, including the periodic exterior;
-2. propagate the local identities through the intervening DD contacts;
-3. use the now-proved actual DN `FullNeutralBounce` realization and its strict-rank
-   decrease;
-4. close induction with doubled geometric half-square area first, and strict
-   rank for the neutral branches, using the checked strict-cycle and no-normal
-   base families.
-
-The main circular coloring–HRV equality is still an explicit theorem target,
-not an assumption imported by this work.
+Direct NN and DN identities are proved independently for coloring and actual
+HRV semantics. The complete reverse search and full DN target measures are
+also proved. The outstanding generalized DD/ND identities and final induction
+are maintained in [the active goals](../CIRCULAR_GOALS.md), with the checked
+interfaces indexed in [circular status](../CIRCULAR_STATUS.md).
 
 ## DN successor geometry (now checked)
 

@@ -1,3 +1,6 @@
+> Historical plan. Completed results are in [COMPLETION](../../COMPLETION.md).
+> The remaining restricted-recursion issue is in [the current audit](../../RESTRICTED_BOUNCE_AUDIT.md).
+
 # Coefficient substitution, positivity, and finite degree
 
 These results use finite polynomial rings and the pinned Mathlib APIs.

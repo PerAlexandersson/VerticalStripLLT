@@ -1,3 +1,6 @@
+> Historical plan. Completed results are in [COMPLETION](../../COMPLETION.md).
+> The remaining restricted-recursion issue is in [the current audit](../../RESTRICTED_BOUNCE_AUDIT.md).
+
 # Finite orientation and highest-reachable-vertex model
 
 The reviewed finite-degree architecture applies without a symmetric-functions

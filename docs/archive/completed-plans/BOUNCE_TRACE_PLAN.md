@@ -1,3 +1,6 @@
+> Historical plan. Completed results are in [COMPLETION](../../COMPLETION.md).
+> The remaining restricted-recursion issue is in [the current audit](../../RESTRICTED_BOUNCE_AUDIT.md).
+
 # First-east bounce geometry
 
 This is a geometry plan, not a proof of the generic bounce value identities.

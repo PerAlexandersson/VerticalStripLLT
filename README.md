@@ -74,42 +74,19 @@ Its package-directory override emits an expected manifest warning; do not run
 `lake update` in response. The axiom inventory permits only standard Lean
 axioms. No proof placeholders, custom axioms, or unchecked native proofs are used.
 
-See [the formalization map](docs/FORMALIZATION.md),
-[Aristotle provenance](docs/ARISTOTLE.md), and [current handoff](HANDOFF.md).
+See [the documentation index](docs/README.md),
+[ordinary source map](docs/FORMALIZATION.md), and [current handoff](HANDOFF.md).
 The author-supplied manuscript under `references/` is immutable.
-The [circular LLT and flip-component plan](docs/CIRCULAR_FORMALIZATION_PLAN.md)
-maps the author's Overleaf outline to proposed declarations and small
-milestones. It prioritizes the circular HRV expansion, then complete flip
-components, reusing this finite-degree model. The circular foundation now proves the general selected-orientation coloring
-identity and acyclic lifted-walk bounds. Circular HRV is defined on the
-integer cover and proved to be the greatest reachable lift, independently of
-its representative. Its formal elementary expansion has degree n and
-nonnegative coefficients. Equality with the circular LLT coloring polynomial
-and the component identities remain in progress. The full zero non-strict area family is proved for every size and alphabet,
-using the actual HRV fibers and a general strict-chain coloring factorization. The manuscript's full lifted flips and complete global components are defined;
-ascent invariance and the zero-normal component identity are proved.
-Full forward neutral-bounce termination is now proved for explicit strict-contact
-data: infinite iteration forces a strict cycle in the initial diagram, so its
-entire coloring LLT vanishes for every alphabet. The proof derives a decreasing
-strict-chain rank; it does not assume rank decrease or polynomial identities.
-See [the proof and precise interface](docs/proofs/NEUTRAL_BOUNCE_TERMINATION.md).
-The circular reverse contact search now terminates by strict-ancestor depth,
-including restarts at earlier eligible markers, and extracts strict main/parallel
-contact chains. The single-contact NN recurrence is proved independently for both coloring
-and the actual circular HRV expansion, using full periodic boundary geometry.
-Its valid shortened target decreases doubled geometric area by two. Lifted-HRV
-conjugacy, potential comparison, and periodic exterior swap invariance are
-proved separately. The complete DN search now produces a valid successor preserving half-square
-area and decreasing the strict-chain rank. The direct DN coloring identity and the R1 half-square area decreases are also
-proved. The independent DN HRV identity is also proved, with cyclic selections
-and arbitrary winding retained. Generalized bounce identities (including
-periodic ND overlaps) and the final circular induction remain open; see
-[the search and recurrence interface](docs/proofs/CIRCULAR_BOUNCE_SEARCH.md).
-The overlapping ND branch now has a valid successor with proved doubled-area
-decrease six, realized from the actual reverse bounce. Forced-edge factors for
-both coloring and actual HRV semantics are proved separately; the overlap
-polynomial identities remain open. See
-[the overlap reduction](docs/proofs/CIRCULAR_ND_ALIAS_REDUCTION.md).
-Concrete examples live under
-`VerticalStripLLT/Examples/` and are excluded from the main library imports.
-Cumulants remain outside the scope.
+
+The circular development uses natural head/length edges and highest reachable
+vertices on the integer cover. The direct NN/DN identities are proved for both
+actual models, along with R1, strict-cycle vanishing, the no-normal-edge base,
+complete bounce search, and neutral termination. The overlapping ND branch has
+a valid area-decreasing target; its polynomial identities remain open.
+Generalized DD/ND recurrences and final circular induction are still in progress.
+See [verified circular results](docs/CIRCULAR_STATUS.md) and
+[remaining goals](docs/CIRCULAR_GOALS.md).
+
+Examples are isolated under `VerticalStripLLT/Examples/` and excluded from the
+main library imports. Complete flip-component expansions are downstream;
+cumulants remain outside the scope.

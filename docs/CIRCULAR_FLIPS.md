@@ -1,7 +1,7 @@
 # Circular flip interfaces
 
-Source: `LLT flip/old-main.tex`, lines 1939–1986, as hashed in the circular
-plan. These foundations are locally verified and overlap the aggregate circular
+Source: the initial `LLT flip/old-main.tex` snapshot, lines 1939–1986,
+as hashed in the archived circular plan. The current source is `main.tex`. These foundations are locally verified and overlap the aggregate circular
 proof search. The general component expansion remains unproved; the full
 zero-normal component family is proved.
 

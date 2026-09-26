@@ -1,3 +1,6 @@
+> Historical plan. Completed results are in [COMPLETION](../../COMPLETION.md).
+> The remaining restricted-recursion issue is in [the current audit](../../RESTRICTED_BOUNCE_AUDIT.md).
+
 # Single-bounce proof plan
 
 This records the audited proof decomposition. The first single-bounce identity

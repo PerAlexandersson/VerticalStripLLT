@@ -264,7 +264,7 @@ by INSTRUCT to the same running continuation. The message is retained as
   It must prove `G_P = C(q) * G_Q` for the constructed valid swapped path Q.
 - The request must prove graph symmetry and changed edges from these word
   hypotheses; a graph-conditional substitute does not complete the target.
-  `docs/BOUNCE_PLAN.md` records the independently audited exact interface and
+  `docs/archive/completed-plans/BOUNCE_PLAN.md` records the independently audited exact interface and
   the common-background and piecewise-coloring-bijection proof outlines.
 - Service uses Lean/Mathlib v4.28.0. Conditional rewrite names in the isolated
   snapshot were translated from `ite_eq_left/right` to `if_pos/neg` for that

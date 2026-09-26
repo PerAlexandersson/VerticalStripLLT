@@ -1,3 +1,5 @@
+> Historical planning record. Superseded by the [current documentation](../../README.md).
+
 # Circular reduction obligations
 
 This note records the exact remaining route from the general selected-order
