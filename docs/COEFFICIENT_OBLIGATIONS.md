@@ -1,53 +1,41 @@
-# Shift, positivity, and finite-degree obligations
+# Coefficient substitution, positivity, and finite degree
 
-These are remaining proof obligations after the ordinary semantic expansion.
-They do not require a general symmetric-functions library. The primary API
-audit uses the pinned Mathlib revision, not current online documentation.
+These results use finite polynomial rings and the pinned Mathlib APIs.
 
-## Coefficient substitution
+## Checked substitution and positivity
 
-The checked `OrientationShift.lean` defines the q-to-q+1 homomorphism on Q using
-`Polynomial.compRingHom (Polynomial.X + 1)`, then lift it to EExpansion with
-`MvPolynomial.map`. Theorems `qShift_elementary` and `qShift_hrvMonomial`
-prove that it fixes elementary monomials. `qShift_orientationExpansionAt`
-commutes with the ascent parameter, and `qShift_orientationExpansion` maps
-`orientationExpansion P` to the independently defined
-`shiftedOrientationExpansion P`.
+`OrientationShift` defines `qShift` by `Polynomial.compRingHom (X+1)` and
+lifts it to formal elementary expressions. It fixes each elementary generator
+and HRV monomial. `qShift_orientationExpansion` maps the ordinary orientation
+expression to the independently defined shifted expression.
+`ShiftEvaluation.evalElementary_qShiftMap` proves coefficient substitution
+commutes with finite-alphabet evaluation (declaration namespace VerticalStripLLT).
 
-Useful pinned APIs: `Polynomial.compRingHom` in
-`Mathlib/Algebra/Polynomial/Eval/Defs.lean`, and `MvPolynomial.map_C`,
-`map_X`, `coeff_map` in `Mathlib/Algebra/MvPolynomial/Eval.lean`.
-Ring-homomorphism sum/product/power laws handle the orientation sum.
+`OrientationNatural` defines the same orientation sum over
+`MvPolynomial ℕ+ (Polynomial ℕ)`. Its `naturalCast` maps coefficients to ℤ.
+`naturalCast_naturalOrientationExpansion` proves this maps to the existing
+shifted expression. `OrientationPositive.shiftedOrientationExpansion_coeff_nonneg`
+(namespace VerticalStripLLT) derives nonnegativity of EVERY q-coefficient of
+EVERY formal elementary monomial coefficient by applying coefficient maps.
 
-## Positive elementary coefficients
+`coloringLLT_shifted_e_positive` combines positivity with the actual coloring
+semantic bridge, uniformly in every alphabet, using one common expression.
 
-A narrow possible proof is a natural-coefficient lift in
-`MvPolynomial ℕ+ (Polynomial ℕ)`: use the same finite orientations, ascents,
-and HRV-fiber product, now with natural coefficients. Map it through
-`Polynomial.mapRingHom (Nat.castRingHom ℤ)` and `MvPolynomial.map` to the
-existing shifted expression. Coefficient-map identities then show each
-integer coefficient is a natural-number cast. This is a proof device for the
-existing expression, not a replacement semantic definition. An explicit
-orientation-count coefficient formula is a stronger alternative if its
-monomial-shape API is also needed for the degree proof.
+## Checked weighted degree
 
-The precise desired conclusion is nonnegativity of every coefficient in q
-of every elementary monomial coefficient. Positivity of evaluation at one
-alphabet or one positive q is insufficient.
+`hrvFiber_card_sum` proves that HRV fiber cardinalities sum to n.
+`hrvMonomial_isWeightedHomogeneous_degree` gives degree n with weight k on e_k.
+The same property holds for `orientationExpansionAt` at every parameter,
+and in particular the ordinary and shifted expressions.
+This is weighted homogeneity, not ordinary degree in the elementary generators.
 
-## Degree and stability
+## Alphabet stability
 
-Assign elementary generator e_k weight k. For each orientation, the HRV
-fibers partition Fin n, so the sum of their cardinalities is n. This should
-prove weighted homogeneity of the formal elementary expression. It must not
-be confused with ordinary total degree in the elementary generators.
-
-For finite alphabets, specialize additional variables to zero. Prove the
-corresponding elementary-polynomial identity and compatibility with
-`evalElementary`. Once the full bridge is available, it transfers stability
-to the coloring-defined LLT polynomial. The pinned finite elementary API
-already includes `aeval_esymm_eq_multiset_esymm`; inspect whether this or the
-powerset definition gives the smaller proof before adding new machinery.
-
-Shift is now proved. Positivity, weighted degree, and arbitrary-alphabet
-stability remain open.
+`AlphabetStability.specializeLast_esymm` and `specializeLast_evalElementary`
+(namespace VerticalStripLLT) prove specialization of the final variable to zero
+commutes with elementary evaluation. `ExpansionStability` transfers this to
+`coloringLLT` and iterates it: `specializeTail_coloringLLT` handles any number
+of extra variables, every path, and every alphabet size.
+Uniform finite-alphabet equality and this compatibility are the chosen initial
+interface to the infinite-variable identity; no abstract symmetric-function
+object or general symmetric-functions library is required.

@@ -331,7 +331,7 @@ bijection. Ordinary/shifted corollaries use narrow coefficient equalities.
 The independent generalized NN reduction meanwhile passes the local default
 build (1463 jobs) and all 259 public axiom checks.
 
-## Orientation second bounce (active)
+## Orientation second bounce (completed; locally checked)
 
 - Project ID: `432e553c-fc15-4226-8795-9bc0b1786b28`.
 - Task ID: `fa04e12e-eb5d-43e6-ac50-92e432384704`, accepted
@@ -343,3 +343,12 @@ build (1463 jobs) and all 259 public axiom checks.
   in an isolated 4.28 snapshot. Manuscript excerpts include the DN bijection
   and table. No recurrence or semantic bridge may be assumed.
 - Observe this same project/task; local verification remains authoritative.
+
+The DN job completed 2026-09-26 07:15:16 UTC. Its supplied prefix (142029
+characters) and exact target statement are unchanged. Luna ported seven helper
+modules plus the final theorem; all eight pass local4.34 compilation. Terra
+independently audited the actual upward-step bridges, finite matching bijection,
+HRV conjugation (including the special corner vertex), and unrestricted V.
+No semantic assumption or hidden no-east restriction was introduced.
+The ordinary expansion now follows locally through the proved recurrence
+certificate and uniqueness; remote results alone were never authoritative.

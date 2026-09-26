@@ -5,6 +5,24 @@ audited the author-supplied source and cached Mathlib independently of the
 read-only Astra reviewer `/root/architecture_review`. The reviewer made no
 edits and ran no builds. We adopt the common recommendation below.
 
+## Current theorem status
+
+The ordinary finite-alphabet expansion and shifted e-positivity are now proved
+in `Expansion.lean`, with no recurrence or expansion assumption on the public
+main theorem. `coloringLLT_eq_eval_orientationExpansion` is uniform in n, P,
+and m; `coloringLLT_shifted_eq_orientation_sum` exposes the source formula.
+`coloringLLT_shifted_e_positive` gives nonnegative q-coefficients and weighted
+degree n for one expression valid in every alphabet.
+
+Both concrete recurrence certificates are proved independently. Uniqueness
+uses `SatisfiesReductionRecursion`, the explicitly stronger sufficient
+certificate recorded below. Original restricted-recursion uniqueness remains
+unproved and is not used. The earlier recursive-invariant implementation plan
+was replaced by direct uniqueness; no recursively defined object is renamed LLT.
+Alphabet-specialization compatibility is proved by `specializeTail_coloringLLT`.
+The sections below preserve the representation decision and source audit;
+chronological open-obligation notes are superseded by this status.
+
 ## Representation decision
 
 We use valid words in `n`, `d`, `e` as canonical paths. Their coordinates start
@@ -384,3 +402,19 @@ This is not uniqueness for the unchanged restricted manuscript predicate,
 and does not establish the orientation expansion until its independent DN
 identity and full certificate are proved. No recursive object is used as a
 replacement for either semantic definition.
+
+## Main expansion delivered
+
+The unrestricted DN orientation identity is
+`orientationExpansionAt_secondBounce_general`, using seven separate helper
+modules and a final graph instantiation. `orientationExpansion_satisfiesReductionRecursion`
+bundles the independently proved orientation clauses. Its ring-map transport
+through `evalElementary` and `coloringLLT_eq_of_satisfiesReductionRecursion`
+prove `coloringLLT_eq_eval_orientationExpansion`.
+
+Theorem LLT's coloring recurrence is `coloringLLT_satisfiesRecursion`; the
+stronger coloring witness is also proved. Theorem LLTe's clauses are the
+`toSatisfiesRecursion` projection of the proved orientation certificate.
+Corollary expansion is the unconditioned bridge and its shifted e-positive
+corollary. The proof establishes the concrete ordinary expansion without
+asserting the unproved original restricted uniqueness statement.

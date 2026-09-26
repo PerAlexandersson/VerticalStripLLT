@@ -49,3 +49,6 @@ import VerticalStripLLT.GeneralizedSecondBounceReduction
 import VerticalStripLLT.GeneralizedThirdBounceReduction
 import VerticalStripLLT.FirstEastCases
 import VerticalStripLLT.ColoringCharacterization
+import VerticalStripLLT.Expansion
+import VerticalStripLLT.OrientationSecondBounceSpecializations
+import VerticalStripLLT.ExpansionStability
