@@ -5,8 +5,9 @@
 Primary owns strategy, integration, all returned source, remote requests, and
 the sole globally serialized build slot. No build-slot transfer. User authorized
 circular continuation, bounded Luna/Terra delegation, and Aristotle proof search.
-Verified/pushed checkpoints: `d144cb6` (search/NN coloring) and `34617c8`
-(full DN realization and area/rank). All delegated lanes returned and are
+Verified/pushed checkpoints: `d144cb6` (search/NN coloring), `34617c8`
+(full DN realization and area/rank), and `ac75db1` (independent NN orientation
+recurrence, matching coloring induction step, and exact area decrease). All delegated lanes returned and are
 released; primary owns source/integration and the sole serialized build slot.
 Aristotle task `4e3adb0d-712e-4539-9487-7d388cd71335` is COMPLETE. Its actual
 NN orientation theorem is now locally checked in eight modular files; existing
@@ -32,10 +33,11 @@ and the final induction. The full circular expansion is NOT proved.
 
 Focused/default builds pass (1770 jobs); all 895 axiom checks pass using only
 propext, Classical.choice, and Quot.sound. Source and 100-column guards pass.
-The two initialization commits and reference files are unchanged. Logs: `circular-nn-checkpoint-build.log`
+The two initialization commits and reference files are unchanged.
+Logs: `circular-nn-checkpoint-build.log`
 and `circular-nn-checkpoint-axioms.log` in the external build directory.
 
-Current new declarations beyond the pushed search checkpoint:
+Full DN declarations checked at `34617c8`:
 - `Diagram.exists_fullNeutralBounce_of_reverseBounce`: a complete acyclic DN
   search produces a valid actual successor, exact two-row area update, and full
   contact witness; the target remains acyclic and its strict rank decreases.
@@ -57,12 +59,13 @@ remaining area-decreasing branches, and the final circular induction. The full
 circular equality remains unproved. No component work in this continuation.
 
 DN focused/default builds pass (1759 jobs); all 796 axiom checks pass with
-only propext, Classical.choice, and Quot.sound. Source/100-column guards pass. Logs: `circular-dn-checkpoint-build.log`
+only propext, Classical.choice, and Quot.sound. Source/100-column guards pass.
+Logs: `circular-dn-checkpoint-build.log`
 and `circular-dn-checkpoint-axioms.log` under the external build directory.
 
 Verified source checkpoint `d144cb6`.
 
-## Current checkpoint: circular search and NN coloring
+## Earlier checkpoint: circular search and NN coloring
 
 2026-09-26: the full circular expansion remains open. The following are proved
 for the actual finite circular model, without recurrence assumptions:
