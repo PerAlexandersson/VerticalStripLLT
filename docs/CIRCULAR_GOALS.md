@@ -25,15 +25,15 @@ is not a prerequisite and must not be assumed.
 
 The actual q-weighted DD resolution is proved for both models. Both smaller
 search children for NN/DN are supplied by the deletion and resolved-child
-lemmas (current local checks are in HANDOFF). Finish the geometric elimination
-and its cancellation/area accounting, then apply the direct local identities.
+lemmas. NN elimination and its final cancellation are now complete through
+`Diagram.expansion_of_nn`. Complete the corresponding DN closing triple and
+elimination, then assemble the remaining ND search configurations.
 `LocalEliminationStep.measure_lt` already proves termination of mixed concrete
 DD/neutral segments by `(strict.card, strictRank)`; it does not include R1
 strictification or prove that a suitable next move always exists.
-Some auxiliary diagrams temporarily have larger half-square area. The raised
-side of the concrete NN closing triple is proved by
-`DDLocalData.resolved_shorten_eq_unstrict`; complete the deletion side and the
-corresponding DN closing triple before the final cancellation.
+Some auxiliary diagrams temporarily have larger half-square area. Both sides of the concrete NN closing triple and its cancellation are proved.
+The DN analogue remains an auxiliary contact-count induction, not an invocation
+of outer area induction at a larger diagram.
 
 The [interior-overlap analysis](proofs/CIRCULAR_ND_INTERIOR_OVERLAP.md) explains
 why applying full R4 immediately is invalid, and why this does not invalidate
@@ -44,10 +44,11 @@ Account explicitly for neutral moves at an auxiliary
 area level before invoking the outer induction.
 
 The root-overlap branch is independently complete through
-`Diagram.expansion_of_nd_alias`. Genuinely local ND relations still need their
-actual diagram transformations and two-model identities where used. The
-[direct ND plan](proofs/CIRCULAR_DIRECT_ND.md) records the exact seven local
-identities and target area decreases.
+`Diagram.expansion_of_nd_alias`. The direct one-bounce ND branch is also complete through
+`Diagram.expansion_of_oneBounce_nd`, with doubled-area drops two and four and
+no acyclicity assumption. Its [proof explanation](proofs/CIRCULAR_DIRECT_ND.md)
+records the seven local identities. The remaining ND work is elimination and
+restart assembly for a longer search, including its auxiliary-area accounting.
 See [DD local elimination](proofs/CIRCULAR_DD_PROPAGATION.md) for the checked
 identities and the earlier algebraic propagation route.
 

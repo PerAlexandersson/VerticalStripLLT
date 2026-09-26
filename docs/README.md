@@ -15,11 +15,13 @@
 - [Reverse bounce search](proofs/CIRCULAR_BOUNCE_SEARCH.md).
 - [Neutral-bounce termination](proofs/NEUTRAL_BOUNCE_TERMINATION.md).
 - [Direct DN recurrence](proofs/CIRCULAR_DN_RECURRENCE.md).
-- [DD propagation](proofs/CIRCULAR_DD_PROPAGATION.md): checked pieces and remaining assembly.
+- [DD propagation](proofs/CIRCULAR_DD_PROPAGATION.md): completed NN elimination
+  and remaining DN assembly.
+- [Direct ND](proofs/CIRCULAR_DIRECT_ND.md): the completed seven-relation proof.
 - [ND overlap obstruction](proofs/CIRCULAR_ND_OVERLAP.md) and
   [uniform root-overlap reduction](proofs/CIRCULAR_ND_ALIAS_REDUCTION.md).
 - [Interior ND overlap](proofs/CIRCULAR_ND_INTERIOR_OVERLAP.md): an additional
-  case still requiring a reduction.
+  case with a proved one-bounce restart; final assembly remains.
 
 ## Retained qualifications and provenance
 

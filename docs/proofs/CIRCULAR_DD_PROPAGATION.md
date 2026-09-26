@@ -1,8 +1,9 @@
 # Propagating NN and DN recurrences through DD contacts
 
-This is the audited proof route, not yet an exported generalized recurrence.
-Direct NN and direct DN hold for both actual models, with all local geometry
-and actual HRV transport checked.
+NN elimination is now locally proved for every finite DD contact search by
+`Diagram.shifted_nn_of_counted` in `NNElimination.lean`. Its semantic induction
+step is `Diagram.expansion_of_nn`. The corresponding DN elimination remains
+open; the direct NN and DN identities are proved for both actual models.
 
 We use the shifted variable: corner R1 has coefficient q. At the last DD
 contact, write c=b(z), a=b(c). The source D has strict edges
@@ -71,14 +72,14 @@ contact, both unchanged terminal flags, and strict acyclicity for NN/DN.
 needed residue exclusions. `resolved_selected_swap` conjugates each resolved
 strict edge into the original relation, giving `resolved_admissible`.
 
-For the algebraic propagation route, the remaining geometry is to show that
-the two child targets satisfy the next direct-DN hypotheses and identify the
-final R1 triple with the prescribed successor. The broader strategy is local
+The NN child targets now satisfy the next direct-DN hypotheses, and their
+closing R1 triple is identified with the prescribed shortened successor.
+For DN the corresponding child-target identification remains open. The broader strategy is local
 DD elimination and restart; a general projected ND/R4 identity is not required.
 See [remaining goals](../CIRCULAR_GOALS.md).
 
-After these facts, the checked independent model identities supply all six
-algebraic equations. Full circular induction remains a separate final step.
+The independently proved identities and cancellation complete NN elimination.
+Full circular induction remains a separate final step.
 
 ## Auxiliary termination and half-square accounting
 
@@ -100,7 +101,7 @@ strictification, or replace the remaining cancellation/area assembly.
 
 ## Concrete closing triple
 
-The next geometric task can be stated without any new polynomial assumptions.
+The completed NN closing triple uses no new polynomial assumptions.
 For NN put T=shorten the original root f in D. Let U shorten the moved strict
 edge a→c+1 in R, and let V shorten e:a→c in E. Apply direct DN to V at c,
 with root f, to obtain W. The required equalities of actual diagrams are
@@ -122,7 +123,10 @@ strict edge and original root. The child successors have the same extra
 terminal-row update; contact separation permits commuting it through the
 closing triple. Their coefficients are one. A bare `FullNeutralBounce` witness
 is insufficient for this identification: use the canonical target's actual
-area rows and strict edges. The raised-side NN equality is now locally proved by
-`DDLocalData.resolved_shorten_eq_unstrict` in `DDClosingNN.lean`, using
-`shortenEligible` for canonical root choices. The equality with the deleted
-corner and the corresponding DN closing triple remain open.
+area rows and strict edges. Both NN diagram identities are locally proved by
+`DDLocalData.resolved_shorten_eq_unstrict` and
+`DDLocalData.closingDN_target_eq_deleteCorner`, with canonical roots supplied by
+`shortenEligible`. `DDClosingNNRecurrences` proves the actual difference formulas
+for coloring and HRV. `NNElimination` inducts on the DD count, applies both
+child identities, and cancels q. The corresponding DN closing triple remains
+open; its source targets retain the extra terminal-row update described above.

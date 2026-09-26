@@ -615,7 +615,7 @@ identities remain open.
   replacement, added hypotheses, or local proof repairs were needed beyond
   current tactic names.
 
-## Circular direct one-bounce ND (active)
+## Circular direct one-bounce ND (locally integrated)
 
 - Project `7f814d1b-422f-469b-b0f8-cc2696e9518e`, task
   `bc03be2f-39de-4689-ba9b-4ab97ef9bb9c`.
@@ -626,4 +626,23 @@ identities remain open.
   q and q+1. Inputs are an eligible zero-DD ND search; no acyclicity hypothesis.
 - The [local proof plan](proofs/CIRCULAR_DIRECT_ND.md) gives seven actual NN/DN/R1
   identities. Source hashes and module list are retained with the request.
-  Submitted after the restart task completed; sole active remote proof job.
+  Completed remotely; Luna ported `StrictVals`, `OneBounceNDGeometry`, and
+  `OneBounceND`. Primary restored the truncated final export and repaired
+  transparency/tactic compatibility. All three pass the local pinned toolchain.
+  Primary added `OneBounceNDRecurrences` to discharge the area-induction branch.
+  Independent Astra review checked the seven actual identities, cyclic
+  intermediates, shift injectivity, and exact hypotheses. No prefix replacement.
+
+## Circular full DN elimination (active)
+
+- Project `ae819e79-2742-4965-9254-8eef5929cfa0`, task
+  `0216c708-f9a4-4baa-82d0-d98d33d8e293`.
+- External request directory `circular-full-dn/`, 118 dependency modules.
+- Exact target `Diagram.exists_dn_reduction`: actual coloring and HRV identities,
+  preserved half-square area, inherited strict acyclicity and decreased strict
+  rank for any eligible DN search in a strictly acyclic diagram.
+- The task explicitly requests elimination by direct DN and R1, with counted
+  child searches and a concrete closing triple. No projected ND/R4 relation,
+  new recurrence hypothesis, or no-wrap restriction. Source hashes and exact
+  target are retained externally. Native observer session 48054; observe this
+  task rather than submitting duplicates.

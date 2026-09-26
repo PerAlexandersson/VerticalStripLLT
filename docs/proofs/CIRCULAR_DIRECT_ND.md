@@ -1,7 +1,7 @@
 # Direct ND through local NN, DN, and corner relations
 
-This is an audited proof plan, not an exported circular ND identity. It treats
-one bounce point only. Multi-bounce contact geometry is handled by elimination
+This argument is locally formalized in `OneBounceNDGeometry`, `OneBounceND`,
+and `OneBounceNDRecurrences`. It treats one bounce point only. Multi-bounce contact geometry is handled by elimination
 and restart before applying these relations.
 
 Let x=b(t), y=x+1, a=b(x)=b(y). The root strict edge is f:x→t, with length at
@@ -53,8 +53,10 @@ The final targets have doubled half-square areas D−2 and D−4. The checked
 preserves strict cardinality and lowers the raw area sum by one, yielding the
 second decrease after another root shortening.
 
-Remaining formal work: strict-row and edge transport for `lowerStrict`,
-commutation of root shortening with the local corner operations, exact DN
-successor identification, and the independent two-model assembly. Primary
-and the read-only Astra reviewer checked the algebra and circular side
-conditions; Luna is implementing the bounded row-transport interface.
+The completed theorem `Diagram.exists_oneBounce_nd_reduction` exposes the
+actual two-model identities and both area drops. `Diagram.expansion_of_oneBounce_nd`
+is the semantic induction step. `StrictVals` supplies edge transport and full
+diagram extensionality. The seven relations are proved independently for
+coloring and HRV before cancellation; no recurrence defines either model.
+Aristotle supplied the proof candidate, Luna ported the separate modules, and
+primary checked the unchanged mathematical statements with the local toolchain.
