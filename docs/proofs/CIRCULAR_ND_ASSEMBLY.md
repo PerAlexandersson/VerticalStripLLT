@@ -161,3 +161,51 @@ area enough that a deletion side is no longer below the original area. The
 side-term condition cannot be omitted. Primary and independent Astra review
 rejected the unrestricted termination proposal; no such Lean assumption or
 theorem was added.
+
+## Why rotation alone does not give an exit
+
+A further independent audit identifies a conserved quantity. Write
+Δ_D = xQShift(LLT_D) − evalElementary(HRV_D), and s_D = |D.strict|.
+Assume the deletion-side defects vanish by a valid induction hypothesis.
+The following relations then preserve q^(s_D) Δ_D:
+
+- DD gives q Δ_D = Δ_R and s_R = s_D−1.
+- Actual neutral DN preserves both the defect and strict count.
+- R1 strictification gives Δ_T = q Δ_S and s_S = s_T+1.
+
+Consequently, any excursion using only these moves and ending at a rotation
+returns with coefficient one. Rotation invariance would make the resulting
+equation an identity, not a proof of vanishing. Rotation can close an excursion
+only when it identifies the endpoint with an independently solved diagram,
+or as part of a larger relation system with a nonzero annihilating coefficient.
+The remote finite experiments supplied no uniform certificate of the latter.
+This is an audited algebraic limitation, not an additional Lean assumption.
+There is no justification for building rotation machinery solely to solve the
+coefficient-one exit.
+
+## Audit of a terminal auxiliary shape
+
+Suppose an acyclic auxiliary diagram has exactly one nonstrict corner, at
+row p, and no `EligibleDE` seed. If all row areas are positive, every strict
+area descent must occur at p: a descent starts at area at least two, and a
+strict corner at that row would be an eligible seed.
+
+For constant positive area, there are n corners and n−1 strict edges. The
+acyclic strict partial-injection graph is therefore one spanning chain, so
+the existing strict-total base applies.
+
+For nonconstant positive area, cut the cyclic listing immediately after p.
+The areas increase weakly, with increments zero or one, up to the unique drop.
+Writing d=max(area)−min(area)>0, there are d rises and n−d−1 plateaus. Every
+plateau corner is strict, so the strict graph has n−d−1 edges and d+1 components.
+Positive areas supply every cyclic adjacent natural edge. If every normal edge
+had strict-comparable endpoints, these adjacent edges would force a single
+strict component, contradicting d+1>1.
+
+Thus the two terminal hypotheses alone do not put the diagram into the
+comparable-endpoint base. The chain-plus-singleton base could apply only for
+d=1 and component sizes (n−1,1); even d=1 can require a more general two-chain
+argument. This is a mathematical classification audit, not yet a Lean theorem
+or a proved description of all configurations reached by the interior route.
+In particular, no claim that the active chain-singleton request closes all
+deeper interior cases is justified.

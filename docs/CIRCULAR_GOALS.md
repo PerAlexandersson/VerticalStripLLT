@@ -23,39 +23,36 @@ has zero polynomial, handled by the existing vanishing theorems. Counts and
 contact lists are auxiliary bookkeeping; a projected multi-bounce R4 identity
 is not a prerequisite and must not be assumed.
 
-The actual q-weighted DD resolution is proved for both models. Both smaller
-search children for NN/DN are supplied by the deletion and resolved-child
-lemmas. NN elimination and its final cancellation are now complete through
-`Diagram.expansion_of_nn`. The corresponding DN closing triple and elimination are now complete through
-`Diagram.exists_dn_reduction` and `Diagram.expansion_of_dn`. Assemble the
-remaining ND search configurations.
-`LocalEliminationStep.measure_lt` already proves termination of mixed concrete
-DD/neutral segments by `(strict.card, strictRank)`; it does not include R1
-strictification or prove that a suitable next move always exists.
-Some auxiliary diagrams temporarily have larger half-square area. Both sides of the concrete NN closing triple and its cancellation are proved.
-The DN analogue also uses auxiliary contact-count induction; it never invokes
-outer area induction at a larger diagram.
+Direct and full NN/DN, direct ND, root-alias ND and separated ND are proved
+for both actual models. Their declarations are catalogued in
+[CIRCULAR_STATUS.md](CIRCULAR_STATUS.md); they are not new work items.
 
-The [interior-overlap analysis](proofs/CIRCULAR_ND_INTERIOR_OVERLAP.md) explains
-why applying full R4 immediately is invalid, and why this does not invalidate
-the intended one-bounce route. In the displayed witnesses DD elimination
-creates an earlier restart, followed by direct NN. The uniform interior
-restart is now proved by `DDLocalData.exists_oneBounce_restart_of_interior_overlap`.
-Account explicitly for neutral moves at an auxiliary
-area level before invoking the outer induction.
+Only deeper interior ND exits remain. The explicit-index theorem
+`DDLocalData.oneBounce_restart_of_interior_overlap_at` gives a one-bounce
+restart in the DD-resolved child of doubled area D+1. If the terminal upper
+vertex aliases the first main contact, the restart is NN and both resulting
+leaves have area D−1. That entire case is proved by
+`Diagram.expansion_of_nd_interior_overlap_first_contact`.
 
-The root-overlap branch is independently complete through
-`Diagram.expansion_of_nd_alias`. The direct one-bounce ND branch is also complete through
-`Diagram.expansion_of_oneBounce_nd`, with doubled-area drops two and four and
-no acyclicity assumption. Its [proof explanation](proofs/CIRCULAR_DIRECT_ND.md)
-records the seven local identities. The separated-contact branch is now proved
-by `exists_nd_separated_reduction` and `expansion_of_nd_separated`, including
-simultaneous vanishing of cyclic intermediates. The remaining ND work is the
-interior-restart exit, including its auxiliary-area accounting. The
-[ND assembly](proofs/CIRCULAR_ND_ASSEMBLY.md) records the completed disjoint
-transport and the remaining interior obligation.
-See [DD local elimination](proofs/CIRCULAR_DD_PROPAGATION.md) for the checked
-identities and the earlier algebraic propagation route.
+For deeper contacts the restart can be DN, preserving the raised auxiliary
+area. Prove a justified exit to smaller outer measure or an independent semantic
+base. Mixed DD/neutral termination is checked, but does not include R1
+strictification or assert that a suitable next move exists. A single exposed
+corner can strictify back to area D without decreasing strict rank. Two distinct
+exposed corners already provide a checked smaller-area exit.
+
+The chain-plus-isolated-vertex semantic base is an active auxiliary task.
+Exact graph data, coloring reindexing, actual ascent decomposition and weighted
+insertion-gap sums are checked. The polynomial assembly and independent HRV
+selection count remain. Proving this base does not prove that every remaining
+interior configuration reaches it.
+
+Use the [ND assembly note](proofs/CIRCULAR_ND_ASSEMBLY.md) for the exact
+obligations and failed shortcuts. In particular, strict-loop vanishing does not
+identify overlapping offset tracks with a cycle. Rotation invariance alone
+cannot close an excursion whose side defects vanish: DD, neutral DN and R1
+strictification preserve q^(strict.card) times the semantic defect. A valid
+branching cancellation or an independently solved endpoint is still needed.
 
 ## Final induction and corollaries
 

@@ -108,6 +108,15 @@ interaction between strict components. The earlier read-only Sonnet proposal
 added no valid general termination argument. No theorem gap or counterexample
 to the full HRV formula has been established.
 
+Latest read-only audit: DD/neutral/R1 excursions with solved deletion sides
+preserve q^(strict.card) times the semantic defect, so rotation invariance
+alone cannot close a coefficient-one excursion. No rotation implementation
+was started. A positive-area auxiliary with one missing corner and no eligible
+seed has a unique area drop. If its area range is d>0, its strict graph has
+d+1 components; the chain-singleton base therefore does not cover this entire
+terminal class. Details and qualifications are in `CIRCULAR_ND_ASSEMBLY.md`.
+These are audited mathematical observations, not new Lean declarations.
+
 Exact checked interfaces: `docs/CIRCULAR_STATUS.md`. Remaining obligations and
 failed shortcuts: `docs/CIRCULAR_GOALS.md`, `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.
 History is retained in Git and `docs/archive/`. Overleaf `LLT flip/main.tex` and
