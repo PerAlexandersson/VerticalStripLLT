@@ -46,7 +46,7 @@ Focused and default builds pass (1726 jobs). All 669 axiom checks pass with
 only propext, Classical.choice, and Quot.sound. Source and 100-column guards
 pass. Both initialization commits and reference files are unchanged. Logs: `neutral-termination-checkpoint-build.log` and
 `neutral-termination-checkpoint-axioms.log` under the external build directory.
-This checkpoint follows pushed `d06e883`; record its commit below after checks.
+Verified source checkpoint: `28c5ba8`, following `d06e883`.
 No TeX build, combinatorial enumeration, or new remote Aristotle job was run.
 The previous Aristotle continuation returned no proof; the bounded local proof
 and independent Astra review resolve this lemma without resubmitting that job.
