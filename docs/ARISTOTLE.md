@@ -800,7 +800,7 @@ The archive and inspected summaries are in the external
 rank calculations are not a proof of an obstruction. Local column reversal
 and residual transport were developed after its input snapshot `5266faa`.
 
-## Active component companion proof search
+## Initial component companion proof search (cancelled)
 
 - Project `d4b3ddfe-0051-4f80-b222-4e9374badcb3`, task
   `e8ff79a8-7d41-4d95-98ea-34cd691a4653`.
@@ -827,3 +827,22 @@ and residual transport were developed after its input snapshot `5266faa`.
   imply proof-task failure. No proof candidate has been integrated.
 - No local Lean build was needed for this research request. Any returned Lean
   result remains a candidate until checked by the sole local build owner.
+- The service entered an exhaustive n=6/7 enumeration, with progress unchanged
+  for more than ten minutes after mathematical redirection. Primary cancelled
+  this exact task to stop the disproportionate computation. The cancellation
+  receipt is `cancel-stalled-search.log`; the authoritative task list reports
+  CANCELED. No mathematical result was integrated.
+
+## Active sink-promotion continuation
+
+- Same project, new task `ae0d9a91-dc02-4f53-97a9-3ed6f8034bcf`, IN_PROGRESS.
+  `resume-sink-proof.log` records submission. The new input `SINK_BRANCHING.md`
+  is the research note from source checkpoint `8f566ad`.
+- The explicit instruction forbids exhaustive searches and asks for a general
+  proof of (S_T), its sufficient weaker form (S_k), or the strongest justified
+  partial promotion theorem. Reconstruction and the double-induction implication
+  are supplied rather than assigned for rediscovery.
+- The old observer exited when its task ceased to be the latest. Its task ID
+  was then updated; `bash -n` passed. Native session `36244` observes only the
+  new task, with a two-hour allowance and reconnection/status logs in the same
+  request directory. No Lean result or build has been introduced.

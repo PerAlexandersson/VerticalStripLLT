@@ -173,11 +173,15 @@ lifted HRV by finite sink priority changes the target.
 
 ## Evidence and next step
 
-A bounded audit checked (S_T) for every T and every component in four diagrams:
+A first bounded audit checked (S_T) for every T and every component in four diagrams:
 ordinary area (0,1,2,2) with strict 13,24; full circular area (3,3,3,3);
 circular area (2,2,2,2); and ordinary area (0,1,2,3), the last three with no
 strict edges. All passed. This is evidence only, not a proof or a larger-range
-claim. The audit reused the Rust library's actual
+claim. A subsequent bounded audit checked all 449 decorated circular diagrams
+of size four, including empty admissible sets; all passed. The size-five
+diagram in the locality obstruction below also passed for COMPLETE global
+components. These checks do not prove any uniform statement.
+The audits reused the Rust library's actual
 `sym_poly_sym::llt::circular_highest_reachable_vertices`; Python only
 orchestrated the existing finite flip enumerator and compared multiplicities.
 External scripts and receipts are under
@@ -217,3 +221,84 @@ This establishes existence of a suitable same-component target in this case.
 It does not establish a bijection or equal multiplicities, and it does not
 handle the case n-1 lies outside B. Those are essential remaining obligations
 for turning this promotion step into (S_T).
+
+## Ordinary reduction to a largest-sink promotion
+
+There is a useful reduction if a suitable general largest-sink promotion is
+found. For an arbitrary ordinary sink s, set
+
+    V_s(A) = {v : HRV_A(v) <= s}.
+
+This set is successor-closed and contains s as its largest vertex. Selected
+paths within it cannot exit it, so all induced flips lift globally. Every
+outside vertex has a route to its original root, greater than s, wholly
+outside V_s(A): a route entering this successor-closed set could not reach
+that root. Internal changes therefore leave exterior HRVs exactly unchanged.
+The active set is consequently recoverable after any internal flips.
+
+Thus a bijective largest-sink promotion can be applied on this induced set
+without losing invertibility through its A-dependence. If it matches the
+post-deletion HRV partition, it also preserves the fibers of all larger marked
+sinks. Processing a fixed marked set increasingly would then give the full
+ordinary (S_T). This remains conditional on the largest-sink promotion theorem.
+No such bijection has been proved.
+
+Circularly, using canonical representatives does not directly supply the same
+reduction. Choose z_v maximal in its residue class with alpha(z_v)<=s. Then
+alpha(z_v) lies in (s-n,s], but selected steps can end at z_w-kn for k>0.
+Replacing this endpoint by z_w can create a false route to a higher root.
+Two paths with the same projected endpoints can also have different winding;
+projected acyclicity does not rule this out. A circular proof must retain these
+period shifts. The critical forest alone cannot remove the extra constraints.
+
+## A descending sweep is insufficient
+
+For the largest ordinary sink n, each valid cover flip on (a,b,n), extended
+by the identity where no flip is available, is an involution. Their product
+is therefore a permutation of every full component. A candidate used the
+order of decreasing a, then decreasing b. Its desired HRV matching is false.
+
+In the complete ordinary diagram on four vertices, with no strict edges, take
+
+    A={12,13,14,23}.
+
+Its HRV fibers are {1,4} and {2,3}, so shrinking the 4-fiber gives (2,1).
+The sweep's only move replaces 12 by 24. Deleting 4 afterwards leaves
+13,23, whose HRV partition is (3). The earlier triangle 134 was blocked by
+the path 123; the later flip removes that obstruction. Invertibility of a
+fixed sweep does not establish the partition identity.
+
+Luna supplied the external bounded probe. Primary corrected its specification
+through review before running it; the corrected code checks involutivity and
+component membership and uses the Rust HRV API. It stopped at this size-four
+counterexample. There is no claimed size-five pass for the sweep.
+
+## Root-containing flips alone are insufficient
+
+A stronger obstruction excludes EVERY promotion confined to flips containing
+the marked largest sink, regardless of order or revisiting.
+
+Take ordinary area (0,1,2,3,2), with no strict edges, and set
+
+    E={13,14,24},    F=E+34+35,    T=E+35+45.
+
+The only natural edges into 5 are 35,45, so the only flip triangle containing
+5 is 345. The states F,T form its full two-state orbit, with the required
+cover conditions. Their HRV data are:
+
+| State | Original fibers | Shrink the 5-fiber | Delete 5 |
+| --- | --- | --- | --- |
+| F | 135 / 24 | (2,2) | (4) |
+| T | 12345 | (4) | (3,1) |
+
+Thus this restricted orbit has deletion sum e_4+e_(3,1), whereas its shrunk
+fiber sum is e_4+e_(2,2). No permutation inside that orbit can match them.
+
+At T the exterior flip on 134 is valid: 13 and 14 are covers, and replacing
+13 by 34 gives another orientation in the FULL component. Hence the example
+does not refute (S_T); it proves that the full component is essential. A
+successful promotion or generalized diamond argument must move the exterior
+data, as anticipated in the original component sketches.
+
+Primary derived this obstruction by hand and checked the four HRV maps with
+the Rust API; Astra independently checked the diagram and cover conditions.

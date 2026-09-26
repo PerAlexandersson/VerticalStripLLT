@@ -77,20 +77,40 @@ Neither identity is currently proved or formalized. Critical-edge forests
 preserve actual lifted HRV, but do not justify discarding coloring constraints.
 
 Aristotle project `d4b3ddfe-0051-4f80-b222-4e9374badcb3`, task
-`e8ff79a8-7d41-4d95-98ea-34cd691a4653`, is active. Exact payload, hashes,
+`ae0d9a91-dc02-4f53-97a9-3ed6f8034bcf`, is active. Exact payload, hashes,
 submission and steering receipts are external in
 `/lake-cache/ai-projects/requests/VerticalStripLLT/component-diamond-companion/`.
-Observation connections dropped twice. The existing same-task observation
-wrapper is now running in native session `88691`, with a two-hour allowance
-and status/reconnection logs in that directory. It confirmed IN_PROGRESS;
-no duplicate task was submitted. See the Aristotle ledger. No result has
-been integrated.
+The original task `e8ff79a8-7d41-4d95-98ea-34cd691a4653` was cancelled after
+an exhaustive n=6/7 enumeration stalled; inline redirection had not changed
+the reported computation. The continuation received `SINK_BRANCHING.md`
+and explicit proof-only instructions. Its same-task observation wrapper is
+running in native session `36244`, with a two-hour allowance and logs in that
+directory; IN_PROGRESS confirmed. See the ledger. No result was integrated.
+
+Research checkpoint `8f566ad` is pushed on private main. Whitespace checks
+passed; independent Astra and Luna reviews checked the reconstruction/induction
+boundary. No source build was appropriate for this documentation checkpoint.
 
 Bounded fixed-subset checks passed for four specified n=4 diagrams, using the
 existing Rust HRV API through an external input/output bridge and the prior
 finite flip enumerator. These are evidence, not a proof. No shared Rust source,
 polynomial family, Lean module, Lean build, or Overleaf edit was introduced.
 Primary owns HANDOFF, the new note, docs index and Aristotle ledger.
+Luna's external `diamond-exploration/promotion-sweep-probe.py` lane is released.
+Primary reviewed, requested specification fixes, and ran the corrected bounded
+probe. The descending sweep is REFUTED at n=4. A separate hand-derived n=5
+obstruction excludes ANY promotion restricted to root-containing flips; Astra
+confirmed it and Rust checked the actual HRVs. Complete-component (S_T) still
+passes these examples and all 449 decorated circular n=4 diagrams. The new note
+records exact statements; none is mistaken for a proof of (S_T).
+
+The useful surviving ordinary reduction uses the successor-closed set
+`{v : HRV(v) <= s}` to reduce an arbitrary sink to a largest-sink promotion.
+Such a promotion must allow changes outside the immediate root triangles.
+Circular canonical lifts retain period-shift constraints and need an additional
+argument. These facts were sent to the active Aristotle task.
+`suggestions/flip-enumeration-api.md` records the pending Rust integration task;
+no shared Rust ownership or source has been taken over.
 
 ## Diamond exploration result
 
