@@ -74,6 +74,9 @@ The first recorded obstruction can use a maximal-ascent target chain singleton
 as its signed correction, conditional on the recorded K identity. The uniform
 missing steps are simultaneous coloring/HRV transport, global reconstruction
 and enough independent equations to isolate each source component.
+A follow-up section proposes a shorter common-diamond straightening route.
+Its unresolved lemma is normalization of full component sums to chain-poset
+states; termination alone does not prove it. No such theorem is yet asserted.
 
 ## Ownership and next step
 

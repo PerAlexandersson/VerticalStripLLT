@@ -173,3 +173,40 @@ lemma, not a consequence of this statistic.
 No new warmup examples or broad implementation should precede a precise
 transport/isolation target. The current notes contain the local ingredients;
 the uniform compatibility and isolation arguments remain open.
+
+## A potentially shorter proof: straightening whole component sums
+
+A follow-up independent review suggests separating the proof into two reusable
+facts. First, both K and H respect each valid global diamond relation
+
+    [theta10] + [theta01] − [theta00] − [theta11] = 0.
+
+Second, prove a geometric straightening statement: a positive integer multiple
+of each complete flip-component indicator is congruent, modulo these diamond
+relations, to a signed sum of orientations whose projected reachability posets
+are disjoint unions of chains. On these terminal states K and H agree termwise.
+For circular orientations each chain has a unique sink, so its HRV fiber is
+the whole chain, even when its chosen lifts wind. Applying the two valuations
+and cancelling the positive integer would prove the component theorem.
+
+This fixed-diagram statement would avoid transporting complete components
+through all the path recurrences. It is a proposed sufficient lemma, not a
+proved theorem, and may be stronger than needed. If the available diamonds
+are insufficient, enlarge the relations only by separately verified global
+identifications or return to the smaller-diagram induction.
+
+The crucial question is compatibility of OVERLAPPING diamonds. Mere pairwise
+identities are insufficient: an abstract three-state flip path with defects
+satisfying d_a+d_b=0 and d_b+d_c=0 permits (u,−u,u), with nonzero component sum.
+This is an abstract warning, not a counterexample among LLT diagrams. The
+special circular interval geometry must supply additional relations or force
+this alternating defect to vanish.
+
+Neither a unique oriented-flip normal form (already obstructed in the notes)
+nor the squared-ascent termination observation proves the straightening lemma.
+The next useful proof-search target is a global overlap-completion argument:
+when a diamond replacement removes a needed partner for another replacement,
+show how the resulting discrepancy is resolved using further valid diamonds,
+possibly in a smaller diagram. Preserve exterior cover conditions throughout.
+This is where the existing sketches should be mined for a single reusable
+argument, before formalizing another large recurrence-by-recurrence framework.
