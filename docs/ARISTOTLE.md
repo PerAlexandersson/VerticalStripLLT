@@ -653,3 +653,32 @@ identities remain open.
   count induction, cancellation, cyclic intermediate handling, and unchanged
   final hypotheses. The remote flattened prefix had proof-script compatibility
   edits and one duplicate theorem omitted; none of that prefix was imported.
+
+
+## Circular separated-contact ND (active)
+
+- Project `361812e0-b73e-48b9-9ad7-dffe103615f6`, task
+  `e58bd214-3a7c-4d47-ab01-e58521c293ad`; observer session 45949.
+- External directory `circular-separated-nd/`; 175 checked modules from
+  `0fc4d07`, exact target and source hashes retained.
+- Target `Diagram.exists_nd_separated_reduction`: the two actual ND identities
+  and area drops two/four when the terminal upper vertex avoids every strict
+  main head, including the root. All overlap cases remain separate obligations.
+- The request uses full NN/DN and four R1 identities, requiring concrete contact
+  transport and careful handling of cyclic lowered intermediates. It includes
+  `neutralExchange_acyclic_iff` and the normal-comparability semantic base.
+  It explicitly forbids strengthening separation to a global no-wrap condition.
+
+## Circular interior-overlap semantic step (prepared; capacity-limited)
+
+- External directory `circular-interior-expansion/`, the same checked prefix,
+  target and proof-development notes. No remote project/task was created.
+- Target `Diagram.expansion_of_nd_interior_overlap`: saturated, strictly acyclic
+  source, actual eligible counted interior ND overlap, and the semantic bridge
+  for every smaller outer measure imply the source bridge.
+- The concurrent submission was rejected because the account had too many
+  projects in progress. Submit the saved request when the separated-ND job
+  completes; no repeated retry loop or cancellation of other tasks.
+- The proof notes retain the failed fixed-length slide/rank shortcuts and the
+  coefficient-one rotation cancellation issue. They ask for a proved exit,
+  using actual recurrences and semantic bases, not a new hypothesis hiding it.

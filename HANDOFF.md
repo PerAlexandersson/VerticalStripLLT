@@ -7,8 +7,8 @@ one-bounce elimination strategy. A contact-track overlap alone is not a strict
 cycle; genuine directed strict cycles make both actual expressions vanish.
 No flip-component work or new examples in this increment.
 
-Latest pushed checkpoint: `3c7f3d4` (comparable-edge semantic base), following
-`1d5005d` (direct ND and full NN elimination).
+Latest pushed checkpoint: `0fc4d07` (full DN), following `3c7f3d4`
+(comparable-edge base) and `1d5005d` (direct ND/full NN).
 
 Current verified increment: full DN elimination, with exact declarations
 `Diagram.exists_dn_reduction` and `Diagram.expansion_of_dn`. The actual
@@ -38,7 +38,12 @@ builds before every invocation. No build-slot transfer has occurred.
 
 Luna supplied bounded ports and direct NN/DN interfaces; primary repaired and
 verified them. All delegated file lanes are released. Primary owns all current
-source and checks. No remote proof task is active.
+source and checks. Active Aristotle separated-ND project `361812e0-b73e-48b9-9ad7-dffe103615f6`,
+task `e58bd214-3a7c-4d47-ab01-e58521c293ad`. Native observer session 45949;
+request/result directory `circular-separated-nd/` under the external requests
+cache. Source commit `0fc4d07`; 175 modules, exact target and hashes retained.
+Observe this same task and integrate only appended proof modules after review.
+The CLI can exit zero on API errors, so inspect logs as well as exit status.
 
 Aristotle full DN project `ae819e79-2742-4965-9254-8eef5929cfa0`, task
 `0216c708-f9a4-4baa-82d0-d98d33d8e293`, is complete and locally integrated in
@@ -47,8 +52,13 @@ Aristotle full DN project `ae819e79-2742-4965-9254-8eef5929cfa0`, task
 `QShiftInjective`; no duplicated service prefix was imported. Independent
 Astra audit approved mathematical fidelity and unchanged hypotheses.
 
-The interior-overlap request target/proof notes are prepared externally in
-`circular-interior-expansion/`, not yet submitted. Astra's remaining ND audit,
+The interior-overlap request is fully prepared in `circular-interior-expansion/`.
+A concurrent submission was rejected: "You have too many projects in progress."
+No project/task ID was created for it. Submit this saved request after the active
+separated-ND task completes; do not cancel other projects to obtain a slot.
+Its exact target is `expansion_of_nd_interior_overlap`, with saturated source
+and the explicit smaller `(doubledArea, strictRank)` semantic induction hypothesis.
+This is the unresolved interior exit argument, not an assumed recurrence. Astra's remaining ND audit,
 including rejected shortcuts, is in `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`.
 Completed direct-ND and full-DN remote provenance is in `docs/ARISTOTLE.md`.
 
