@@ -135,4 +135,4 @@ DN successor preserves half-square area and decreases strict rank. No separate
 word decoder is required by this direct periodic-boundary implementation.
 
 Direct coloring and HRV NN/DN identities are also proved. Their generalized
-DD propagation and ND branches remain in [the active goals](../CIRCULAR_GOALS.md).
+DD propagation and nonoverlapping ND remain in [the active goals](../CIRCULAR_GOALS.md).

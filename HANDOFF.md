@@ -2,28 +2,19 @@
 
 ## Active continuation: full circular expansion
 
-Current direct-DN checkpoint (2026-09-26): the independent actual coloring and
-HRV identities are locally proved. Primary owns all returned source, strategy,
-integration, remote jobs, and the sole globally serialized build slot.
+Current pushed checkpoint `377ae36` (2026-09-26): the overlapping ND reduction
+is locally proved for the actual coloring and HRV expressions, including the
+complete area-induction step. Full default build: 1818 jobs. Axiom inventory:
+1307 declarations, only propext, Classical.choice, Quot.sound. Source guards,
+100-column limit, Markdown links, and immutable reference hashes pass.
+Primary owns all source, strategy, integration, remote jobs, and the sole local
+build slot. All local delegated edit lanes are released.
 
-Exact new public results:
-- `Diagram.shiftedOrientationExpansion_dnSuccessor`: actual direct DN HRV
-  invariance, using only the valid-successor hypotheses and direct contact.
-- `Diagram.expansion_iff_secondBounce`: the actual coloring/HRV semantic bridge
-  is equivalent for source and target; no recursive invariant is substituted.
-- `Diagram.tri_local_identity`: arbitrary lifted strict-triangle diamond,
-  including cyclic selections; modular transitive-closure and pair-sum APIs.
-- `Diagram.reverseBounce_iff_counted`: DD-counted search for induction across
-  different diagrams; `RawBounceContacts.main_parallel_disjoint` and
-  `next_residue_ne` exclude periodic contact collisions for NN/DN.
+Earlier pushed checkpoints: `79016bb` direct DN; `c6f48dd` DD resolution and
+deleted child; `9224524` completed-plan cleanup. Detailed completed results are
+indexed in `docs/CIRCULAR_STATUS.md`; remaining goals are kept separately.
 
-Full default build passes (1798 jobs); all 1061 axiom checks pass with only
-propext, Classical.choice, Quot.sound. Source/100-column/diff guards pass.
-External logs: `circular-dn-complete-build.log`, `circular-dn-complete-axioms.log`.
-Previous pushed checkpoints: `9561ad0` (alias constructor/measure/search and
-forced-edge factors), `82c1f81` (DN coloring and R1 area decreases).
-
-Current checked DD increment: all eleven new modules compile, root imports
+Checked DD increment (`c6f48dd`): all eleven new modules compile, root imports
 include them, and the full default build passes (1809 jobs). All 1095 axiom
 checks pass with only propext, Classical.choice, Quot.sound. Logs:
 `circular-dd-complete-build.log`, `circular-dd-complete-axioms.log`.

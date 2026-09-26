@@ -1,4 +1,4 @@
-# Periodic ND overlap: remaining proof obligation
+# Why periodic ND overlap needs a separate reduction
 
 The ordinary generalized ND reduction must not be projected using an assumed
 separation of its initial and terminal strict edges. They may be the same edge
@@ -29,10 +29,10 @@ zero target. This observation alone does not disprove a suitable linear
 identity; it does disprove an acyclicity-based alias-exclusion claim. A second
 ordinary row edit cannot be applied without accounting for the repeated orbit.
 
-Required next result: an alias-aware ND identity for both independently defined
-polynomials, or an alternative reduction such as an applicable positive-gap
-relation. The proof must give actual valid circular target diagrams and a strict
-measure decrease. Ordinary disjoint-window geometry is insufficient.
+The required alias-aware identity is now proved for both independently defined
+polynomials: `Diagram.exists_nd_alias_reduction` constructs the valid target
+and gives doubled-area drop six. See the [completed uniform argument](CIRCULAR_ND_ALIAS_REDUCTION.md).
+This obstruction remains useful evidence for why the case split is necessary.
 
 The completed direct NN/DN identities and full DN rank/termination theorem do
 not assume this false separation property and remain unaffected.

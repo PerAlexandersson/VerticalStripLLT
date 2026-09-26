@@ -53,6 +53,6 @@ Direct DN does not by itself establish full bounce recurrences. Intermediate
 DD contacts require auxiliary induction on contact count, using two R1
 resolutions and the direct DN move. Some auxiliary diagrams have larger area;
 the final area induction cannot justify these intermediate identities.
-Generalized ND and its valid area-decreasing successors still require separate
-geometric proofs, including possible aliases of edited periodic rows.
+The overlapping ND case now has its own verified reduction. Nonoverlapping
+ND still requires its geometric recurrence.
 The full circular expansion remains open.

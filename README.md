@@ -81,9 +81,10 @@ The author-supplied manuscript under `references/` is immutable.
 The circular development uses natural head/length edges and highest reachable
 vertices on the integer cover. The direct NN/DN identities are proved for both
 actual models, along with R1, strict-cycle vanishing, the no-normal-edge base,
-complete bounce search, and neutral termination. The overlapping ND branch has
-a valid area-decreasing target; its polynomial identities remain open.
-Generalized DD/ND recurrences and final circular induction are still in progress.
+complete bounce search, and neutral termination. The overlapping ND branch
+has proved actual polynomial identities and a complete area-induction step.
+Generalized DD propagation, nonoverlapping ND, and final circular induction
+remain in progress.
 See [verified circular results](docs/CIRCULAR_STATUS.md) and
 [remaining goals](docs/CIRCULAR_GOALS.md).
 
