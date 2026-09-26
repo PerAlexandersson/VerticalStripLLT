@@ -8,7 +8,8 @@ Follow the author's one-bounce elimination strategy. Genuine strict cycles
 make both actual expressions vanish; contact overlap alone is not a cycle.
 No flip-component work or new examples in this increment.
 
-This checkpoint adds the checked uniform strict-corner adjacency equivalence.
+Latest pushed source checkpoint `372619c` adds the checked uniform
+strict-corner adjacency equivalence.
 Previous pushed source checkpoint: `78c07c3` (full separated-contact ND), following
 `8c8e8b5` (outer induction) and its handoff `0e5b104`.
 Exact interfaces:
@@ -100,6 +101,13 @@ unchanged target, source hashes, `DoubleCornerReduction`, full separated ND,
 and proof-route notes retaining known failed shortcuts. Its source snapshot is
 `0e5b104` plus the checked new separated modules, pinned by exact hashes.
 The CLI may exit zero on API errors: inspect its log as well as exit status.
+
+Primary sent INSTRUCT steering to this same project after the corner checkpoint.
+`STRICT_CORNER_STEERING.md` and `strict-corner-steering.log` retain the exact
+message and accepted submission. It supplies the checked corner lemma and
+the independently audited, still unformalized chain-singleton formula while
+preserving the exact interior target. It explicitly does not assume that every
+interior configuration reaches this proposed base.
 
 Target `Diagram.expansion_of_nd_interior_overlap`: saturated, acyclic source,
 actual eligible counted interior ND search, and semantic IH below
