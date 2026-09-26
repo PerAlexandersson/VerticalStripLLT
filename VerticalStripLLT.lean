@@ -1,3 +1,6 @@
+import VerticalStripLLT.Circular.LowerStrict
+import VerticalStripLLT.Circular.StrictFibers
+import VerticalStripLLT.Circular.StrictExpansion
 import VerticalStripLLT.Circular.AliasReductionBasic
 import VerticalStripLLT.Circular.AliasReductionContacts
 import VerticalStripLLT.Circular.AliasReductionSwap

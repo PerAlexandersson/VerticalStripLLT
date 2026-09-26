@@ -27,15 +27,20 @@ The remaining work is the raised child's corresponding transport, the final
 corner-triple identifications, and assembly of the generalized recurrences.
 See [the exact DD argument](proofs/CIRCULAR_DD_PROPAGATION.md).
 
-## Nonoverlapping ND branch
+## Remaining ND branches
 
 The overlapping ND branch is complete: `Diagram.expansion_of_nd_alias`
 supplies its actual area-induction step, including target acyclicity.
 
-For the remaining nonoverlap branch, construct the R4/positive-R8 target diagrams
-with their exact strict/normal edge changes, derive both model identities from
-the checked local relations, and prove the area decreases. Disjointness must
-follow from the contact geometry; acyclicity alone does not exclude overlap.
+Root nonalias does not imply disjoint contacts. An independently audited
+[interior-overlap obstruction](proofs/CIRCULAR_ND_INTERIOR_OVERLAP.md) makes both
+naive R4 targets cyclic, although the source is acyclic and saturated.
+
+For genuinely disjoint contacts, construct the R4/positive-R8 targets and
+prove the intermediate contact transports, actual two-model identities, and
+area decreases. Interior overlap requires a separate reduction or a uniform
+semantic theorem covering that family. Do not attempt to prove its false
+exclusion from acyclicity or from root nonalias.
 
 ## Final induction and corollaries
 

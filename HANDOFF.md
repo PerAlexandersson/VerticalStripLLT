@@ -58,6 +58,15 @@ pass with only standard axioms. Logs: `circular-nd-alias-complete-build.log`,
 `circular-nd-alias-complete-axioms.log`. Primary owns all source; lanes released.
 DD checkpoint `c6f48dd` and documentation cleanup `9224524` are pushed.
 
+Luna returned `LowerStrict`, `StrictFibers`, and `StrictExpansion`; primary
+adopted all three and repaired constructor/modular arithmetic plus one duplicate
+helper. All edit lanes are released. These supply the generic head-left shift
+and actual HRV evaluation for the empty normal selection in any diagram;
+no recurrence or area restriction is part of the latter statement.
+All three modules and root build pass (1821 jobs); 1320 axiom checks pass
+with only standard axioms. Logs: `circular-strict-support-build.log` and
+`circular-strict-support-axioms.log`.
+
 Only active remote job: Aristotle project
 `9dedc3e9-472c-4e5e-aa74-14f185dc95e1`, task
 `e598f460-d1cc-4c7c-add6-cccf40042f96`, resolved DD child.
@@ -67,7 +76,11 @@ terminal flags, and acyclicity. Do not resubmit or change accounts.
 
 Next: complete explicit DD child transformations and contact transport, then
 apply contact-count induction separately to both models. Nonoverlap ND
-and final `(doubledArea, strictRank)` induction remain.
+and final `(doubledArea, strictRank)` induction remain. The ND case split
+requires an additional interior-overlap branch: root ≠ terminal upper row
+does NOT imply disjoint contacts. Primary and Astra independently found
+acyclic saturated examples where both naive R4 targets have strict cycles.
+See `docs/proofs/CIRCULAR_ND_INTERIOR_OVERLAP.md`.
 The full circular expansion is still open; preserve the active goal.
 
 Overleaf path drift: `old-main.tex` is absent; `main.tex` holds the former long

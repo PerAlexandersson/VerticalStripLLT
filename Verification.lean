@@ -1330,3 +1330,17 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.AliasContacts.expansion_of_target
 #print axioms VerticalStripLLT.Circular.Diagram.exists_nd_alias_reduction
 #print axioms VerticalStripLLT.Circular.Diagram.expansion_of_nd_alias
+
+#print axioms VerticalStripLLT.Circular.Diagram.loweredEdge
+#print axioms VerticalStripLLT.Circular.Diagram.loweredEdge_head
+#print axioms VerticalStripLLT.Circular.Diagram.loweredEdge_length
+#print axioms VerticalStripLLT.Circular.Diagram.loweredEdge_corner
+#print axioms VerticalStripLLT.Circular.Diagram.lowerStrict
+#print axioms VerticalStripLLT.Circular.Diagram.lowerStrict_area
+#print axioms VerticalStripLLT.Circular.Diagram.loweredEdge_tail
+#print axioms VerticalStripLLT.Circular.Orientation.selected_rightUnique_of_empty
+#print axioms VerticalStripLLT.Circular.Orientation.selected_leftUnique_of_empty
+#print axioms VerticalStripLLT.Circular.Orientation.hrv_eq_of_selected_of_empty
+#print axioms VerticalStripLLT.Circular.Orientation.hrv_eq_of_reachable_of_empty
+#print axioms VerticalStripLLT.Circular.Orientation.same_hrv_comparable_of_empty
+#print axioms VerticalStripLLT.Circular.strictOrderEnumerator_eq_eval_hrvMonomial_of_empty

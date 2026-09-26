@@ -83,7 +83,7 @@ vertices on the integer cover. The direct NN/DN identities are proved for both
 actual models, along with R1, strict-cycle vanishing, the no-normal-edge base,
 complete bounce search, and neutral termination. The overlapping ND branch
 has proved actual polynomial identities and a complete area-induction step.
-Generalized DD propagation, nonoverlapping ND, and final circular induction
+Generalized DD propagation, the other ND contact cases, and final circular induction
 remain in progress.
 See [verified circular results](docs/CIRCULAR_STATUS.md) and
 [remaining goals](docs/CIRCULAR_GOALS.md).

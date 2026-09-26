@@ -17,7 +17,9 @@
 - [Direct DN recurrence](proofs/CIRCULAR_DN_RECURRENCE.md).
 - [DD propagation](proofs/CIRCULAR_DD_PROPAGATION.md): checked pieces and remaining assembly.
 - [ND overlap obstruction](proofs/CIRCULAR_ND_OVERLAP.md) and
-  [uniform overlap reduction](proofs/CIRCULAR_ND_ALIAS_REDUCTION.md).
+  [uniform root-overlap reduction](proofs/CIRCULAR_ND_ALIAS_REDUCTION.md).
+- [Interior ND overlap](proofs/CIRCULAR_ND_INTERIOR_OVERLAP.md): an additional
+  case still requiring a reduction.
 
 ## Retained qualifications and provenance
 
