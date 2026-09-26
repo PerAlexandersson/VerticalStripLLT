@@ -10,7 +10,22 @@ finite alphabet, including zero. Circular size is positive.
 The user requested full statements and isolation of examples. The original
 first checkpoint below is complete; example modules are under `Examples/`.
 The general selected-orientation identity and acyclic walk bounds are locally
-proved. Active work is lifted HRV and the full circular recurrence.
+proved. Actual lifted HRV, its greatest-reachability characterization,
+translation/lift independence, and the degree and coefficient positivity of
+the independent HRV expansion are also locally proved. The remaining main
+target is the full circular semantic bridge:
+
+```lean
+theorem coloringLLT_shifted_eq_eval_shiftedOrientationExpansion
+    {n : ℕ} (D : Diagram n) (m : ℕ) :
+    xQShift m (D.coloringLLT m) =
+      evalElementary m (shiftedOrientationExpansion D)
+```
+
+This exact statement, with no recurrence or expansion assumptions, is the
+active Aristotle request `5835802e-8139-48b7-a07b-06add00f1f14`. It is not
+yet an exported Lean theorem. See `CIRCULAR_REDUCTION_OBLIGATIONS.md` for the
+parallel mathematical decomposition.
 
 ## Completed first checkpoint
 

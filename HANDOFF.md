@@ -25,10 +25,25 @@ Verified circular foundations:
 
 The general semantic identity is independent of HRV and recurrence. It does
 not identify an individual selected-order enumerator with an HRV monomial.
-Next: define the actual lifted HRV and prove its reachability characterization,
-then supply the circular local reductions, same-state no-wrap invariant, and
+Actual lifted HRV and its reachability characterization are now proved.
+Next supply the circular local reductions, same-state no-wrap invariant, and
 termination proof. `docs/CIRCULAR_REDUCTION_OBLIGATIONS.md` is a research note,
 not a proved certificate. The weak/h versus strict/e passage is omega.
+
+Verified foundation checkpoint `276bb93` is pushed. The subsequent HRV
+checkpoint proves `Orientation.isGreatest_liftedHRV`, `liftedHRV_translate`,
+`residue_liftedHRV_eq_hrv`, weighted degree n, and nonnegative coefficients of
+the independently defined `Circular.shiftedOrientationExpansion`.
+
+Aristotle project `5835802e-8139-48b7-a07b-06add00f1f14`, task
+`f726d73c-794d-4693-8a20-58660dab3545`, is active on the full circular
+expansion statement with the checked prefix. Primary owns the live observer,
+candidate audit, and all builds. Exact request: `docs/ARISTOTLE.md`.
+
+Current build-free lanes: Luna owns `Circular/ZeroArea.lean` (zero non-strict
+area forces unit-length natural arcs); Terra owns `Circular/StrictCycle.lean`
+(vanishing from incoming strict edges). These support the full induction base.
+All earlier files have returned to primary. No further examples are planned.
 
 ## Ownership, delegation, and checks
 
@@ -41,13 +56,16 @@ remain build-free; no build-slot transfer occurred.
 Aristotle completed subset expansion project
 `40998e1f-04ed-473c-9d58-5656253cfa9d` and acyclic walk bound project
 `8da2f9e8-2c92-4aaa-83a7-a88f6f36d257`. Both candidates are integrated and
-locally checked, with unchanged requested statements. No remote job remains
-active. Provenance and external request paths are in `docs/ARISTOTLE.md`.
+locally checked, with unchanged requested statements. The projected-reachability candidate is also locally checked; its service
+status was `COMPLETE_WITH_ERRORS` due to a malformed namespace wrapper,
+repaired without changing the mathematical statement. Only the full circular
+expansion request is active. Provenance is in `docs/ARISTOTLE.md`.
 
-The checkpoint build passes (1686 jobs), including the separately targeted
-examples, and `Verification.lean` checks 474 declarations. Only standard Lean
+The HRV checkpoint build passes (1691 jobs), and `Verification.lean` checks
+503 declarations. The prior foundation build separately checked the examples. Only standard Lean
 axioms occur. Logs under `/lake-cache/ai-projects/build/VerticalStripLLT/`:
-`circular-checkpoint-build.log`, `circular-checkpoint-axioms.log`.
+`circular-hrv-checkpoint-build.log`, `circular-hrv-checkpoint-axioms.log`;
+previous foundation logs use `circular-checkpoint-` instead.
 Examples were moved after checking their all-alphabet formulas; no further
 example-specific work is planned. No TeX compilation or enumeration was run.
 

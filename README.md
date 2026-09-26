@@ -80,7 +80,10 @@ The [circular LLT and flip-component plan](docs/CIRCULAR_FORMALIZATION_PLAN.md)
 maps the author's Overleaf outline to proposed declarations and small
 milestones. It prioritizes the circular HRV expansion, then complete flip
 components, reusing this finite-degree model. The circular foundation now proves the general selected-orientation coloring
-identity and acyclic lifted-walk bounds. The full circular HRV and component
-identities remain in progress. Concrete new examples live under
+identity and acyclic lifted-walk bounds. Circular HRV is defined on the
+integer cover and proved to be the greatest reachable lift, independently of
+its representative. Its formal elementary expansion has degree n and
+nonnegative coefficients. Equality with the circular LLT coloring polynomial
+and the component identities remain in progress. Concrete new examples live under
 `VerticalStripLLT/Examples/` and are excluded from the main library imports.
 Cumulants remain outside the scope.

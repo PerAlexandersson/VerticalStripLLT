@@ -36,6 +36,45 @@ implementation files. Keep generated requests/results outside the checkout.
 - This standalone request contains no manuscript or assumed HRV result.
   Isolated service environment v4.28; all candidates need local v4.34 checks.
 
+## Circular projected reachability bound (locally verified candidate)
+
+- Project `e0fb05e6-3945-4336-a5a2-12db81eee4c5`, submitted 2026-09-26.
+- Request directory:
+  `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-reachability-bound`.
+- Exact target `projected_reachable_bounds`: every reflexive-transitive path
+  in an integer relation projecting to a finite acyclic graph, with positive
+  step increments at most n−1, has nonnegative displacement at most (n−1)².
+- Includes the locally checked walk lemmas as a fixed prefix. This bridges
+  actual reachability to the finite maximum used by circular HRV. Primary
+  integrated `Circular/ReachabilityBound.lean` and verified it locally.
+- Task `426c2208-87a1-4f9e-85eb-ff5c20fe0f70` returned
+  `COMPLETE_WITH_ERRORS`: the supplied request had a duplicated namespace
+  closing line. The candidate reopened the intended namespace, preserving
+  the walk prefix and mathematical target. The extracted proof passes the
+  authoritative local build and axiom check. Do not describe the service
+  status as `COMPLETE`.
+
+## Full circular elementary expansion (active)
+
+- Project `5835802e-8139-48b7-a07b-06add00f1f14`, task
+  `f726d73c-794d-4693-8a20-58660dab3545`, submitted 2026-09-26.
+- Request directory:
+  `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-expansion`.
+- Target: `Circular.coloringLLT_shifted_eq_eval_shiftedOrientationExpansion`
+  for every valid circular diagram and every finite alphabet, with no
+  recurrence, no-wrap, or HRV equality assumption. Exact statement retained
+  in `Target.txt` and `docs/CIRCULAR_GOALS.md`.
+- The checked prefix includes direct coloring semantics, acyclic orientations,
+  actual integer-cover HRV with greatest-reachability and lift independence,
+  and the general selected-order expansion. No examples or manuscript files
+  were uploaded. `INPUT_MODULES.txt` records the source modules.
+- Isolated environment remains v4.28. Proof-only `ite_eq_right`/`ite_true`
+  names were translated to `if_neg`/`if_true`, and a local elaboration option
+  was omitted. The definitions and theorem targets retain their semantics;
+  returned work still requires local v4.34 integration and verification.
+- Primary owns the live observation and eventual candidate audit. No claim
+  that the full circular theorem is proved is made at submission.
+
 ## Strict-chain elementary identity
 
 - Project ID: `262ce79f-3c8a-4e6a-83f7-6fcf6a6c9eb6`.
