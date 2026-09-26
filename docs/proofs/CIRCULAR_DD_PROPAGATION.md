@@ -122,5 +122,7 @@ strict edge and original root. The child successors have the same extra
 terminal-row update; contact separation permits commuting it through the
 closing triple. Their coefficients are one. A bare `FullNeutralBounce` witness
 is insufficient for this identification: use the canonical target's actual
-area rows and strict edges. These geometric closing equalities are not yet
-exported theorems.
+area rows and strict edges. The raised-side NN equality is now locally proved by
+`DDLocalData.resolved_shorten_eq_unstrict` in `DDClosingNN.lean`, using
+`shortenEligible` for canonical root choices. The equality with the deleted
+corner and the corresponding DN closing triple remain open.

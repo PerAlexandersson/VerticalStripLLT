@@ -1390,3 +1390,22 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.Diagram.strict_cycle_of_infinite_local_elimination
 #print axioms VerticalStripLLT.Circular.Diagram.coloringLLT_eq_zero_of_infinite_local_elimination
 #print axioms VerticalStripLLT.Circular.Diagram.shiftedOrientationExpansion_eq_zero_of_infinite_local_elimination
+
+#print axioms VerticalStripLLT.Circular.CircularArea.ext_of_area_eq
+#print axioms VerticalStripLLT.Circular.Diagram.ext_of_area_eq_of_strictAt
+#print axioms VerticalStripLLT.Circular.Diagram.shortenStrict_strictAt_iff
+#print axioms VerticalStripLLT.Circular.Diagram.shortenStrict_boundary
+#print axioms VerticalStripLLT.Circular.Diagram.eligibleEdge
+#print axioms VerticalStripLLT.Circular.Diagram.eligibleEdge_mem
+#print axioms VerticalStripLLT.Circular.Diagram.eligibleEdge_head
+#print axioms VerticalStripLLT.Circular.Diagram.eligibleEdge_length
+#print axioms VerticalStripLLT.Circular.Diagram.eligibleEdge_gap
+#print axioms VerticalStripLLT.Circular.Diagram.shortenEligible
+#print axioms VerticalStripLLT.Circular.Diagram.shortenEligible_area
+#print axioms VerticalStripLLT.Circular.Diagram.shortenEligible_strictAt_iff
+#print axioms VerticalStripLLT.Circular.Diagram.shortenEligible_doubledArea
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.resolved_shorten_area
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.resolved_shorten_eq_unstrict
+
+#print axioms VerticalStripLLT.Circular.Diagram.deleteStrictCorner_preserves_eligible
+#print axioms VerticalStripLLT.Circular.Diagram.shortenEligible_preserves_eligible

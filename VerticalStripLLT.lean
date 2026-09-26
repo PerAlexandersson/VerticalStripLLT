@@ -1,3 +1,8 @@
+import VerticalStripLLT.Circular.EligibleCornerMoves
+import VerticalStripLLT.Circular.DiagramExt
+import VerticalStripLLT.Circular.ShortenStrictRows
+import VerticalStripLLT.Circular.EligibleShorten
+import VerticalStripLLT.Circular.DDClosingNN
 import VerticalStripLLT.Circular.LocalEliminationTermination
 import VerticalStripLLT.Circular.InteriorRestart
 import VerticalStripLLT.Circular.LowerStrictRows

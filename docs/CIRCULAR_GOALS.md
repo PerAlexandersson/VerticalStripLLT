@@ -30,7 +30,10 @@ and its cancellation/area accounting, then apply the direct local identities.
 `LocalEliminationStep.measure_lt` already proves termination of mixed concrete
 DD/neutral segments by `(strict.card, strictRank)`; it does not include R1
 strictification or prove that a suitable next move always exists.
-Some auxiliary diagrams temporarily have larger half-square area.
+Some auxiliary diagrams temporarily have larger half-square area. The raised
+side of the concrete NN closing triple is proved by
+`DDLocalData.resolved_shorten_eq_unstrict`; complete the deletion side and the
+corresponding DN closing triple before the final cancellation.
 
 The [interior-overlap analysis](proofs/CIRCULAR_ND_INTERIOR_OVERLAP.md) explains
 why applying full R4 immediately is invalid, and why this does not invalidate

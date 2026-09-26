@@ -12,8 +12,8 @@ eligible zero-DD NN/DN contact after DD resolution. Exact theorem:
 `DDLocalData.exists_oneBounce_restart_of_interior_overlap` in
 `Circular/InteriorRestart.lean`. No no-wrap or new recurrence hypothesis.
 
-Latest pushed checkpoint: `398006c`, complete resolved DD child and corrected
-one-bounce roadmap. This next increment also verifies:
+Latest pushed checkpoint: `130efc2`, interior restart and mixed DD/neutral
+termination, after `398006c` (resolved DD child). This checkpoint also verifies:
 - `DDLocalData.resolved_doubledArea`: resolved child gains one half-square;
   `deleted_doubledArea`: deletion child loses one half-square.
 - `DDLocalData.expansion_of_children`, `expansion_of_resolved`: assembly from
@@ -24,10 +24,10 @@ one-bounce roadmap. This next increment also verifies:
 - `Diagram.lowerStrict_strictAt_iff`, `lowerStrict_boundary`: exact head-left
   row transport.
 
-Checks: full default build 1830 jobs; axiom inventory 1361 declarations, only
+Checks: full default build 1835 jobs; axiom inventory 1378 declarations, only
 propext, Classical.choice, Quot.sound. Logs in the external request directory:
-`circular-elimination-checkpoint-build.log` and
-`circular-elimination-checkpoint-axioms.log`. Immutable references unchanged.
+`circular-closing-checkpoint-build.log` and
+`circular-closing-checkpoint-axioms.log`. Immutable references unchanged.
 
 ## Ownership and active work
 
@@ -35,9 +35,15 @@ Primary owns strategy, integration, remote jobs, all unassigned source, and the
 sole globally serialized local build slot. Use only `lake-workspace`, with a
 process check before every invocation. No build-slot transfer has occurred.
 Luna returned `Circular/LocalEliminationTermination.lean`; primary adopted its
-repairs and corollaries. Luna now owns only new `Circular/DiagramExt.lean`,
-build-free: extensionality from area entries and strict head rows for upcoming
-closing-diagram identities. All other delegated file lanes are released.
+repairs and corollaries. Luna returned `Circular/DiagramExt.lean`; primary adopted its dependent-type
+repairs. Luna returned `Circular/ShortenStrictRows.lean`; primary adopted its repairs.
+Luna returned `Circular/EligibleCornerMoves.lean`; primary adopted its repairs.
+All delegated file lanes are released.
+Primary owns new `Circular/EligibleShorten.lean` and
+`Circular/DDClosingNN.lean` for the concrete NN closing triple. The raised-side
+identity `DDLocalData.resolved_shorten_eq_unstrict` passes its focused build;
+remaining closing identity is the deletion side. `DiagramExt` and root-shortening
+row interfaces and eligible-root preservation pass the full root and axiom checks.
 Astra reviewer is read-only; its direct ND and auxiliary termination audits
 are complete. Terra returned no candidate and has no active assignment.
 

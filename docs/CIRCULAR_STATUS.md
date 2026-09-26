@@ -28,6 +28,7 @@ otherwise indicated. Current build and axiom counts are in [HANDOFF](../HANDOFF.
 | Interior overlap restarts at one bounce | `DDLocalData.exists_oneBounce_restart_of_interior_overlap`; [InteriorRestart](../VerticalStripLLT/Circular/InteriorRestart.lean) |
 | Exact DD half-square accounting and semantic assembly | `DDLocalData.resolved_doubledArea`, `deleted_doubledArea`, `expansion_of_children`; [DDResolvedMeasure](../VerticalStripLLT/Circular/DDResolvedMeasure.lean), [DDRecurrences](../VerticalStripLLT/Circular/DDRecurrences.lean) |
 | Uniform direct ND constructor geometry | `Diagram.exists_ndLocalData`, `lowerStrict_strictAt_iff`, `lowerStrict_boundary`; [NDLocalData](../VerticalStripLLT/Circular/NDLocalData.lean), [LowerStrictRows](../VerticalStripLLT/Circular/LowerStrictRows.lean) |
+| Raised side of the NN/DD closing triple | `DDLocalData.resolved_shorten_eq_unstrict`; [DDClosingNN](../VerticalStripLLT/Circular/DDClosingNN.lean), with canonical roots in [EligibleShorten](../VerticalStripLLT/Circular/EligibleShorten.lean) |
 | Complete overlapping ND induction step | `Diagram.exists_nd_alias_reduction`, `Diagram.expansion_of_nd_alias`, `AliasContacts.target_admissible_iff`; actual coloring/HRV factors and doubled-area drop six in [AliasRecurrences](../VerticalStripLLT/Circular/AliasRecurrences.lean) |
 | Forced ascent/descent factors for actual models | [ForcedColoring](../VerticalStripLLT/Circular/ForcedColoring.lean), [ForcedOrientation](../VerticalStripLLT/Circular/ForcedOrientation.lean) |
 
