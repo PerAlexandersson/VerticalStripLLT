@@ -53,6 +53,9 @@ identify overlapping offset tracks with a cycle. Rotation invariance alone
 cannot close an excursion whose side defects vanish: DD, neutral DN and R1
 strictification preserve q^(strict.card) times the semantic defect. A valid
 branching cancellation or an independently solved endpoint is still needed.
+Zero-row preservation for concrete DD/DN moves is now checked: these moves
+cannot create an ordinary cut from a positive-area source. The checked
+zero-cut interval lemmas do not discharge that remaining case.
 
 ## Final induction and corollaries
 

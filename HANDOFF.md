@@ -8,7 +8,19 @@ interior overlap is now proved; deeper contacts remain. Follow the author's
 one-bounce elimination strategy. Strict cycles make both actual models vanish;
 overlap between offset contact tracks alone is not a cycle. No flip work.
 
-Latest pushed source checkpoint `4cb8f5d` adds:
+Current source checkpoint adds zero-cut geometry and zero-row preservation:
+
+- `Diagram.liftStep_interval`, `reflTransGen_interval` and
+  `Orientation.liftedHRV_interval` confine actual lifted walks/HRV to one
+  period when its starting cut has area zero.
+- `Diagram.dnSuccessor_area_eq_zero_iff` and
+  `Diagram.DDLocalData.resolved_area_eq_zero_iff` prove exact pointwise
+  preservation of zero-area rows for concrete DN and resolved DD moves.
+- Thus an ordinary-cut base cannot be newly reached from a positive-area
+  source by these auxiliary moves. No ordinary-word decoder or semantic
+  transport was started; that would require a substantial separate bridge.
+
+Prior pushed source checkpoint `4cb8f5d` adds:
 
 - `DDLocalData.oneBounce_restart_of_interior_overlap_at`, identifying the
   actual restart root and terminal. The older existential theorem is a wrapper;
@@ -31,16 +43,20 @@ Previous source checkpoints: `372619c` (strict-corner adjacency), `78c07c3`
 fully proved. Initialization commits `830cc6b`, `130f7e8` and immutable references
 are preserved.
 
-Checks: full default build 1871 jobs; axiom inventory 1788 declarations, only
+Checks: full default build 1873 jobs; axiom inventory 1794 declarations, only
 propext, Classical.choice, Quot.sound. Source guards, changed-source line lengths
-and diff whitespace pass. External logs `circular-first-contact-checkpoint-build.log`
-and `circular-first-contact-checkpoint-axioms.log` under
+and diff whitespace pass. External logs `zero-rows-checkpoint-build.log`
+and `zero-rows-checkpoint-axioms.log` under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/`. All local builds serialized.
 
 ## Ownership
 
-Primary owns all source, strategy, integration, remote jobs and the sole build
-slot. All delegated lanes are released. Use only `lake-workspace`; check no
+Primary owns strategy, integration, remote jobs and the sole build slot.
+All delegated lanes are released. Primary has adopted Luna's
+`Circular/ZeroRowsTransport.lean` and Terra's
+`Circular/ZeroCutGeometry.lean` for integration and verification. Luna's ordinary
+path reconstruction audit and Astra's terminal-family audit are complete.
+Primary owns all source and documentation. Use only `lake-workspace`; check no
 other Lean/Lake process is active before every invocation. No build-slot transfer.
 
 Luna supplied insertion-coloring sums, cross-ascent algebra and the first-contact
@@ -64,7 +80,7 @@ as live. Transient observer reconnects never resubmitted the task.
 A narrower uniform chain-singleton semantic request is active in
 `circular-chain-singleton-expansion/`: project
 `004c658b-1194-4c5c-be93-a3799e73d7be`, task
-`40bf20a6-93f3-4fcb-8500-8739c2c8b234`, initially confirmed QUEUED.
+`40bf20a6-93f3-4fcb-8500-8739c2c8b234`, last confirmed IN_PROGRESS at 19 minutes.
 Native observer session **83953**, log `observer-reconnect.log`. Original observer
 29734 exited after a server-connection interruption; the same task was confirmed
 IN_PROGRESS before reconnection. No resubmission. Observe this same task;

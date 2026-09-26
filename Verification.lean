@@ -1824,3 +1824,9 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.PairGraph.ascentCount_eq_sum
 #print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.oneBounce_restart_of_interior_overlap_at
 #print axioms VerticalStripLLT.Circular.Diagram.expansion_of_nd_interior_overlap_first_contact
+#print axioms VerticalStripLLT.Circular.Diagram.boundary_eq_self_of_area_zero
+#print axioms VerticalStripLLT.Circular.Diagram.liftStep_interval
+#print axioms VerticalStripLLT.Circular.Diagram.reflTransGen_interval
+#print axioms VerticalStripLLT.Circular.Orientation.liftedHRV_interval
+#print axioms VerticalStripLLT.Circular.Diagram.dnSuccessor_area_eq_zero_iff
+#print axioms VerticalStripLLT.Circular.Diagram.DDLocalData.resolved_area_eq_zero_iff

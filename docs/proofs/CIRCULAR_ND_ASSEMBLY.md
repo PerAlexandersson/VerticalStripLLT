@@ -209,3 +209,44 @@ argument. This is a mathematical classification audit, not yet a Lean theorem
 or a proved description of all configurations reached by the interior route.
 In particular, no claim that the active chain-singleton request closes all
 deeper interior cases is justified.
+
+## Zero-area cuts do not provide a new auxiliary exit
+
+The zero-cut geometry is checked in `ZeroCutGeometry.lean`: if row c has
+area zero, every selected lifted edge and walk starting in [c,c+n) remains
+there. The actual lifted HRV therefore also lies in that interval. The proof
+uses boundary(c+n)=c+n and boundary monotonicity; it does not assume acyclicity
+for the edge or walk statements.
+
+Transporting the ordinary expansion through this cut would additionally need
+a Schröder-word decoder and edge correspondence, an orientation equivalence,
+and comparison of ordinary finite HRV with circular lifted HRV. The repository
+has no such decoder. The interval lemma is not itself the ordinary semantic
+bridge, and no full conversion has been started.
+
+More importantly, `ZeroRowsTransport.lean` proves that the concrete DD and DN
+moves preserve zero-area rows pointwise: they raise a positive row and lower
+a row of area at least two.
+Thus they cannot turn a positive-area interior source into a diagram with a
+zero-area cut. Bare `FullNeutralBounce` and `NeutralTransport` only constrain
+strict graph data, so this geometric claim must use the actual constructors.
+An ordinary-cut base would not close the remaining positive-area auxiliary
+case by these moves alone.
+
+## Finer terminal restrictions (mathematical audit)
+
+For the positive terminal family above, write H=area(p), m=area(p+1) and
+d=H−m. The strict sinks occupy the consecutive residue block
+res(p−H),...,res(p−m). Indeed, away from the unique missing corner, the lifted
+boundary increments by zero or one. Its unit increments correspond to strict
+plateaus, whose tails exhaust [p+1−m,p+n−H−1]. The complement is the stated
+sink block of size d+1.
+
+The initial interior DD resolution also produces an isolated strict vertex:
+the deleted parallel edge ends at a strict sink, and its deletion isolates that
+sink before the conjugacy. Neutral strict-graph conjugacies preserve a singleton
+component. These restrictions still do not force the remaining components to
+form one chain. A general chain-shuffle calculation needs the normal-edge
+incidences between different chains; component sizes alone do not determine
+either actual model. This paragraph records audited mathematics, not additional
+Lean declarations or a proved general exit.
