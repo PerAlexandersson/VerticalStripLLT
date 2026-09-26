@@ -38,6 +38,8 @@
 - [Circular flip interfaces](CIRCULAR_FLIPS.md): downstream component scope.
 - [Diamond straightening audit](proofs/DIAMOND_STRAIGHTENING_AUDIT.md):
   exact obstruction, auxiliary-state repair and exterior-swap correction.
+- [Sink-deletion companion](proofs/COMPONENT_SINK_BRANCHING.md): proved
+  reconstruction, proposed HRV branching, and its implication for components.
 - [Component induction brainstorming](proofs/FLIP_COMPONENT_INDUCTION.md):
   coloring redistribution, cross-ascent transfers and exact missing lemmas.
 - [Aristotle ledger](ARISTOTLE.md): request IDs, candidates, and local verification.

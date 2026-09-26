@@ -799,3 +799,31 @@ The archive and inspected summaries are in the external
 `circular-interior-with-chain-base/` request directory. Its finite exploratory
 rank calculations are not a proof of an obstruction. Local column reversal
 and residual transport were developed after its input snapshot `5266faa`.
+
+## Active component companion proof search
+
+- Project `d4b3ddfe-0051-4f80-b222-4e9374badcb3`, task
+  `e8ff79a8-7d41-4d95-98ea-34cd691a4653`.
+- Input source checkpoint `e8adfa4`; external payload directory
+  `/lake-cache/ai-projects/requests/VerticalStripLLT/component-diamond-companion/`.
+  `TARGET.md`, `DIAMOND_AUDIT.md`, `SOURCE_HASHES.json` and the 56-module
+  source closure retain the exact request. Lean 4.34 source is an authoritative
+  semantic reference; the service's 4.28 compatibility limitation is explicit.
+- The target is a proved general diamond/companion lemma establishing the
+  actual component identity. Fixed-diagram straightening is explicitly
+  refuted in the input; conditional reconstruction alone is not completion.
+- Successful inline instructions add ordinary root branching, circular
+  sink-deletion reconstruction, the candidate elementary identities (S_k)
+  and (S_T), and the failures of finite sink priority and deletion-unstable
+  conjugacy. Receipts are `steering.log`, `sink-branch-message.log`, and
+  `fixed-sink-message.log`. The supplemental file `ROOTED_BRANCHING.md`
+  could not be uploaded while the task was active; its contents were instead
+  sent inline. That failed upload created no new task.
+- Two native observation connections dropped. The existing observation wrapper
+  was copied with the new project/task IDs and passed `bash -n`. It is running
+  in session `88691`, with a two-hour allowance, and confirmed IN_PROGRESS.
+  It reconnects to the SAME task without submitting or cancelling. Logs are
+  `observed-status.log` and `observer-follow.log`. Observation failure does not
+  imply proof-task failure. No proof candidate has been integrated.
+- No local Lean build was needed for this research request. Any returned Lean
+  result remains a candidate until checked by the sole local build owner.

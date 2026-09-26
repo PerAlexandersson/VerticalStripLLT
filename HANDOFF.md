@@ -61,6 +61,37 @@ External logs under `/lake-cache/ai-projects/requests/VerticalStripLLT/`:
 formatting changes in the full build. No dependency update or local generated
 build directory was introduced.
 
+## Active general companion goal
+
+Primary owns strategy and notes. Astra reviewed the sink-deletion proof route;
+Terra audited induced circular restriction. Both delegates were read-only and
+build-free. The active goal remains unproved.
+
+`docs/proofs/COMPONENT_SINK_BRANCHING.md` records a proved mathematical
+reconstruction lemma: restrictions obtained by deleting a fixed sink subset
+have constant multiplicity on complete smaller flip components. The remaining
+precise companion is (S_k), comparing actual recomputed HRV after deletion
+with elementary one-variable branching; the stronger fixed-subset (S_T) is
+also proposed. If proved, this gives induction on vertices and alphabet size.
+Neither identity is currently proved or formalized. Critical-edge forests
+preserve actual lifted HRV, but do not justify discarding coloring constraints.
+
+Aristotle project `d4b3ddfe-0051-4f80-b222-4e9374badcb3`, task
+`e8ff79a8-7d41-4d95-98ea-34cd691a4653`, is active. Exact payload, hashes,
+submission and steering receipts are external in
+`/lake-cache/ai-projects/requests/VerticalStripLLT/component-diamond-companion/`.
+Observation connections dropped twice. The existing same-task observation
+wrapper is now running in native session `88691`, with a two-hour allowance
+and status/reconnection logs in that directory. It confirmed IN_PROGRESS;
+no duplicate task was submitted. See the Aristotle ledger. No result has
+been integrated.
+
+Bounded fixed-subset checks passed for four specified n=4 diagrams, using the
+existing Rust HRV API through an external input/output bridge and the prior
+finite flip enumerator. These are evidence, not a proof. No shared Rust source,
+polynomial family, Lean module, Lean build, or Overleaf edit was introduced.
+Primary owns HANDOFF, the new note, docs index and Aristotle ledger.
+
 ## Diamond exploration result
 
 The fixed-diagram diamond-to-chain straightening lemma is REFUTED, not open.
@@ -75,10 +106,10 @@ correction remains and cancels for swap-invariant multiplicities. The open
 next task is component-labeled packet decomposition, swap balance, and a
 justified reduction of the resulting packets. No complete proof is claimed.
 
-Primary owns the notes and integration. Astra independently derived the
+In that preceding checkpoint, Astra independently derived the
 obstruction and repair; Terra audited the existing HRV triangle APIs. All
-read-only delegate lanes are now released. No Lean build, new Lean theorem,
-remote request or Overleaf edit occurred.
+read-only delegate lanes were released. No Lean build, new Lean theorem,
+remote request or Overleaf edit occurred in that checkpoint.
 
 Rust capability check: read LIBRARY_GUIDE, ran cargo metadata, inspected
 LLT/HRV and exact linear algebra APIs. There is no public circular flip/diamond
