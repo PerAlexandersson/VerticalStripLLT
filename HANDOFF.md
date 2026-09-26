@@ -43,6 +43,27 @@ serialized local build slot. All delegated lanes are released; no build-slot
 transfer occurred. Use only `lake-workspace`, checking for other Lean/Lake
 processes before each invocation. Delegates remain build-free.
 
+Terra's bounded strict-corner adjacency task returned without a candidate;
+the lane is released and no new file was created. Astra completed read-only
+audits of a possible chain-plus-isolated-vertex base and the author's strict-loop
+clarification. No local build was needed for these audits.
+
+The strict-loop clarification is recorded in `CIRCULAR_ND_ASSEMBLY.md`:
+repetition within one strict walk forces zero, whereas the remaining interior
+contact identifies vertices of two offset tracks without closing a walk.
+The one-bounce restart is already checked; its auxiliary-area exit is open.
+
+Potential uniform base, mathematically audited but not formalized: a strict
+chain c_1,...,c_L and one isolated strict vertex v. Put a_j=[c_j→v normal],
+b_j=[v→c_j normal], I=#forward internal normal edges, M=sum_{j<L} a_j,
+A=I+M, r=M+b_1+a_L. Strict-corner geometry gives a_j=b_{j+1} for j<L.
+The coloring expression is q^A*(e_L*e_1+r*(q-1)*e_(L+1)); the independent
+shifted HRV expression is (1+q)^A*(e_L*e_1+r*q*e_(L+1)). For external selected
+sets U,V, admissibility says j<h for every j in U,h in V. Nonempty V or
+L in U gives one HRV fiber; otherwise the strict continuation dominates each
+external shortcut on the integer cover, giving fibers L and 1. This may
+supply a terminal base, but no theorem says every interior case reaches it.
+
 Read-only Claude Sonnet consultation 97026 finished normally without a proof.
 External prompt, JSONL output and `Review.md` are in `claude-interior-review/`.
 Primary and Astra audited it: defect transfer is valid existing algebra, while

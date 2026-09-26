@@ -7,6 +7,23 @@ obligation. Direct ND and full NN elimination were checked at `1d5005d`; see
 The author's intended route uses one-bounce identities and local elimination.
 An unrestricted projected general R4 identity is not assumed.
 
+## Strict loops versus shared contacts
+
+The author's strict-loop argument is already checked. In a fixed diagram,
+`ReverseBounce.selected_path` follows actual strict edges. A repeated vertex
+on that directed walk forces a strict cycle, so both actual models vanish.
+`exists_complete_reverseBounce` uses strict ancestor depth to terminate the
+search in the acyclic case. `coloringLLT_eq_zero_of_infinite_full_neutral_bounce`
+also proves vanishing for indefinite sequences of the specified neutral moves.
+
+The remaining interior identification is between two offset contact tracks:
+the upper terminal vertex x+1 lies inside the main chain starting at x.
+It supplies a path from x to x+1, not a return to x. Both tracks may therefore
+lie inside one acyclic strict component. The checked interior restart already
+reduces this situation to a single NN or DN bounce. The outstanding work is
+the area accounting for the resulting auxiliary diagrams, as detailed below.
+No independent multibounce identity is needed as an assumption.
+
 ## Completed disjoint terminal branch
 
 `Diagram.exists_nd_separated_reduction` proves the actual coloring and HRV
