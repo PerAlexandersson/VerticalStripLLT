@@ -23,6 +23,8 @@ component proof may not yet be known. No component proof is assumed here.
 
 ## Final checked increment
 
+Verified theorem checkpoint: `18fbb4d` on private `main`.
+
 The previous pushed checkpoint is `5f6cd6f` (actual residual coloring and HRV
 transport). This completion adds four modules:
 

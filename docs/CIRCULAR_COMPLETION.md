@@ -81,6 +81,8 @@ terminates is required.
 
 ## Verification and provenance
 
+Verified theorem checkpoint: `18fbb4d` on private `main`.
+
 The focused `Circular.Expansion` build passed (1772 jobs), followed by the
 full default build (1908 jobs). All 2037 axiom-inventory declarations were
 reported in exact order and use only `propext`, `Classical.choice`, and
