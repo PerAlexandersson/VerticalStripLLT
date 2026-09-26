@@ -1,5 +1,36 @@
 # VerticalStripLLT handoff
 
+## Current task: circular and component formalization plan
+
+2026-09-26: the user requested a downstream plan after completion of the ordinary
+theorem. Primary `/root` owns `docs/CIRCULAR_FORMALIZATION_PLAN.md`, this handoff,
+and the README planning link. Independent Astra reviewer
+`/root/circular_plan_review` completed a read-only source/architecture review;
+it owns no files. No circular implementation or build has started.
+
+Planning source: Overleaf `LLT flip/old-main.tex` (its sibling `main.tex` is
+empty), with `EDITORIAL-AUDIT.md`; the earlier `LLT-flips/llt-flips.tex` is
+background. These sources and the committed ordinary references remain
+read-only. The plan records source hashes, exact statement correspondence,
+proposed declarations, milestones, and remaining proof obligations.
+
+Priority is the aggregate circular HRV expansion, completing the manuscript's
+lifted recurrence argument, followed by complete flip components. The user
+expects the circular gaps to be fillable from the outline; components need
+more detail. Weak/h versus strict/e is an omega translation, not a separate
+mathematical obstruction. Keep the translation small and degree-local.
+
+Next implementation milestone, beyond this planning task: finite circular
+edge instances, admissibility, and the two-vertex circular coloring examples.
+Primary retains the sole build slot; future bounded Luna/Terra/Aristotle tasks
+must have explicit ownership and remain build-free locally.
+
+Planning checks: source hashes rechecked against the files read; source/API
+correspondence reviewed; `git diff --check` passed. References are unchanged
+from `130f7e8`, and both initialization commits remain ancestors. No Lean,
+Lake, TeX, or enumeration commands were run for this task. The documentation
+checkpoint is titled `Plan circular HRV and complete flip-component formalization`.
+
 ## Completed ordinary expansion
 
 The main ordinary Alexandersson–Sulzgruber expansion is proved in the reviewed
@@ -34,8 +65,9 @@ infinite-variable formula. No general symmetric-functions library was built.
 Uniqueness for the original restricted `SatisfiesRecursion` remains a separate
 unproved claim; the main proof uses the explicitly stronger certificate,
 whose clauses are proved for both concrete models. This does not weaken the
-main expansion statement. Circular LLTs, cumulants, and flip components were
-not started and remain downstream work.
+main expansion statement. Circular and flip-component implementation remains
+downstream; its newly requested plan is separate from the completed ordinary
+scope. Cumulants are not part of either scope.
 
 ## Verification and checkpoint history
 
@@ -84,8 +116,8 @@ All other completed remote provenance is in `docs/ARISTOTLE.md`.
 Issues #1–7 are closed. Issue #7 records the completed orientation milestone:
 https://github.com/PerAlexandersson/VerticalStripLLT/issues/7.
 The verified completion checkpoint is pushed and #7 is closed. No active
-implementation task or mathematical blocker remains for this scope. Future
-work should start from a separately agreed downstream objective.
+implementation task or mathematical blocker remains for the ordinary scope.
+The newly requested circular/component planning task is recorded above.
 
 ## Environment and durable references
 

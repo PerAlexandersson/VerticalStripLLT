@@ -76,4 +76,8 @@ axioms. No proof placeholders, custom axioms, or unchecked native proofs are use
 See [the formalization map](docs/FORMALIZATION.md),
 [Aristotle provenance](docs/ARISTOTLE.md), and [current handoff](HANDOFF.md).
 The author-supplied manuscript under `references/` is immutable.
-Circular LLTs, cumulants, and flip components are downstream projects.
+The [circular LLT and flip-component plan](docs/CIRCULAR_FORMALIZATION_PLAN.md)
+maps the author's Overleaf outline to proposed declarations and small
+milestones. It prioritizes the circular HRV expansion, then complete flip
+components, reusing this finite-degree model. This is planning only; neither
+downstream result is yet formalized. Cumulants remain outside the scope.
