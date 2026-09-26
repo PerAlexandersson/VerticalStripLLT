@@ -181,3 +181,7 @@ import VerticalStripLLT.Circular.InteriorShortenCycle
 import VerticalStripLLT.Circular.InteriorDNRestart
 import VerticalStripLLT.Circular.InteriorMergedComponent
 import VerticalStripLLT.Circular.OrientationSumConjugacy
+import VerticalStripLLT.Circular.ColumnIndexReversal
+import VerticalStripLLT.Circular.InteriorComponentIsolation
+import VerticalStripLLT.Circular.InteriorColumnGeometry
+import VerticalStripLLT.Circular.InteriorColumnReversal

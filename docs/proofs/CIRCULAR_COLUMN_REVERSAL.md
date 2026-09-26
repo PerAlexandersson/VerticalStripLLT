@@ -28,8 +28,9 @@ strict component and no strict edge joins it to the outside.
 `Diagram.exists_interiorMergedComponent_of_overlap` in
 `InteriorMergedComponent.lean` now proves this chain certificate from the
 actual counted-contact hypotheses. It includes bounded injectivity and the
-free endpoints; component isolation via strict uniqueness remains to be
-packaged for the target module. Its focused/full builds and axiom checks pass.
+free endpoints. `InteriorComponentIsolation` now proves exact predecessor and
+successor formulas and strict-edge closure of the component, and supplies
+`vertexEmbedding` and `size_le`. Local builds and axiom checks pass.
 
 ## Columns and their reversal
 
@@ -48,6 +49,13 @@ Let pi reverse each column, fixing all other vertices. Its integer lift sigma
 reverses each lifted interval and is periodic. Consecutive strict-chain
 vertices belong to different columns because j≥2, so their positive lifts
 are transported without reversing direction or reaching length n.
+
+The finite permutation is now verified as `InteriorMergedComponent.reversalPerm`,
+with the actual column formula, involution and fixation off the component.
+`ColumnIndexReversal` supplies the bounded arithmetic permutation;
+`InteriorColumnGeometry.vertex_atOffset` verifies that these index columns are
+actual circular intervals. The periodic integer lift and its edge transport
+are still to be formalized.
 
 Let H_c be the positive circular distance from the start of C_(c-1) to the
 start of C_c, taking the predecessor of column zero to be column j-1.
@@ -103,6 +111,43 @@ edges is unchanged. Thus doubled area strictly decreases. The root-alias
 case i=0 formally gives j=r, q=1, s=0 and the familiar decrease of three raw
 cells, providing a consistency check; no refactor of that completed proof is
 needed.
+
+## Finite decrement implementation of the target
+
+For index a<r+j and s=r mod j, use the following decrement d(a):
+
+```
+if a % j = 0:
+  if s = 0: 1 if a = 0, otherwise 2
+  else:     0 if a = 0, otherwise 1
+else:
+  1 if a % j = s, otherwise 0
+```
+
+Set d=0 off the component and Qarea(v)=Darea(v)-d(v). The new source index is
+e0=j*((r+j-1)/j). It equals r if s=0 and r+(j-s) otherwise. Among indices
+r≤a<r+j, remainder zero identifies exactly e0, while remainder s identifies
+exactly r. This pins down every affected column endpoint.
+
+Cyclic validity follows directly from the old cyclic inequality when the
+next decrement is at least the current decrement. When a decrement of one
+falls, the old strict-corner inequality suffices. A decrement of two can fall
+only at the original eligible root (s=0), whose stronger inequality suffices.
+The old source is harmless: its next decrement increases. For retained strict
+corners, the only additional endpoint is the root when s>0, again eligible;
+the other problematic endpoint is the new source whose strict mark is removed.
+The inserted strict corner at w_0 follows from `source_area_jump`.
+
+Positivity follows from the checked area-profile lemmas. In particular rows
+decremented by two have old area at least three, from `source_area_ge_two`
+and `area_zero_column_succ`; the generic lower bound of two would not suffice.
+The target's raw-area sum decreases strictly because every row weakly decreases
+and the eligible root strictly decreases. Together with unchanged strict-head
+cardinality, this proves doubled-area descent without evaluating the exact sum.
+
+Primary and independent Astra audited this finite proof route. It is the next
+construction task; the target diagram and these validity theorems are not yet
+Lean declarations.
 
 ## Edges to other components
 
@@ -162,9 +207,10 @@ contain the chain and its source/root/contact properties, not a target diagram
 or the desired polynomial identity. This boundary was independently reviewed.
 
 The formulas and local geometric checks above have been audited by hand.
-The merged-chain extraction and generic restricted-sum transport are verified.
-The remaining Lean work is the chain-to-column construction, explicit valid
-target, edge/lift correspondence, and invocation of the existing outer IH.
+The merged-chain extraction, component isolation, finite column permutation,
+original area profiles and generic restricted-sum transport are verified.
+The remaining Lean work is the explicit valid target, edge/lift correspondence,
+and invocation of the existing outer IH.
 The active Aristotle request predates this construction and has not received
 it; it remains a separate proof search. No remote result or this note is
 treated as a substitute for the serialized local build and axiom checks.

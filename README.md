@@ -98,9 +98,10 @@ The actual coloring–HRV equality is also proved uniformly for a strict chain
 plus one isolated vertex, including winding configurations and every finite
 alphabet. This supplies an additional semantic base, without assuming that
 all remaining interior sources belong to that family.
-The merged strict component of an interior overlap and general restricted HRV
-sum transport are now proved. An explicit column-reversal reduction has a
-checked mathematical outline; its target construction and final Lean assembly
+The merged strict component of an interior overlap, its column-reversal
+permutation and area profiles, and general restricted HRV sum transport are
+now proved. The area-lowering reduction has a checked mathematical outline;
+its target construction and final Lean assembly
 remain in progress. See [the reduction plan](docs/proofs/CIRCULAR_COLUMN_REVERSAL.md).
 See [verified circular results](docs/CIRCULAR_STATUS.md) and
 [remaining goals](docs/CIRCULAR_GOALS.md).

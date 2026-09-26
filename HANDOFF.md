@@ -29,7 +29,34 @@ are in `docs/proofs/CIRCULAR_COLUMN_REVERSAL.md`. The next step is the uniform
 Lean construction and semantic assembly, not further example classification.
 `InteriorNDInductionStep` remains open until that integration is verified.
 
-## Current verified checkpoint: merged component and HRV transport
+## Current verified checkpoint: column permutation and area profiles
+
+Four new modules are integrated and checked:
+
+- `ColumnIndexReversal`: `columnReversePerm` is an actual permutation of `Fin N`;
+  `lt_colLen_iff` and the explicit reflection formula prove bounds and involution.
+- `InteriorComponentIsolation`: exact predecessor/successor characterizations,
+  `vertexEmbedding`, `size_le`, and strict-edge closure of `componentVertices`.
+- `InteriorColumnGeometry`: `vertex_atOffset`, `area_jump`, `source_area_jump`,
+  `area_at_column_index`, `area_ge_two_of_positive_main`, `source_area_ge_two`,
+  and `area_zero_column_succ` give the actual interval and area data.
+- `InteriorColumnReversal`: `reversalPerm`, its column formula, involution and
+  fixation of all vertices outside the component.
+
+Luna supplied the isolation candidate; Terra supplied initial index arithmetic;
+primary completed the permutation, geometry and integration. Full build 1887
+jobs, all 1897 axiom-inventory declarations standard-only, source guards and
+100-column/diff checks pass. External logs: `interior-column-reversal-build.log`,
+`interior-column-reversal-full-build.log`, `interior-column-reversal-axioms.log`.
+
+Next: construct `InteriorReversalTarget` using decrements of the original areas,
+then prove strict/exterior transport and the semantic reduction. The exact
+decrement and finite endpoint cases are recorded in the proof note. Independent
+Astra audited this simpler validity argument. It requires no cyclic distance
+formula or exact total-area sum: pointwise decrease and strict root decrease
+suffice. Rows decremented by two use the proved lower bound of three.
+
+## Previous checkpoint: merged component and HRV transport (`0dd9ad8`)
 
 `Diagram.exists_interiorMergedComponent_of_overlap` constructs the full
 merged chain from the counted interior overlap. Its `InteriorMergedComponent`
@@ -144,6 +171,10 @@ The merged-component and orientation-conjugacy candidates are now integrated
 and verified. All delegate edit lanes are released. Primary owns the next
 column-index and target-geometry modules. Astra completed the independent
 uniform target, module-boundary and source-semantic audits.
+
+All four column modules above are verified and delegate lanes are released.
+Primary owns the next target construction, all integration files and the sole
+global build slot. No delegate builds were run.
 
 Primary owns strategy, integration, remote jobs, all other source and the sole
 build slot. All delegated lanes are released. Luna ported selection/subset sums;
