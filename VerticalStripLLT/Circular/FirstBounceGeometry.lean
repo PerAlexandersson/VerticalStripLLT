@@ -108,5 +108,19 @@ theorem coloringLLT_firstBounce_geometry
   · simpa only [firstBounceBackground, f] using hstrict
   · simpa only [firstBounceBackground, f, D.normalPairs_eq_sdiff] using hnormal
 
+/-- The same geometric NN identity after the coefficient substitution q ↦ q+1. -/
+theorem xQShift_coloringLLT_firstBounce_geometry
+    {e : Edge D.area} (he : e ∈ D.strict) (hlen : 2 ≤ e.length.val)
+    (hgap : D.area.area (D.area.next e.head) < D.area.area e.head)
+    (hsame : D.boundary (D.boundary (e.head.val : ℤ) + 1) =
+      D.boundary (D.boundary (e.head.val : ℤ)))
+    (hleft : ¬ D.strictAt (D.boundary (e.head.val : ℤ)))
+    (hright : ¬ D.strictAt (D.boundary (e.head.val : ℤ) + 1)) (m : ℕ) :
+    xQShift m (D.coloringLLT m) = MvPolynomial.C (Polynomial.X + 1) *
+      xQShift m ((D.shortenStrict e he hlen hgap).coloringLLT m) := by
+  rw [D.coloringLLT_firstBounce_geometry he hlen hgap hsame hleft hright m, map_mul]
+  congr 1
+  simpa using xQShift_C_X_pow' m 1
+
 end Diagram
 end VerticalStripLLT.Circular

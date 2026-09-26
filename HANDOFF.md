@@ -5,11 +5,36 @@
 Primary owns strategy, integration, all returned source, remote requests, and
 the sole globally serialized build slot. No build-slot transfer. User authorized
 circular continuation, bounded Luna/Terra delegation, and Aristotle proof search.
-Current build-free ownership:
-- Luna `circular_data`: new `Circular/RaiseStrict.lean`, local DN head extension
-  (returned, integration pending; excluded from this checkpoint).
-- Terra `circular_colorings`: returned contact-chain extraction; lane released.
-- Astra `circular_plan_review`: returned read-only seed-search and DN geometry audits.
+All bounded Luna/Terra source tasks returned; lanes released. Primary owns all
+integration repairs and new DN source. No build-slot transfer. Aristotle NN
+orientation search is active; its proof candidate is nearing external completion.
+
+Current new declarations beyond the pushed search checkpoint:
+- `Diagram.exists_fullNeutralBounce_of_reverseBounce`: a complete acyclic DN
+  search produces a valid actual successor, exact two-row area update, and full
+  contact witness; the target remains acyclic and its strict rank decreases.
+- `Diagram.exists_area_preserving_dn`: this actual target preserves doubled
+  half-square area and strictly decreases the secondary rank.
+- `Diagram.doubledArea_int`: the natural statistic equals the intended integer
+  formula `2*sum area - strict.card`; no truncation ambiguity.
+- `dnSuccessor_selected_iff`: exact two endpoint-edge replacements, for arbitrary
+  full contact length; intermediate DD strict edges remain unchanged.
+- `xQShift_coloringLLT_firstBounce_geometry`: shifted form of the actual NN
+  coloring recurrence.
+
+Astra read-only audit confirms the full-DN source correspondence, derived
+separation/validity, and geometric-area interpretation.
+
+The remaining contact-to-neutral-successor interface is now proved. Still open:
+coloring/HRV DN and ND recurrences, propagation of identities through DD contacts,
+remaining area-decreasing branches, and the final circular induction. The full
+circular equality remains unproved. No component work in this continuation.
+
+DN focused/default builds pass (1759 jobs); all 796 axiom checks pass with
+only propext, Classical.choice, and Quot.sound. Source/100-column guards pass. Logs: `circular-dn-checkpoint-build.log`
+and `circular-dn-checkpoint-axioms.log` under the external build directory.
+
+Verified source checkpoint `d144cb6`.
 
 ## Current checkpoint: circular search and NN coloring
 

@@ -68,8 +68,10 @@ NN involution on this actual target. `FirstBounceGeometry` discharges the
 exterior hypotheses from the NN row flags and terminal gap, proving
 `Diagram.coloringLLT_firstBounce_geometry` for every finite alphabet.
 `ReverseBounce.exists_contacts` extracts the strict main and parallel integer
-chains; the full DN successor and finite-index contact adapter remain to be
-connected to the previously checked neutral-rank theorem.
+chains. `IndexedBounceContacts` converts them to finite indexed paths;
+`DNContactGeometry` proves their separation and the needed circular length bounds.
+`DNRealization` constructs the actual valid DN successor and its full neutral
+contact witness, and `GeometricArea` proves area preservation and rank decrease.
 
 For orientations, `Orientation.liftedHRV_conjugate` transports the actual
 integer-cover maximum through a lift isomorphism whose order is preserved on
@@ -92,8 +94,8 @@ updates or the required polynomial identities. The remaining work is to:
 1. instantiate the coloring and HRV recurrence adapters for every terminal
    contact type, including the periodic exterior;
 2. propagate the local identities through the intervening DD contacts;
-3. derive `FullNeutralBounce` for the actual DN successor, so the previously
-   proved strict-rank decrease applies;
+3. use the now-proved actual DN `FullNeutralBounce` realization and its strict-rank
+   decrease;
 4. close induction with doubled geometric half-square area first, and strict
    rank for the neutral branches, using the checked strict-cycle and no-normal
    base families.
@@ -101,7 +103,7 @@ updates or the required polynomial identities. The remaining work is to:
 The main circular coloring–HRV equality is still an explicit theorem target,
 not an assumption imported by this work.
 
-## DN successor geometry (next implementation)
+## DN successor geometry (now checked)
 
 For a terminal DN row x and outer eligible DE row z, raise area at x+1 by
 one and lower area at z by one. Remove the strict flag at x, add it at x+1,
@@ -115,5 +117,7 @@ and z, together with a(x)+1<n. Acyclicity of the full main path and its
 separation from the closed parallel path imply these conditions, including
 exclusion of a length-n new edge. The local validity proof then uses only
 boundary monotonicity and the terminal gap. Both area sum and strict-edge
-count are preserved. These are mathematical derivations pending their Lean
-successor constructor, not hypotheses to add to the final expansion theorem.
+count are preserved. `Diagram.exists_area_preserving_dn` proves these facts for every complete
+acyclic DN search. `doubledArea_int` identifies the natural-valued measure with
+twice the intended geometric area. These are consequences of the source
+geometry, not extra assumptions of a circular expansion theorem.

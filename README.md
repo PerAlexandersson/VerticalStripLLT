@@ -97,7 +97,8 @@ The circular reverse contact search now terminates by strict-ancestor depth,
 including restarts at earlier eligible markers, and extracts strict main/parallel
 contact chains. The first NN coloring recurrence is proved directly from periodic
 boundary geometry, with a valid shortened target. Lifted-HRV conjugacy and
-periodic exterior swap invariance are proved separately. The remaining bounce
+periodic exterior swap invariance are proved separately. The complete DN search now produces a valid successor preserving half-square
+area and decreasing the strict-chain rank. The remaining bounce polynomial
 identities and the final circular induction are open; see
 [the search and recurrence interface](docs/proofs/CIRCULAR_BOUNCE_SEARCH.md).
 Concrete examples live under

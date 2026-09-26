@@ -20,8 +20,9 @@ current declarations and precise remaining obligations.
 The retained-coloring/no-wrap construction below records an earlier candidate
 route. It is not an additional requirement of the current whole-diagram proof:
 neutral termination is already established by `FullNeutralBounce.strictRank_lt`.
-We now need to build its contact witness for the actual DN successor, prove
-all circular coloring/HRV identities, and close induction using doubled
+The actual DN successor and its contact witness are now constructed, with
+area preservation and strict-rank decrease proved. We still need all circular
+coloring/HRV identities and the final induction using doubled
 half-square area and strict rank. No recurrence certificate is substituted
 for the desired equality.
 

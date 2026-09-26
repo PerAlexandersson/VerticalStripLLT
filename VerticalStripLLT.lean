@@ -1,3 +1,4 @@
+import VerticalStripLLT.Circular.GeometricArea
 import VerticalStripLLT.Circular.FirstBounceGeometry
 import VerticalStripLLT.Circular.ReverseBounceContacts
 import VerticalStripLLT.Circular.BounceSearch
