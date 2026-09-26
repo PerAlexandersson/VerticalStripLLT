@@ -4,6 +4,38 @@ Aristotle results are proof candidates. Primary owns submissions, monitoring,
 downloads, integration, and local Lean 4.34 verification. Luna owns the assigned
 implementation files. Keep generated requests/results outside the checkout.
 
+## Circular coloring subset expansion (completed and locally verified)
+
+- Project ID: `40998e1f-04ed-473c-9d58-5656253cfa9d`.
+- Submitted 2026-09-26 through the installed CLI; primary owns monitoring.
+- Request directory:
+  `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-subset-expansion`.
+- Exact target: `finite_subset_coloring_expansion`, the commutative-semiring
+  identity expanding finite coloring ascent factors into edge subsets.
+  `docs/CIRCULAR_GOALS.md` records the statement and its semantic use.
+- No manuscript/reference material or credentials are included. The request
+  contains only the standalone target, proof outline, and isolated v4.28
+  environment. Local integration still requires the pinned v4.34 check.
+- Task `a9e608b9-2049-4c1c-a62e-26a550d317c8` completed. Export retained as
+  `result.tar.gz` and `completed-candidate.lean`; statement unchanged. Terra
+  ported it to `Circular/SubsetExpansion.lean`. Primary verified this port
+  and the generic selected-orientation semantic corollary locally.
+
+## Circular acyclic walk bound (completed and locally verified)
+
+- Project ID: `8da2f9e8-2c92-4aaa-83a7-a88f6f36d257`.
+- Task `bdd5052c-9aeb-45f2-b951-0455c14d11d6` completed 2026-09-26.
+  Luna ported `completed-candidate.lean` to `Circular/WalkBound.lean`; primary
+  checked the unchanged statements and proofs with the pinned local toolchain.
+- Request directory:
+  `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-walk-bound`.
+- Exact targets: `acyclic_walk_injective`, `acyclic_walk_length_lt`, and
+  `acyclic_lifted_walk_span_le`, for a finite acyclic relation on `Fin n` and
+  an indexed walk. The last statement assumes each lift increment is at most
+  n−1 and concludes displacement at most (n−1)², allowing multiple cut crossings.
+- This standalone request contains no manuscript or assumed HRV result.
+  Isolated service environment v4.28; all candidates need local v4.34 checks.
+
 ## Strict-chain elementary identity
 
 - Project ID: `262ce79f-3c8a-4e6a-83f7-6fcf6a6c9eb6`.

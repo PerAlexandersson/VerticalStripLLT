@@ -1,4 +1,5 @@
 import VerticalStripLLT
+import VerticalStripLLT.Examples.Circular
 
 -- Public theorem audit: expect only propext, Classical.choice, and Quot.sound.
 #print axioms VerticalStripLLT.SchroderPath.strictPair_normalEdges
@@ -439,3 +440,40 @@ import VerticalStripLLT
 #print axioms VerticalStripLLT.evalElementary_elementaryNat
 #print axioms VerticalStripLLT.specializeLast_X_last
 #print axioms VerticalStripLLT.specializeLast_X_castSucc
+
+#print axioms VerticalStripLLT.Circular.Edge.length_pos
+#print axioms VerticalStripLLT.Circular.Edge.length_lt_n
+#print axioms VerticalStripLLT.Circular.Edge.length_le_area
+#print axioms VerticalStripLLT.Circular.Edge.tail_add_length_mod
+#print axioms VerticalStripLLT.Circular.Edge.tail_ne_head
+#print axioms VerticalStripLLT.Circular.EdgeData.lt_of_selected
+#print axioms VerticalStripLLT.Circular.EdgeData.lt_of_transGen
+#print axioms VerticalStripLLT.Circular.EdgeData.not_selected_coloring_of_cycle
+#print axioms VerticalStripLLT.Circular.EdgeData.not_selected_coloring_of_not_admissible
+#print axioms VerticalStripLLT.Circular.EdgeData.strictOrderEnumerator_eq_zero_of_cycle
+#print axioms VerticalStripLLT.Circular.EdgeData.strictOrderEnumerator_eq_zero_of_not_admissible
+#print axioms VerticalStripLLT.Circular.EdgeData.xQShift_coloringLLT_eq_all_selected
+#print axioms VerticalStripLLT.Circular.EdgeData.xQShift_coloringLLT_eq_orientation_sum
+#print axioms VerticalStripLLT.Circular.pow_filter_card_eq_sum_powerset
+#print axioms VerticalStripLLT.Circular.finite_subset_coloring_expansion
+#print axioms VerticalStripLLT.Circular.walk_transGen_of_lt
+#print axioms VerticalStripLLT.Circular.acyclic_walk_injective
+#print axioms VerticalStripLLT.Circular.acyclic_walk_length_lt
+#print axioms VerticalStripLLT.Circular.lifted_telescope
+#print axioms VerticalStripLLT.Circular.acyclic_lifted_walk_span_le
+#print axioms VerticalStripLLT.Circular.twoEdge_zero_tail
+#print axioms VerticalStripLLT.Circular.twoEdge_one_tail
+#print axioms VerticalStripLLT.Circular.twoEdge_ne
+#print axioms VerticalStripLLT.Circular.univ_twoEdges
+#print axioms VerticalStripLLT.Circular.coloringWeight_oneStrict
+#print axioms VerticalStripLLT.Circular.coloringWeight_bothStrict
+#print axioms VerticalStripLLT.Circular.coloringWeight_noStrict
+#print axioms VerticalStripLLT.Circular.coloringLLT_oneStrict
+#print axioms VerticalStripLLT.Circular.coloringLLT_bothStrict
+#print axioms VerticalStripLLT.Circular.coloringLLT_noStrict
+#print axioms VerticalStripLLT.Circular.coloringLLT_noStrict_shifted
+#print axioms VerticalStripLLT.Circular.sum_pair_colorings
+#print axioms VerticalStripLLT.Circular.strictMono_pair_iff
+#print axioms VerticalStripLLT.Circular.sum_pair_strict
+#print axioms VerticalStripLLT.Circular.sum_pair_reverse_strict
+#print axioms VerticalStripLLT.Circular.sum_pair_unrestricted

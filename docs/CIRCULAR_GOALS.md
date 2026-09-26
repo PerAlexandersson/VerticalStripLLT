@@ -1,0 +1,76 @@
+# Circular implementation goals
+
+The architecture is recorded in `CIRCULAR_FORMALIZATION_PLAN.md`. This ledger
+fixes the first proof targets before integration. Names are proposed until the
+corresponding module is checked. All polynomial equalities quantify over every
+finite alphabet, including zero. Circular size is positive.
+
+## General targets now take priority
+
+The user requested full statements and isolation of examples. The original
+first checkpoint below is complete; example modules are under `Examples/`.
+The general selected-orientation identity and acyclic walk bounds are locally
+proved. Active work is lifted HRV and the full circular recurrence.
+
+## Completed first checkpoint
+
+1. `Diagram` encodes cyclic area bounds and corner-restricted strict edges.
+   Edge instances retain their natural direction, including opposite arcs.
+2. `EdgeData.coloringLLT` is a direct coloring sum on a finite edge-instance
+   graph. `Diagram.edgeData` specializes it to circular diagrams.
+3. `EdgeData.strictOrderEnumerator_eq_zero_of_not_admissible`: a cycle in the
+   selected strict/ascending relation makes the strict coloring sum zero.
+4. For the two-vertex diagram with both natural arcs, prove the three cases:
+   no strict arcs gives `e₁² + 2q e₂` after the q→q+1 substitution;
+   one strict arc gives `e₂`; two strict arcs give zero.
+   These must be equalities with the independent coloring definition, not just
+   declared elementary expressions or bounded-alphabet calculations.
+
+## Unconditional orientation checkpoint
+
+Let N be the non-strict edge instances and A range over subsets of N. Write
+K_strict(A) for the coloring sum imposing every edge in S union A strictly.
+The exact semantic target is
+
+    xQShift m (G.coloringLLT m)
+      = Σ A ∈ N.powerset.filter G.Admissible,
+          C (Polynomial.X ^ A.card) * G.strictOrderEnumerator A m.
+
+First prove the sum over all subsets, then eliminate cyclic subsets with the
+cycle-zero theorem. This theorem applies to arbitrary finite edge-instance
+graphs; circular area geometry is not needed. A selects the ascending
+non-strict edges, so its cardinality is the orientation ascent count.
+
+Aristotle request `40998e1f-04ed-473c-9d58-5656253cfa9d` isolates the finite
+algebra behind this identity. For a finite index type I, edge set t, predicates
+ok and asc, weight w into a commutative semiring, and z, prove
+
+    Σ i, [ok i] (z+1)^#{e∈t : asc i e} w i
+      = Σ A⊆t, z^#A Σ i, [ok i and ∀e∈A, asc i e] w i.
+
+Brackets mean an indicator implemented by an if-expression. The request has
+no graph hypotheses, no HRV statement, and no circular source text.
+
+## Subsequent circular HRV targets
+
+Define lifted reachability using positive natural edge displacements, prove
+the acyclic span bound (n−1)², and take the greatest reachable lift before
+projecting. Establish translation invariance and agreement with ordinary HRV
+when there is an ordinary cut. The final desired equality replaces each total
+strict-order sum by the HRV elementary expansion; it does not assert that an
+individual orientation's strict-order enumerator equals its HRV monomial.
+
+The aggregate circular proof then needs geometric local reductions, a
+same-state retained-coloring invariant for returning bounce markers, and a
+proved secondary termination measure at fixed non-strict area. Keep these
+explicit targets separate from the unconditional orientation checkpoint.
+No recurrence certificate is to be assumed in the final coloring theorem.
+
+## Delegation and proof boundaries
+
+Luna owns circular data; Terra owns edge coloring and cycle-zero; primary owns
+adapters, small-case semantic identities, statement design and integration.
+Aristotle owns only the external candidate for the displayed algebraic lemma.
+Local builds remain serialized and primary-owned. Component work starts after
+these interfaces stabilize; weak/h and strict/e differ by the planned omega
+translation. No component claim is needed for these checkpoints.

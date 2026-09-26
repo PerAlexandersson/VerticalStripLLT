@@ -1,36 +1,64 @@
 # VerticalStripLLT handoff
 
-## Current task: circular and component formalization plan
+## Current task: full circular expansion
 
-2026-09-26: the user requested a downstream plan after completion of the ordinary
-theorem. Primary `/root` owns `docs/CIRCULAR_FORMALIZATION_PLAN.md`, this handoff,
-and the README planning link. Independent Astra reviewer
-`/root/circular_plan_review` completed a read-only source/architecture review;
-it owns no files. No circular implementation or build has started.
+2026-09-26: user approved the circular/component plan and authorized
+Aristotle plus Luna/Terra implementation. Latest steering: target the full
+general statements; keep concrete examples under `VerticalStripLLT/Examples/`.
+The main library imports no new example modules. Ordinary expansion is complete.
+The general circular HRV expansion and flip-component theorem are not yet proved.
 
-Planning source: Overleaf `LLT flip/old-main.tex` (its sibling `main.tex` is
-empty), with `EDITORIAL-AUDIT.md`; the earlier `LLT-flips/llt-flips.tex` is
-background. These sources and the committed ordinary references remain
-read-only. The plan records source hashes, exact statement correspondence,
-proposed declarations, milestones, and remaining proof obligations.
+Verified circular foundations:
 
-Priority is the aggregate circular HRV expansion, completing the manuscript's
-lifted recurrence argument, followed by complete flip components. The user
-expects the circular gaps to be fillable from the outline; components need
-more detail. Weak/h versus strict/e is an omega translation, not a separate
-mathematical obstruction. Keep the translation small and degree-local.
+- `Circular.Diagram`, `Edge`, and `EdgeBounds`: cyclic area conditions,
+  corner-restricted strict arcs, modular endpoints, and exclusion of loops.
+- `Circular.EdgeData.coloringLLT`: direct finite coloring semantics, retaining
+  distinct edge instances. `Diagram.coloringLLT` specializes it to circular data.
+- `EdgeData.strictOrderEnumerator_eq_zero_of_not_admissible`: cyclic selected
+  relations contribute zero.
+- `EdgeData.xQShift_coloringLLT_eq_orientation_sum`: for any finite directed
+  edge-instance graph and every alphabet, the shifted coloring sum is the
+  q-weighted sum of strict order enumerators of acyclic selected relations.
+- `acyclic_walk_injective`, `acyclic_walk_length_lt`, and
+  `acyclic_lifted_walk_span_le`: arbitrary finite acyclic walks have at most
+  n−1 edges and lift span at most (n−1)² under the natural step bound.
 
-Next implementation milestone, beyond this planning task: finite circular
-edge instances, admissibility, and the two-vertex circular coloring examples.
-Primary retains the sole build slot; future bounded Luna/Terra/Aristotle tasks
-must have explicit ownership and remain build-free locally.
+The general semantic identity is independent of HRV and recurrence. It does
+not identify an individual selected-order enumerator with an HRV monomial.
+Next: define the actual lifted HRV and prove its reachability characterization,
+then supply the circular local reductions, same-state no-wrap invariant, and
+termination proof. `docs/CIRCULAR_REDUCTION_OBLIGATIONS.md` is a research note,
+not a proved certificate. The weak/h versus strict/e passage is omega.
 
-Planning checks: source hashes rechecked against the files read; source/API
-correspondence reviewed; `git diff --check` passed. References are unchanged
-from `130f7e8`, and both initialization commits remain ancestors. No Lean,
-Lake, TeX, or enumeration commands were run for this task. Documentation
-checkpoint `00be22e` is pushed to `origin/main`:
-`Plan circular HRV and complete flip-component formalization`.
+## Ownership, delegation, and checks
+
+Primary `/root` owns all returned source, strategy, integration, docs, and the
+sole globally serialized local build slot. Luna implemented diagram/edge data
+and ported the walk bounds. Terra implemented generic coloring and orientation
+semantics and audited source fidelity. Both returned their assigned files and
+remain build-free; no build-slot transfer occurred.
+
+Aristotle completed subset expansion project
+`40998e1f-04ed-473c-9d58-5656253cfa9d` and acyclic walk bound project
+`8da2f9e8-2c92-4aaa-83a7-a88f6f36d257`. Both candidates are integrated and
+locally checked, with unchanged requested statements. No remote job remains
+active. Provenance and external request paths are in `docs/ARISTOTLE.md`.
+
+The checkpoint build passes (1686 jobs), including the separately targeted
+examples, and `Verification.lean` checks 474 declarations. Only standard Lean
+axioms occur. Logs under `/lake-cache/ai-projects/build/VerticalStripLLT/`:
+`circular-checkpoint-build.log`, `circular-checkpoint-axioms.log`.
+Examples were moved after checking their all-alphabet formulas; no further
+example-specific work is planned. No TeX compilation or enumeration was run.
+
+## Source and architecture
+
+Independent Astra planning review preceded implementation. Architecture/source
+map: `docs/CIRCULAR_FORMALIZATION_PLAN.md` (pushed planning checkpoint `00be22e`).
+Exact targets/progress: `docs/CIRCULAR_GOALS.md`. Read-only source is Overleaf
+`LLT flip/old-main.tex` with its editorial audit; sibling `main.tex` is empty.
+The earlier `LLT-flips/llt-flips.tex` is background. Source hashes are recorded
+in the plan; Overleaf and committed ordinary references remain unchanged.
 
 ## Completed ordinary expansion
 

@@ -1,7 +1,8 @@
 # Circular LLT and flip-component formalization plan
 
-Planning checkpoint, 2026-09-26. No circular Lean declarations have been
-implemented or checked yet. The ordinary expansion remains complete.
+Architecture decision at the planning checkpoint, 2026-09-26. Current
+implementation progress is in `HANDOFF.md` and `CIRCULAR_GOALS.md`; the milestone
+descriptions below retain their planning meaning. The ordinary expansion remains complete.
 Primary `/root` synthesized an independent read-only Astra review with its
 own manuscript and pinned-Mathlib audit. The user prioritizes completing the
 circular argument in the existing outline; components require further detail.

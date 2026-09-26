@@ -1,4 +1,8 @@
 import VerticalStripLLT.SmallCases
+import VerticalStripLLT.Circular.Coloring
+import VerticalStripLLT.Circular.EdgeBounds
+import VerticalStripLLT.Circular.OrientationSum
+import VerticalStripLLT.Circular.WalkBound
 import VerticalStripLLT.PathBounds
 import VerticalStripLLT.ColumnBase
 import VerticalStripLLT.Concat
