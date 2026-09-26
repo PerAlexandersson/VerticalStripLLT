@@ -20,6 +20,8 @@ otherwise indicated. Current build and axiom counts are in [HANDOFF](../HANDOFF.
 | Direct NN for both actual models | `Diagram.expansion_of_firstBounce_NN`; [FirstBounceRecurrences](../VerticalStripLLT/Circular/FirstBounceRecurrences.lean), [ShortenStrictMeasure](../VerticalStripLLT/Circular/ShortenStrictMeasure.lean) |
 | Direct DN for both actual models | `Diagram.expansion_iff_secondBounce`; [SecondBounceRecurrences](../VerticalStripLLT/Circular/SecondBounceRecurrences.lean) |
 | DD count and NN/DN contact separation | `Diagram.reverseBounce_iff_counted`, `RawBounceContacts.main_parallel_disjoint`; [CountedBounce](../VerticalStripLLT/Circular/CountedBounce.lean), [RawBounceContacts](../VerticalStripLLT/Circular/RawBounceContacts.lean) |
+| DD local resolution and complete deletion child | `Diagram.exists_ddLocalData`, `DDLocalData.coloring_resolution`, `orientation_resolution`, `Diagram.delete_dd_child`; [DDLocalRealization](../VerticalStripLLT/Circular/DDLocalRealization.lean), [DDDeletedChild](../VerticalStripLLT/Circular/DDDeletedChild.lean) |
+| Exact resolved DD rows | `DDLocalData.resolved_area`, `resolved_boundary_rows`, `resolved_strictAt_iff`; [DDResolvedRows](../VerticalStripLLT/Circular/DDResolvedRows.lean), [DDResolvedStrict](../VerticalStripLLT/Circular/DDResolvedStrict.lean) |
 | Valid overlapping ND target and exact area decrease | `Diagram.exists_aliasTarget_of_reverseBounce`; [AliasRealization](../VerticalStripLLT/Circular/AliasRealization.lean), [AliasMeasure](../VerticalStripLLT/Circular/AliasMeasure.lean) |
 | Forced ascent/descent factors for actual models | [ForcedColoring](../VerticalStripLLT/Circular/ForcedColoring.lean), [ForcedOrientation](../VerticalStripLLT/Circular/ForcedOrientation.lean) |
 

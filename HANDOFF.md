@@ -23,45 +23,25 @@ External logs: `circular-dn-complete-build.log`, `circular-dn-complete-axioms.lo
 Previous pushed checkpoints: `9561ad0` (alias constructor/measure/search and
 forced-edge factors), `82c1f81` (DN coloring and R1 area decreases).
 
-Active bounded ownership: Luna `circular_data` owns only new
-`Circular/UnstrictCorner.lean` (same-area removal of a strict designation,
-inverse strictification, deletion compatibility, and actual R1 identities).
-Candidate returned and primary adopted it, correcting the coloring adapter to
-the shifted semantics required by coefficient q. All edit lanes are released;
-no build-slot transfer. Current pushed direct-DN checkpoint: `79016bb`.
-Astra's DD audit is recorded in `docs/proofs/CIRCULAR_DD_PROPAGATION.md`.
+Current checked DD increment: all eleven new modules compile, root imports
+include them, and the full default build passes (1809 jobs). All 1095 axiom
+checks pass with only propext, Classical.choice, Quot.sound. Logs:
+`circular-dd-complete-build.log`, `circular-dd-complete-axioms.log`.
 
-Luna `circular_data` owns only new `Circular/DDCornerResolution.lean`: the
-concrete first DD elimination using unstricting, direct DN, and actual R1.
-Candidate returned and primary adopts DDCornerResolution. Primary also owns
-new `CornerDeleteRows.lean` for exact strict-row/east-gap deletion formulas.
-All local edit lanes are released; no build-slot transfer.
+Exact DD interfaces:
+- `Diagram.exists_ddLocalData` realizes the actual eligible counted DD contact.
+- `DDLocalData.coloring_resolution` and `orientation_resolution` prove the
+  actual q-weighted last-DD resolution independently for both models.
+- `Diagram.delete_dd_child` supplies the actual deletion child: smaller count,
+  eligibility, unchanged terminal type, and strict acyclicity.
+- `DDLocalData.resolved_area`, `resolved_boundary_rows`, and
+  `resolved_strictAt_iff` describe the other child exactly.
+- `Diagram.dnSuccessor_strictAt_iff` gives the reusable strict-row DN formula.
 
-Next bounded lane: Luna `circular_data` owns only `Circular/DDChildEligibility.lean`
-for actual eligibility after deleting the parallel DD corner, plus inherited
-strict acyclicity. Primary owns `Circular/DeleteBounceTransport.lean` for counted
-child transport. DDChildEligibility returned and primary adopted it.
-All edit lanes released; only primary builds.
-
-Primary also owns new `Circular/DDDeletedChild.lean`, combining counted
-transport, eligibility, preserved terminal flags, and acyclicity for the actual
-DD deletion child. All ingredients retain arbitrary winding.
-
-Primary owns new `Circular/DDLocalData.lean`: concrete last-DD edge data and
-model adapters. Luna `circular_data` owns only new `Circular/DDLocalRealization.lean`,
-deriving that data from an actual eligible counted DD bounce. Luna released
-the lane without a candidate; primary implemented the realization. All source
-and builds remain primary-owned.
-
-Current checked DD increment (focused local builds): `UnstrictCorner`,
-`CornerDeleteRows`, `DDCornerResolution`, `DeleteBounceTransport`,
-`DDChildEligibility`, `DDDeletedChild`, and `DDLocalData` all compile.
-`delete_dd_child` supplies the actual smaller count, eligibility, unchanged
-terminal type, and strict acyclicity. `exists_ddLocalData` in the primary-owned
-`DDLocalRealization.lean` is written but NOT YET CHECKED: the global build
-precheck found the active RealRooted build, so no competing build was started.
-Root imports/expanded axiom inventory for the new DD modules remain to be added
-when that slot is free. Existing root/checkpoint verification remains unchanged.
+Luna's bounded candidates were adopted and repaired by primary. Terra returned
+without a candidate. Every edit lane is released; all files and the sole local
+build slot are primary-owned. No build-slot transfer occurred.
+The remaining DD argument is in `docs/proofs/CIRCULAR_DD_PROPAGATION.md`.
 
 User-requested documentation cleanup: `docs/README.md` routes to one current
 circular status table and one remaining-goals file. Completed ordinary plans,
@@ -74,14 +54,16 @@ Aristotle direct-DN project `a768ca01-7392-49a9-b695-339de82ec027`, task
 `847a2439-f8d6-4124-8cb3-222377ca36f9`, is complete and integrated. Final result
 and provenance are in external `circular-dn-orientation/` and `docs/ARISTOTLE.md`.
 Aristotle overlapping-ND project `eb5bc1c3-b026-45aa-9acb-6d3927797294`, task
-`55de8e35-31e7-4ff2-a476-f26ac24fe345`, remains active. Request and live observer
-are in external `circular-nd-alias/`. It seeks the actual two-model identities
-for the already verified area-decreasing alias target. Do not resubmit or
-switch accounts. The observer uses a native long-running exec session.
+`55de8e35-31e7-4ff2-a476-f26ac24fe345`, is complete remotely. Final archive
+and extracted source are in external `circular-nd-alias/result/`. It supplies
+both actual identities with area drop six. Independent read-only Astra audit
+found faithful semantics and no extra final hypotheses. Primary will port only
+its eight new module blocks, using the current checked prefix and local `lia`.
+Local integration remains pending; do not count the result as locally proved.
 
 Next: complete explicit DD child transformations and contact transport, then
 apply contact-count induction separately to both models. Alias ND semantics
-are remote; nonoverlap ND and final `(doubledArea, strictRank)` induction remain.
+await local integration; nonoverlap ND and final `(doubledArea, strictRank)` induction remain.
 The full circular expansion is still open; preserve the active goal.
 
 Overleaf path drift: `old-main.tex` is absent; `main.tex` holds the former long

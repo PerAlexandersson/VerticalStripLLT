@@ -48,20 +48,35 @@ injective, so it cannot meet that shorter whole component. All edited main
 and parallel residues are separated. This excludes the ND alias phenomenon
 for NN/DN propagation, including winding paths.
 
-The existing DN `IndexedBounceContacts` prepends a terminal strict edge;
-that edge is unavailable for NN. A raw contact interface must omit it.
+`RawBounceContacts.main_parallel_disjoint` proves this separation for both
+terminal types. It omits the extra terminal strict edge used by the older
+DN-only `IndexedBounceContacts`.
 Adjacent rows, such as z=c+2, remain possible and must not be excluded.
 
-## Remaining formal geometry
+## Checked geometry and remaining obligations
 
-We must prove the explicit row/strict-set transformations, not assume the
-polynomial identities in a geometry certificate:
+`exists_ddLocalData` extracts the three concrete strict edges and all constructor
+bounds from an eligible counted DD bounce. `DDLocalData.coloring_resolution`
+and `orientation_resolution` prove the displayed equation for the independently
+defined polynomials. `delete_dd_child` proves the full deletion-child statement:
+eligibility, one fewer DD contact, unchanged terminal type, and strict acyclicity.
 
-1. Removing h preserves the shorter child's contact data and DD count.
-2. The raised child root c+1 in R has the same smaller contact sequence.
-3. The two child targets satisfy the next direct-DN constructor hypotheses.
-4. The final targets form the claimed R1 triple and equal the prescribed full
-   NN or DN successor.
+`DDLocalData.resolved_area`, `resolved_boundary_rows`, and
+`resolved_strictAt_iff` identify the other child R exactly. Its boundary changes
+only at c+1 (down by one) and z (up by one), and its strict-row predicate loses
+exactly c. These formulas do not yet prove its complete child-search statement.
+
+The remaining explicit geometry is:
+
+1. Transport the shorter search to R, first retaining seed c and then using
+   equality of the new boundaries at c and c+1. The NN/DN hypothesis that x+1
+   is not strict is essential here; an overlapping ND terminal can meet z.
+   Main/parallel contact separation excludes the changed rows at every query.
+2. Prove eligibility at c+1, the same terminal type, and acyclicity of R.
+   For acyclicity, after unstricting h, c+1 is isolated; swapping c and c+1
+   conjugates that strict relation to the strict relation of R.
+3. Show the two child targets satisfy the next direct-DN constructor hypotheses.
+4. Identify the final R1 triple with the prescribed full NN or DN successor.
 
 After these facts, the checked independent model identities supply all six
 algebraic equations. Full circular induction remains a separate final step.
