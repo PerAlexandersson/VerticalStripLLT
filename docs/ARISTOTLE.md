@@ -852,3 +852,10 @@ and residual transport were developed after its input snapshot `5266faa`.
   `locality-obstruction-message.log`, and `defect-formula-message.log`.
   Each distinguishes proved structural facts from the still-open component
   cancellation; the remote task is not asked to repeat finite audits.
+- An inspected active snapshot supplied a useful source-deletion reduction,
+  now audited in `proofs/COMPONENT_SOURCE_BRANCHING.md`. The exact source
+  companion (Src) remains unproved. The archive is `active-snapshot.tar.gz`
+  and the extracted mathematical draft is `returned-PROOF.md`, in the same
+  external request directory. The draft expressly disclaims a full proof.
+  Remote Lean 4.28 compatibility changes and auxiliary degree-count lemmas
+  have not been integrated into the Lean 4.34 project.

@@ -39,6 +39,8 @@
   exact obstruction, auxiliary-state repair and exterior-swap correction.
 - [Sink-deletion companion](proofs/COMPONENT_SINK_BRANCHING.md): proved
   reconstruction, proposed HRV branching, and its implication for components.
+- [Source-deletion companion](proofs/COMPONENT_SOURCE_BRANCHING.md): preserves
+  remaining HRV and reduces the gap to a source/fiber cancellation identity.
 - [Component induction brainstorming](proofs/FLIP_COMPONENT_INDUCTION.md):
   coloring redistribution, cross-ascent transfers and exact missing lemmas.
 - [Aristotle ledger](ARISTOTLE.md): request IDs, candidates, and local verification.

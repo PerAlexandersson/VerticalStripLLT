@@ -63,6 +63,19 @@ build directory was introduced.
 
 ## Active general companion goal
 
+Primary is running a bounded read-only Claude Sonnet consultation on the
+source-branching cancellation, following the user's explicit request. It has
+no tools, edit rights or build slot. Prompt and response artifacts are external
+under `claude-source-companion/`; primary owns monitoring and integration.
+Native session `6592` runs the Sonnet consultation with a 20-minute timeout.
+
+Aristotle's inspected mathematical draft does NOT prove the goal. Its useful
+new source-deletion route is audited in `COMPONENT_SOURCE_BRANCHING.md`:
+remaining HRV is unchanged, and the exact companion (Src) uses only original
+fiber sizes and global-source counts per fiber. The source cancellation
+remains unproved. Primary owns the note/index edits; Terra independently
+audited the reduction. No remote compatibility patch was integrated.
+
 Removed the completed circular plan file at the user's request and updated
 the live index/archive routing. The completion audit remains the authoritative
 circular result/source map. Historical commit references remain historical.
@@ -175,14 +188,17 @@ audit above. The repaired route allows auxiliary states and certified swaps.
 
 Primary owns strategy, final integration, this handoff and the sole local
 build slot. All delegate edit lanes, including Luna's documentation cleanup, are released.
-No build-slot transfer occurred. No local build or remote proof request is active.
+No build-slot transfer occurred. No local build is active. The component
+Aristotle request and Claude consultation above are active; neither owns the
+local build slot.
 Use only `lake-workspace`; check for other Lean/Lake processes before every
 invocation. Lean MCP targets RealRooted and is not used for implicit checks.
 
 There are no remaining proof obligations for the aggregate circular goal.
-The next research stage is an audit of the full flip-component identity in
-`docs/CIRCULAR_FLIPS.md`: distinguish proved foundations from conjectural
-component steps before implementation. The strict/weak omega translation is
+The current research target is the source companion (Src) in
+`docs/proofs/COMPONENT_SOURCE_BRANCHING.md`; its componentwise cancellation
+is still missing. The full statement is in `docs/CIRCULAR_FLIPS.md`.
+The strict/weak omega translation is
 separate. Updating the older manuscript proof outline to the verified route
 is a writing task; no Overleaf changes were made in this checkpoint.
 
@@ -207,7 +223,7 @@ The archive and inspected files are retained externally under
 `returned-REMAINING_ISSUE.md`. Final source SHA256:
 `680e6d017cb24fe780ec3356e220d4d3bb67670986355a7f693cbbe042b0f2e9`.
 Input source was `5266faa`, before the column-reversal construction. No live
-remote proof task remains; do not restart an observer for this completed task.
+interior proof task remains; do not restart an observer for this completed task.
 
 The successful chain-singleton request was already integrated at `5266faa`.
 Older request and compatibility provenance is retained in `docs/ARISTOTLE.md`
