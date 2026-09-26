@@ -63,6 +63,10 @@ build directory was introduced.
 
 ## Active general companion goal
 
+Removed the completed circular plan file at the user's request and updated
+the live index/archive routing. The completion audit remains the authoritative
+circular result/source map. Historical commit references remain historical.
+
 Primary owns strategy and notes. Astra reviewed the sink-deletion proof route;
 Terra audited induced circular restriction. Both delegates were read-only and
 build-free. The active goal remains unproved.

@@ -10,7 +10,6 @@
 - [Verified circular results](CIRCULAR_STATUS.md).
 - [Circular downstream work](CIRCULAR_GOALS.md): open component identity and
   manuscript exposition.
-- [Circular architecture and source map](CIRCULAR_FORMALIZATION_PLAN.md).
 - [HANDOFF](../HANDOFF.md): current ownership, checks, remote task, and next step.
 
 ## Proof explanations
