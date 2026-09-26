@@ -275,6 +275,15 @@ three components. In particular, neither strict-totality nor
 `ChainSingletonData` follows from saturation and interior overlap. The normal
 edge 0 -> 1 also joins different strict components.
 
+Even allowing any number of isolated vertices does not give a source
+classification. Changing only area(0) from 3 to 4 adds the strict corner
+4 -> 0. The resulting saturated source has two nontrivial strict chains of
+sizes 6 and 2, with no isolated vertices. The same contact iterates and i=2
+overlap remain valid; the eligible root's gap decreases from 2 to 1. Thus a
+general interior argument must also handle interactions between nontrivial
+strict components. This strengthened witness was independently checked by
+the primary and read-only Astra reviewer without new computation or builds.
+
 This refutes only those proposed classifications, not the desired HRV formula.
 It justifies retaining a general interior exit obligation after the completed
 chain-singleton semantic proof. No additional example module or computation

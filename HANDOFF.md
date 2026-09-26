@@ -52,7 +52,7 @@ every invocation. No source edits are pending from delegates.
 
 ## Aristotle provenance
 
-The renewed full interior request is QUEUED in the existing project
+The renewed full interior request is IN_PROGRESS in the existing project
 `65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, new task
 `a430cbfd-eb82-4070-b9c2-002ae875cb53`. Native observer session **55772** writes
 `circular-interior-with-chain-base/observer.log`. Observe this exact task;
@@ -103,6 +103,9 @@ The completed chain-singleton base is useful but does not cover every source:
 the saturated acyclic n=8 diagram with areas (3,4,4,4,3,4,5,5) has deeper contact
 i=2, one six-vertex strict chain and two isolated vertices. Details are in
 `docs/proofs/CIRCULAR_ND_ASSEMBLY.md`. Do not infer a general exit from this base.
+Changing its area(0) to 4 preserves that overlap and yields strict component
+sizes 6 and 2, with no isolated source vertices. The stronger one-nontrivial-chain
+classification is therefore also false (independent hand audit, no new builds).
 The active proof-search request uses the newly verified semantic base while
 retaining the full interior target and this counterexample to classification.
 
