@@ -62,22 +62,29 @@ library. Existing aggregate theorems are not component semantic bridges.
 
 Items 1--3 and the local sink cancellation in item 5 have passed local library
 and axiom checks. `WordRank` and `LiftCoverRank` prove the generic cover adapter
-used by item 4. Actual component-count pairing, global HRV extraction, finite
-Cauchy assembly, compatible-lift transport and the full finite companion
-still need Lean integration. Their mathematical proofs are complete.
+used by item 4. The actual ordinary component-count functional and four-term
+identity are now implemented. The strict coloring refinement, global HRV
+extraction, finite Cauchy assembly, compatible-lift transport and the full
+finite companion still need Lean integration. Their mathematical proofs are complete.
 
 `ComponentWords` now defines the guarded count on the actual complete component
 and extends it linearly. It proves vanishing for repeated, missing, or wrong-length
 words, invariance under the component representative, and strict word-position
-ranks for selected edges. Descent through the four-term relations is still open;
-the linear map is not yet a functional on the quotient.
+ranks for selected edges. `ComponentFunctional.componentWordCount_four` proves
+the four-term identity for arbitrary contextual words under the ordinary
+forward-edge hypothesis. `componentWordFunctional` is the resulting
+integer-linear functional on the quotient, with its value on every basis word
+proved by `componentWordFunctional_mk_basisWord`.
 
 The local flip ingredients are implemented in `ShortEdges`, `EdgeSwap`,
 `WordSwap`, `WordSwapInverse`, `WordCover`, and `WordFlip`. They construct
 normal short edges, transport compatibility in both directions, certify all
 four actual lifted covers, and assemble a `DirectedFlipWitness` from compatible
-source/target triples. The conditional bijection on the selected-long-edge
-filters and its count identity still need integration.
+source/target triples. `ComponentSwap` constructs the exchanged orientations;
+`ComponentBijection.selectedLong_card_eq_of_naturalLift` proves the conditional
+bijection on selected-long-edge filters inside the original component.
+`CountReduction` and `ComponentFunctional` handle the cardinality partition,
+absent long edges, and invalid words before quotient descent.
 
 ## Ownership and validation
 
@@ -92,7 +99,7 @@ build slot. Keep remote requests and generated artifacts outside the source
 checkout. No placeholders or custom axioms enter library code. Each integrated
 statement must match its mathematical source before acceptance.
 
-## Next semantic adapter: full words and actual lifted covers
+## Verified semantic adapter: full words and actual lifted covers
 
 The existing API is `Circular.Orientation`, `flipComponent`, `Flip`, and
 `DirectedFlipWitness`; there is no need for a second component relation.
@@ -133,13 +140,13 @@ does not depend on target compatibility. `WordFlip` fills the four cover
 fields from compatible words and derives component membership using the
 existing flip reachability API.
 
-The two finite filters needed by the four-word identity can be paired using
-this adapter and `target_eq_source_swap`. The source full-word guard also
-handles invalid words without creating a separate permutation model.
+`ComponentBijection` pairs the two finite filters using this adapter and the
+inverse edge exchange. The source full-word guard also handles invalid words
+without creating a separate permutation model.
 
 The strict-edge geometry needed by this construction already has a useful
 public lemma: `Diagram.length_le_of_strict_same_tail` in
 `Circular/StrictCornerAdjacency.lean`. The retained longer edge ac rules out
 ab being strict. The shorter length of bc relative to ac at the same head
-rules out bc being a corner directly. Reuse these facts when deriving the
-normal-short-edge hypotheses; do not postulate normality in the final pairing.
+rules out bc being a corner directly. `ShortEdges` derives normality from these
+facts; the final four-term theorem does not postulate it.

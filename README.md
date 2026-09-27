@@ -115,5 +115,9 @@ have passed local Lean and axiom checks. See the
 [component status](docs/FLIP_COMPONENT_STATUS.md). The guarded full-word count
 and its linear extension now use the actual complete flip component; the
 local word exchanges and all four lifted-cover certificates assemble an actual
-directed flip. The four-term count bijection and quotient descent remain to be formalized.
+directed flip. For ordinary forward diagrams,
+`Components.componentWordCount_four` proves the contextual four-term identity,
+and `Components.componentWordFunctional` descends the actual count to the word
+quotient. The finite Cauchy factorization, global HRV extraction and full
+component expansion remain to be assembled.
 Cumulants remain outside the scope.

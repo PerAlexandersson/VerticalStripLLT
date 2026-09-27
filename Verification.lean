@@ -2218,3 +2218,12 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Components.exchangeOrientation_backward
 #print axioms VerticalStripLLT.Components.mem_flipComponent_of_directedFlip
 #print axioms VerticalStripLLT.Components.mem_flipComponent_of_reverse_directedFlip
+
+-- The actual conditional bijection on retained-long-edge occurrences.
+#print axioms VerticalStripLLT.Components.selectedLong_card_eq_of_naturalLift
+
+-- Ordinary actual-component four-term identity and quotient functional.
+#print axioms VerticalStripLLT.Components.componentWordCount_four
+#print axioms VerticalStripLLT.Components.componentWordLinear_relations_le_ker
+#print axioms VerticalStripLLT.Components.componentWordFunctional
+#print axioms VerticalStripLLT.Components.componentWordFunctional_mk_basisWord

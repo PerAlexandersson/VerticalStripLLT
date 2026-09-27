@@ -2,6 +2,20 @@
 
 ## Result and verification boundary
 
+The ordinary actual-component word-count milestone is now formalized:
+`Components.componentWordCount_four` proves the contextual four-term identity
+under the ordinary forward-edge hypothesis, and `componentWordFunctional`
+descends the guarded count to the integer-linear word quotient. The proof uses
+actual directed flips within the original complete component, covers invalid
+words and absent long edges, and permits the retained long edge to be strict.
+This completes the former full-word/flip-bijection integration milestone.
+Final validation: the complete library passed 1931 jobs and all 2169 axiom
+inventory entries passed, using only `propext`, `Classical.choice`, and
+`Quot.sound`. All 71 public declarations added during this restart are
+inventoried. Source, 100-column, whitespace, 44 local-link, and external-cache
+guards passed. Final logs are `final-library-build.log` and `final-axioms.log`
+under `/lake-cache/ai-projects/requests/VerticalStripLLT/component-words/`.
+
 The requested finite companion lemma now has a COMPLETE mathematical proof,
 including isolation of entire circular flip components. See
 [the corrected proof](docs/proofs/COMPONENT_FINITE_COMPANION.md).
@@ -31,20 +45,19 @@ same primary ownership in `/workspace/lean/VerticalStripLLT` on `main`, from
 clean, pushed checkpoint `5dd1d2a`. The user subsequently explicitly authorized
 Luna subagents and Astra for formalization. Primary owns `Components/ComponentWords.lean`,
 the root import, verification inventory, and accompanying status documents.
-The increment defines full-word counts in the actual flip component and their
-linear extension; the four-term flip bijection remains a subsequent step.
+The resumed increment proves full-word counts, the actual four-term flip
+bijection and the resulting ordinary component quotient functional.
 The runtime Lean MCP is still rooted in RealRooted; use the existing explicit
 source-search / `lake-workspace` fallback described in
 `suggestions/project-tool-routing.md`. Check processes before each build.
 
-Active ownership (2026-09-27): primary owns all integrated modules, imports,
-inventory, documentation and the sole Lean build slot. Astra `component_review`
-owns only `VerticalStripLLT/Components/ComponentBijection.lean`. Luna
-`word_covers` owns only `VerticalStripLLT/Components/ComponentFunctional.lean`.
-Luna `word_swaps` has returned all assignments and released ownership. All
-subagents are build-free. Primary has checked the returned word-swap, inverse,
-neutral, cover, edge geometry, actual flip, orientation exchange, and count
-reduction candidates locally. No build slot was transferred.
+Ownership (2026-09-27): primary owns all integrated modules, imports,
+inventory, documentation and the sole Lean build slot. Both Luna subagents
+(`word_swaps`, `word_covers`) and Astra (`component_review`) have returned all
+assignments and released editable ownership. All were build-free; no build
+slot was transferred. Primary compiled and repaired every candidate before
+integration. Luna independently audited the final bijection and functional,
+including no-edge and invalid-word cases, with no material issues found.
 
 Independent Astra review decision: construct target admissibility directly
 with the forward numeric coloring (`EdgeData.lt_of_transGen`), then use the
@@ -63,6 +76,7 @@ explicit qualification fixed it. SSH fetch failed for lack of a loaded key;
 fetch over HTTPS using the existing `gh` credential helper succeeded without
 changing remotes, stored configuration, or accounts.
 The verified full-word checkpoint is committed and pushed as `de4645f`.
+The verified local-flip checkpoint is committed and pushed as `06fac39`.
 
 The local flip integration now passes the complete library build (1929 jobs)
 and 2164 axiom inventory entries, with only the three standard axioms.
@@ -73,7 +87,9 @@ The `WordCover` candidate commits `4eed223`/`807114e` are adopted into this
 verified increment with canonical-residue and implicit-argument corrections.
 Two harmless unused-hypothesis linter warnings remain in the generic word
 exchanges; signatures are retained. The count reduction still has an explicit
-filtered-cardinality premise, which the active bijection task must discharge.
+filtered-cardinality premise. `ComponentBijection` now discharges that premise
+for natural long edges; `ComponentFunctional` handles absent long edges and
+invalid words, then proves quotient descent without any cardinality premise.
 
 Earlier word-ring and companion checkpoints are `3dcb0f8` and `5dd1d2a`.
 Their remote proof requests and worker assignments are terminal. No Rust,
@@ -120,13 +136,20 @@ the namespace is `VerticalStripLLT.Components`.
 - `ComponentSwap`: deterministic exchanged orientations and compatible forward
   and backward actual flips, including the case of a strict retained long edge.
 - `CountReduction`: reduces the four-term count identity to the cardinality
-  equality of the selected-long-edge filters; that premise is still explicit.
+  equality of the selected-long-edge filters.
+- `ComponentBijection`: `selectedLong_card_eq_of_naturalLift`, the conditional
+  actual-component bijection satisfying that cardinality premise.
+- `ComponentFunctional`: `componentWordCount_four`,
+  `componentWordLinear_relations_le_ker`, `componentWordFunctional`, and
+  `componentWordFunctional_mk_basisWord`. The public count theorem has no
+  full-word, selected-edge, cover or cardinality premise; it assumes the
+  ordinary forward-edge condition and `a < b < c`.
 
 These are full general ingredients, not examples or declarations of the
 complete component theorem. The component functional remains linear rather
 than a ring homomorphism.
 
-## Checks and global build coordination
+## Checks of the pre-restart companion checkpoint
 
 The combined `lake-workspace build VerticalStripLLT` passed **1919 jobs**.
 `lake-workspace env lean Verification.lean` passed **2098 inventory entries**,
@@ -175,17 +198,11 @@ The proof-discovery objective is satisfied by the finite companion and its
 whole-component reconstruction. Full Lean integration is a separate remaining
 milestone, detailed in [the modular plan](docs/COMPONENT_FORMALIZATION.md):
 
-1. Prove the actual component word count's four-term identity using
-   `DirectedFlipWitness` and descend its linear extension to the quotient.
-   `ComponentWords` now supplies the FULL-WORD guard, actual count, repeated-word
-   vanishing and strict position ranks. Compatibility alone does not make
-   repeated-word counts vanish.
-2. The contiguous triple covers and normal-short-edge geometry are now checked
-   in `WordCover` and `ShortEdges`; use them through `ComponentSwap` for the
-   remaining conditional component bijection.
-3. Assemble the finite Cauchy factorization and global HRV extraction, then
+1. Prove the strict-coloring refinement and finite Cauchy factorization paired
+   with the now-verified `componentWordFunctional`.
+2. Assemble the global HRV extraction from the local block cancellation, then
    transport entire balanced components via compatible lifts.
-4. Formalize the ordered-partition identity, scaled canonical potentials,
+3. Formalize the ordered-partition identity, scaled canonical potentials,
    coefficient recurrence, edge-count induction and finite tight-flip
    reconstruction. Ordered partitions may be surjective maps V→Fin k,
    allowing k=0 for the empty vertex set.

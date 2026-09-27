@@ -223,3 +223,5 @@ import VerticalStripLLT.Components.WordFlip
 import VerticalStripLLT.Components.WordNeutral
 import VerticalStripLLT.Components.CountReduction
 import VerticalStripLLT.Components.ComponentSwap
+import VerticalStripLLT.Components.ComponentBijection
+import VerticalStripLLT.Components.ComponentFunctional

@@ -220,8 +220,14 @@ was used to substitute for any uniform proof step.
 Related Lean: existing component definitions are in `VerticalStripLLT/Circular/Flip.lean`
 (`flipComponent`, `componentHRV`) and
 `VerticalStripLLT/Circular/ComponentSemantics.lean`
-(`componentStrictEnumerator`). There is no integrated Lean declaration for
-this theorem yet. A finite word module with contextual relations can encode
-the quotient and induced concatenation; the two semantic identifications
-and the actual-flip pairing must be proved, not inferred from the already
-verified aggregate expansion.
+(`componentStrictEnumerator`). The contextual quotient and induced concatenation
+are implemented in `Components/WordRelations.lean` and `WordAlgebra.lean`.
+[ComponentFunctional](../../VerticalStripLLT/Components/ComponentFunctional.lean)
+now proves (1) as `componentWordCount_four`, including the zero extension off
+full words, and defines `componentWordFunctional` on the quotient.
+[ComponentBijection](../../VerticalStripLLT/Components/ComponentBijection.lean)
+proves the actual-flip pairing within the original complete component.
+These statements assume ordinary forward edges. The full component expansion
+still has no integrated Lean declaration: its semantic refinements and finite
+Cauchy assembly remain separate steps. They cannot be inferred from the
+already verified aggregate expansion.

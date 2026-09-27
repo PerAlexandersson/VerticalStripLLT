@@ -46,6 +46,7 @@ The proof uses these established ingredients:
 | Exact alternating HRV-map coefficients | Audited proof | [HRV differences](proofs/COMPONENT_HRV_DIFFERENCES.md) |
 | Normal-edge absorption and exact mixed-closure fibers | Audited proof | [Mixed closure](proofs/COMPONENT_MIXED_CLOSURE.md) |
 | Reversed-edge absorption, linear-extension refinement, mountain-block formula | Audited proof | [Labeled mixed posets](proofs/COMPONENT_MIXED_POSET.md) |
+| Actual ordinary component four-term identity and quotient functional | Locally Lean-verified | [ComponentFunctional](../VerticalStripLLT/Components/ComponentFunctional.lean) |
 | Actual component pairing and finite word-algebra factorization | Independently audited full ordinary proof | [Ordinary component theorem](proofs/COMPONENT_ORDINARY_PROOF.md) |
 | Balanced circular components identify with entire ordinary components | Audited proof | [Compatible lifts](proofs/COMPONENT_AMBIENT_REDUCTION.md#compatible-lifts-give-an-exact-ordinary-reduction) |
 
@@ -56,13 +57,15 @@ The proof uses these established ingredients:
 quotient, concrete ring and conjugation modules, with primary-owned local
 verification of bounded Luna/Terra/Aristotle contributions. The existing component interfaces
 are `Circular/Flip.lean` and `Circular/ComponentSemantics.lean`; see
-[CIRCULAR_FLIPS.md](CIRCULAR_FLIPS.md). An implementation must prove the actual
-component/permutation pairing, both semantic refinements, and the finite
-word identities. The additive quotient and induced concatenation are now
+[CIRCULAR_FLIPS.md](CIRCULAR_FLIPS.md). Both semantic refinements and the finite
+Cauchy and global HRV identities remain to be assembled. The additive quotient
+and induced concatenation are now
 verified in `WordRelations`, `WordMultiplication`, and `WordAlgebra`.
 `ComponentWords` supplies the full-word count on the actual complete component,
-its linear extension, and vanishing on repeated words. The four-term flip
-bijection and descent of this particular map to the quotient remain open.
+its linear extension, and vanishing on repeated words. `ComponentBijection`
+proves the actual within-component four-term pairing, and `ComponentFunctional`
+proves the count identity and quotient descent under the ordinary forward-edge
+hypothesis. The count identity includes every invalid contextual word.
 The local geometry, forward/inverse word exchanges, and actual directed-flip
 witness now have Lean implementations in `ShortEdges`, `EdgeSwap`, `WordSwap`,
 `WordSwapInverse`, `WordCover`, and `WordFlip`.
