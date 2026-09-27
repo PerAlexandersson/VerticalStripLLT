@@ -63,6 +63,58 @@ tests required by the given flip. Then apply the source 00-to-01 lift.
 This does not by itself connect the two middle states across a path that
 leaves the 10 stratum.
 
+### Preconditioning a crossing-corner flip
+
+There is also a proved boundary step which applies beyond the adjacent
+DN window. Let f=wz be a strict corner covering in an ordinary state A.
+Suppose a crossing strict corner g=ab supports the actual flip aw→wb,
+where a<w<b<z. If bz is absent, we can first perform f-long flips so that
+this g-flip can be executed with f remaining a cover throughout the path.
+
+For the proof, let I be the whole selected relation internal to (w,z), and
+let L,R be the attachment sets: y∈L when wy is selected, and y∈R when yz
+is selected. Covering of f is equivalent to L∩R=∅ and absence of any I-path
+from L to R. Indeed, every alternate w→z path starts in L, stays internal
+until its last edge, and exits through R. Strict edges are included in this
+selected relation.
+
+Consider the right attachments reachable from b in I. Because bz is absent,
+all of them are strictly greater than b. Pick a reachability-maximal one y.
+It reaches no remaining right attachment, so yz is a cover. The reverse
+f-long flip yz→wy is valid and leaves f a cover: an earlier left attachment
+could not reach y, and y reaches none of the remaining right attachments.
+Both shorts are normal, being proper subintervals of the strict corner f.
+Iterate; the finite number of right attachments reachable from b decreases,
+and I remains fixed.
+
+All changed edges end or start beyond b. They therefore cannot affect any
+positive path testing the covers aw or ab, and they do not change wb.
+The original g-flip is still actual. After performing it, a newly created
+alternate w→z path would have to start with wb and then reach a remaining
+right attachment from b. The preceding sweep excluded exactly those paths.
+This proves the asserted path through f-cover states.
+
+The exception bz selected matters. Then the sweep would insert wb before
+the crossing flip; executing the latter instead creates both attachments
+wb,bz and makes f redundant. Such a state may still belong to a component
+active at both f and g, since it can be reached by an actual flip from a
+state where both are covers. It cannot be discarded as a solved component
+from this local configuration alone.
+
+A useful directional observation accompanies the sweep. An actual rightward
+f-long push wy→yz cannot destroy the cover status of a strict corner
+crossing f from the left: its added edge ends beyond that corner. A corner
+crossing f from the right cannot gain cover status: its deleted edge starts
+before that corner. Nonoverlapping corners are unaffected; corners sharing
+only an endpoint are unaffected for the same path-containment reason.
+Thus normalizing an already-covering rightmost strict corner preserves all
+other corners currently covering. This does not supply simultaneous cover
+witnesses for a component active at every corner.
+
+Astra supplied the crossing sweep; primary and Terra independently audited
+the full cover tests, normality and finite termination. These are prose
+lemmas, not Lean declarations or a completed component-isolation argument.
+
 ## A finite graph specifying every completion equation
 
 Define a graph J whose vertices are entire source components. Add the
@@ -153,6 +205,13 @@ it uses 0/1 source corrections at one ascent and fixes β=α. A failure would
 leave the more general signed target/deletion transport available. It would
 not refute the component formula or the author's recurrence approach.
 
+The user's minimum-area induction is formulated in the
+[general recurrence note](FLIP_COMPONENT_INDUCTION.md#signed-recurrence-generation-without-a-uniqueness-requirement).
+It allows deletion at ANY inactive strict corner and signed combinations of
+several packet equations. The general target is spanning the unsolved
+component classes by certified recurrence rows, rather than requiring the
+particular J-grouping to isolate each class by itself.
+
 ## Why the inactive additions are necessary
 
 One exact obstruction to leaving the deletion residual unchanged occurs in
@@ -181,15 +240,22 @@ the Rust component binary. The test above does not use a truncated component.
 
 ## Bounded evidence and the unresolved proof
 
-The full J construction was checked on two fixed saturated ordinary fixtures:
+The full J construction was checked on fixed saturated ordinary fixtures:
 
 | Areas | Strict pairs | Source components | J classes | Classes with two f-active components | Nonconstant target images |
 | --- | --- | ---: | ---: | ---: | ---: |
 | (0,1,1,2,3,4) | {01,15} | 116 | 71 | 0 | 0 |
 | (0,1,2,2,3,3) | {02,14,25} | 26 | 19 | 0 | 0 |
+| (0,1,2,3,3,4,4,4) | {03,15,26,37} | 1395 | 654 | 0 | Not recomputed |
 
 These exact checks test every J-class indicator and every target component
-in the two fixtures. They are evidence for isolation, not its proof. Joining
+in the first two fixtures. The third tests isolation on the entire source
+state space for a local shape with two crossing strict corners at the chosen
+DN window: e=03, f=37, x=4, with crossing corners 15 and 26.
+It has 131072 source states and 76 f-active components. All five types of
+J-generators were included. This was one fixed geometry, not a scan over
+area sequences; the already-proved target reconstruction was not recomputed.
+These are evidence for isolation, not its proof. Joining
 only the source middle pairs is insufficient for target reconstruction in
 both fixtures; the target-generated joins in J are necessary to the present
 construction.
@@ -204,6 +270,14 @@ cycle exactly when f was redundant, but gives no uniqueness theorem by
 itself. The enlarged moves can also exchange a redundant short; describing
 them as relaxing only the cover test on the retained f is incorrect.
 
+A further test on this SAME third diagram rules out one shortcut in the
+description of J. Allowing every short exchange wy↔yz around f, regardless
+of covers, gives 315 classes and no f-active collision, but does NOT contain
+all the J-generators. Some middle and lower mixed rows join different such
+classes. Hence a theorem just about relaxed f-long exchanges would still
+need an additional DN transport argument. No general conclusion is drawn
+from its finite no-collision result.
+
 Primary formulated the graph and checked the two fixtures. Terra audited
 the reconstruction and ordinary measure; Astra audited the structural
 obstructions. No Lean theorem is claimed for these new results.
@@ -215,10 +289,26 @@ Receipts are under the external requests directory `component-recurrence/`:
 - `completion_graph_fixed_fixtures.json`, SHA-256
   `01826e5f7a48d36b2e6d7ddf92ce6f4461f23722664bbb2a51e173bf94008abb`;
 - `r_absent_boundary_certificate.json`, SHA-256
-  `267c589f7b8fa83ad20ef56c4b3055c6a0112798527f35049bf4cab3c17b9625`.
+  `267c589f7b8fa83ad20ef56c4b3055c6a0112798527f35049bf4cab3c17b9625`;
+- `two_crossing_completion.py`, SHA-256
+  `8d32abfefea1b365889fbe84ca7f90e23af7cf6a3ac62f49bb672b5cd887d698`;
+- `two_crossing_completion_result.json`, SHA-256
+  `c6dcbf7cc95518ab07b7bd2e7e05146292bbc5f7825db151d4a7b6f6adf107a7`;
+- `relaxed_contains_completion_result.json`, SHA-256
+  `af84837102ddd5f14ac0390de4fc17aafbc29cbe0e612cd6bc5861c87b409b2d`.
 
 The bounded Python orchestration reuses the previously audited `probe.model`;
 it introduces no new enumeration engine or polynomial generator. The Rust
 cross-check uses `component_source_probe` with complete-component caps 500
 and seeds 1143,1269 on the first fixture. Its masks are over all natural
 edges, whereas `probe.model` uses normal-edge masks. No source build was run.
+
+For the larger fixed diagram, primary reused the returned ordinary
+`dnmodel.py` (saved as `returned_dnmodel.py`, SHA-256
+`d92d453ab7e3779f375055ba8ecaa2e9b35d28ee2d2a7448f75ba8fb7d40f171`).
+Primary audited its forward reachability and actual flip enumeration, then
+checked exact equality of its entire-component partitions with `probe.model`
+on BOTH preceding fixtures before use. Its component BFS avoids the earlier
+model's quadratic diamond-row deduplication. The Rust capability check was
+refreshed; this one-off equivalence comparison introduced no new graph engine,
+shared library code or polynomial generator. Native bounded jobs are terminal.

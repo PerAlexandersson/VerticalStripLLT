@@ -45,6 +45,106 @@ There are two separate obligations:
 The aggregate circular theorem does not supply either obligation merely by
 summing its orientations differently.
 
+### The minimum-area realization is the saturated envelope
+
+This makes the author's proposed component-size induction precise. Fix the
+vertex order (cyclic order in the circular case) and a nonempty complete
+component C. A selected state includes its forced strict edges. Let H be the
+interval envelope of any state: all natural edge intervals contained in a
+selected interval, using integer lifts in the circular case. A flip exchanges
+two shorts inside its retained selected long edge, so H is constant on C.
+
+H is a valid natural diagram, not merely a set of allowed pairs. To construct
+it inside the given diagram G, repeatedly choose a maximal natural interval
+containing an edge of G outside H. That maximal interval is also outside H,
+since H is closed under subintervals. It is a natural corner and is absent
+from every selected state of C; in particular it is not strict. Delete it
+using the exact corner-branch correspondence. Every step preserves the
+ENTIRE component, and the finite number of edge orbits outside H decreases.
+The argument applies to periodic lifts because proper containment strictly
+increases length, bounded by n−1. It ends at the valid diagram H.
+
+Here maximality is tested against all integer translates of containing
+intervals. A maximal interval ending at j has length a_j, or it could be
+extended left. It cannot extend right precisely when a_(j+1)≤a_j.
+Conversely, any proper containing natural interval would give one of these
+one-step extensions by subinterval closure. These are exactly the natural
+corner conditions, including the maximum allowed length n−1; empty edge
+sets need no deletion. Thus the circular construction uses the actual
+corner notion, not maximality in one drawn fundamental window.
+
+Every maximal interval of H is selected in every state of C: a selected
+interval generating it must equal it by maximality. Strictify all these
+corners. The resulting saturated diagram D_H still represents the same
+complete component, with identical full selected relations, lifted covers,
+coloring enumerators and HRV contributions. These statements concern the
+unweighted component theorem; strictifying a selected corner changes its
+normal-ascent bookkeeping in the aggregate polynomial.
+
+It is the unique minimum-half-square-area realization among decorated
+ambient diagrams on this fixed order representing the SAME selected-state
+family. Indeed, any such ambient G contains H. Its strict set S lies in H
+because strict edges are selected in every state. A corner of G lying in H
+is a corner of H, so S is a subset of corners(H). With d=|G\H|,
+
+    doubledArea(G) − doubledArea(D_H)
+      = 2d + |corners(H)| − |S| ≥ 2d.
+
+Equality at the minimum forces d=0 and S=corners(H). This does not compare
+arbitrary relabelings or semantic isomorphisms; those require their own
+transport proof. Related Lean: `Circular/GeometricArea.lean`,
+`Diagram.doubledArea = 2 * (Σ i, area i) − strict.card`.
+
+Consequently the induction can be indexed by the component's saturated
+envelope area. Normalize each target component in the same way after a
+recurrence. If a strict corner is redundant throughout a component, the
+already-proved deletion lemma supplies a semantically identical entire
+component at smaller area. We may remove components inactive at ANY corner,
+not only the corner distinguished by the current DN move. A minimal
+unresolved component is therefore saturated and active at every strict
+corner, with potentially different witnesses for different corners.
+
+For ordinary DN, retain the secondary moment from the
+[completion note](DN_COMPONENT_COMPLETION.md) for area-neutral steps.
+Circular wrapping steps require the appropriate justified recurrence order;
+minimal envelope area alone does not make a neutral relation decreasing.
+
+### Signed recurrence generation, without a uniqueness requirement
+
+After all independently solved or smaller-area components have been removed,
+write U_D for the remaining whole components of a saturated diagram D.
+A certified recurrence packet has the SAME integer identity for X=K,E:
+
+    Σ_(C in U_D) a_(j,C) X_C = Σ_i b_(j,i) X_(D_i,C_i),
+
+where every C_i is an entire component in a justified smaller diagram, or
+is another independently certified correction. No individual orientation
+of a solved component is a certified term. All coefficients are independent
+of the alphabet and common to both valuations.
+
+**Recurrence-generation companion.** If the packet rows
+(a_(j,C)) span Q^(U_D), then the component identities hold for every C in U_D.
+In particular, the rows may contain several still-unknown components; no
+one-active-component-per-packet assertion is necessary.
+
+To prove this, let δ_C=K_C−E_C in the integer polynomial module for any fixed
+finite alphabet. Smaller-diagram induction gives Σ_C a_(j,C)δ_C=0 for every
+row. Full column rank provides a square integer minor with nonzero
+determinant. Multiplication by its adjugate gives det(A)δ_C=0 for every C.
+Integer polynomial coefficients have no additive torsion, so δ_C=0.
+Equivalently, clearing denominators expresses a positive multiple of each
+desired component as a signed combination of certified packets and smaller
+components, precisely the author's proposed recursion induction.
+
+This is a proved sufficiency lemma, not a proof of the spanning hypothesis.
+The explicit DN completion classes provide some certified packet rows.
+Their one-f-active-component isolation condition is one sufficient special
+case, stronger than needed: we may also discard components inactive at
+another corner, combine rows from different valid recurrences, or construct
+more general signed transfers. The remaining target is to generate each
+component class by such justified recursions. Full packet reconstruction and
+the induction measure must be proved before including a row.
+
 ## A precise component-transport criterion
 
 We can express both obligations without requiring an orientation-by-orientation

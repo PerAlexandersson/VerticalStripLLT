@@ -13,7 +13,7 @@ semantics. A sum over all components does not establish the individual claims.
 | Ordinary aggregate expansion, positivity, all finite alphabets | Lean, local build and axiom audit | [Ordinary completion](COMPLETION.md) |
 | Full circular aggregate expansion and positivity | Lean, local build and axiom audit | [Circular completion](CIRCULAR_COMPLETION.md) |
 | Complete-component definitions and zero-normal family | Lean | [Flip interfaces](CIRCULAR_FLIPS.md) |
-| Corner selected/unselected split; deletion of an always-redundant strict corner | Audited mathematical proofs | [Recurrence reductions](proofs/FLIP_COMPONENT_INDUCTION.md) |
+| Minimum-area saturated envelope; corner branching; deletion of an always-redundant strict corner | Audited mathematical proofs | [Recurrence reductions](proofs/FLIP_COMPONENT_INDUCTION.md) |
 | Explicit ordinary DN completion graph; simultaneous semantic transport and whole-component reconstruction | Audited mathematical proof, conditional isolation still open | [DN component completion](proofs/DN_COMPONENT_COMPLETION.md) |
 | Doubly endpoint-marked aggregate identity; separate ascent variables at articulation blocks | Audited mathematical proofs | [Endpoint recovery and gluing](proofs/COMPONENT_ENDPOINT_GLUING.md) |
 | Corner leaf normalization; connectivity of all trees with a fixed envelope | Audited mathematical proofs | [Tree connectivity](proofs/COMPONENT_TREE_CONNECTIVITY.md) |
@@ -30,7 +30,20 @@ connectivity statement has been substituted for the component theorem.
 
 The author recalls a proof by splitting the local orientations and transporting
 components through the manuscript relations. The current task is to make
-those maps and their regrouping precise. The
+those maps and their regrouping precise. The author's induction parameter is
+now explicit: the saturated selected-edge envelope is the unique minimum
+half-square-area realization on the fixed vertex order, for ordinary and
+circular components. Every corner can be assumed strict. Components with
+ANY always-redundant strict corner are already handled by smaller-area
+induction. A recurrence may express the desired component as a signed linear
+combination of whole smaller components.
+
+Several packet equations may be combined. The proved
+[recurrence-generation companion](proofs/FLIP_COMPONENT_INDUCTION.md#signed-recurrence-generation-without-a-uniqueness-requirement)
+reduces this to full rational column rank after known components are removed;
+integer denominators clear by torsion-free cancellation. The required uniform
+generation is open. A uniqueness assertion for each individual packet is a
+sufficient special case, not a requirement of this induction. The
 [recurrence note](proofs/FLIP_COMPONENT_INDUCTION.md#a-precise-component-transport-criterion)
 now gives an exact integer certificate: if B records multiplicity differences
 across actual flips, a transport T reconstructs complete components precisely
@@ -76,10 +89,15 @@ corner f is a cover somewhere. Every other component can then be deleted
 by the proved inactive-corner reduction and subtracted by induction. The
 ordinary DN target decreases the area moment at fixed doubled area.
 
-This local isolation assertion remains open. It passes two targeted exact
-fixtures, including a checked failure of the uncorrected deletion packet.
+This local isolation assertion remains open. It passes three targeted exact
+fixtures, including one with two crossing strict corners and a checked failure
+of the uncorrected deletion packet in an earlier fixture.
 It is a sufficient restriction of the general signed transport problem,
 not an assumption of the aggregate theorem or the auxiliary AU_prime claim.
+A new crossing-corner sweep proves that certain boundary flips can be
+preconditioned to keep the distinguished corner covering. The case with
+both attachments already selected remains unresolved; it can occur inside
+a component active at both involved corners.
 
 ## Auxiliary route: corners and active uniqueness
 
@@ -163,9 +181,11 @@ Current ownership and running consultations belong only in
 [the Aristotle ledger](ARISTOTLE.md). Detailed experiment receipts stay next
 to the claims they test. Historical handoffs are archives, not active plans.
 
-The next mathematical task is to prove or refute isolation for the explicit
-DN completion graph. If it fails, retain joint transport through the shared
-corner diagram and allow more general signed corrections. Do not freeze the
+The next mathematical task is signed recurrence generation for components at
+their minimum envelope area. The DN completion graph is one concrete family
+of certified packet rows. Its isolation assertion is sufficient, but allow
+corrections inactive at other corners and combinations of several packet
+equations. The shared corner diagram remains available. Do not freeze the
 ordinary residual and try to prove a period assertion already contradicted
 by the diagnostic. The corner,
 forest, winding and aggregate refinements remain available as tools and solved

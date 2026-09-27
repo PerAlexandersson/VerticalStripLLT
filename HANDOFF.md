@@ -31,62 +31,71 @@ after checking that no other build is active. No slot transfer occurred.
 No Lean, shared Rust, reference or Overleaf source changed in this increment.
 No compilation was needed or run.
 
-Preceding pushed checkpoint: `6668c6d`, endpoint flip maps and shared corner
-correction space. The current increment records explicit ordinary DN component
-completion, its conditional induction, exact boundary diagnostics, the audited
-Aristotle return, and consolidation of this handoff. Primary owns the new
+Preceding pushed checkpoint: `f89251a`, explicit ordinary DN component
+completion and its conditional induction. That goal turn made progress.
+The current increment follows the user’s minimum-area component induction:
+make the saturated-envelope measure exact, allow signed packet combinations
+modulo ALL smaller components, and audit crossing-corner boundary transport.
+Primary owns
 `docs/proofs/DN_COMPONENT_COMPLETION.md`, linked status/index/recurrence notes,
 Aristotle ledger, this handoff and its archive.
 
-The user explicitly authorized parallel brainstorming. Astra audited actual
-flip-path issues; Terra audited the completion reconstruction and ordinary
-induction measure; Luna explored a projection approach. All were read-only
+The user explicitly authorized parallel brainstorming. Astra explored
+crossing-corner paths; Terra audited the new crossing sweep and minimum-envelope
+proof. Earlier Luna projection notes remain partial. All were read-only
 and build-free, and their lanes are released. No delegate owns editable files.
 The projection proposal did not solve the gap: statewise redundancy cannot
 be treated as an entire inactive component.
 
 ## Current mathematical result and exact next step
 
-The main route remains the author's component-through-recurrences argument.
-The [DN completion note](docs/proofs/DN_COMPONENT_COMPLETION.md) defines a
-finite graph J on whole source components. Its generators impose the local
-middle pairing and the equations required by every actual target flip.
-For every union of J-connected classes, explicit signed DN multiplicities
-preserve BOTH coloring and HRV sums and are constant on whole target
-components. The proof checks every target flip type. Its zero-stratum case
-uses both source00→01 and target00→10 cover-preserving lifts.
+The user explicitly proposes induction on the smallest-area diagram realizing
+an entire component, with strict corners and signed combinations of smaller
+components. This is the main route. The
+[recurrence note](docs/proofs/FLIP_COMPONENT_INDUCTION.md) now proves that the
+saturated selected-edge envelope is the unique minimum-area realization on
+fixed vertex order. The proof includes circular lifted edge orbits: delete
+absent outer corners to construct the envelope, then strictify its selected
+corners. The exact doubled-area difference is 2d+c_H−|S|, with d omitted
+natural edges and c_H envelope corners. Both whole-component semantics survive.
 
-A sufficient remaining assertion is:
+Any component with ANY strict corner redundant throughout is known by
+smaller-area deletion. For the remaining components, certified recurrence
+packet rows need only span over Q. The proved generation lemma clears
+denominators and uses torsion-free polynomial coefficients to recover every
+individual identity. One unknown component per packet is sufficient but NOT
+required. Constructing this uniform generation remains the full proof target.
 
-> Each J-connected class contains at most one f-active source component,
-> where f-active means the chosen strict corner f is a cover somewhere.
+The [DN completion note](docs/proofs/DN_COMPONENT_COMPLETION.md) supplies one
+explicit family of packet rows. Every J-class union transports to whole target
+components preserving both K and E. Its stronger isolation proposal, at most
+one f-active component per J-class, remains open and auxiliary to the more
+flexible signed generation. Ordinary DN decreases M=Σ j*a_j at fixed doubled
+area; strict-corner deletion decreases area. Circular wrapping steps and other
+recurrences still need their appropriate component transports.
 
-If true, complete an active component C by the other components in its class.
-Those are f-inactive, hence known by strict-f deletion. Transport the completed
-union and subtract these solved corrections. The ordinary DN target decreases
-M=Σ j*a_j at fixed doubled area; inactive deletion lowers doubled area.
-Thus lex `(doubledArea,M)` justifies this conditional DN step. Other recurrence
-transports and wrapping circular steps still require their own arguments.
+New proved local step: if f=wz is a cover and an actual crossing-corner flip
+aw→wb (a<w<b<z) has bz absent, a finite sweep of reverse f-long flips makes
+that crossing flip preserve f-cover. The attachment proof checks actual covers,
+normality and termination. Astra proposed it; primary and Terra audited it.
+The exception bz selected creates both attachments and can lie in a component
+active at both corners. No whole-component reduction follows from that local
+redundancy. This is the concrete boundary to investigate next.
 
-Isolation is OPEN. It passed two fixed saturated n=6 fixtures: respectively
-116 and 26 source components give 71 and 19 completion classes, with no class
-containing two active components and every target image component-constant.
-These are exact finite evidence, not a proof. The same fixtures disprove
-using only source-middle joins. A Rust-checked boundary example disproves
-raw r-absent residual constancy and exhibits an inactive correction.
+A single new fixed two-crossing-corner diagram, areas (0,1,2,3,3,4,4,4),
+strict {03,15,26,37}, passed J-isolation on all 131072 source states:
+1395 source components, 76 f-active, 654 J classes, no active collision.
+This is finite evidence only. A broader relaxed-f-exchange graph does not
+contain all J-generators, so it cannot replace the DN argument directly.
+No broad area-sequence scan or new enumeration engine was introduced.
 
-Next: prove or refute isolation for this SPECIFIC graph. The current path
-lift handles exterior 10 paths, but an active path can remove q, pass through
-00 states where f remains redundant, and expose f later. This excursion is
-unresolved. Do not confuse an inactive state with an inactive whole component.
-If isolation fails, retain the more general signed target/deletion framework
-and shared corner diagram. Do not restart a broad scan or scaffold conditional
-Lean statements in place of proving the structural claim.
-
-The prose forest-component theorem, endpoint/gluing results and winding
-reductions remain available; their map is in the status note. AU_prime is
-auxiliary, not a prerequisite of the recurrence route. The aggregate circular
-formalization is complete; the primitive circular COMPONENT theorem is open.
+Next: construct signed component recurrences at minimal envelope area, using
+all smaller-component corrections and the crossing sweep. Proving J-isolation
+would suffice for its DN step, but do not insist on it if several packet rows
+can isolate the component instead. Inactive states must never be confused
+with inactive ENTIRE components. No new conditional Lean scaffold is needed.
+The general ordinary and primitive circular component formulas remain open;
+the aggregate circular formalization is complete.
 
 ## Consultations and computation
 
@@ -101,9 +110,11 @@ launched. Exact request/result hashes and receipts belong in the ledger.
 
 External requests root: `/lake-cache/ai-projects/requests/VerticalStripLLT/`.
 Current receipts are in `component-recurrence/`; the completion note gives
-input/result hashes and exact test scope. The bounded Python orchestration
-reuses the earlier audited `diamond-exploration/probe.py` model; no new graph
-enumerator or polynomial family was introduced. The existing Rust
+input/result hashes and exact scope. For the fixed larger diagram, primary
+audited and reused the returned ordinary `dnmodel.py`, first checking exact
+component-partition agreement with the old model on both preceding fixtures.
+This avoids quadratic diamond deduplication. No new graph enumerator or
+polynomial family was introduced. The existing Rust
 `component_source_probe` independently checked the three-state inactive and
 84-state active components of the boundary diagnostic, using complete caps.
 
@@ -119,11 +130,11 @@ Aristotle was accessed through its installed CLI.
 
 ## Checks and history
 
-Whitespace and focused-diff checks passed; 91 local links in the eight
-changed Markdown files resolve. Both initialization commits remain ancestors
-of HEAD, and no Lean or reference diff exists. No Lean build is required for
-these documentation-only changes. Push the coherent checkpoint on `main`;
-record the successful commit in the final response.
+Whitespace, focused-diff and local-link checks passed: 39 links across the
+four changed Markdown files resolve. Both initialization commits remain
+ancestors of HEAD; no Lean or reference files changed. No build was needed.
+Push the coherent checkpoint on `main` and report its commit. All external
+diagnostics and read-only delegates from this increment are terminal.
 
 The previous handoff, including winding and recurrence chronology and exact
 old observer status, is [archived through DN transport](docs/archive/flip-component-handoff-through-dn-transport.md).
