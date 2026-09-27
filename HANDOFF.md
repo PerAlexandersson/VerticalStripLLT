@@ -2,6 +2,11 @@
 
 ## Result and verification boundary
 
+Verified source checkpoint: `682b476` (`Prove ordinary component four-term
+identity and quotient functional`), following pushed checkpoints `de4645f` and
+`06fac39`. All restart work is integrated on `main`; no subagent edit or build
+remains active.
+
 The ordinary actual-component word-count milestone is now formalized:
 `Components.componentWordCount_four` proves the contextual four-term identity
 under the ordinary forward-edge hypothesis, and `componentWordFunctional`
