@@ -64,7 +64,8 @@ Items 1--3 and the local sink cancellation in item 5 have passed local library
 and axiom checks. `WordRank` and `LiftCoverRank` prove the generic cover adapter
 used by item 4. The actual ordinary component-count functional and four-term
 identity are now implemented. The global HRV extraction, final Cauchy assembly, compatible-lift transport
-and the full finite companion still need Lean integration. Their mathematical proofs are complete.
+and circular whole-component isolation still need Lean integration. Their mathematical proofs are
+complete. The per-orientation finite companion is now a Lean theorem.
 
 `CauchyStep` now proves the finite ordered factorization
 `colorProduct_eq_cauchyProduct`, using the explicit finite elementary coefficient
@@ -141,12 +142,11 @@ cycles, total cyclicity and the actual weak-component sign. Astra audited
 this complete intermediate statement, including exact optional support and
 repeated edge steps.
 
-To reach the full companion, the remaining steps include balanced-F
-contraction and potential independence, weak-count preservation, excess and
-subset transport, the balanced coefficient base case, an excess/deletion
-witness for every unbalanced selected set, the actual signed deletion recurrence
-for W, and edge-count induction. Whole-component isolation and compatible-lift
-transport remain separate semantic obligations.
+Balanced-F contraction, potential independence, weak-count preservation, excess
+and subset transport, balanced delta coefficients, unbalanced deletion witnesses,
+both actual semantic deletion recurrences and finite-set induction are now
+verified. Whole-component isolation and compatible-lift transport remain separate
+semantic obligations.
 
 `ComponentWords` now defines the guarded count on the actual complete component
 and extends it linearly. It proves vanishing for repeated, missing, or wrong-length
@@ -257,8 +257,8 @@ complete equation (4): overlap terms vanish, disjoint supports are reindexed,
 and the right-side subset gives the sign. `GainContraction` contracts actual
 weak blocks while retaining edge instances. `GainGauge` telescopes potential
 shifts; `GainContractionGauge` proves that contracted cycle tests are independent
-of the balanced potential. Global ordinary HRV assembly and the contracted
-coefficient recurrence are still separate obligations.
+of the balanced potential. Global ordinary HRV assembly remains separate; the
+contracted coefficient recurrence is complete as described below.
 
 ### Actual finite companion coefficients
 
@@ -270,5 +270,30 @@ the potential-independent coefficient and identifies both sign conventions.
 `GainCoefficientRecurrence.sum_powerset_coefficient_eq_zero` proves (**), and
 `GainCoefficientBase.coefficient_eq_delta_of_balanced` proves the balanced base.
 Both have passed independent Astra source audit and local Lean verification.
-An unbalanced witness, the semantic W recurrences, induction, compatible-lift
-transport and whole-component isolation remain to be connected.
+
+### Actual finite companion semantics
+
+`GainBalancedWitness`, `GainWalkEdges`, `SignedEdgeLists` and
+`SignedListCancellation` construct a signed walk obstruction while preserving
+edge multiplicities. `GainDeletionWitness` supplies disjoint support and proves
+both sides nonempty in a DAG. `ColoringDeletion` proves the actual strict-coloring
+recurrence. `HRVGainPotential` identifies the entire periodic HRV map with the
+least potential of reversed natural edges; `GainPotentialValues` and `HRVDeletion`
+then prove its valued recurrence. Coefficients retain forward natural gains.
+`FiniteDeletionExpansion` proves the finite-set induction and `GainExpansion`
+discharges its coefficient and witness hypotheses.
+
+`UndecoratedSelection` moves every selected edge, including strict ones, to the
+same-area undecorated graph without changing either semantics.
+`CircularFiniteCompanion.strictOrderEnumerator_finiteCompanion` and
+`liftedHRV_value_finiteCompanion` now prove the two actual expansions with the
+same canonical coefficients. The latter permits any value of the entire map
+`ℤ → ℤ`; it therefore gives the free-abelian map identity before fiber evaluation.
+Astra independently audited this assembly. Neither theorem assumes a semantic
+recurrence or balancedness of the original orientation.
+
+The remaining circular steps are tight-edge flip reconstruction, coefficient
+constancy on complete balanced components, and compatible-lift transport.
+`AncestorBlock.block_eq_ambient_ancestor_filter` also supplies the ordinary
+incoming-closed unique-root block identification; global ordinary product
+assembly is still unfinished.

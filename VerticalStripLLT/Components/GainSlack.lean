@@ -16,11 +16,12 @@ variable {V E : Type*} [DecidableEq E] (G : GainData V E)
 def slackEdges (N : Finset E) (p : V → ℕ) : Finset E :=
   N.filter (fun e => (p (G.tail e) : ℤ) + G.gain e < p (G.head e))
 
-private def slackChoice (N : Finset E) (fallback : E) (p : V → ℕ) : E :=
+/-- A deterministic slack edge depending only on the potential vector. -/
+def slackChoice (N : Finset E) (fallback : E) (p : V → ℕ) : E :=
   if h : (G.slackEdges N p).Nonempty then h.choose else fallback
 
 omit [DecidableEq E] in
-private theorem slackChoice_mem {N : Finset E} {fallback : E} {p : V → ℕ}
+theorem slackChoice_mem {N : Finset E} {fallback : E} {p : V → ℕ}
     (h : (G.slackEdges N p).Nonempty) :
     G.slackChoice N fallback p ∈ G.slackEdges N p := by
   simp only [slackChoice, dite_eq_left h]

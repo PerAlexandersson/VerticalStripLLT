@@ -1,7 +1,8 @@
 # Finite companion lemma for complete circular flip components
 
 Status: complete mathematical proof, audited independently by primary, Astra
-and Terra. The full companion is not yet a Lean theorem. No enumeration was
+and Terra. The per-orientation coloring and entire-HRV companion expansions
+are now Lean theorems; whole-component isolation remains to be integrated. No enumeration was
 used. Aristotle supplied the coefficient proof; primary removed an unused
 incorrect claim about unscaled integer strict potentials and supplied the
 explicit finite component-isolation argument below.
@@ -271,7 +272,8 @@ The abstract contracted-gain identity (**′**) is now Lean-verified as
 instances and proves both total-cyclicity and negative-cycle conditions with
 the weak-component parity sign. `PartitionConnectivity` proves Lemma A;
 `GainLevels` handles the two fixed-level cancellation cases. Actual balanced-F
-contraction and the subsequent W/component assembly remain unformalized.
+contraction and the per-orientation W assembly are now verified; whole-component
+isolation remains unformalized.
 
 We can formalize this argument with finite graphs and integer arithmetic.
 The main independent statements are:
@@ -308,4 +310,8 @@ Related Lean: `GainCoefficientRecurrence.sum_powerset_coefficient_eq_zero` now
 proves (**) on actual balanced contractions, including the optional-support
 reindexing and signs. `GainCoefficientBase.coefficient_eq_delta_of_balanced`
 proves the balanced base. These were independently audited and locally checked;
-the semantic W recurrence and whole-component assembly remain separate.
+the semantic W recurrences and finite-set induction now also compile.
+`CircularFiniteCompanion.strictOrderEnumerator_finiteCompanion` and
+`liftedHRV_value_finiteCompanion` prove the two actual expansions, including
+originally strict edge deletions through `UndecoratedSelection`. Whole-component
+assembly remains separate.

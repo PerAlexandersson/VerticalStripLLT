@@ -8,21 +8,22 @@ The complete ordinary and aggregate circular formulas are Lean theorems.
 The full ordinary and circular **component** formulas have complete audited
 mathematical proofs but are **not yet complete Lean theorems**.
 
-Verified actual coefficient increment atop pushed `f668154`:
-`GainCoefficientRecurrence.sum_powerset_coefficient_eq_zero` proves (**),
-using actual balanced contractions and the preserved spanning weak-component count.
-`GainCoefficientBase.coefficient_eq_delta_of_balanced` proves the balanced base.
-Astra independently audited source, reindexing, signs, support and empty cases:
-no defect found. The ordinary `MountainCauchy` peak factor and ordered block
-compatibility also compile. Full library: **2001 jobs**, **2448 axiom entries**,
-standard axioms only.
+Verified finite companion increment atop pushed `903d0fc`:
+`CircularFiniteCompanion.strictOrderEnumerator_finiteCompanion` proves the
+actual coloring expansion and `liftedHRV_value_finiteCompanion` proves the
+same-coefficient expansion for any value of the entire periodic HRV map.
+These include deletions of originally strict edges. The unbalanced witness,
+both semantic recurrences and finite-set induction are fully discharged.
+Independent Astra audit found no semantic gap. The ordinary ancestor-block
+identification also compiles. Full library: **2017 jobs**, **2529 axiom entries**,
+standard axioms only; source guards, line widths and diff checks pass.
 
 Earlier pushed checkpoints: `f668154` (mountain equation (4) and potential
 independence; 1992 jobs, 2416 axioms), `b60d299` (Lemma A and abstract (**′**)),
 `ee8eb02` (actual color-product pairing), `e63e21b` (DAG/level/HRV blocks).
 Validation logs are under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-continuation/`:
-`actual-coefficient-library-build.log` and `actual-coefficient-axioms.log`.
+`finite-companion-library-build.log` and `finite-companion-axioms.log`.
 All builds use the pinned Lean 4.34.0 / Mathlib
 `5ed2965256430c3649e86755f9576b54eca72435` through `lake-workspace`.
 No placeholders, custom axioms, unchecked native proofs or local package/build
@@ -37,11 +38,11 @@ source, imports, inventory, documentation, integration fixes and the sole
 serialized Lean build slot. Check active processes before each build.
 Current authorized build-free assignments:
 
-- Astra `component_review`: only `Components/GainBalancedWitness.lean`, doubled
-  signed edges and the positive closed/simple-walk obstruction to balancedness.
-- Luna `word_swaps`: only `Components/WeightedToggleCancellation.lean`, the
-  valued signed-toggle theorem.
-- Luna `word_covers`: idle; all returned files are primary-owned.
+- Astra `component_review`: read-only next-step architecture review of tight-edge
+  flip reconstruction and coefficient transport; no edit ownership.
+- Luna `word_covers`: read-only ordinary global-product assembly decomposition.
+- Luna `word_swaps`: returned `Components/GainTightPotential.lean`; primary has
+  adopted the candidate, not yet built or included in this checkpoint.
 
 All earlier candidates were returned, repaired where needed, and checked by
 primary. No build slot was transferred. No new account, supervisor worker or
@@ -60,9 +61,9 @@ git -c url.https://github.com/.insteadOf=git@github.com: \
   -c credential.helper='!gh auth git-credential' push origin main
 ```
 
-The actual per-F coefficient recurrence is now verified. The semantic W
-recurrences and whole-component bridges remain open; they are not inferred from
-aggregate positivity. A false-positive Luna audit conflating GainLevels with
+The actual per-F coefficient recurrence, semantic W recurrences and finite
+companion induction are now verified. Whole-component bridges remain open;
+they are not inferred from aggregate positivity. A false-positive Luna audit conflating GainLevels with
 GainSlack was explicitly retracted; see the review-grounding suggestion.
 
 ## Verified component foundations
@@ -188,3 +189,17 @@ No Rust, Overleaf, immutable references or shared infrastructure was changed.
 
 Latest ownership and verification chronology is in
 [the coefficient checkpoint archive](docs/archive/component-foundation-through-coefficients-20260927.md).
+
+Latest finite-companion ownership chronology is archived in
+[the finite companion snapshot](docs/archive/component-foundation-through-finite-companion-20260927.md).
+
+## Next concrete work
+
+The per-orientation finite companion is complete. Integrate and check the
+returned integer scaled tight-potential candidate, then formalize tight-path
+reconstruction, coefficient constancy on whole balanced components, and
+compatible-lift transport. Astra recommends transporting contracted graphs by
+an equality of the underlying EqvGen setoids, avoiding a new quiver-cast layer.
+The ordinary lane still needs global ordered mountain-product HRV extraction;
+`AncestorBlock` now identifies the incoming-closed block with its ancestor set.
+Both full component theorems remain open. Primary retains the single build slot.
