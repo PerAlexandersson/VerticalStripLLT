@@ -2658,3 +2658,17 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.DirectedFlipWitness.of_tightSelections
 #print axioms VerticalStripLLT.Components.score_le_of_reachable
 #print axioms VerticalStripLLT.Components.reachable_of_tight_score
+
+-- Component coefficient constancy and full block words.
+#print axioms VerticalStripLLT.Components.blockWord_nodup
+#print axioms VerticalStripLLT.Components.fullWord_blockWords_flatten_iff
+#print axioms VerticalStripLLT.Circular.DirectedFlipWitness.ab_eq_of_tightTarget
+#print axioms VerticalStripLLT.Circular.DirectedFlipWitness.ab_not_mem_of_tightTarget
+#print axioms VerticalStripLLT.Circular.DirectedFlipWitness.exists_tightInverse
+#print axioms VerticalStripLLT.Circular.DirectedFlipWitness.exists_coefficientInverse
+#print axioms VerticalStripLLT.Circular.DirectedFlipWitness.exists_coefficientInverse_in_component
+#print axioms VerticalStripLLT.Circular.componentCoefficient
+#print axioms VerticalStripLLT.Circular.DirectedFlipWitness.componentCoefficient_eq
+#print axioms VerticalStripLLT.Circular.componentCoefficient_eq_of_flip
+#print axioms VerticalStripLLT.Circular.componentCoefficient_eq_of_reachable
+#print axioms VerticalStripLLT.Circular.componentCoefficient_eq_of_mem_flipComponent

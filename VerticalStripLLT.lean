@@ -302,3 +302,7 @@ import VerticalStripLLT.Components.OrderedBlockHRV
 import VerticalStripLLT.Components.TightFlipExistence
 import VerticalStripLLT.Components.TightFlipReconstruction
 import VerticalStripLLT.Components.TightReachability
+import VerticalStripLLT.Components.BlockFullWords
+import VerticalStripLLT.Components.TightFlipInverse
+import VerticalStripLLT.Components.CircularGoodFlipInverse
+import VerticalStripLLT.Components.ComponentCoefficient

@@ -2,7 +2,8 @@
 
 Status: complete mathematical proof, audited independently by primary, Astra
 and Terra. The per-orientation coloring and entire-HRV companion expansions
-are now Lean theorems; whole-component isolation remains to be integrated. No enumeration was
+are now Lean theorems. Coefficient constancy on complete components of a fixed
+diagram is also verified; universal-ambient transport and final grouping remain. No enumeration was
 used. Aristotle supplied the coefficient proof; primary removed an unused
 incorrect claim about unscaled integer strict potentials and supplied the
 explicit finite component-isolation argument below.
@@ -272,8 +273,10 @@ The abstract contracted-gain identity (**′**) is now Lean-verified as
 instances and proves both total-cyclicity and negative-cycle conditions with
 the weak-component parity sign. `PartitionConnectivity` proves Lemma A;
 `GainLevels` handles the two fixed-level cancellation cases. Actual balanced-F
-contraction and the per-orientation W assembly are now verified; whole-component
-isolation remains unformalized.
+contraction and the per-orientation W assembly are now verified.
+`ComponentCoefficient.componentCoefficient_eq_of_mem_flipComponent` proves
+constancy of the actual coefficient sum by a tight-flip weighted bijection.
+Universal-ambient component preservation and final grouping remain separate.
 
 We can formalize this argument with finite graphs and integer arithmetic.
 The main independent statements are:
@@ -315,3 +318,10 @@ the semantic W recurrences and finite-set induction now also compile.
 `liftedHRV_value_finiteCompanion` prove the two actual expansions, including
 originally strict edge deletions through `UndecoratedSelection`. Whole-component
 assembly remains separate.
+
+Related Lean: `TightFlipExistence` and `TightFlipInverse` reconstruct both sides
+of the ambient exchange with all integer-cover conditions. `CircularBalancedFlip`
+and `GainCoefficientTransport` preserve the full signed coefficient. The
+resulting `ComponentCoefficient` theorem concerns whole components in one fixed
+diagram; it does not identify an original decorated component with an entire
+component in the universal ambient graph.

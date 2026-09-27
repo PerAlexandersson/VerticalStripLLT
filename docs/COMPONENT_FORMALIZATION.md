@@ -312,11 +312,24 @@ weak-component setoids, avoiding a separate walk-transport representation.
 `TightFlipReconstruction` transfers every positive and negative cover condition.
 `TightFlipExistence` constructs the admissible ambient target, and
 `CircularGoodFlip.exists_coefficientExtension_in_component` proves the same
-coefficient survives inside the original complete component. The reverse
-construction and coefficient-sum bijection are still being integrated; the
-forward extension alone is not component isolation.
+coefficient survives inside the original complete component. `TightFlipInverse`
+and `CircularGoodFlipInverse` construct the inverse with the original witness
+direction. `ComponentCoefficient` proves equality of the full coefficient sums
+by an actual weighted bijection, then extends constancy along all flips in a
+complete component. Astra audited the source/target directions, signs and use
+of arbitrary potentials: no defect found.
 
 For the ordinary case, `OrderedBlockHRV` constructs the owner map and identifies
 qualifying ordered blocks with actual HRV fibers. `BlockWordSupport` identifies
 flattened word compatibility with internal and cross-block conditions. The
 weighted global mountain-product sum remains to be assembled.
+
+`BlockFullWords` identifies the guarded full-word condition with pairwise
+disjoint block carriers and full coverage. These are local adapters; the actual
+weighted global mountain-product sum is still open.
+
+The coefficient-constancy theorem fixes a diagram D and sums over the original
+component γ. Its index is the full selected set `D.strict ∪ θ.val`. It does not
+itself supply universal-ambient component preservation or the reindexing needed
+for companion subsets that delete originally strict edges. Those bridges,
+grouping by balanced components and compatible-lift transport remain explicit.
