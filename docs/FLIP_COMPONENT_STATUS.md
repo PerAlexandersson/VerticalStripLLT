@@ -18,6 +18,7 @@ semantics. A sum over all components does not establish the individual claims.
 | Explicit {−1,0,1} HRV-map coefficients and signed component counting refinement | Audited mathematical proofs | [Exact HRV differences](proofs/COMPONENT_HRV_DIFFERENCES.md) |
 | Strict-chain normalization by actual flips; deterministic representatives, connected fibers and exact fiber coloring sums | Audited mathematical proofs | [Chain normalization](proofs/COMPONENT_CHAIN_NORMALIZATION.md) |
 | Crossing-corner slides: exact cover tests, consecutive-chain connectivity, simultaneous signed smaller-area correction for K and E | Audited mathematical proofs; correction regrouping remains open | [Anchor slides](proofs/COMPONENT_ANCHOR_SLIDES.md) |
+| Mixed reachability preserves alternating coloring and full HRV-map sums; exact Boolean closure fibers | Audited mathematical proofs; component reconstruction remains open | [Mixed closure](proofs/COMPONENT_MIXED_CLOSURE.md) |
 | Explicit ordinary DN completion graph; simultaneous semantic transport and whole-component reconstruction | Audited mathematical proof, conditional isolation still open | [DN component completion](proofs/DN_COMPONENT_COMPLETION.md) |
 | Doubly endpoint-marked aggregate identity; separate ascent variables at articulation blocks | Audited mathematical proofs | [Endpoint recovery and gluing](proofs/COMPONENT_ENDPOINT_GLUING.md) |
 | Corner leaf normalization; connectivity of all trees with a fixed envelope | Audited mathematical proofs | [Tree connectivity](proofs/COMPONENT_TREE_CONNECTIVITY.md) |
@@ -76,6 +77,15 @@ state and leaves only signed smaller-area terms, for both K and E. Each
 correction separately has unequal coefficients across a surviving target
 flip, so it still requires regrouping into whole components. Normal-long
 flips and mixed-cyclic intermediate states remain part of the general task.
+
+The [mixed-closure companion](proofs/COMPONENT_MIXED_CLOSURE.md) now supplies
+additional simultaneous semantic relations. A normal edge implied by the
+mixed order can be inserted or removed without changing either alternating
+valuation, even before the HRV maps are evaluated as elementary monomials.
+For an acyclic mixed order, all realizing normal sets form a Boolean interval
+whose mandatory edges are its forward Hasse edges. These fibers are not
+asserted to be components. Their exact identities enlarge the permitted
+redistributions of correction terms; final component constancy remains open.
 
 Several packet equations may be combined. The proved
 [recurrence-generation companion](proofs/FLIP_COMPONENT_INDUCTION.md#signed-recurrence-generation-without-a-uniqueness-requirement)
@@ -246,4 +256,6 @@ by the diagnostic. The corner,
 forest, winding and aggregate refinements remain available as tools and solved
 correction terms. Reuse the shared Rust LLT/HRV and flip tools before adding
 computation; capability audits and missing maintained interfaces are in the
-handoff.
+handoff. Use the new mixed-closure identities when redistributing smaller-area
+corrections. Retain actual intersections with source components; neither
+closure nor chain normalization identifies whole components by itself.

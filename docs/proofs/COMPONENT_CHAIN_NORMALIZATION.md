@@ -216,3 +216,51 @@ The next target is a recurrence for these anchor contributions, compatible
 with the actual component relation and with both K and E. The normalization
 has proved reachability, a deterministic endpoint, and whole fibers; it has
 not proved the remaining semantic equality or component isolation.
+
+## Images of a normal-long flip
+
+Let an actual flip ab↔bc retain the NORMAL long ac, with a<b<c, and assume
+both endpoints are mixed-acyclic. The vertices lie in three different strict
+chains A,B,C: any pair in one chain would either be a strict edge or properly
+contain one. Write Q for the exterior normals, Q'=P(Q), and h_A=succ_S(a),
+h_B=succ_S(b) whenever required below. The exact normalized endpoint sets,
+in addition to their common Q' and S, are:
+
+| Order of chain maxima | Left, from ac+ab | Right, from ac+bc |
+| --- | --- | --- |
+| A<B<C | ac, ab | ac, bc |
+| A<C<B | ac, ab | ac, ch_B |
+| B<A<C | ac, bh_A | ac, bc |
+| B<C<A | bh_A, ch_A | ch_A, bc |
+| C<A<B | ch_A, ab | ch_A, ch_B |
+| C<B<A | bh_A, ch_A | ch_A, ch_B |
+
+Every required successor exists by the inversion criterion. When h_A is
+used, normality of ac gives c<h_A; when h_B is used, c<h_B. Distinct chains
+have distinct successors, and mixed acyclicity excludes collisions with
+normalized exterior edges. The table follows directly by applying P to each
+of the three local normal edges, including the retained long.
+
+The normalized endpoints lie in the same complete component by the original
+flip and the two normalization paths. Those paths may involve the exterior;
+the table alone does not supply a bounded local path between anchors.
+
+Even in the first row, the retained normal long can cease to be a cover.
+Use zero-based vertices and areas (0,1,2,3,4,4,5), with corners 04 and 16.
+Take S={04}, leaving 16 unmarked, and Q={03,13,45}. The two states
+
+    S+Q+{12,15}  ↔  S+Q+{25,15}
+
+are mixed-acyclic actual flip neighbors retaining 15: it and the exchanged
+short are covers. Chain maxima at 1,2,5 have the first-row order. Normalization
+replaces 03 by 34 and keeps every other displayed normal. Both normalized
+states now have the bypass 1→3→4→5, so 15 is not a cover. They are still
+anchors and hence mixed-acyclic. This is a cover obstruction in the stated
+general setting, not a counterexample under the additional saturation
+hypothesis, since 16 is unmarked.
+
+Terra supplied the table and diagnostic; primary checked all replacements,
+cover tests, natural corners and the saturation limitation. The separate
+[mixed-closure companion](COMPONENT_MIXED_CLOSURE.md) concerns semantic
+identities under mixed reachability and must not be confused with P or with
+preservation of an actual flip's cover tests.

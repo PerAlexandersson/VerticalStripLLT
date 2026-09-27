@@ -127,8 +127,9 @@ difference of endpoint residuals by an explicit signed smaller-area sum.
 These are state sums, not yet sums of whole smaller components. Smaller-area
 induction does not make either correction vanish pointwise. In particular,
 the identity is not an equality of residuals along slides, nor an identity
-for the normalization fibers. There is an exact obstruction to applying
-component induction to either correction by itself. In G\{ac}, retain all
+for the normalization fibers. Under the consecutive-chain hypotheses there
+is an exact obstruction to applying component induction to either correction
+by itself. In G\{ac}, retain all
 other strict corners and compare Q+bc with Q+cd. The correction Φ_ac gives
 them coefficients −1 and 0 respectively, although they are actual flip
 neighbors via the remaining strict long bd. Deleting ac does not affect this
@@ -141,6 +142,11 @@ that the correction multiplicities, after collecting all states of the
 chosen component and any auxiliary recurrence rows, are constant on every
 smaller component. Normal-long flips and connections through mixed-cyclic
 states remain part of that obligation.
+
+The [mixed-closure companion](COMPONENT_MIXED_CLOSURE.md) supplies further
+common semantic zero relations: a normal edge already implied by the mixed
+order can be inserted or removed in the alternating correction. These give
+additional redistribution freedom; component reconstruction remains open.
 
 Primary audited the slot and cover arguments and the signed subtraction.
 Terra reviewed the two-chain geometry; Astra independently derived the cover

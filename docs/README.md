@@ -52,6 +52,9 @@ notes below each own one argument; process status lives in the handoff.
 - [Anchor slides](proofs/COMPONENT_ANCHOR_SLIDES.md): exact cover tests,
   consecutive-chain connectivity, and signed smaller-area corrections for
   both valuations; whole-component regrouping remains open.
+- [Mixed closure](proofs/COMPONENT_MIXED_CLOSURE.md): normals implied by mixed
+  reachability preserve both alternating valuations; acyclic closure fibers
+  are Boolean intervals, giving further exact relations for regrouping.
 - [DN component completion](proofs/DN_COMPONENT_COMPLETION.md): explicit
   component grouping, proved recurrence transport, and the remaining local
   isolation assertion.

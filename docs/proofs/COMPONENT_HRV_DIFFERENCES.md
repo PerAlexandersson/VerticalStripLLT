@@ -74,6 +74,12 @@ That F edge has equal-α endpoints, so its tail belongs to U_α; but the first
 N-edge of the segment supports that same tail, a contradiction. Every map
 coefficient vanishes. The earlier involution is a separate constructive proof.
 
+The [mixed-closure companion](COMPONENT_MIXED_CLOSURE.md) gives a second
+consequence: inserting a normal already implied by a mixed path preserves
+every signed map coefficient. For an acyclic mixed order, the complete fiber
+of normal selections realizing it is a Boolean interval, with the forward
+Hasse edges mandatory. This supplies new semantic relations for regrouping.
+
 ## Strict corners and a component counting refinement
 
 Now let F be a set of ordinary strict corners. At most one F edge has any
