@@ -63,6 +63,45 @@ build directory was introduced.
 
 ## Active general companion goal
 
+Primary owns `COMPONENT_BRIDGE_PACKETS.md`, the index/source-note links,
+this handoff, and the external Rust diagnostic. Astra independently checked
+the five-flip attachment path, connected-component isolation, chain-packet
+telescoping, and marked-ideal formulas; its read-only lane is released.
+Terra checked the precise source-deletion closure obstruction; its read-only
+lane is also released.
+No Lean build or remote proof task is active. The previous external probe is
+retained as `component_source_probe-at-6b26e01.rs`.
+
+New proved mathematical progress: the full (Src) defect cancels for every
+attached-chain packet. For a connected internal component, all attachment
+states remain inside one target component. For arbitrary internal components,
+the extension reduces to the explicit open marked-ideal identity (Ideal).
+All complete internal components through five vertices in ordinary complete
+diagrams pass a bounded exact Rust diagnostic; disconnected packets were not
+separated by target component. Exact scope and hashes are in the new note.
+
+An independently checked obstruction prevents treating this as the full
+proof: the two-vertex chain attachment packet satisfies (Src), but its coloring
+sum is nonsymmetric and differs from its HRV sum. Packet source deletions need
+not have constant multiplicity on smaller full components. A general proof
+still needs componentwise cancellation with controlled packet multiplicities
+or another argument supplying the missing deletion closure. No general
+block-attachment or packet HRV identity is assumed.
+
+Source-boundary completion is also insufficient by itself: for the two-vertex
+chain packet it closes at seven of eight states in the full target component
+and introduces a nonzero defect H_2(2t e_1+t^2). The missing outgoing star
+cancels it, but all its flips involve its only source. Primary and Terra
+verified the exact transition graph. The next useful target is a packet
+transport controlling both source closure and cancellation, including those
+source-incident flips; repeated attachment experiments alone do not supply it.
+
+This documentation increment follows pushed checkpoint `6b26e01`. The Rust
+diagnostic completed and all printed formal defects were inspected; the
+hand-derived source-closure graph agrees with the existing component probe.
+Whitespace checks pass. No Lean source, immutable reference, Overleaf file,
+dependency, or shared Rust source changed; no Lean compilation was needed.
+
 Primary completed bounded component-by-component checks of (Src), reusing
 the existing Rust circular HRV implementation. Luna supplied only the external
 file `diamond-exploration/hrv-bridge/src/bin/component_source_probe.rs`, without
@@ -231,8 +270,9 @@ audit above. The repaired route allows auxiliary states and certified swaps.
 Primary owns strategy, final integration, this handoff and the sole local
 build slot. All delegate edit lanes, including Luna's documentation cleanup, are released.
 No build-slot transfer occurred. No local build, Aristotle task or Claude
-consultation is active. Astra's read-only audit is complete; its lane is
-released. Primary owns the source-note, ledger and handoff checkpoint.
+consultation is active. Astra's and Terra's read-only audits are complete;
+their lanes are released. Primary owns the bridge/source notes, index, and
+handoff checkpoint.
 Use only `lake-workspace`; check for other Lean/Lake processes before every
 invocation. Lean MCP targets RealRooted and is not used for implicit checks.
 

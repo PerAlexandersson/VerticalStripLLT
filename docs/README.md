@@ -43,6 +43,8 @@
   remaining HRV and reduces the gap to a source/fiber cancellation identity.
 - [Movable leaf packets](proofs/COMPONENT_LEAF_PACKETS.md): proved packet
   cancellation and star transport for one coefficient in every full component.
+- [Attached chains](proofs/COMPONENT_BRIDGE_PACKETS.md): five-flip attachment
+  transport, telescoping source cancellation, and the open marked-ideal identity.
 - [Component induction brainstorming](proofs/FLIP_COMPONENT_INDUCTION.md):
   coloring redistribution, cross-ascent transfers and exact missing lemmas.
 - [Aristotle ledger](ARISTOTLE.md): request IDs, candidates, and local verification.

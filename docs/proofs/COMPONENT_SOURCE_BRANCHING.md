@@ -62,6 +62,9 @@ component. It generally fails for individual orientations or local fragments.
 The [leaf-packet note](COMPONENT_LEAF_PACKETS.md) proves a nontrivial packet
 family and the coefficient of t^(n-1) for every complete component. The
 remaining coefficients and a general packet decomposition are still open.
+The [attached-chain note](COMPONENT_BRIDGE_PACKETS.md) proves another packet
+family and isolates a marked-principal-ideal companion. It also shows why
+packet cancellation without source-deletion closure cannot support induction.
 
 ## Why (Src) would close the proof
 
