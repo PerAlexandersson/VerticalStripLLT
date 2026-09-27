@@ -29,18 +29,19 @@ Initialization commits `830cc6b`, `130f7e8` and the immutable references survive
 Primary owns strategy, all current research notes, external probes, integration,
 and the sole global Lean build slot. Only primary may run `lake-workspace`,
 after checking no other build is active. No slot transfer has occurred.
-The current increment consolidates documentation and records an audited
-structural theorem; it changes no Lean, Rust, reference, or Overleaf source.
+The current increment proves a semantic forest-component companion in prose;
+it changes no Lean, Rust, reference, or Overleaf source.
 
-Last pushed checkpoint before consolidation: `ffa23fd`, endpoint recovery and
-multivariate articulation gluing. Earlier `1a966fb` records the counterexample
+Last pushed checkpoint: `1c93849`, consolidated proof notes and audited tree
+connectivity. Checkpoint `ffa23fd` proves endpoint recovery and multivariate
+articulation gluing. Earlier `1a966fb` records the counterexample
 to scalar active uniqueness. Primary owns the new proof map, tree-connectivity
 note, handoff/archive, index and Aristotle ledger. The pre-existing dirty
 Claude-preparation paragraph was primary-owned and is superseded below.
 
-Astra completed the read-only tree-proof audit. Luna completed the read-only
-Rust capability refresh. Both lanes are released; Terra is idle. No delegate
-owns an editable file. Earlier endpoint and corner-reduction audits are
+Astra completed the tree, forest-semantic and winding-transport audits. Luna
+completed the Rust capability refresh; Terra supplied the winding-lattice
+normal form. All read-only lanes are released. No delegate owns an editable file. Earlier endpoint and corner-reduction audits are
 recorded in the relevant modular notes.
 
 ## Current mathematical progress and next step
@@ -65,13 +66,26 @@ witnesses may differ. AU_prime beyond trees remains open. The proved aggregate
 block identity plus AU_prime would isolate each ordinary component by induction.
 Total-ascent uniqueness without the articulation restriction is false.
 
-Compatible lifts reduce balanced circular components to ordinary components.
-Unbalanced circular components still need a companion argument. The general
-source-cancellation route remains auxiliary and open. Neither the structural
-tree theorem nor the aggregate theorem proves the full component formula.
+A new connected-aggregate extraction now proves the full HRV formula for
+ordinary and circular forest components, in prose. For each vertex partition,
+refinement-restricted orientation sums factor over induced diagrams. Finite
+partition inversion isolates the connected aggregate; its tree coefficient
+is one entire component by tree connectivity. Forest products and compatible
+lifts give the circular result. See `COMPONENT_CONNECTED_AGGREGATE.md`.
 
-Next: audit the pending Claude response on AU_prime; pursue the quotient graph
-created by strict-corner deletion. Keep the circular winding obligation visible.
+Components containing undirected cycles remain open. Compatible lifts reduce
+balanced circular ones to ordinary components. The new integer-lattice
+invariant and finite-cover compression reduce every connected unbalanced
+component to an ENTIRE primitive circular component (cycle-winding gcd 1),
+with K and HRV preserved. Primary developed this reduction, Terra checked
+the lattice normal form, and Astra audited the entire-component/HRV transport.
+The primitive circular companion remains open. The source-cancellation route
+remains auxiliary and open.
+
+Next: pursue the exact quotient graph created by strict-corner deletion,
+keeping the exposed corners unmarked until their selected/unselected branches
+are separated. The forest family is settled mathematically; AU_prime beyond
+trees and primitive circular cancellation still need proofs.
 Do not start another broad enumeration or Lean scaffolding task in place of
 resolving that structural question.
 
@@ -86,13 +100,15 @@ under the external requests root. Audited tree lemmas are recorded in prose;
 no generated Lean source was integrated. [The ledger](docs/ARISTOTLE.md)
 contains exact payload/result hashes and historical task outcomes.
 
-One bounded Claude Sonnet consultation is active in native session `57970`,
-with a 20-minute process timeout. Its self-contained prompt requests a proof
-or exact counterexample to AU_prime. No tools, file access, MCP or Lean build
-slot is delegated. Primary owns monitoring and cleanup. Artifacts are in
-`claude-active-corner/{PROMPT.md,response.json,stderr.log}` under the external
-requests root. The initial invalid empty MCP configuration failed before the
-model task began; the corrected invocation uses an empty server map.
+The bounded Claude Sonnet consultation in native session `57970` is terminal,
+exit 0 with a successful response envelope. It did not prove AU_prime. The
+valid part is connectivity at every ascent in the saturated distance-two
+band graph, by adjacent swaps; aggregate coefficient extraction gives that
+family's component formula. Its proposed bootstrap confuses deletion with
+saturation and asks for a false whole-region redundancy property. Primary
+records the audited outcome in the ledger and active-corner note. No Claude
+or Aristotle process remains active. The result and exact prompt are retained
+under `claude-active-corner/` in the external requests root.
 
 ## Computation and records
 
@@ -127,3 +143,24 @@ Consolidation checks: local links in the changed Markdown resolve; the archive
 preserves every previous handoff line and the exact old Aristotle ledger
 (apart from adjusted relative links). Independent Astra review approved the
 tree proof and scope map. `git diff --check` passes. No compilation was needed.
+
+## Active forest-semantic increment
+
+Primary owns the new `docs/proofs/COMPONENT_CONNECTED_AGGREGATE.md`, edits to
+the tree/ambient notes, proof map, and this handoff. Primary found connected
+aggregate extraction by finite partition inversion; Astra independently audited
+induced strict corners, interleaved block HRV, coefficient isolation, and the
+ordinary/circular forest extensions. This yields the complete-component HRV
+identity for every forest, as a prose theorem. No Lean/build task is delegated.
+The prior goal turn made progress: consolidation and tree proof were pushed as
+`1c93849`. The full goal beyond forests remains active.
+
+Primary also owns the new `COMPONENT_WINDING_LATTICE.md` note. Terra
+returned a read-only integer-lattice invariant proof. Astra approved the
+primary's finite-cover reduction to primitive winding. No claim of
+primitive-component cancellation is made, and no computation/build is assigned.
+
+Primary owns the Claude outcome entries in `docs/ARISTOTLE.md` and
+`COMPONENT_ACTIVE_CORNERS.md`. No process or proof target was restarted after
+its terminal return. The two new full-family reductions passed independent
+mathematical review; local Markdown links and `git diff --check` pass.

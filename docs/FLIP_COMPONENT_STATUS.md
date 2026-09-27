@@ -16,7 +16,10 @@ semantics. A sum over all components does not establish the individual claims.
 | Corner selected/unselected split; deletion of an always-redundant strict corner | Audited mathematical proofs | [Recurrence reductions](proofs/FLIP_COMPONENT_INDUCTION.md) |
 | Doubly endpoint-marked aggregate identity; separate ascent variables at articulation blocks | Audited mathematical proofs | [Endpoint recovery and gluing](proofs/COMPONENT_ENDPOINT_GLUING.md) |
 | Corner leaf normalization; connectivity of all trees with a fixed envelope | Audited mathematical proofs | [Tree connectivity](proofs/COMPONENT_TREE_CONNECTIVITY.md) |
+| Connected aggregate extraction; full ordinary and circular forest-component formula | Audited mathematical proofs | [Forest semantic companion](proofs/COMPONENT_CONNECTED_AGGREGATE.md) |
+| Saturated distance-two band graphs: one entire component at every ascent, hence its HRV formula | Audited mathematical proof | [Adjacent-swap family](proofs/COMPONENT_ACTIVE_CORNERS.md#a-uniform-case-all-maximal-intervals-have-length-two) |
 | Complete circular ambient reduction; compatible lifts identify balanced components with ordinary components | Audited mathematical proofs | [Ambient reductions](proofs/COMPONENT_AMBIENT_REDUCTION.md) |
+| Winding lattice; finite-cover compression identifies unbalanced components with entire primitive circular components | Audited mathematical proofs | [Winding reduction](proofs/COMPONENT_WINDING_LATTICE.md) |
 
 The new prose proofs have not yet been ported to Lean. No conditional
 connectivity statement has been substituted for the component theorem.
@@ -63,9 +66,15 @@ Compatible integer vertex lifts are preserved by every flip. Sorting them
 identifies an entire balanced circular component with an ordinary component
 and preserves the actual HRV data. All forests admit these lifts.
 
-An ordinary component theorem would therefore settle the balanced circular
-components. Components with nonzero signed winding around an undirected cycle
-need a further argument. Direct circular active uniqueness is false even
+The forest-component formula is now proved by connected aggregate extraction
+and tree connectivity, followed by this lift transport. An ordinary component
+theorem beyond forests would settle the remaining balanced circular components.
+For an unbalanced connected block, the gcd g of its signed cycle windings
+is a flip invariant. Compression of the compatible n·g-periodic cover
+identifies its entire component, with both sums preserved, with a circular
+component whose winding gcd is 1. The [winding reduction](proofs/COMPONENT_WINDING_LATTICE.md)
+therefore reduces the remaining circular problem to these primitive components.
+Their formula remains open. Direct circular active uniqueness is false even
 for a four-vertex tree example. Neither fact is a gap in the **already proved
 aggregate circular theorem**.
 
@@ -94,7 +103,7 @@ Current ownership and running consultations belong only in
 to the claims they test. Historical handoffs are archives, not active plans.
 
 The next mathematical target is AU_prime beyond trees, using strict-corner
-deletion and its quotient graph of smaller components. A companion for the
-unbalanced circular case is still required for the full goal. Reuse the shared
+deletion and its quotient graph of smaller components. A companion for
+primitive circular components is still required for the full goal. Reuse the shared
 Rust LLT/HRV and flip tools before adding computation; the capability audit and
 any missing maintained interface are recorded in the handoff.

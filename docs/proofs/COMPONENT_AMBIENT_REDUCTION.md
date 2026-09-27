@@ -87,7 +87,10 @@ selected path and their compatibility with each flip triangle.
 All actual flips within such a component are strong, because the two notions
 of cover agree. This proves the reduction for actual components, not merely
 for their strong subcomponents. The ordinary component theorem is still open,
-so the reduction is not a proof of the component identity itself.
+so the reduction does not alone prove general balanced component identities.
+The subsequent [connected aggregate argument](COMPONENT_CONNECTED_AGGREGATE.md)
+does prove all ordinary forest-component identities; transporting it here
+therefore proves the circular forest-component formula.
 
 **Forests and cycle winding.** Every selected forest admits compatible lifts.
 Choose one root lift in each weak block and propagate along its unique

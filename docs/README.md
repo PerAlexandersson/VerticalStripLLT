@@ -45,8 +45,12 @@ notes below each own one argument; process status lives in the handoff.
   marked aggregate identities and separate ascent variables at articulation blocks.
 - [Tree connectivity](proofs/COMPONENT_TREE_CONNECTIVITY.md): proved corner
   leaf normalization and connectivity of all trees with a fixed envelope.
+- [Connected aggregate and forest semantics](proofs/COMPONENT_CONNECTED_AGGREGATE.md):
+  partition inversion isolates the tree coefficient and proves every forest component.
 - [Ambient reduction](proofs/COMPONENT_AMBIENT_REDUCTION.md): complete circular
   ambient diagrams, the balanced-to-ordinary reduction, and StrongSrc.
+- [Winding lattice](proofs/COMPONENT_WINDING_LATTICE.md): invariant cycle data
+  and exact reduction of unbalanced components to primitive circular components.
 
 ## Component research: auxiliary routes and obstructions
 

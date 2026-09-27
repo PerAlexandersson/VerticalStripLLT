@@ -127,6 +127,45 @@ the aggregate identity with separate block variables, without assuming any
 component-level pointed identity. The structural uniqueness refinement is
 still open. The two proved corner reductions remain valid.
 
+## A uniform case: all maximal intervals have length two
+
+Suppose the saturated connected graph has every adjacent edge and every
+distance-two edge, and no longer edges. Its strict edges are all (i,i+2);
+its normal edges are (i,i+1). This is the square of a path, with n≥3.
+Encode the normal selection by a binary word of length n−1.
+
+Every possible flip uses three consecutive vertices. The two adjacent edges
+are covers whenever selected, and (i,i+2) has an alternate path exactly when
+both adjacent edges are selected. Hence flips are exactly adjacent exchanges
+10↔01. At each fixed number k of ones, repeated exchanges 10→01 reach the
+unique word consisting of zeros followed by k ones. The sum of positions of
+the ones strictly increases and is bounded, proving termination and full
+connectivity at that ascent.
+
+Thus each ascent coefficient in the aggregate theorem is already one ENTIRE
+component sum. This proves its actual HRV formula for all n and alphabets,
+including components with undirected cycles. The n≤2 cases are immediate.
+Claude supplied the adjacent-swap proof; primary audited it and extracted
+the polynomial consequence. It does not extend AU_prime to longer corners.
+
+Deleting a maximal edge of length at least three preserves the natural
+distance-two edges and hence the absence of an articulation. It does not
+preserve saturation: newly exposed natural corners remain unmarked in the
+exact deletion correspondence. For example, deleting strict 14 from K4
+leaves 13 and 24 unmarked. Making them strict selects only one branch and
+loses other states. The exact bridge graph in the recurrence note remains
+valid; it cannot be replaced by the saturated smaller diagram's flip graph.
+
+The region where one strict corner is redundant is not generally a union
+of complete components. With strict 14, the states
+
+    {14,13,23,24} ↔ {14,12,13,24}
+
+differ by a genuine flip at 1<2<3 retaining 13. Edge 14 is a cover in the
+first and redundant via 12,24 in the second. This refutes the extra closure
+condition suggested in Claude's proposed bootstrap. It does not contradict
+the proved deletion theorem, which assumes redundancy on an ENTIRE component.
+
 ## Why the circular statement needs more information
 
 The direct circular version of AU is false. On four zero-based vertices take

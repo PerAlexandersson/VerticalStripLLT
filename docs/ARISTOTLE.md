@@ -81,3 +81,28 @@ scope is recorded in [ordinary completion](COMPLETION.md) and
 [circular completion](CIRCULAR_COMPLETION.md). Earlier incomplete aggregate
 Aristotle returns in the archive describe historical gaps, all subsequently
 resolved by the local formalization. They are not current outstanding work.
+
+## Auxiliary Claude corner consultation: partial result, no AU_prime proof
+
+- Read-only Sonnet invocation, native session `57970`, completed with exit 0
+  within its 20-minute allowance. No tools, MCP servers or source access were
+  delegated. Primary monitored the process. No restart followed its return.
+- External directory `claude-active-corner/` under the requests root above.
+- `PROMPT.md`, SHA-256
+  `095fb5152cc23b7261bc0e97276e9bad82e0923f107cc3dee043f7d064419528`.
+- `response.json`, SHA-256
+  `f0033fce4e6dcee0e0f737a5bae28d69d34637795e5c1fd5e1f20b04edd084d5`.
+  The response envelope reports success; its mathematical verdict explicitly
+  leaves AU_prime unproved. Empty stderr is retained. An earlier invalid
+  empty MCP configuration failed before the model task started.
+- Valid result: for the saturated distance-two band graph, actual flips are
+  adjacent 10↔01 swaps, so each ascent gives one entire component. Primary
+  checked this and applied the aggregate theorem to obtain that full family's
+  component HRV formula. See [the corner note](proofs/COMPONENT_ACTIVE_CORNERS.md).
+- Rejected bootstrap: deleting a long strict corner creates unmarked corners;
+  saturating them changes the state set. The suggested region where the
+  deleted corner is redundant need not be a union of full components. The
+  owned corner note gives an exact two-state counterexample. No part of the
+  existing strict-corner quotient proof is replaced by this proposal.
+- No Lean source or builds were produced. The response neither proves the
+  ordinary nor the circular general component formula.

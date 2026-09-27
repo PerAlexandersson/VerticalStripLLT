@@ -1,8 +1,9 @@
 # Leaf normalization and connectivity of tree components
 
 Status: mathematical proofs, independently audited by the primary and Astra.
-These are structural results for the actual ordinary flip graph, not proofs
-of the component HRV formula. No Lean implementation is claimed.
+These are structural results for the actual ordinary flip graph. Combined
+with the subsequent [connected aggregate extraction](COMPONENT_CONNECTED_AGGREGATE.md),
+they prove the full forest-component HRV formula. No Lean implementation is claimed.
 Aristotle supplied the general tree argument in its final ordinary-corner
 return; [the ledger](../ARISTOTLE.md) records provenance.
 
@@ -108,13 +109,15 @@ insufficient: an interval in one block may contain an edge from another.
 
 The theorem establishes the tree level of the active-component uniqueness
 proposal in [the corner note](COMPONENT_ACTIVE_CORNERS.md). It does not prove
-that proposal for states with more edges. It also does not by itself isolate
-the tree component's polynomial from an aggregate coefficient: disconnected
-states with cycles can have the same total number of edges.
+that proposal for states with more edges. To isolate the tree component's
+polynomial, first extract the connected aggregate using set-partition inversion,
+as proved in [the semantic companion](COMPONENT_CONNECTED_AGGREGATE.md).
+Using an unrestricted aggregate coefficient would leave disconnected states
+with cycles at the same total number of edges.
 
 The [compatible-lift reduction](COMPONENT_AMBIENT_REDUCTION.md) transports
-circular forest components to ordinary ones. This supplies their structural
-classification; their component HRV identity still requires a semantic proof.
+circular forest components to ordinary ones. Together with that semantic
+companion, it now establishes the HRV identity for every circular forest component.
 
 Related Lean: `VerticalStripLLT/Circular/Flip.lean` defines the actual flip;
 `ComponentSemantics.lean` defines the complete-component sums. The lemmas in
