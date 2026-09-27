@@ -65,11 +65,15 @@ build directory was introduced.
 
 The user has redirected the main proof search to the original recurrences,
 splitting corners into selected/unselected (strict/deleted) cases. Primary
-owns all note edits, including `FLIP_COMPONENT_INDUCTION.md`, external probes,
-the index, Aristotle ledger, and this handoff. Astra's `circular_plan_review`
-lane is read-only: audit recurrence transfers and their generalization. Other
-local lanes are released. The StrongSrc Aristotle task remains an auxiliary
-search; no Lean build or Claude process is active.
+owns all note edits, including `FLIP_COMPONENT_INDUCTION.md`,
+`COMPONENT_ACTIVE_CORNERS.md`, external probes,
+the index, Aristotle ledger, and this handoff. Astra audited the two recurrence
+repairs and the general always-redundant corner deletion lemma. Luna returned
+a read-only API audit; primary corrected two proposed interface pitfalls in
+the note. All local delegate lanes are released. The StrongSrc Aristotle task
+returned COMPLETE_WITH_ERRORS, without its target proof. A new focused task
+on ordinary active-component uniqueness is confirmed IN_PROGRESS in the same project.
+No Lean build or Claude process is active.
 
 The full flip-component theorem is unproved. The goal is a general diamond
 or companion lemma establishing it, with precise hypotheses and justified
@@ -82,9 +86,10 @@ ambient and compatible-lift reductions; Terra reviewed redundant-edge removal;
 Luna returned build-free snippets only. Use only `lake-workspace`, after checking that no
 other Lean/Lake build is active. No build-slot transfer has occurred.
 
-The last pushed research checkpoint before this increment is `73535cd`:
-complete-circular ambient reduction and the stronger source companion.
-The current note is `docs/proofs/COMPONENT_AMBIENT_REDUCTION.md`.
+The last pushed research checkpoint before this increment is `0135e42`:
+compatible-lift reduction to ordinary components. The current recurrence note
+is `docs/proofs/FLIP_COMPONENT_INDUCTION.md`; the auxiliary reduction note is
+`docs/proofs/COMPONENT_AMBIENT_REDUCTION.md`.
 Primary owns it, the source-note/index links, this handoff, and the archive.
 
 ## Current proved reductions and remaining obligation
@@ -119,15 +124,26 @@ Primary owns it, the source-note/index links, this handoff, and the archive.
   have a cyclic union of its selected edges. Both obstructions have exact
   four-vertex certificates in the new note.
 
-The next task is uniform component isolation through the manuscript recurrences,
-using corner case splits, auxiliary diamond identities, and independently
-solved source corrections. Both recorded ordinary same-ascent obstructions
-now have mathematical repairs audited by Astra; primary is recording the exact
-certificates in `FLIP_COMPONENT_INDUCTION.md`. They do not yet prove the general
-transport lemma. Source cancellation (Src)/(StrongSrc) remains a parallel
-companion route. The balanced case reduces to ordinary components; nonzero
-cycle winding obstructs that reduction. Monitor the existing Aristotle task below;
-do not resubmit it after an observation failure. Do not assume a
+The next task is uniform component isolation through the manuscript recurrences.
+The original two ordinary obstructions now have mathematical coloring-and-HRV
+repairs: the first by cancelling solved source components; the second by the
+user's corner split at 24 and a product of two diamonds. These exact certificates,
+the uniform chain-of-triangles family, and the general always-redundant strict
+corner deletion theorem are recorded in `FLIP_COMPONENT_INDUCTION.md`.
+The new deletion theorem transports ENTIRE components and lowers doubled area
+by one. It handles all three ancillary source components of the first example.
+The remaining obligation concerns components where every corner can be a cover
+somewhere in the component. The new open ordinary companion (AU) says at most
+one such connected component exists at each ascent. Its implication for the
+FULL ordinary component theorem is proved: use corner and disconnected-block
+reductions, then isolate the sole unknown in the aggregate coefficient.
+The exact diagnostic passes all ordinary saturated diagrams through n=6
+(196 diagrams, 33,867 states, 4,228 components cumulatively). This is evidence,
+not a proof of AU. The direct circular version is false, with a four-vertex
+tree counterexample in `COMPONENT_ACTIVE_CORNERS.md`. AU would also settle
+balanced circular components; unbalanced components still need an argument.
+Aristotle is targeting AU itself. Source cancellation remains an auxiliary route.
+Do not assume a
 common linear order for a circular strong component or infer HRV transport
 from deletion coverage alone. No full component proof is claimed.
 
@@ -191,20 +207,38 @@ source/build, immutable reference, Overleaf source, dependency, or shared Rust
 source changed. Whitespace checks pass. The user-requested obsolete circular
 plan was already removed at `ebfd5cc`.
 
+The bounded active-corner screen reuses `probe.model`; a fresh Rust capability
+check found no maintained flip enumerator. Exact hashes and counts are in
+`COMPONENT_ACTIVE_CORNERS.md`. No new polynomial generator was introduced.
+
 ## Consultations and archive
 
+Current task: Aristotle project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08`, task
+`c2a21316-805d-489f-a1c7-40f51b40b57c`. Its full ordinary structural target is
+`ORDINARY_ACTIVE_TARGET.md` in the external `projected-source-companion/`
+request directory. It asks for a proof or exact counterexample to AU, not
+another proof of the supplied conditional implication or broad enumeration.
+Native observer session `38474` follows this same task with a two-hour allowance;
+the script passed `bash -n` and cannot submit or cancel. Its status/follow logs
+have the `ordinary-active-` prefix. Observation failure does not justify a new
+submission. No candidate has returned yet.
+
+Previous task:
 Aristotle project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08`, task
-`e8b27b28-541c-4e91-a846-d4b0db50a739`, is confirmed IN_PROGRESS. The request
+`e8b27b28-541c-4e91-a846-d4b0db50a739`, is COMPLETE_WITH_ERRORS. The request
 asks for a general (StrongSrc) proof and supplies the checked reductions and
 counterexamples. A first-order result is explicitly partial. No exhaustive
 large searches or conditional wrappers are requested. The compatible-lift
 theorem was supplied inline after independent review.
 
-Native session `31446` observes this same task with a two-hour allowance;
-the wrapper passed `bash -n` and can reconnect without resubmitting. Its logs,
+Native session `31446` observed this same task with a two-hour allowance;
+the wrapper passed `bash -n` and reconnected without resubmitting. Its logs,
 input notes/hashes, submission and steering receipts are under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/projected-source-companion/`.
-The inspected progress is exploratory, not a proof. No candidate is integrated.
+Primary downloaded and read `final-PROOF.md`: the target and its first-order
+part remain open. The return repeats the balanced reduction and supplies
+partial tree connectivity, not the component formula. Archive and extracted
+proof hashes are in `docs/ARISTOTLE.md`. No candidate is integrated.
 
 Claude Sonnet finished without a general proof (native session 6592). Its
 incorrect exterior-factor claim was corrected and independently checked.

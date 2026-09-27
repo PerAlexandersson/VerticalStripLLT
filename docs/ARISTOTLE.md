@@ -869,10 +869,10 @@ and residual transport were developed after its input snapshot `5266faa`.
   that conditional argument. The returned auxiliary Lean source and compatibility tree
   remain external; no source build was warranted by this return.
 
-## Active projected-cover companion search
+## Completed projected-cover companion search: target unproved
 
 - Project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08`, task
-  `e8b27b28-541c-4e91-a846-d4b0db50a739`, confirmed IN_PROGRESS.
+  `e8b27b28-541c-4e91-a846-d4b0db50a739`, COMPLETE_WITH_ERRORS.
 - Request directory:
   `/lake-cache/ai-projects/requests/VerticalStripLLT/projected-source-companion/`.
   The input contains `TARGET.md` and the ambient/source/bridge research notes
@@ -894,11 +894,42 @@ and residual transport were developed after its input snapshot `5266faa`.
   component after sorting compatible lifts, with HRV preserved. The receipt
   is `balanced-reduction-message.log`; this does not assert the still-open
   ordinary component theorem.
-- Native session `31446` runs the two-hour same-task observation wrapper,
+- Native session `31446` ran the two-hour same-task observation wrapper,
   which passed `bash -n`. It reconnects only to this task and does not submit,
   cancel or download. `observer-status.log`, `observed-status.log`, and
   `observer-follow.log` retain progress. An observation timeout does not
   terminate the remote task. No proof candidate has been integrated.
-- The inspected progress contains bounded n=4/5 checks and exploratory
-  source/sink reversals, not a proof. Primary remains the authoritative
-  integration and serialized local-build owner; no Lean build was used.
+- The final return explicitly proves neither StrongSrc, its first-order part,
+  nor the component theorem. It repeats the compatible-lift reduction and
+  supplies weak-block factorization and a connectivity argument for trees
+  with one maximal edge. General tree connectivity and the tree companion
+  are left open. The return also reports finite enumeration, including a
+  repeat of the supplied n=4/5 evidence despite the request to avoid it.
+- Downloaded `final-result.tar.gz`, SHA-256
+  `c314e8834db81ca87f660cf329f56f09e83733347e63d7e3c773d8048f9cad0e`;
+  extracted `final-PROOF.md`, SHA-256
+  `463e1cd13f3b6d132ef33745f1775f2f957a0586e91ffe6eaf840277a8a517b8`.
+  Primary read the return. No new remote lemma or generated compatibility
+  scaffold was integrated. The primary proof route has returned to the
+  manuscript recurrences and corner case splits, as requested by the user.
+  No local Lean build was used.
+
+## Active ordinary corner-connectivity companion
+
+- Same project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08`, new task
+  `c2a21316-805d-489f-a1c7-40f51b40b57c`. The preceding task was already
+  terminal before this explicitly redirected continuation was submitted.
+- Input `ORDINARY_ACTIVE_TARGET.md` states the full ordinary uniqueness
+  companion AU, supplies the audited implication for the component theorem,
+  the always-redundant strict-corner deletion proof, finite evidence through
+  n=6, and the exact counterexample to the circular version. SHA-256:
+  `82a8d82f1b37e1d8c7472f6f95abce6084599a744c78d73ce0600ef827a24cab`.
+- It requests `AU_PROOF.md`: prove AU itself or give an exact counterexample.
+  Repeating the conditional reduction, broad n>=7 enumeration, and new Lean
+  scaffolding are explicitly excluded. The primary will choose formalization
+  modules only after auditing the mathematical result.
+- Native session `38474` observes this task using `observe-ordinary-active.sh`
+  in the same request directory. The script passed `bash -n`, has a two-hour
+  allowance, and reconnects without resubmitting. Status and event logs use
+  the `ordinary-active-` prefix. The authoritative task list confirms submission.
+  No returned candidate or new local Lean build is present.
