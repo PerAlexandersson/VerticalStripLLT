@@ -102,6 +102,10 @@ uploaded; exact prompt/snapshot hashes and accepted addendum details are in
 the same text was accepted inline into this task. A further reminder makes
 explicit that shorts of a deleted long need not be valid strict corners.
 No returned proof is yet claimed; inspect the eventual full return.
+The remote began an unwanted n=7 `run3.py` scan despite the no-scan instruction.
+Primary sent `stop-scan-request.log`; the same live observer confirms delivery,
+but scan termination has NOT yet been confirmed. Check this before relying
+on any further experiment status; do not launch replacement tasks.
 
 The preceding task `16154bfd-ae04-49cd-9549-6d0a931f9309` is terminal
 **COMPLETE**, explicitly without the component proof. All earlier Claude and

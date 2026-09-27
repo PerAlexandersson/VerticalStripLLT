@@ -41,6 +41,11 @@ for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
   strict edges must be actual natural corners. Shorts of a deleted long are
   generally not valid strict decorations; their derivatives need independent
   reconstruction before induction.
+- The remote started an n=7 `run3.py` scan despite the explicit no-scan scope.
+  Primary sent `stop-scan-request.log`, requesting termination of that scan
+  while preserving the proof task. Observer `83731` confirms message delivery;
+  termination is not yet confirmed. These remote counts are not accepted as
+  proof or local verification.
 - No remote Lean source or local build has been produced by this consultation.
 
 ## Component recurrence: explicit DN redistribution and boundary residual
