@@ -47,42 +47,31 @@ The proof uses these established ingredients:
 | Normal-edge absorption and exact mixed-closure fibers | Audited proof | [Mixed closure](proofs/COMPONENT_MIXED_CLOSURE.md) |
 | Reversed-edge absorption, linear-extension refinement, mountain-block formula | Audited proof | [Labeled mixed posets](proofs/COMPONENT_MIXED_POSET.md) |
 | Actual ordinary component four-term identity and quotient functional | Locally Lean-verified | [ComponentFunctional](../VerticalStripLLT/Components/ComponentFunctional.lean) |
-| Actual component pairing and finite word-algebra factorization | Independently audited full ordinary proof | [Ordinary component theorem](proofs/COMPONENT_ORDINARY_PROOF.md) |
-| Balanced circular components identify with entire ordinary components | Audited proof | [Compatible lifts](proofs/COMPONENT_AMBIENT_REDUCTION.md#compatible-lifts-give-an-exact-ordinary-reduction) |
+| Actual component pairing and finite word-algebra factorization | Locally Lean-verified | [Ordinary component theorem](proofs/COMPONENT_ORDINARY_PROOF.md) |
+| Compatible ordinary preimage is a union of complete components | Locally Lean-verified | [Compatible lifts](proofs/COMPONENT_AMBIENT_REDUCTION.md#compatible-lifts-give-an-exact-ordinary-reduction) |
 
 ## What remains
 
-**Lean.** The full component theorems are currently prose. The
-[modular integration plan](COMPONENT_FORMALIZATION.md) records the word
-quotient, concrete ring and conjugation modules, with primary-owned local
-verification of bounded Luna/Terra/Aristotle contributions. The existing component interfaces
-are `Circular/Flip.lean` and `Circular/ComponentSemantics.lean`; see
-[CIRCULAR_FLIPS.md](CIRCULAR_FLIPS.md). Both semantic refinements and the finite
-Cauchy and global HRV identities remain to be assembled. The additive quotient
-and induced concatenation are now
-verified in `WordRelations`, `WordMultiplication`, and `WordAlgebra`.
-`ComponentWords` supplies the full-word count on the actual complete component,
-its linear extension, and vanishing on repeated words. `ComponentBijection`
-proves the actual within-component four-term pairing, and `ComponentFunctional`
-proves the count identity and quotient descent under the ordinary forward-edge
-hypothesis. The count identity includes every invalid contextual word.
-The local geometry, forward/inverse word exchanges, and actual directed-flip
-witness now have Lean implementations in `ShortEdges`, `EdgeSwap`, `WordSwap`,
-`WordSwapInverse`, `WordCover`, and `WordFlip`.
-The verified aggregate expansion does not supply the missing component semantic bridge.
+**Lean.** The full ordinary and circular component identities are not yet
+unconditional Lean theorems. Their remaining core lemma is now the per-state HRV
+extraction from a literal mountain-word scan. The actual component's quotient
+functional, finite Cauchy factorization, contextual scan pairing, HRV threshold
+supports, and signed first-block cancellation all compile. The scan semantics
+use actual orientation compatibility indicators; no per-state quotient
+functional or recurrence-defined substitute is assumed.
 
-**Circular formalization.** The v9 companion gives a signed expansion in
-ENTIRE balanced components. Its coefficient invariance is proved by lifting
-a tight-edge flip to an actual flip of the source graph, with the same face.
-The HRV-vector identity is separately justified; it is not assumed to be a
-polyhedral valuation. This resolves the earlier component-isolation gap.
+The finite circular companion, coefficient constancy, whole-component
+undecoration, common balanced potentials, compatible ordinary diagram, actual
+orientation/HRV/coloring transports, and forward flip transport are Lean-verified.
+`Circular.component_identity_of_forward_components` is the complete conditional
+reduction. Its ordinary preimage is a union of complete components, so reverse
+flip transport is unnecessary. Finishing ordinary scan extraction and assembly
+will discharge its sole ordinary-identity hypothesis.
 
-The user requested a simpler proof to formalize. A direct unbalanced-cycle
-deletion recurrence now follows by toggling a strictly slack edge chosen from
-the longest-path vector. It terminates at balanced graphs. The independently
-audited [finite companion](proofs/COMPONENT_FINITE_COMPANION.md) supplies the
-canonical coefficient recurrence and whole-component reconstruction.
-Its Lean integration remains open; the mathematical proof is complete.
+See the [modular integration plan](COMPONENT_FORMALIZATION.md),
+[ComponentScanSemantics](../VerticalStripLLT/Components/ComponentScanSemantics.lean),
+and [CircularFromOrdinaryComponents](../VerticalStripLLT/Components/CircularFromOrdinaryComponents.lean).
+The aggregate expansion is not used to infer a component identity.
 
 The [periodic word audit](proofs/COMPONENT_PERIODIC_WORDS.md) remains useful:
 it rules out extending the ordinary four-word quotient unchanged, but is no

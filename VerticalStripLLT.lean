@@ -333,3 +333,13 @@ import VerticalStripLLT.Components.ForwardFlipNormalization
 import VerticalStripLLT.Components.IntervalDiagram
 import VerticalStripLLT.Components.MountainProduct
 import VerticalStripLLT.Components.SelectedColoringTransport
+import VerticalStripLLT.Components.BlockContinuation
+import VerticalStripLLT.Components.HRVInitialSupport
+import VerticalStripLLT.Components.MountainScan
+import VerticalStripLLT.Components.MountainScanSupport
+import VerticalStripLLT.Components.WordOrderEmbedding
+import VerticalStripLLT.Components.FiniteMountainPeak
+import VerticalStripLLT.Components.HRVSupportDifference
+import VerticalStripLLT.Components.HRVBlockContinuation
+import VerticalStripLLT.Components.MountainScanPairing
+import VerticalStripLLT.Components.ComponentScanSemantics

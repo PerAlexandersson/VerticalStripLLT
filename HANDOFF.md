@@ -8,24 +8,24 @@ The complete ordinary and aggregate circular formulas are Lean theorems.
 The full ordinary and circular **component** formulas have audited mathematical
 proofs but are **not yet complete Lean theorems**.
 
-Latest pushed checkpoint: `7d87874`, complete component grouping and balanced
-reduction, **2045 library jobs, 2647 axiom entries**, standard axioms only.
-The next increment compiles in focused checks: actual compatible ordinary
-diagrams, orientation recovery, coloring and HRV transports, forward flip
-transport, and the complete conditional circular-to-ordinary reduction.
-`Circular.component_identity_of_forward_components` now proves the full circular
-component identity assuming the same identity for every ordinary forward diagram.
-The only remaining semantic theorem is the ordinary component identity.
-Full library passes **2060 jobs** and **2743 axiom entries**, standard axioms
-only. Source guard, line-width checks and `git diff --check` pass.
+Latest pushed checkpoint: `d0244d7`, complete conditional circular-to-ordinary
+reduction (2060 jobs, 2743 axiom entries). The next verified checkpoint adds the
+ordinary literal scan, contextual Cauchy pairing, HRV threshold support, scalar
+first-block cancellation and actual component scan semantics: **2070 library
+jobs, 2784 axiom entries**, only the three standard axioms below.
+`Circular.component_identity_of_forward_components` proves the circular identity
+assuming the identity for every ordinary forward diagram. The remaining core
+lemma is per-state HRV scan extraction; final ordinary assembly then discharges
+that hypothesis. Claude owns that candidate, excluded from this checkpoint.
+Source guards, line-width checks and `git diff --check` pass.
 
 No placeholders, custom axioms or unchecked native proofs are allowed. Expected
 axioms are only `propext`, `Classical.choice`, and `Quot.sound`. Builds use pinned
 Lean 4.34.0 / Mathlib `5ed2965256430c3649e86755f9576b54eca72435`.
 Logs live under `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-continuation/`.
-Current logs: `circular-ordinary-reduction-library-build.log` and
-`circular-ordinary-reduction-axioms.log`; focused reduction:
-`circular-from-ordinary-build-3.log` (1615 jobs).
+Current logs: `ordinary-scan-library-build.log` and `ordinary-scan-axioms.log`.
+The preceding reduction logs are `circular-ordinary-reduction-library-build.log`
+and `circular-ordinary-reduction-axioms.log`.
 
 ## Ownership and build discipline
 
@@ -38,14 +38,15 @@ worktree, account, or supervisor worker has been started.
 User explicitly allows Luna/Astra subagents and requested an independent shorter
 argument search. All agents are build-free. Current assignments:
 
-- `component_review` (Astra): edit-idle; returned `HRVInitialSupport.lean`, which
-  primary owns but has not built. It is excluded from the current checkpoint.
-- `word_swaps` (Luna): edit-idle; returned `Components/MountainScan.lean`, literal
-  finite mountain-word scan and continuation linearity, not yet built.
-- `word_covers` (Luna): owns only `Components/WordOrderEmbedding.lean`; the
-  earlier returned block cancellation files compile.
-- `simpler_component_route` (independent Astra): edit-idle after the final
-  circular-reduction audit. It proposed the accepted shortcut below.
+- `component_review` (Astra), `word_swaps` and `word_covers` (Luna): edit-idle;
+  all returned files are primary-owned and locally verified.
+- `simpler_component_route` (independent Astra): edit-idle after auditing the
+  circular reduction and ordinary scan infrastructure; no semantic defect found.
+- Nested Claude consultant: ONLY `Components/HRVScanExtraction.lean`. File tools
+  only, no builds or spawning. Primary owns monitoring and subsequent checking.
+  Exec session 53397; log `claude-hrv-scan-implementation.log`; initial timeout
+  1200 seconds, started approximately 18:29 UTC on 2026-09-27. This assignment
+  implements the user's explicit request to use Claude for implementation.
 
 The runtime Lean MCP is rooted in RealRooted. Source search and serialized wrapper
 builds are the recorded fallback; see `suggestions/project-tool-routing.md`.
@@ -114,9 +115,13 @@ not a global ordered-partition bijection:
 4. At k=n, combine with `componentScalarEval_cauchyProduct` and identify the HRV
    elementary product. Instantiate `component_identity_of_forward_components`.
 
-`HRVInitialSupport.lean` is a returned, unbuilt candidate for the support and
-first-block lemmas. `MountainScan.lean` is also a returned, unbuilt candidate. Neither is root-imported
-or in the current axiom inventory. Preserve ownership during integration.
+Steps 1 and 2 now compile in `MountainScanPairing.lean` and
+`ComponentScanSemantics.lean`. `HRVInitialSupport.lean`,
+`HRVSupportDifference.lean`, `BlockContinuation.lean` and
+`HRVBlockContinuation.lean` supply the support and cancellation lemmas for step 3.
+All ten supporting modules are root-imported and included in the axiom inventory.
+The candidate `HRVScanExtraction.lean` must keep the explicit scalar assumption
+`a 0 = 1`; it is neither imported nor inventoried until returned and verified.
 Arbitrary outgoing-closed supports are too weak for the extraction invariant;
 use actual HRV thresholds. Arbitrary edge markers do not refine the aggregate
 identity (the independent review found a triangle obstruction).
@@ -137,3 +142,50 @@ primary except the next build-free bounded assignment: Luna word_covers owns
 only `Components/WordOrderEmbedding.lean`, sorted increasing/decreasing block
 words transported through a strictly order-preserving embedding. This supplies
 the natural-subset/Fin-subset adapter for the contextual scan bridge.
+Checkpoint `d0244d7` contains the audited circular-to-ordinary reduction and
+ordinary block-list foundations (2060 jobs, 2743 axiom entries). Push started.
+Next disjoint build-free assignments: Astra component_review owns only
+`Components/FiniteMountainPeak.lean`, the scalar tensor one-peak sum reindexed
+from bounded natural subsets to Fin n block words. Luna word_swaps owns only
+`Components/MountainScanSupport.lean`, continuation congruence restricted to
+words whose letters have rank below the scan cutoff and zero criteria derived
+from it. Primary compiles MountainScan/HRVInitialSupport and owns integration.
+Push `d0244d7` completed. MountainScan, HRVInitialSupport and MountainScanSupport
+now compile in focused checks; primary added the required Ring tactic import.
+Primary owns `Components/BlockContinuation.lean`: exact full support for words,
+first-block/rest decomposition, and signed tail cancellation retaining the literal
+continuation. Luna word_swaps now owns only `Components/HRVSupportDifference.lean`,
+complement, cross-edge and unique-sink facts for the new HRV threshold fiber.
+Astra released FiniteMountainPeak; primary is compiling it and owns repairs.
+Astra now owns only `Components/MountainScanPairing.lean`, contextual scalar
+pairing of the actual finite Cauchy product with the literal mountain scan.
+Use the new finite one-peak formula, linearity and scalar centrality; never
+assume multiplicativity of componentScalarEval. Build-free.
+Primary owns `Components/HRVBlockContinuation.lean`, scalar signed first-block
+cancellation at the actual HRV support cutoff, reducing to the next fiber.
+Astra released MountainScanPairing for integration. Its next sole owned file is
+`Components/HRVScanExtraction.lean`: the actual per-state literal scan identity
+by HRV threshold induction, using the existing continuation/cancellation/support
+lemmas. This is the remaining core ordinary extraction, with arbitrary scalar
+weights a and a(0)=1. Build-free; primary remains sole compiler and integrator.
+User explicitly requested Claude for implementation. The tentative Astra
+HRVScanExtraction assignment was never started; it is now transferred to one
+nested Claude consultant owned and monitored by primary. Claude owns ONLY
+`Components/HRVScanExtraction.lean` and has file tools only, no Bash/MCP/Lean
+builds or spawning. The bounded task is the actual per-orientation mountain scan
+identity via HRV threshold induction. Default configured Claude identity/model
+are preserved. Initial monitored timeout: 20 minutes. All other source remains
+primary-owned; Astra component_review is edit-idle after MountainScanPairing.
+
+Current ordinary increment: all ten modules in the literal scan, finite-peak,
+contextual pairing, HRV threshold support, scalar first-block cancellation and
+actual component scan semantics compile. Independent Astra audit found no
+semantic defect. The only owned active candidate is Claude's
+`HRVScanExtraction.lean`, which must retain the explicit a(0)=1 hypothesis.
+It is excluded from this checkpoint and from the root/inventory until returned.
+Primary will verify it with serialized Lake. Claude session exec ID 53397,
+log `claude-hrv-scan-implementation.log`; initial monitored timeout 1200 seconds.
+
+Verified scan checkpoint: 2070 jobs, 2784 axiom entries, only propext,
+Classical.choice and Quot.sound. Next: integrate Claude extraction, assemble
+ordinary/circular identities, and re-run focused then full verification.
