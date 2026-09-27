@@ -31,12 +31,12 @@ after checking that no other build is active. No slot transfer occurred.
 No Lean, shared Rust, reference or Overleaf source changed in this increment.
 No compilation was needed or run.
 
-Preceding pushed checkpoints: `ce0628a` (exact HRV coefficients) and `e8d5a3d`
-(remote scope correction). That goal turn made progress; this continuation
-began clean. Primary owns `docs/proofs/COMPONENT_CHAIN_NORMALIZATION.md` and
-linked proof/status/index/ledger updates. Astra and Terra supplied independent
-read-only audits. Their tasks are finished; no delegate owns editable files.
-No Lean declaration or build-slot transfer was made.
+This continuation began clean at pushed `6b8a952` (strict-chain normalization).
+Primary owns `docs/proofs/COMPONENT_ANCHOR_SLIDES.md` and the linked
+normalization/status/index/handoff updates. Astra audited the cover tests and
+signed semantic slide; Terra audited the two-chain geometry and the final
+consecutive-chain proof. Both tasks are finished and were read-only/build-free.
+No delegate owns editable files, and no new remote consultation was started.
 
 ## Current mathematical result and exact next step
 
@@ -49,46 +49,43 @@ coefficients are 0,+1,−1, with the proved outgoing-support count. These remain
 in [corner differences](docs/proofs/COMPONENT_CORNER_DIFFERENCES.md) and
 [exact HRV differences](docs/proofs/COMPONENT_HRV_DIFFERENCES.md).
 
-New [strict-chain normalization](docs/proofs/COMPONENT_CHAIN_NORMALIZATION.md):
+The proved [strict-chain normalization](docs/proofs/COMPONENT_CHAIN_NORMALIZATION.md)
+processes ALL strict chains, including singleton vertices, by decreasing
+maximum. Its explicit idempotent map P replaces each root-decreasing normal
+u→v by v→succ_S(u), using actual flips preserving mixed acyclicity. The
+processed UNION is absorbing; this controls all cover tests. Every fiber is
+connected and has an exact coloring sum with outside-interval constraints.
+P is not constant on a whole component, and fiberwise K=E is false.
 
-- Strict edges partition ALL vertices into increasing chains, including
-  singleton blocks. Process these by decreasing maximum vertex.
-- For a terminal chain with no outgoing normal at its last vertex, a
-  reachability-minimal normal exit supports an actual strict-long flip into
-  that chain. It preserves mixed acyclicity and decreases the number of exits.
-- The union of processed chains is absorbing in both the ordinary and mixed
-  graphs. Restrict to remaining vertices, normalize the next chain, and lift
-  its flips back: a cover-testing path cannot enter that union and return.
-- The resulting map P keeps a normal u→v if its strict-chain maxima increase;
-  otherwise it replaces it by v→succ_S(u). It is explicit and idempotent;
-  replacements within a state never collide. It preserves normal cardinality
-  and the original component. A normalization path has exactly as many flips
-  as the initial number of decreasing-chain-maxima normals.
-- All anchors respect ONE fixed mixed-graph order: strict chains increasing
-  by maximum, vertices decreasing within each chain. P is NOT a component
-  invariant, and different anchors can lie in the same complete component.
-- A P-fiber is the mixed-acyclic subset of a cube of rotatable anchor-edge
-  choices. It is connected by actual flips. Its coloring difference is
-  (−1)^|S| times an explicit enumerator with outside-closed-interval constraints.
-  A single fiber need not have equal K and E sums.
-- A strict-long flip between mixed-acyclic states either stays in one fiber,
-  or induces ab↔cd across crossing strict corners ac,bd. This classifies
-  its normalized endpoints; a direct two-flip path with normalized exterior
-  is NOT assumed valid without its cover tests.
+New [anchor-slide companion](docs/proofs/COMPONENT_ANCHOR_SLIDES.md):
 
-An attempted stronger normalization eliminating every normal from every
-strict tail is false; the owned note retains the exact S={13,24}, N={12,34}
-counterexample. The proved ordered normalization allows edges into earlier
-processed blocks. Singleton blocks and the absorbing UNION are essential.
+- Normal edges between two chains occupy AB adjacencies in their merged
+  vertex order. Consecutive AB slots cross strict corners ac,bd.
+- For anchor exterior Q, the slide ab→bc→cd is actual exactly when Q has
+  no all-normal paths a→b or c→d. Its middle is mixed-acyclic exactly
+  when the mixed exterior has no path c→b. These are distinct tests.
+- If the two chains are CONSECUTIVE in the order of all chain maxima,
+  both tests hold for arbitrary anchor exterior. Hence any fixed number
+  of selected slots can be moved to the first slots by actual slides.
+  This proves connectivity of those selections, not component exhaustiveness.
+- Subtracting the two residual diamonds gives, for BOTH X=K,E,
+  R_X(Q+ab)−R_X(Q+cd)=Φ_ac^X(Q;ab,bc)−Φ_bd^X(Q;bc,cd).
+  Both the middle state and the lower-normal-level term cancel. All right-hand
+  terms lie in genuine smaller-area corner-deletion diagrams.
+- These corrections still fail whole-component reconstruction separately:
+  Φ_ac gives coefficients −1,0 at Q+bc,Q+cd, which are neighbors via bd
+  in the ac-deletion diagram. The analogous mismatch holds for Φ_bd.
+  The signed state identity is not yet a component recurrence.
 
-Next: build a recurrence for these anchor contributions and reconstruct
-whole components, using strict-corner slides and the images of normal-long
-flips. Paths through mixed-cyclic states must also be controlled. Fixed-color
-connectivity, vertex-color-preserving HRV matching, and fiberwise K=E are all
-false. The DN completion graph, exact signed HRV counts and smaller-component
-corrections remain available; no single-active-component assertion is required.
-The complete ordinary and primitive circular component formulas are still open.
-The aggregate circular theorem is fully formalized.
+Next: collect these slide corrections together with normal-long diamonds
+and the existing DN packet rows, and prove constant signed multiplicities
+on smaller complete components. Connections through mixed-cyclic states
+must remain included; a third-chain diagnostic in the new note shows an
+actual slide can pass through such a state. The complete ordinary and
+primitive circular component formulas are still open. Minimum-area induction
+and combinations of certified rows remain the strategy; a single-active-
+component assertion is not required. The aggregate circular theorem remains
+fully formalized.
 
 ## Consultation outcome and verification provenance
 
@@ -124,13 +121,12 @@ CLI/SDK. No credentials were printed or committed.
 
 ## Checks and history
 
-Checks passed: `git diff --check`, focused diff review, all 106 local links
-including heading anchors across seven Markdown files, and both initialization
-commits remain ancestors. Lean/reference/Overleaf sources are unchanged; no
-build was needed. This handoff accompanies the strict-chain normalization
-checkpoint on `main`; its exact hash is in Git history. The continuation made
-progress through an independently audited theorem, exact fiber semantics and
-an audited obstruction; it is not a completion claim.
+This checkpoint changes only five Markdown files. Checks passed:
+`git diff --check`, focused diff review, all 94 local links including heading
+anchors, and both initialization ancestors. The proofs were independently
+audited as described above; no Lean formalization is claimed.
+The continuation made progress through actual slide connectivity and its
+signed smaller-area identity, with the remaining obstruction made explicit.
 
 The previous handoff, including winding and recurrence chronology and exact
 old observer status, is [archived through DN transport](docs/archive/flip-component-handoff-through-dn-transport.md).

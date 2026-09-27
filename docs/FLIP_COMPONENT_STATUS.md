@@ -17,6 +17,7 @@ semantics. A sum over all components does not establish the individual claims.
 | Ordinary signed corner-deletion recurrence; HRV-map-preserving mixed-cycle involution; relative path absorption | Audited mathematical proofs | [Corner differences](proofs/COMPONENT_CORNER_DIFFERENCES.md) |
 | Explicit {−1,0,1} HRV-map coefficients and signed component counting refinement | Audited mathematical proofs | [Exact HRV differences](proofs/COMPONENT_HRV_DIFFERENCES.md) |
 | Strict-chain normalization by actual flips; deterministic representatives, connected fibers and exact fiber coloring sums | Audited mathematical proofs | [Chain normalization](proofs/COMPONENT_CHAIN_NORMALIZATION.md) |
+| Crossing-corner slides: exact cover tests, consecutive-chain connectivity, simultaneous signed smaller-area correction for K and E | Audited mathematical proofs; correction regrouping remains open | [Anchor slides](proofs/COMPONENT_ANCHOR_SLIDES.md) |
 | Explicit ordinary DN completion graph; simultaneous semantic transport and whole-component reconstruction | Audited mathematical proof, conditional isolation still open | [DN component completion](proofs/DN_COMPONENT_COMPLETION.md) |
 | Doubly endpoint-marked aggregate identity; separate ascent variables at articulation blocks | Audited mathematical proofs | [Endpoint recovery and gluing](proofs/COMPONENT_ENDPOINT_GLUING.md) |
 | Corner leaf normalization; connectivity of all trees with a fixed envelope | Audited mathematical proofs | [Tree connectivity](proofs/COMPONENT_TREE_CONNECTIVITY.md) |
@@ -68,8 +69,13 @@ requiring certain colors to lie outside specified intervals. Distinct such
 representatives can lie in the same whole component; a single fiber does not
 in general satisfy the HRV identity. Strict-long flips between representatives
 either disappear inside a fiber or become simultaneous successor slides across
-crossing strict corners. The remaining target is their component-level semantic
-recurrence, including normal-long flips and mixed-cyclic intermediate states.
+crossing strict corners. The [slide companion](proofs/COMPONENT_ANCHOR_SLIDES.md)
+proves that these are unconditional actual moves for consecutive chains in
+chain-max order. Subtracting their two residual diamonds cancels the middle
+state and leaves only signed smaller-area terms, for both K and E. Each
+correction separately has unequal coefficients across a surviving target
+flip, so it still requires regrouping into whole components. Normal-long
+flips and mixed-cyclic intermediate states remain part of the general task.
 
 Several packet equations may be combined. The proved
 [recurrence-generation companion](proofs/FLIP_COMPONENT_INDUCTION.md#signed-recurrence-generation-without-a-uniqueness-requirement)

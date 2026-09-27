@@ -203,9 +203,12 @@ the crossing strict corners ac,bd. The normalized exterior is identical
 because P acts edgewise. For S={13,24} this is precisely the slide 12↔34.
 
 These anchors are connected by normalization paths and the original flip.
-This does NOT assert that the apparent two-flip path ab→bc→cd is valid with
-the normalized exterior: its cover tests must be checked separately. Normal-long
-flips and paths through mixed-cyclic states also remain to be controlled.
+The [slide companion](COMPONENT_ANCHOR_SLIDES.md) now gives exact cover tests
+for the apparent path ab→bc→cd with normalized exterior. It proves that the
+path is always actual and mixed-acyclic for consecutive strict chains in
+chain-max order, and derives its signed smaller-area correction for K and E.
+Normal-long flips and general paths through mixed-cyclic states remain to
+be controlled.
 Astra supplied this endpoint classification; primary checked its successor,
 normality and no-collision claims.
 
