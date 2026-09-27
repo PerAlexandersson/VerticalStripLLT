@@ -58,10 +58,12 @@ verification of bounded Luna/Terra/Aristotle contributions. The existing compone
 are `Circular/Flip.lean` and `Circular/ComponentSemantics.lean`; see
 [CIRCULAR_FLIPS.md](CIRCULAR_FLIPS.md). An implementation must prove the actual
 component/permutation pairing, both semantic refinements, and the finite
-word identities. An additive quotient of finitely supported words with ALL
-contexts included is a possible finite implementation; induced concatenation
-and its compatibility must be established. The verified aggregate expansion
-does not supply the missing component semantic bridge.
+word identities. The additive quotient and induced concatenation are now
+verified in `WordRelations`, `WordMultiplication`, and `WordAlgebra`.
+`ComponentWords` supplies the full-word count on the actual complete component,
+its linear extension, and vanishing on repeated words. The four-term flip
+bijection and descent of this particular map to the quotient remain open.
+The verified aggregate expansion does not supply the missing component semantic bridge.
 
 **Circular formalization.** The v9 companion gives a signed expansion in
 ENTIRE balanced components. Its coefficient invariance is proved by lifting
@@ -71,11 +73,10 @@ polyhedral valuation. This resolves the earlier component-isolation gap.
 
 The user requested a simpler proof to formalize. A direct unbalanced-cycle
 deletion recurrence now follows by toggling a strictly slack edge chosen from
-the longest-path vector. It terminates at balanced graphs. Canonical terminal
-multiplicities still need a direct combinatorial proof; a finite gain-graph
-coefficient formulation isolates this task. That simplification and full Lean
-integration remain active. There is no remaining mathematical gap in the
-audited v9 proof.
+the longest-path vector. It terminates at balanced graphs. The independently
+audited [finite companion](proofs/COMPONENT_FINITE_COMPANION.md) supplies the
+canonical coefficient recurrence and whole-component reconstruction.
+Its Lean integration remains open; the mathematical proof is complete.
 
 The [periodic word audit](proofs/COMPONENT_PERIODIC_WORDS.md) remains useful:
 it rules out extending the ordinary four-word quotient unchanged, but is no

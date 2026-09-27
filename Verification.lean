@@ -2144,3 +2144,23 @@ import VerticalStripLLT.Examples.Ordinary
 
 #print axioms VerticalStripLLT.Components.wordCompatible_idxOf_lt
 #print axioms VerticalStripLLT.Components.idxOf_middle
+
+-- Full-word counts in actual complete flip components.
+#print axioms VerticalStripLLT.Components.fullWord
+#print axioms VerticalStripLLT.Components.fullWord_perm_iff
+#print axioms VerticalStripLLT.Components.fullWord_length
+#print axioms VerticalStripLLT.Components.fullWord_nil_iff
+#print axioms VerticalStripLLT.Components.compatibleComponent
+#print axioms VerticalStripLLT.Components.mem_compatibleComponent
+#print axioms VerticalStripLLT.Components.componentWordCount
+#print axioms VerticalStripLLT.Components.componentWordCount_of_full
+#print axioms VerticalStripLLT.Components.componentWordCount_of_not_full
+#print axioms VerticalStripLLT.Components.componentWordCount_of_not_nodup
+#print axioms VerticalStripLLT.Components.componentWordCount_of_missing
+#print axioms VerticalStripLLT.Components.componentWordCount_of_length_ne
+#print axioms VerticalStripLLT.Components.componentWordCount_nonneg
+#print axioms VerticalStripLLT.Components.componentWordCount_eq_of_mem
+#print axioms VerticalStripLLT.Components.compatibleComponent_idxOf_lt
+#print axioms VerticalStripLLT.Components.componentWordLinear
+#print axioms VerticalStripLLT.Components.componentWordLinear_basisWord
+#print axioms VerticalStripLLT.Components.componentWordLinear_repeated

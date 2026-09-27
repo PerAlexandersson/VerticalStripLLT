@@ -26,6 +26,35 @@ circular HRV formulas and e-positivity remain locally Lean-verified; see
 
 ## Ownership and current checkpoint
 
+The explicitly requested academic-account restart on 2026-09-27 resumes the
+same primary ownership in `/workspace/lean/VerticalStripLLT` on `main`, from
+clean, pushed checkpoint `5dd1d2a`. The user subsequently explicitly authorized
+Luna subagents and Astra for formalization. Primary owns `Components/ComponentWords.lean`,
+the root import, verification inventory, and accompanying status documents.
+The increment defines full-word counts in the actual flip component and their
+linear extension; the four-term flip bijection remains a subsequent step.
+The runtime Lean MCP is still rooted in RealRooted; use the existing explicit
+source-search / `lake-workspace` fallback described in
+`suggestions/project-tool-routing.md`. Check processes before each build.
+
+Active delegated ownership (2026-09-27): Luna `word_swaps` owns only
+`VerticalStripLLT/Components/WordSwap.lean`; Luna `word_covers` owns only
+`VerticalStripLLT/Components/WordCover.lean`. Astra `component_review` is
+read-only, reviewing the next flip-bijection decomposition. All three are
+build-free; primary retains imports, inventory, integration and every local
+Lean/Lake invocation. The original finite companion audit is not being redone.
+
+Restart checkpoint verification: `ComponentWords` passed its focused build
+(1411 jobs), the root library passed 1920 jobs, and the expanded axiom inventory
+passed 2116 entries with only `propext`, `Classical.choice`, and `Quot.sound`.
+All 18 new declarations are inventoried. Source/100-column/whitespace guards,
+37 local documentation links, and absence of local package/build trees passed.
+Logs: `/lake-cache/ai-projects/requests/VerticalStripLLT/component-words/`.
+The first compile exposed an ordinary/circular `Orientation` name collision;
+explicit qualification fixed it. SSH fetch failed for lack of a loaded key;
+fetch over HTTPS using the existing `gh` credential helper succeeded without
+changing remotes, stored configuration, or accounts.
+
 Primary owns strategy, every current edit, integration and the sole local
 Lean build slot. All Luna/Terra/Astra assignments have returned and released
 editable ownership. No remote proof task remains active. No build slot was
@@ -120,9 +149,11 @@ The proof-discovery objective is satisfied by the finite companion and its
 whole-component reconstruction. Full Lean integration is a separate remaining
 milestone, detailed in [the modular plan](docs/COMPONENT_FORMALIZATION.md):
 
-1. Define the actual component/permutation count with a FULL-WORD guard, and
-   prove its four-term identity using `DirectedFlipWitness`. Compatibility
-   alone does not make repeated-word counts vanish.
+1. Prove the actual component word count's four-term identity using
+   `DirectedFlipWitness` and descend its linear extension to the quotient.
+   `ComponentWords` now supplies the FULL-WORD guard, actual count, repeated-word
+   vanishing and strict position ranks. Compatibility alone does not make
+   repeated-word counts vanish.
 2. Apply word-position ranks to the contiguous triple cover fields. Reuse
    `length_le_of_strict_same_tail` for normal-short-edge geometry.
 3. Assemble the finite Cauchy factorization and global HRV extraction, then

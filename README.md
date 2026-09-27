@@ -112,4 +112,7 @@ replaces the polyhedral argument with a coefficient recurrence and finite
 cancellation, including whole-component isolation. The concrete word algebra,
 conjugation, unique-sink cancellation and integer-cover rank certificates
 have passed local Lean and axiom checks. See the
-[component status](docs/FLIP_COMPONENT_STATUS.md). Cumulants remain outside the scope.
+[component status](docs/FLIP_COMPONENT_STATUS.md). The guarded full-word count
+and its linear extension now use the actual complete flip component; the
+four-term bijection and quotient descent remain to be formalized.
+Cumulants remain outside the scope.

@@ -213,3 +213,4 @@ import VerticalStripLLT.Components.BlockExtractor
 import VerticalStripLLT.Components.BlockCancellation
 import VerticalStripLLT.Components.LiftCoverRank
 import VerticalStripLLT.Components.WordRank
+import VerticalStripLLT.Components.ComponentWords

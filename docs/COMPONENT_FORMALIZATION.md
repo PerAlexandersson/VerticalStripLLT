@@ -66,6 +66,12 @@ used by item 4. Actual component-count pairing, global HRV extraction, finite
 Cauchy assembly, compatible-lift transport and the full finite companion
 still need Lean integration. Their mathematical proofs are complete.
 
+`ComponentWords` now defines the guarded count on the actual complete component
+and extends it linearly. It proves vanishing for repeated, missing, or wrong-length
+words, invariance under the component representative, and strict word-position
+ranks for selected edges. Descent through the four-term relations is still open;
+the linear map is not yet a functional on the quotient.
+
 ## Ownership and validation
 
 Primary owns architecture, integration, imports, inventory and all local builds.
@@ -87,11 +93,13 @@ The existing API is `Circular.Orientation`, `flipComponent`, `Flip`, and
 `DirectedFlipWitness.target_eq_source_swap` records the precise exchanged
 normal-edge set.
 
-Define the integer component word count to be zero unless the word is nodup
+`ComponentWords.componentWordCount` is zero unless the word is nodup
 and contains every vertex. On full words it is the cardinality of the filter
 of `flipComponent D θ` by `wordCompatible (D.edgeData.selected η.val)`.
 The full-word guard is essential: compatibility alone would not annihilate
-all repeated-letter words in `wordRelations`.
+all repeated-letter words in `wordRelations`. `componentWordLinear_repeated`
+proves this part of the kernel condition. `compatibleComponent_idxOf_lt`
+connects the actual filtered states to the generic `WordRank` certificate.
 
 The next substantial adapter is `liftCover_of_forward_contiguous_word`.
 Its cover part can be made simpler than a global no-wrap argument. Any full
