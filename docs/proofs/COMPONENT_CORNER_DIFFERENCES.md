@@ -221,6 +221,12 @@ the normal selection {13,35,24} leaves both corners covering, but the mixed
 graph contains 4→1→3→5→2→4. This is a diagnostic for the distinction between
 the two support conditions, not a counterexample to the component theorem.
 
+The [exact HRV-map coefficient formula](COMPONENT_HRV_DIFFERENCES.md)
+now replaces the alternating HRV sum by explicit coefficients in {−1,0,1};
+at each fixed map its component coefficient is a signed count of normal
+selections with specified outgoing support. This is an exact refinement of
+the remaining semantic problem.
+
 The remaining task is to handle entire components having such an acyclic
 state. Neither the support restriction nor the involution provides the
 missing whole-component recurrence for that class. In particular, a subset

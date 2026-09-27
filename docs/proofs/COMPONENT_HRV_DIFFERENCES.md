@@ -1,0 +1,175 @@
+# Exact HRV-map coefficients after alternating edge deletion
+
+Status: the coefficient formula and counting corollary below are proved
+mathematical statements, independently audited by primary and Astra; Terra
+also audited the strict-corner case. They sharpen the
+[corner-difference companion](COMPONENT_CORNER_DIFFERENCES.md). They do not
+prove component isolation or the full component theorem, and are not Lean
+declarations.
+
+## A local characterization of a highest-reachability map
+
+All vertices lie in one fixed finite linear order and all edges point forward.
+A vertex reaches itself. Let R be an edge set and α a map on its vertices.
+Then α is the highest-reachability map of R if and only if:
+
+1. α(v)≥v and α(α(v))=α(v) for every vertex v;
+2. α(u)≥α(v) for every selected edge u→v;
+3. every nonroot u, meaning α(u)>u, has a selected outgoing edge u→v
+   with α(v)=α(u).
+
+Necessity follows by taking the first step on a path to the reachable maximum.
+For sufficiency, repeatedly follow a same-α edge from a nonroot. Vertex labels
+strictly increase, so the process ends at a root r with r=α(r)=α(u).
+Thus the prescribed maximum is reachable. Every other reachable vertex w
+satisfies w≤α(w)≤α(u) by conditions 1 and 2, proving exact equality.
+
+## The coefficient formula for arbitrary optional forward edges
+
+Let N and F be disjoint sets of forward edges. For J⊆F write α_J for the
+highest-reachability map of N∪J. In the free abelian group on maps define
+
+    H(N,F) = Σ_(J⊆F) (−1)^|F\J| [α_J].
+
+We give the exact coefficient c_α of any fixed map α. If α fails condition 1
+above, or some edge of N violates condition 2, then c_α=0. Otherwise define
+
+    U_α = {u : α(u)>u and no edge u→v of N has α(v)=α(u)}.
+
+The remaining conditions for a nonzero coefficient are:
+
+- every edge u→v of F satisfies α(u)≤α(v);
+- every equal-α edge of F has its tail in U_α;
+- every u∈U_α has at least one equal-α outgoing edge in F.
+
+If these conditions hold, then
+
+    c_α = (−1)^(|F|+|U_α|).
+
+Otherwise c_α=0. In particular every map coefficient belongs to {−1,0,1},
+even when several edges of F have the same tail.
+
+To prove this, use the preceding characterization. An edge of F which
+strictly increases α cannot be selected, and contributes its absent-edge
+sign −1. An edge which strictly decreases α may be freely selected or
+omitted without affecting the same-α support condition. Toggling it pairs
+opposite signs, giving zero. An equal-α edge at a tail already supported by N
+is likewise a free toggle. A root cannot have an equal-α outgoing forward
+edge because α(v)≥v>u=α(u).
+
+The only remaining choices occur at the unsupported tails u∈U_α. Each such
+tail must select a NONEMPTY subset of its m_u equal-α outgoing F edges.
+Choices at different tails are independent. Their local contribution is
+
+    Σ_(∅≠J⊆{1,...,m_u}) (−1)^(m_u−|J|) = (−1)^(m_u+1).
+
+If m_u=0 no choice is possible. Multiplying these factors with the signs of
+all forced-absent edges gives exactly the displayed formula.
+
+This also gives another proof of mixed-cycle cancellation. Under nonzero
+coefficient conditions, α weakly decreases along N and along reversed F.
+It must therefore be constant along any directed mixed cycle. Such a cycle
+has at least one nonempty N-segment immediately after a reversed F edge.
+That F edge has equal-α endpoints, so its tail belongs to U_α; but the first
+N-edge of the segment supports that same tail, a contradiction. Every map
+coefficient vanishes. The earlier involution is a separate constructive proof.
+
+## Strict corners and a component counting refinement
+
+Now let F be a set of ordinary strict corners. At most one F edge has any
+given tail. For every map with nonzero coefficient the only realizing subset
+is
+
+    J_α = {uv∈F : α(u)=α(v)}.
+
+All other F edges must strictly increase α and are absent. Put
+
+    T_α = {u : some uv∈F has α(u)=α(v)}.
+
+The conditions above force U_α=T_α, so the coefficient is
+(−1)^(|F|+|T_α|). This is uniqueness for EACH fixed map, not one surviving
+map in the entire alternating sum.
+
+Fix a complete component C and use F equal to all its strict corners S.
+For any α, the coefficient of [α] in Σ_(A∈C) H(A\S,S) is therefore
+
+    (−1)^(|S|+|T_α|) · m_C(α),
+
+where m_C(α) counts the normal selections N=A\S satisfying:
+
+- every selected normal edge weakly decreases α;
+- no equal-α selected normal edge leaves a vertex of T_α;
+- every nonroot outside T_α has an equal-α selected normal outgoing edge.
+
+The preliminary map conditions and α(u)≤α(v) for every strict edge are
+also required; otherwise m_C(α)=0. Equal-α strict tails are automatically
+nonroots. The signs agree across all contributing N at this fixed map.
+Applying [α]↦e_(fiber sizes of α) gives an exact formula for the relative HRV
+sum. Different maps can have the same fiber-size partition, so this is not
+a positivity assertion for its elementary coefficients.
+
+On the coloring side, Σ_(A∈C) ∂_S K(A) is (−1)^|S| times the sum of the
+mixed coloring enumerators: normals strict forward, corners weak reversed.
+The missing theorem is equality with the displayed relative HRV sum after
+commutative monomial evaluation. The counting refinement does not prove it,
+nor does it show that any of these support sets forms an entire component.
+
+## Two precise limits on a coloring-level proof
+
+These diagnostics rule out overly strong matching requirements. They use the
+same already-recorded four-vertex component, not substitute formalization goals.
+Use one-based vertices, area (0,1,2,2), strict S={13,24}, and normal pairs
+12,23,34. The complete ascent-one component is
+
+    U=S+12  ↔  V=S+23  ↔  W=S+34.
+
+### A fixed mixed-color fiber can be disconnected
+
+Take vertex colors (2,4,1,3). Both strict corners satisfy the reversed weak
+inequalities. Normals 12 and 34 strictly increase color, but 23 does not.
+Thus the compatible fiber consists of the two isolated states U,W.
+After deleting S these are different complete single-edge components.
+Mixed acyclicity supplies neither connectivity of that fiber nor a unique
+smaller-component owner.
+
+For a local diamond with compatible common exterior, put
+u=[c(a)<c(b)] and v=[c(b)<c(c)]. The fixed-color indicator defect is
+
+    u+v−1−uv.
+
+For a selected normal long ac, c(a)<c(c), so at least one short is allowed
+and the defect is zero. For a reversed strict long ac, c(c)≤c(a), so both
+shorts cannot be allowed and the defect equals
+
+    −[c(c)≤c(b)≤c(a)].
+
+If a common exterior constraint fails, all four terms and this correction
+are zero. This identifies the precise local color correction. Its global
+occurrences still need regrouping; no telescoping assertion is made.
+
+### Canonical HRV chains cannot retain every vertex's color
+
+Represent e_(fiber sizes) by colorings increasing in vertex order within
+each HRV fiber. This is a valid enumeration of that elementary monomial.
+For U,V,W the chain constraints are respectively
+
+    1<2<4;        1<3 and 2<4;        1<2<3<4.
+
+At the fixed color assignment (2,1,3,4), exactly V,W satisfy the original
+selected-edge constraints, giving two occurrences. Only the middle canonical
+HRV-chain constraints hold, giving one occurrence. Thus even the original
+component equality cannot preserve every vertex's individual color through
+this particular HRV-chain realization. A bijective approach must allow
+redistribution of colors while preserving the commutative monomial, or use
+a different realization of the elementary factors.
+
+Primary checked this by hand and with the existing ordinary model, using
+only three fixed recorded diagrams and permutations of their vertex colors.
+External receipt `mixed-corner-residual/canonical_chain_color_probe.json`
+under `/lake-cache/ai-projects/requests/VerticalStripLLT/` records the exact
+states, chains and counts; SHA-256
+`5dd8c65ffde88236e99e46589f62bdd840dff8ac1ca2cb5a1154684b5f7f04cb`.
+No new graph enumerator, polynomial family or
+Rust/Lean build was introduced. The Rust capability audit found no maintained
+vertex-color-preserving component API; this was a bounded predicate check on
+the existing model, not a replacement library.

@@ -31,117 +31,104 @@ after checking that no other build is active. No slot transfer occurred.
 No Lean, shared Rust, reference or Overleaf source changed in this increment.
 No compilation was needed or run.
 
-Preceding pushed checkpoint: `ba559d1`, minimum-area realization and the
-crossing-corner sweep. That goal turn made progress; this continuation began
-with a clean worktree.
-The current increment proves signed whole-component corner-deletion recurrences
-and a stronger ordinary mixed-cycle cancellation companion. Primary owns
-`docs/proofs/COMPONENT_CORNER_DIFFERENCES.md`, linked induction/completion/status
-notes, documentation index, consultation ledger and this handoff. The ordinary
-quotient proof moved from the long induction note into the new companion;
-there is one authoritative copy.
-
-The user authorized parallel brainstorming. Astra supplied the mixed-cycle
-involution and independently checked alternating deletion; Terra audited both
-and the relative absorption argument. All delegates were read-only and
-build-free, their tasks are finished, and no delegate owns editable files.
-No build slot was transferred. No new Lean declarations were added.
+Preceding pushed checkpoint: `4aa6667`, signed corner deletion and mixed-cycle
+cancellation. That goal turn made progress; this continuation began clean.
+Primary owns the new `docs/proofs/COMPONENT_HRV_DIFFERENCES.md`, linked corner
+and proof-status notes, index, consultation ledger and this handoff. Astra and
+Terra returned bounded read-only audits; their tasks are finished, and neither
+owns editable files. There is no build-slot transfer or new Lean declaration.
 
 ## Current mathematical result and exact next step
 
-The author's minimum-area component induction remains the main route.
-The saturated selected-edge envelope is the unique minimum-area realization
-on fixed vertex order, including circular lifted edge orbits. Its exact
-area difference and whole-component normalization are in the
-[induction note](docs/proofs/FLIP_COMPONENT_INDUCTION.md).
+The author's minimum-area induction remains the main route. The saturated
+selected-edge envelope is the unique minimum-area realization on fixed vertex
+order. Ordinary deletion of strict corners partitions a whole source component
+into ENTIRE smaller target components. Alternating deletion and the proved
+mixed-cycle involution solve any component whose every state becomes cyclic
+upon reversing strict corners. The remaining ordinary components admit an
+acyclic reversed-corner state. These results and the circular limitation are
+in [corner differences](docs/proofs/COMPONENT_CORNER_DIFFERENCES.md).
 
-New [corner-difference companion](docs/proofs/COMPONENT_CORNER_DIFFERENCES.md):
+The new [exact HRV differences](docs/proofs/COMPONENT_HRV_DIFFERENCES.md) gives
+an explicit coefficient formula for ARBITRARY disjoint forward edge sets N,F:
 
-- Ordinary strict-corner deletion leaves the normal state set unchanged and
-  removes only flips retaining the deleted corner. A complete source component
-  therefore decomposes into ENTIRE components of every corner-deletion target.
-- Alternating deletion of F⊆S gives a signed smaller-area component recurrence
-  if no state covers every corner of F simultaneously. The redundant corner
-  may vary with the state; this extends the always-redundant-corner reduction.
-- Stronger result: for ANY disjoint ordinary forward edge sets N,F, a cycle in N∪F^op
-  makes the alternating difference vanish for both K and E. The E proof is a
-  sign-reversing involution preserving the entire highest-reachability map.
-  The chosen edge depends on the lexicographically largest (HRV, head) along
-  a fixed mixed cycle; the tie-break handles empty intervening paths.
-- Consequently the same whole-component signed recurrence applies when EVERY
-  state becomes cyclic after reversing its strict corners. A minimum-area
-  ordinary counterexample must contain an acyclic reversed-corner state,
-  hence a single state witnessing all strict corners as covers.
-- Relative path absorption: if A without f=wz and aw has a selected a→z path,
-  removing normal aw preserves ∂_f K and ∂_f E. This supplies an idempotent
-  ordinary state projection and resolves the double-attachment crossing
-  boundary at the level of relative valuations. Its multiplicities have NOT
-  been reconstructed into whole target components.
+- A map α is HRV exactly when it is extensive and idempotent, selected edges
+  weakly decrease α, and every nonroot has an outgoing same-α edge.
+- In Σ_(J⊆F)(−1)^|F\J|[HRV(N∪J)], every map coefficient is 0,+1 or −1.
+  Write U for nonroots without an N-outgoing same-α edge. Nonzero coefficients
+  require F weakly increasing α, all equal-α F tails in U, and at least one
+  equal-α F edge out of every u∈U. The coefficient is (−1)^(|F|+|U|).
+- The proof factors choices by outgoing tail. Free optional edges cancel;
+  each remaining tail contributes the alternating sum over nonempty subsets.
+  Primary and Astra audited the general formula; Terra audited the corner case.
+- For strict corners, each nonzero map has a unique realizing J. At a fixed α,
+  all normal selections in any component contribute with the SAME sign.
+  Its coefficient is that sign times an explicit outgoing-support count.
 
-The circular deletion quotient fails without added hypotheses: area (1,2,2),
-strict {02,21}, singleton selected {02,21,01}; deleting 21 enters the full
-component {02,01}↔{02,12}, whose second state becomes cyclic on reinsertion.
-The source chain satisfies HRV; this is an obstruction to the graph map.
-The earlier always-redundant-corner lemma still applies circularly. The new
-unrestricted recurrence and HRV involution are ordinary, not primitive circular.
+This supplies the exact HRV side to compare with mixed strict/weak colorings.
+The semantic matching and full component theorem remain UNPROVED. Two shortcuts
+have exact obstructions in the already-recorded component for areas (0,1,2,2),
+strict13,24: its fixed reversed-color fiber can be disconnected, and its
+canonical HRV-chain expansion cannot retain each vertex's individual color.
+The latter gives counts 2 versus 1 at colors (2,1,3,4). A bijection may
+redistribute colors while preserving the commutative monomial.
 
-The [DN completion graph](docs/proofs/DN_COMPONENT_COMPLETION.md) still provides
-certified packet equations. More components can now be subtracted as known
-by the new recurrence. Several equations need only span over Q after known
-components are removed; the proved torsion-free argument clears denominators.
-One active component per packet is sufficient, NOT required. Its uniform
-isolation assertion and the more general packet-generation target remain open.
+Next: prove the remaining component residual identity using these explicit
+counts, or construct valid area/moment-decreasing recurrence packets which
+isolate the component. The DN completion graph and signed smaller-component
+corrections remain available; several packet equations may be combined over Q.
+Do not assume one active component per packet, fixed-color connectivity,
+statewise semantic equality, or arbitrary strict-edge decorations. Strict
+edges must be natural corners. A local derivative involving noncorner shorts
+needs a separate whole-component reconstruction before applying induction.
 
-Next: transport the remaining ordinary components, which admit acyclic
-reversed-corner states, through valid area/moment-decreasing recurrences.
-Use the new signed correction space and relative absorption, but reconstruct
-occurrence multiplicities into whole components before applying induction.
-For all-corner differences, absorption through crossing corner g leaves an
-explicit smaller D\g residual which still requires that reconstruction.
-No new conditional Lean scaffold is needed. The full ordinary and primitive
-circular component formulas remain open; aggregate circular Lean work is done.
+No unrestricted circular extension is claimed. The circular corner quotient
+can admit target states whose reinsertion is cyclic. Always-redundant-corner
+deletion remains valid, while the primitive circular component theorem is open.
+The aggregate circular Lean theorem is complete.
 
-## Consultations and computation
+## Running consultation and computation
 
-Aristotle project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08`, task
-`16154bfd-ae04-49cd-9549-6d0a931f9309`, is terminal **COMPLETE**. Its return
-explicitly does not prove the component theorem. Primary downloaded and
-read the full result, verified the corrected five-vertex packet, and recorded
-scope/convention corrections in [the ledger](docs/ARISTOTLE.md). Its n=7 scan
-was terminated with no result. No active remote task or observer remains.
-A new read-only Sonnet consultation, session `90205`, finished with exit 0.
-It restated the packet-row criterion and did not prove generation. Primary
-recorded the logical corrections and exact prompt/result hashes in the ledger.
-All Claude/Aristotle consultations and observers are terminal.
+Aristotle project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08` now has task
+`4aa8cbee-7eb5-4d15-ba07-7806c7fa540a`, authoritatively **IN_PROGRESS**.
+Native observer `83731` is running; resume this handle with `write_stdin`.
+`aristotle tasks` confirmed the same task after both inline updates; do not
+submit a replacement merely because an observation yields or times out.
+
+The task seeks the remaining ordinary component residual identity, using the
+new signed corner recurrence and explicit HRV coefficients. Four files were
+uploaded; exact prompt/snapshot hashes and accepted addendum details are in
+[the ledger](docs/ARISTOTLE.md). A file addendum was rejected while running;
+the same text was accepted inline into this task. A further reminder makes
+explicit that shorts of a deleted long need not be valid strict corners.
+No returned proof is yet claimed; inspect the eventual full return.
+
+The preceding task `16154bfd-ae04-49cd-9549-6d0a931f9309` is terminal
+**COMPLETE**, explicitly without the component proof. All earlier Claude and
+Aristotle consultations are terminal. No new Claude consultation was launched.
 
 External requests root: `/lake-cache/ai-projects/requests/VerticalStripLLT/`.
-Current receipts are in `component-recurrence/`; the completion note gives
-input/result hashes and exact scope. For the fixed larger diagram, primary
-audited and reused the returned ordinary `dnmodel.py`, first checking exact
-component-partition agreement with the old model on both preceding fixtures.
-This avoids quadratic diamond deduplication. No new graph enumerator or
-polynomial family was introduced. The existing Rust
-`component_source_probe` independently checked the three-state inactive and
-84-state active components of the boundary diagnostic, using complete caps.
-
-The Rust library guide, cargo metadata and LLT/flip APIs were refreshed before
-experiments. Maintained primitives in `sym-poly/sym/src/llt.rs` include
-`circular_highest_reachable_vertices`,
-`circular_vertical_strip_llt_hrv_e_expansion`, and
-`directed_graph_llt_symmetric`. The scratch ordinary flip enumerator is not a
-maintained circular lifted-cover API; the existing
-[API proposal](suggestions/flip-enumeration-api.md) records that gap. No shared
-Rust edit or build occurred. AXLE is registered; Lean MCP targets RealRooted;
-Aristotle was accessed through its installed CLI.
+Current inputs and diagnostic receipt are in `mixed-corner-residual/`.
+The canonical-chain predicate probe reused `returned_dnmodel.py` on just three
+recorded diagrams; the hand-checkable four-vertex obstruction suffices.
+Its receipt hash and exact counts are in the new HRV note. No new enumerator
+or polynomial family was created. The Rust capability guide, cargo metadata
+and LLT source were checked before this bounded probe; a maintained
+vertex-color-preserving component API is absent. The existing
+[API proposal](suggestions/flip-enumeration-api.md) remains applicable.
+No shared Rust edit or build occurred. AXLE is registered; Lean MCP targets
+RealRooted; Aristotle is accessed through its installed CLI. `codex mcp list`
+was refreshed. No credentials were printed or committed.
 
 ## Checks and history
 
-Documentation checks passed: `git diff --check`, focused diff review, and
-100 local links (including heading anchors) across seven Markdown files.
-Both initialization commits remain ancestors; no Lean/reference/Overleaf
-source changed. No build was needed. This handoff accompanies the focused
-corner-difference checkpoint on `main`; its exact hash is in Git history.
-External diagnostics and read-only delegates from this increment are terminal.
+Documentation checks passed: whitespace, focused diff review and all 96 local
+links (including heading anchors) across six Markdown files. Both initialization
+commits remain ancestors; Lean/reference/Overleaf sources are unchanged. No
+build was needed. This handoff accompanies the focused HRV-map coefficient
+checkpoint on `main`; its exact hash is in Git history. The increment makes
+progress with an independently audited theorem and exact obstructions, not a
+completion claim. The remote task above remains active.
 
 The previous handoff, including winding and recurrence chronology and exact
 old observer status, is [archived through DN transport](docs/archive/flip-component-handoff-through-dn-transport.md).

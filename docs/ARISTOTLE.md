@@ -11,6 +11,38 @@ ordinary/circular candidates. The entries below give current final outcomes
 for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
 [the proof map](FLIP_COMPONENT_STATUS.md) owns the mathematical overview.
 
+## Mixed-corner residual: current proof search
+
+- Project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08`; new task
+  `4aa8cbee-7eb5-4d15-ba07-7806c7fa540a`, accepted and running. Current
+  observer status belongs in HANDOFF. The preceding task was confirmed
+  **COMPLETE** before this submission. No returned proof is yet claimed.
+- External directory `mixed-corner-residual/` under
+  `/lake-cache/ai-projects/requests/VerticalStripLLT/`.
+- Four uploaded files: TARGET and snapshots of COMPONENT_CORNER_DIFFERENCES,
+  DN_COMPONENT_COMPLETION and FLIP_COMPONENT_INDUCTION from `4aa6667`.
+  `INPUT_HASHES.json` records all exact snapshot hashes.
+- `TARGET.md` SHA-256
+  `428caaf494e5330672feae662aa28d0ae924aee78fd4a51b5b74843af95a867d`.
+  The request supplies the proved ordinary corner quotient, signed recurrence,
+  mixed-cycle involution and explicit HRV-map coefficient formula as INPUT.
+  It asks for the remaining whole-component residual identity or an actual
+  uniform component recurrence, and forbids broad scans or conditional scaffolds.
+- Further input `MAP_COEFFICIENT_ADDENDUM.md`, SHA-256
+  `ba19d573fcfe2151da8878d5b3c78db9b156530c430174ccf77f47e0ad68fcca`.
+  It supplies the audited signed count at a fixed map and the exact failure
+  of vertex-color-preserving canonical-chain matching. These are local results,
+  not outputs attributed to the remote service.
+- Uploading the addendum as a file was rejected because the task was already
+  running. Sending the same text inline was accepted; see
+  `addendum-submission.log` and `addendum-inline.log`. `aristotle tasks`
+  subsequently confirmed the SAME running task ID. No retry task was requested.
+- A further accepted inline reminder, `geometry-reminder.log`, emphasizes that
+  strict edges must be actual natural corners. Shorts of a deleted long are
+  generally not valid strict decorations; their derivatives need independent
+  reconstruction before induction.
+- No remote Lean source or local build has been produced by this consultation.
+
 ## Component recurrence: explicit DN redistribution and boundary residual
 
 - Project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08`, new task

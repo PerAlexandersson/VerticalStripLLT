@@ -15,6 +15,7 @@ semantics. A sum over all components does not establish the individual claims.
 | Complete-component definitions and zero-normal family | Lean | [Flip interfaces](CIRCULAR_FLIPS.md) |
 | Minimum-area saturated envelope; corner branching; deletion of an always-redundant strict corner | Audited mathematical proofs | [Recurrence reductions](proofs/FLIP_COMPONENT_INDUCTION.md) |
 | Ordinary signed corner-deletion recurrence; HRV-map-preserving mixed-cycle involution; relative path absorption | Audited mathematical proofs | [Corner differences](proofs/COMPONENT_CORNER_DIFFERENCES.md) |
+| Explicit {−1,0,1} HRV-map coefficients and signed component counting refinement | Audited mathematical proofs | [Exact HRV differences](proofs/COMPONENT_HRV_DIFFERENCES.md) |
 | Explicit ordinary DN completion graph; simultaneous semantic transport and whole-component reconstruction | Audited mathematical proof, conditional isolation still open | [DN component completion](proofs/DN_COMPONENT_COMPLETION.md) |
 | Doubly endpoint-marked aggregate identity; separate ascent variables at articulation blocks | Audited mathematical proofs | [Endpoint recovery and gluing](proofs/COMPONENT_ENDPOINT_GLUING.md) |
 | Corner leaf normalization; connectivity of all trees with a fixed envelope | Audited mathematical proofs | [Tree connectivity](proofs/COMPONENT_TREE_CONNECTIVITY.md) |
@@ -49,6 +50,13 @@ the full reachable-maximum map. This includes the case with no state covering
 all corners simultaneously, even when every corner is individually active.
 A minimum-area ordinary counterexample must therefore have a state acyclic
 after reversing its strict corners. That remaining class is not yet solved.
+The [exact HRV differences](proofs/COMPONENT_HRV_DIFFERENCES.md) now compute
+every surviving map coefficient from local outgoing-edge conditions. At a
+fixed map, all contributing normal selections in a component have the same
+sign, giving a precise count to compare with the mixed coloring enumerator.
+Fixed-color fibers can be disconnected, and canonical HRV chains cannot
+preserve each vertex's color: both proposed shortcuts have exact obstructions.
+The required matching may redistribute colors while preserving monomials.
 
 Several packet equations may be combined. The proved
 [recurrence-generation companion](proofs/FLIP_COMPONENT_INDUCTION.md#signed-recurrence-generation-without-a-uniqueness-requirement)
