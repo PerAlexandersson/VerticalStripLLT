@@ -127,6 +127,9 @@ coefficients (`Components/CircularFiniteCompanion.lean`), including deletions of
 originally strict edges. The coefficient-preserving ambient flip bijection and
 coefficient constancy on complete flip components are also proved. Same-area
 undecoration now preserves entire components and both valuations. Compatible
-lift normalization is verified; final grouping and full ordinary-component
-transport remain separate obligations.
+lift normalization and the complete conditional circular-to-ordinary reduction
+are now verified (`Components/CircularFromOrdinaryComponents.lean`). The ordinary
+preimage is a union of complete components, which removes reverse flip transport.
+Completing the ordinary weighted mountain extraction will finish both component
+theorems.
 Cumulants remain outside the scope.

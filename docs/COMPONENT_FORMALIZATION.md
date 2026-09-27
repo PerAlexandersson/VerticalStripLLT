@@ -4,6 +4,21 @@ The complete mathematical source is [the ordinary proof](proofs/COMPONENT_ORDINA
 This plan implements its full statements, without a general symmetric-functions
 library. Existing aggregate theorems are not component semantic bridges.
 
+## Current integration boundary
+
+`Circular.component_identity_of_forward_components` now proves the general
+circular component identity from the ordinary forward-component identity.
+The actual compatible-diagram construction, recovery, coloring/HRV transport,
+all six cover tests and flip-closed preimage grouping compile. The independent
+shorter-route review replaces exact single-component correspondence by a union
+of ordinary components, eliminating reverse flip transport.
+
+The remaining semantic theorem is ordinary weighted mountain extraction. Use a
+literal word-continuation scan and the threshold supports
+`S_k = {v | hrv(v).val < k}` to avoid a global ordered-partition bijection.
+Per-orientation compatibility is evaluated on literal words, not on the quotient.
+The older module plan below records the already implemented foundation.
+
 ## Modules and dependencies
 
 1. `Components/WordRelations.lean`: words `List V`, integer finitely supported
