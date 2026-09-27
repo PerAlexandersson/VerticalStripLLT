@@ -131,6 +131,86 @@ label. The root-only obstruction in the sink note still applies: exterior
 flips must be available. Existence of a balanced flow must be proved, not
 inserted as the hypothesis of a claimed solution.
 
+## Critical forks: a normalization inside the actual component
+
+The following mathematical lemma was proved independently by primary and
+Astra. It is not yet a Lean declaration. Write alpha for the actual lifted
+HRV potential and call a selected step u->v critical when alpha(u)=alpha(v).
+Every selected step has alpha(u)>=alpha(v).
+
+Suppose a<b<c<a+n and the selected lifted edges a->b and a->c are covers,
+with alpha(a)=alpha(b)=alpha(c). Replace a->b by b->c, retaining a->c.
+Then this is a valid circular flip and preserves alpha at EVERY lift.
+
+Here are all the required checks.
+
+1. The interval boundary makes b->c natural. Neither short edge can be a
+   strict corner, by the corner lemma in the sink-branching note. The edge
+   b->c is initially absent, since otherwise a->c would not be a cover.
+2. A new projected cycle would use b->c. Its old return path from c would
+   end at b+k*n for k>=1, implying alpha(c)>=alpha(b)+k*n. This contradicts
+   the equal potentials. Thus the new selection is admissible.
+3. An alternate lifted b-to-c path would be an old path, contradicting the
+   old a->c cover. An alternate a-to-c path must use b->c, hence have an
+   old a-to-b prefix avoiding the removed edge, contradicting its cover.
+   The window has width less than n, so no other translate of b->c can occur.
+4. The old alpha remains nonincreasing on all new edges, including b->c,
+   so it bounds all new reachable endpoints. Conversely, an old maximum
+   route using a->b can go instead through a->c and then to alpha(c).
+   This reaches the same maximum: a vertex reaching a can reach alpha(a),
+   and no continuation from a can exceed it. The maximum route from c
+   cannot use the removed edge, by old projected acyclicity. Routes not
+   using the removed edge remain intact. Periodic translates give the
+   argument for every starting lift.
+
+This yields a finite normalization without changing the diagram, component,
+selected-edge count, or HRV potential. Fix the half-open interval (s-n,s]
+of possible potential values. For each vertex residue v, choose its unique lift z_v
+whose potential lies in that interval. Every critical edge connects these
+canonical lifts in increasing order: its endpoints have equal potentials,
+so they require the same period translation. A critical fork flip increases
+
+    sum over selected edge orbits (canonical position of the head)
+
+by z_c-z_b>0. There are finitely many selections. Therefore repeated critical
+fork flips terminate. At termination, the critical reachability poset has
+at most one outgoing cover at each vertex. Indeed, any two such covers
+would supply another critical fork. A path between equal-potential lifts
+has only critical steps, so a cover in this poset is also a full lifted cover.
+Every non-root still has a route to its HRV root. Consequently each fiber's
+critical Hasse diagram is a rooted tree, with exactly one outgoing cover
+at each non-root. Redundant selected edges may still be present.
+
+Two distinctions are essential. These are rooted TREES, not chains;
+incoming forks remain. Also, a many-to-one normalization of orientations
+does not preserve sums of K_A or reconstruct complete components with
+constant multiplicity. A proof using this normalization must account for
+its fibers.
+
+In fact, confluence already fails in the ordinary complete diagram on five
+vertices. Start from A={12,13,14,25,35,45}, with alpha(v)=5 for all vertices.
+Flips 123 followed by 134 give
+
+    T_1={14,23,34,25,35,45},    covers={14,23,34,45}.
+
+Flips 134 followed by 124 instead give
+
+    T_2={14,24,34,25,35,45},    covers={14,24,34,45}.
+
+All four steps are critical outgoing-cover flips, and both final states
+are terminal for this rewriting. Their coloring enumerators differ: T_1
+has a chain 2<3<4<5 and no strict three-coloring, whereas T_2 has the
+three-color enumerator x_1^3*x_2*x_3. Thus even with a single fixed HRV fiber,
+this normalization cannot identify orientation contributions pointwise.
+The two states do remain in the same full component, as required.
+
+The equal-potential condition cannot be dropped circularly. In the full
+circular diagram on four vertices, A={12,13,34,42} is projected acyclic.
+Its edges 1->2 and 1->3 are lifted covers, but replacing 12 by 23 creates
+the projected cycle 2->3->4->2. The old path 1->3->4->2 reaches the lift 6
+of residue 2; thus alpha(1)=alpha(3)=6 whereas alpha(2)=2. This is precisely
+the winding obstruction excluded in step 2.
+
 ## Conditional coefficient reduction
 
 The final Aristotle return gives the following valid reduction, independently

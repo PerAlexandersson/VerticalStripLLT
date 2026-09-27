@@ -63,6 +63,22 @@ build directory was introduced.
 
 ## Active general companion goal
 
+Primary and read-only Astra verified a new critical-fork normalization in
+`COMPONENT_SOURCE_BRANCHING.md`: equal-potential outgoing covers may be
+flipped circularly while preserving the entire lifted HRV; a finite increasing
+score terminates at rooted-tree Hasse diagrams inside the fibers. This stays
+in the actual component, but its multiplicities are not controlled and it
+does not preserve coloring enumerators. A verified five-vertex overlap gives
+two distinct terminal trees, so confluence is false even at fixed HRV.
+Neither pointwise normalization nor a disjoint-cone argument proves the goal.
+`DIAMOND_STRAIGHTENING_AUDIT.md` records the exact root-cone union/intersection
+diamond and the full-dimensional overlap blocking a disjoint-subdivision
+argument. Primary owns these notes and this handoff; the read-only review
+lane is released. No build or remote proof request is active. Primary/Astra
+checked the mathematical arguments and exact overlap certificates;
+`git diff --check` passes. No Lean source, Rust source, reference, or Overleaf
+file changed in this increment.
+
 The read-only Claude Sonnet consultation finished (native session `6592`).
 It found no proof; its claimed arbitrary-exterior pair cancellation omitted
 an exterior defect. Primary and Astra independently corrected the formula
