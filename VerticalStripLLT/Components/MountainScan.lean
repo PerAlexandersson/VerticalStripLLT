@@ -37,22 +37,7 @@ theorem mountainScan_zero (a : ℕ → K) (n : ℕ)
 theorem mountainScan_congr (a : ℕ → K) (n k : ℕ)
     {f g : List (Fin n) → K} (hfg : ∀ w, f w = g w) :
     mountainScan a n k f = mountainScan a n k g := by
-  induction k generalizing f g with
-  | zero => exact hfg []
-  | succ k ih =>
-      simp only [mountainScan]
-      split_ifs with hk
-      · rw [ih hfg]
-        congr 1
-        apply Finset.sum_congr rfl
-        intro B hB
-        apply Finset.sum_congr rfl
-        intro T hT
-        congr 1
-        apply ih
-        intro w
-        exact hfg _
-      · rw [ih hfg]
+  exact congrArg (mountainScan a n k) (funext hfg)
 
 theorem mountainScan_add (a : ℕ → K) (n k : ℕ)
     (f g : List (Fin n) → K) :
@@ -67,7 +52,7 @@ theorem mountainScan_add (a : ℕ → K) (n k : ℕ)
         simp only [Finset.sum_add_distrib, mul_add]
         ring
       · rw [ih]
-        simp only [if_neg hk, add_zero]
+        simp only [add_zero]
 
 theorem mountainScan_mul (a : ℕ → K) (n k : ℕ) (r : K)
     (f : List (Fin n) → K) :
@@ -79,10 +64,9 @@ theorem mountainScan_mul (a : ℕ → K) (n k : ℕ) (r : K)
       simp only [mountainScan]
       split_ifs with hk
       · simp_rw [ih]
-        simp only [mul_add, Finset.mul_sum, mul_assoc]
-        ring
+        simp only [mul_add, Finset.mul_sum, mul_left_comm, mul_assoc]
       · rw [ih]
-        simp only [if_neg hk, add_zero, mul_add]
+        simp only [add_zero]
 
 theorem mountainScan_mul_right (a : ℕ → K) (n k : ℕ) (r : K)
     (f : List (Fin n) → K) :

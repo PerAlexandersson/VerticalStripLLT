@@ -90,3 +90,32 @@ ordinary preimage is a union of complete components. Direct HRV threshold
 induction replaces a global ordered-partition bijection.
 No further proof work is queued. Cumulants, manuscript rewriting and a general
 symmetric-functions library remain outside this completed task.
+
+## Post-completion cleanup
+
+User requested conservative proof golf, notes consolidation, a short presentable
+README and a challenge file. Primary owns all source and the sole build slot;
+Luna's bounded MountainScan assignment is returned and released.
+
+- MountainScan: function extensionality replaces recursive congruence; scalar
+  linearity uses direct finite-sum simplification. 110 to 94 lines.
+- HRVScanExtraction: shorter cutoff and conditional cases, direct full-cutoff
+  specialization, current if/Fin lemma names. 259 to 234 lines.
+- All public theorem headers and hypotheses are unchanged. These two modules
+  compile without warnings; no runtime speedup is claimed from shorter source.
+- README: 129 to 43 lines. docs/README: 128 to 29 lines; the detailed catalogue
+  is retained in docs/RESEARCH_NOTES.md. Earlier research notes now carry explicit
+  historical labels, and stale completion claims in the source audit and ledger
+  are corrected without promoting unused auxiliary claims to theorems.
+- Challenge.lean states faithful ordinary/circular targets using semantic imports
+  only. CHALLENGE.md gives constraints, smaller targets and checking instructions.
+  It is a project-based challenge, not a self-contained Mathlib-only export.
+- Independent Astra review found no issue with the proof edits or challenge.
+
+Cleanup full build: 2074 jobs; inventory: 2800 entries, only the standard axioms.
+Logs: `/lake-cache/ai-projects/requests/VerticalStripLLT/post-completion-cleanup/`.
+Challenge.lean compiles, and the separate ChallengeReference.lean check confirms
+both challenge propositions match the proved theorems (standard axioms only).
+Source widths, unchanged public headers, relative documentation links and
+`git diff --check` pass. Baseline: 23d4df7; proof checkpoint: f355a28.
+All cleanup assignments are released; no owned process remains active.

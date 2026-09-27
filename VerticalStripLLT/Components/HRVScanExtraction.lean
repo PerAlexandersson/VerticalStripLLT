@@ -27,22 +27,15 @@ noncomputable def hrvScanContinuation (θ : Orientation D) (k : ℕ) (w : List (
 
 private theorem mk_notMem_filter_lt (k : ℕ) (hk : k < n) :
     (⟨k, hk⟩ : Fin n) ∉ Finset.univ.filter (fun v : Fin n => v.val < k) := by
-  intro h
-  exact lt_irrefl k (Finset.mem_filter.mp h).2
+  simp
 
 private theorem filter_lt_succ_eq_insert (k : ℕ) (hk : k < n) :
     Finset.univ.filter (fun v : Fin n => v.val < k + 1) =
       insert ⟨k, hk⟩ (Finset.univ.filter (fun v : Fin n => v.val < k)) := by
   ext v
   simp only [Finset.mem_filter, Finset.mem_univ, true_and, Finset.mem_insert]
-  constructor
-  · intro hv
-    by_cases hvk : v.val < k
-    · exact Or.inr hvk
-    · exact Or.inl (Fin.ext (show v.val = k by lia))
-  · rintro (rfl | hv)
-    · exact Nat.lt_succ_self k
-    · exact Nat.lt_succ_of_lt hv
+  simp only [Fin.ext_iff]
+  lia
 
 private theorem prod_filter_lt_succ (a : ℕ → K) (θ : Orientation D) (k : ℕ) (hk : k < n) :
     (∏ r ∈ Finset.univ.filter (fun r : Fin n => r.val < k + 1),
@@ -60,7 +53,7 @@ private theorem mountainScan_succ_of_lt (a : ℕ → K) {k : ℕ} (hk : k < n)
       ∑ B ∈ (Finset.univ.filter (fun v : Fin n => v.val < k)).powerset, ∑ T ∈ B.powerset,
         a (B.card + 1) * (-1 : K) ^ T.card *
           mountainScan a n k (fun w => f (blockWord (insert ⟨k, hk⟩ B) T ++ w)) := by
-  simp only [mountainScan, dif_pos hk]
+  simp only [mountainScan, dite_eq_left hk]
 
 /-- Words below a fixed root cannot enumerate the support containing that root. -/
 private theorem skip_term_eq_zero_of_root (a : ℕ → K) (θ : Orientation D) (k : ℕ)
@@ -75,7 +68,7 @@ private theorem skip_term_eq_zero_of_root (a : ℕ → K) (θ : Orientation D) (
     rintro ⟨_, hfull⟩
     exact lt_irrefl k (hw _ ((hfull ⟨k, hk⟩).mpr hmem))
   simp only [hrvScanContinuation]
-  exact if_neg (fun h => hnot h.1)
+  exact ite_eq_right (fun h => hnot h.1)
 
 /-- One peak block at rank `k` survives only when it is the actual fiber of `k`. -/
 private theorem peak_term (a : ℕ → K) (θ : Orientation D)
@@ -137,20 +130,7 @@ private theorem peak_term (a : ℕ → K) (θ : Orientation D)
         else 0 := by
         by_cases hU : insert (⟨k, hk⟩ : Fin n) B =
             Finset.univ.filter (fun v => θ.hrv v = ⟨k, hk⟩)
-        · rw [if_pos hU]
-          congr 1
-          apply mountainScan_congr
-          intro w
-          exact if_pos hU
-        · rw [if_neg hU]
-          have hzero : mountainScan a n k (fun w =>
-              if insert (⟨k, hk⟩ : Fin n) B =
-                  Finset.univ.filter (fun v => θ.hrv v = ⟨k, hk⟩)
-                then θ.hrvScanContinuation k w else (0 : K)) = 0 := by
-            apply mountainScan_eq_zero_of_zero_below
-            intro w _
-            exact if_neg hU
-          rw [hzero, mul_zero]
+        all_goals simp [hU, mountainScan_zero_continuation]
 
 /-- The literal scan at HRV cutoff `k` is the product over the actual fibers rooted below `k`. -/
 theorem mountainScan_hrvScanContinuation (θ : Orientation D)
@@ -165,7 +145,7 @@ theorem mountainScan_hrvScanContinuation (θ : Orientation D)
         Finset.filter_false_of_mem (fun r _ => Nat.not_lt_zero r.val)
       rw [hfilter, Finset.prod_empty, mountainScan_zero]
       simp only [hrvScanContinuation]
-      exact if_pos ⟨(fullOn_nil _).mpr θ.hrvInitialSupport_zero, List.Pairwise.nil⟩
+      exact ite_eq_left ⟨(fullOn_nil _).mpr θ.hrvInitialSupport_zero, List.Pairwise.nil⟩
   | succ k ih =>
       have hklt : k < n := Nat.lt_of_succ_le hk
       have hprev := ih (Nat.le_of_lt hklt)
@@ -192,7 +172,7 @@ theorem mountainScan_hrvScanContinuation (θ : Orientation D)
           obtain ⟨hvne, hvF⟩ := Finset.mem_erase.mp hv
           have hle : v ≤ ⟨k, hklt⟩ := θ.hrvFiber_max_le hforward ⟨k, hklt⟩ hvF
           exact Finset.mem_filter.mpr ⟨Finset.mem_univ _,
-            Fin.lt_iff_val_lt_val.mp (lt_of_le_of_ne hle hvne)⟩
+            Fin.lt_def.mp (lt_of_le_of_ne hle hvne)⟩
         have hsum : (∑ B ∈ (Finset.univ.filter (fun v : Fin n => v.val < k)).powerset,
             if insert (⟨k, hklt⟩ : Fin n) B =
                 Finset.univ.filter (fun v => θ.hrv v = ⟨k, hklt⟩) then
@@ -201,9 +181,9 @@ theorem mountainScan_hrvScanContinuation (θ : Orientation D)
             a ((Finset.univ.filter (fun v => θ.hrv v = ⟨k, hklt⟩)).card) *
               mountainScan a n k (θ.hrvScanContinuation k) := by
           rw [Finset.sum_eq_single_of_mem _ hmem]
-          · rw [if_pos (Finset.insert_erase hrF), Finset.card_erase_add_one hrF]
+          · rw [ite_eq_left (Finset.insert_erase hrF), Finset.card_erase_add_one hrF]
           · intro B hB hBne
-            apply if_neg
+            apply ite_eq_right
             intro hins
             apply hBne
             have hrB : (⟨k, hklt⟩ : Fin n) ∉ B :=
@@ -225,7 +205,7 @@ theorem mountainScan_hrvScanContinuation (θ : Orientation D)
             else 0) = 0 := by
           apply Finset.sum_eq_zero
           intro B _
-          apply if_neg
+          apply ite_eq_right
           rw [hF]
           exact Finset.insert_ne_empty _ _
         rw [hfun, hsum, hF, Finset.card_empty, ha0, add_zero, mul_one]
@@ -247,13 +227,8 @@ theorem mountainScan_fullWord_compatible (θ : Orientation D)
     mountainScan a n n (fun w =>
       if fullWord w ∧ wordCompatible (D.edgeData.selected θ.val) w then 1 else 0) =
       ∏ r : Fin n, a ((Finset.univ.filter (fun v => θ.hrv v = r)).card) := by
-  have h := θ.mountainScan_hrvInitialSupport hforward a ha0 n le_rfl
-  have hfilter : Finset.univ.filter (fun r : Fin n => r.val < n) = Finset.univ :=
-    Finset.filter_true_of_mem (fun r _ => r.isLt)
-  rw [hfilter] at h
-  rw [← h]
-  apply mountainScan_congr
-  intro w
-  simp only [θ.hrvInitialSupport_n, fullOn_univ]
+  simpa only [θ.hrvInitialSupport_n, fullOn_univ,
+    Finset.filter_true_of_mem (fun (r : Fin n) _ => r.isLt)] using
+    θ.mountainScan_hrvInitialSupport hforward a ha0 n le_rfl
 
 end VerticalStripLLT.Circular.Orientation
