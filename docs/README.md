@@ -45,11 +45,15 @@
   cancellation and star transport for one coefficient in every full component.
 - [Attached chains](proofs/COMPONENT_BRIDGE_PACKETS.md): five-flip attachment
   transport, telescoping source cancellation, and the open marked-ideal identity.
+- [Ambient reduction](proofs/COMPONENT_AMBIENT_REDUCTION.md): exact reduction
+  to complete circular diagrams and the stronger projected-cover companion.
 - [Component induction brainstorming](proofs/FLIP_COMPONENT_INDUCTION.md):
   coloring redistribution, cross-ascent transfers and exact missing lemmas.
 - [Aristotle ledger](ARISTOTLE.md): request IDs, candidates, and local verification.
 - [Historical plans](archive/completed-plans/README.md): superseded implementation
   outlines and the original architecture audits. They are not active work lists.
+- [Component research handoff archive](archive/flip-component-checkpoints-through-c6305a0.md):
+  earlier checkpoints, failed approaches, and completed consultation provenance.
 
 Completed plans no longer duplicate the active agenda. The Lean declarations
 and local verification establish the results; explanatory notes record the

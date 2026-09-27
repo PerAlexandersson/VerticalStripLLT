@@ -61,252 +61,120 @@ External logs under `/lake-cache/ai-projects/requests/VerticalStripLLT/`:
 formatting changes in the full build. No dependency update or local generated
 build directory was introduced.
 
-## Active general companion goal
+## Active goal: component HRV formula
 
-Primary owns `COMPONENT_BRIDGE_PACKETS.md`, the index/source-note links,
-this handoff, and the external Rust diagnostic. Astra independently checked
-the five-flip attachment path, connected-component isolation, chain-packet
-telescoping, and marked-ideal formulas; its read-only lane is released.
-Terra checked the precise source-deletion closure obstruction; its read-only
-lane is also released.
-No Lean build or remote proof task is active. The previous external probe is
-retained as `component_source_probe-at-6b26e01.rs`.
+The full flip-component theorem is unproved. The goal is a general diamond
+or companion lemma establishing it, with precise hypotheses and justified
+component isolation. Neither finite tests nor the aggregate theorem close it.
+The exact target is in `docs/CIRCULAR_FLIPS.md`.
 
-New proved mathematical progress: the full (Src) defect cancels for every
-attached-chain packet. For a connected internal component, all attachment
-states remain inside one target component. For arbitrary internal components,
-the extension reduces to the explicit open marked-ideal identity (Ideal).
-All complete internal components through five vertices in ordinary complete
-diagrams pass a bounded exact Rust diagnostic; disconnected packets were not
-separated by target component. Exact scope and hashes are in the new note.
+Primary owns strategy, all current notes, integration, and the sole global
+Lean build slot. All delegate lanes are released. Astra reviewed the new
+ambient reduction and component counterexamples; Terra reviewed redundant-edge
+removal; Luna returned build-free snippets only. No Lean build, Aristotle task,
+or Claude process is active. Use only `lake-workspace`, after checking that no
+other Lean/Lake build is active. No build-slot transfer has occurred.
 
-An independently checked obstruction prevents treating this as the full
-proof: the two-vertex chain attachment packet satisfies (Src), but its coloring
-sum is nonsymmetric and differs from its HRV sum. Packet source deletions need
-not have constant multiplicity on smaller full components. A general proof
-still needs componentwise cancellation with controlled packet multiplicities
-or another argument supplying the missing deletion closure. No general
-block-attachment or packet HRV identity is assumed.
+The last pushed research checkpoint before this increment is `c6305a0`:
+attached-chain cancellation and the obstruction to source-boundary closure.
+The current note is `docs/proofs/COMPONENT_AMBIENT_REDUCTION.md`.
+Primary owns it, the source-note/index links, this handoff, and the archive.
 
-Source-boundary completion is also insufficient by itself: for the two-vertex
-chain packet it closes at seven of eight states in the full target component
-and introduces a nonzero defect H_2(2t e_1+t^2). The missing outgoing star
-cancels it, but all its flips involve its only source. Primary and Terra
-verified the exact transition graph. The next useful target is a packet
-transport controlling both source closure and cancellation, including those
-source-incident flips; repeated attachment experiments alone do not supply it.
+## Current proved reductions and remaining obligation
 
-This documentation increment follows pushed checkpoint `6b26e01`. The Rust
-diagnostic completed and all printed formal defects were inspected; the
-hand-derived source-closure graph agrees with the existing component probe.
-Whitespace checks pass. No Lean source, immutable reference, Overleaf file,
-dependency, or shared Rust source changed; no Lean compilation was needed.
+- Forgetting strict decorations identifies ENTIRE components, with the same
+  selected relations and semantics; no partial-stratum substitution is used.
+- Ambient universality: every component in any circular diagram is an ENTIRE
+  component in the unmarked complete circular diagram U_n. A flip cannot leave
+  the original diagram, because its retained long edge forces both short edges
+  to be natural. Thus the full goal reduces exactly to U_n for all n>=1.
+- Removing a projected transitively redundant edge preserves uniform selected
+  order enumerators and actual lifted HRV maxima. It does NOT preserve full
+  lifted reachability, actual flips, selected-edge count, or multiplicity.
+- Source and sink restrictions with fixed deleted extrema have constant
+  multiplicity on complete smaller components. Source deletion also preserves
+  the remaining HRV fibers. The source identity (Src), or the sufficient sink
+  identity (S_k), would close vertex/alphabet induction; both remain unproved.
+- Strong flips require projected cover pairs as well as the actual lifted
+  conditions. Their components partition actual components. The same source
+  reconstruction works for them, so the new stronger companion (StrongSrc)
+  would suffice for the full theorem. Its cancellation remains open.
+- Every strong flip on more than three vertices has an exterior source or sink.
+  This supplies mixed-deletion coverage, not the missing extension identity.
+  General circular flips can fail this condition, and a strong component can
+  have a cyclic union of its selected edges. Both obstructions have exact
+  four-vertex certificates in the new note.
 
-Primary completed bounded component-by-component checks of (Src), reusing
-the existing Rust circular HRV implementation. Luna supplied only the external
-file `diamond-exploration/hrv-bridge/src/bin/component_source_probe.rs`, without
-builds or repository/shared Rust edits. Primary reviewed, corrected, built and
-ran it. Three meaningful tests and a 458-component comparison passed. Of 24
-specified n=5,...,8 samples, 21 complete components passed (27,836 states);
-three exceed the 20,000-state cap and remain inconclusive. This is evidence,
-not a proof. Exact inputs, source hashes and receipts are in the source note.
-The capability audit was
-refreshed: Cargo metadata and LLT API/test searches still expose no maintained
-flip-component enumerator. The existing Rust-integration suggestion remains
-open; this is a bounded external probe, not a new polynomial-family generator.
-The external edit lane is released. Primary corrected and verified the probe.
-Primary also owns the new `COMPONENT_LEAF_PACKETS.md` proof note and docs index:
-Terra checked the general star transport, and Astra checked the binomial
-packet cancellation. These establish a coefficient and a packet family,
-not the full component theorem.
+The next task is a general cancellation/transport proving (Src) or (StrongSrc),
+including the overlap of source and sink deletion slices. Do not assume a
+common linear order for a circular strong component or infer HRV transport
+from deletion coverage alone. No full component proof is claimed.
 
-Primary and read-only Astra verified a new critical-fork normalization in
-`COMPONENT_SOURCE_BRANCHING.md`: equal-potential outgoing covers may be
-flipped circularly while preserving the entire lifted HRV; a finite increasing
-score terminates at rooted-tree Hasse diagrams inside the fibers. This stays
-in the actual component, but its multiplicities are not controlled and it
-does not preserve coloring enumerators. A verified five-vertex overlap gives
-two distinct terminal trees, so confluence is false even at fixed HRV.
-Neither pointwise normalization nor a disjoint-cone argument proves the goal.
-`DIAMOND_STRAIGHTENING_AUDIT.md` records the exact root-cone union/intersection
-diamond and the full-dimensional overlap blocking a disjoint-subdivision
-argument. Primary owns these notes and this handoff; the read-only review
-lane is released. No build or remote proof request is active. Primary/Astra
-checked the mathematical arguments and exact overlap certificates;
-`git diff --check` passes. No Lean source, Rust source, reference, or Overleaf
-file changed in this increment.
+## Packet results and failed shortcuts
 
-The read-only Claude Sonnet consultation finished (native session `6592`).
-It found no proof; its claimed arbitrary-exterior pair cancellation omitted
-an exterior defect. Primary and Astra independently corrected the formula
-and checked a disjoint-fork counterexample. Prompt and response artifacts
-are external under `claude-source-companion/`; the correction is recorded
-in `COMPONENT_SOURCE_BRANCHING.md`. No returned code was integrated.
+`COMPONENT_LEAF_PACKETS.md` proves full source cancellation for movable-leaf
+packets and the coefficient of t^(n-1) for EVERY complete component via star
+transport. `COMPONENT_BRIDGE_PACKETS.md` proves attached-chain cancellation and
+five-flip attachment transport within one component. Its extension to a whole
+internal component is the explicit open marked-ideal identity (Ideal).
 
-Aristotle's inspected mathematical draft does NOT prove the goal. Its useful
-new source-deletion route is audited in `COMPONENT_SOURCE_BRANCHING.md`:
-remaining HRV is unchanged, and the exact companion (Src) uses only original
-fiber sizes and global-source counts per fiber. The source cancellation
-remains unproved. Primary owns the note/index edits; Terra independently
-audited the reduction. No remote compatibility patch was integrated.
+A chain packet can satisfy (Src) while its coloring sum is nonsymmetric:
+its source restrictions are not complete smaller-component sums. In the exact
+four-vertex obstruction, source-boundary completion adds three states, stops
+at seven of the eight target states, and introduces defect H_2(2t e_1+t^2).
+The missing outgoing star cancels it, but all its flips involve its only source.
+A proof must control cancellation and closure together.
 
-Removed the completed circular plan file at the user's request and updated
-the live index/archive routing. The completion audit remains the authoritative
-circular result/source map. Historical commit references remain historical.
+Other checked boundaries remain in the modular notes:
 
-Primary owns strategy and notes. Astra reviewed the sink-deletion proof route;
-Terra audited induced circular restriction. Both delegates were read-only and
-build-free. The active goal remains unproved.
+- `DIAMOND_STRAIGHTENING_AUDIT.md`: fixed-diagram straightening is refuted;
+  auxiliary diamonds and swaps need a controlled exterior correction.
+- `COMPONENT_SOURCE_BRANCHING.md`: critical-fork normalization preserves HRV
+  but is nonconfluent; conditional near-symmetry does not identify coefficients;
+  the Claude local-pair proposal omitted an exterior defect.
+- `COMPONENT_SINK_BRANCHING.md`: root-only promotion and fixed sink-priority
+  arguments fail; the exact deletion defect and reconstruction survive.
 
-New proved mathematical reduction: forgetting strict decorations identifies
-each full component with an ENTIRE undecorated component. Natural corners can
-never be short edges of a triangle, so no flip toggles them. Selected graphs,
-coloring enumerators and lifted HRV remain identical; ascent shifts by |S|.
-Primary and Astra checked the proof in `COMPONENT_SINK_BRANCHING.md`.
-This reduces the full goal to S=empty without replacing the original scope.
+## Current checks and computation
 
-`docs/proofs/COMPONENT_SINK_BRANCHING.md` records a proved mathematical
-reconstruction lemma: restrictions obtained by deleting a fixed sink subset
-have constant multiplicity on complete smaller flip components. The remaining
-precise companion is (S_k), comparing actual recomputed HRV after deletion
-with elementary one-variable branching; the stronger fixed-subset (S_T) is
-also proposed. If proved, this gives induction on vertices and alphabet size.
-Neither identity is currently proved or formalized. Critical-edge forests
-preserve actual lifted HRV, but do not justify discarding coloring constraints.
+The new Rust diagnostic checks (StrongSrc) on every projected DAG in U_n for
+n=1,...,5. All 1, 3, 25, 543, 29281 states, in respectively
+1, 3, 22, 367, 13681 strong components, have zero formal defect. A separate
+union-cycle check returns the exact three-state n=4 counterexample. The JSON
+results were inspected; harness success is not treated as theorem evidence.
+The new note records source hashes and logs. This is finite evidence only.
 
-Aristotle project `d4b3ddfe-0051-4f80-b222-4e9374badcb3`, task
-`ae0d9a91-dc02-4f53-97a9-3ed6f8034bcf`, finished COMPLETE_WITH_ERRORS.
-The final archive and mathematical draft are `final-result.tar.gz` and
-`final-PROOF.md` in the request directory. Neither the companion nor the
-component theorem is proved. Primary/Astra verified its conditional
-near-symmetry argument: under smaller cases, compositions of length at least
-three have symmetric coefficients, whose equality with HRV remains open.
-The note also records an unconditional two-color support restriction from
-the proved aggregate formula. Exact payload, hashes,
-submission and steering receipts are external in
-`/lake-cache/ai-projects/requests/VerticalStripLLT/component-diamond-companion/`.
-The original task `e8ff79a8-7d41-4d95-98ea-34cd691a4653` was cancelled after
-an exhaustive n=6/7 enumeration stalled; inline redirection had not changed
-the reported computation. The continuation received `SINK_BRANCHING.md`
-and explicit proof-only instructions. Its same-task observation wrapper is
-finished in native session `36244`, confirming the terminal status. See the
-ledger. No returned Lean result was integrated.
+The external probe reuses `circular_highest_reachable_vertices` from the shared
+Rust library. Its owning directory is
+`/lake-cache/ai-projects/requests/VerticalStripLLT/diamond-exploration/`.
+The prior probe is retained as `component_source_probe-at-c6305a0.rs`.
+Luna's snippet was reviewed and only its projected reachability predicate was
+adopted; primary retained the original lifted-flip checks. No shared Rust source
+or reusable polynomial family was added. The pending maintained integration
+proposal is `suggestions/flip-enumeration-api.md`.
 
-Research checkpoints `8f566ad` and `1df6a5a` are pushed on private main. Whitespace checks
-passed; independent Astra and Luna reviews checked the reconstruction/induction
-boundary. No source build was appropriate for this documentation checkpoint.
+Prior exact evidence remains documented: all ordinary internal attachment
+packets through five vertices pass; 458 full small components were cross-checked;
+21 of 24 n=5,...,8 samples pass (27,836 states), with three capped/inconclusive.
+These checks establish only their stated finite cases.
 
-Bounded fixed-subset checks passed for four specified n=4 diagrams, using the
-existing Rust HRV API through an external input/output bridge and the prior
-finite flip enumerator. These are evidence, not a proof. No shared Rust source,
-polynomial family, Lean module, Lean build, or Overleaf edit was introduced.
-Primary owns HANDOFF, the new note, docs index and Aristotle ledger.
-Luna's external `diamond-exploration/promotion-sweep-probe.py` lane is released.
-Primary reviewed, requested specification fixes, and ran the corrected bounded
-probe. The descending sweep is REFUTED at n=4. A separate hand-derived n=5
-obstruction excludes ANY promotion restricted to root-containing flips; Astra
-confirmed it and Rust checked the actual HRVs. Complete-component (S_T) still
-passes these examples and all 449 decorated circular n=4 diagrams. The new note
-records exact statements; none is mistaken for a proof of (S_T).
+This increment changes documentation and an external diagnostic only. No Lean
+source/build, immutable reference, Overleaf source, dependency, or shared Rust
+source changed. Whitespace checks pass. The user-requested obsolete circular
+plan was already removed at `ebfd5cc`.
 
-The useful surviving ordinary reduction uses the successor-closed set
-`{v : HRV(v) <= s}` to reduce an arbitrary sink to a largest-sink promotion.
-Such a promotion must allow changes outside the immediate root triangles.
-Circular canonical lifts retain period-shift constraints and need an additional
-argument. These facts were sent to the active Aristotle task.
-The note now also gives the exact circular deletion defect: compare each
-retained vertex's maximum reachable endpoint in the deleted graph with its
-maximum reachable lifts of the removed sinks. This partitions the vertices
-reallocated to each removed root and expresses both elementary products
-explicitly. Astra verified this orientationwise identity; componentwise
-cancellation is still unproved. All local delegate lanes are released.
-`suggestions/flip-enumeration-api.md` records the pending Rust integration task;
-no shared Rust ownership or source has been taken over.
+## Consultations and archive
 
-## Diamond exploration result
+Claude Sonnet finished without a general proof (native session 6592). Its
+incorrect exterior-factor claim was corrected and independently checked.
+Aristotle project `d4b3ddfe-0051-4f80-b222-4e9374badcb3`, last task
+`ae0d9a91-dc02-4f53-97a9-3ed6f8034bcf`, is terminal COMPLETE_WITH_ERRORS;
+its useful source-branching and conditional coefficient reductions were audited,
+but it did not prove the companion. No returned compatibility patches were
+integrated. `docs/ARISTOTLE.md` retains task IDs, payloads and hashes.
 
-The fixed-diagram diamond-to-chain straightening lemma is REFUTED, not open.
-See `docs/proofs/DIAMOND_STRAIGHTENING_AUDIT.md` for a general strict-component
-partition obstruction and an exact eight-state separating certificate.
-This does not refute the component conjecture.
-
-An auxiliary diamond and an HRV-preserving vertex swap repair the obstruction.
-Primary and independent Astra review checked a uniform overlap identity with
-arbitrary symmetric exterior. Without symmetry, an explicit exterior-swap
-correction remains and cancels for swap-invariant multiplicities. The open
-next task is component-labeled packet decomposition, swap balance, and a
-justified reduction of the resulting packets. No complete proof is claimed.
-
-In that preceding checkpoint, Astra independently derived the
-obstruction and repair; Terra audited the existing HRV triangle APIs. All
-read-only delegate lanes were released. No Lean build, new Lean theorem,
-remote request or Overleaf edit occurred in that checkpoint.
-
-Rust capability check: read LIBRARY_GUIDE, ran cargo metadata, inspected
-LLT/HRV and exact linear algebra APIs. There is no public circular flip/diamond
-span API. A bounded one-off Python probe found and exactly checked the span
-obstruction; no polynomial family or shared Rust source was introduced.
-External artifacts and hashes are in the audit note. Whitespace checks pass.
-
-## Component brainstorming continuation
-
-Completed research note: `docs/proofs/FLIP_COMPONENT_INDUCTION.md`. Astra and
-Terra reviewed the current manuscript and component notes read-only; neither
-edited or built. Primary wrote and checked the note and index. All delegate
-lanes are released. No Lean claims, builds, or Overleaf edits were made.
-
-Key refinement: the recorded target-span obstruction restricts to equal ascent
-number; the unweighted component theorem permits cross-ascent target terms.
-The first recorded obstruction can use a maximal-ascent target chain singleton
-as its signed correction, conditional on the recorded K identity. The uniform
-missing steps are simultaneous coloring/HRV transport, global reconstruction
-and enough independent equations to isolate each source component.
-A follow-up section proposes a shorter common-diamond straightening route.
-That fixed-diagram normalization statement is now refuted by the subsequent
-audit above. The repaired route allows auxiliary states and certified swaps.
-
-## Ownership and next step
-
-Primary owns strategy, final integration, this handoff and the sole local
-build slot. All delegate edit lanes, including Luna's documentation cleanup, are released.
-No build-slot transfer occurred. No local build, Aristotle task or Claude
-consultation is active. Astra's and Terra's read-only audits are complete;
-their lanes are released. Primary owns the bridge/source notes, index, and
-handoff checkpoint.
-Use only `lake-workspace`; check for other Lean/Lake processes before every
-invocation. Lean MCP targets RealRooted and is not used for implicit checks.
-
-There are no remaining proof obligations for the aggregate circular goal.
-The current research target is the source companion (Src) in
-`docs/proofs/COMPONENT_SOURCE_BRANCHING.md`; its componentwise cancellation
-is still missing. The full statement is in `docs/CIRCULAR_FLIPS.md`.
-The strict/weak omega translation is
-separate. Updating the older manuscript proof outline to the verified route
-is a writing task; no Overleaf changes were made in this checkpoint.
-
-Historical ownership and geometric checkpoints remain in Git and
-`docs/archive/circular-interior-checkpoints-through-e2f3479.md`. Superseded
-ND proof-search notes are explicitly marked historical; their unused auxiliary
-claims are not asserted to have been proved by the final expansion theorem.
-
-## Aristotle provenance
-
-The existing full interior request finished **COMPLETE_WITH_ERRORS**:
-project `65c4cfed-a912-4dc7-9dfc-1901c5f810a7`, task
-`a430cbfd-eb82-4070-b9c2-002ae875cb53`. Its final source retains exactly one
-placeholder, the full `expansion_of_nd_interior_overlap` target. Nothing from
-this return was imported. The only new proved wrapper repeats the existing
-first-contact result. Its exploratory rank calculations are not proof of a
-mathematical obstruction.
-
-The archive and inspected files are retained externally under
-`/lake-cache/ai-projects/requests/VerticalStripLLT/circular-interior-with-chain-base/`:
-`result.tar.gz`, `returned-Request.lean`, `returned-ARISTOTLE_SUMMARY.md`, and
-`returned-REMAINING_ISSUE.md`. Final source SHA256:
-`680e6d017cb24fe780ec3356e220d4d3bb67670986355a7f693cbbe042b0f2e9`.
-Input source was `5266faa`, before the column-reversal construction. No live
-interior proof task remains; do not restart an observer for this completed task.
-
-The successful chain-singleton request was already integrated at `5266faa`.
-Older request and compatibility provenance is retained in `docs/ARISTOTLE.md`
-and the archived handoff. Local Lean4.34 verification remains authoritative.
+Detailed research chronology and earlier ownership are archived in
+`docs/archive/flip-component-checkpoints-through-c6305a0.md`. That file is
+historical, not the current worker/task status. Older aggregate implementation
+history remains in Git and the circular checkpoint archives. The ordinary and
+aggregate circular completion audits remain authoritative for proved results.

@@ -65,6 +65,9 @@ remaining coefficients and a general packet decomposition are still open.
 The [attached-chain note](COMPONENT_BRIDGE_PACKETS.md) proves another packet
 family and isolates a marked-principal-ideal companion. It also shows why
 packet cancellation without source-deletion closure cannot support induction.
+The [ambient reduction](COMPONENT_AMBIENT_REDUCTION.md) reduces all diagrams
+to the complete circular diagram. Its stronger projected-cover version
+(StrongSrc) is another sufficient, still unproved cancellation target.
 
 ## Why (Src) would close the proof
 
