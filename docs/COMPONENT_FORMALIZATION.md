@@ -355,3 +355,12 @@ balanced components remains the next finite step.
 by weak-block constants to lifts with the original residues. It imposes no
 common-cut or one-period span bound. The ordinary interval-diagram construction
 and full reachability/cover and component transport still remain.
+
+The concrete companion sums now group by the finite quotient of actual flip
+reachability (`ComponentSumPartition`). `ComponentBalancedReduction` reduces
+both actual component valuations to equality on complete balanced components;
+this is an explicit conditional theorem. `BalancedLiftReach` proves full
+integer-cover correspondence, including arbitrary intermediate integers, and
+`BalancedComponentLifts` fixes one residue-compatible potential throughout the
+whole component. The ordinary interval-diagram bridge and ordinary weighted
+mountain-product assembly still need completion.

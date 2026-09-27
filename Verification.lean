@@ -2711,3 +2711,25 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.Orientation.toUndecorated_fromUndecorated
 #print axioms VerticalStripLLT.Circular.Orientation.fromUndecorated_toUndecorated
 #print axioms VerticalStripLLT.Circular.Orientation.toUndecorated_injective
+
+-- Complete component grouping and balanced reduction.
+#print axioms VerticalStripLLT.Circular.componentSetoid
+#print axioms VerticalStripLLT.Circular.componentClass
+#print axioms VerticalStripLLT.Circular.componentClass_fintype
+#print axioms VerticalStripLLT.Circular.componentWeight
+#print axioms VerticalStripLLT.Circular.componentWeight_mk
+#print axioms VerticalStripLLT.Circular.sum_componentCoefficient_smul
+#print axioms VerticalStripLLT.Circular.Orientation.liftStep_chosen_iff
+#print axioms VerticalStripLLT.Circular.Orientation.exists_chosen_of_liftReach
+#print axioms VerticalStripLLT.Circular.Orientation.liftReach_of_selectedReach
+#print axioms VerticalStripLLT.Circular.Orientation.liftReach_chosen_iff
+#print axioms VerticalStripLLT.Circular.Orientation.liftCover_chosen_iff
+#print axioms VerticalStripLLT.Circular.componentWeight_eq_out
+#print axioms VerticalStripLLT.Circular.componentWeight_eq_zero_of_not_balanced
+#print axioms VerticalStripLLT.Circular.componentStrictEnumerator_grouped_of_no_strict
+#print axioms VerticalStripLLT.Circular.componentHRV_grouped_of_no_strict
+#print axioms VerticalStripLLT.Circular.component_identity_of_balanced_components_no_strict
+#print axioms VerticalStripLLT.Circular.component_identity_of_undecorated_balanced_components
+#print axioms VerticalStripLLT.Circular.balancedPotential_iff_of_flip
+#print axioms VerticalStripLLT.Circular.balancedPotential_iff_of_reachable
+#print axioms VerticalStripLLT.Circular.exists_common_balancedLifts

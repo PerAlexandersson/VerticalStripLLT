@@ -8,14 +8,14 @@ The complete ordinary and aggregate circular formulas are Lean theorems.
 The full ordinary and circular **component** formulas have complete audited
 mathematical proofs but are **not yet complete Lean theorems**.
 
-Latest pushed checkpoint `0eac2b2` verifies actual coefficient-sum constancy
-(2033 jobs, 2590 axioms). The next increment compiles in focused checks:
-whole-component same-area undecoration with both component valuations,
-all-orientation indexing of the genuine companion, actual component companion
-sums, and residue-compatible injective balanced lifts. Full library passes
-**2041 jobs**, **2627 axiom entries**, standard axioms only, with passing source,
-line-width and diff checks.
-The full ordinary/circular component identities remain open.
+Latest pushed checkpoint `33cdecc` verifies whole-component undecoration,
+both semantic transports, all-orientation companion sums, and residue-compatible
+injective balanced lifts: **2041 jobs, 2627 axiom entries**, standard axioms only.
+The next increment passes focused checks (1547 jobs): actual quotient grouping,
+conditional reduction to balanced components, full integer-cover correspondence
+at chosen lifts, and one compatible lift assignment for a whole component.
+Independent Astra audit found no semantic defect. Full library passes **2045 jobs** and **2647 axiom entries**, standard axioms
+only; source guard, width and diff checks pass. Both final component identities remain open.
 
 Earlier pushed checkpoints: `f668154` (mountain equation (4) and potential
 independence; 1992 jobs, 2416 axioms), `b60d299` (Lemma A and abstract (**′**)),
@@ -37,9 +37,8 @@ The academic-account restart continues in the assigned main checkout
 `/workspace/lean/VerticalStripLLT`, branch `main`. Primary owns all integrated
 source, imports, inventory, documentation, integration fixes and the sole
 serialized Lean build slot. Check active processes before each build.
-All returned files are primary-owned. `ComponentSumPartition.lean` and
-`BalancedLiftReach.lean` are the next uncompiled candidates and are excluded
-from the undecoration checkpoint. Agents are edit-idle. Primary remains the
+All returned files are primary-owned. New disjoint assignments are recorded
+at the end of this handoff; all subagents remain build-free. Primary remains the
 sole build owner for this project, serialized across Lean projects.
 
 All earlier candidates were returned, repaired where needed, and checked by
@@ -262,3 +261,29 @@ of rank gap with physical edge length: chosen lifts may have gaps, and q only
 balances selected edges. Build the ordinary area from the number of compatible
 predecessors in the ranked interval ideal. This correction is not a theorem gap
 in committed source; that mistaken construction was never implemented.
+Primary owns `Components/ComponentBalancedReduction.lean`: group the two
+actual component companion identities and reduce their equality to the same
+identity on complete balanced components, first undecorated then original D.
+This is an explicitly conditional reduction, not the final component theorem.
+BalancedLiftReach and ComponentSumPartition compile. Primary owns
+`Components/BalancedComponentLifts.lean`, preserving one normalized potential
+throughout a whole balanced component. Astra is read-only auditing quotient
+grouping, the conditional balanced reduction and full chosen-lift cover proof.
+
+Checkpoint preparation: ComponentBalancedReduction and BalancedComponentLifts
+compile (1547 focused jobs). Astra independently audited actual quotient fibers,
+coefficient descent, conditional balanced reduction and arbitrary integer covers;
+no semantic defect found. Primary owns these returned files and integration.
+Next disjoint, build-free assignments: Astra component_review owns only
+`Components/IntervalDiagram.lean`, constructing an undecorated forward circular
+Diagram from a finite interval-closed relation on Fin n, with exact edge relation.
+Luna word_covers owns only `Components/BlockListCancellation.lean`, an iterated
+signed-tail cancellation over a list of rooted blocks, preserving cross-block
+compatibility explicitly. Luna word_swaps owns only
+`Components/MountainProduct.lean`, finite ordered product of one-peak mountain
+sums, with actual expansion over independent subset/tail choices. Primary owns
+compatible-lift interval closure, sorting, integration and all Lean builds.
+
+Primary now owns `Components/CompatibleLiftOrder.lean`, sorting injective chosen
+lifts and proving interval closure of their compatible natural-edge relation.
+This file is excluded from the balanced-reduction checkpoint pending its build.

@@ -314,3 +314,7 @@ import VerticalStripLLT.Components.UndecoratedComponentSemantics
 import VerticalStripLLT.Components.UndecoratedComponents
 import VerticalStripLLT.Components.UndecoratedFlips
 import VerticalStripLLT.Components.UndecoratedRecovery
+import VerticalStripLLT.Components.ComponentSumPartition
+import VerticalStripLLT.Components.BalancedLiftReach
+import VerticalStripLLT.Components.ComponentBalancedReduction
+import VerticalStripLLT.Components.BalancedComponentLifts
