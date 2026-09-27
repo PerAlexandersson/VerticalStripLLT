@@ -29,12 +29,13 @@ Initialization commits `830cc6b`, `130f7e8` and the immutable references survive
 Primary owns strategy, all current research notes, external probes, integration,
 and the sole global Lean build slot. Only primary may run `lake-workspace`,
 after checking no other build is active. No slot transfer has occurred.
-The current increment proves an aggregate companion at an exact winding class
-and checks its isolation boundary. It changes no Lean, shared Rust, reference,
-or Overleaf source.
+The current increment formulates the author's component recurrence and derives
+its explicit DN redistribution from the existing local maps. It changes no
+Lean, shared Rust, reference, or Overleaf source.
 
-Last pushed checkpoint: `bca8fb0`, forest-component semantics and primitive
-circular winding reduction. Earlier `1c93849` consolidated the proof notes. Checkpoint `ffa23fd` proves endpoint recovery and multivariate
+Last pushed checkpoint before this formulation: `25a527c`, exact winding
+aggregate and the component-isolation obstruction. Earlier `bca8fb0` proves
+forest-component semantics and primitive circular winding reduction. Earlier `1c93849` consolidated the proof notes. Checkpoint `ffa23fd` proves endpoint recovery and multivariate
 articulation gluing. Earlier `1a966fb` records the counterexample
 to scalar active uniqueness. Primary owns the new proof map, tree-connectivity
 note, handoff/archive, index and Aristotle ledger. The pre-existing dirty
@@ -59,7 +60,7 @@ Primary and independent Astra checked the general argument, including strict
 edge preservation, actual covers, smaller-envelope induction and base cases.
 See [the tree proof](docs/proofs/COMPONENT_TREE_CONNECTIVITY.md).
 
-The remaining ordinary proposal is AU_prime: in a saturated ordinary natural
+An auxiliary ordinary proposal is AU_prime: in a saturated ordinary natural
 graph without an articulation, at each ascent there is at most one active
 connected component.
 Activity means every strict corner is a cover somewhere in the component;
@@ -110,7 +111,7 @@ band graph, by adjacent swaps; aggregate coefficient extraction gives that
 family's component formula. Its proposed bootstrap confuses deletion with
 saturation and asks for a false whole-region redundancy property. Primary
 records the audited outcome in the ledger and active-corner note. No Claude
-or Aristotle process remains active. The result and exact prompt are retained
+process remains active from those consultations. The result and exact prompt are retained
 under `claude-active-corner/` in the external requests root.
 
 ## Computation and records
@@ -154,7 +155,7 @@ tree proof and scope map. `git diff --check` passes. No compilation was needed.
 Primary owns `docs/proofs/COMPONENT_LATTICE_AGGREGATE.md`, the proof map,
 index, winding-note link, this handoff and the external diagnostic receipts.
 Astra completed the read-only proof audit; no local delegate or remote proof
-process is active. The previous goal turn made progress at `bca8fb0`.
+process was active at that checkpoint. The preceding increment was `bca8fb0`.
 
 The new proved companion filters selected edges by their undirected signed
 walk relation W, compresses each block's compatible lift classes, and applies
@@ -185,8 +186,52 @@ this checkpoint; compilation is unnecessary for these documentation-only edits.
 
 Primary owns the new transport-interface section in the existing
 `FLIP_COMPONENT_INDUCTION.md` and the corresponding status-map updates.
-Astra is auditing an integer flip-difference intertwining criterion read-only;
-Luna is extracting the exact author case table for relation (8') and relation
-(3) from `LLT flip/main.tex`, also read-only. No source, Overleaf, or build-slot
+Astra approved the integer flip-difference intertwining criterion read-only;
+Luna returned the exact author case table for relation (3), and identified
+the provisional (8') assertions in `LLT flip/main.tex`, also read-only. No source, Overleaf, or build-slot
 ownership is delegated. Primary re-read the draft's transport/packet passages
 and original commented sketch; no manuscript changes are being made.
+
+The recurrence note now proves the reconstruction equivalence
+`B_target T = H B_source` over the integers and the semantic residual
+criterion for both valuations with common T,R,r. It includes the actual
+relation-(3) local table and its internal four-state certificate. Exterior
+and mixed-flip rows remain to be constructed. Correction generators must
+have certified identities, and target measure decrease must be proved.
+This sharpens the author's intended proof; it does not replace the missing
+recurrence maps by a conditional wrapper or claim the full goal is complete.
+Old duplicate reconstruction checklists were removed from the same note;
+the failed diamond shortcut remains linked to its detailed audit.
+
+Luna completed the read-only API audit. Primary checked the actual circular
+DN code: `DNOrientationBlocks.dn_bottom` sends exterior Q to its adjacent
+vertex swap σQ, while `dn_top` retains Q. The aggregate theorem in
+`SecondBounceOrientation.lean` reindexes the entire powerset in `hbot`.
+The recurrence note now records the resulting signed multiplicities g and
+their free target-diamond parameter β. Both valuations are preserved when
+source middle multiplicities agree; an explicit unmatched-state residual is
+retained otherwise. The internal four-state discussion was corrected to avoid
+identifying the two exterior maps.
+
+Astra completed the read-only audit. Nonflip blocks reduce semantically to
+closure-degenerate endpoint terms or smaller strict-corner-deletion packets;
+the note contains the full path argument and cyclic-state cases. The ordinary
+corner quotient gives an exact cover-boundary equation for the component
+defect, without requiring redundant fragments to be complete components.
+Its boundary diamond has a lower-area residual that must be retained.
+
+Primary owns Aristotle task `16154bfd-ae04-49cd-9549-6d0a931f9309`, accepted
+and initially QUEUED in project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08`.
+The request is `component-recurrence/TARGET.md` under the external requests
+root; exact input hashes and submission logs are retained there. It asks for
+the concrete global regrouping, using these local reductions and the boundary
+equation. No local delegate is active or owns editable files. No edits or builds
+are delegated. The next task is to solve the target flip equations for β and
+regroup deletion packets into complete smaller components. This has not been
+proved; the new consultation is not evidence of completion. Native observer
+`71315` follows this exact task with a 30-minute process allowance and writes
+`component-recurrence/observer.log`. An observer timeout or disconnect does
+not cancel the remote task. On completion, inspect authoritative task status,
+download that task's result, and audit the claimed reconstruction before any
+Lean port. Primary retains monitoring ownership; no automatic wake-up promise
+is made.

@@ -25,14 +25,38 @@ semantics. A sum over all components does not establish the individual claims.
 The new prose proofs have not yet been ported to Lean. No conditional
 connectivity statement has been substituted for the component theorem.
 
-## Main route: corners and component isolation
+## Main route: pass components through the recurrences
+
+The author recalls a proof by splitting the local orientations and transporting
+components through the manuscript relations. The current task is to make
+those maps and their regrouping precise. The
+[recurrence note](proofs/FLIP_COMPONENT_INDUCTION.md#a-precise-component-transport-criterion)
+now gives an exact integer certificate: if B records multiplicity differences
+across actual flips, a transport T reconstructs complete components precisely
+when B_target T=H B_source for an integer H.
+
+The separate coloring and HRV semantic residuals may factor through B_source;
+paired diamonds give this cancellation without pointwise semantic equality.
+Signed corrections must land in certified complete packets or states. The
+resulting component induction lemma is proved, but the global recurrence
+transports and their exterior/mixed-flip certificates are still to be built.
+The concrete relation-(3) construction retains the exterior swap in the
+zero state and the unchanged exterior in the full state. This gives explicit
+signed multiplicities with a free target-diamond parameter. A proved local
+classification reduces nonflip blocks to closure-degenerate endpoint terms
+or smaller corner-deletion packets. Their global regrouping remains open.
+The ordinary deletion quotient also expresses each component defect as a
+sum over states where the deleted corner was a cover. No component-uniqueness
+conjecture is required by this route.
+
+## Auxiliary route: corners and active uniqueness
 
 We follow the manuscript recurrence approach. For a saturated ordinary natural
 graph, call a component **active** when every strict corner is a cover in
 some member of the component. The witnesses may differ. Call it connected
 when its selected undirected graph is connected.
 
-The remaining structural proposal is:
+One sufficient auxiliary structural proposal is:
 
 > **AU_prime.** In a saturated ordinary natural graph with no articulation vertex,
 > at each normal ascent count there is at most one active connected complete
@@ -58,8 +82,8 @@ Why this proposal would suffice for ordinary components:
    All other defects vanish by the justified smaller cases.
 
 The gluing identity needed in step 5 is proved. It glues **aggregate** marked
-identities; no unproved pointed component formula is used. The remaining
-ordinary obligation is structural connectivity, not endpoint gluing.
+identities; no unproved pointed component formula is used. For this auxiliary
+route, the open obligation is structural connectivity, not endpoint gluing.
 
 ## What remains for circular components
 
@@ -107,8 +131,9 @@ Current ownership and running consultations belong only in
 [the Aristotle ledger](ARISTOTLE.md). Detailed experiment receipts stay next
 to the claims they test. Historical handoffs are archives, not active plans.
 
-The next mathematical target is AU_prime beyond trees, using strict-corner
-deletion and its quotient graph of smaller components. A companion for
-primitive circular components is still required for the full goal. Reuse the shared
-Rust LLT/HRV and flip tools before adding computation; the capability audit and
-any missing maintained interface are recorded in the handoff.
+The next mathematical task is the explicit recurrence transport and its
+flip-difference certificate, following the author's local cases. The corner,
+forest, winding and aggregate refinements remain available as tools and solved
+correction terms. Reuse the shared Rust LLT/HRV and flip tools before adding
+computation; capability audits and missing maintained interfaces are in the
+handoff.

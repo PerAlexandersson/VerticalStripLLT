@@ -1,8 +1,10 @@
 # Flip-component induction: redistribution and component equations
 
-Status: mathematical brainstorming after the verified aggregate circular
-checkpoint `18fbb4d`. No full component proof is claimed. No Lean source or
-Overleaf manuscript is changed by this audit.
+Status: the primary proof route, following the author's component-through-
+recurrences idea. The integer transport criterion below and the later corner
+reductions are proved mathematical lemmas. Their required global recurrence
+certificates remain to be constructed. No full component proof is claimed.
+No Lean source or Overleaf manuscript is changed by this audit.
 
 We read `LLT flip/main.tex`, especially the local diamonds (around 1704),
 component target (around 1980), cut/transport/reassembly discussion
@@ -35,6 +37,284 @@ There are two separate obligations:
 
 The aggregate circular theorem does not supply either obligation merely by
 summing its orientations differently.
+
+## A precise component-transport criterion
+
+We can express both obligations without requiring an orientation-by-orientation
+bijection or a new uniqueness conjecture for components. Fix a finite diagram
+D and let Ω_D be its admissible selected orientations. Write F_D=Z^Ω_D for
+the free module of integer multiplicities on these orientations. Choose one
+direction for each actual flip edge and define its difference map by
+
+    (B_D f)(θ→η)=f(η)−f(θ).
+
+The kernel of B_D has as an integer basis the indicators of the ENTIRE flip
+components. Thus f is an integer combination of complete component sums
+exactly when B_D f=0. This includes exterior and mixed flips, not only a
+local window.
+
+For a finite family of target diagrams, let F_target be the direct sum of
+their orientation modules, and B_target the block sum of their difference
+maps. A signed recurrence transport is an integer linear map
+
+    T : F_D → F_target.
+
+**Reconstruction lemma.** T sends every source-component indicator to an
+integer combination of entire target-component indicators if and only if
+there is an integer matrix H such that
+
+    B_target T = H B_D.                                (Transport)
+
+The forward use is immediate: a component indicator is killed by B_D.
+For the converse, each row of B_target T has coefficient sum zero on each
+source component. Choose a root and a spanning tree in each source component.
+An integer row (a_θ) with sum zero is
+
+    Σ_(θ≠root) a_θ (δ_θ−δ_root).
+
+Expand each difference along the chosen tree path. This expresses the row
+as an INTEGER combination of source flip differences, producing the required
+row of H. Isolated source vertices have zero coefficient and need no path.
+No rational denominator or saturation assumption is hidden in the criterion.
+
+Operationally, a row of (Transport) corresponds to one target flip. It says
+that the difference of transported multiplicities at its endpoints is a
+specified finite sum of source flip differences. A matching of occurrences
+whose source labels are joined by known source flip paths supplies such a
+row. This is an exact formulation of the boundary-compatibility obligation.
+
+## Semantic transport modulo source flip differences
+
+Fix an alphabet of size m and evaluate both models in the SAME polynomial
+module: K sends each orientation to its strict order enumerator, and E sends
+it to its evaluated HRV elementary monomial. Extend these maps linearly.
+The weak/h convention has the same structure when used consistently.
+
+Allow a free module F_known whose generators are independently certified
+equalities K=E. A generator can be a chain state, a solved complete component,
+or a solved packet. An arbitrary individual state of a solved component is
+NOT a certified generator: only the complete sum was proved. If such states
+are used as intermediate output, they need their own reconstruction condition.
+
+Let R:F_D→F_known be an integer correction map and let r>0 be an integer.
+The sufficient semantic certificates, for X=K and X=E, are
+
+    r X_D − X_target T − X_known R = U_X B_D.           (Semantics)
+
+The same combinatorial T,R,r must work for both valuations and every alphabet.
+The residual maps U_K and U_E may differ and may depend on m. They record
+the two separate local proofs; no pointwise matching of coloring occurrences
+with HRV fibers is assumed.
+
+**Component induction theorem.** Suppose (Transport) and (Semantics) hold,
+every target component is covered by a justified smaller-diagram induction,
+and every generator of F_known has its certified identity. Then every source
+component satisfies K_C=E_C.
+
+Indeed, apply (Semantics) to its indicator χ_C. The right side vanishes.
+Equation (Transport) makes Tχ_C a combination of ENTIRE target components,
+so target induction applies to exactly those sums. Subtract the K and E
+identities; the known terms vanish as well, leaving r(K_C−E_C)=0.
+Integer polynomial coefficients have no additive torsion, so r>0 cancels.
+This argument covers every finite alphabet, including the empty one.
+
+The certificate starts with r times the desired source valuation. Replacing
+that left side by an unspecified mixture of unknown source components would
+reintroduce an isolation obligation; it is not the same theorem. Likewise,
+the matrix identities do not establish a well-founded target order. For each
+actual recurrence, the diagram reduction and the status of the correction
+packets must still be proved.
+
+## How a diamond supplies the semantic certificate
+
+Suppose source states P10 and P01 are joined by an actual flip, and their
+valid diamond gives X(P10)+X(P01)=X(P00)+X(P11), separately for K and E.
+Assign T(P10)=P00 and T(P01)=P11 for this local replacement. The two residuals
+X(P10)−X(P00) and X(P01)−X(P11) are opposite. Their contribution for arbitrary
+multiplicities f is therefore
+
+    (X(P10)−X(P00)) (f(P10)−f(P01)).
+
+This is a source flip difference, with the sign determined by its chosen
+direction. It vanishes on every component indicator. Thus a diamond proves
+(Semantics) even when either proposed pointwise equality is false. The
+coloring redistribution and the HRV diamond are separate proofs of the two
+opposite-residual assertions, with the SAME combinatorial replacement T.
+
+Compositions behave well: if B₁T₁=H₁B₀ and B₂T₂=H₂B₁, then
+B₂T₂T₁=H₂H₁B₀. For a unit-multiplier semantic certificate, substituting the
+two semantic equations likewise expresses the composed residual through B₀,
+with all certified correction terms retained. This supports building relation
+(8') from relation (3) and corner branches, rather than asserting a new
+pointwise swap map. Target measures and final correction packets must still
+be checked for that composition.
+
+Primary formulated these criteria after the author's clarification. Astra
+independently audited the integer equivalence, semantic cancellation, and
+the requirement that correction generators themselves be certified. These
+criteria state what the intended recurrence proof must establish; they do
+not claim that its global certificates have already been found.
+
+## The concrete relation-(3) table to transport
+
+The manuscript uses
+
+    D_L = U d n V d e W,       D_R = U n d V e d W.
+
+With the displayed lifts u<v<w<x<y<z, its distinguished data are:
+
+| Diagram | Fixed strict edges | Distinguished normal edges, in bit order |
+| --- | --- | --- |
+| D_L | uw, wz | wx, xz |
+| D_R | ux, xz | uw, wx |
+
+A 1 denotes selection of the natural edge; a 0 denotes its absence from the
+selected relation. The internal middle-state flip is 10↔01 on w<x<z for
+D_L and on u<w<x for D_R. The proposed cross-diagram identifications are:
+
+- 00: swap the rows and columns indexed by w and x;
+- 11: use the common chain u<w<x<z after transitive closure;
+- {10,01}: apply the source diamond, transport 00 and 11, and reverse the
+  target diamond. Only the paired identity is required.
+
+For the isolated four-state graphs, when all states are admissible and both
+indicated flips exist, the identity bit-label map intertwines their internal
+flip differences. This does not supply the semantic map for the actual
+diagrams: the 00 identification changes the exterior orientation, whereas
+the 11 identification keeps it fixed. We must retain that distinction.
+
+The full diagrams add rows to B_L and B_R for exterior and mixed flips, and
+may remove an internal edge when its cover condition fails. Those rows and
+conditions are the next concrete proof task. They cannot be discarded by
+contracting a drawn local component. Signed corrections from already solved
+packets are allowed, as in the repaired five-state transfer below.
+
+Luna re-extracted this table from the manuscript. The commented relation-(8')
+sketch supplies its three branch words and four proposed cases, but its
+Case-II pointwise HRV assertion fails. The paired diamond certificate above
+is the appropriate replacement to test against that sketch. No manuscript
+`todo` or repeated “preserving component” phrase is treated as a proof.
+
+## Relation (3): the exterior swap and an explicit redistribution
+
+We can locate the required redistribution in the existing Lean proof. Write
+Q for a subset of the common exterior normal pairs `D.dnB e f`, and let σQ
+swap the adjacent vertices w,x in every endpoint of Q. This is an involution
+of the exterior powerset. The proved HRV identities are
+
+    E_L00(Q) = E_R00(σQ),       E_L11(Q) = E_R11(Q).
+
+Related Lean: `Circular/DNOrientationBlocks.lean`, `Diagram.dn_bottom` and
+`Diagram.dn_top`. The former uses periodic swap conjugacy; the latter uses
+equality of lifted transitive closures. The source and target diamonds are
+`dn_source_local` and `dn_target_local`. In
+`Circular/SecondBounceOrientation.lean`,
+`shiftedOrientationExpansion_dnSuccessor` reindexes the ENTIRE powerset by σ
+in its `hbot` step and retains Q in `htop`. This reindexing is exactly where
+the aggregate argument stops tracking individual component membership.
+
+The same endpoint identities hold for strict coloring enumerators: in the
+00 case we relabel colors by the vertex swap, preserving their commutative
+monomial; in the 11 case the two strict constraint relations have the same
+transitive closure. These are mathematical consequences of the displayed
+step conjugacy and closure proofs. They have not been exported as new Lean
+orientation-enumerator declarations. They do not assert equality for either
+middle state individually.
+
+Here is a concrete family of signed transports. Let f_ab(Q) be source
+multiplicities, with zero assigned to inadmissible source states, and assume
+for now that
+
+    f_10(Q) = f_01(Q) = α(Q)   for every Q.
+
+For either valuation X, the source diamond rewrites its weighted block as
+
+    (f_00(Q)+α(Q)) X_L00(Q) + (f_11(Q)+α(Q)) X_L11(Q).
+
+Transport the endpoints and reindex the first sum by σ. For any integer
+function β on exterior subsets, define target multiplicities by
+
+    g_00(Q) = f_00(σQ)+α(σQ)−β(Q),
+    g_10(Q) = g_01(Q) = β(Q),
+    g_11(Q) = f_11(Q)+α(Q)−β(Q).
+
+The target diamond then proves X_L(f)=X_R(g), for BOTH valuations and every
+alphabet. We evaluate inadmissible states as zero and restrict g to admissible
+states when asking about complete target components. This convention permits
+the powerset identities to be used without silently assuming all four local
+states are admissible.
+
+The choice β=α displays the redistribution particularly directly:
+
+    g_00=f_00∘σ+α∘σ−α,   g_10=g_01=α,   g_11=f_11.
+
+Changing β by h changes g by h(Q)(−1,1,1,−1) in each target block. Its
+valuation is zero for K and E by the target diamond. Thus β is genuine freedom
+to repair component multiplicities without altering either polynomial. This
+gives a concrete equation to solve: choose β, possibly together with certified
+smaller correction packets, so that g has equal values across EVERY actual
+target flip. It is not necessary to prescribe a pointwise middle-state map.
+
+Two obligations remain. First, equality f_10=f_01 follows from component
+membership only when those states lie in the same source component. A drawn
+triangle is insufficient: `Circular/Flip.lean`, `DirectedFlipWitness`, requires
+the selected short and long edges to be lifted covers on the respective sides,
+and both orientations must be admissible. If these tests fail, we must retain
+the unmatched term. Explicitly, setting α=f_01 gives the exact general identity
+
+    X_L(f) = X_R(g) + Σ_Q (f_10(Q)−f_01(Q)) X_L10(Q).
+
+Its residual vanishes for actual paired source states; the other fragments
+require a separate reduction. Redundancy in one state alone does not justify
+deleting a strict corner throughout its component.
+
+Second, the free choice of β does not itself prove that the target flip
+equations are consistent. Exterior and mixed flips impose equations between
+different Q, and any correction packet must be independently solved and obey
+the induction order. These are the concrete remaining companion lemmas for
+this construction. The identities above are uniform algebraic consequences
+of the actual DN endpoint maps, not a completed component recurrence.
+
+### Nonflip blocks have exact semantic reductions
+
+We can resolve the local unmatched-state question without treating every
+triangle as a flip. Let P00 contain the selected strict long edge ac, with
+lifts a<b<c<a+n; P10 adds ab, P01 adds bc, and P11 adds both. The exterior
+is arbitrary and fixed. Suppose both middle states are admissible but do not
+form an actual flip. At least one of the following holds:
+
+1. P00 already has a lifted path a→b. Then P10 and P00 have identical
+   reachability, as do P11 and P01. For both valuations we can replace the
+   four multiplicities by `(f00+f10,0,0,f11+f01)`.
+2. P00 already has a lifted path b→c. Then P01 and P00 have identical
+   reachability, as do P11 and P10. The replacement is
+   `(f00+f01,0,0,f11+f10)`.
+3. P00 has a lifted path a→c avoiding ac. Removing the strict corner ac
+   therefore preserves both valuations in all four states. We obtain a
+   packet in the smaller corner-deleted diagram.
+
+To prove exhaustiveness, a failed cover test for either selected short edge
+gives the corresponding base path in (1) or (2). An alternative a→c path
+in P10 either avoids ab, giving (3), or uses ab as its first edge, leaving
+a base b→c path and giving (2). The argument for P01 gives (1) or (3).
+All steps are positive and lie in an interval of length less than n, so no
+other translate of an added edge can occur. If none of these failures occurs,
+the four positive cover requirements hold. The missing-short requirements
+follow from the long cover, and the two states give an actual flip witness.
+
+If just one middle state is inadmissible, P11 is inadmissible as well. The
+diamond then identifies the remaining middle valuation with P00, for K and
+E separately. If both middle states are inadmissible, they carry no source
+multiplicity. These cases include the projected cycles peculiar to circular
+diagrams; we do not infer admissibility from the drawn lifted triangle.
+
+Thus every local block can be reduced to a paired flip block, endpoint
+terms, or a smaller corner-deletion packet. This is a proved semantic
+classification, independently supplied and checked by Astra and primary.
+It leaves a global reconstruction problem: a deletion packet need not be a
+complete smaller component, and eliminating middle multiplicities can change
+their compatibility with exterior flips. The target parameter β and the
+deleted packets must be handled together.
 
 ## The coloring redistribution is explicit
 
@@ -207,6 +487,35 @@ pointwise by deletion. This is an actual graph statement, not a proposed
 matching of local-state tables. It must not be extended to arbitrary circular
 orientations without checking admissibility of reinsertion.
 
+This quotient also gives a useful exact equation for component defects.
+Write Δ_D(A)=K_D(A)−E_D(A), and assume the component identity is proved in
+D-e. Since a complete source component C is a union of complete deletion
+components, we have Σ_(A∈C) Δ_(D-e)(A)=0. Whenever e is redundant,
+Δ_D(A)=Δ_(D-e)(A). Subtracting therefore gives
+
+    Δ_D(C) = Σ_(A∈C, e is a cover) (Δ_D(A)−Δ_(D-e)(A)).
+
+This equation localizes the remaining defect on the cover states without
+asserting that the redundant fragments form components. It is proved for
+ordinary diagrams by the graph quotient above and smaller-area induction.
+Cancellation or recurrence for this boundary sum remains to be established.
+
+For an actual flip supported by e, put B_ij=A_ij-e and
+δ_ij=Δ_D(A_ij)−Δ_(D-e)(B_ij). The source diamond and redundancy in state 11
+give the exact boundary relation
+
+    δ_10+δ_01 = δ_00+Γ,
+    Γ = Δ_(D-e)(B_00)+Δ_(D-e)(B_11)
+        −Δ_(D-e)(B_10)−Δ_(D-e)(B_01).
+
+We must retain Γ. The long edge was removed in D-e, so its four states do
+not inherit the same diamond identity. Smaller-area induction cancels a sum
+of these residuals only after the signed coefficients reconstruct complete
+deletion components. Corner leaf-normalization supplies valid flip paths;
+it does not, by itself, prove this multiplicity statement or make the boundary
+relation telescope. Primary and Astra independently checked the boundary
+equation and this distinction.
+
 For e=(a,a+2), there is only one supporting triangle. Its adjacent short edges
 are automatically covers when selected; e is redundant precisely in state 11.
 The additional quotient edges therefore come from exactly the unconditional
@@ -307,118 +616,27 @@ The empty case k=0 is included. Disjoint products with independently solved
 components preserve the identity. This is a uniform proved family of source
 corrections. It does not assert that all correction components are of this form.
 
-## Reconstruction and isolation
+## Remaining construction and verification
 
-For a fixed source component or signed collection of components, transport
-occurrences while retaining their source labels and recurrence-branch labels.
-In branch j let m_j(theta) be the resulting integer multiplicity of target
-orientation theta. The transported branch is an integer combination of
-complete target components exactly when
+The transport criterion at the start of this note replaces the earlier
+informal reconstruction/isolation checklist. For each actual recurrence,
+construct T and the certified correction map R from the local cases, then
+check every target-flip row of (Transport) and both versions of (Semantics).
+The target diagrams must decrease a justified induction measure. The ordinary
+and circular component conjectures remain open until these constructions
+are supplied; the criterion alone does not prove them.
 
-    m_j(theta) = m_j(eta) whenever theta and eta differ by a target flip.
+The previously proposed fixed-diagram diamond-and-chain straightening theorem
+is false, even with signed rational coefficients. Its exact obstruction,
+auxiliary-state repair and exterior-swap correction remain in
+[the diamond audit](DIAMOND_STRAIGHTENING_AUDIT.md). It is not an active target.
+The squared-ascent statistic does terminate forward diamond replacements,
+but terminal multiplicities need not be constant along flips. It therefore
+does not supply the reconstruction certificate either.
 
-This must include exterior and mixed flips with full cover conditions.
-Internal local-state tables alone are insufficient: exterior paths can destroy
-covers, and an exterior flip can join states separated by the internal table.
-
-A sufficient reduction lemma is
-
-    r_C X_C = sum_T a_(C,T) X_T + sum_B b_(C,B) X_B,  X in {K,H},
-
-with the same integer coefficients, r_C>0, complete components T in diagrams
-smaller for a justified induction measure, and independently solved components
-B. Components at every ascent level are allowed. Subtracting K and H gives
-r_C(K_C−H_C)=0, hence the result in the torsion-free coefficient module.
-
-More generally several packet equations may be needed. After using known
-target/base identities they give A Delta=0, where Delta lists all unknown
-source-component defects. Full column rank over the rationals is sufficient.
-One equation for Delta_C+Delta_C' gives no individual conclusion. Constructing
-A from genuine simultaneous identities and proving its rank uniformly is a
-mathematical task; matching H-vectors computationally does not prove K-identities.
-
-## A possible constructive organization
-
-We can encode signed finite orientation sums and use only verified common
-relations: coloring/HRV diamonds and genuine global identifications. The
-component indicator vector is the object to reduce. A successful reduction
-expresses a positive multiple of it in terms of smaller-diagram component
-indicators and solved bases, modulo these common relations. This keeps
-coloring redistribution explicit and permits signed corrections without
-requiring a bijection on orientations.
-
-A related observation may help design a reduction algorithm. For positive
-multisets on one fixed diagram, replacing the two middle states of a diamond
-by its zero/full states increases the sum of squared ascent numbers by two.
-It preserves multiset size, so repeated forward diamond replacements terminate.
-This is only a termination observation: a terminal multiset may contain an
-orientation whose flip partner is absent. It does NOT establish that terminal
-orientations are chains or that the desired component identity follows.
-A balance invariant ensuring an adequate terminal form would be an additional
-lemma, not a consequence of this statistic.
-
-## Proposed full-statement milestones
-
-1. Prove the global component bijections for a corner deletion/strictification
-   (relation (1')), including all periodic translates. A corner cannot be a
-   toggled short edge of a flip; fixed corner status should give the full
-   correspondence. This reduces the conjecture to saturated diagrams.
-2. Prove a general coloring-occurrence diamond and its actual lifted HRV
-   companion, with arbitrary exterior relations and precise four-state data.
-3. Formulate component transport across a genuine local recurrence using all
-   ascent levels. Prove reconstruction across every target flip, or replace
-   reconstruction by an explicit common-relation reduction of component vectors.
-4. Prove component isolation, either by direct signed formulas or a uniformly
-   full-rank finite system. Singleton and disconnected-component bases need
-   their own proofs; only the zero-normal base is currently exported in Lean.
-5. Attach these results to the already verified circular reduction measures.
-   The existing half-square-area and strict-rank arguments certify the actual
-   diagram reductions. They do not automatically certify arbitrary new packet
-   moves or lift the column-reversal proof to complete flip components.
-
-No new warmup examples or broad implementation should precede a precise
-transport/isolation target. The current notes contain the local ingredients;
-the uniform compatibility and isolation arguments remain open.
-
-## A potentially shorter proof: straightening whole component sums
-
-**Subsequent audit:** the fixed-diagram diamond-and-chain statement below is
-false, even with signed rational coefficients. The exact obstruction and a
-repair using auxiliary states and an HRV-preserving swap are in
-[DIAMOND_STRAIGHTENING_AUDIT.md](DIAMOND_STRAIGHTENING_AUDIT.md). This section
-records the proposal that led to that audit, not an active conjecture.
-
-A follow-up independent review suggests separating the proof into two reusable
-facts. First, both K and H respect each valid global diamond relation
-
-    [theta10] + [theta01] − [theta00] − [theta11] = 0.
-
-Second, prove a geometric straightening statement: a positive integer multiple
-of each complete flip-component indicator is congruent, modulo these diamond
-relations, to a signed sum of orientations whose projected reachability posets
-are disjoint unions of chains. On these terminal states K and H agree termwise.
-For circular orientations each chain has a unique sink, so its HRV fiber is
-the whole chain, even when its chosen lifts wind. Applying the two valuations
-and cancelling the positive integer would prove the component theorem.
-
-This fixed-diagram statement would avoid transporting complete components
-through all the path recurrences. It is a proposed sufficient lemma, not a
-proved theorem, and may be stronger than needed. If the available diamonds
-are insufficient, enlarge the relations only by separately verified global
-identifications or return to the smaller-diagram induction.
-
-The crucial question is compatibility of OVERLAPPING diamonds. Mere pairwise
-identities are insufficient: an abstract three-state flip path with defects
-satisfying d_a+d_b=0 and d_b+d_c=0 permits (u,−u,u), with nonzero component sum.
-This is an abstract warning, not a counterexample among LLT diagrams. The
-special circular interval geometry must supply additional relations or force
-this alternating defect to vanish.
-
-Neither a unique oriented-flip normal form (already obstructed in the notes)
-nor the squared-ascent termination observation proves the straightening lemma.
-The next useful proof-search target is a global overlap-completion argument:
-when a diamond replacement removes a needed partner for another replacement,
-show how the resulting discrepancy is resolved using further valid diamonds,
-possibly in a smaller diagram. Preserve exterior cover conditions throughout.
-This is where the existing sketches should be mined for a single reusable
-argument, before formalizing another large recurrence-by-recurrence framework.
+Related Lean: `Circular/Flip.lean` and `Circular/ComponentSemantics.lean`
+fix the actual graph and complete-component sums. The new transport criterion
+and the mathematical corner reductions in this note are not yet implemented.
+Keep examples and finite diagnostic certificates separate from any claimed
+uniform recurrence map. No generic Lean scaffolding should substitute for
+the missing map and its global boundary proof.

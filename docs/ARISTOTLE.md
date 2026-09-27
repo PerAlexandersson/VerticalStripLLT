@@ -11,6 +11,30 @@ ordinary/circular candidates. The entries below give current final outcomes
 for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
 [the proof map](FLIP_COMPONENT_STATUS.md) owns the mathematical overview.
 
+## Component recurrence: explicit DN redistribution and boundary residual
+
+- Project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08`, new task
+  `16154bfd-ae04-49cd-9549-6d0a931f9309`; accepted and initially **QUEUED**.
+  Current monitoring state belongs in HANDOFF.
+- External directory `component-recurrence/` under the requests root.
+  `TARGET.md` SHA-256
+  `2e9d4112c0a6fdcb7702c84db0a7bb990bbd427582ec21f3786dc5d233ccc54a`.
+  `INPUT_HASHES.json` records exact source snapshots. The five uploaded files
+  were TARGET, FLIP_COMPONENT_INDUCTION, Flip.lean, DNOrientationBlocks.lean
+  and SecondBounceOrientation.lean. CIRCULAR_FLIPS.md was snapshotted but not
+  uploaded; the accepted prompt states this omission.
+- The first submission was rejected before task creation for exceeding the
+  five-file limit. The five-file retry was accepted; there is only one new
+  task. Logs are `submission.log` and `submission-retry.log`.
+- Primary supplies the exact DN exterior maps, signed multiplicities with
+  free parameter β, independently reviewed nonflip classification, ordinary
+  deletion quotient, cover-boundary defect equation and its lower-area
+  residual. These are inputs, not results of the new consultation.
+- The request replaces AU_prime as the main target and asks for the actual
+  global reconstruction into whole smaller components. It explicitly forbids
+  assuming local packets are complete, pointwise middle-state HRV matching,
+  or discarding the deletion residual. No return or full proof is claimed.
+
 ## Ordinary corner refinement: complete return, AU_prime still open
 
 - Project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08`.

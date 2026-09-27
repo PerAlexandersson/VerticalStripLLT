@@ -38,7 +38,8 @@ notes below each own one argument; process status lives in the handoff.
 - [Circular flip interfaces](CIRCULAR_FLIPS.md): exact downstream target and
   locally verified foundations.
 - [Component recurrence reductions](proofs/FLIP_COMPONENT_INDUCTION.md):
-  corner branching, always-redundant corner deletion, and repaired transfers.
+  the exact transport certificate, author case table, corner branching,
+  always-redundant corner deletion, and repaired transfers.
 - [Active corner companion](proofs/COMPONENT_ACTIVE_CORNERS.md): coefficient
   isolation, the articulation counterexample, and the open refined uniqueness.
 - [Endpoint recovery and gluing](proofs/COMPONENT_ENDPOINT_GLUING.md): proved
