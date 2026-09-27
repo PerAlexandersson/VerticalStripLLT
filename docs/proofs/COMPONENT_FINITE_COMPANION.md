@@ -265,6 +265,14 @@ This completes the finite companion proof.
 
 ## Lean decomposition
 
+The abstract contracted-gain identity (**′**) is now Lean-verified as
+`GainData.sum_powerset_cyclicNegative_eq_zero_of_gain_excess` in
+`Components/GainCoefficientCancellation.lean`. It retains the original edge
+instances and proves both total-cyclicity and negative-cycle conditions with
+the weak-component parity sign. `PartitionConnectivity` proves Lemma A;
+`GainLevels` handles the two fixed-level cancellation cases. Actual balanced-F
+contraction and the subsequent W/component assembly remain unformalized.
+
 We can formalize this argument with finite graphs and integer arithmetic.
 The main independent statements are:
 

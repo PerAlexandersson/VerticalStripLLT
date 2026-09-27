@@ -253,3 +253,10 @@ import VerticalStripLLT.Components.MountainWords
 import VerticalStripLLT.Components.ConjugationSubwords
 import VerticalStripLLT.Components.MountainCoefficients
 import VerticalStripLLT.Components.HRVPartition
+import VerticalStripLLT.Components.SquarefreeProducts
+import VerticalStripLLT.Components.SubwordSubsets
+import VerticalStripLLT.Components.DisjointSubsetSums
+import VerticalStripLLT.Components.PartitionCondensation
+import VerticalStripLLT.Components.PartitionConnectivity
+import VerticalStripLLT.Components.PartitionLevels
+import VerticalStripLLT.Components.GainCoefficientCancellation

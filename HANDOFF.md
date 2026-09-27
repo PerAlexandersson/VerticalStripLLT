@@ -8,16 +8,18 @@ The complete ordinary and aggregate circular formulas are Lean theorems.
 The full ordinary and circular **component** formulas have complete audited
 mathematical proofs but are **not yet complete Lean theorems**.
 
-Verified partition/mountain increment atop pushed checkpoint `ee8eb02`:
-actual DAG ordered-partition evaluation, both fixed-level cancellation cases,
-ordered conjugation coefficients, and actual HRV partition identification.
-Full library: **1980 jobs**; **2337 axiom entries**, standard axioms only.
-`ee8eb02` contains the ordinary color-product pairing and negative-cycle
-cancellation (1973 jobs, 2293 axiom entries), independently audited by Luna.
+Verified full partition/coefficient increment atop pushed `e63e21b`:
+`PartitionConnectivity.signedSum_eq_weakComponentCount` completes Lemma A;
+`GainCoefficientCancellation.sum_powerset_cyclicNegative_eq_zero_of_gain_excess`
+proves abstract (**′**). Astra independently audited actual source and found
+no defect; optional support, edge multiplicities, repetitions and signs are explicit.
+Full library: **1987 jobs**, **2382 axiom entries**, standard axioms only.
+Earlier pushed checkpoints: `ee8eb02` (actual color-product pairing and negative-cycle
+cancellation), `e63e21b` (DAG partition evaluation, level cancellation, HRV blocks).
 
 Validation logs are under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-continuation/`:
-`partition-mountain-library-build.log` and `partition-mountain-axioms.log`.
+`coefficient-library-build.log` and `coefficient-axioms.log`.
 All builds use the pinned Lean 4.34.0 / Mathlib
 `5ed2965256430c3649e86755f9576b54eca72435` through `lake-workspace`.
 No placeholders, custom axioms, unchecked native proofs or local package/build
@@ -34,31 +36,19 @@ Primary additionally owns `Components/ColorProductPairing.lean`, the ordinary
 product/subword reindexing and strict-enumerator pairing (now verified), and
 `Components/GainLevels.lean`, level-compatible edge insertion and cancellation,
 and `Components/SquarefreeProducts.lean`, repeated-index product vanishing.
+Primary also owns `Components/PartitionLevels.lean`, the actual partition-level adapter,
+and `Components/GainCoefficientCancellation.lean`, signed partition/coefficient cancellation.
 
 Current authorized build-free assignments:
 
-- Astra returned `Components/GainScaling.lean`; primary now owns its validation.
-- Luna returned `Components/ColoringSubwords.lean`; primary now owns validation.
-- Luna returned `Components/ColorProductPositions.lean`; primary now owns validation.
-
-New tandem assignments (all build-free, disjoint):
-- Astra returned `Components/OrderedPartitions.lean`; primary owns validation of
-  finite partitions and top-block signed recursion. This is not yet Lemma A.
-- Luna returned `Components/GainNegativeCancellation.lean`; primary owns validation.
-- Astra returned `Components/OrderedPartitionDAG.lean`; primary owns validation
-  of DAG signed-sum evaluation (now locally verified).
-- Astra `component_review`: only `Components/PartitionCondensation.lean`, transport
-  actual compatible partitions through the reachability antisymmetrization.
-- Luna returned `Components/MountainWords.lean`; primary verified its maximum
-  insertion and direct cancellation.
-- Luna returned `Components/HRVPartition.lean`; primary owns validation of
-  ordered unique-sink blocks as actual HRV fibers.
-- Luna returned `Components/ConjugationSubwords.lean`; primary owns validation
-  of finite ordered conjugation expansion before overlap elimination.
-- Luna returned `Components/MountainCoefficients.lean`; primary owns validation
-  of double-subword coefficients before overlap elimination (locally verified).
-- Luna `word_swaps`: only `Components/SubwordSubsets.lean`, reindex nodup-list
-  subwords by subsets using the original-order filter.
+- Astra `component_review`: only `Components/GainContraction.lean`, balanced
+  potentials, weak-block contraction retaining edge instances, potential differences.
+- Luna `word_covers`: only `Components/MountainExpansion.lean`, remove overlap
+  and identify adPow with the ordered signed mountain-subset sum.
+- Luna returned `Components/MountainSubsetCoefficients.lean`; primary owns validation.
+- All other candidate files were returned and integrated by primary. No build
+  slot was transferred. Luna's subword filter length lemma needed an explicit
+  nodup premise; primary added it before successful compilation.
 
 All earlier candidate files were returned and adopted by primary. No build
 slot was transferred. No new account, supervisor worker or worktree was started.
@@ -76,10 +66,11 @@ git -c url.https://github.com/.insteadOf=git@github.com: \
   -c credential.helper='!gh auth git-credential' push origin main
 ```
 
-Integrated verified increment: `OrderedPartitions`, `OrderedPartitionDAG`,
-`GainLevels`, `MountainWords`, `ConjugationSubwords`, `MountainCoefficients`,
-`HRVPartition`. Condensation, subset reindexing and overlap vanishing are
-separate active candidates and are not part of this verified checkpoint.
+Integrated verified source includes the partition condensation/connectivity and
+level adapters, abstract gain coefficient cancellation, overlap vanishing and
+subset reindexing ingredients. Full contracted per-F and W recurrence bridges
+remain open. A false-positive Luna audit conflated GainLevels with GainSlack;
+it was explicitly retracted after rereading current source. See the review-grounding suggestion.
 
 ## Verified component foundations
 
@@ -109,6 +100,14 @@ All paths below are under `VerticalStripLLT/Components/`.
   `componentScalarEval_cauchyProduct` transfers this via the ordered Cauchy identity.
   `ColoringSubwords` and `ColorProductPositions` prove full-subword/coloring
   bijectivity, weights and ordering, including empty cases.
+- `PartitionCondensation` transports the actual finite partition sum to the
+  strong-component quotient. `PartitionConnectivity.signedSum_eq_weakComponentCount`
+  completes Lemma A, including loops and isolated vertices.
+- `PartitionLevels` relates this enumeration to finite level assignments.
+  `GainCoefficientCancellation.sum_powerset_cyclicNegative_eq_zero_of_gain_excess`
+  proves the abstract (**′**) sign (-1)^(|J|+c(A∪J)). Astra independently audited
+  current source: no defect, exact optional support/repetitions preserved. This
+  does not yet instantiate actual balanced-F contractions or prove W's recurrence.
 - `OrderedPartitions` enumerates actual compatible nonempty top-first blocks,
   proves completeness and the signed top-block recursion. `OrderedPartitionDAG`
   evaluates their actual signed sum for every acyclic relation, including empty sets.
@@ -161,11 +160,13 @@ Circular track:
 
 1. Scaling and negative-cycle cancellation (Lemma X) are complete in
    `GainScaling` and `GainNegativeCancellation`.
-2. Finish the signed ordered-partition identity via strong-component condensation.
-   Its DAG evaluation and each fixed-level negative-cycle cancellation are verified.
-   Then define contracted canonical coefficients, their deletion recurrence,
-   and edge-count induction.
-3. Integrate finite tight-edge flip reconstruction and prove whole-component
+2. The full signed ordered-partition identity and abstract gain coefficient
+   cancellation (**′**) now compile; Astra independently audited them. Apply them
+   to each actual balanced-F contraction: potential independence, weak-component
+   preservation, excess transport, optional-subset reindexing and constant signs.
+3. Supply the balanced base case, an excess/deletion witness for each unbalanced
+   set, the actual signed deletion recurrence for W, and edge-count induction.
+4. Integrate finite tight-edge flip reconstruction and prove whole-component
    isolation using identical contracted gain graphs.
 
 These are remaining Lean obligations, not remaining mathematical conjectures.

@@ -101,8 +101,8 @@ identity, the first half of the ordered mountain expansion. Its coefficients
 are `(-1)^k adPow A u k`; identifying the signed ordered-subset expansion with
 individual mountain words is still required. `ConjugationSubwords` and
 `MountainCoefficients` provide the explicit ordered double-subword expansion
-and its degree coefficient. Overlap vanishing and disjoint-subset reindexing
-remain to connect it to the single-block cancellation. `MountainWords` proves
+and its degree coefficient. `SquarefreeProducts` proves overlap vanishing; `SubwordSubsets` and
+`DisjointSubsetSums` prove the finite reindexing ingredients needed to connect it to the single-block cancellation. `MountainWords` proves
 the maximum-insertion identity and the local cancellation in that notation.
 `HRVPartition` identifies ordered covering blocks with unique induced sinks
 and nondecreasing owners along selected edges as the actual HRV fibers; the
@@ -131,8 +131,22 @@ and positive-excess hypotheses. Choosing M>|Nsteps| preserves positive excess.
 edge toggle or the balanced-endpoint argument, including the optional-support
 hypothesis. `OrderedPartitions` enumerates actual top-first block partitions and
 proves the signed top-block recursion. `OrderedPartitionDAG.signedSum_eq_of_acyclic`
-proves the full DAG evaluation, including the empty set. The strong-component
-condensation reduction and contracted coefficient assembly remain required.
+proves the full DAG evaluation, including the empty set. `PartitionCondensation` transports the same partition lists through strong
+components. `PartitionConnectivity.signedSum_eq_weakComponentCount` completes
+Lemma A for arbitrary finite relations. `PartitionLevels` gives the exact
+level interpretation and a common finite family for exchanging sums.
+`GainCoefficientCancellation.sum_powerset_cyclicNegative_eq_zero_of_gain_excess`
+then proves the abstract contracted-gain cancellation (**′**), with negative
+cycles, total cyclicity and the actual weak-component sign. Astra audited
+this complete intermediate statement, including exact optional support and
+repeated edge steps.
+
+To reach the full companion, the remaining steps include balanced-F
+contraction and potential independence, weak-count preservation, excess and
+subset transport, the balanced coefficient base case, an excess/deletion
+witness for every unbalanced selected set, the actual signed deletion recurrence
+for W, and edge-count induction. Whole-component isolation and compatible-lift
+transport remain separate semantic obligations.
 
 `ComponentWords` now defines the guarded count on the actual complete component
 and extends it linearly. It proves vanishing for repeated, missing, or wrong-length
@@ -217,3 +231,21 @@ public lemma: `Diagram.length_le_of_strict_same_tail` in
 ab being strict. The shorter length of bc relative to ac at the same head
 rules out bc being a corner directly. `ShortEdges` derives normality from these
 facts; the final four-term theorem does not postulate it.
+
+## Contracted coefficient representation
+
+Use the existing `GainData V E` for raw integer lengths (positivity is an
+explicit hypothesis where needed). `GainData.selectedRelation F` is the relation
+of F alone. Its `Relation.EqvGen` quotient gives the weak F blocks. A balanced
+potential p:V→ℤ satisfies p(head e)-p(tail e)=gain e on F.
+Contract to `GainData (weakBlock F) E`, retaining the original edge type E,
+with quotient endpoints and adjusted gain gain e-(p(head e)-p(tail e)); select
+exactly X\F. Do not use `EdgeData.selected` for F alone, since it includes
+all strict edges. A circular orientation's full selected set is D.strict∪θ.val.
+
+Two balanced potentials differ by a constant on each weak F block. This
+will supply gauge invariance of contracted cycle gains. Define coefficient
+goodness by existence of a balanced potential, then prove independence;
+no arbitrary potential choice should enter a mathematical statement silently.
+The internal parity product (-1)^c(F)·(-1)^c(X) can avoid natural-subtraction
+bookkeeping, with a separate proof of the paper's subtraction exponent.
