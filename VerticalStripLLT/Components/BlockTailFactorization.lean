@@ -108,11 +108,11 @@ theorem flattenedTailCompatibilitySum_eq_of_cross
       if (∀ Br ∈ blocks, ∀ u ∈ Br.1, sinkOn R Br.1 u ↔ u = Br.2) ∧
         blocks.Pairwise (carrierRel R) then 1
       else 0 := by
-  rw [flattenedTailCompatibilitySum_eq_rootedBlockListSum_of_factor R blocks hcross
-    (fun B r blocks' hcross' T hT tails =>
-      flattenedTailCompatibilityIndicator_cons_factor R B r blocks' hcross' T hT tails),
-    rootedBlockListSum_eq_uniqueSinks R hinc blocks hroot]
-  simp only [hcross, and_true]
+  have hc : blocks.Pairwise (fun B C => ∀ u ∈ B.1, ∀ v ∈ C.1, ¬ R v u) := hcross
+  simpa only [hcross, hc, and_true] using
+    flattenedTailCompatibilitySum_eq_of_cross_factor R hinc blocks hroot hcross
+      (fun B r blocks' hcross' T hT tails =>
+        flattenedTailCompatibilityIndicator_cons_factor R B r blocks' hcross' T hT tails)
 
 end
 

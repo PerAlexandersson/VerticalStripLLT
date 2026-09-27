@@ -18,9 +18,8 @@ variable (hstrict : D.strict = ∅)
 /-- The ordinary orientation map is injective before restricting to components. -/
 theorem orientationFromCompatible_injective :
     Function.Injective (D.orientationFromCompatible q σ hmono hq hstrict) := by
-  intro η ζ h
-  have := congrArg (D.orientationToCompatible q σ hmono) h
-  simpa only [D.orientationToCompatible_fromCompatible] using this
+  exact Function.LeftInverse.injective
+    (D.orientationToCompatible_fromCompatible q σ hmono hq hstrict)
 
 theorem orientationFromCompatible_hrvMonomial
     (η : Orientation (D.compatibleDiagram q σ hmono)) :
@@ -66,27 +65,19 @@ theorem componentStrictEnumerator_eq_preimage_sum (θ : Orientation D)
     componentStrictEnumerator D θ m =
       ∑ η ∈ D.compatibleComponentPreimage q σ hmono hq hstrict θ,
         (D.compatibleDiagram q σ hmono).edgeData.strictOrderEnumerator η.val m := by
-  unfold componentStrictEnumerator
-  rw [← D.compatibleComponentPreimage_image q σ hmono hq hstrict θ hp]
-  rw [Finset.sum_image]
-  · apply Finset.sum_congr rfl
-    intro η _
-    exact D.orientationFromCompatible_strictOrderEnumerator q σ hmono hq hstrict η m
-  · intro η _ ζ _ h
-    exact D.orientationFromCompatible_injective q σ hmono hq hstrict h
+  simp only [componentStrictEnumerator,
+    ← D.compatibleComponentPreimage_image q σ hmono hq hstrict θ hp,
+    Finset.sum_image (D.orientationFromCompatible_injective q σ hmono hq hstrict).injOn,
+    D.orientationFromCompatible_strictOrderEnumerator]
 
 theorem componentHRV_eq_preimage_sum (θ : Orientation D)
     (hp : D.naturalGain.BalancedPotential (D.strict ∪ θ.val) q) :
     componentHRV D θ =
       ∑ η ∈ D.compatibleComponentPreimage q σ hmono hq hstrict θ, η.hrvMonomial := by
-  unfold componentHRV
-  rw [← D.compatibleComponentPreimage_image q σ hmono hq hstrict θ hp]
-  rw [Finset.sum_image]
-  · apply Finset.sum_congr rfl
-    intro η _
-    exact D.orientationFromCompatible_hrvMonomial q σ hmono hq hstrict η
-  · intro η _ ζ _ h
-    exact D.orientationFromCompatible_injective q σ hmono hq hstrict h
+  simp only [componentHRV,
+    ← D.compatibleComponentPreimage_image q σ hmono hq hstrict θ hp,
+    Finset.sum_image (D.orientationFromCompatible_injective q σ hmono hq hstrict).injOn,
+    D.orientationFromCompatible_hrvMonomial]
 
 end
 

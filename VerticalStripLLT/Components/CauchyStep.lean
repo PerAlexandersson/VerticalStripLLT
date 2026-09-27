@@ -64,14 +64,10 @@ theorem colorProduct_succ_prefix (u : ℕ → R) (n : ℕ)
     (xs : List R) (hxs : ∀ t ∈ xs, ∀ Y : R, Commute t Y) :
     colorProduct u xs (n + 1) =
       (1 + prefixPeakCorrection u n xs) * colorProduct u xs n := by
-  revert hxs
   induction xs with
-  | nil => intro _; simp
+  | nil => simp
   | cons t xs ih =>
-    intro hxs
-    have ht : ∀ Y : R, Commute t Y := hxs t List.mem_cons_self
-    have htail : ∀ s ∈ xs, ∀ Y : R, Commute s Y :=
-      fun s hs => hxs s (List.mem_cons_of_mem _ hs)
+    obtain ⟨ht, htail⟩ := List.forall_mem_cons.mp hxs
     let D := descendingProduct u t n
     let I := inverseProduct u t n
     let P := prefixPeakCorrection u n xs
@@ -132,15 +128,10 @@ theorem elementaryScalar_eq_zero_of_length_lt (xs : List R) (k : ℕ)
 theorem elementaryScalar_commute (xs : List R)
     (hxs : ∀ t ∈ xs, ∀ Y : R, Commute t Y) (k : ℕ) (Y : R) :
     Commute (elementaryScalar xs k) Y := by
-  revert k
-  revert hxs
-  induction xs with
-  | nil => intro _ k; cases k <;> simp [elementaryScalar]
+  induction xs generalizing k with
+  | nil => cases k <;> simp [elementaryScalar]
   | cons t xs ih =>
-    intro hxs k
-    have ht : ∀ Z : R, Commute t Z := hxs t List.mem_cons_self
-    have htail : ∀ s ∈ xs, ∀ Z : R, Commute s Z :=
-      fun s hs => hxs s (List.mem_cons_of_mem _ hs)
+    obtain ⟨ht, htail⟩ := List.forall_mem_cons.mp hxs
     cases k with
     | zero => exact Commute.one_left Y
     | succ k =>
@@ -156,14 +147,10 @@ theorem prefixPeakCorrection_eq_sum (u : ℕ → R) (n : ℕ)
     prefixPeakCorrection u n xs =
       ∑ k ∈ Finset.range xs.length,
         elementaryScalar xs (k + 1) * adPow (letterSum u n) (u n) k := by
-  revert hxs
   induction xs with
-  | nil => intro _; simp
+  | nil => simp
   | cons t xs ih =>
-    intro hxs
-    have ht : ∀ Y : R, Commute t Y := hxs t List.mem_cons_self
-    have htail : ∀ s ∈ xs, ∀ Y : R, Commute s Y :=
-      fun s hs => hxs s (List.mem_cons_of_mem _ hs)
+    obtain ⟨ht, htail⟩ := List.forall_mem_cons.mp hxs
     let A := letterSum u n
     let D := descendingProduct u t n
     let I := inverseProduct u t n

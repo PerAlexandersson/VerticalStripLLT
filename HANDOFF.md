@@ -29,13 +29,15 @@ The original ordinary and aggregate circular LLT theorems remain complete.
 
 ## Verification
 
-Final full library: **2074 jobs**. Final axiom inventory: **2800 entries**, only
+Current full library: **2074 jobs**. Current axiom inventory: **2803 entries**, only
 `propext`, `Classical.choice` and `Quot.sound`. No placeholders, custom axioms
-or unchecked native proofs. Source guards, four new modules' 100-column checks
-and `git diff --check` pass. Existing linter/deprecation warnings remain.
+or unchecked native proofs. Source guards, edited modules' 100-column checks,
+public-header preservation and `git diff --check` pass. Existing linter/deprecation warnings remain.
 Pinned Lean 4.34.0 / Mathlib `5ed2965256430c3649e86755f9576b54eca72435`.
 
-Logs under `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-continuation/`:
+Current streamlining logs: `streamlining-audit/library-build.log` and
+`streamlining-audit/axioms.log` under the project request cache. Original completion
+logs under `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-continuation/`:
 
 - `hrv-scan-extraction-build.log`: Claude candidate, first local build passes.
 - `component-positive-build.log`: Luna positivity candidate passes.
@@ -52,8 +54,9 @@ Academic restart retained `/workspace/lean/VerticalStripLLT`, branch `main`.
 Primary owns all integrated source, docs and the sole serialized Lean build slot.
 No auxiliary build or implementation process remains active. All Astra/Luna
 assignments are released. The explicitly authorized nested Claude consultant
-completed normally, using only file tools and editing only
-`Components/HRVScanExtraction.lean`; primary locally verified its candidate.
+completed normally. The implementation consultant edited only
+`Components/HRVScanExtraction.lean`; the later streamlining consultant was
+read-only. Primary locally verified all integrated candidates.
 No new account, worktree or supervisor worker was started.
 
 Before any future build, inspect Lean/Lake processes across all projects.
@@ -121,3 +124,30 @@ Source widths, unchanged public headers, relative documentation links and
 Proof-cleanup checkpoint: `7e9e31b`. The accompanying documentation checkpoint
 adds Challenge.lean/CHALLENGE.md, the short README and the organized research
 catalogue. All cleanup assignments are released; no owned process remains active.
+
+## Second streamlining pass: complete
+
+User requested further proof golf, useful shared lemmas and a Claude audit.
+Baseline: clean main `a8fdacd`. Primary owned all 13 edited component modules,
+Verification.lean and accompanying documentation. No account, worktree or
+supervisor worker changed. All implementation and review assignments are released.
+
+The read-only Claude audit completed normally (20-minute monitored cap,
+Read/Glob/Grep only, no compiler or write access). Primary implemented its five
+recommendations plus circular grouping simplifications. Independent Astra review
+found no semantic or public-signature regression. See
+[the streamlining audit](docs/PROOF_STREAMLINING.md) for decisions and reusable
+helpers. Source length falls from 1845 to 1731 lines across 13 modules; every
+existing public header is preserved. The helpers have two, two and six uses.
+
+All edited modules passed focused builds, followed by the full 2074-job build
+and 2803-entry axiom inventory (standard axioms only). The tail wrapper requires
+an explicit expanded carrier-predicate hypothesis to simplify both conditionals;
+the cancellation rewrite requires an explicit summand. Source guards, 100-column
+checks, documentation links and diff checks pass. No runtime speedup is claimed.
+
+Logs: `/lake-cache/ai-projects/requests/VerticalStripLLT/streamlining-audit/`:
+`claude-audit-result.md`, `component-grouping-build.log`,
+`claude-recommendations-build-5.log`, `library-build.log`, `axioms.log`.
+Builds were serialized around the other project's work. All owned compiler,
+consultant and wait processes finished. No further cleanup is queued.

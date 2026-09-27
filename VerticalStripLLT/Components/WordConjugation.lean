@@ -44,6 +44,11 @@ def inverseProduct (u : ℕ → R) (t : R) : ℕ → R
 @[simp] theorem inverseProduct_succ (u : ℕ → R) (t : R) (n : ℕ) :
     inverseProduct u t (n + 1) = inverseProduct u t n * (1 - t * u n) := rfl
 
+/-- Move a central scalar past the left factor of an associated product. -/
+theorem mul_central_left_comm {t : R} (ht : ∀ x : R, Commute t x) (x c : R) :
+    x * (t * c) = t * (x * c) := by
+  exact ((ht x).left_comm c).symm
+
 section
 
 variable (u : ℕ → R) (t : R)
@@ -52,9 +57,9 @@ variable (u : ℕ → R) (t : R)
 private theorem conj_one_add_central {a Y : R} (ht : ∀ x : R, Commute t x)
     (h : a * Y * a = 0) :
     (1 + t * a) * Y * (1 - t * a) = Y + t * (a * Y - Y * a) := by
-  have hl : ∀ x c, x * (t * c) = t * (x * c) := fun x c => ((ht x).left_comm c).symm
   have h' : a * (Y * a) = 0 := by rw [← mul_assoc, h]
-  simp only [mul_add, add_mul, mul_sub, mul_one, one_mul, mul_assoc, hl, h', mul_zero]
+  simp only [mul_add, add_mul, mul_sub, mul_one, one_mul, mul_assoc,
+    mul_central_left_comm ht, h', mul_zero]
   noncomm_ring
 
 private theorem triple_letterSum
@@ -79,26 +84,21 @@ theorem descendingProduct_mul_inverseProduct
     (ht : ∀ x : R, Commute t x)
     (squarefree : ∀ i (Y : R), u i * Y * u i = 0) (n : ℕ) :
     descendingProduct u t n * inverseProduct u t n = 1 := by
-  have hl : ∀ x c, x * (t * c) = t * (x * c) := fun x c => ((ht x).left_comm c).symm
   induction n with
   | zero => simp
   | succ n ih =>
-    have hvv : u n * u n = 0 := by simpa using squarefree n 1
     calc descendingProduct u t (n + 1) * inverseProduct u t (n + 1)
         = (1 + t * u n) * (descendingProduct u t n * inverseProduct u t n) * (1 - t * u n) := by
           simp only [descendingProduct_succ, inverseProduct_succ, mul_assoc]
-      _ = 1 - t * (t * (u n * u n)) := by
-          rw [ih, mul_one]
-          simp only [mul_add, add_mul, mul_sub, mul_one, one_mul, mul_assoc, hl]
-          noncomm_ring
-      _ = 1 := by rw [hvv, mul_zero, mul_zero, sub_zero]
+      _ = 1 := by
+          rw [ih, conj_one_add_central t ht (squarefree n 1)]
+          simp
 
 /-- `inverseProduct u t n * descendingProduct u t n = 1`. -/
 theorem inverseProduct_mul_descendingProduct
     (ht : ∀ x : R, Commute t x)
     (squarefree : ∀ i (Y : R), u i * Y * u i = 0) (n : ℕ) :
     inverseProduct u t n * descendingProduct u t n = 1 := by
-  have hl : ∀ x c, x * (t * c) = t * (x * c) := fun x c => ((ht x).left_comm c).symm
   induction n with
   | zero => simp
   | succ n ih =>
@@ -108,7 +108,8 @@ theorem inverseProduct_mul_descendingProduct
           simp only [descendingProduct_succ, inverseProduct_succ, mul_assoc]
       _ = inverseProduct u t n * (1 - t * (t * (u n * u n))) * descendingProduct u t n := by
           congr 2
-          simp only [mul_add, mul_sub, sub_mul, mul_one, one_mul, mul_assoc, hl]
+          simp only [mul_add, mul_sub, sub_mul, mul_one, one_mul, mul_assoc,
+            mul_central_left_comm ht]
           noncomm_ring
       _ = 1 := by rw [hvv, mul_zero, mul_zero, sub_zero, mul_one, ih]
 
@@ -121,7 +122,6 @@ theorem descendingProduct_conj
     (n k : ℕ) (hk : n ≤ k) :
     descendingProduct u t n * u k * inverseProduct u t n
       = u k + t * (letterSum u n * u k - u k * letterSum u n) := by
-  have hl : ∀ x c, x * (t * c) = t * (x * c) := fun x c => ((ht x).left_comm c).symm
   induction n with
   | zero => simp
   | succ n ih =>
@@ -137,7 +137,7 @@ theorem descendingProduct_conj
       _ = Y + t * ((u n * u k - u k * u n) + t * (u n * C - C * u n)) := by
           congr 2
           rw [hY]
-          simp only [mul_add, add_mul, mul_sub, mul_assoc, hl]
+          simp only [mul_add, add_mul, mul_sub, mul_assoc, mul_central_left_comm ht]
           noncomm_ring
       _ = u k + t * (letterSum u (n + 1) * u k - u k * letterSum u (n + 1)) := by
           rw [hC0, mul_zero, add_zero, hY, hC, letterSum_succ]
@@ -151,7 +151,6 @@ theorem letterSum_commute_descendingProduct
       u i * (u j * u k - u k * u j) - (u j * u k - u k * u j) * u i = 0)
     (n : ℕ) :
     Commute (letterSum u n) (descendingProduct u t n) := by
-  have hl : ∀ x c, x * (t * c) = t * (x * c) := fun x c => ((ht x).left_comm c).symm
   induction n with
   | zero => simp
   | succ n ih =>
@@ -171,8 +170,8 @@ theorem letterSum_commute_descendingProduct
     show (letterSum u (n + 1)) * descendingProduct u t (n + 1)
       = descendingProduct u t (n + 1) * letterSum u (n + 1)
     rw [letterSum_succ, descendingProduct_succ, ← hA, ← hD, ← hv]
-    simp only [add_mul, mul_add, mul_sub, sub_mul, one_mul, mul_assoc, hl, hDA, hDv, hvv,
-      hvAv, mul_zero]
+    simp only [add_mul, mul_add, mul_sub, sub_mul, one_mul, mul_assoc,
+      mul_central_left_comm ht, hDA, hDv, hvv, hvAv, mul_zero]
     noncomm_ring
 
 /-- Iterated commutator `ad_A^r(Y)`, built from the local commutator `comm`. -/
@@ -213,8 +212,7 @@ theorem descendingProduct_conj_adPow
       noncomm_ring
     rw [e, ih]
     simp only [adPow, comm, ← hX]
-    have hl : ∀ x c, x * (t * c) = t * (x * c) := fun x c => ((ht x).left_comm c).symm
-    simp only [mul_add, add_mul, mul_sub, sub_mul, mul_assoc, hl]
+    simp only [mul_add, add_mul, mul_sub, sub_mul, mul_assoc, mul_central_left_comm ht]
     noncomm_ring
 
 end

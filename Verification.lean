@@ -2898,3 +2898,8 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_orientation_sum
 #print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_eval
 #print axioms VerticalStripLLT.Circular.component_weighted_e_positive
+
+-- Shared helpers from the independent streamlining audit.
+#print axioms VerticalStripLLT.Circular.componentClass_mk_eq_iff_mem
+#print axioms VerticalStripLLT.Components.mountainScan_succ_of_lt
+#print axioms VerticalStripLLT.Components.mul_central_left_comm

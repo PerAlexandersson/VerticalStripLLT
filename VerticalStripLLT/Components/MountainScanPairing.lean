@@ -48,7 +48,7 @@ theorem linearEval_cauchyProduct {n : ℕ}
     rw [← mul_assoc, mul_add, mul_one, add_mul, map_add]
     simp only [Finset.mul_sum, Finset.sum_mul, map_sum]
     simp_rw [linearEval_prefix_weightedWord]
-    simp only [mountainScan, dif_pos hkn]
+    rw [mountainScan_succ_of_lt (elementaryScalar xs) hkn]
     rw [ih p hkle]
     congr 1
     apply Finset.sum_congr rfl

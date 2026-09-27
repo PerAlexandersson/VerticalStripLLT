@@ -34,6 +34,15 @@ def mountainScan (a : ℕ → K) (n : ℕ) :
 theorem mountainScan_zero (a : ℕ → K) (n : ℕ)
     (f : List (Fin n) → K) : mountainScan a n 0 f = f [] := rfl
 
+/-- The literal scan recursion below the alphabet size. -/
+theorem mountainScan_succ_of_lt (a : ℕ → K) {n k : ℕ} (hk : k < n)
+    (f : List (Fin n) → K) :
+    mountainScan a n (k + 1) f = mountainScan a n k f +
+      ∑ B ∈ (Finset.univ.filter (fun v : Fin n => v.val < k)).powerset, ∑ T ∈ B.powerset,
+        a (B.card + 1) * (-1 : K) ^ T.card *
+          mountainScan a n k (fun w => f (blockWord (insert ⟨k, hk⟩ B) T ++ w)) := by
+  simp only [mountainScan, dite_eq_left hk]
+
 theorem mountainScan_congr (a : ℕ → K) (n k : ℕ)
     {f g : List (Fin n) → K} (hfg : ∀ w, f w = g w) :
     mountainScan a n k f = mountainScan a n k g := by

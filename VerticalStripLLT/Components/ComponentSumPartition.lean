@@ -40,23 +40,18 @@ theorem componentWeight_mk (γ θ : Orientation D) :
       componentCoefficient D γ θ := by
   simp [componentWeight]
 
+/-- Membership in a quotient class is membership in its representative's full component. -/
+theorem componentClass_mk_eq_iff_mem (q : componentClass D) (θ : Orientation D) :
+    Quotient.mk (componentSetoid D) θ = q ↔ θ ∈ flipComponent D q.out := by
+  rw [Quotient.mk_eq_iff_out, mem_flipComponent_iff]
+  change Relation.ReflTransGen (Flip D) θ q.out ↔ Relation.ReflTransGen (Flip D) q.out θ
+  exact ⟨flip_reachable_symm, flip_reachable_symm⟩
+
 private theorem componentClass_fiber_eq_flipComponent (q : componentClass D) :
     Finset.univ.filter (fun θ : Orientation D =>
       Quotient.mk (componentSetoid D) θ = q) = flipComponent D q.out := by
   ext θ
-  constructor
-  · intro h
-    have hq := (Finset.mem_filter.mp h).2
-    have hrel := Quotient.mk_eq_iff_out.mp hq
-    change Relation.ReflTransGen (Flip D) θ q.out at hrel
-    exact mem_flipComponent_iff.mpr (flip_reachable_symm hrel)
-  · intro h
-    have hrel := mem_flipComponent_iff.mp h
-    apply Finset.mem_filter.mpr
-    refine ⟨Finset.mem_univ _, ?_⟩
-    apply Quotient.mk_eq_iff_out.mpr
-    change Relation.ReflTransGen (Flip D) θ q.out
-    exact flip_reachable_symm hrel
+  simp only [Finset.mem_filter, Finset.mem_univ, true_and, componentClass_mk_eq_iff_mem]
 
 /-- The orientation sum groups by the complete circular flip components. -/
 theorem sum_componentCoefficient_smul {M : Type*} [AddCommGroup M]

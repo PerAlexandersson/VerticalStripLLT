@@ -19,7 +19,7 @@ independently. Their equality is proved for every finite alphabet, including
 the empty alphabet. The circular diagram model requires a positive vertex count.
 The component result uses the finite strict/e convention.
 
-**Verified:** 2,074 build jobs and 2,800 axiom inventory entries; only
+**Verified:** 2,074 build jobs and 2,803 axiom inventory entries; only
 `propext`, `Classical.choice` and `Quot.sound`. No proof placeholders or custom axioms.
 
 ## Build

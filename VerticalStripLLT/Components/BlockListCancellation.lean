@@ -41,15 +41,7 @@ theorem signedTailSum_congr (R : V → V → Prop)
     (blocks : List (Finset V × V)) {f g : List (Finset V) → ℤ}
     (hfg : ∀ tails, f tails = g tails) :
     signedTailSum R blocks f = signedTailSum R blocks g := by
-  induction blocks generalizing f g with
-  | nil => exact hfg []
-  | cons Br blocks ih =>
-      simp only [signedTailSum]
-      apply Finset.sum_congr rfl
-      intro T hT
-      rw [ih]
-      intro tails
-      exact hfg (T :: tails)
+  exact congrArg (signedTailSum R blocks) (funext hfg)
 
 theorem signedTailSum_smul (R : V → V → Prop)
     (blocks : List (Finset V × V)) (c : ℤ) (f : List (Finset V) → ℤ) :
@@ -72,31 +64,10 @@ theorem signedTailSum_cons_factor (R : V → V → Prop)
     signedTailSum R ((B, r) :: blocks) f =
       (∑ T ∈ (B.erase r).powerset, (-1 : ℤ) ^ T.card * k T) *
         signedTailSum R blocks g := by
-  simp only [signedTailSum]
-  calc
-    (∑ T ∈ (B.erase r).powerset,
-        (-1 : ℤ) ^ T.card *
-          signedTailSum R blocks (fun tails => f (T :: tails))) =
-        ∑ T ∈ (B.erase r).powerset,
-          (-1 : ℤ) ^ T.card *
-            signedTailSum R blocks (fun tails => k T * g tails) := by
-      apply Finset.sum_congr rfl
-      intro T hT
-      rw [signedTailSum_congr R blocks]
-      intro tails
-      rw [hfactor T hT tails]
-    _ = ∑ T ∈ (B.erase r).powerset,
-          (-1 : ℤ) ^ T.card *
-            (k T * signedTailSum R blocks g) := by
-      apply Finset.sum_congr rfl
-      intro T hT
-      rw [signedTailSum_smul]
-    _ = (∑ T ∈ (B.erase r).powerset, (-1 : ℤ) ^ T.card * k T) *
-          signedTailSum R blocks g := by
-      rw [Finset.sum_mul]
-      apply Finset.sum_congr rfl
-      intro T hT
-      ring
+  rw [signedTailSum, Finset.sum_mul]
+  apply Finset.sum_congr rfl
+  intro T hT
+  rw [signedTailSum_congr R blocks (hfactor T hT), signedTailSum_smul, mul_assoc]
 
 /-- The flattened compatibility indicator on a complete tail list.  Invalid
 tail lists contribute zero, which makes pointwise factorization hypotheses

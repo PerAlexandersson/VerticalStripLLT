@@ -22,6 +22,7 @@ The component result is the finite strict/e identity on actual complete componen
 ## Challenges, notes and provenance
 
 - [Challenge](../CHALLENGE.md): a precise target for a shorter proof.
+- [Streamlining audit](PROOF_STREAMLINING.md): shared lemmas and the second cleanup pass.
 - [Research catalogue](RESEARCH_NOTES.md): detailed notes, alternative routes,
   counterexamples and archived work. Historical open claims are not current blockers.
 - [Restricted recurrence audit](RESTRICTED_BOUNCE_AUDIT.md): an unused, separate open claim.

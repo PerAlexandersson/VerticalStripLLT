@@ -91,39 +91,24 @@ theorem signed_blockContinuation
         (∀ v ∈ B, sinkOn R B v ↔ v = r) then 1 else 0) := by
   let rest : Prop := B ⊆ S ∧ fullOn (S \ B) w ∧ wordCompatible R w ∧
     ∀ x ∈ S \ B, ∀ y ∈ B, ¬ R x y
-  have heq :
-      (∑ T ∈ (B.erase r).powerset, (-1 : ℤ) ^ T.card *
-        if fullOn S (blockWord B T ++ w) ∧ wordCompatible R (blockWord B T ++ w)
-          then 1 else 0) =
-      (if rest then
-        ∑ T ∈ (B.erase r).powerset, (-1 : ℤ) ^ T.card *
-          if wordCompatible R (blockWord B T) then 1 else 0
-      else 0) := by
-    by_cases hrest : rest
-    · rw [if_pos hrest]
-      apply Finset.sum_congr rfl
-      intro T hT
-      have hc : (fullOn S (blockWord B T ++ w) ∧
-          wordCompatible R (blockWord B T ++ w)) ↔ wordCompatible R (blockWord B T) := by
-        rw [fullOn_compatible_blockWord_append_iff R S B T
-          ((Finset.mem_powerset.mp hT).trans (Finset.erase_subset _ _))]
-        dsimp [rest] at hrest
-        grind
-      simp only [hc]
-    · rw [if_neg hrest]
-      apply Finset.sum_eq_zero
-      intro T hT
-      have hnot : ¬(fullOn S (blockWord B T ++ w) ∧
-          wordCompatible R (blockWord B T ++ w)) := by
-        rw [fullOn_compatible_blockWord_append_iff R S B T
-          ((Finset.mem_powerset.mp hT).trans (Finset.erase_subset _ _))]
-        dsimp [rest] at hrest
-        grind
-      simp only [if_neg hnot, mul_zero]
-  rw [heq]
-  simp_rw [blockCancellation_uniqueSink R hinc B r hr hmax]
-  dsimp [rest]
-  split_ifs <;> grind
+  have hsplit : ∀ T ∈ (B.erase r).powerset,
+      (fullOn S (blockWord B T ++ w) ∧ wordCompatible R (blockWord B T ++ w)) ↔
+        rest ∧ wordCompatible R (blockWord B T) := by
+    intro T hT
+    rw [fullOn_compatible_blockWord_append_iff R S B T
+      ((Finset.mem_powerset.mp hT).trans (Finset.erase_subset _ _))]
+    dsimp [rest]
+    grind
+  rw [Finset.sum_congr rfl (g := fun T => (-1 : ℤ) ^ T.card *
+    if rest ∧ wordCompatible R (blockWord B T) then 1 else 0)
+    (fun T hT => by simp only [hsplit T hT])]
+  by_cases hrest : rest
+  · simp only [hrest, true_and, blockCancellation_uniqueSink R hinc B r hr hmax]
+    dsimp [rest] at hrest
+    split_ifs <;> grind
+  · simp only [hrest, false_and, ite_false, mul_zero, Finset.sum_const_zero]
+    dsimp [rest] at hrest
+    split_ifs <;> grind
 
 /-- Scalar extension of the literal signed cancellation. -/
 theorem signed_blockContinuation_scalar {K : Type*} [CommRing K]

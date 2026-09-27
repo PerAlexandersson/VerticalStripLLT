@@ -59,8 +59,6 @@ private theorem inverse_conjugation_recurrence (u : ℕ → R) (t : R)
     rw [mul_sub, sub_mul, ← mul_assoc I A (u n), ← hAI,
       ← mul_assoc I (u n) A, mul_assoc (I * u n) A D, hAD]
     noncomm_ring
-  have hl : ∀ x c, x * (t * c) = t * (x * c) :=
-    fun x c => ((ht x).left_comm c).symm
   have hconj : D * u n * I = u n + t * (A * u n - u n * A) :=
     descendingProduct_conj u t ht squarefree triple n n le_rfl
   change I * u n * D + t * (A * (I * u n * D) - (I * u n * D) * A) = u n
@@ -68,7 +66,7 @@ private theorem inverse_conjugation_recurrence (u : ℕ → R) (t : R)
     I * u n * D + t * (A * (I * u n * D) - (I * u n * D) * A)
         = I * (u n + t * (A * u n - u n * A)) * D := by
           rw [← hc]
-          simp only [mul_add, add_mul, mul_assoc, hl]
+          simp only [mul_add, add_mul, mul_assoc, mul_central_left_comm ht]
     _ = I * (D * u n * I) * D := by rw [hconj]
     _ = u n := by
       calc

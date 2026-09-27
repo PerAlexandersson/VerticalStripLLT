@@ -1,8 +1,8 @@
 # Complete flip-component expansion
 
 The ordinary and full circular component identities are Lean theorems, committed
-in `f355a28`. The final
-library build passes **2074 jobs**, and **2800 axiom inventory entries** use only
+in `f355a28`. After subsequent proof streamlining, the current
+library build passes **2074 jobs**, and **2803 axiom inventory entries** use only
 `propext`, `Classical.choice`, and `Quot.sound`. There are no proof placeholders,
 custom axioms or unchecked native proofs.
 
@@ -104,3 +104,11 @@ The [challenge](../CHALLENGE.md) exposes the same theorem as a target for a shor
 proof. [The research catalogue](RESEARCH_NOTES.md) keeps historical notes separate
 from the current completion status. Cleanup verification logs are under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/post-completion-cleanup/`.
+
+The [second streamlining audit](PROOF_STREAMLINING.md) implements a read-only
+Claude review and an independent Astra semantic review. It removes another
+114 lines across 13 component modules and extracts three shared helpers with
+multiple callers. Existing public declarations are unchanged. The full build
+passes 2074 jobs; the expanded axiom inventory passes 2803 entries with only the
+same three standard axioms. Logs are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/streamlining-audit/`.

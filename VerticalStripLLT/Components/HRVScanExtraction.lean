@@ -46,15 +46,6 @@ private theorem prod_filter_lt_succ (a : ℕ → K) (θ : Orientation D) (k : �
   rw [filter_lt_succ_eq_insert k hk, Finset.prod_insert (mk_notMem_filter_lt k hk)]
   exact mul_comm _ _
 
-/-- The literal scan recursion below the alphabet size. -/
-private theorem mountainScan_succ_of_lt (a : ℕ → K) {k : ℕ} (hk : k < n)
-    (f : List (Fin n) → K) :
-    mountainScan a n (k + 1) f = mountainScan a n k f +
-      ∑ B ∈ (Finset.univ.filter (fun v : Fin n => v.val < k)).powerset, ∑ T ∈ B.powerset,
-        a (B.card + 1) * (-1 : K) ^ T.card *
-          mountainScan a n k (fun w => f (blockWord (insert ⟨k, hk⟩ B) T ++ w)) := by
-  simp only [mountainScan, dite_eq_left hk]
-
 /-- Words below a fixed root cannot enumerate the support containing that root. -/
 private theorem skip_term_eq_zero_of_root (a : ℕ → K) (θ : Orientation D) (k : ℕ)
     (hk : k < n) (hroot : θ.hrv ⟨k, hk⟩ = ⟨k, hk⟩) :
