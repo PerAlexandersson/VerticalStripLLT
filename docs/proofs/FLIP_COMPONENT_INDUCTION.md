@@ -102,7 +102,10 @@ already-proved deletion lemma supplies a semantically identical entire
 component at smaller area. We may remove components inactive at ANY corner,
 not only the corner distinguished by the current DN move. A minimal
 unresolved component is therefore saturated and active at every strict
-corner, with potentially different witnesses for different corners.
+corner. The [corner-difference companion](COMPONENT_CORNER_DIFFERENCES.md)
+strengthens this in the ordinary case: it must contain a state whose selected
+normals together with reversed strict corners are acyclic. In particular,
+one state witnesses all strict covers simultaneously.
 
 For ordinary DN, retain the secondary moment from the
 [completion note](DN_COMPONENT_COMPLETION.md) for area-neutral steps.
@@ -788,69 +791,15 @@ the deleted diagram's transported selection or a relation explicitly filtering
 out e. There is no global equivalence of all target/source orientations;
 reinsertion is justified along the particular component by the proof above.
 
-## Ordinary corner deletion as an exact component quotient
+## Ordinary corner differences and signed deletion recurrence
 
-There is a stronger structural statement in the ordinary case. Let e be a
-strict corner, without requiring it to be redundant. All orientations of D
-identify with orientations of D-e by removing the fixed edge e: all ordinary
-selected relations are acyclic and the normal edge set is unchanged.
-
-Under this identification, the flip graph of D is exactly the flip graph
-of D-e with the valid flips retaining e as their long edge added. The earlier
-corner-interval argument shows that e affects no other natural-edge cover
-test. It cannot be a toggled short edge. Thus all old target flips lift, and
-the only additional source flips are precisely those supported by e.
-
-Contract each COMPLETE component of the smaller diagram to a vertex, and
-keep an edge whenever an e-supported source flip joins two such components.
-The connected components of this quotient graph are exactly the complete
-source components. Exposure of every OTHER strict corner is preserved
-pointwise by deletion. This is an actual graph statement, not a proposed
-matching of local-state tables. It must not be extended to arbitrary circular
-orientations without checking admissibility of reinsertion.
-
-This quotient also gives a useful exact equation for component defects.
-Write Δ_D(A)=K_D(A)−E_D(A), and assume the component identity is proved in
-D-e. Since a complete source component C is a union of complete deletion
-components, we have Σ_(A∈C) Δ_(D-e)(A)=0. Whenever e is redundant,
-Δ_D(A)=Δ_(D-e)(A). Subtracting therefore gives
-
-    Δ_D(C) = Σ_(A∈C, e is a cover) (Δ_D(A)−Δ_(D-e)(A)).
-
-This equation localizes the remaining defect on the cover states without
-asserting that the redundant fragments form components. It is proved for
-ordinary diagrams by the graph quotient above and smaller-area induction.
-Cancellation or recurrence for this boundary sum remains to be established.
-
-For an actual flip supported by e, put B_ij=A_ij-e and
-δ_ij=Δ_D(A_ij)−Δ_(D-e)(B_ij). The source diamond and redundancy in state 11
-give the exact boundary relation
-
-    δ_10+δ_01 = δ_00+Γ,
-    Γ = Δ_(D-e)(B_00)+Δ_(D-e)(B_11)
-        −Δ_(D-e)(B_10)−Δ_(D-e)(B_01).
-
-We must retain Γ. The long edge was removed in D-e, so its four states do
-not inherit the same diamond identity. Smaller-area induction cancels a sum
-of these residuals only after the signed coefficients reconstruct complete
-deletion components. Corner leaf-normalization supplies valid flip paths;
-it does not, by itself, prove this multiplicity statement or make the boundary
-relation telescope. Primary and Astra independently checked the boundary
-equation and this distinction.
-
-For e=(a,a+2), there is only one supporting triangle. Its adjacent short edges
-are automatically covers when selected; e is redundant precisely in state 11.
-The additional quotient edges therefore come from exactly the unconditional
-10-to-01 swaps on those shorts, with arbitrary fixed exterior selection.
-Deleting e makes a+1 an articulation of the natural graph: any other edge
-crossing it would properly contain the maximal corner interval e.
-
-The short edges need not themselves be corners after deletion, so exterior
-flips can change their status. This gives a smaller-block connectivity problem,
-not an independent cube decomposition. Proving the requisite connectivity of
-active quotient classes remains open. The newly proved endpoint/gluing theorem
-in `COMPONENT_ENDPOINT_GLUING.md` supplies the separate block-count aggregate
-identity needed once such structural isolation is established.
+The [corner-difference companion](COMPONENT_CORNER_DIFFERENCES.md) owns the
+ordinary deletion quotient and its boundary diamond. It now proves a signed
+recurrence in ENTIRE smaller components whenever no state covers every strict
+corner simultaneously. A stronger mixed-cycle involution localizes the
+remaining defect on states acyclic after reversing the strict corners.
+The same note proves a relative path-absorption identity and gives an exact
+circular obstruction to extending the ordinary quotient without hypotheses.
 
 ## Diagnostic certificates: the two recorded bounce obstructions
 

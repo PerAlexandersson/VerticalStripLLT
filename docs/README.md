@@ -40,6 +40,9 @@ notes below each own one argument; process status lives in the handoff.
 - [Component recurrence reductions](proofs/FLIP_COMPONENT_INDUCTION.md):
   the exact transport certificate, author case table, corner branching,
   always-redundant corner deletion, and repaired transfers.
+- [Corner differences](proofs/COMPONENT_CORNER_DIFFERENCES.md): signed recurrences
+  in whole smaller components, mixed-cycle cancellation, relative absorption,
+  and the circular restriction on arbitrary deletion.
 - [DN component completion](proofs/DN_COMPONENT_COMPLETION.md): explicit
   component grouping, proved recurrence transport, and the remaining local
   isolation assertion.

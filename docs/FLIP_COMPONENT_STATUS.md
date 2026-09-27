@@ -14,6 +14,7 @@ semantics. A sum over all components does not establish the individual claims.
 | Full circular aggregate expansion and positivity | Lean, local build and axiom audit | [Circular completion](CIRCULAR_COMPLETION.md) |
 | Complete-component definitions and zero-normal family | Lean | [Flip interfaces](CIRCULAR_FLIPS.md) |
 | Minimum-area saturated envelope; corner branching; deletion of an always-redundant strict corner | Audited mathematical proofs | [Recurrence reductions](proofs/FLIP_COMPONENT_INDUCTION.md) |
+| Ordinary signed corner-deletion recurrence; HRV-map-preserving mixed-cycle involution; relative path absorption | Audited mathematical proofs | [Corner differences](proofs/COMPONENT_CORNER_DIFFERENCES.md) |
 | Explicit ordinary DN completion graph; simultaneous semantic transport and whole-component reconstruction | Audited mathematical proof, conditional isolation still open | [DN component completion](proofs/DN_COMPONENT_COMPLETION.md) |
 | Doubly endpoint-marked aggregate identity; separate ascent variables at articulation blocks | Audited mathematical proofs | [Endpoint recovery and gluing](proofs/COMPONENT_ENDPOINT_GLUING.md) |
 | Corner leaf normalization; connectivity of all trees with a fixed envelope | Audited mathematical proofs | [Tree connectivity](proofs/COMPONENT_TREE_CONNECTIVITY.md) |
@@ -37,6 +38,17 @@ circular components. Every corner can be assumed strict. Components with
 ANY always-redundant strict corner are already handled by smaller-area
 induction. A recurrence may express the desired component as a signed linear
 combination of whole smaller components.
+
+The new [corner-difference recurrence](proofs/COMPONENT_CORNER_DIFFERENCES.md)
+proves exactly such a signed formula in the ordinary case. It applies whenever
+every state becomes cyclic upon reversing the strict corners while keeping
+selected normals forward. Inclusion–exclusion supplies its coefficients;
+the ordinary deletion quotient proves all right-hand terms are ENTIRE smaller
+components. The HRV cancellation uses a sign-reversing involution preserving
+the full reachable-maximum map. This includes the case with no state covering
+all corners simultaneously, even when every corner is individually active.
+A minimum-area ordinary counterexample must therefore have a state acyclic
+after reversing its strict corners. That remaining class is not yet solved.
 
 Several packet equations may be combined. The proved
 [recurrence-generation companion](proofs/FLIP_COMPONENT_INDUCTION.md#signed-recurrence-generation-without-a-uniqueness-requirement)
@@ -74,9 +86,12 @@ diagram with two unmarked corners. Resolving a corner places every such
 component in a strictly smaller diagram, so its identity is available under
 area induction. This common component space is proved; the required joint
 redistribution is still open in general.
-The ordinary deletion quotient also expresses each component defect as a
-sum over states where the deleted corner was a cover. These identities do
-not require the auxiliary AU_prime conjecture.
+Alternating corner differences now localize each ordinary component defect
+on states acyclic after the chosen corners are reversed. A relative
+path-absorption identity removes certain incoming edges without changing
+those single-corner differences. Its state projection does not yet reconstruct
+whole components. These identities do not require the auxiliary AU_prime
+conjecture.
 
 The new [DN completion lemma](proofs/DN_COMPONENT_COMPLETION.md) gives a more
 specific sufficient construction. An explicit graph joins source components
@@ -96,8 +111,10 @@ It is a sufficient restriction of the general signed transport problem,
 not an assumption of the aggregate theorem or the auxiliary AU_prime claim.
 A new crossing-corner sweep proves that certain boundary flips can be
 preconditioned to keep the distinguished corner covering. The case with
-both attachments already selected remains unresolved; it can occur inside
-a component active at both involved corners.
+both attachments already selected now has a relative valuation identity:
+remove the incoming edge using a path through the crossing strict corner.
+Applying all corner differences leaves a correction in a smaller diagram;
+its signed occurrence multiplicities still need whole-component regrouping.
 
 ## Auxiliary route: corners and active uniqueness
 
@@ -126,7 +143,8 @@ Why this proposal would suffice for ordinary components:
    components and decreasing area.
 3. Handle disconnected selected graphs by vertex induction; delete a strict
    corner that is redundant throughout a component by area induction.
-4. A minimal counterexample is therefore saturated, connected, and active.
+4. A minimal ordinary counterexample is saturated, connected, and contains
+   a state acyclic after reversing the strict corners; in particular it is active.
 5. Extract its block-ascent coefficient in the proved multivariate aggregate
    identity. Under AU_prime it is the sole remaining component defect.
    All other defects vanish by the justified smaller cases.
@@ -155,7 +173,12 @@ ascent. This still groups several complete components: the note gives two
 active primitive components with the same invariant, no chain-poset states,
 and different HRV sums. Further component isolation is necessary. These are
 obligations for the component theorem; the aggregate circular theorem remains
-fully proved.
+fully proved. Arbitrary strict-corner deletion does not preserve the ordinary
+component quotient in circular diagrams: new admissible target states can
+escape the source image. The [corner-difference note](proofs/COMPONENT_CORNER_DIFFERENCES.md#why-the-arbitrary-deletion-quotient-is-ordinary)
+gives an exact three-vertex obstruction. The proved always-redundant-corner
+reduction remains valid; the unrestricted signed deletion recurrence is
+currently ordinary.
 
 ## Auxiliary route and failed shortcuts
 
@@ -184,8 +207,9 @@ to the claims they test. Historical handoffs are archives, not active plans.
 The next mathematical task is signed recurrence generation for components at
 their minimum envelope area. The DN completion graph is one concrete family
 of certified packet rows. Its isolation assertion is sufficient, but allow
-corrections inactive at other corners and combinations of several packet
-equations. The shared corner diagram remains available. Do not freeze the
+corrections proved by the corner-difference recurrence and combinations of
+several packet equations. The remaining ordinary components have acyclic
+reversed-corner states. The shared corner diagram remains available. Do not freeze the
 ordinary residual and try to prove a period assertion already contradicted
 by the diagnostic. The corner,
 forest, winding and aggregate refinements remain available as tools and solved

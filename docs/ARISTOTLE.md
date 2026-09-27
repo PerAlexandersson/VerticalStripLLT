@@ -185,3 +185,29 @@ resolved by the local formalization. They are not current outstanding work.
   existing strict-corner quotient proof is replaced by this proposal.
 - No Lean source or builds were produced. The response neither proves the
   ordinary nor the circular general component formula.
+
+## Auxiliary Claude DN consultation: no new proof
+
+- Read-only Sonnet consultation, native session `90205`, terminal exit 0 in
+  about five minutes under a monitored 20-minute cap. No tools, MCP servers,
+  edits or builds were delegated. No consultation remains active.
+- External directory `claude-dn-completion/` under the requests root above.
+- `PROMPT.md`, SHA-256
+  `4764570da8ce345d9ae22c12b1be9b1c894ac2f704fa26aa8ac79e3b447e88b7`.
+- `response.json`, SHA-256
+  `f3a4f98afd81527b7b7997a9d2517e8a0c638c20487939c6559c34b17c2e183a`.
+  The response explicitly leaves general packet generation open. It restates
+  the existing multiwindow row-span criterion; no new proof was accepted.
+- Primary audit: membership in the same class for EVERY window is the
+  intersection of those equivalence relations, not connectivity in the union
+  of their graphs. Pairwise distinct incidence columns do not imply full
+  rank: partitions {12},{34} and {13},{24} distinguish all four columns but
+  have kernel (1,−1,−1,1). The global articulation counterexample to
+  total-ascent uniqueness does not establish failure of any DN window.
+  Activity at two corners does not supply two eligible DN instances; their
+  contact, gap and equal-area hypotheses must still hold. Rational row span
+  with denominator clearing suffices; integer row span is unnecessarily strong.
+- The new alternating-deletion and mixed-cycle companions in
+  [corner differences](proofs/COMPONENT_CORNER_DIFFERENCES.md) came from primary,
+  Astra and Terra work, not this Claude return. They are audited prose and
+  have not been ported to Lean. They do not finish the component theorem.

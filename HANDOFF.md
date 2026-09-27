@@ -31,71 +31,75 @@ after checking that no other build is active. No slot transfer occurred.
 No Lean, shared Rust, reference or Overleaf source changed in this increment.
 No compilation was needed or run.
 
-Preceding pushed checkpoint: `f89251a`, explicit ordinary DN component
-completion and its conditional induction. That goal turn made progress.
-The current increment follows the user’s minimum-area component induction:
-make the saturated-envelope measure exact, allow signed packet combinations
-modulo ALL smaller components, and audit crossing-corner boundary transport.
-Primary owns
-`docs/proofs/DN_COMPONENT_COMPLETION.md`, linked status/index/recurrence notes,
-Aristotle ledger, this handoff and its archive.
+Preceding pushed checkpoint: `ba559d1`, minimum-area realization and the
+crossing-corner sweep. That goal turn made progress; this continuation began
+with a clean worktree.
+The current increment proves signed whole-component corner-deletion recurrences
+and a stronger ordinary mixed-cycle cancellation companion. Primary owns
+`docs/proofs/COMPONENT_CORNER_DIFFERENCES.md`, linked induction/completion/status
+notes, documentation index, consultation ledger and this handoff. The ordinary
+quotient proof moved from the long induction note into the new companion;
+there is one authoritative copy.
 
-The user explicitly authorized parallel brainstorming. Astra explored
-crossing-corner paths; Terra audited the new crossing sweep and minimum-envelope
-proof. Earlier Luna projection notes remain partial. All were read-only
-and build-free, and their lanes are released. No delegate owns editable files.
-The projection proposal did not solve the gap: statewise redundancy cannot
-be treated as an entire inactive component.
+The user authorized parallel brainstorming. Astra supplied the mixed-cycle
+involution and independently checked alternating deletion; Terra audited both
+and the relative absorption argument. All delegates were read-only and
+build-free, their tasks are finished, and no delegate owns editable files.
+No build slot was transferred. No new Lean declarations were added.
 
 ## Current mathematical result and exact next step
 
-The user explicitly proposes induction on the smallest-area diagram realizing
-an entire component, with strict corners and signed combinations of smaller
-components. This is the main route. The
-[recurrence note](docs/proofs/FLIP_COMPONENT_INDUCTION.md) now proves that the
-saturated selected-edge envelope is the unique minimum-area realization on
-fixed vertex order. The proof includes circular lifted edge orbits: delete
-absent outer corners to construct the envelope, then strictify its selected
-corners. The exact doubled-area difference is 2d+c_H−|S|, with d omitted
-natural edges and c_H envelope corners. Both whole-component semantics survive.
+The author's minimum-area component induction remains the main route.
+The saturated selected-edge envelope is the unique minimum-area realization
+on fixed vertex order, including circular lifted edge orbits. Its exact
+area difference and whole-component normalization are in the
+[induction note](docs/proofs/FLIP_COMPONENT_INDUCTION.md).
 
-Any component with ANY strict corner redundant throughout is known by
-smaller-area deletion. For the remaining components, certified recurrence
-packet rows need only span over Q. The proved generation lemma clears
-denominators and uses torsion-free polynomial coefficients to recover every
-individual identity. One unknown component per packet is sufficient but NOT
-required. Constructing this uniform generation remains the full proof target.
+New [corner-difference companion](docs/proofs/COMPONENT_CORNER_DIFFERENCES.md):
 
-The [DN completion note](docs/proofs/DN_COMPONENT_COMPLETION.md) supplies one
-explicit family of packet rows. Every J-class union transports to whole target
-components preserving both K and E. Its stronger isolation proposal, at most
-one f-active component per J-class, remains open and auxiliary to the more
-flexible signed generation. Ordinary DN decreases M=Σ j*a_j at fixed doubled
-area; strict-corner deletion decreases area. Circular wrapping steps and other
-recurrences still need their appropriate component transports.
+- Ordinary strict-corner deletion leaves the normal state set unchanged and
+  removes only flips retaining the deleted corner. A complete source component
+  therefore decomposes into ENTIRE components of every corner-deletion target.
+- Alternating deletion of F⊆S gives a signed smaller-area component recurrence
+  if no state covers every corner of F simultaneously. The redundant corner
+  may vary with the state; this extends the always-redundant-corner reduction.
+- Stronger result: for ANY disjoint ordinary forward edge sets N,F, a cycle in N∪F^op
+  makes the alternating difference vanish for both K and E. The E proof is a
+  sign-reversing involution preserving the entire highest-reachability map.
+  The chosen edge depends on the lexicographically largest (HRV, head) along
+  a fixed mixed cycle; the tie-break handles empty intervening paths.
+- Consequently the same whole-component signed recurrence applies when EVERY
+  state becomes cyclic after reversing its strict corners. A minimum-area
+  ordinary counterexample must contain an acyclic reversed-corner state,
+  hence a single state witnessing all strict corners as covers.
+- Relative path absorption: if A without f=wz and aw has a selected a→z path,
+  removing normal aw preserves ∂_f K and ∂_f E. This supplies an idempotent
+  ordinary state projection and resolves the double-attachment crossing
+  boundary at the level of relative valuations. Its multiplicities have NOT
+  been reconstructed into whole target components.
 
-New proved local step: if f=wz is a cover and an actual crossing-corner flip
-aw→wb (a<w<b<z) has bz absent, a finite sweep of reverse f-long flips makes
-that crossing flip preserve f-cover. The attachment proof checks actual covers,
-normality and termination. Astra proposed it; primary and Terra audited it.
-The exception bz selected creates both attachments and can lie in a component
-active at both corners. No whole-component reduction follows from that local
-redundancy. This is the concrete boundary to investigate next.
+The circular deletion quotient fails without added hypotheses: area (1,2,2),
+strict {02,21}, singleton selected {02,21,01}; deleting 21 enters the full
+component {02,01}↔{02,12}, whose second state becomes cyclic on reinsertion.
+The source chain satisfies HRV; this is an obstruction to the graph map.
+The earlier always-redundant-corner lemma still applies circularly. The new
+unrestricted recurrence and HRV involution are ordinary, not primitive circular.
 
-A single new fixed two-crossing-corner diagram, areas (0,1,2,3,3,4,4,4),
-strict {03,15,26,37}, passed J-isolation on all 131072 source states:
-1395 source components, 76 f-active, 654 J classes, no active collision.
-This is finite evidence only. A broader relaxed-f-exchange graph does not
-contain all J-generators, so it cannot replace the DN argument directly.
-No broad area-sequence scan or new enumeration engine was introduced.
+The [DN completion graph](docs/proofs/DN_COMPONENT_COMPLETION.md) still provides
+certified packet equations. More components can now be subtracted as known
+by the new recurrence. Several equations need only span over Q after known
+components are removed; the proved torsion-free argument clears denominators.
+One active component per packet is sufficient, NOT required. Its uniform
+isolation assertion and the more general packet-generation target remain open.
 
-Next: construct signed component recurrences at minimal envelope area, using
-all smaller-component corrections and the crossing sweep. Proving J-isolation
-would suffice for its DN step, but do not insist on it if several packet rows
-can isolate the component instead. Inactive states must never be confused
-with inactive ENTIRE components. No new conditional Lean scaffold is needed.
-The general ordinary and primitive circular component formulas remain open;
-the aggregate circular formalization is complete.
+Next: transport the remaining ordinary components, which admit acyclic
+reversed-corner states, through valid area/moment-decreasing recurrences.
+Use the new signed correction space and relative absorption, but reconstruct
+occurrence multiplicities into whole components before applying induction.
+For all-corner differences, absorption through crossing corner g leaves an
+explicit smaller D\g residual which still requires that reconstruction.
+No new conditional Lean scaffold is needed. The full ordinary and primitive
+circular component formulas remain open; aggregate circular Lean work is done.
 
 ## Consultations and computation
 
@@ -105,8 +109,10 @@ explicitly does not prove the component theorem. Primary downloaded and
 read the full result, verified the corrected five-vertex packet, and recorded
 scope/convention corrections in [the ledger](docs/ARISTOTLE.md). Its n=7 scan
 was terminated with no result. No active remote task or observer remains.
-Earlier Claude and Aristotle consultations are terminal; no new Claude was
-launched. Exact request/result hashes and receipts belong in the ledger.
+A new read-only Sonnet consultation, session `90205`, finished with exit 0.
+It restated the packet-row criterion and did not prove generation. Primary
+recorded the logical corrections and exact prompt/result hashes in the ledger.
+All Claude/Aristotle consultations and observers are terminal.
 
 External requests root: `/lake-cache/ai-projects/requests/VerticalStripLLT/`.
 Current receipts are in `component-recurrence/`; the completion note gives
@@ -130,11 +136,12 @@ Aristotle was accessed through its installed CLI.
 
 ## Checks and history
 
-Whitespace, focused-diff and local-link checks passed: 39 links across the
-four changed Markdown files resolve. Both initialization commits remain
-ancestors of HEAD; no Lean or reference files changed. No build was needed.
-Push the coherent checkpoint on `main` and report its commit. All external
-diagnostics and read-only delegates from this increment are terminal.
+Documentation checks passed: `git diff --check`, focused diff review, and
+100 local links (including heading anchors) across seven Markdown files.
+Both initialization commits remain ancestors; no Lean/reference/Overleaf
+source changed. No build was needed. This handoff accompanies the focused
+corner-difference checkpoint on `main`; its exact hash is in Git history.
+External diagnostics and read-only delegates from this increment are terminal.
 
 The previous handoff, including winding and recurrence chronology and exact
 old observer status, is [archived through DN transport](docs/archive/flip-component-handoff-through-dn-transport.md).

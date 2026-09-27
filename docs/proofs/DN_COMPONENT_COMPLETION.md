@@ -99,7 +99,12 @@ the crossing flip; executing the latter instead creates both attachments
 wb,bz and makes f redundant. Such a state may still belong to a component
 active at both f and g, since it can be reached by an actual flip from a
 state where both are covers. It cannot be discarded as a solved component
-from this local configuration alone.
+from this local configuration alone. The new
+[relative absorption lemma](COMPONENT_CORNER_DIFFERENCES.md#the-double-attachment-crossing-boundary)
+handles it at the level of f-differences: removing aw preserves ∂_f K and
+∂_f E because of the path a→b→z. For full-corner differences, the residual
+lies in the smaller diagram with g deleted. Reconstruction of these signed
+occurrences into complete components remains open.
 
 A useful directional observation accompanies the sweep. An actual rightward
 f-long push wy→yz cannot destroy the cover status of a strict corner
@@ -109,7 +114,10 @@ before that corner. Nonoverlapping corners are unaffected; corners sharing
 only an endpoint are unaffected for the same path-containment reason.
 Thus normalizing an already-covering rightmost strict corner preserves all
 other corners currently covering. This does not supply simultaneous cover
-witnesses for a component active at every corner.
+witnesses for every active component. The separate corner-difference
+recurrence now solves ordinary components with no common witness, and more
+generally those whose every state becomes cyclic after reversing all strict
+corners. These can be subtracted as known corrections in a DN packet.
 
 Astra supplied the crossing sweep; primary and Terra independently audited
 the full cover tests, normality and finite termination. These are prose
