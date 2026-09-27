@@ -11,12 +11,12 @@ ordinary/circular candidates. The entries below give current final outcomes
 for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
 [the proof map](FLIP_COMPONENT_STATUS.md) owns the mathematical overview.
 
-## Mixed-corner residual: current proof search
+## Mixed-corner residual: completed partial result
 
 - Project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08`; new task
-  `4aa8cbee-7eb5-4d15-ba07-7806c7fa540a`, accepted and running. Current
-  observer status belongs in HANDOFF. The preceding task was confirmed
-  **COMPLETE** before this submission. No returned proof is yet claimed.
+  `4aa8cbee-7eb5-4d15-ba07-7806c7fa540a`, terminal **COMPLETE**. Its return
+  explicitly does NOT prove the residual identity or a uniform recurrence.
+  The preceding task was confirmed terminal before this submission.
 - External directory `mixed-corner-residual/` under
   `/lake-cache/ai-projects/requests/VerticalStripLLT/`.
 - Four uploaded files: TARGET and snapshots of COMPONENT_CORNER_DIFFERENCES,
@@ -43,10 +43,31 @@ for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
   reconstruction before induction.
 - The remote started an n=7 `run3.py` scan despite the explicit no-scan scope.
   Primary sent `stop-scan-request.log`, requesting termination of that scan
-  while preserving the proof task. Observer `83731` confirms message delivery;
-  termination is not yet confirmed. These remote counts are not accepted as
-  proof or local verification.
-- No remote Lean source or local build has been produced by this consultation.
+  while preserving the proof task. The final return reports that the scan had
+  timed out and no enumeration process remains. Other remote scans also appear
+  in the event receipt; none was requested or is used as proof. The return's
+  wording about later scope narrowing does not change the initial no-scan scope.
+- Native observers `83731` and `72078` both ended after stream interruptions;
+  direct SDK reads of the SAME task confirmed its continuing work and later
+  terminal status. No replacement proof task was started after either interruption.
+- Downloaded `final-result.tar.gz`, SHA-256
+  `a16c65204cea06dccccc50cb36427451a4708f6438a0a9db175d4e375de4eeef`.
+  Extracted `final-RESIDUAL_BRIDGE-0.md`, SHA-256
+  `a1d29ed66bcd37e02a3e15297f0e8d69d61e48ba1eda392527014bf86b19f6d5`.
+  Primary read the full return. No returned source or experiment implementation
+  was imported.
+- Accepted after audit: the two residual diamond identities and the exact
+  obstruction to regrouping weighted corner-long pairs in the known K4 tree
+  component. The [owned HRV note](proofs/COMPONENT_HRV_DIFFERENCES.md#residual-diamonds-and-a-reconstruction-obstruction)
+  records the formulas, valid smaller diagram and explicit contradiction
+  t=0=1−t. The return's recurrence criterion is conditional, not uniform.
+  Normal-long diamonds have a higher-normal-level term, so the proposed
+  level induction does not automatically handle them.
+- The new [chain normalization](proofs/COMPONENT_CHAIN_NORMALIZATION.md) came
+  from primary, Astra and Terra work during this consultation. It was not part
+  of the uploaded input or the remote return. Its fibers need further semantic
+  regrouping, and no full component theorem is claimed.
+- No remote Lean source or local build was produced by this consultation.
 
 ## Component recurrence: explicit DN redistribution and boundary residual
 

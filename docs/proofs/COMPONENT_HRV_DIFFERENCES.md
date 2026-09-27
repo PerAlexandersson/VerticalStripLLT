@@ -173,3 +173,63 @@ No new graph enumerator, polynomial family or
 Rust/Lean build was introduced. The Rust capability audit found no maintained
 vertex-color-preserving component API; this was a bounded predicate check on
 the existing model, not a replacement library.
+
+## Residual diamonds and a reconstruction obstruction
+
+Write R_X=∂_S X, for X=K or E. Let a<b<c, and fix exterior normal edges Q
+avoiding the three triangle pairs. The two shorts are normal. If the retained
+long ac is normal, include it in Q; its diamond remains an exact diamond
+for R_X, because it holds separately for every deletion of strict corners.
+
+If ac is strict, the full short state has R_X(Q+ab+bc)=0 by mixed-cycle
+cancellation. Splitting the alternating sum according to retention of ac gives
+
+    R_X(Q+ab)+R_X(Q+bc) = R_X(Q)+Φ_X(Q),
+
+where
+
+    Φ_X(Q) = Σ_(J⊆S\{ac}) (−1)^|(S\{ac})\J|
+       · (X(Q+J+ab+bc)−X(Q+J+ab)−X(Q+J+bc)+X(Q+J)).
+
+All states in Φ live in the genuine smaller diagram (G\{ac},S\{ac}) or
+further deletions of its strict corners. The shorts remain NORMAL; they need
+not be corners and cannot simply be declared strict. The smaller diagram
+may be unsaturated, which the established corner branching handles.
+
+This identity supplies a possible lower-normal-level term in the same diagram
+and a smaller-area correction. To apply induction, their signed multiplicities
+must be constant on complete components. Taking rational weighted sums of
+corner-long flip pairs INSIDE the desired component does not always achieve
+this, even in the already-proved forest family.
+
+Here is the exact obstruction returned by Aristotle and audited by primary.
+Use zero-based vertices, the complete four-vertex natural graph, strict 03,
+and the eight-state tree component with normal pairs
+
+    A={01,02}, B={02,12}, C={02,13}, D={01,23},
+    E={12,23}, F={13,23}, G={12,13}, H={01,12}.
+
+All eight states remain acyclic after reversing 03. The corner-long pairs
+are exactly AC, DF, HG (long triangle 013) and AD, CF, BE (triangle 023).
+Covering each state once by rational weighted pairs forces
+
+    w(HG)=w(BE)=1,
+    w(AC)=w(DF)=t,       w(AD)=w(CF)=1−t.
+
+The lower-level multiplicities are constant on its whole components. But
+in the corner-deletion diagram, area (0,1,2,2) with NO strict edges, the
+three selected normal sets
+
+    {01,02,13} ↔ {02,12,13} ↔ {02,13,23}
+
+are actual flip neighbors, using retained longs 02 and 13 respectively.
+The correction Φ has their multiplicities t, 0 and 1−t. Constancy would
+require t=0=1−t, impossible over Q. Thus corner-long pairs from that source
+component alone cannot provide the desired lower-diagram reconstruction.
+
+This does not exclude normal-long diamonds, additional non-flip diamonds,
+whole-component corrections, or the [chain normalization](COMPONENT_CHAIN_NORMALIZATION.md).
+It rules out the uncorrected pairing scheme, not the component theorem.
+Aristotle's other finite computational observations are not used as evidence
+for a general statement. Its full return and request provenance are recorded
+in [the consultation ledger](../ARISTOTLE.md).

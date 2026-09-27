@@ -227,6 +227,11 @@ at each fixed map its component coefficient is a signed count of normal
 selections with specified outgoing support. This is an exact refinement of
 the remaining semantic problem.
 
+The [strict-chain normalization](COMPONENT_CHAIN_NORMALIZATION.md) now gives
+every such state a deterministic representative reached through actual flips,
+and its fibers are connected. Different representatives still interact within
+one complete component.
+
 The remaining task is to handle entire components having such an acyclic
 state. Neither the support restriction nor the involution provides the
 missing whole-component recurrence for that class. In particular, a subset

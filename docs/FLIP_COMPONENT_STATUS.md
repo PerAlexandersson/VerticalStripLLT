@@ -16,6 +16,7 @@ semantics. A sum over all components does not establish the individual claims.
 | Minimum-area saturated envelope; corner branching; deletion of an always-redundant strict corner | Audited mathematical proofs | [Recurrence reductions](proofs/FLIP_COMPONENT_INDUCTION.md) |
 | Ordinary signed corner-deletion recurrence; HRV-map-preserving mixed-cycle involution; relative path absorption | Audited mathematical proofs | [Corner differences](proofs/COMPONENT_CORNER_DIFFERENCES.md) |
 | Explicit {−1,0,1} HRV-map coefficients and signed component counting refinement | Audited mathematical proofs | [Exact HRV differences](proofs/COMPONENT_HRV_DIFFERENCES.md) |
+| Strict-chain normalization by actual flips; deterministic representatives, connected fibers and exact fiber coloring sums | Audited mathematical proofs | [Chain normalization](proofs/COMPONENT_CHAIN_NORMALIZATION.md) |
 | Explicit ordinary DN completion graph; simultaneous semantic transport and whole-component reconstruction | Audited mathematical proof, conditional isolation still open | [DN component completion](proofs/DN_COMPONENT_COMPLETION.md) |
 | Doubly endpoint-marked aggregate identity; separate ascent variables at articulation blocks | Audited mathematical proofs | [Endpoint recovery and gluing](proofs/COMPONENT_ENDPOINT_GLUING.md) |
 | Corner leaf normalization; connectivity of all trees with a fixed envelope | Audited mathematical proofs | [Tree connectivity](proofs/COMPONENT_TREE_CONNECTIVITY.md) |
@@ -57,6 +58,18 @@ sign, giving a precise count to compare with the mixed coloring enumerator.
 Fixed-color fibers can be disconnected, and canonical HRV chains cannot
 preserve each vertex's color: both proposed shortcuts have exact obstructions.
 The required matching may redistribute colors while preserving monomials.
+
+The new [strict-chain normalization](proofs/COMPONENT_CHAIN_NORMALIZATION.md)
+uses actual flips while preserving mixed acyclicity. Process ALL strict-chain
+blocks, including singleton vertices, by decreasing largest vertex. This gives
+an explicit idempotent map to states whose normal edges increase the chain
+maxima. Every fiber is connected, and its coloring sum has exact constraints
+requiring certain colors to lie outside specified intervals. Distinct such
+representatives can lie in the same whole component; a single fiber does not
+in general satisfy the HRV identity. Strict-long flips between representatives
+either disappear inside a fiber or become simultaneous successor slides across
+crossing strict corners. The remaining target is their component-level semantic
+recurrence, including normal-long flips and mixed-cyclic intermediate states.
 
 Several packet equations may be combined. The proved
 [recurrence-generation companion](proofs/FLIP_COMPONENT_INDUCTION.md#signed-recurrence-generation-without-a-uniqueness-requirement)
@@ -217,7 +230,11 @@ their minimum envelope area. The DN completion graph is one concrete family
 of certified packet rows. Its isolation assertion is sufficient, but allow
 corrections proved by the corner-difference recurrence and combinations of
 several packet equations. The remaining ordinary components have acyclic
-reversed-corner states. The shared corner diagram remains available. Do not freeze the
+reversed-corner states. The shared corner diagram remains available. Use the proved strict-chain
+normalization and its connected fibers to organize the remaining states;
+their representatives are not individual components. Corner-long pairings
+alone already fail lower-diagram reconstruction in the known four-vertex tree
+component, as proved in the exact HRV-difference note. Do not freeze the
 ordinary residual and try to prove a period assertion already contradicted
 by the diagnostic. The corner,
 forest, winding and aggregate refinements remain available as tools and solved
