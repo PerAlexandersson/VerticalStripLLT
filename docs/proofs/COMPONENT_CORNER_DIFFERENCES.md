@@ -1,5 +1,10 @@
 # Corner differences and signed component recurrences
 
+Historical research note. The component theorem is now proved by the finite
+route; see [the completion audit](../COMPONENT_COMPLETION.md). Open-status
+sentences below record this earlier approach. Its additional auxiliary
+claims are not automatically proved by the completed theorem.
+
 Status: the ordinary quotient, inclusion–exclusion recurrence, and relative
 absorption identities below are proved mathematical statements. They are not
 Lean declarations. The [ordinary component theorem](COMPONENT_ORDINARY_PROOF.md)

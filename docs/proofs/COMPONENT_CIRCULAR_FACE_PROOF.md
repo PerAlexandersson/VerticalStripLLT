@@ -197,17 +197,15 @@ through its canonical coefficient recurrence and componentwise coefficient
 constancy; it does not require a direct matching of individual recursion
 children across every overlapping flip.
 
-## Verification boundary and next step
+## Verification boundary
 
-The mathematical circular theorem is now proved by the audited v9 argument.
-Formalization still needs substantial work. A local Mathlib filename/API
-search found homological Euler characteristic but no ready Brianchon--Gram
-or polyhedral Euler-characteristic module. The independently audited finite
-companion is now the preferred Lean route. The v9 argument remains a complete
-independent mathematical reference.
+The component identity is now Lean-verified by the finite companion route.
+The bounded-face argument above remains an independent audited prose proof;
+no general Brianchon–Gram or polyhedral Euler-characteristic formalization was
+needed. Direct signed-sink extraction from the v9 argument is integrated in
+`Components/HRVScanExtraction.lean`.
 
-Related Lean: current component definitions are in
-`VerticalStripLLT/Circular/Flip.lean` and `ComponentSemantics.lean`.
-`Components/WordRelations.lean`, `WordContext.lean`, and the isolated
-`WordConjugation.lean` implement ordinary algebraic ingredients; they are
-not declarations of either complete component theorem.
+Related Lean: `Components/OrdinaryComponentExpansion.lean` and
+`Components/ComponentExpansion.lean` contain the complete ordinary and circular
+strict/e identities. See [the completion audit](../COMPONENT_COMPLETION.md)
+for exact statements, model boundaries and checks.

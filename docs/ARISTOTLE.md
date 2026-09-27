@@ -40,7 +40,8 @@ for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
   boundedness or Euler characteristic.
 - Accepted result: [finite companion](proofs/COMPONENT_FINITE_COMPANION.md).
   This answers the user's simplification request for the complete circular
-  theorem. The full companion remains a mathematical proof pending Lean.
+  theorem. The corrected companion was subsequently formalized and integrated
+  into the full component theorem; see [the completion audit](COMPONENT_COMPLETION.md).
   No remote toolchain, package files or generated artifacts were imported.
 - Observer sessions `71491` and `58068` had transient connection failures.
   Subsequent queries used the same task; no replacement task was started.

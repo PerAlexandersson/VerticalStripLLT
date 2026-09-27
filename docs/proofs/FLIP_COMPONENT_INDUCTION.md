@@ -1,5 +1,10 @@
 # Flip-component induction: redistribution and component equations
 
+Historical research note. The component theorem is now proved by the finite
+route; see [the completion audit](../COMPONENT_COMPLETION.md). Open-status
+sentences below record this earlier approach. Its additional auxiliary
+claims are not automatically proved by the completed theorem.
+
 Status: the author's minimum-area realization and the signed transport
 criteria below are proved mathematical lemmas, not Lean declarations.
 The [ordinary component proof](COMPONENT_ORDINARY_PROOF.md) now proves the

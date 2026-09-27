@@ -1,5 +1,9 @@
 # Circular ND assembly: separated branch and interior overlap
 
+Historical assembly notes. The full aggregate circular theorem is now proved;
+see [the completion audit](../CIRCULAR_COMPLETION.md). Earlier open-status
+sentences below record intermediate stages and alternative approaches.
+
 > **Historical note.** The exploratory separation and interior-obligation
 > narrative below predates the completed aggregate proof. The current checked
 > assembly is exported by `Expansion.lean`; earlier “remaining” labels here

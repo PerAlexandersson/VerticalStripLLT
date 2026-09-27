@@ -91,3 +91,16 @@ Logs are under
 checks, and `git diff --check` pass. Existing linter/deprecation warnings remain;
 there are no build errors. Cumulants and general symmetric-function infrastructure
 remain outside scope.
+
+## Maintenance after completion
+
+The first cleanup pass (`7e9e31b`) preserves every public signature while removing 41 lines
+of proof plumbing from MountainScan and HRVScanExtraction. It replaces recursive
+congruence with function extensionality, shortens conditional cases and removes
+those modules' deprecated-lemma warnings. The full build and 2800-entry axiom
+inventory still pass; no compiler-speed improvement is claimed.
+
+The [challenge](../CHALLENGE.md) exposes the same theorem as a target for a shorter
+proof. [The research catalogue](RESEARCH_NOTES.md) keeps historical notes separate
+from the current completion status. Cleanup verification logs are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/post-completion-cleanup/`.

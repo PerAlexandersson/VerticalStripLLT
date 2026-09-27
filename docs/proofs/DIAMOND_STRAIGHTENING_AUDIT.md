@@ -1,5 +1,10 @@
 # Diamond straightening: obstruction and an auxiliary-state repair
 
+Historical research note. The component theorem is now proved by the finite
+route; see [the completion audit](../COMPONENT_COMPLETION.md). Open-status
+sentences below record this earlier approach. Its additional auxiliary
+claims are not automatically proved by the completed theorem.
+
 This is a mathematical audit, not a Lean completion claim. The fixed-diagram
 straightening proposal in `FLIP_COMPONENT_INDUCTION.md` is false. A short
 repair of its first obstruction suggests a more flexible uniform lemma using

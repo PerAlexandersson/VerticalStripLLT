@@ -118,4 +118,6 @@ Challenge.lean compiles, and the separate ChallengeReference.lean check confirms
 both challenge propositions match the proved theorems (standard axioms only).
 Source widths, unchanged public headers, relative documentation links and
 `git diff --check` pass. Baseline: 23d4df7; proof checkpoint: f355a28.
-All cleanup assignments are released; no owned process remains active.
+Proof-cleanup checkpoint: `7e9e31b`. The accompanying documentation checkpoint
+adds Challenge.lean/CHALLENGE.md, the short README and the organized research
+catalogue. All cleanup assignments are released; no owned process remains active.

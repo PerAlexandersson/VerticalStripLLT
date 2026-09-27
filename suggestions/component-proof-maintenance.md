@@ -1,10 +1,12 @@
-# Follow-up proposal: component proof maintenance
+# Component proof maintenance
 
 The completed component library still emits existing deprecated if-lemma and
 unused-section-variable warnings. They do not affect the checked proofs, but
-make real build diagnostics harder to spot. In a separate authorized maintenance
-pass, migrate deprecated local names and trim unused section hypotheses in small
-batches, preserving public theorem signatures and serialized builds.
+make real build diagnostics harder to spot. The user-authorized first pass shortened MountainScan and HRVScanExtraction by
+41 lines and removed warnings in those two modules. Further maintenance can
+migrate deprecated local names in the remaining modules in small batches,
+preserving public signatures and serialized builds. Unused section hypotheses
+that appear in public signatures should not be silently removed.
 
 Keep the literal HRV scan extraction and the forward-only circular component
 transport as the default route. They avoid the larger ordered-partition bijection

@@ -1,5 +1,10 @@
 # Corner exposure: a reduction and an ordinary obstruction
 
+Historical research note. The component theorem is now proved by the finite
+route; see [the completion audit](../COMPONENT_COMPLETION.md). Open-status
+sentences below record this earlier approach. Its additional auxiliary
+claims are not automatically proved by the completed theorem.
+
 Status: the corner reductions and the implication below are proved
 mathematically and independently audited. The first ordinary connectivity
 proposal (AU) is FALSE at n=7, despite passing the full n<=6 diagnostic.

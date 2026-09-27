@@ -1,5 +1,10 @@
 # Movable leaf packets and star transport
 
+Historical research note. The component theorem is now proved by the finite
+route; see [the completion audit](../COMPONENT_COMPLETION.md). Open-status
+sentences below record this earlier approach. Its additional auxiliary
+claims are not automatically proved by the completed theorem.
+
 We prove a family of source-companion cancellations and one coefficient for
 every complete circular flip component. These are mathematical proofs checked
 independently, not Lean declarations. The full component theorem remains open.

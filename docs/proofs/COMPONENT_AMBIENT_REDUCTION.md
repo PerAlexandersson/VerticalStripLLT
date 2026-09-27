@@ -1,5 +1,10 @@
 # Ambient reduction and projected-cover components
 
+Historical research note. The component theorem is now proved by the finite
+route; see [the completion audit](../COMPONENT_COMPLETION.md). Open-status
+sentences below record this earlier approach. Its additional auxiliary
+claims are not automatically proved by the completed theorem.
+
 We reduce the full decorated component problem to unmarked complete circular
 diagrams. We also give a stronger sufficient companion using projected covers.
 The reductions below are proved mathematical statements; the stronger companion
