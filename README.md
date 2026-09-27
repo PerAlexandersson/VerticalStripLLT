@@ -122,7 +122,7 @@ quotient. The finite Cauchy factorization and its pairing with the actual compon
 strict-coloring enumerator are now proved (`Components/ColorProductPairing.lean`).
 The signed mountain-word expansion is proved; global HRV extraction and the
 full component expansion remain to be assembled. The circular finite companion's
-ordered-partition identity and abstract gain coefficient cancellation are proved,
-as is potential independence of balanced contractions. Applying the cancellation
-to these contractions and whole-component assembly remain separate obligations.
+ordered-partition identity, actual contracted coefficient recurrence and balanced
+base case are proved. The semantic deletion recurrences and whole-component
+assembly remain separate obligations.
 Cumulants remain outside the scope.

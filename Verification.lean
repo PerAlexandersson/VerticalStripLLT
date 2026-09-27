@@ -2490,3 +2490,37 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Components.GainData.contraction_eq_shiftGains
 #print axioms VerticalStripLLT.Components.GainData.contraction_simpleCyclesNegative_iff
 #print axioms VerticalStripLLT.Components.GainData.contraction_closedWalksNonpos_iff
+
+-- Actual contracted coefficient recurrence and balanced base; ordinary peak factors.
+#print axioms VerticalStripLLT.Components.wordCompatible_append_iff
+#print axioms VerticalStripLLT.Components.wordCompatible_flatten_iff
+#print axioms VerticalStripLLT.Components.elementary_adPow_eq_powerset_mountain
+#print axioms VerticalStripLLT.Components.GainData.weakBlockMap
+#print axioms VerticalStripLLT.Components.GainData.weakBlockMap_mk
+#print axioms VerticalStripLLT.Components.GainData.weakBlockMap_surjective
+#print axioms VerticalStripLLT.Components.GainData.weakBlockMap_eq_of_contraction_connected
+#print axioms VerticalStripLLT.Components.GainData.contraction_eqvGen_iff
+#print axioms VerticalStripLLT.Components.GainData.contractionWeakBlockEquiv
+#print axioms VerticalStripLLT.Components.GainData.contractionWeakBlockEquiv_mk
+#print axioms VerticalStripLLT.Components.GainData.contraction_weakComponentCount
+#print axioms VerticalStripLLT.Components.GainData.weakComponentCount_le_of_subset
+#print axioms VerticalStripLLT.Components.GainData.endpoint_perm_filter_loops
+#print axioms VerticalStripLLT.Components.GainData.contraction_endpoint_perm
+#print axioms VerticalStripLLT.Components.GainData.contraction_gain_excess_eq
+#print axioms VerticalStripLLT.Components.GainData.contraction_sum_cyclicNegative_eq_zero
+#print axioms VerticalStripLLT.Components.sum_powerset_required_subset_eq_sdiff_union
+#print axioms VerticalStripLLT.Components.GainData.ContractedGood
+#print axioms VerticalStripLLT.Components.GainData.contractedGood_iff
+#print axioms VerticalStripLLT.Components.GainData.coefficient
+#print axioms VerticalStripLLT.Components.GainData.coefficient_eq_zero_of_not_subset
+#print axioms VerticalStripLLT.Components.GainData.coefficient_eq_zero_of_not_balanced
+#print axioms VerticalStripLLT.Components.GainData.coefficient_eq_fixed_potential
+#print axioms VerticalStripLLT.Components.GainData.coefficient_eq_contraction
+#print axioms VerticalStripLLT.Components.GainData.coefficient_eq_difference_sign
+#print axioms VerticalStripLLT.Components.GainData.eq_empty_of_zeroGain_simpleNegative_totallyCyclic
+#print axioms VerticalStripLLT.Components.GainData.simpleCyclesNegative_empty
+#print axioms VerticalStripLLT.Components.GainData.totallyCyclic_selectedRelation_empty
+#print axioms VerticalStripLLT.Components.GainData.coefficient_self
+#print axioms VerticalStripLLT.Components.GainData.eq_of_contractedGood_of_balanced
+#print axioms VerticalStripLLT.Components.GainData.coefficient_eq_delta_of_balanced
+#print axioms VerticalStripLLT.Components.GainData.sum_powerset_coefficient_eq_zero

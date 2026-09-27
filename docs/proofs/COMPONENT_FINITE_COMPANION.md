@@ -303,3 +303,9 @@ of the full companion theorem.
   into an alternating sum of down-closed conditions. After that, the HRV-style argument
   (toggle the least strictly slack optional edge) works with the canonical least
   potential `t^{J'}` in place of a fixed coloring.
+
+Related Lean: `GainCoefficientRecurrence.sum_powerset_coefficient_eq_zero` now
+proves (**) on actual balanced contractions, including the optional-support
+reindexing and signs. `GainCoefficientBase.coefficient_eq_delta_of_balanced`
+proves the balanced base. These were independently audited and locally checked;
+the semantic W recurrence and whole-component assembly remain separate.

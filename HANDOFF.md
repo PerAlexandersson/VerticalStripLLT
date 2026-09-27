@@ -8,25 +8,21 @@ The complete ordinary and aggregate circular formulas are Lean theorems.
 The full ordinary and circular **component** formulas have complete audited
 mathematical proofs but are **not yet complete Lean theorems**.
 
-Verified mountain/contraction increment atop pushed `b60d299`:
-`MountainExpansion.adPow_mountain_expand` completes ordinary equation (4);
-`GainContractionGauge.contraction_simpleCyclesNegative_iff` proves potential
-independence of contracted cycle tests. Balanced contraction keeps edge instances.
-Full library: **1992 jobs**, **2416 axiom entries**, standard axioms only.
+Verified actual coefficient increment atop pushed `f668154`:
+`GainCoefficientRecurrence.sum_powerset_coefficient_eq_zero` proves (**),
+using actual balanced contractions and the preserved spanning weak-component count.
+`GainCoefficientBase.coefficient_eq_delta_of_balanced` proves the balanced base.
+Astra independently audited source, reindexing, signs, support and empty cases:
+no defect found. The ordinary `MountainCauchy` peak factor and ordered block
+compatibility also compile. Full library: **2001 jobs**, **2448 axiom entries**,
+standard axioms only.
 
-Earlier full partition/coefficient increment pushed as `b60d299`:
-`PartitionConnectivity.signedSum_eq_weakComponentCount` completes Lemma A;
-`GainCoefficientCancellation.sum_powerset_cyclicNegative_eq_zero_of_gain_excess`
-proves abstract (**′**). Astra independently audited actual source and found
-no defect; optional support, edge multiplicities, repetitions and signs are explicit.
-Full library: **1987 jobs**, **2382 axiom entries**, standard axioms only.
-Earlier pushed checkpoints: `ee8eb02` (actual color-product pairing and negative-cycle
-cancellation), `e63e21b` (DAG partition evaluation, level cancellation, HRV blocks).
-
+Earlier pushed checkpoints: `f668154` (mountain equation (4) and potential
+independence; 1992 jobs, 2416 axioms), `b60d299` (Lemma A and abstract (**′**)),
+`ee8eb02` (actual color-product pairing), `e63e21b` (DAG/level/HRV blocks).
 Validation logs are under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-continuation/`:
-`mountain-contraction-library-build.log` and `mountain-contraction-axioms.log`.
-Earlier: `coefficient-library-build.log` and `coefficient-axioms.log`.
+`actual-coefficient-library-build.log` and `actual-coefficient-axioms.log`.
 All builds use the pinned Lean 4.34.0 / Mathlib
 `5ed2965256430c3649e86755f9576b54eca72435` through `lake-workspace`.
 No placeholders, custom axioms, unchecked native proofs or local package/build
@@ -39,28 +35,18 @@ The academic-account restart continues in the assigned main checkout
 `/workspace/lean/VerticalStripLLT`, branch `main`. Primary owns all integrated
 source, imports, inventory, documentation, integration fixes and the sole
 serialized Lean build slot. Check active processes before each build.
-Primary additionally owns `Components/ColorProductPairing.lean`, the ordinary
-product/subword reindexing and strict-enumerator pairing (now verified), and
-`Components/GainLevels.lean`, level-compatible edge insertion and cancellation,
-and `Components/SquarefreeProducts.lean`, repeated-index product vanishing.
-Primary also owns `Components/PartitionLevels.lean`, the actual partition-level adapter,
-and `Components/GainCoefficientCancellation.lean`, signed partition/coefficient cancellation.
-Primary owns `Components/GainGauge.lean`, telescoping potential shifts of gains.
-
 Current authorized build-free assignments:
 
-- Astra returned `Components/GainContraction.lean`; primary owns validation of
-  balanced potentials, weak-block contraction and potential differences.
-- Luna returned `Components/MountainExpansion.lean`; primary owns validation
-  of the signed mountain-subset expansion of adPow.
-- Luna returned `Components/MountainSubsetCoefficients.lean`; primary owns validation.
-- All other candidate files were returned and integrated by primary. No build
-  slot was transferred. Luna's subword filter length lemma needed an explicit
-  nodup premise; primary added it before successful compilation.
+- Astra `component_review`: only `Components/GainBalancedWitness.lean`, doubled
+  signed edges and the positive closed/simple-walk obstruction to balancedness.
+- Luna `word_swaps`: only `Components/WeightedToggleCancellation.lean`, the
+  valued signed-toggle theorem.
+- Luna `word_covers`: idle; all returned files are primary-owned.
 
-All earlier candidate files were returned and adopted by primary. No build
-slot was transferred. No new account, supervisor worker or worktree was started.
-The user allows several Luna subagents and Astra, with optional Claude advice.
+All earlier candidates were returned, repaired where needed, and checked by
+primary. No build slot was transferred. No new account, supervisor worker or
+worktree was started. The user allows several Luna subagents and Astra, with
+optional Claude advice. Completed ownership history is archived below.
 
 The runtime Lean MCP remains rooted in RealRooted. Explicit source search and
 serialized `lake-workspace` are the recorded fallback; see
@@ -74,11 +60,10 @@ git -c url.https://github.com/.insteadOf=git@github.com: \
   -c credential.helper='!gh auth git-credential' push origin main
 ```
 
-Integrated verified source includes the partition condensation/connectivity and
-level adapters, abstract gain coefficient cancellation, overlap vanishing and
-subset reindexing ingredients. Full contracted per-F and W recurrence bridges
-remain open. A false-positive Luna audit conflated GainLevels with GainSlack;
-it was explicitly retracted after rereading current source. See the review-grounding suggestion.
+The actual per-F coefficient recurrence is now verified. The semantic W
+recurrences and whole-component bridges remain open; they are not inferred from
+aggregate positivity. A false-positive Luna audit conflating GainLevels with
+GainSlack was explicitly retracted; see the review-grounding suggestion.
 
 ## Verified component foundations
 
@@ -114,8 +99,8 @@ All paths below are under `VerticalStripLLT/Components/`.
 - `PartitionLevels` relates this enumeration to finite level assignments.
   `GainCoefficientCancellation.sum_powerset_cyclicNegative_eq_zero_of_gain_excess`
   proves the abstract (**′**) sign (-1)^(|J|+c(A∪J)). Astra independently audited
-  current source: no defect, exact optional support/repetitions preserved. This
-  does not yet instantiate actual balanced-F contractions or prove W's recurrence.
+  current source: no defect, exact optional support/repetitions preserved. Actual balanced-F instantiation is now verified in
+  `GainCoefficientRecurrence`; W's recurrence remains separate.
 - `OrderedPartitions` enumerates actual compatible nonempty top-first blocks,
   proves completeness and the signed top-block recursion. `OrderedPartitionDAG`
   evaluates their actual signed sum for every acyclic relation, including empty sets.
@@ -153,7 +138,8 @@ Astra independently reviewed the tensor representation, multiplication order,
 coefficient signs and linear functional boundary: no defect found. Luna
 independently reviewed the gain/potential and actual HRV bridges: no defect
 found. Primary repaired and locally built all candidates. The generic gain
-recurrence now has its strict-scaled form; actual contracted graphs remain to be instantiated.
+recurrence and actual contracted coefficient recurrence are verified. The semantic
+recurrences for W remain to be instantiated.
 
 ## Remaining assembly
 
@@ -171,12 +157,10 @@ Circular track:
 
 1. Scaling and negative-cycle cancellation (Lemma X) are complete in
    `GainScaling` and `GainNegativeCancellation`.
-2. The full signed ordered-partition identity and abstract gain coefficient
-   cancellation (**′**) now compile; Astra independently audited them. Apply them
-   to each actual balanced-F contraction: potential independence, weak-component
-   preservation, excess transport, optional-subset reindexing and constant signs.
-3. Supply the balanced base case, an excess/deletion witness for each unbalanced
-   set, the actual signed deletion recurrence for W, and edge-count induction.
+2. The full partition identity, actual coefficient recurrence (**), balanced base,
+   potential independence and all contraction transports are complete.
+3. Supply an excess/deletion witness for each unbalanced set, the actual signed
+   deletion recurrence for W, and edge-count induction.
 4. Integrate finite tight-edge flip reconstruction and prove whole-component
    isolation using identical contracted gain graphs.
 
@@ -202,14 +186,5 @@ Earlier checkpoints, exact audit provenance, build history and ownership are
 preserved in [the archived handoff](docs/archive/component-foundation-through-cauchy-20260927.md).
 No Rust, Overleaf, immutable references or shared infrastructure was changed.
 
-Current unverified follow-up: primary owns `Components/GainContractionGauge.lean`
-(potential independence via telescoping). Astra and Luna are read-only on the next
-coefficient and ordinary-global decompositions; no delegated builds.
-
-Next bounded build-free assignment: Luna `word_swaps` owns only
-`Components/MountainCauchy.lean`, substituting the verified mountain expansion
-into the elementary one-peak Cauchy factor. Primary retains all builds.
-
-Next bounded build-free assignment: Luna `word_covers` owns only
-`Components/BlockWordCompatibility.lean`, compatibility of concatenated ordered
-blocks. All existing sources remain primary-owned.
+Latest ownership and verification chronology is in
+[the coefficient checkpoint archive](docs/archive/component-foundation-through-coefficients-20260927.md).

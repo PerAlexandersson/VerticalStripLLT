@@ -259,3 +259,16 @@ weak blocks while retaining edge instances. `GainGauge` telescopes potential
 shifts; `GainContractionGauge` proves that contracted cycle tests are independent
 of the balanced potential. Global ordinary HRV assembly and the contracted
 coefficient recurrence are still separate obligations.
+
+### Actual finite companion coefficients
+
+`GainContractionConnectivity` preserves weak components and counts under the
+actual quotient. `GainContractionExcess` preserves endpoint balance, multiplicity
+and signed excess after contracted edges are removed. `GainCoefficient` defines
+the potential-independent coefficient and identifies both sign conventions.
+`RequiredSubsetSums` supplies the optional-subset bijection.
+`GainCoefficientRecurrence.sum_powerset_coefficient_eq_zero` proves (**), and
+`GainCoefficientBase.coefficient_eq_delta_of_balanced` proves the balanced base.
+Both have passed independent Astra source audit and local Lean verification.
+An unbalanced witness, the semantic W recurrences, induction, compatible-lift
+transport and whole-component isolation remain to be connected.

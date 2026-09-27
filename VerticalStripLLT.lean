@@ -265,3 +265,12 @@ import VerticalStripLLT.Components.MountainExpansion
 import VerticalStripLLT.Components.GainGauge
 import VerticalStripLLT.Components.GainContraction
 import VerticalStripLLT.Components.GainContractionGauge
+import VerticalStripLLT.Components.BlockWordCompatibility
+import VerticalStripLLT.Components.MountainCauchy
+import VerticalStripLLT.Components.GainContractionConnectivity
+import VerticalStripLLT.Components.GainContractionExcess
+import VerticalStripLLT.Components.RequiredSubsetSums
+import VerticalStripLLT.Components.GainCoefficient
+import VerticalStripLLT.Components.GainZeroCycles
+import VerticalStripLLT.Components.GainCoefficientBase
+import VerticalStripLLT.Components.GainCoefficientRecurrence
