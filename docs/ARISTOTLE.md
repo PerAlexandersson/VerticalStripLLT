@@ -11,6 +11,25 @@ ordinary/circular candidates. The entries below give current final outcomes
 for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
 [the proof map](FLIP_COMPONENT_STATUS.md) owns the mathematical overview.
 
+## Circular finite coefficient identity: active proof request
+
+- Project `729ff94c-1911-422b-88a7-f1af1cef93d0`, task
+  `91a37895-7b0f-420d-aa72-92da80540500`, confirmed **QUEUED**.
+  Native observer session `71491` is active; primary owns monitoring.
+- External `circular-finite-coefficients/TARGET.md`, SHA-256
+  `0f82f88595fabe734ee15a4eb3cb15e9bfab60c6954a707d9a3db51769a02a6f`.
+- The full mathematical circular theorem is already proved by the audited
+  Overleaf v9 argument. This request addresses the user's subsequent request
+  for a simpler readily formalizable proof, not a new claim of a theorem gap.
+- Exact target: the finite signed expansion using balanced subsets whose
+  contracted integer-gain cycles are negative and whose contractions are
+  strongly connected on each original weak block. The input supplies the
+  complete geometric proof, actual whole-component reconstruction, direct
+  longest-path toggle cancellation and integer strict-feasibility construction.
+- No scans or Lean builds are requested. A discrete matching, confluence
+  assertion or Möbius argument must be proved, not merely named. No returned
+  result is yet accepted. Prior algebra and component-search tasks are terminal.
+
 ## Finite word conjugation: complete, locally integrated candidate
 
 - Project `7e1e7b8f-b94d-4eef-86cf-51b2130269f5`, task

@@ -36,7 +36,8 @@ Primary owns strategy, every current editable file, integration and the sole
 global Lean build slot. Only primary uses `lake-workspace`; no transfer
 occurred. Process checks found no competing batch build. Existing RealRooted
 Lake serve/LSP processes were left untouched. All subagents released ownership;
-no remote task or observer remains active.
+the algebra request is terminal. One new bounded mathematical request is
+active, as recorded below.
 
 The user authorized parallel Lean implementation. The modular plan and ownership
 were committed at `683e4e7` before delegation. Luna returned two disjoint,
@@ -107,9 +108,25 @@ The [periodic word audit](docs/proofs/COMPONENT_PERIODIC_WORDS.md) remains a
 valid explanation of why the ordinary quotient cannot be copied unchanged.
 Its negative-winding obstruction is no longer an unresolved theorem case.
 
+## Active finite-coefficient consultation
+
+The verified integration and v9 audit are pushed at `6b7cd80` (1912 library
+jobs, 2059 inventory checks). The user requested a simpler circular argument.
+Aristotle project `729ff94c-1911-422b-88a7-f1af1cef93d0`, task
+`91a37895-7b0f-420d-aa72-92da80540500`, is confirmed QUEUED. Native observer
+session `71491` is live. Primary owns observation and integration; query this
+exact task after any interruption, rather than starting a replacement.
+
+The request supplies the full bounded-face proof, its finite gain-graph
+coefficient formulation, the elementary cycle-deletion involution and
+integer strict-feasibility construction. It asks only for a finite proof of
+the canonical coefficient identity (or an exact missing lemma), without
+scans or Lean builds. No output has been accepted. Inputs are in external
+`circular-finite-coefficients/`; the hash is in the Aristotle ledger.
+
 ## Exact next steps
 
-Push this verified integration, then pursue two bounded tracks:
+Monitor the finite-coefficient consultation and pursue two bounded tracks:
 
 1. Ordinary Lean integration: concrete word multiplication, actual component
    permutation counts using existing circular flips under a forward-edge

@@ -160,9 +160,19 @@ F is the full tight set of a bounded quotient face exactly when every
 directed cycle of this contracted multigraph has strictly negative gain
 (including loops), and each weak block of R contracts to a strongly connected
 graph. These conditions encode strict feasibility and absence of nonconstant
-recession directions. The canonical sign is (−1)^(c(F)−c(R)). A finite proof
-that these coefficients give the expansion would avoid a general polyhedral
-library; the cycle recurrence alone does not yet prove that assertion.
+recession directions. The canonical sign is (−1)^(c(F)−c(R)). Strict feasibility itself needs no
+linear programming: if the contraction has r vertices, replace each integral
+gain δ by (r+1)δ+1. Every simple directed cycle has negative weight. Maximum
+path weights from a new zero-weight source are finite (delete negative
+cycles), and give integer offsets satisfying these scaled inequalities.
+Dividing by r+1 gives the required strict block shifts. Conversely, summing
+strict inequalities around a cycle forces negative total gain.
+
+A finite proof that these coefficients give the expansion would avoid a
+general polyhedral library; the cycle recurrence alone does not yet prove
+that assertion. This exact finite identity, with the existing toggle proof
+and reconstruction as inputs, is the new bounded Aristotle proof request.
+No enumeration or replacement of the actual HRV statistic is requested.
 
 ## Verification boundary and next step
 
