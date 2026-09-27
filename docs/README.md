@@ -10,9 +10,11 @@
 - [Verified circular results](CIRCULAR_STATUS.md).
 - [Circular downstream work](CIRCULAR_GOALS.md): open component identity and
   manuscript exposition.
+- [Flip-component proof status](FLIP_COMPONENT_STATUS.md): the current proof
+  map, proved reductions, remaining connectivity lemma, and circular scope.
 - [HANDOFF](../HANDOFF.md): current ownership, checks, remote task, and next step.
 
-## Proof explanations
+## Completed aggregate proof explanations
 
 - [Reverse bounce search](proofs/CIRCULAR_BOUNCE_SEARCH.md).
 - [Neutral-bounce termination](proofs/NEUTRAL_BOUNCE_TERMINATION.md).
@@ -28,13 +30,26 @@
 - [Interior ND overlap](proofs/CIRCULAR_ND_INTERIOR_OVERLAP.md): historical
   obstruction analysis and the now-completed local restart route.
 
-## Retained qualifications and provenance
+## Component research: main route
 
-- [Sufficient recurrence certificate](REDUCTION_CERTIFICATE.md): the proved
-  route used by the ordinary expansion.
-- [Restricted ordinary recurrence audit](RESTRICTED_BOUNCE_AUDIT.md): a separate
-  open claim, unused by the proved ordinary expansion.
-- [Circular flip interfaces](CIRCULAR_FLIPS.md): downstream component scope.
+Start with [the proof-status map](FLIP_COMPONENT_STATUS.md). The detailed
+notes below each own one argument; process status lives in the handoff.
+
+- [Circular flip interfaces](CIRCULAR_FLIPS.md): exact downstream target and
+  locally verified foundations.
+- [Component recurrence reductions](proofs/FLIP_COMPONENT_INDUCTION.md):
+  corner branching, always-redundant corner deletion, and repaired transfers.
+- [Active corner companion](proofs/COMPONENT_ACTIVE_CORNERS.md): coefficient
+  isolation, the articulation counterexample, and the open refined uniqueness.
+- [Endpoint recovery and gluing](proofs/COMPONENT_ENDPOINT_GLUING.md): proved
+  marked aggregate identities and separate ascent variables at articulation blocks.
+- [Tree connectivity](proofs/COMPONENT_TREE_CONNECTIVITY.md): proved corner
+  leaf normalization and connectivity of all trees with a fixed envelope.
+- [Ambient reduction](proofs/COMPONENT_AMBIENT_REDUCTION.md): complete circular
+  ambient diagrams, the balanced-to-ordinary reduction, and StrongSrc.
+
+## Component research: auxiliary routes and obstructions
+
 - [Diamond straightening audit](proofs/DIAMOND_STRAIGHTENING_AUDIT.md):
   exact obstruction, auxiliary-state repair and exterior-swap correction.
 - [Sink-deletion companion](proofs/COMPONENT_SINK_BRANCHING.md): proved
@@ -45,20 +60,21 @@
   cancellation and star transport for one coefficient in every full component.
 - [Attached chains](proofs/COMPONENT_BRIDGE_PACKETS.md): five-flip attachment
   transport, telescoping source cancellation, and the open marked-ideal identity.
-- [Ambient reduction](proofs/COMPONENT_AMBIENT_REDUCTION.md): exact reduction
-  to complete circular diagrams, the ordinary reduction for zero-winding
-  components, and the stronger projected-cover companion.
-- [Component induction brainstorming](proofs/FLIP_COMPONENT_INDUCTION.md):
-  exact corner branching, always-redundant corner deletion, and repaired transfers.
-- [Active corner companion](proofs/COMPONENT_ACTIVE_CORNERS.md): coefficient
-  isolation, its exact articulation obstruction, and the required refinement.
-- [Endpoint recovery and gluing](proofs/COMPONENT_ENDPOINT_GLUING.md): proved
-  marked aggregate identities and separate ascent variables at articulation blocks.
+
+## Qualifications and provenance
+
+- [Sufficient recurrence certificate](REDUCTION_CERTIFICATE.md): the proved
+  route used by the ordinary expansion.
+- [Restricted ordinary recurrence audit](RESTRICTED_BOUNCE_AUDIT.md): a separate
+  open claim, unused by the proved ordinary expansion.
 - [Aristotle ledger](ARISTOTLE.md): request IDs, candidates, and local verification.
 - [Historical plans](archive/completed-plans/README.md): superseded implementation
   outlines and the original architecture audits. They are not active work lists.
 - [Component research handoff archive](archive/flip-component-checkpoints-through-c6305a0.md):
   earlier checkpoints, failed approaches, and completed consultation provenance.
+- [Handoff through endpoint recovery](archive/flip-component-handoff-through-ffa23fd.md)
+  and [earlier Aristotle ledger](archive/aristotle-ledger-through-endpoint-recovery.md):
+  historical snapshots, not current task status.
 
 Completed plans no longer duplicate the active agenda. The Lean declarations
 and local verification establish the results; explanatory notes record the

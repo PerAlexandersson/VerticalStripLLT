@@ -15,3 +15,13 @@ enumeration into the narrowest owning combinatorics/LLT crate. Retain tests for
 periodic cover alternatives, strict long edges, empty admissible sets, and the
 two independently checked locality obstructions. This is a pending integration
 task, not authorization to edit another project's active source lane.
+
+The refreshed read-only audit found the earlier ordinary implementation at
+`/workspace/rust/experiments/src/bin/llt_flip_components.rs`, with private
+`flip_component`, `llt_flip_neighbors`, `is_llt_flip_pair`, and
+`component_generating_function`. Reuse its tested ideas when promoting an API,
+but check ordinary versus circular lifted covers explicitly. The maintained
+`sym-poly/sym/src/llt.rs` supplies circular HRV and aggregate LLT routines;
+`sym-poly/sym/tests/circular_hrv.rs` tests aggregate comparisons, not complete
+flip-component formulas. The missing maintained boundary is still the circular
+cover/flip/component enumerator and exact per-component comparison.

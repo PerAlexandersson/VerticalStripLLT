@@ -38,7 +38,9 @@ there is at most one connected active complete component at ascent k.
 This is a connectivity assertion about the actual flip graph. Comparing HRV
 vectors cannot prove it. It includes, as a special case, connectivity of all
 spanning trees having a specified interval envelope: all tree edges are covers.
-The latter statement is also open in the current work except for special cases.
+The latter statement is now proved in full in
+[the tree-connectivity note](COMPONENT_TREE_CONNECTIVITY.md). The refinement
+beyond trees remains open; see the [current proof map](../FLIP_COMPONENT_STATUS.md).
 
 ## The conditional implication, and the information it requires
 

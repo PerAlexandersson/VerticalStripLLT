@@ -1,9 +1,11 @@
 # Circular flip interfaces
 
 Source: the initial `LLT flip/old-main.tex` snapshot, lines 1939–1986,
-as hashed in the archived circular plan. The current source is `main.tex`. These foundations are locally verified and overlap the aggregate circular
-proof search. The general component expansion remains unproved; the full
-zero-normal component family is proved.
+as hashed in the archived circular plan. The current source is `main.tex`.
+These foundations and the full aggregate circular expansion are locally verified.
+The general component expansion remains unproved; the full zero-normal
+component family is proved. See [the component proof map](FLIP_COMPONENT_STATUS.md)
+for the current research boundary.
 
 ## Full lifted covers
 
