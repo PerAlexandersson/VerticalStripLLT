@@ -206,3 +206,4 @@ import VerticalStripLLT.Circular.ComponentFactorization
 import VerticalStripLLT.Circular.InteriorComponentPaths
 import VerticalStripLLT.Circular.InteriorReversalReduction
 import VerticalStripLLT.Circular.Expansion
+import VerticalStripLLT.Components.WordContext

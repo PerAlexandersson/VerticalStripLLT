@@ -1,166 +1,121 @@
 # VerticalStripLLT handoff
 
-## Scope and verified results
+## Result and verification boundaries
 
-The ordinary and full aggregate circular HRV expansions and e-positivity are
-formalized. The full ORDINARY flip-component formula now has a complete
-independently audited mathematical proof, as does the balanced circular case
-by compatible lifts. These new component proofs are not yet Lean-verified.
-Primitive unbalanced circular components remain open. The
-[component status](docs/FLIP_COMPONENT_STATUS.md) is the research entry point;
-[ordinary component proof](docs/proofs/COMPONENT_ORDINARY_PROOF.md) is the new
-mathematical completion; [circular completion](docs/CIRCULAR_COMPLETION.md)
-remains authoritative for the Lean-verified aggregate theorem.
+Ordinary and full aggregate circular HRV expansion and e-positivity are
+Lean-verified. The full ordinary flip-component formula has a complete
+independently audited mathematical proof at pushed `2b9421e`; compatible
+lifts give all balanced circular components. These component theorems are
+not yet fully formalized. Primitive unbalanced circular components remain
+open. The [proof status](docs/FLIP_COMPONENT_STATUS.md) and
+[ordinary proof](docs/proofs/COMPONENT_ORDINARY_PROOF.md) are authoritative.
 
-Verified Lean checkpoint: `18fbb4d`. Public declarations in
-`VerticalStripLLT/Circular/Expansion.lean`, namespace `VerticalStripLLT.Circular`:
+The prior aggregate verification checkpoint is `18fbb4d`: 1908 build jobs,
+2037 axiom inventory entries with only `propext`, `Classical.choice` and
+`Quot.sound`. The public circular declarations are
+`coloringLLT_shifted_eq_eval_shiftedOrientationExpansion`,
+`coloringLLT_shifted_eq_orientation_sum`, and `coloringLLT_shifted_e_positive`
+in `VerticalStripLLT.Circular`. They cover all valid diagrams and alphabets.
+See [the circular completion audit](docs/CIRCULAR_COMPLETION.md).
 
-- `coloringLLT_shifted_eq_eval_shiftedOrientationExpansion`;
-- `coloringLLT_shifted_eq_orientation_sum`;
-- `coloringLLT_shifted_e_positive`.
+Initialization commits `830cc6b`, `130f7e8` and the immutable references are
+preserved. No shared Rust or Overleaf source changed in this continuation.
 
-These cover every valid circular diagram and finite alphabet, including the
-empty alphabet, without recurrence, acyclicity or no-wrap hypotheses. The
-full build passed (1908 jobs); `Verification.lean` checked 2037 inventory
-entries using only `propext`, `Classical.choice`, and `Quot.sound`. External
-logs are `circular-expansion-{build,full-build,axioms}.log`. Subsequent component
-research is audited prose, not new Lean declarations. Initialization commits
-`830cc6b`, `130f7e8` and the immutable reference files are preserved.
+## Ownership and current Lean batch
 
-## Active implementation batch
+Primary owns strategy, all integration, source changes and the sole global
+Lean build slot. Only primary invokes `lake-workspace`; no slot transfer
+occurred. Process checks found no competing batch build. The existing
+RealRooted Lake serve/LSP processes remain untouched.
 
-Starting from clean pushed `2b9421e`, the user explicitly requested parallel
-Lean formalization with Luna and Aristotle. Primary owns the new
-`docs/COMPONENT_FORMALIZATION.md`, `docs/proofs/COMPONENT_PERIODIC_WORDS.md`,
-HANDOFF, proof status/index, Aristotle ledger, library imports and verification
-inventory. Luna owns only `VerticalStripLLT/Components/WordRelations.lean`;
-no other agent may edit it until release. Aristotle receives an isolated
-conjugation-lemma request and no local source ownership. Primary owns eventual
-`VerticalStripLLT/Components/WordConjugation.lean` integration. All delegates
-remain build-free locally; the sole build slot stays with primary.
+The user explicitly requested parallel Lean implementation. The modular
+[plan](docs/COMPONENT_FORMALIZATION.md) was recorded and committed at
+`683e4e7` before implementation delegation.
 
-Astra and Terra have completed read-only circular audits: the periodic HRV-map
-coefficient formula extends, but negative winding requires cancellation after
-fiber evaluation; the ordinary four-word relation has explicit circular
-boundary corrections. These are new prose results, not a circular proof.
+Luna returned two disjoint, build-free candidates and released ownership.
+Primary reviewed and repaired their API/proof details, and now owns both:
 
-## Ownership and checkpoint
+- `VerticalStripLLT/Components/WordRelations.lean`: `WordModule`, `basisWord`,
+  `fourWord`, `wordGenerators`, `wordRelations`, `WordQuotient`,
+  `relations_le_ker`, `descend`, `descend_mk`, `quotient_eq_implies_eq`.
+- `VerticalStripLLT/Components/WordContext.lean`: `contextMap`, `contextLinear`,
+  `contextLinear_basisWord`, `contextLinear_fourWord`,
+  `contextLinear_relations_comap`, `contextLinear_map_relations`,
+  `contextQuotient`, `contextQuotient_mk`.
 
-Primary owns strategy, research notes, integration, and the sole global Lean
-build slot. Only primary may use `lake-workspace`, after checking that no
-other build is active. No slot transfer occurred. No Lean, shared Rust,
-reference or Overleaf source changed; no compilation was needed or run.
+Namespace: `VerticalStripLLT.Components`. These are full general lemmas on
+integer linear combinations of words. All contextual four-word relations
+and all repeated-letter words are included. The quotient is additive;
+no induced ring or completed component semantic bridge is claimed.
 
-This continuation began clean at pushed `14e061d`. Primary owns the new
-`docs/proofs/COMPONENT_ORDINARY_PROOF.md`, the rewritten component status and
-its archived predecessor, and linked proof/index/README/AGENTS/circular-goal
-boundary updates. Primary also owns status-only corrections in
-`docs/proofs/FLIP_COMPONENT_INDUCTION.md` and
-`docs/proofs/COMPONENT_CORNER_DIFFERENCES.md`, preserving their valid
-minimum-area and signed-recurrence lemmas. Astra and Terra independently audited the full argument.
-Luna audited the current Lean interfaces and possible finite word model.
-All three tasks finished read-only/build-free; no delegate owns editable files.
-No new Aristotle task was started.
+Primary owns `VerticalStripLLT.lean`, `Verification.lean`, this handoff, the
+plan, index/status, Aristotle ledger and periodic proof note. No subagent
+currently owns editable files. Astra and Terra completed read-only audits;
+Astra also supplied the concrete existing-flip-graph plan for component counts.
 
-## Complete ordinary component proof and exact next step
+## Active Aristotle request
 
-The proof applies to arbitrary ordinary natural graphs and arbitrary corner
-decorations, with no saturation, connectivity, forest or isolation assumption.
+Project `7e1e7b8f-b94d-4eef-86cf-51b2130269f5`, task
+`44384423-1c84-42b4-a525-bba5b13212f3`, is IN PROGRESS. The native observer
+is exec session `50488`. Do not restart the request if observation disconnects;
+query this exact task. Primary owns monitoring and eventual integration as
+`VerticalStripLLT/Components/WordConjugation.lean`.
 
-1. The existing exact HRV coefficient theorem gives the labeled-poset
-   refinement and signed mountain-block formula for j_π. Both component sums
-   use the SAME count m_C(π) of compatible source states.
-2. Actual flips prove the contextual four-word identity
-   m_C(ρacbσ)+m_C(ρbcaσ)=m_C(ρcabσ)+m_C(ρbacσ), a<b<c.
-   Consecutive word positions make the required covers automatic. This keeps
-   the original COMPLETE component label and supplies isolation directly.
-3. Work in the finite word algebra modulo these relations and ALL repeated-
-   letter words. The functional m_C annihilates its ideal.
-4. With A=sum of lower letters and D(t) their decreasing product (1+t u_i),
-   direct conjugation gives Ad_D(u_n)=u_n+t[A,u_n]. A short induction proves
-   [A,D]=0; no external commutation theorem is needed. Inverse conjugation
-   identifies ad_A^k(u_n) with the ordered mountain commutators, without
-   a factorial.
-5. The finite coloring product factors as F_n=(1+W_n)F_(n−1), with
-   W_n=Σ_k e_(k+1)(X) ad_A^k(u_n). Prefix factors retain their order.
-   Its two free-word representatives have coefficients Z_π and j_π.
-   Equality IN THE QUOTIENT, paired with m_C, proves K(C)=E(C).
+The isolated request asks for inverse finite products, truncated conjugation,
+and commutation with the sum of letters under squarefree and four-word
+hypotheses. An optional iterated-commutator corollary is also allowed.
+The service's cached Mathlib uses Lean 4.28.0. Primary explicitly allowed that
+coherent remote environment for the candidate instead of rebuilding Mathlib;
+all accepted code must still pass this project's pinned Lean 4.34.0 locally.
+No returned theorem is yet accepted. The exact input hash and request details
+are in [the Aristotle ledger](docs/ARISTOTLE.md).
 
-This is a complete mathematical proof of the ordinary statement. The existing
-compatible-lift theorem transfers ENTIRE balanced circular components and
-both sums, so their formula follows as well. No pointwise equality Z_π=j_π,
-closure-fiber connectivity or auxiliary DN isolation has been assumed.
-The prior 14e061d status is archived; its open ordinary isolation problems
-are alternative stronger claims, no longer blockers for this theorem.
+External artifacts: `/lake-cache/ai-projects/requests/VerticalStripLLT/word-conjugation/`.
+No prior Aristotle task remains active. The earlier mixed-corner and DN
+returns supplied partial results only; their exact receipts and limitations
+remain in the ledger, not in the current work queue.
 
-Next: (a) prepare the finite Lean integration, with actual component/permutation
-and coloring/word bridges; (b) resolve primitive unbalanced circular components.
-The current word proof uses one finite linear vertex order and cannot simply
-be applied to the periodic cover. The existing winding reduction still leaves
-that primitive case open. The full thread goal therefore remains active.
+## New circular companion results
 
-Luna's API audit found component interfaces only in `Circular/Flip.lean`
-(`flipComponent`, `componentHRV`) and `Circular/ComponentSemantics.lean`
-(`componentStrictEnumerator`). A finite `(List V →₀ ℤ)` module with all
-contextual relations and induced concatenation is a possible implementation;
-`Submodule.mkQ`/`liftQ` supply the additive quotient API. Concatenation must
-be proved compatible before using ring operations. Existing aggregate Lean
-bridges do NOT establish the new component semantic identifications.
+The [periodic word audit](docs/proofs/COMPONENT_PERIODIC_WORDS.md) proves:
 
-## Consultation outcome and verification provenance
+- the exact alternating coefficient formula for actual periodic lifted HRV
+  maps, including why its local support conditions force projected acyclicity;
+- positive- and zero-winding mixed-cycle map cancellation, with an exact
+  negative-winding obstruction: distinct maps can cancel only after passing
+  to their elementary fiber monomials;
+- the corrected circular four-word count identity, retaining its four boundary
+  terms. Even a saturated primitive singleton need not kill the ordinary
+  relation. Backward circular edges also prevent reuse of the ordinary
+  fixed-label coloring refinement unchanged.
 
-Aristotle project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08`, task
-`4aa8cbee-7eb5-4d15-ba07-7806c7fa540a`, is terminal **COMPLETE**. The full
-return explicitly does NOT prove the residual identity or a uniform recurrence.
-Primary downloaded and read `RESIDUAL_BRIDGE.md`; exact archive/input/proof
-hashes belong in [the ledger](docs/ARISTOTLE.md).
+Primary and Terra checked the coefficient theorem and winding distinction;
+primary and Astra checked the count identity and singleton obstruction.
+No computation or Lean build was used as a substitute for these proofs.
+They are progress toward the remaining circular goal, not its completion.
 
-Primary accepted the residual diamond calculus and checked its explicit
-obstruction: weighted corner-long pairs in the already-proved K4 tree
-component force target multiplicities t,0,1−t along two actual flips.
-Thus corner-long pairs alone cannot reconstruct whole smaller components.
-The owned HRV note records the proof. Shorts stay NORMAL in the valid
-corner-deletion target; they cannot be arbitrarily declared strict.
-No generated Lean or experiment source was integrated.
+## Checks and exact next steps
 
-Both observers `83731`, `72078` ended after stream interruptions. Direct SDK
-reads revalidated the same remote task and later confirmed its terminal state;
-no replacement task was started. The remote reports its n=7 scan timed out
-and no enumeration remains. Scans were outside the requested scope from the
-start; their claims about small cases are not used as proof. No live remote
-task, observer or delegate remains, and no new consultation is queued.
+The integrated library build passed: `lake-workspace build VerticalStripLLT`,
+1910 jobs. Only changed modules and their necessary dependents were rebuilt.
+The axiom inventory audit passed (2017 entries listing dependencies),
+with only the three standard axioms. Source guards, line widths, local links,
+whitespace and both initialization-ancestor checks passed. Initial candidate elaboration
+failures were fixed before the successful library build. Logs in the external
+directory are `word-relations-build.log`, `word-context-build.log` (first
+candidate failure), `word-library-build.log` (successful integrated build),
+and `word-axioms.log`.
 
-External requests root: `/lake-cache/ai-projects/requests/VerticalStripLLT/`.
-This return is in `mixed-corner-residual/`. Earlier bounded local predicate
-receipts and Rust capability audits remain documented in the linked notes.
-No new computation engine, polynomial family, shared Rust edit or build was
-introduced in this increment. The Overleaf recurrence sketches were reread
-without edits; their global component regrouping obligations remain open.
-AXLE is registered; Lean MCP targets RealRooted; Aristotle uses its installed
-CLI/SDK. No credentials were printed or committed.
+Next: push this coherent verified batch; monitor and locally verify
+Aristotle's return. Then implement the actual
+component-compatible-permutation pairing using `Circular.Orientation` and
+`Circular.flipComponent` with a forward-edge hypothesis, as specified in
+the committed plan. Induced multiplication, both semantic refinements and
+finite Cauchy factorization remain necessary for the full Lean theorem.
+Continue the primitive circular companion independently. The thread goal is
+active: this turn makes mathematical and locally checked Lean progress.
 
-## Checks and history
-
-The full uniform proof was independently audited, without enumeration or
-compilation. Whitespace, all 156 local links in the 15 task-owned Markdown
-files, exact-file scope and both initialization-ancestor checks passed.
-Astra also rechecked the minimum-area normalization and signed deletion
-recurrence against the author's proposal: the ordinary residual regrouping
-is still open for that alternative route, but no longer needed for the
-ordinary word proof. Circular strict-corner reinsertion can fail admissibility. No new polynomial family or computation engine was
-introduced. The previous turn made progress (`14e061d`); this turn completes
-the ordinary mathematical component proof and its balanced circular corollary.
-Primitive circular components and Lean integration remain unfinished.
-
-A Rust capability audit read the library guide, refreshed Cargo metadata and
-searched the exact algebra APIs; no computation was ultimately needed.
-Paper-cache was registered but had no callable search tool in this session.
-A web cross-check read Blasiak--Fomin, arXiv:1608.05042v2, Corollary 1.3;
-its commutation theorem motivated a check, but the final proof is self-contained
-and does not depend on it. No private source was uploaded through web tools.
-
-The previous handoff, including winding and recurrence chronology and exact
-old observer status, is [archived through DN transport](docs/archive/flip-component-handoff-through-dn-transport.md).
-It is historical, not an active work list. Earlier checkpoint history remains
-in Git and the linked documentation archive. The current goal is active and
-has made progress; the primitive circular proof and new Lean integration are not done.
+Historical induction certificates remain valid alternative arguments, but
+their stronger ordinary isolation problems are not prerequisites for the
+new word proof. The [archived status](docs/archive/component-status-before-ordinary-word-proof.md)
+and Git history retain earlier research chronology and exact obstructions.

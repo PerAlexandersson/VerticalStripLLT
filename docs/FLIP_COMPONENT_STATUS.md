@@ -43,7 +43,10 @@ The proof uses these established ingredients:
 
 ## What remains
 
-**Lean.** The new theorem is currently prose. The existing component interfaces
+**Lean.** The new theorem is currently prose. The
+[modular integration plan](COMPONENT_FORMALIZATION.md) assigns the additive
+word quotient to Luna and isolated conjugation lemmas to Aristotle, with
+primary-owned local verification and remaining semantic bridges. The existing component interfaces
 are `Circular/Flip.lean` and `Circular/ComponentSemantics.lean`; see
 [CIRCULAR_FLIPS.md](CIRCULAR_FLIPS.md). An implementation must prove the actual
 component/permutation pairing, both semantic refinements, and the finite
@@ -55,7 +58,11 @@ does not supply the missing component semantic bridge.
 **Circular components.** The [winding reduction](proofs/COMPONENT_WINDING_LATTICE.md)
 reduces unbalanced connected blocks to primitive circular components. The
 new word proof uses one linear vertex order and ordinary forward selected
-relations. No valid periodic substitute has yet been proved. The
+relations. The [periodic audit](proofs/COMPONENT_PERIODIC_WORDS.md) proves the lifted
+HRV-map coefficient formula and the exact circular corrections to the
+four-word relation. Negative winding can require cancellation between distinct
+HRV maps after elementary evaluation; the ordinary relation itself need not
+vanish. These lemmas do not yet give a circular semantic companion. The
 [exact winding aggregate](proofs/COMPONENT_LATTICE_AGGREGATE.md) still does
 not isolate individual primitive components. The full thread goal remains
 active until this case is resolved.

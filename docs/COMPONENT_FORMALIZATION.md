@@ -20,9 +20,18 @@ library. Existing aggregate theorems are not component semantic bridges.
    in this concrete quotient. Mathlib `RingQuot` is an alternative if the
    additive quotient induces unnecessary instance work; a component functional
    is linear, not a ring homomorphism, in either implementation.
-4. Combinatorial interface: compatible-permutation multiplicities of one
-   complete ordinary component, the actual-flip four-term pairing, and its
-   factorization through item 1. Prove the strict coloring refinement directly.
+4. `Components/ComponentWords.lean`: use existing `Circular.Orientation D`
+   and `Circular.flipComponent D θ`, with `∀ e : Edge D.area, e.tail < e.head`
+   as the ordinary hypothesis. A compatible word has no duplicates, contains
+   every vertex and orders every selected edge forward by `List.idxOf`.
+   Count such states in the actual complete component. Prove the four-term
+   identity via the conditional `acb` to `bac` bijection: retain the state if
+   `ab` is absent; otherwise construct the actual flip replacing `ab` by `bc`
+   while retaining `ac`. Derive normality of the shorts from corner geometry,
+   covers from consecutive word positions, and membership from flip closure.
+   Adjacent-swap partitions supply the final four-term identity, including
+   zero contributions for invalid words. Extend the count linearly and apply
+   item 1. Prove the strict coloring refinement separately.
 5. HRV interface: exact alternating-map coefficients, labeled-poset absorption
    and refinement, and the signed mountain-block formula. Identify the same
    component multiplicities on this independently defined side.
@@ -30,7 +39,9 @@ library. Existing aggregate theorems are not component semantic bridges.
    item 2, pair via item 4, and conclude equality with item 5 for every alphabet.
    Export the full ordinary component theorem and then compatible-lift transport.
 
-The first parallel batch consists of items 1 and 2. They have disjoint files
+The first parallel batch consists of items 1 and 2. Item 1 has passed its
+focused local build; `Components/WordContext.lean` is the next disjoint Luna
+task, proving contextual stability for the multiplication bridge. They have disjoint files
 and no dependence on unimplemented component statements. Items 3--6 remain
 necessary; proving the first batch is not a verification of the full theorem.
 

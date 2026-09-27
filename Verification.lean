@@ -2073,3 +2073,15 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.coloringLLT_shifted_eq_eval_shiftedOrientationExpansion
 #print axioms VerticalStripLLT.Circular.coloringLLT_shifted_eq_orientation_sum
 #print axioms VerticalStripLLT.Circular.coloringLLT_shifted_e_positive
+
+-- Ordinary component word quotient and contextual stability.
+#print axioms VerticalStripLLT.Components.relations_le_ker
+#print axioms VerticalStripLLT.Components.descend
+#print axioms VerticalStripLLT.Components.descend_mk
+#print axioms VerticalStripLLT.Components.quotient_eq_implies_eq
+#print axioms VerticalStripLLT.Components.contextLinear_basisWord
+#print axioms VerticalStripLLT.Components.contextLinear_fourWord
+#print axioms VerticalStripLLT.Components.contextLinear_relations_comap
+#print axioms VerticalStripLLT.Components.contextLinear_map_relations
+#print axioms VerticalStripLLT.Components.contextQuotient
+#print axioms VerticalStripLLT.Components.contextQuotient_mk

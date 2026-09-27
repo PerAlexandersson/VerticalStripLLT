@@ -11,6 +11,25 @@ ordinary/circular candidates. The entries below give current final outcomes
 for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
 [the proof map](FLIP_COMPONENT_STATUS.md) owns the mathematical overview.
 
+## Finite word conjugation: active Lean request
+
+- Project `7e1e7b8f-b94d-4eef-86cf-51b2130269f5`, task
+  `44384423-1c84-42b4-a525-bba5b13212f3`, confirmed **IN PROGRESS** after
+  its initial queued state. Native observer session `50488` is active.
+- Isolated request for general-ring Lean proofs: inverse descending products,
+  truncated conjugation, and commutation of the descending product with the
+  sum of generators, under explicit squarefree and four-word hypotheses.
+- External directory `word-conjugation/` under the requests root. `TARGET.md`
+  SHA-256 `33d7d0303f6b8637f62c9fbe23fca084fe9006b36436d4ed28b26b730e5d3512`.
+  The request pins the local toolchain, forbids scans and placeholders, and
+  supplies the audited algebraic proof. This is not a component-theorem request.
+- An accepted inline follow-up permits the coherent remote Lean 4.28.0 cache
+  instead of rebuilding Mathlib for 4.34.0. Primary still requires local 4.34.0
+  verification. This changed neither the task ID nor its mathematical scope.
+- No returned code has yet been accepted. Primary owns monitoring, integration
+  and the only local build slot. Luna independently owns the additive word
+  quotient module; there is no overlapping source assignment.
+
 ## Mixed-corner residual: completed partial result
 
 - Project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08`; new task
