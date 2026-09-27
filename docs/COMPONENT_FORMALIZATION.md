@@ -249,3 +249,13 @@ goodness by existence of a balanced potential, then prove independence;
 no arbitrary potential choice should enter a mathematical statement silently.
 The internal parity product (-1)^c(F)·(-1)^c(X) can avoid natural-subtraction
 bookkeeping, with a separate proof of the paper's subtraction exponent.
+
+### Mountain expansion and balanced contractions
+
+`MountainSubsetCoefficients` and `MountainExpansion.adPow_mountain_expand`
+complete equation (4): overlap terms vanish, disjoint supports are reindexed,
+and the right-side subset gives the sign. `GainContraction` contracts actual
+weak blocks while retaining edge instances. `GainGauge` telescopes potential
+shifts; `GainContractionGauge` proves that contracted cycle tests are independent
+of the balanced potential. Global ordinary HRV assembly and the contracted
+coefficient recurrence are still separate obligations.

@@ -8,7 +8,13 @@ The complete ordinary and aggregate circular formulas are Lean theorems.
 The full ordinary and circular **component** formulas have complete audited
 mathematical proofs but are **not yet complete Lean theorems**.
 
-Verified full partition/coefficient increment atop pushed `e63e21b`:
+Verified mountain/contraction increment atop pushed `b60d299`:
+`MountainExpansion.adPow_mountain_expand` completes ordinary equation (4);
+`GainContractionGauge.contraction_simpleCyclesNegative_iff` proves potential
+independence of contracted cycle tests. Balanced contraction keeps edge instances.
+Full library: **1992 jobs**, **2416 axiom entries**, standard axioms only.
+
+Earlier full partition/coefficient increment pushed as `b60d299`:
 `PartitionConnectivity.signedSum_eq_weakComponentCount` completes Lemma A;
 `GainCoefficientCancellation.sum_powerset_cyclicNegative_eq_zero_of_gain_excess`
 proves abstract (**′**). Astra independently audited actual source and found
@@ -19,7 +25,8 @@ cancellation), `e63e21b` (DAG partition evaluation, level cancellation, HRV bloc
 
 Validation logs are under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-continuation/`:
-`coefficient-library-build.log` and `coefficient-axioms.log`.
+`mountain-contraction-library-build.log` and `mountain-contraction-axioms.log`.
+Earlier: `coefficient-library-build.log` and `coefficient-axioms.log`.
 All builds use the pinned Lean 4.34.0 / Mathlib
 `5ed2965256430c3649e86755f9576b54eca72435` through `lake-workspace`.
 No placeholders, custom axioms, unchecked native proofs or local package/build
@@ -38,13 +45,14 @@ product/subword reindexing and strict-enumerator pairing (now verified), and
 and `Components/SquarefreeProducts.lean`, repeated-index product vanishing.
 Primary also owns `Components/PartitionLevels.lean`, the actual partition-level adapter,
 and `Components/GainCoefficientCancellation.lean`, signed partition/coefficient cancellation.
+Primary owns `Components/GainGauge.lean`, telescoping potential shifts of gains.
 
 Current authorized build-free assignments:
 
-- Astra `component_review`: only `Components/GainContraction.lean`, balanced
-  potentials, weak-block contraction retaining edge instances, potential differences.
-- Luna `word_covers`: only `Components/MountainExpansion.lean`, remove overlap
-  and identify adPow with the ordered signed mountain-subset sum.
+- Astra returned `Components/GainContraction.lean`; primary owns validation of
+  balanced potentials, weak-block contraction and potential differences.
+- Luna returned `Components/MountainExpansion.lean`; primary owns validation
+  of the signed mountain-subset expansion of adPow.
 - Luna returned `Components/MountainSubsetCoefficients.lean`; primary owns validation.
 - All other candidate files were returned and integrated by primary. No build
   slot was transferred. Luna's subword filter length lemma needed an explicit
@@ -91,8 +99,8 @@ All paths below are under `VerticalStripLLT/Components/`.
   `ComponentScalars.componentScalarEval` remains linear; no multiplicativity
   of the actual component functional is assumed.
 - `CommutatorCoefficients.inverseConjugationPolynomial_coeff` proves the signed
-  inverse-conjugation coefficient formula. This is the coefficient half of
-  equation (4), not yet the full ordered-subset mountain expansion.
+  inverse-conjugation coefficient formula. `MountainExpansion.adPow_mountain_expand` now proves the full signed
+  ordered-subset mountain expansion in equation (4).
 - `WordProductExpansion` expands ordered products into weighted subwords and
   evaluates them through the actual component functional.
 - `ColorProductPairing.componentScalarEval_colorProduct` identifies the actual
@@ -115,7 +123,10 @@ All paths below are under `VerticalStripLLT/Components/`.
   edge toggle or endpoint balance and negative-cycle cancellation. Optional
   edge support is explicit; no strong-connectivity shortcut is assumed.
 - `ConjugationSubwords` and `MountainCoefficients` give the exact signed double
-  subword coefficient formula; overlap removal and support reindexing remain.
+  subword coefficient formula. `MountainSubsetCoefficients` and `MountainExpansion`
+  complete overlap removal, support reindexing and the signed mountain expansion.
+- `GainContraction` retains original edge instances while contracting balanced blocks.
+  `GainGauge` and `GainContractionGauge` prove potential independence of cycle tests.
 - `MountainWords` connects maximum-insertion mountain notation to block cancellation.
   `HRVPartition` identifies qualifying ordered blocks with the actual HRV fibers.
 - `GainScaling` proves the finite strict-scaling equivalence.
@@ -149,8 +160,8 @@ recurrence now has its strict-scaled form; actual contracted graphs remain to be
 Ordinary track:
 
 1. The finite product/coloring pairing is complete in `ColorProductPairing`.
-2. Remove overlapping terms and reindex the verified ordered double-subword
-   coefficient sum into signed mountain blocks. `MountainWords` has the local
+2. The ordered double-subword coefficient sum has been reindexed into signed
+   mountain blocks, with overlapping terms removed. `MountainWords` has the local
    cancellation form and `HRVPartition` identifies qualifying ordered blocks
    as actual HRV fibers; the weighted global sum still needs assembly.
 3. Apply the same linear functional to the two sides of Cauchy to export the full
@@ -190,3 +201,15 @@ All other old Aristotle tasks are terminal.
 Earlier checkpoints, exact audit provenance, build history and ownership are
 preserved in [the archived handoff](docs/archive/component-foundation-through-cauchy-20260927.md).
 No Rust, Overleaf, immutable references or shared infrastructure was changed.
+
+Current unverified follow-up: primary owns `Components/GainContractionGauge.lean`
+(potential independence via telescoping). Astra and Luna are read-only on the next
+coefficient and ordinary-global decompositions; no delegated builds.
+
+Next bounded build-free assignment: Luna `word_swaps` owns only
+`Components/MountainCauchy.lean`, substituting the verified mountain expansion
+into the elementary one-peak Cauchy factor. Primary retains all builds.
+
+Next bounded build-free assignment: Luna `word_covers` owns only
+`Components/BlockWordCompatibility.lean`, compatibility of concatenated ordered
+blocks. All existing sources remain primary-owned.

@@ -260,3 +260,8 @@ import VerticalStripLLT.Components.PartitionCondensation
 import VerticalStripLLT.Components.PartitionConnectivity
 import VerticalStripLLT.Components.PartitionLevels
 import VerticalStripLLT.Components.GainCoefficientCancellation
+import VerticalStripLLT.Components.MountainSubsetCoefficients
+import VerticalStripLLT.Components.MountainExpansion
+import VerticalStripLLT.Components.GainGauge
+import VerticalStripLLT.Components.GainContraction
+import VerticalStripLLT.Components.GainContractionGauge

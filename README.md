@@ -120,8 +120,9 @@ directed flip. For ordinary forward diagrams,
 and `Components.componentWordFunctional` descends the actual count to the word
 quotient. The finite Cauchy factorization and its pairing with the actual component's
 strict-coloring enumerator are now proved (`Components/ColorProductPairing.lean`).
-Global mountain-word/HRV extraction and the full component expansion remain
-to be assembled. The circular finite companion's scaled negative-cycle
-cancellation is also proved; ordered-partition and whole-component assembly
-remain separate obligations.
+The signed mountain-word expansion is proved; global HRV extraction and the
+full component expansion remain to be assembled. The circular finite companion's
+ordered-partition identity and abstract gain coefficient cancellation are proved,
+as is potential independence of balanced contractions. Applying the cancellation
+to these contractions and whole-component assembly remain separate obligations.
 Cumulants remain outside the scope.

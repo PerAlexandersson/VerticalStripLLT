@@ -2458,3 +2458,35 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Components.GainData.signedSum_eq_level_sum
 #print axioms VerticalStripLLT.Components.GainData.sum_powerset_signedPartitions_eq_zero_of_gain_excess
 #print axioms VerticalStripLLT.Components.GainData.sum_powerset_cyclicNegative_eq_zero_of_gain_excess
+
+-- Mountain equation (4) and balanced contraction potential independence.
+#print axioms VerticalStripLLT.Components.inverseConjugationPolynomial_coeff_powerset_sum
+#print axioms VerticalStripLLT.Components.adPow_mountain_expand
+#print axioms VerticalStripLLT.Components.GainData.shiftGains
+#print axioms VerticalStripLLT.Components.GainData.walkGain_shiftGains
+#print axioms VerticalStripLLT.Components.GainData.closedWalkGain_shiftGains
+#print axioms VerticalStripLLT.Components.GainData.closedWalksNonpos_shiftGains_iff
+#print axioms VerticalStripLLT.Components.GainData.simpleCyclesNegative_shiftGains_iff
+#print axioms VerticalStripLLT.Components.GainData.walkGain_neg_of_simpleCyclesNegative
+#print axioms VerticalStripLLT.Components.GainData.BalancedPotential
+#print axioms VerticalStripLLT.Components.GainData.Balanced
+#print axioms VerticalStripLLT.Components.GainData.BalancedPotential.mono
+#print axioms VerticalStripLLT.Components.GainData.weakBlock
+#print axioms VerticalStripLLT.Components.GainData.weakBlockMk
+#print axioms VerticalStripLLT.Components.GainData.weakBlockMk_surjective
+#print axioms VerticalStripLLT.Components.GainData.weakBlockFintype
+#print axioms VerticalStripLLT.Components.GainData.weakBlockMk_eq_iff
+#print axioms VerticalStripLLT.Components.GainData.weakBlock_card
+#print axioms VerticalStripLLT.Components.GainData.weakBlockMk_tail_eq_head
+#print axioms VerticalStripLLT.Components.GainData.BalancedPotential.sub_eq_of_weak_connected
+#print axioms VerticalStripLLT.Components.GainData.BalancedPotential.sub_eq_of_block_eq
+#print axioms VerticalStripLLT.Components.GainData.blockPotentialDifference
+#print axioms VerticalStripLLT.Components.GainData.blockPotentialDifference_mk
+#print axioms VerticalStripLLT.Components.GainData.contraction
+#print axioms VerticalStripLLT.Components.GainData.contraction_gain_eq_zero
+#print axioms VerticalStripLLT.Components.GainData.contraction_tail_eq_head
+#print axioms VerticalStripLLT.Components.GainData.contraction_selectedQuiver_eq
+#print axioms VerticalStripLLT.Components.GainData.contraction_gain_change
+#print axioms VerticalStripLLT.Components.GainData.contraction_eq_shiftGains
+#print axioms VerticalStripLLT.Components.GainData.contraction_simpleCyclesNegative_iff
+#print axioms VerticalStripLLT.Components.GainData.contraction_closedWalksNonpos_iff
