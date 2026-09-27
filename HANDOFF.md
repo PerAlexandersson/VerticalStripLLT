@@ -30,11 +30,39 @@ in `VerticalStripLLT.Circular`. They cover all valid diagrams and alphabets.
 The initialization commits `830cc6b`, `130f7e8` and immutable references remain
 preserved. No shared Rust or Overleaf source was changed.
 
+## Current source ownership: concrete word algebra
+
+Starting at pushed `72e0fa6`, primary integrated three new modules from a
+bounded Luna candidate and primary code. Focused local builds passed:
+`WordMultiplication` (1234 jobs), `WordAlgebra` (1242), and `WordGenerators`
+(1245). These prove two-sided stability, a genuine quotient ring, its linear
+equivalence to the original quotient, repeated-letter sandwiches and the
+ordered triple relation. These three files form the current focused checkpoint; their direct
+module builds and source guards passed. Root imports and updated inventory
+checks are pending in the current batch. The rest of the task-owned worktree
+contains the AXLE-checked block modules, root/inventory additions and notes;
+keep them for the next local verification batch.
+
+Terra returned `Components/BlockExtractor.lean`; Luna returned
+`Components/BlockCancellation.lean`. Primary adopted and simplified both.
+AXLE accepted both complete files, including `blockCancellation_uniqueSink`,
+with no failed declarations or warnings. They await authoritative local checks.
+All delegates released editable ownership. Terra's read-only API audit is
+recorded in `docs/COMPONENT_FORMALIZATION.md`; primary owns every current edit.
+
+A first BlockExtractor check briefly overlapped a newly started RealRooted
+batch: process inspection and launch were accidentally batched before the
+inspection output was read. That one-second check ended. We paused further
+local builds until RealRooted PID `3703098` finishes; native waiter `51464`
+observes its exit. Do not disturb the other project's batch or editor servers.
+Future inspection and launch are separate decisions. The suggested shared
+wrapper lock is recorded under `suggestions/`, with no infrastructure edit.
+
 ## Ownership and integrated Lean modules
 
 Primary owns strategy, every current editable file, integration and the sole
 global Lean build slot. Only primary uses `lake-workspace`; no transfer
-occurred. Process checks found no competing batch build. Existing RealRooted
+occurred. The earlier completed checkpoint found no competing batch build. Existing RealRooted
 Lake serve/LSP processes were left untouched. All subagents released ownership;
 the algebra request is terminal. One new bounded mathematical request is
 active, as recorded below.
@@ -62,9 +90,11 @@ and integrated `Components/WordConjugation.lean` with narrow imports and `lia`:
 
 All paths are below `VerticalStripLLT/`; namespace
 `VerticalStripLLT.Components`. The general algebraic hypotheses are explicit.
-The word quotient is still additive: induced multiplication, the actual
-component-count pairing, direct HRV extraction and full Cauchy factorization
-remain to be implemented. These modules do not claim the component theorem.
+The original word quotient is additive. The new `WordAlgebra` module gives
+a linearly equivalent ring quotient, with its concrete hypotheses proved in
+`WordGenerators`. The actual component-count pairing, global HRV extraction
+and full finite Cauchy factorization remain to be implemented. The new modules
+do not claim the component theorem.
 Primary also owns the root imports, inventory and synchronized scope/status docs.
 
 ## Aristotle provenance and checks
@@ -113,15 +143,21 @@ Its negative-winding obstruction is no longer an unresolved theorem case.
 The verified integration and v9 audit are pushed at `6b7cd80` (1912 library
 jobs, 2059 inventory checks). The user requested a simpler circular argument.
 Aristotle project `729ff94c-1911-422b-88a7-f1af1cef93d0`, task
-`91a37895-7b0f-420d-aa72-92da80540500`, is confirmed QUEUED. Native observer
-session `71491` is live. Primary owns observation and integration; query this
+`91a37895-7b0f-420d-aa72-92da80540500`, is confirmed IN_PROGRESS. Native observer
+sessions `71491` and `58068` ended after observer connection errors.
+The task itself remains IN_PROGRESS (one-shot CLI check); no replacement
+request was created. Primary owns observation and integration; query this
 exact task after any interruption, rather than starting a replacement.
 
 The request supplies the full bounded-face proof, its finite gain-graph
 coefficient formulation, the elementary cycle-deletion involution and
 integer strict-feasibility construction. It asks only for a finite proof of
 the canonical coefficient identity (or an exact missing lemma), without
-scans or Lean builds. No output has been accepted. Inputs are in external
+scans or Lean builds. No output has been accepted. AXLE independently checked the ordinary
+BlockExtractor/BlockCancellation candidates in `lean-4.34.0`, request
+`c2652d3c-f8d2-4088-9c22-dc377ca51674`, with no failed declarations.
+Local pinned builds remain authoritative; its combined input/output is saved
+as `word-algebra/block-axle-final.json` under the request cache. Inputs are in external
 `circular-finite-coefficients/`; the hash is in the Aristotle ledger.
 
 ## Exact next steps
