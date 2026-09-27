@@ -940,3 +940,10 @@ and residual transport were developed after its input snapshot `5266faa`.
   as stated, and requested an audit and a refined statement retaining block
   ascent counts and the necessary marked-vertex gluing information. This
   correction does not assert a new theorem or authorize exhaustive search.
+- A further inline message supplied primary's independently audited proof of
+  the endpoint-marked AGGREGATE theorem: strict pendant chain extensions yield
+  triangular fixed-color equations; nonzero monomial cancellation recovers
+  both endpoint colors. Marked articulation gluing then proves the aggregate
+  identity with separate block ascent variables. The complete proof is in
+  `proofs/COMPONENT_ENDPOINT_GLUING.md`. This is mathematical input to the
+  SAME task, whose remaining focus is structural component isolation.

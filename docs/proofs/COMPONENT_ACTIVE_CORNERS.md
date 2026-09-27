@@ -109,20 +109,21 @@ audited the entire-component and cover claims.
 The useful lesson is precise: weak connectivity alone does not remove an
 articulation vertex, and total ascent loses the separate block counts.
 
-## A possible refinement, with its extra semantic obligation
+## The refinement and its now-proved semantic input
 
 One can ask for active uniqueness at each VECTOR of ascent counts in the
 natural graph's articulation blocks, or first restrict to natural graphs
 without an articulation. Neither refinement is proved here.
 
-The vector version would require an actual multivariate aggregate HRV theorem,
-with an independent q variable for each block. The scalar aggregate theorem
-does not supply those coefficient equations. Alternatively, reducing to
-blocks requires a pointed gluing theorem: at the shared vertex we must retain
-its color and the HRV fiber containing it. Unpointed component identities
-alone do not identify the resulting glued sums. This is a new explicit
-obligation, not an automatic consequence of ordinary factorization on disjoint
-vertex sets. The two proved corner reductions remain valid.
+The vector version requires an actual multivariate aggregate HRV theorem,
+with an independent q variable for each block. This input is now proved
+mathematically in [the endpoint/gluing note](COMPONENT_ENDPOINT_GLUING.md):
+strict pendant chains and triangular recovery derive the doubly marked
+aggregate theorem from the verified ordinary theorem. The marked formulas
+then glue while retaining the articulation's color and HRV fiber. This proves
+the aggregate identity with separate block variables, without assuming any
+component-level pointed identity. The structural uniqueness refinement is
+still open. The two proved corner reductions remain valid.
 
 ## Why the circular statement needs more information
 

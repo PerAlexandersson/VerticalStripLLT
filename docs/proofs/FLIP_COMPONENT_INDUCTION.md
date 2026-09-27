@@ -186,6 +186,41 @@ the deleted diagram's transported selection or a relation explicitly filtering
 out e. There is no global equivalence of all target/source orientations;
 reinsertion is justified along the particular component by the proof above.
 
+## Ordinary corner deletion as an exact component quotient
+
+There is a stronger structural statement in the ordinary case. Let e be a
+strict corner, without requiring it to be redundant. All orientations of D
+identify with orientations of D-e by removing the fixed edge e: all ordinary
+selected relations are acyclic and the normal edge set is unchanged.
+
+Under this identification, the flip graph of D is exactly the flip graph
+of D-e with the valid flips retaining e as their long edge added. The earlier
+corner-interval argument shows that e affects no other natural-edge cover
+test. It cannot be a toggled short edge. Thus all old target flips lift, and
+the only additional source flips are precisely those supported by e.
+
+Contract each COMPLETE component of the smaller diagram to a vertex, and
+keep an edge whenever an e-supported source flip joins two such components.
+The connected components of this quotient graph are exactly the complete
+source components. Exposure of every OTHER strict corner is preserved
+pointwise by deletion. This is an actual graph statement, not a proposed
+matching of local-state tables. It must not be extended to arbitrary circular
+orientations without checking admissibility of reinsertion.
+
+For e=(a,a+2), there is only one supporting triangle. Its adjacent short edges
+are automatically covers when selected; e is redundant precisely in state 11.
+The additional quotient edges therefore come from exactly the unconditional
+10-to-01 swaps on those shorts, with arbitrary fixed exterior selection.
+Deleting e makes a+1 an articulation of the natural graph: any other edge
+crossing it would properly contain the maximal corner interval e.
+
+The short edges need not themselves be corners after deletion, so exterior
+flips can change their status. This gives a smaller-block connectivity problem,
+not an independent cube decomposition. Proving the requisite connectivity of
+active quotient classes remains open. The newly proved endpoint/gluing theorem
+in `COMPONENT_ENDPOINT_GLUING.md` supplies the separate block-count aggregate
+identity needed once such structural isolation is established.
+
 ## Diagnostic certificates: the two recorded bounce obstructions
 
 These are repairs of existing proof obstructions, not substitute targets for

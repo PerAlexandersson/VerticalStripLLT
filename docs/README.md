@@ -52,6 +52,8 @@
   exact corner branching, always-redundant corner deletion, and repaired transfers.
 - [Active corner companion](proofs/COMPONENT_ACTIVE_CORNERS.md): coefficient
   isolation, its exact articulation obstruction, and the required refinement.
+- [Endpoint recovery and gluing](proofs/COMPONENT_ENDPOINT_GLUING.md): proved
+  marked aggregate identities and separate ascent variables at articulation blocks.
 - [Aristotle ledger](ARISTOTLE.md): request IDs, candidates, and local verification.
 - [Historical plans](archive/completed-plans/README.md): superseded implementation
   outlines and the original architecture audits. They are not active work lists.

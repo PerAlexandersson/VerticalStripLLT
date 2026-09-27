@@ -66,15 +66,21 @@ build directory was introduced.
 The user has redirected the main proof search to the original recurrences,
 splitting corners into selected/unselected (strict/deleted) cases. Primary
 owns all note edits, including `FLIP_COMPONENT_INDUCTION.md`,
-`COMPONENT_ACTIVE_CORNERS.md`, external probes,
+`COMPONENT_ACTIVE_CORNERS.md`, `COMPONENT_ENDPOINT_GLUING.md`, external probes,
 the index, Aristotle ledger, and this handoff. Astra audited the two recurrence
 repairs and the general always-redundant corner deletion lemma. Luna returned
 a read-only API audit; primary corrected two proposed interface pitfalls in
-the note. All local delegate lanes are released. The StrongSrc Aristotle task
+the note. Astra completed the endpoint-note/structural audit; Luna returned
+the exact pendant-construction and finite-alphabet API audit. All local
+delegate lanes are released. The StrongSrc Aristotle task
 returned COMPLETE_WITH_ERRORS, without its target proof. A new focused task
 on an ordinary corner companion is IN_PROGRESS in the same project. Primary
 found and sent a counterexample to its initial uniqueness target; the same
 task is now asked to audit and refine that target, retaining block counts.
+Primary and Astra have independently proved the doubly endpoint-marked
+AGGREGATE identity by strict-chain attachment and triangular recovery. Primary
+is recording it and the resulting multivariate block aggregate theorem in the
+new endpoint/gluing note. This is mathematical progress, not yet Lean code.
 No Lean build or Claude process is active.
 
 The full flip-component theorem is unproved. The goal is a general diamond
@@ -88,9 +94,8 @@ ambient and compatible-lift reductions; Terra reviewed redundant-edge removal;
 Luna returned build-free snippets only. Use only `lake-workspace`, after checking that no
 other Lean/Lake build is active. No build-slot transfer has occurred.
 
-The last pushed research checkpoint before this increment is `8c76bee`:
-corner reductions, repaired recurrence certificates, and an ordinary companion
-proposal. The proposal was subsequently refuted as described below. The current recurrence note
+The last pushed research checkpoint before this increment is `1a966fb`:
+the exact articulation counterexample to scalar active uniqueness. The current recurrence note
 is `docs/proofs/FLIP_COMPONENT_INDUCTION.md`; the auxiliary reduction note is
 `docs/proofs/COMPONENT_AMBIENT_REDUCTION.md`.
 Primary owns it, the source-note/index links, this handoff, and the archive.
@@ -143,10 +148,16 @@ at block ascent vectors (2,3) and (3,2). Both are active, connected, and have
 total ascent five. Primary found the example and Astra audited it. The previous
 exact diagnostic through n=6 remains valid but is not evidence beyond that range.
 The conditional coefficient-isolation argument is sound; its uniqueness
-hypothesis needs refinement. A vector of block ascents would also require an
-actual multivariate aggregate identity, or a pointed gluing theorem retaining
-the articulation color and HRV fiber. These obligations are explicit in
-`COMPONENT_ACTIVE_CORNERS.md`. The direct circular uniqueness version also has
+hypothesis needs refinement. The required multivariate aggregate identity is
+NOW PROVED MATHEMATICALLY in `COMPONENT_ENDPOINT_GLUING.md`: strict prefix and
+suffix chain attachments plus triangular recovery give both endpoint colors;
+marked gluing then retains each block's own ascent variable. This uses the
+verified ordinary aggregate theorem on larger diagrams, not a component
+conjecture. Primary and Astra independently checked the proof, including
+empty alphabets, one-vertex coincident marks, and common HRV fibers.
+What remains is active uniqueness at each block-count vector, equivalently
+active uniqueness within a natural graph without an articulation; no proof
+of that structural statement is known. The direct circular uniqueness version also has
 a four-vertex tree counterexample. The full ordinary and circular component
 claims both remain open. Source cancellation remains an auxiliary route.
 Do not assume a
@@ -226,6 +237,8 @@ request directory. It initially asked for AU, not another conditional reduction
 or broad enumeration. Primary then sent the exact n=7 product counterexample
 to the SAME active task, withdrew AU as a theorem target, and requested an audit
 and useful refinement with the required block-count/gluing data.
+Primary then supplied the newly found strict-chain attachment and triangular
+recovery proof inline, so the task can concentrate on structural isolation.
 Native observer session `38474` follows this same task with a two-hour allowance;
 the script passed `bash -n` and cannot submit or cancel. Its status/follow logs
 have the `ordinary-active-` prefix. Observation failure does not justify a new
