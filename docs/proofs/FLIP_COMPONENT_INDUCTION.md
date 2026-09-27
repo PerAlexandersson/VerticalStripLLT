@@ -6,6 +6,13 @@ reductions are proved mathematical lemmas. Their required global recurrence
 certificates remain to be constructed. No full component proof is claimed.
 No Lean source or Overleaf manuscript is changed by this audit.
 
+The current concrete continuation is
+[ordinary DN component completion](DN_COMPONENT_COMPLETION.md): it proves
+reconstruction for an explicitly generated union of source components and
+isolates the remaining question of whether two unsolved components can be
+joined. This note retains the general signed framework and its exact local
+identities; the continuation does not duplicate them.
+
 We read `LLT flip/main.tex`, especially the local diamonds (around 1704),
 component target (around 1980), cut/transport/reassembly discussion
 (2527–2595), relations (1')–(4'), signed transfer discussion (3007–3095),

@@ -40,6 +40,9 @@ notes below each own one argument; process status lives in the handoff.
 - [Component recurrence reductions](proofs/FLIP_COMPONENT_INDUCTION.md):
   the exact transport certificate, author case table, corner branching,
   always-redundant corner deletion, and repaired transfers.
+- [DN component completion](proofs/DN_COMPONENT_COMPLETION.md): explicit
+  component grouping, proved recurrence transport, and the remaining local
+  isolation assertion.
 - [Active corner companion](proofs/COMPONENT_ACTIVE_CORNERS.md): coefficient
   isolation, the articulation counterexample, and the open refined uniqueness.
 - [Endpoint recovery and gluing](proofs/COMPONENT_ENDPOINT_GLUING.md): proved
@@ -82,6 +85,8 @@ notes below each own one argument; process status lives in the handoff.
 - [Handoff through endpoint recovery](archive/flip-component-handoff-through-ffa23fd.md)
   and [earlier Aristotle ledger](archive/aristotle-ledger-through-endpoint-recovery.md):
   historical snapshots, not current task status.
+- [Handoff through DN transport](archive/flip-component-handoff-through-dn-transport.md):
+  winding and recurrence research chronology before component completion.
 
 Completed plans no longer duplicate the active agenda. The Lean declarations
 and local verification establish the results; explanatory notes record the

@@ -53,8 +53,42 @@ for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
   supplies the audited ordinary residual and its explicit two-edge obstruction,
   and supplies the common lower-diagram component sectors. These are user-side
   proof inputs/audits, not evidence that Aristotle completed the full goal.
-  The task was still IN_PROGRESS when the first observer disconnected; primary
-  reattached to the same ID. HANDOFF records the native monitoring handle.
+  The task was still IN_PROGRESS when the observers disconnected. Primary
+  requested finalization of the partial consultation and termination of its
+  unwanted n=7 scan in `finalize-request.log`. No replacement task was started.
+- Final authoritative status: **COMPLETE**. The return explicitly leaves
+  the ordinary and circular component theorems unproved. It reports that
+  the n=7 scan was terminated with no result. Both native observers are
+  finished; completion was confirmed by `aristotle tasks` and `show` for the
+  exact task ID.
+- Downloaded `final-result.tar.gz`, SHA-256
+  `4e0280ef1517181df47a275f20665fd23dd37168f20c02bf8c465d7ed3d06e96`.
+  Extracted `final-PROOF.md`, SHA-256
+  `6144dad9643f5cf620410a7e7b50a297a859a4e59caf5af4513f88228c8d7fa0`.
+  Primary read the complete proof return. No returned Lean or experiment
+  implementation was imported.
+- The result audits the supplied DN geometry, endpoint maps, canonical
+  residual and inactive-corner deletion. Its DN-T condition asks for an
+  integer combination of whole inactive components which cancels the
+  nonflip residual and reconstructs the target. Existence remains open.
+  Remote n≤6 solvability was checked over the rationals, with integrality
+  not systematically verified. These counts are remote evidence, not proof.
+- Primary independently checked its five-vertex corrected packet using the
+  existing model: adding the inactive two-state component produces target
+  coefficients +1,+1,−1 on the three listed ENTIRE components. Receipt:
+  `remote_certificate_audit.json`. This refines the already-proved diagnostic
+  identity; it is not a new general theorem.
+- Audit corrections: Corollary 3.2 needs source multiplicities constant on
+  actual flip components, as in the owned note; it does not hold for arbitrary
+  multiplicities. The claimed cover witness `abd` in §6 is redundant; `abc`
+  is a valid witness. Its final `h` expressions use the weak convention and
+  must become `e` in its stated strict convention. Lemma 4.1(b) requires its
+  explicit support-on-redundant-states hypothesis, omitted in the summary.
+- Primary's subsequent [explicit completion graph](proofs/DN_COMPONENT_COMPLETION.md)
+  strengthens the conditional reconstruction to a concrete sufficient grouping
+  rule and supplies the ordinary lexicographic measure. Terra audited this
+  proof. Isolation of the active component within each group is still open;
+  neither the remote return nor the finite fixtures establishes it.
 
 ## Ordinary corner refinement: complete return, AU_prime still open
 

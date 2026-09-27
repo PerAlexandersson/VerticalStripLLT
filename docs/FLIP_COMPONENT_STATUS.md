@@ -14,6 +14,7 @@ semantics. A sum over all components does not establish the individual claims.
 | Full circular aggregate expansion and positivity | Lean, local build and axiom audit | [Circular completion](CIRCULAR_COMPLETION.md) |
 | Complete-component definitions and zero-normal family | Lean | [Flip interfaces](CIRCULAR_FLIPS.md) |
 | Corner selected/unselected split; deletion of an always-redundant strict corner | Audited mathematical proofs | [Recurrence reductions](proofs/FLIP_COMPONENT_INDUCTION.md) |
+| Explicit ordinary DN completion graph; simultaneous semantic transport and whole-component reconstruction | Audited mathematical proof, conditional isolation still open | [DN component completion](proofs/DN_COMPONENT_COMPLETION.md) |
 | Doubly endpoint-marked aggregate identity; separate ascent variables at articulation blocks | Audited mathematical proofs | [Endpoint recovery and gluing](proofs/COMPONENT_ENDPOINT_GLUING.md) |
 | Corner leaf normalization; connectivity of all trees with a fixed envelope | Audited mathematical proofs | [Tree connectivity](proofs/COMPONENT_TREE_CONNECTIVITY.md) |
 | Connected aggregate extraction; full ordinary and circular forest-component formula | Audited mathematical proofs | [Forest semantic companion](proofs/COMPONENT_CONNECTED_AGGREGATE.md) |
@@ -55,15 +56,30 @@ An ordinary extension removes the paired-multiplicity assumption by adding
 an explicit linear corner-deletion residual. Its target cannot always be
 reconstructed while that residual stays fixed: the existing saturated
 five-state diagnostic gives contradictory equations at two ascent levels.
-The next task is JOINT reconstruction of target and deletion packets.
 The two deletion diagrams embed as whole-component sectors of a shared
 diagram with two unmarked corners. Resolving a corner places every such
 component in a strictly smaller diagram, so its identity is available under
 area induction. This common component space is proved; the required joint
-redistribution is still open.
+redistribution is still open in general.
 The ordinary deletion quotient also expresses each component defect as a
-sum over states where the deleted corner was a cover. No component-uniqueness
-conjecture is required by this route.
+sum over states where the deleted corner was a cover. These identities do
+not require the auxiliary AU_prime conjecture.
+
+The new [DN completion lemma](proofs/DN_COMPONENT_COMPLETION.md) gives a more
+specific sufficient construction. An explicit graph joins source components
+according to the local middle pairing and every target flip equation. Any
+union of its connected classes transports to an integer combination of
+ENTIRE target components, preserving both K and E. This reconstruction is
+proved, including the exterior zero-state rows. The remaining assertion is
+that each class contains at most one component in which the chosen strict
+corner f is a cover somewhere. Every other component can then be deleted
+by the proved inactive-corner reduction and subtracted by induction. The
+ordinary DN target decreases the area moment at fixed doubled area.
+
+This local isolation assertion remains open. It passes two targeted exact
+fixtures, including a checked failure of the uncorrected deletion packet.
+It is a sufficient restriction of the general signed transport problem,
+not an assumption of the aggregate theorem or the auxiliary AU_prime claim.
 
 ## Auxiliary route: corners and active uniqueness
 
@@ -147,8 +163,9 @@ Current ownership and running consultations belong only in
 [the Aristotle ledger](ARISTOTLE.md). Detailed experiment receipts stay next
 to the claims they test. Historical handoffs are archives, not active plans.
 
-The next mathematical task is joint recurrence transport of the target and
-deletion packets, using their shared corner diagram. Do not freeze the
+The next mathematical task is to prove or refute isolation for the explicit
+DN completion graph. If it fails, retain joint transport through the shared
+corner diagram and allow more general signed corrections. Do not freeze the
 ordinary residual and try to prove a period assertion already contradicted
 by the diagnostic. The corner,
 forest, winding and aggregate refinements remain available as tools and solved
