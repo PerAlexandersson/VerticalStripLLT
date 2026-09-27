@@ -245,22 +245,23 @@ The normalized endpoints lie in the same complete component by the original
 flip and the two normalization paths. Those paths may involve the exterior;
 the table alone does not supply a bounded local path between anchors.
 
-Even in the first row, the retained normal long can cease to be a cover.
-Use zero-based vertices and areas (0,1,2,3,4,4,5), with corners 04 and 16.
-Take S={04}, leaving 16 unmarked, and Q={03,13,45}. The two states
+Even in the first row, and even with EVERY corner strict, the retained normal
+long can cease to be a cover. Use zero-based vertices and areas
+(0,1,2,3,4,4,5), with strict corners S={04,16}, and Q={02,45}. The two states
 
-    S+Q+{12,15}  ↔  S+Q+{25,15}
+    S+Q+{23,25}  ↔  S+Q+{35,25}
 
-are mixed-acyclic actual flip neighbors retaining 15: it and the exchanged
-short are covers. Chain maxima at 1,2,5 have the first-row order. Normalization
-replaces 03 by 34 and keeps every other displayed normal. Both normalized
-states now have the bypass 1→3→4→5, so 15 is not a cover. They are still
-anchors and hence mixed-acyclic. This is a cover obstruction in the stated
-general setting, not a counterexample under the additional saturation
-hypothesis, since 16 is unmarked.
+are mixed-acyclic actual flip neighbors retaining 25: it and the exchanged
+short are covers. The reversed strict edges are 4→0 and 6→1, neither of
+which closes a cycle. Chain maxima at 2,3,5 have the first-row order.
+Normalization replaces 02 by 24 and keeps every other displayed normal.
+Both normalized states now have the bypass 2→4→5, so 25 is not a cover.
+They are still anchors and hence mixed-acyclic. Thus saturation alone does
+not supply the missing cover condition. This stronger diagnostic replaces
+the earlier nonsaturated example.
 
 Terra supplied the table and diagnostic; primary checked all replacements,
-cover tests, natural corners and the saturation limitation. The separate
+cover tests, natural corners and saturation. The separate
 [mixed-closure companion](COMPONENT_MIXED_CLOSURE.md) concerns semantic
 identities under mixed reachability and must not be confused with P or with
 preservation of an actual flip's cover tests.

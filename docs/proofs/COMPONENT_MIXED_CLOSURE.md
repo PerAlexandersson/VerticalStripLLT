@@ -135,6 +135,21 @@ has one fixed normal count, but there is no claim that its intersection is
 the entire corresponding level of [B_C,C]. Binomial multiplicities cannot
 be substituted without a separate component argument.
 
+This limitation persists in saturated connected nonforest states. Reuse the
+two-K4 articulation diagram, on one-based vertices, with areas
+(0,1,2,3,1,2,3), strict corners F={14,47}, and normal sets
+
+    B={12,23,45,56},       C=B∪{13,46}.
+
+The mixed closure of B is exactly C and is acyclic. Its level of normal
+cardinality five consists of B+13 and B+46. Every natural triangle lies in
+one of the blocks [1,4] and [4,7], so every actual flip preserves the normal
+count in each block. The two states have counts (3,2) and (2,3), respectively,
+and hence lie in different ENTIRE components. Both selected graphs are
+connected, contain a triangle, and have branching reachability posets. Thus
+discarding only forests or pointwise chain cases does not fix level
+connectivity. This does not rule out a refinement by the block counts.
+
 More directly, each proved insertion supplies a common semantic zero relation
 on signed states:
 
@@ -152,6 +167,10 @@ multiplicities constant on ENTIRE target components. Closure fibers are not
 asserted to be components, their residuals need not satisfy K=E individually,
 and equality of mixed orders does not justify erasing source-component labels.
 No uniform solution of that reconstruction problem is claimed here.
+
+The [labeled-poset continuation](COMPONENT_MIXED_POSET.md) also permits
+redundant reversed edges to be removed, with an explicit sign change. It
+gives a common incomparable-pair resolution and an exact total-order formula.
 
 Related Lean: no declaration yet. This proof uses the audited coefficient
 theorem rather than a new enumeration or compilation. The construction is

@@ -55,6 +55,9 @@ notes below each own one argument; process status lives in the handoff.
 - [Mixed closure](proofs/COMPONENT_MIXED_CLOSURE.md): normals implied by mixed
   reachability preserve both alternating valuations; acyclic closure fibers
   are Boolean intervals, giving further exact relations for regrouping.
+- [Labeled mixed posets](proofs/COMPONENT_MIXED_POSET.md): redundant reversed
+  edges, a common linear-extension refinement, and an exact mountain-block
+  formula for the signed HRV valuation on permutations.
 - [DN component completion](proofs/DN_COMPONENT_COMPLETION.md): explicit
   component grouping, proved recurrence transport, and the remaining local
   isolation assertion.

@@ -19,6 +19,7 @@ semantics. A sum over all components does not establish the individual claims.
 | Strict-chain normalization by actual flips; deterministic representatives, connected fibers and exact fiber coloring sums | Audited mathematical proofs | [Chain normalization](proofs/COMPONENT_CHAIN_NORMALIZATION.md) |
 | Crossing-corner slides: exact cover tests, consecutive-chain connectivity, simultaneous signed smaller-area correction for K and E | Audited mathematical proofs; correction regrouping remains open | [Anchor slides](proofs/COMPONENT_ANCHOR_SLIDES.md) |
 | Mixed reachability preserves alternating coloring and full HRV-map sums; exact Boolean closure fibers | Audited mathematical proofs; component reconstruction remains open | [Mixed closure](proofs/COMPONENT_MIXED_CLOSURE.md) |
+| Labeled mixed-poset valuations, common linear-extension refinement, exact mountain-block HRV formula | Audited mathematical proofs; component permutation matching remains open | [Mixed posets](proofs/COMPONENT_MIXED_POSET.md) |
 | Explicit ordinary DN completion graph; simultaneous semantic transport and whole-component reconstruction | Audited mathematical proof, conditional isolation still open | [DN component completion](proofs/DN_COMPONENT_COMPLETION.md) |
 | Doubly endpoint-marked aggregate identity; separate ascent variables at articulation blocks | Audited mathematical proofs | [Endpoint recovery and gluing](proofs/COMPONENT_ENDPOINT_GLUING.md) |
 | Corner leaf normalization; connectivity of all trees with a fixed envelope | Audited mathematical proofs | [Tree connectivity](proofs/COMPONENT_TREE_CONNECTIVITY.md) |
@@ -86,6 +87,18 @@ For an acyclic mixed order, all realizing normal sets form a Boolean interval
 whose mandatory edges are its forward Hasse edges. These fibers are not
 asserted to be components. Their exact identities enlarge the permitted
 redistributions of correction terms; final component constancy remains open.
+
+The [labeled-poset continuation](proofs/COMPONENT_MIXED_POSET.md) proves the
+corresponding reversed-edge removal rule and a common incomparable-pair
+resolution. Both component sums consequently refine using the same counts
+of compatible permutations in the ORIGINAL component. The signed HRV value
+of each permutation has an explicit mountain-block formula and a recurrence
+at its largest label. Mixed total orders are not individual equality cases;
+the required redistribution of their component-labeled counts remains open.
+Closure-fiber level connectivity fails even for saturated connected nonforest
+states in the known two-K4 articulation diagram. Also, saturation does not
+make chain normalization preserve a normal-long flip's cover condition;
+the strengthened diagnostic is in the chain-normalization note.
 
 Several packet equations may be combined. The proved
 [recurrence-generation companion](proofs/FLIP_COMPONENT_INDUCTION.md#signed-recurrence-generation-without-a-uniqueness-requirement)
