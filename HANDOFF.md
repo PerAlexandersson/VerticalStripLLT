@@ -27,6 +27,23 @@ logs are `circular-expansion-{build,full-build,axioms}.log`. Subsequent componen
 research is audited prose, not new Lean declarations. Initialization commits
 `830cc6b`, `130f7e8` and the immutable reference files are preserved.
 
+## Active implementation batch
+
+Starting from clean pushed `2b9421e`, the user explicitly requested parallel
+Lean formalization with Luna and Aristotle. Primary owns the new
+`docs/COMPONENT_FORMALIZATION.md`, `docs/proofs/COMPONENT_PERIODIC_WORDS.md`,
+HANDOFF, proof status/index, Aristotle ledger, library imports and verification
+inventory. Luna owns only `VerticalStripLLT/Components/WordRelations.lean`;
+no other agent may edit it until release. Aristotle receives an isolated
+conjugation-lemma request and no local source ownership. Primary owns eventual
+`VerticalStripLLT/Components/WordConjugation.lean` integration. All delegates
+remain build-free locally; the sole build slot stays with primary.
+
+Astra and Terra have completed read-only circular audits: the periodic HRV-map
+coefficient formula extends, but negative winding requires cancellation after
+fiber evaluation; the ordinary four-word relation has explicit circular
+boundary corrections. These are new prose results, not a circular proof.
+
 ## Ownership and checkpoint
 
 Primary owns strategy, research notes, integration, and the sole global Lean
