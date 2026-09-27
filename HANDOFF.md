@@ -37,12 +37,20 @@ The runtime Lean MCP is still rooted in RealRooted; use the existing explicit
 source-search / `lake-workspace` fallback described in
 `suggestions/project-tool-routing.md`. Check processes before each build.
 
-Active delegated ownership (2026-09-27): Luna `word_swaps` owns only
-`VerticalStripLLT/Components/WordSwap.lean`; Luna `word_covers` owns only
-`VerticalStripLLT/Components/WordCover.lean`. Astra `component_review` is
-read-only, reviewing the next flip-bijection decomposition. All three are
-build-free; primary retains imports, inventory, integration and every local
-Lean/Lake invocation. The original finite companion audit is not being redone.
+Active ownership (2026-09-27): primary owns all integrated modules, imports,
+inventory, documentation and the sole Lean build slot. Astra `component_review`
+owns only `VerticalStripLLT/Components/ComponentBijection.lean`. Luna
+`word_covers` owns only `VerticalStripLLT/Components/ComponentFunctional.lean`.
+Luna `word_swaps` has returned all assignments and released ownership. All
+subagents are build-free. Primary has checked the returned word-swap, inverse,
+neutral, cover, edge geometry, actual flip, orientation exchange, and count
+reduction candidates locally. No build slot was transferred.
+
+Independent Astra review decision: construct target admissibility directly
+with the forward numeric coloring (`EdgeData.lt_of_transGen`), then use the
+selected-edge exchange identity for word compatibility and a finite conditional
+bijection for filtered counts. The existing component and full integer cover
+relations are retained. The completed finite companion audit is not repeated.
 
 Restart checkpoint verification: `ComponentWords` passed its focused build
 (1411 jobs), the root library passed 1920 jobs, and the expanded axiom inventory
@@ -54,17 +62,22 @@ The first compile exposed an ordinary/circular `Orientation` name collision;
 explicit qualification fixed it. SSH fetch failed for lack of a loaded key;
 fetch over HTTPS using the existing `gh` credential helper succeeded without
 changing remotes, stored configuration, or accounts.
+The verified full-word checkpoint is committed and pushed as `de4645f`.
 
-Primary owns strategy, every current edit, integration and the sole local
-Lean build slot. All Luna/Terra/Astra assignments have returned and released
-editable ownership. No remote proof task remains active. No build slot was
-transferred. Only primary invokes `lake-workspace`.
+The local flip integration now passes the complete library build (1929 jobs)
+and 2164 axiom inventory entries, with only the three standard axioms.
+All 66 declarations added since the restart are inventoried; source, width,
+whitespace, 37 local-link and external-cache guards passed. Logs are
+`local-flip-library-build.log` and `local-flip-axioms.log` in the directory above.
+The `WordCover` candidate commits `4eed223`/`807114e` are adopted into this
+verified increment with canonical-residue and implicit-argument corrections.
+Two harmless unused-hypothesis linter warnings remain in the generic word
+exchanges; signatures are retained. The count reduction still has an explicit
+filtered-cardinality premise, which the active bijection task must discharge.
 
-The focused word-ring checkpoint was committed and pushed at `3dcb0f8`,
-following `72e0fa6`. This batch integrates its root imports and inventory,
-adds block cancellation and rank-cover adapters, and records the complete
-finite companion. All current files are task-owned. No Rust, Overleaf,
-reference source or shared infrastructure was changed.
+Earlier word-ring and companion checkpoints are `3dcb0f8` and `5dd1d2a`.
+Their remote proof requests and worker assignments are terminal. No Rust,
+Overleaf, reference source or shared infrastructure was changed.
 
 Initialization commits `830cc6b` and `130f7e8` remain ancestors. The immutable
 paper references remain untouched. Overleaf v9 remains unchanged at SHA-256
@@ -95,6 +108,19 @@ the namespace is `VerticalStripLLT.Components`.
 - `LiftCoverRank`, namespace `Circular.Diagram`: `rank_lt_of_liftReach`,
   `liftCover_of_liftStep_rank_gap`, `liftCover_of_liftStep_rank_succ`.
   These use the ACTUAL full integer cover relation; no no-wrap hypothesis.
+- `ComponentWords`: guarded counts in the actual flip component, their linear
+  extension, repeated-word vanishing, component invariance and strict ranks.
+- `ShortEdges`: normal short-edge construction and canonical forward lifts;
+  `EdgeSwap`: exact selected-relation exchange and its inverse.
+- `WordSwap`, `WordSwapInverse`, `WordNeutral`: compatibility of exchanged and
+  unchanged triples, plus permutation invariance of full-word guards.
+- `WordCover`: all four covers of contiguous `acb`/`bac` words.
+- `WordFlip`: `directedFlipWitness_of_compatible_triples` derives every cover
+  field and supplies actual component closure.
+- `ComponentSwap`: deterministic exchanged orientations and compatible forward
+  and backward actual flips, including the case of a strict retained long edge.
+- `CountReduction`: reduces the four-term count identity to the cardinality
+  equality of the selected-long-edge filters; that premise is still explicit.
 
 These are full general ingredients, not examples or declarations of the
 complete component theorem. The component functional remains linear rather
@@ -154,8 +180,9 @@ milestone, detailed in [the modular plan](docs/COMPONENT_FORMALIZATION.md):
    `ComponentWords` now supplies the FULL-WORD guard, actual count, repeated-word
    vanishing and strict position ranks. Compatibility alone does not make
    repeated-word counts vanish.
-2. Apply word-position ranks to the contiguous triple cover fields. Reuse
-   `length_le_of_strict_same_tail` for normal-short-edge geometry.
+2. The contiguous triple covers and normal-short-edge geometry are now checked
+   in `WordCover` and `ShortEdges`; use them through `ComponentSwap` for the
+   remaining conditional component bijection.
 3. Assemble the finite Cauchy factorization and global HRV extraction, then
    transport entire balanced components via compatible lifts.
 4. Formalize the ordered-partition identity, scaled canonical potentials,

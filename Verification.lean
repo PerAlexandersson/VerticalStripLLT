@@ -2164,3 +2164,57 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Components.componentWordLinear
 #print axioms VerticalStripLLT.Components.componentWordLinear_basisWord
 #print axioms VerticalStripLLT.Components.componentWordLinear_repeated
+
+-- Concrete word exchanges and all four lifted-cover fields.
+#print axioms VerticalStripLLT.Circular.Diagram.admissible_of_forward
+#print axioms VerticalStripLLT.Circular.Diagram.orientationOfForward
+#print axioms VerticalStripLLT.Circular.Diagram.naturalLift_of_tail_lt_head
+#print axioms VerticalStripLLT.Circular.Diagram.boundaryNaturalLift_of_naturalLift
+#print axioms VerticalStripLLT.Circular.Diagram.normalShortEdges_of_boundaryNaturalLift
+#print axioms VerticalStripLLT.Circular.Diagram.normalShortEdges_of_naturalLift
+#print axioms VerticalStripLLT.Circular.Diagram.selected_insert_iff
+#print axioms VerticalStripLLT.Circular.Diagram.selected_erase_normal_iff
+#print axioms VerticalStripLLT.Circular.Diagram.selected_insert_erase_normal_iff
+#print axioms VerticalStripLLT.Circular.Diagram.selected_short_swap_iff
+#print axioms VerticalStripLLT.Components.insert_erase_exchange_inverse
+#print axioms VerticalStripLLT.Components.wordCompatible_adjacent_swap_iff
+#print axioms VerticalStripLLT.Components.wordCompatible_acb_cab_iff
+#print axioms VerticalStripLLT.Components.wordCompatible_bac_bca_iff
+#print axioms VerticalStripLLT.Components.wordCompatible_exchange_of_nodup
+#print axioms VerticalStripLLT.Components.wordCompatible_exchange_inverse_of_nodup
+#print axioms VerticalStripLLT.Components.liftCover_of_wordCompatible_rank_succ
+#print axioms VerticalStripLLT.Components.liftCover_of_full_compatible_word_rank_succ
+#print axioms VerticalStripLLT.Components.liftCover_of_wordCompatible_rank_gap
+#print axioms VerticalStripLLT.Components.liftCover_of_full_compatible_word_rank_gap
+#print axioms VerticalStripLLT.Components.liftCover_of_wordCompatible_rank_two
+#print axioms VerticalStripLLT.Components.liftCover_of_full_compatible_word_rank_two
+#print axioms VerticalStripLLT.Components.idxOf_triple
+#print axioms VerticalStripLLT.Components.residue_ne_of_canonical_between
+#print axioms VerticalStripLLT.Components.residue_ne_of_canonical_between_left
+#print axioms VerticalStripLLT.Components.liftCover_acb_ac
+#print axioms VerticalStripLLT.Components.liftCover_acb_ab
+#print axioms VerticalStripLLT.Components.liftCover_bac_ac
+#print axioms VerticalStripLLT.Components.liftCover_bac_bc
+#print axioms VerticalStripLLT.Components.directedFlipWitness_of_compatible_triples
+#print axioms VerticalStripLLT.Components.flip_of_directedFlipWitness
+#print axioms VerticalStripLLT.Components.mem_flipComponent_of_directedFlipWitness
+
+-- Guard transport and reduction to the selected-long-edge bijection.
+#print axioms VerticalStripLLT.Components.wordCompatible_acb_bac_iff_of_no_short
+#print axioms VerticalStripLLT.Components.fullWord_acb_bac_iff
+#print axioms VerticalStripLLT.Components.fullWord_acb_cab_iff
+#print axioms VerticalStripLLT.Components.fullWord_acb_bca_iff
+#print axioms VerticalStripLLT.Components.componentWordCount_acb_add_bca_eq_cab_add_bac
+
+-- Deterministic exchanges preserving the original complete component.
+#print axioms VerticalStripLLT.Components.exchangeOrientation
+#print axioms VerticalStripLLT.Components.exchangeOrientation_val
+#print axioms VerticalStripLLT.Components.exchangeOrientation_inverse
+#print axioms VerticalStripLLT.Components.naturalLift_endpoints
+#print axioms VerticalStripLLT.Components.selected_edge_iff_mem
+#print axioms VerticalStripLLT.Components.selected_normal_iff_mem
+#print axioms VerticalStripLLT.Components.selected_iff_mem_of_naturalLift
+#print axioms VerticalStripLLT.Components.exchangeOrientation_forward
+#print axioms VerticalStripLLT.Components.exchangeOrientation_backward
+#print axioms VerticalStripLLT.Components.mem_flipComponent_of_directedFlip
+#print axioms VerticalStripLLT.Components.mem_flipComponent_of_reverse_directedFlip

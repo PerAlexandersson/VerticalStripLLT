@@ -63,6 +63,9 @@ verified in `WordRelations`, `WordMultiplication`, and `WordAlgebra`.
 `ComponentWords` supplies the full-word count on the actual complete component,
 its linear extension, and vanishing on repeated words. The four-term flip
 bijection and descent of this particular map to the quotient remain open.
+The local geometry, forward/inverse word exchanges, and actual directed-flip
+witness now have Lean implementations in `ShortEdges`, `EdgeSwap`, `WordSwap`,
+`WordSwapInverse`, `WordCover`, and `WordFlip`.
 The verified aggregate expansion does not supply the missing component semantic bridge.
 
 **Circular formalization.** The v9 companion gives a signed expansion in

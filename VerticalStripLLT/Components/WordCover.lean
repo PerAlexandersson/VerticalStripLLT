@@ -3,10 +3,9 @@ import VerticalStripLLT.Components.LiftCoverRank
 
 /-! Cover certificates obtained from the positions of a full compatible word.
 
-The rank used here is the position in the word.  The hypotheses on a word are
-kept explicit: the cover lemmas apply to an actual member of the filtered
-component, and hence do not identify a recurrence-defined relation with the
-coloring relation.
+Word positions increase along actual selected edges. The cover lemmas require
+only a full compatible word; the component wrappers add filtered membership
+when that is already available.
 -/
 
 namespace VerticalStripLLT.Components
@@ -189,8 +188,7 @@ theorem liftCover_acb_ac
   have hi := idxOf_triple ρ σ ha hc hb
     (ne_of_gt (lt_trans hab hbc)) (ne_of_gt hab) (ne_of_lt hbc)
   apply liftCover_of_wordCompatible_rank_succ hw hcompat hstep
-  rw [hi.2.1, hi.1]
-  lia
+  simp only [Circular.Orientation.residue_intCast_eq, hi.2.1, hi.1]
 
 theorem liftCover_acb_ab
     {η : Circular.Orientation D} (ρ σ : List (Fin n))
@@ -205,11 +203,9 @@ theorem liftCover_acb_ab
     (ne_of_gt (lt_trans hab hbc)) (ne_of_gt hab) (ne_of_lt hbc)
   apply liftCover_of_wordCompatible_rank_two hw hcompat hstep c
   · intro z haz hzb
-    exact residue_ne_of_canonical_between D a b c hbc haz hzb
-  · rw [hi.2.1, hi.1]
-    lia
-  · rw [hi.2.2, hi.1]
-    lia
+    exact residue_ne_of_canonical_between (D := D) a b c hbc haz hzb
+  · simp only [Circular.Orientation.residue_intCast_eq, hi.2.1, hi.1]
+  · simp only [Circular.Orientation.residue_intCast_eq, hi.2.2, hi.1]
 
 /-- The consecutive and rank-two target covers for a `bac` word. -/
 theorem liftCover_bac_ac
@@ -224,8 +220,7 @@ theorem liftCover_bac_ac
   have hi := idxOf_triple (a := b) (c := a) (b := c) ρ σ hb ha hc
     (ne_of_lt hab) (ne_of_gt hbc) (ne_of_gt (lt_trans hab hbc))
   apply liftCover_of_wordCompatible_rank_succ hw hcompat hstep
-  rw [hi.2.2, hi.2.1]
-  lia
+  simp only [Circular.Orientation.residue_intCast_eq, hi.2.2, hi.2.1]
 
 theorem liftCover_bac_bc
     {η : Circular.Orientation D} (ρ σ : List (Fin n))
@@ -240,10 +235,8 @@ theorem liftCover_bac_bc
     (ne_of_lt hab) (ne_of_gt hbc) (ne_of_gt (lt_trans hab hbc))
   apply liftCover_of_wordCompatible_rank_two hw hcompat hstep a
   · intro z hzb hzc
-    exact residue_ne_of_canonical_between_left D a b c hab hzb hzc
-  · rw [hi.2.1, hi.1]
-    lia
-  · rw [hi.2.2, hi.1]
-    lia
+    exact residue_ne_of_canonical_between_left (D := D) a b c hab hzb hzc
+  · simp only [Circular.Orientation.residue_intCast_eq, hi.2.1, hi.1]
+  · simp only [Circular.Orientation.residue_intCast_eq, hi.2.2, hi.1]
 
 end VerticalStripLLT.Components

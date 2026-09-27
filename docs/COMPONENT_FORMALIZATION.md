@@ -72,6 +72,13 @@ words, invariance under the component representative, and strict word-position
 ranks for selected edges. Descent through the four-term relations is still open;
 the linear map is not yet a functional on the quotient.
 
+The local flip ingredients are implemented in `ShortEdges`, `EdgeSwap`,
+`WordSwap`, `WordSwapInverse`, `WordCover`, and `WordFlip`. They construct
+normal short edges, transport compatibility in both directions, certify all
+four actual lifted covers, and assemble a `DirectedFlipWitness` from compatible
+source/target triples. The conditional bijection on the selected-long-edge
+filters and its count identity still need integration.
+
 ## Ownership and validation
 
 Primary owns architecture, integration, imports, inventory and all local builds.
@@ -101,8 +108,8 @@ all repeated-letter words in `wordRelations`. `componentWordLinear_repeated`
 proves this part of the kernel condition. `compatibleComponent_idxOf_lt`
 connects the actual filtered states to the generic `WordRank` certificate.
 
-The next substantial adapter is `liftCover_of_forward_contiguous_word`.
-Its cover part can be made simpler than a global no-wrap argument. Any full
+`WordCover.liftCover_acb_ac`, `liftCover_acb_ab`, `liftCover_bac_ac`, and
+`liftCover_bac_bc` implement the contiguous-triple cover adapter. Any full
 compatible word supplies a rank on residues increasing along selected edges,
 so every nontrivial integer lifted path increases this rank. A lifted edge
 is a full cover when no integer strictly between its endpoints has a rank
@@ -119,9 +126,11 @@ without a global no-wrap hypothesis. This certifies all four actual lifted
 covers. The ordinary forward hypothesis remains relevant to the counting
 identity; it is unnecessary for this isolated rank certificate.
 
-Construct the target selected normal set as `insert ebc (η.val.erase eab)`;
-derive its admissibility from the exchanged compatible word and fill the
-four source/target cover fields. Component membership then follows from the
+Construct the target selected normal set as `insert ebc (η.val.erase eab)`.
+The independent Astra review selected the shorter admissibility proof:
+`ShortEdges.admissible_of_forward` uses the numeric vertex coloring, so it
+does not depend on target compatibility. `WordFlip` fills the four cover
+fields from compatible words and derives component membership using the
 existing flip reachability API.
 
 The two finite filters needed by the four-word identity can be paired using

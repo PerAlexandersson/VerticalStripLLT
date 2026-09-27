@@ -214,3 +214,12 @@ import VerticalStripLLT.Components.BlockCancellation
 import VerticalStripLLT.Components.LiftCoverRank
 import VerticalStripLLT.Components.WordRank
 import VerticalStripLLT.Components.ComponentWords
+import VerticalStripLLT.Components.ShortEdges
+import VerticalStripLLT.Components.EdgeSwap
+import VerticalStripLLT.Components.WordSwap
+import VerticalStripLLT.Components.WordSwapInverse
+import VerticalStripLLT.Components.WordCover
+import VerticalStripLLT.Components.WordFlip
+import VerticalStripLLT.Components.WordNeutral
+import VerticalStripLLT.Components.CountReduction
+import VerticalStripLLT.Components.ComponentSwap
