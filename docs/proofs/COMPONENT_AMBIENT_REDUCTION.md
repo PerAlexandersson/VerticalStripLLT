@@ -36,6 +36,78 @@ The analogous statement holds for ordinary diagrams and the ordinary complete
 graph. An ordinary component embedded in U_n cannot acquire wrap edges:
 the zero-cut ordinary natural edge set is invariant by the same argument.
 
+## Compatible lifts give an exact ordinary reduction
+
+Call a selected relation A balanced if we can choose integers z_v, one for
+each vertex, such that z_v is congruent to v modulo n and
+
+    z_v-z_u = d(u,v)    for every selected edge u->v,
+
+where d(u,v) is its natural increment in {1,...,n-1}. These are compatible
+lifts of all vertices. Since distinct vertices have distinct residues, the
+z_v are distinct. Every selected edge points forward in their integer order.
+
+**Preservation under flips.** Suppose a flip uses lifts a<b<c<a+n.
+At its outgoing-fork state, the selected edges ab and ac imply that the
+chosen lifts of these three vertices differ from a,b,c by the SAME multiple
+of n. Consequently the replacement edge bc also has its prescribed increment
+between the chosen lifts. The converse follows from the incoming pair ac,bc.
+All other constraints are unchanged. Thus a flip preserves the exact set of
+compatible lift assignments, and in particular preserves one fixed assignment
+throughout its entire component.
+
+**Identification of components.** Sort the vertices by z_v, and relabel them
+0,...,n-1 in that order. The entire circular component becomes a component of
+the ordinary complete graph, with no loss or addition of states.
+
+For the forward direction, every selected path beginning at z_u ends at the
+chosen z_v of its endpoint. Its increments telescope. A projected alternate
+path to v therefore ends at precisely the same lift as the direct edge.
+Projected covers and lifted covers agree. Every circular flip hence becomes
+an ordinary flip after sorting the three compatible vertex lifts.
+
+For the converse, start from the relabeled selection and follow any ordinary
+flip path. Inductively all selected edges satisfy 0<z_v-z_u<n. In a flip,
+the newly inserted short edge lies inside the retained selected long edge,
+so it still has length less than n. It is therefore a natural circular edge
+with exactly the required increment. The projected and lifted cover tests
+again agree. This lifts every ordinary flip back to the original circular
+component and proves equality with an ENTIRE ordinary component.
+
+**Semantic identification.** For each vertex u, the actual lifted maximum
+starting at z_u is the greatest z_v among its projected reachable vertices.
+Sorting carries it to the ordinary highest reachable vertex. Thus every HRV
+fiber, and the resulting elementary monomial, is transported exactly.
+Relabeling vertex colors preserves the uniform strict order enumerator as
+well. The two component identities are therefore equivalent. This argument
+does not assert an order-preserving periodic map on all of the integer cover;
+the chosen lifts can span more than one period. It uses their order on each
+selected path and their compatibility with each flip triangle.
+
+All actual flips within such a component are strong, because the two notions
+of cover agree. This proves the reduction for actual components, not merely
+for their strong subcomponents. The ordinary component theorem is still open,
+so the reduction is not a proof of the component identity itself.
+
+**Forests and cycle winding.** Every selected forest admits compatible lifts.
+Choose one root lift in each weak block and propagate along its unique
+undirected paths, adding d(u,v) when traversing u->v and subtracting it in
+the opposite direction. This also preserves each prescribed residue.
+
+More generally, choose a spanning forest. The propagated values satisfy all
+remaining edge constraints exactly when the signed increments around every
+undirected cycle sum to zero. Such a sum is a multiple of n; its quotient
+by n is the cycle winding. Thus balance is equivalent to zero winding on
+every undirected cycle. We have proved the ordinary reduction for this entire
+family, including all forests. Nonzero cycle winding is precisely the
+obstruction to compatible lifts; it is not a directed cycle or an automatic
+zero-polynomial condition.
+
+For example, the three-state strong component below is unbalanced. Its first
+state contains the path 1->0->2, of total increment 3+2=5, as well as the
+edge 1->2, of increment 1. Their difference is one period. This is why its
+cyclic union does not contradict the compatible-lift reduction.
+
 ## Redundant edges preserve maxima, not lifted reachability
 
 Let A be a projected DAG. Suppose its selected edge u->v is redundant in
@@ -171,7 +243,7 @@ Rust source or reusable polynomial family was added. Artifacts are under
   `28fca9b8555af90c1c0ca9e0b068b5275be5337f2564130534369ab3a14c3183`;
 - `projected-unions-through-five.log`, SHA-256
   `82a003ae4ca0159ecdcb5d415e52b97617a5db8cb982ce86503f02fbc5f380e8`;
-- final `hrv-bridge/src/bin/component_source_probe.rs`, SHA-256
+- `component_source_probe-at-73535cd.rs`, the retained source of these checks, SHA-256
   `ada4d95fdfaf752e715e1d94e744849e461d6b5ce1b10db8818e35695662d3b9`;
 - `component_source_probe-at-c6305a0.rs` preserves the prior probe.
 
@@ -179,3 +251,27 @@ The ignored diagnostic `diagnostic_projected_components` uses existing model,
 flip and formal-defect routines. Setting `VSLLT_CHECK_UNIONS=1` additionally
 checks the union of each strong component. Its early return on a counterexample
 is intentional; JSON records, not the harness exit status, report the result.
+
+The subsequent six specified circular seeds on n=6,...,8 gave five complete
+strong components with zero formal defect, totaling 12,979 states. The sixth
+exceeded the 20,000-state cap and is inconclusive. The exact `(n, seed)` pairs,
+using lexicographic directed-edge masks in U_n, are
+
+    (6,272760992), (6,79757387), (7,2203385348099),
+    (7,1306746171400), (8,2819153182335488), (8,6790867280989480).
+
+The fourth pair is the capped case. A separate connected-tree screen checked
+all 1, 2, 12, 128, 2000 selected trees through n=5, in respectively
+1, 2, 9, 60, 520 components, and found their unions acyclic. Primary and Astra
+then proved the general compatible-lift theorem above independently of those
+finite checks. Both source cancellation and the union property were checked
+in this tree diagnostic; neither is promoted to an ordinary component proof.
+
+Additional artifacts in the same external directory:
+
+- `projected-samples-final.log`, SHA-256
+  `1d55b19c0e4dabc3dc55b82214a6514c26265e0f4f9fed4a914ab3b2676474c1`;
+- `projected-tree-unions.log`, SHA-256
+  `40f167106afc7152b35a5b2756147ff40f0a79e9efae5b65773bc8c9b1cd37eb`;
+- updated `hrv-bridge/src/bin/component_source_probe.rs`, SHA-256
+  `97f22d7076b56a8f5ec46742503b363be22d8802768b68958a9617b6dca51f72`.

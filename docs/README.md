@@ -46,7 +46,8 @@
 - [Attached chains](proofs/COMPONENT_BRIDGE_PACKETS.md): five-flip attachment
   transport, telescoping source cancellation, and the open marked-ideal identity.
 - [Ambient reduction](proofs/COMPONENT_AMBIENT_REDUCTION.md): exact reduction
-  to complete circular diagrams and the stronger projected-cover companion.
+  to complete circular diagrams, the ordinary reduction for zero-winding
+  components, and the stronger projected-cover companion.
 - [Component induction brainstorming](proofs/FLIP_COMPONENT_INDUCTION.md):
   coloring redistribution, cross-ascent transfers and exact missing lemmas.
 - [Aristotle ledger](ARISTOTLE.md): request IDs, candidates, and local verification.

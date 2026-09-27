@@ -868,3 +868,37 @@ and residual transport were developed after its input snapshot `5266faa`.
   the full coefficient cancellation open. Primary and Astra verified
   that conditional argument. The returned auxiliary Lean source and compatibility tree
   remain external; no source build was warranted by this return.
+
+## Active projected-cover companion search
+
+- Project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08`, task
+  `e8b27b28-541c-4e91-a846-d4b0db50a739`, confirmed IN_PROGRESS.
+- Request directory:
+  `/lake-cache/ai-projects/requests/VerticalStripLLT/projected-source-companion/`.
+  The input contains `TARGET.md` and the ambient/source/bridge research notes
+  from checkpoint `73535cd`. No Lean project or compatibility scaffolding was
+  uploaded. `INPUT_HASHES.json` records the exact files. Target SHA-256:
+  `add2d23d98721710fa5d28df922f4d6f3a4088a18e35ba086e68fba7a780338c`.
+- The target is the general (StrongSrc) identity on entire projected-cover
+  components. The request supplies the proven reconstruction and full-goal
+  implication, and asks for cancellation itself. A first-order result is
+  explicitly partial. It prohibits exhaustive large searches and conditional
+  wrappers passed off as solutions. Mathematical `PROOF.md` is requested
+  before any formalization.
+- The original task and Claude consultation remain terminal; this is a new
+  project with a different, stronger flip graph and the newly proved ambient
+  reduction. Five larger finite component checks and the common-order
+  counterexample are supplied, explicitly as evidence and obstruction.
+- Primary sent the independently verified compatible-lift reduction inline:
+  every balanced component, including all forests, is an entire ordinary
+  component after sorting compatible lifts, with HRV preserved. The receipt
+  is `balanced-reduction-message.log`; this does not assert the still-open
+  ordinary component theorem.
+- Native session `31446` runs the two-hour same-task observation wrapper,
+  which passed `bash -n`. It reconnects only to this task and does not submit,
+  cancel or download. `observer-status.log`, `observed-status.log`, and
+  `observer-follow.log` retain progress. An observation timeout does not
+  terminate the remote task. No proof candidate has been integrated.
+- The inspected progress contains bounded n=4/5 checks and exploratory
+  source/sink reversals, not a proof. Primary remains the authoritative
+  integration and serialized local-build owner; no Lean build was used.

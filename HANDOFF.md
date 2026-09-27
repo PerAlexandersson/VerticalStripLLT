@@ -63,20 +63,27 @@ build directory was introduced.
 
 ## Active goal: component HRV formula
 
+The user has redirected the main proof search to the original recurrences,
+splitting corners into selected/unselected (strict/deleted) cases. Primary
+owns all note edits, including `FLIP_COMPONENT_INDUCTION.md`, external probes,
+the index, Aristotle ledger, and this handoff. Astra's `circular_plan_review`
+lane is read-only: audit recurrence transfers and their generalization. Other
+local lanes are released. The StrongSrc Aristotle task remains an auxiliary
+search; no Lean build or Claude process is active.
+
 The full flip-component theorem is unproved. The goal is a general diamond
 or companion lemma establishing it, with precise hypotheses and justified
 component isolation. Neither finite tests nor the aggregate theorem close it.
 The exact target is in `docs/CIRCULAR_FLIPS.md`.
 
 Primary owns strategy, all current notes, integration, and the sole global
-Lean build slot. All delegate lanes are released. Astra reviewed the new
-ambient reduction and component counterexamples; Terra reviewed redundant-edge
-removal; Luna returned build-free snippets only. No Lean build, Aristotle task,
-or Claude process is active. Use only `lake-workspace`, after checking that no
+Lean build slot. Astra reviewed the new
+ambient and compatible-lift reductions; Terra reviewed redundant-edge removal;
+Luna returned build-free snippets only. Use only `lake-workspace`, after checking that no
 other Lean/Lake build is active. No build-slot transfer has occurred.
 
-The last pushed research checkpoint before this increment is `c6305a0`:
-attached-chain cancellation and the obstruction to source-boundary closure.
+The last pushed research checkpoint before this increment is `73535cd`:
+complete-circular ambient reduction and the stronger source companion.
 The current note is `docs/proofs/COMPONENT_AMBIENT_REDUCTION.md`.
 Primary owns it, the source-note/index links, this handoff, and the archive.
 
@@ -91,6 +98,13 @@ Primary owns it, the source-note/index links, this handoff, and the archive.
 - Removing a projected transitively redundant edge preserves uniform selected
   order enumerators and actual lifted HRV maxima. It does NOT preserve full
   lifted reachability, actual flips, selected-edge count, or multiplicity.
+- If all selected edge increments admit compatible integer vertex lifts, each
+  flip preserves the SAME lifts. Sorting them identifies the ENTIRE actual
+  circular component with an ordinary complete-graph component and preserves
+  HRV. Every forest satisfies this condition; in general it is equivalent to
+  zero signed winding around every undirected cycle. In such components,
+  projected and lifted covers agree. The ordinary component theorem remains
+  open, so this is a reduction, not a proof of these component identities.
 - Source and sink restrictions with fixed deleted extrema have constant
   multiplicity on complete smaller components. Source deletion also preserves
   the remaining HRV fibers. The source identity (Src), or the sufficient sink
@@ -105,8 +119,15 @@ Primary owns it, the source-note/index links, this handoff, and the archive.
   have a cyclic union of its selected edges. Both obstructions have exact
   four-vertex certificates in the new note.
 
-The next task is a general cancellation/transport proving (Src) or (StrongSrc),
-including the overlap of source and sink deletion slices. Do not assume a
+The next task is uniform component isolation through the manuscript recurrences,
+using corner case splits, auxiliary diamond identities, and independently
+solved source corrections. Both recorded ordinary same-ascent obstructions
+now have mathematical repairs audited by Astra; primary is recording the exact
+certificates in `FLIP_COMPONENT_INDUCTION.md`. They do not yet prove the general
+transport lemma. Source cancellation (Src)/(StrongSrc) remains a parallel
+companion route. The balanced case reduces to ordinary components; nonzero
+cycle winding obstructs that reduction. Monitor the existing Aristotle task below;
+do not resubmit it after an observation failure. Do not assume a
 common linear order for a circular strong component or infer HRV transport
 from deletion coverage alone. No full component proof is claimed.
 
@@ -144,10 +165,17 @@ union-cycle check returns the exact three-state n=4 counterexample. The JSON
 results were inspected; harness success is not treated as theorem evidence.
 The new note records source hashes and logs. This is finite evidence only.
 
+Six fixed larger circular seeds gave five complete strong components with
+zero defect (12,979 states); one n=7 component exceeded 20,000 states and is
+inconclusive. All selected trees through n=5 also had acyclic component unions;
+the general compatible-lift proof now establishes this property independently.
+The exact inputs, counts, code hashes, and receipts are in the ambient note.
+
 The external probe reuses `circular_highest_reachable_vertices` from the shared
 Rust library. Its owning directory is
 `/lake-cache/ai-projects/requests/VerticalStripLLT/diamond-exploration/`.
-The prior probe is retained as `component_source_probe-at-c6305a0.rs`.
+The prior probes are retained as `component_source_probe-at-c6305a0.rs` and
+`component_source_probe-at-73535cd.rs`.
 Luna's snippet was reviewed and only its projected reachability predicate was
 adopted; primary retained the original lifted-flip checks. No shared Rust source
 or reusable polynomial family was added. The pending maintained integration
@@ -164,6 +192,19 @@ source changed. Whitespace checks pass. The user-requested obsolete circular
 plan was already removed at `ebfd5cc`.
 
 ## Consultations and archive
+
+Aristotle project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08`, task
+`e8b27b28-541c-4e91-a846-d4b0db50a739`, is confirmed IN_PROGRESS. The request
+asks for a general (StrongSrc) proof and supplies the checked reductions and
+counterexamples. A first-order result is explicitly partial. No exhaustive
+large searches or conditional wrappers are requested. The compatible-lift
+theorem was supplied inline after independent review.
+
+Native session `31446` observes this same task with a two-hour allowance;
+the wrapper passed `bash -n` and can reconnect without resubmitting. Its logs,
+input notes/hashes, submission and steering receipts are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/projected-source-companion/`.
+The inspected progress is exploratory, not a proof. No candidate is integrated.
 
 Claude Sonnet finished without a general proof (native session 6592). Its
 incorrect exterior-factor claim was corrected and independently checked.
