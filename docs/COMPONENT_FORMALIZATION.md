@@ -333,3 +333,25 @@ component γ. Its index is the full selected set `D.strict ∪ θ.val`. It does 
 itself supply universal-ambient component preservation or the reindexing needed
 for companion subsets that delete originally strict edges. Those bridges,
 grouping by balanced components and compatible-lift transport remain explicit.
+
+### Whole-component undecoration and actual component companion
+
+`UndecoratedFlips` proves that both shorts of an undecorated flip are normal
+in the original diagram. `UndecoratedRecovery` restores strict markings, and
+`UndecoratedComponents.flipComponent_toUndecorated` proves the exact image
+identity for entire components by path lifting. `UndecoratedComponentSemantics`
+transports both componentStrictEnumerator and componentHRV. This completes the
+needed ambient reduction without enlarging the natural area graph; the source
+is the local proof of manuscript v9 `cc:lem:universal`, lines 864–880.
+
+`OrientationSubsetSum` and `OrientationCompanion` reindex the actual finite
+companion by all orientations, retaining zero coefficients outside subset
+support. `ComponentCompanion` exchanges the finite sums over the original
+component and gives the same componentCoefficient for coloring, the entire
+HRV map and the existing HRV monomial. Grouping those coefficients by complete
+balanced components remains the next finite step.
+
+`BalancedLifts.exists_injective_balancedLifts` normalizes the integer potential
+by weak-block constants to lifts with the original residues. It imposes no
+common-cut or one-period span bound. The ordinary interval-diagram construction
+and full reachability/cover and component transport still remain.

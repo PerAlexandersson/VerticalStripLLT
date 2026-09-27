@@ -306,3 +306,11 @@ import VerticalStripLLT.Components.BlockFullWords
 import VerticalStripLLT.Components.TightFlipInverse
 import VerticalStripLLT.Components.CircularGoodFlipInverse
 import VerticalStripLLT.Components.ComponentCoefficient
+import VerticalStripLLT.Components.BalancedLifts
+import VerticalStripLLT.Components.ComponentCompanion
+import VerticalStripLLT.Components.OrientationCompanion
+import VerticalStripLLT.Components.OrientationSubsetSum
+import VerticalStripLLT.Components.UndecoratedComponentSemantics
+import VerticalStripLLT.Components.UndecoratedComponents
+import VerticalStripLLT.Components.UndecoratedFlips
+import VerticalStripLLT.Components.UndecoratedRecovery

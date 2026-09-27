@@ -125,7 +125,8 @@ full component expansion remain to be assembled. The circular finite companion's
 coloring and entire periodic HRV expansions now compile with the same canonical
 coefficients (`Components/CircularFiniteCompanion.lean`), including deletions of
 originally strict edges. The coefficient-preserving ambient flip bijection and
-coefficient constancy on complete flip components are also proved. Universal
-ambient-component preservation, final grouping and compatible-lift transport
-remain separate obligations.
+coefficient constancy on complete flip components are also proved. Same-area
+undecoration now preserves entire components and both valuations. Compatible
+lift normalization is verified; final grouping and full ordinary-component
+transport remain separate obligations.
 Cumulants remain outside the scope.

@@ -8,14 +8,14 @@ The complete ordinary and aggregate circular formulas are Lean theorems.
 The full ordinary and circular **component** formulas have complete audited
 mathematical proofs but are **not yet complete Lean theorems**.
 
-Latest pushed checkpoint `d4af8ce` verifies tight forward ambient flips
-(2029 jobs, 2578 axioms). The next increment now compiles: the inverse ambient
-flip, coefficient-preserving reverse extension, and `ComponentCoefficient`
-constancy of the actual coefficient sum along whole components of a fixed D.
-Astra independently audited the bijection, signs and original-component
-membership with no defect. `BlockFullWords` connects the ordinary full-word
-guard to disjoint carrier partitions. Full library: **2033 jobs**, **2590 axiom
-entries**, standard axioms only; source/line-width/diff checks pass. The full ordinary/circular component identities remain open.
+Latest pushed checkpoint `0eac2b2` verifies actual coefficient-sum constancy
+(2033 jobs, 2590 axioms). The next increment compiles in focused checks:
+whole-component same-area undecoration with both component valuations,
+all-orientation indexing of the genuine companion, actual component companion
+sums, and residue-compatible injective balanced lifts. Full library passes
+**2041 jobs**, **2627 axiom entries**, standard axioms only, with passing source,
+line-width and diff checks.
+The full ordinary/circular component identities remain open.
 
 Earlier pushed checkpoints: `f668154` (mountain equation (4) and potential
 independence; 1992 jobs, 2416 axioms), `b60d299` (Lemma A and abstract (**′**)),
@@ -37,9 +37,10 @@ The academic-account restart continues in the assigned main checkout
 `/workspace/lean/VerticalStripLLT`, branch `main`. Primary owns all integrated
 source, imports, inventory, documentation, integration fixes and the sole
 serialized Lean build slot. Check active processes before each build.
-All three authorized agents are currently edit-idle; all returned files are
-primary-owned. Luna returned `OrientationSubsetSum.lean`, not yet compiled or
-included in the coefficient-constancy checkpoint. Primary owns all build work.
+All returned files are primary-owned. `ComponentSumPartition.lean` and
+`BalancedLiftReach.lean` are the next uncompiled candidates and are excluded
+from the undecoration checkpoint. Agents are edit-idle. Primary remains the
+sole build owner for this project, serialized across Lean projects.
 
 All earlier candidates were returned, repaired where needed, and checked by
 primary. No build slot was transferred. No new account, supervisor worker or
@@ -194,20 +195,19 @@ Latest finite-companion ownership chronology is archived in
 
 The per-orientation finite companion and coefficient-sum constancy inside a
 fixed diagram are complete. Reindex subsets by orientations, then group the
-expansion by complete balanced components. The original decorated component
-still needs an exact whole-component undecoration bridge.
+expansion by complete balanced components. The exact whole-component undecoration bridge and both component valuations
+now compile.
 
 Independent Astra architecture review found that same-area undecoration is
 sufficient; full universal-area enlargement is unnecessary. Manuscript v9
 `cc:lem:universal` (lines 864–880) uses only the retained long edge and normality
 of its proper shorts, already provided by `normalShortEdges_of_naturalLift`.
-Prove `flipComponent D.undecorated θ.toUndecorated =
-(flipComponent D θ).image Orientation.toUndecorated`. Individual semantics
-preservation alone is not this statement.
+Verified `flipComponent D.undecorated θ.toUndecorated =
+(flipComponent D θ).image Orientation.toUndecorated`. This is proved by actual flip reflection and path lifting.
 
-The balanced-lift bridge (`cc:lem:lifts`, lines 1237–1274) should normalize the
-balanced potential by weak-block constants so its residues are the original
-vertices, sort those chosen lifts, and construct the ordinary interval ideal
+The balanced-lift bridge (`cc:lem:lifts`, lines 1237–1274) now has a verified
+normalization of the balanced potential to original residues. Next sort those
+chosen lifts and construct the ordinary interval ideal
 of original natural edges compatible with those lifts. No common circular cut
 may be assumed; chosen lifts can span multiple periods. The bridge transports
 HRV fiber sizes, not literal integer HRV maps. Exact lifted-cover correspondence
@@ -219,3 +219,46 @@ carrier partition criteria now compile. All builds remain serialized.
 
 Latest detailed assignment history is archived in
 [the tight-flip snapshot](docs/archive/component-foundation-through-tight-flips-20260927.md).
+
+Checkpoint `0eac2b2` records coefficient constancy (2033 jobs, 2590 axioms).
+Next ownership: Astra component_review owns only
+`Components/UndecoratedFlips.lean`, forward witness transport to the undecorated
+diagram and original-normality of its short edges, hence strict-edge retention
+along undecorated flips. Primary owns `Components/UndecoratedRecovery.lean`
+and the eventual component-image assembly. Luna lanes currently edit-idle.
+All subagents remain build-free; primary retains the single build slot.
+Luna word_covers returned OrientationSubsetSum; primary repaired it for build.
+Luna now owns only `Components/OrientationCompanion.lean`: reindex the genuine
+coloring and entire-HRV finite companion over all orientations of an undecorated
+diagram using coefficient vanishing off subset support. Build-free.
+Astra released UndecoratedFlips; primary adopts it for compilation. Primary owns
+`Components/UndecoratedComponents.lean`, reflection of flips, path lifting and
+the exact image equality of whole components under toUndecorated.
+Luna word_swaps owns only `Components/UndecoratedComponentSemantics.lean`,
+transport of actual componentStrictEnumerator and componentHRV along the exact
+component image equality, using injectivity and existing per-state semantics.
+Build-free; primary is building UndecoratedComponents and owns it exclusively.
+Astra component_review now owns only `Components/BalancedLifts.lean`: normalize
+an actual circular balanced potential by weak-block constants to integer lifts
+with the original residues, preserving all selected-edge length differences.
+No common-cut or one-period assumption; build-free. Primary retains all other
+source and build ownership.
+Luna word_covers released OrientationCompanion; it compiles. Luna now owns only
+`Components/ComponentSumPartition.lean`, grouping an arbitrary valued sum with
+component-constant coefficients by the actual finite quotient of Flip reachability.
+Use actual flipComponent fibers; no assumed component semantic identity.
+Build-free; primary owns concrete component companion assembly.
+Primary owns `Components/ComponentCompanion.lean`: sum the actual all-orientation
+companion over the original component and exchange finite sums, for strict
+coloring, entire lifted-HRV values, and the existing HRV monomial semantics.
+No component equality or positivity is assumed.
+Astra released BalancedLifts; primary is validating it. Astra now owns only
+`Components/BalancedLiftReach.lean`: exact reachability and full integer-cover
+correspondence at arbitrary compatible chosen lifts, with no common-cut bound.
+Build-free; primary retains all other edits and builds.
+
+Primary rejected Luna's proposed ordinary area A(rank v)=D.area(v) and equality
+of rank gap with physical edge length: chosen lifts may have gaps, and q only
+balances selected edges. Build the ordinary area from the number of compatible
+predecessors in the ranked interval ideal. This correction is not a theorem gap
+in committed source; that mistaken construction was never implemented.
