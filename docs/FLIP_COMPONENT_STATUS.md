@@ -1,10 +1,11 @@
 # Flip-component proof status
 
-The full ORDINARY flip-component HRV formula now has a complete mathematical
-proof, independently audited by primary, Astra and Terra. By compatible-lift
-transport, the same is true for balanced circular components. These component
-proofs have NOT yet been formalized in Lean. The formula for unbalanced,
-primitive circular components remains open.
+The full ordinary AND circular flip-component HRV formulas now have complete
+mathematical proofs. The ordinary word argument was independently audited by
+primary, Astra and Terra. The Overleaf v9 bounded-face companion was audited
+by primary and Astra and closes every circular case, including primitive
+unbalanced components. The component theorems are NOT yet fully formalized.
+See the [draft comparison and full circular proof](proofs/COMPONENT_CIRCULAR_FACE_PROOF.md).
 
 The ordinary and full aggregate circular expansions and positivity remain
 locally Lean-verified. Their verification boundary has not changed.
@@ -55,17 +56,24 @@ contexts included is a possible finite implementation; induced concatenation
 and its compatibility must be established. The verified aggregate expansion
 does not supply the missing component semantic bridge.
 
-**Circular components.** The [winding reduction](proofs/COMPONENT_WINDING_LATTICE.md)
-reduces unbalanced connected blocks to primitive circular components. The
-new word proof uses one linear vertex order and ordinary forward selected
-relations. The [periodic audit](proofs/COMPONENT_PERIODIC_WORDS.md) proves the lifted
-HRV-map coefficient formula and the exact circular corrections to the
-four-word relation. Negative winding can require cancellation between distinct
-HRV maps after elementary evaluation; the ordinary relation itself need not
-vanish. These lemmas do not yet give a circular semantic companion. The
-[exact winding aggregate](proofs/COMPONENT_LATTICE_AGGREGATE.md) still does
-not isolate individual primitive components. The full thread goal remains
-active until this case is resolved.
+**Circular formalization.** The v9 companion gives a signed expansion in
+ENTIRE balanced components. Its coefficient invariance is proved by lifting
+a tight-edge flip to an actual flip of the source graph, with the same face.
+The HRV-vector identity is separately justified; it is not assumed to be a
+polyhedral valuation. This resolves the earlier component-isolation gap.
+
+The user requested a simpler proof to formalize. A direct unbalanced-cycle
+deletion recurrence now follows by toggling a strictly slack edge chosen from
+the longest-path vector. It terminates at balanced graphs. Canonical terminal
+multiplicities still need a direct combinatorial proof; a finite gain-graph
+coefficient formulation isolates this task. That simplification and full Lean
+integration remain active. There is no remaining mathematical gap in the
+audited v9 proof.
+
+The [periodic word audit](proofs/COMPONENT_PERIODIC_WORDS.md) remains useful:
+it rules out extending the ordinary four-word quotient unchanged, but is no
+longer a blocker for the circular theorem. The older winding and aggregate
+reductions are alternative tools, not unresolved theorem requirements.
 
 ## Earlier induction work and consolidation
 

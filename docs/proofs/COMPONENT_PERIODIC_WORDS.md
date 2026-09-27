@@ -2,7 +2,8 @@
 
 Status: mathematical lemmas, independently checked by primary and Terra
 (periodic coefficients) and primary and Astra (word corrections). These are
-not Lean declarations or a proof of the remaining circular component formula.
+not Lean declarations. The circular component formula is now proved by the
+separate [bounded-face companion](COMPONENT_CIRCULAR_FACE_PROOF.md).
 They identify the exact changes required by the
 [ordinary word proof](COMPONENT_ORDINARY_PROOF.md).
 

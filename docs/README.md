@@ -11,12 +11,14 @@
 - [Ordinary component proof](proofs/COMPONENT_ORDINARY_PROOF.md): complete
   audited proof for every ordinary component and, by lifts, balanced circular
   components; not yet Lean-verified.
+- [Circular component proof and draft comparison](proofs/COMPONENT_CIRCULAR_FACE_PROOF.md):
+  audited v9 completion by bounded faces, and the finite cycle-deletion alternative.
 - [Component Lean plan](COMPONENT_FORMALIZATION.md): independent word quotient
   and conjugation modules, followed by the actual component semantic bridges.
 - [Periodic word audit](proofs/COMPONENT_PERIODIC_WORDS.md): exact periodic
   HRV coefficients and the circular corrections to the four-word relation.
-- [Circular downstream work](CIRCULAR_GOALS.md): primitive unbalanced components,
-  Lean integration and manuscript exposition.
+- [Circular downstream work](CIRCULAR_GOALS.md): component Lean integration,
+  a finite coefficient proof and manuscript exposition.
 - [Flip-component proof status](FLIP_COMPONENT_STATUS.md): the current proof
   map, new ordinary proof, formalization boundary and remaining circular scope.
 - [HANDOFF](../HANDOFF.md): current ownership, checks, remote task, and next step.

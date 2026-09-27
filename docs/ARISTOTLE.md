@@ -11,24 +11,34 @@ ordinary/circular candidates. The entries below give current final outcomes
 for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
 [the proof map](FLIP_COMPONENT_STATUS.md) owns the mathematical overview.
 
-## Finite word conjugation: active Lean request
+## Finite word conjugation: complete, locally integrated candidate
 
 - Project `7e1e7b8f-b94d-4eef-86cf-51b2130269f5`, task
-  `44384423-1c84-42b4-a525-bba5b13212f3`, confirmed **IN PROGRESS** after
-  its initial queued state. Native observer session `50488` is active.
-- Isolated request for general-ring Lean proofs: inverse descending products,
-  truncated conjugation, and commutation of the descending product with the
-  sum of generators, under explicit squarefree and four-word hypotheses.
+  `44384423-1c84-42b4-a525-bba5b13212f3`, terminal **COMPLETE**.
+  Native observer session `50488` ended normally. No new task is queued.
 - External directory `word-conjugation/` under the requests root. `TARGET.md`
   SHA-256 `33d7d0303f6b8637f62c9fbe23fca084fe9006b36436d4ed28b26b730e5d3512`.
-  The request pins the local toolchain, forbids scans and placeholders, and
-  supplies the audited algebraic proof. This is not a component-theorem request.
-- An accepted inline follow-up permits the coherent remote Lean 4.28.0 cache
-  instead of rebuilding Mathlib for 4.34.0. Primary still requires local 4.34.0
-  verification. This changed neither the task ID nor its mathematical scope.
-- No returned code has yet been accepted. Primary owns monitoring, integration
-  and the only local build slot. Luna independently owns the additive word
-  quotient module; there is no overlapping source assignment.
+  The request supplied the audited algebraic proof and prohibited scans.
+- The remote cached environment was Lean 4.28.0 / Mathlib
+  `8f9d9cff6bd728b17a24e163c9402775d9e6a365`. Primary explicitly permitted
+  its use for the candidate instead of rebuilding Mathlib. All local checks
+  still use the project's pinned Lean 4.34.0 and Mathlib revision.
+- Downloaded `result.tar.gz`, SHA-256
+  `22dc0fa6372dc4475b0a983d1228d4d31fd9e3d5d34c1e45424aded338d91ea0`.
+  Retained `returned-WordConjugation.lean`, SHA-256
+  `d73c4482643aafe0d9e33d09af07c2cd50a08355ad7b4f3d1d3de87b738594f5`.
+- Primary read the complete return, checked all hypotheses against TARGET,
+  narrowed imports, ported arithmetic to `lia`, and integrated only
+  `VerticalStripLLT/Components/WordConjugation.lean`. No remote package,
+  manifest, toolchain or project configuration was imported.
+- Completed declarations: `descendingProduct_mul_inverseProduct`,
+  `inverseProduct_mul_descendingProduct`, `descendingProduct_conj`,
+  `letterSum_commute_descendingProduct`, and `descendingProduct_conj_adPow`.
+  The focused local build passed on 4.34.0. The library/inventory integration
+  checks are recorded in HANDOFF. These prove the requested general algebraic
+  lemmas, not either full component theorem.
+- Luna separately supplied the additive word quotient and contextual stability;
+  primary integrated those at `a8ebd20`. All local builds were serialized.
 
 ## Mixed-corner residual: completed partial result
 

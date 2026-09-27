@@ -2085,3 +2085,17 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Components.contextLinear_map_relations
 #print axioms VerticalStripLLT.Components.contextQuotient
 #print axioms VerticalStripLLT.Components.contextQuotient_mk
+
+-- Finite squarefree conjugation, from the locally checked Aristotle candidate.
+#print axioms VerticalStripLLT.Components.basisWord_mem_support
+#print axioms VerticalStripLLT.Components.letterSum_zero
+#print axioms VerticalStripLLT.Components.letterSum_succ
+#print axioms VerticalStripLLT.Components.descendingProduct_zero
+#print axioms VerticalStripLLT.Components.descendingProduct_succ
+#print axioms VerticalStripLLT.Components.inverseProduct_zero
+#print axioms VerticalStripLLT.Components.inverseProduct_succ
+#print axioms VerticalStripLLT.Components.descendingProduct_mul_inverseProduct
+#print axioms VerticalStripLLT.Components.inverseProduct_mul_descendingProduct
+#print axioms VerticalStripLLT.Components.descendingProduct_conj
+#print axioms VerticalStripLLT.Components.letterSum_commute_descendingProduct
+#print axioms VerticalStripLLT.Components.descendingProduct_conj_adPow

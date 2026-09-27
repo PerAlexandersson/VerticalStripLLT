@@ -4,7 +4,8 @@ Status: complete mathematical proof, independently audited by primary, Astra
 and Terra. This is not yet a Lean verification. The proof applies to every
 ordinary natural graph with any subset of its corners strict. It requires
 neither saturation, connectedness, a forest hypothesis nor component-isolation
-assumptions. The primitive circular case is not covered.
+assumptions. The circular case is supplied by the separate
+[Overleaf v9 companion](COMPONENT_CIRCULAR_FACE_PROOF.md).
 
 ## Statement and previously established semantic facts
 
@@ -204,9 +205,11 @@ The proof covers arbitrary ordinary corner decorations and all components,
 including disconnected states, isolated vertices and the empty diagram.
 Together with the proved [compatible-lift transport](COMPONENT_AMBIENT_REDUCTION.md),
 it gives the formula for balanced circular components in prose as well.
-The [primitive circular reduction](COMPONENT_WINDING_LATTICE.md) still leaves
-unbalanced components unresolved. The word algebra above uses a single
-finite linear order and has not been replaced by a valid periodic version.
+The word algebra above uses one finite linear order. The
+[Overleaf v9 bounded-face companion](COMPONENT_CIRCULAR_FACE_PROOF.md) now
+handles all unbalanced circular components by reduction to balanced ones,
+without a periodic version of this algebra. That draft also gives a direct
+nested-commutator HRV extraction which shortens the semantic refinement.
 
 Primary, Astra and Terra independently checked the component pairing,
 conjugation signs, inverse coefficient comparison, order of the factors,

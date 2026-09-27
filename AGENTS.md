@@ -7,10 +7,10 @@ Read `/workspace/AGENTS.md`, `/workspace/lean/AGENTS.md`, this file, and
 
 The ordinary Alexandersson--Sulzgruber expansion is complete. The user then
 authorized the circular development; its aggregate HRV formula is also proved.
-See `docs/CIRCULAR_COMPLETION.md`. Ordinary and balanced circular flip-component
-expansions now have audited mathematical proofs, pending Lean integration;
-primitive unbalanced circular components remain open. See
-`docs/proofs/COMPONENT_ORDINARY_PROOF.md`. Retain the faithful finite-degree
+See `docs/CIRCULAR_COMPLETION.md`. Ordinary and all circular flip-component
+expansions now have audited mathematical proofs, pending Lean integration.
+The Overleaf v9 bounded-face companion closes the circular case; see
+`docs/proofs/COMPONENT_CIRCULAR_FACE_PROOF.md`. Retain the faithful finite-degree
 model; do not build a general symmetric-functions library without an explicit demonstrated need and user
 approval.
 
@@ -49,8 +49,8 @@ Do not call an object the usual LLT polynomial solely because it was defined by
 the recurrence. Preserve the semantic bridge as a named milestone.
 
 Keep the ordinary theorem independent of circular and flip-component arguments.
-Keep the proved aggregate circular theorem independent of the unresolved
-flip-component expansion; aggregate positivity does not prove component positivity.
+Keep the verified aggregate circular theorem independent of the component
+formalization; aggregate positivity does not prove component positivity.
 
 ## Lean workflow
 

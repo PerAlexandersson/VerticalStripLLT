@@ -1,11 +1,12 @@
 # Circular flip interfaces
 
 Source: the initial `LLT flip/old-main.tex` snapshot, lines 1939–1986,
-as hashed in the archived circular plan. The current source is `main.tex`.
+as hashed in the archived circular plan. The current full proof is the
+Overleaf `Circular Vertical-Strip LLT Polynomials-v9.tex`; see the
+[comparison audit](proofs/COMPONENT_CIRCULAR_FACE_PROOF.md).
 These foundations and the full aggregate circular expansion are locally verified.
-The general circular component expansion remains unproved. Ordinary and
-balanced circular component expansions now have audited mathematical proofs,
-pending Lean integration; the zero-normal component family is already
+Ordinary and all circular component expansions now have audited mathematical
+proofs, pending Lean integration; the zero-normal component family is already
 Lean-verified. See [the component proof map](FLIP_COMPONENT_STATUS.md).
 
 ## Full lifted covers

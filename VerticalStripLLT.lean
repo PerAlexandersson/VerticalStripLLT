@@ -207,3 +207,4 @@ import VerticalStripLLT.Circular.InteriorComponentPaths
 import VerticalStripLLT.Circular.InteriorReversalReduction
 import VerticalStripLLT.Circular.Expansion
 import VerticalStripLLT.Components.WordContext
+import VerticalStripLLT.Components.WordConjugation

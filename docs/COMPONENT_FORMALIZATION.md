@@ -1,4 +1,4 @@
-# Ordinary component proof: Lean integration plan
+# Component proofs: Lean integration plan
 
 The complete mathematical source is [the ordinary proof](proofs/COMPONENT_ORDINARY_PROOF.md).
 This plan implements its full statements, without a general symmetric-functions
@@ -32,29 +32,37 @@ library. Existing aggregate theorems are not component semantic bridges.
    Adjacent-swap partitions supply the final four-term identity, including
    zero contributions for invalid words. Extend the count linearly and apply
    item 1. Prove the strict coloring refinement separately.
-5. HRV interface: exact alternating-map coefficients, labeled-poset absorption
-   and refinement, and the signed mountain-block formula. Identify the same
-   component multiplicities on this independently defined side.
+5. `Components/HRVExtraction.lean`: use the shorter v9 nested-commutator
+   extraction proved in the [comparison audit](proofs/COMPONENT_CIRCULAR_FACE_PROOF.md).
+   A mountain word is compatible exactly when its decreasing tail consists
+   of induced sinks. The alternating subset sum detects the unique sink;
+   decreasing block maxima then detect exactly the HRV fibers. This replaces
+   formalizing the longer alternating-edge/mixed-poset detour for this theorem.
 6. Finite Cauchy factorization: derive the ordered mountain expansion from
    item 2, pair via item 4, and conclude equality with item 5 for every alphabet.
    Export the full ordinary component theorem and then compatible-lift transport.
 
-The first parallel batch consists of items 1 and 2. Item 1 has passed its
-focused local build; `Components/WordContext.lean` is the next disjoint Luna
-task, proving contextual stability for the multiplication bridge. They have disjoint files
-and no dependence on unimplemented component statements. Items 3--6 remain
-necessary; proving the first batch is not a verification of the full theorem.
+7. Circular companion: formalize compatible lifts and the actual tight-flip
+   reconstruction. Prefer a finite gain-graph coefficient identity over a
+   general polyhedral library. A strictly edge-decreasing cycle recurrence
+   now has a direct longest-path toggle proof. Its canonical regrouping still
+   needs a direct finite proof; the v9 bounded-face argument proves the
+   mathematical identity but is not yet translated into Lean.
+
+Items 1 and contextual stability have passed local library and axiom checks.
+Aristotle returned item 2, now ported and locally library/axiom checked.
+The complete component theorem still requires items 3--7. The finite strict/e
+factorization remains the architecture; v9 does not require introducing
+infinite symmetric functions or its rational scalar convention.
 
 ## Ownership and validation
 
-Primary owns architecture, source integration, the concrete multiplication
-bridge, imports, inventory and all local builds. Luna owns only
-`VerticalStripLLT/Components/WordRelations.lean`, build-free. Aristotle is asked
-for isolated candidates for item 2; it has no local editable files. Primary
-will integrate any accepted return as `WordConjugation.lean`.
+Primary owns architecture, source integration, all modules, imports, inventory
+and all local builds. Luna released its two build-free candidates after return.
+Aristotle's isolated request is terminal; primary owns local verification.
+No delegate owns editable files. See HANDOFF for exact checks and task IDs.
 
-Use the pinned Lean/Mathlib versions. Primary checks the global build slot,
-then uses `lake-workspace` for a focused batch and a source/axiom audit. Keep
-all generated remote requests and outputs under the external Lake cache.
-No placeholders or custom axioms enter library code. Candidate statements
-must be compared with the mathematical source before acceptance.
+Use the pinned Lean/Mathlib versions and one serialized `lake-workspace`
+build slot. Keep remote requests and generated artifacts outside the source
+checkout. No placeholders or custom axioms enter library code. Each integrated
+statement must match its mathematical source before acceptance.

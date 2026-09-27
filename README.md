@@ -104,7 +104,9 @@ and [proof explanation](docs/proofs/CIRCULAR_COLUMN_REVERSAL.md).
 
 Examples are isolated under `VerticalStripLLT/Examples/` and excluded from the
 main library imports. The [ordinary flip-component expansion](docs/proofs/COMPONENT_ORDINARY_PROOF.md)
-now has a complete independently audited mathematical proof, which also gives
-balanced circular components by compatible lifts. It is not yet Lean-verified.
-Primitive unbalanced circular components remain open; see the
+has a complete independently audited mathematical proof. The Overleaf v9
+[bounded-face companion](docs/proofs/COMPONENT_CIRCULAR_FACE_PROOF.md) also
+proves every circular component. Neither full component theorem is yet
+Lean-verified; the word quotient, contextual stability and conjugation
+ingredients have passed local Lean checks. See the
 [component status](docs/FLIP_COMPONENT_STATUS.md). Cumulants remain outside the scope.

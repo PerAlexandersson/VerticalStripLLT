@@ -8,14 +8,15 @@ and [column-reversal proof](proofs/CIRCULAR_COLUMN_REVERSAL.md).
 There are no remaining proof obligations for the aggregate theorem.
 
 The [ordinary flip-component identity](proofs/COMPONENT_ORDINARY_PROOF.md)
-now has a complete independently audited mathematical proof. Compatible-lift
-transport also proves the balanced circular component case. These new
-component results are not yet Lean-verified. The remaining mathematical
-target is the primitive unbalanced circular component formula; the ordinary
-word proof has not been extended to the periodic setting. See the
-[current proof status](FLIP_COMPONENT_STATUS.md) and the exact
-[component interfaces](CIRCULAR_FLIPS.md). Weak/strict omega translation
-remains a separate formal bridge.
+and the full [circular identity](proofs/COMPONENT_CIRCULAR_FACE_PROOF.md) now
+have independently audited mathematical proofs. The circular proof comes
+from the Overleaf v9 draft: its bounded-face coefficients regroup into whole
+components admitting compatible lifts. Both full component formalizations
+remain unfinished. At the user's request we are seeking a finite gain-graph
+proof of the same coefficient identity, avoiding a general polyhedral library.
+See the [Lean plan](COMPONENT_FORMALIZATION.md),
+[current proof status](FLIP_COMPONENT_STATUS.md), and
+[component interfaces](CIRCULAR_FLIPS.md).
 
 The older manuscript proof outline also needs to be aligned with the checked
 half-square induction and interior column reversal. Historical paired-child
