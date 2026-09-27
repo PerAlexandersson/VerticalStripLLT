@@ -72,7 +72,9 @@ repairs and the general always-redundant corner deletion lemma. Luna returned
 a read-only API audit; primary corrected two proposed interface pitfalls in
 the note. All local delegate lanes are released. The StrongSrc Aristotle task
 returned COMPLETE_WITH_ERRORS, without its target proof. A new focused task
-on ordinary active-component uniqueness is confirmed IN_PROGRESS in the same project.
+on an ordinary corner companion is IN_PROGRESS in the same project. Primary
+found and sent a counterexample to its initial uniqueness target; the same
+task is now asked to audit and refine that target, retaining block counts.
 No Lean build or Claude process is active.
 
 The full flip-component theorem is unproved. The goal is a general diamond
@@ -86,8 +88,9 @@ ambient and compatible-lift reductions; Terra reviewed redundant-edge removal;
 Luna returned build-free snippets only. Use only `lake-workspace`, after checking that no
 other Lean/Lake build is active. No build-slot transfer has occurred.
 
-The last pushed research checkpoint before this increment is `0135e42`:
-compatible-lift reduction to ordinary components. The current recurrence note
+The last pushed research checkpoint before this increment is `8c76bee`:
+corner reductions, repaired recurrence certificates, and an ordinary companion
+proposal. The proposal was subsequently refuted as described below. The current recurrence note
 is `docs/proofs/FLIP_COMPONENT_INDUCTION.md`; the auxiliary reduction note is
 `docs/proofs/COMPONENT_AMBIENT_REDUCTION.md`.
 Primary owns it, the source-note/index links, this handoff, and the archive.
@@ -133,16 +136,19 @@ corner deletion theorem are recorded in `FLIP_COMPONENT_INDUCTION.md`.
 The new deletion theorem transports ENTIRE components and lowers doubled area
 by one. It handles all three ancillary source components of the first example.
 The remaining obligation concerns components where every corner can be a cover
-somewhere in the component. The new open ordinary companion (AU) says at most
-one such connected component exists at each ascent. Its implication for the
-FULL ordinary component theorem is proved: use corner and disconnected-block
-reductions, then isolate the sole unknown in the aggregate coefficient.
-The exact diagnostic passes all ordinary saturated diagrams through n=6
-(196 diagrams, 33,867 states, 4,228 components cumulatively). This is evidence,
-not a proof of AU. The direct circular version is false, with a four-vertex
-tree counterexample in `COMPONENT_ACTIVE_CORNERS.md`. AU would also settle
-balanced circular components; unbalanced components still need an argument.
-Aristotle is targeting AU itself. Source cancellation remains an auxiliary route.
+somewhere in the component. The initial ordinary companion (AU), uniqueness
+of such connected components at each total ascent, is FALSE at n=7. Two K4
+blocks sharing one vertex give the distinct 40-state products T×U and U×T,
+at block ascent vectors (2,3) and (3,2). Both are active, connected, and have
+total ascent five. Primary found the example and Astra audited it. The previous
+exact diagnostic through n=6 remains valid but is not evidence beyond that range.
+The conditional coefficient-isolation argument is sound; its uniqueness
+hypothesis needs refinement. A vector of block ascents would also require an
+actual multivariate aggregate identity, or a pointed gluing theorem retaining
+the articulation color and HRV fiber. These obligations are explicit in
+`COMPONENT_ACTIVE_CORNERS.md`. The direct circular uniqueness version also has
+a four-vertex tree counterexample. The full ordinary and circular component
+claims both remain open. Source cancellation remains an auxiliary route.
 Do not assume a
 common linear order for a circular strong component or infer HRV transport
 from deletion coverage alone. No full component proof is claimed.
@@ -216,8 +222,10 @@ check found no maintained flip enumerator. Exact hashes and counts are in
 Current task: Aristotle project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08`, task
 `c2a21316-805d-489f-a1c7-40f51b40b57c`. Its full ordinary structural target is
 `ORDINARY_ACTIVE_TARGET.md` in the external `projected-source-companion/`
-request directory. It asks for a proof or exact counterexample to AU, not
-another proof of the supplied conditional implication or broad enumeration.
+request directory. It initially asked for AU, not another conditional reduction
+or broad enumeration. Primary then sent the exact n=7 product counterexample
+to the SAME active task, withdrew AU as a theorem target, and requested an audit
+and useful refinement with the required block-count/gluing data.
 Native observer session `38474` follows this same task with a two-hour allowance;
 the script passed `bash -n` and cannot submit or cancel. Its status/follow logs
 have the `ordinary-active-` prefix. Observation failure does not justify a new

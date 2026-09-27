@@ -1,15 +1,17 @@
-# A companion based on corner exposure
+# Corner exposure: a reduction and an ordinary obstruction
 
 Status: the corner reductions and the implication below are proved
-mathematically and independently audited. The ordinary connectivity statement
-(AU) is OPEN. No new Lean theorem or full component formula is claimed.
+mathematically and independently audited. The first ordinary connectivity
+proposal (AU) is FALSE at n=7, despite passing the full n<=6 diagnostic.
+A refined companion remains open. No new Lean theorem or full component
+formula is claimed.
 
 This route follows the user's original suggestion: split corners into selected
 and unselected cases and use recursion to dispose of already solvable terms.
 The exact corner correspondence and always-redundant strict-corner deletion
 are proved in [the recurrence note](FLIP_COMPONENT_INDUCTION.md).
 
-## Ordinary structural target
+## Ordinary structural proposal (AU): refuted below
 
 Let G be an ordinary natural edge set on 0,...,n-1, closed under subintervals:
 if ij belongs to G and i<=a<b<=j, then ab belongs to G. Let S be the maximal
@@ -30,7 +32,7 @@ that one state exhibit all the corners as covers simultaneously. Call the
 component connected if its selected undirected graph connects all n vertices.
 This property, and the normal ascent count |A minus S|, are constant under flips.
 
-**(AU), open.** For every ordinary saturated G and every ascent count k,
+**(AU), false as stated.** For every ordinary saturated G and every ascent count k,
 there is at most one connected active complete component at ascent k.
 
 This is a connectivity assertion about the actual flip graph. Comparing HRV
@@ -38,7 +40,7 @@ vectors cannot prove it. It includes, as a special case, connectivity of all
 spanning trees having a specified interval envelope: all tree edges are covers.
 The latter statement is also open in the current work except for special cases.
 
-## Why AU suffices for the full ordinary component formula
+## The conditional implication, and the information it requires
 
 We induct lexicographically on vertex number and doubled area. Suppose C were
 a counterexample minimal for this measure.
@@ -64,11 +66,63 @@ components vanish by vertex induction, and all inactive components vanish by
 strict-corner deletion and area induction. Under AU, at most one component
 remains, namely C, so its defect must be zero. This is the required contradiction.
 
-Primary and Astra independently audited this implication. It does not assume
-componentwise DN transport. Its outstanding input is AU itself; the formal
-corner/component correspondences must also be implemented before a Lean
-completion claim. The already proved aggregate theorem is used only after
-the individual other terms have been justified.
+Primary and Astra independently audited this conditional implication. It does
+not assume componentwise DN transport. The counterexample below prevents using
+AU to discharge its hypothesis. The formal corner/component correspondences
+must also be implemented before a Lean completion claim. The aggregate theorem
+is used only after the individual other terms have been justified.
+
+## Exact ordinary counterexample at n=7
+
+Take natural cliques on the one-based intervals [1,4] and [4,7], meeting only
+at vertex 4. The area sequence is (0,1,2,3,1,2,3), with precisely the two
+strict corners 14 and 47.
+
+For one K4 block with strict corner 14, order its normal edges as
+
+    (a,b,c,d,e) = (12,13,23,24,34).
+
+Two of its complete connected components are
+
+    T = {ab,ac,ae,bc,bd,cd,ce,de},
+    U = {abc,abd,bcd,bde,cde}.
+
+T consists of the eight trees containing 14, at normal ascent two. U has five
+states at normal ascent three. Both are active: all tree edges are covers,
+and in U the corner is a cover in abc,bcd,cde. These component lists follow
+by testing the four possible triangles; the existing exact enumerator gives
+the same masks, respectively [3,5,6,10,12,17,20,24] and [7,11,14,26,28].
+
+Every natural triangle of the seven-vertex diagram lies within one of its
+two cliques. A forward path cannot leave such a clique and return, so the
+other clique does not change its cover tests. The complete component graph
+is consequently the Cartesian product of the two block component graphs.
+
+Thus T_left times U_right and U_left times T_right are distinct complete
+components, each with 40 states, total normal ascent five, and one connected
+selected weak block. Both strict corners can even be covers simultaneously.
+The number of selected normal edges in the left clique is invariant under
+every flip, and equals two versus three. This proves that the two components
+cannot join. Primary found this composition obstruction and Astra independently
+audited the entire-component and cover claims.
+
+The useful lesson is precise: weak connectivity alone does not remove an
+articulation vertex, and total ascent loses the separate block counts.
+
+## A possible refinement, with its extra semantic obligation
+
+One can ask for active uniqueness at each VECTOR of ascent counts in the
+natural graph's articulation blocks, or first restrict to natural graphs
+without an articulation. Neither refinement is proved here.
+
+The vector version would require an actual multivariate aggregate HRV theorem,
+with an independent q variable for each block. The scalar aggregate theorem
+does not supply those coefficient equations. Alternatively, reducing to
+blocks requires a pointed gluing theorem: at the shared vertex we must retain
+its color and the HRV fiber containing it. Unpointed component identities
+alone do not identify the resulting glued sums. This is a new explicit
+obligation, not an automatic consequence of ordinary factorization on disjoint
+vertex sets. The two proved corner reductions remain valid.
 
 ## Why the circular statement needs more information
 
@@ -90,8 +144,8 @@ selected graphs are admissible. Thus activity, ascent, and weak blocks alone
 cannot isolate circular components. This counterexample does not refute the
 ordinary statement or the component HRV formula.
 
-If AU were proved, the ordinary component theorem would also settle all
-balanced circular components by the existing compatible-lift reduction.
+A valid ordinary companion proving the component theorem would also settle
+all balanced circular components by the existing compatible-lift reduction.
 Unbalanced circular components would still require an additional argument.
 
 ## Finite evidence and proof-search boundary
@@ -125,8 +179,10 @@ Greedy outgoing-fork normalization does not prove AU: the earlier exact
 nonconfluence example has distinct terminal states, and terminal states can
 hide corners that are exposed elsewhere in their component.
 
-Aristotle has the precise full AU statement, the verified implication,
-finite evidence, and the circular counterexample. It is asked for a proof or
-an exact counterexample, not another conditional reduction or a broad finite
-enumeration. Current project/task identifiers and status are in
+Aristotle initially received AU, its verified conditional implication,
+finite evidence, and the circular counterexample. Primary then sent the exact
+n=7 ordinary obstruction to the SAME running task and explicitly withdrew AU
+as a theorem target. The correction asks for an audit and a usable refinement
+that retains the block counts and the required pointed gluing information.
+Current project/task identifiers and status are in
 `../ARISTOTLE.md` and the repository handoff.

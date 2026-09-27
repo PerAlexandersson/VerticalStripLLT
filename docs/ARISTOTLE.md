@@ -933,3 +933,10 @@ and residual transport were developed after its input snapshot `5266faa`.
   allowance, and reconnects without resubmitting. Status and event logs use
   the `ordinary-active-` prefix. The authoritative task list confirms submission.
   No returned candidate or new local Lean build is present.
+- Primary subsequently found the exact n=7 product obstruction T×U versus
+  U×T in two K4 blocks sharing a vertex. Astra independently checked it.
+  The full details are in `proofs/COMPONENT_ACTIVE_CORNERS.md`. Primary sent
+  the counterexample inline to the SAME active task, explicitly withdrew AU
+  as stated, and requested an audit and a refined statement retaining block
+  ascent counts and the necessary marked-vertex gluing information. This
+  correction does not assert a new theorem or authorize exhaustive search.

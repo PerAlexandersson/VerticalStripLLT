@@ -50,8 +50,8 @@
   components, and the stronger projected-cover companion.
 - [Component induction brainstorming](proofs/FLIP_COMPONENT_INDUCTION.md):
   exact corner branching, always-redundant corner deletion, and repaired transfers.
-- [Active corner companion](proofs/COMPONENT_ACTIVE_CORNERS.md): the open ordinary
-  connectivity lemma that would isolate components from aggregate coefficients.
+- [Active corner companion](proofs/COMPONENT_ACTIVE_CORNERS.md): coefficient
+  isolation, its exact articulation obstruction, and the required refinement.
 - [Aristotle ledger](ARISTOTLE.md): request IDs, candidates, and local verification.
 - [Historical plans](archive/completed-plans/README.md): superseded implementation
   outlines and the original architecture audits. They are not active work lists.
