@@ -124,6 +124,7 @@ The signed mountain-word expansion is proved; global HRV extraction and the
 full component expansion remain to be assembled. The circular finite companion's
 coloring and entire periodic HRV expansions now compile with the same canonical
 coefficients (`Components/CircularFiniteCompanion.lean`), including deletions of
-originally strict edges. Whole-component isolation and compatible-lift transport
-remain separate obligations.
+originally strict edges. Tight-path cover preservation and a coefficient-preserving
+forward ambient flip are also proved. Whole-component isolation and compatible-lift
+transport remain separate obligations.
 Cumulants remain outside the scope.

@@ -8,22 +8,24 @@ The complete ordinary and aggregate circular formulas are Lean theorems.
 The full ordinary and circular **component** formulas have complete audited
 mathematical proofs but are **not yet complete Lean theorems**.
 
-Verified finite companion increment atop pushed `903d0fc`:
-`CircularFiniteCompanion.strictOrderEnumerator_finiteCompanion` proves the
-actual coloring expansion and `liftedHRV_value_finiteCompanion` proves the
-same-coefficient expansion for any value of the entire periodic HRV map.
-These include deletions of originally strict edges. The unbalanced witness,
-both semantic recurrences and finite-set induction are fully discharged.
-Independent Astra audit found no semantic gap. The ordinary ancestor-block
-identification also compiles. Full library: **2017 jobs**, **2529 axiom entries**,
-standard axioms only; source guards, line widths and diff checks pass.
+Verified finite companion checkpoint `6bf5f42` is pushed. The current tight-flip
+increment compiles in focused checks: scaled tight potentials, score-based
+full-cover preservation, actual triangle extraction, balancedness across flips,
+contracted coefficient transport, and the coefficient-preserving forward
+ambient extension inside the original component. Independent source review
+found no material defect. Ordinary ordered-block HRV and flattened compatibility
+adapters also compile. Full library passes **2029 jobs**, with **2578 axiom
+entries**, only standard axioms, and passing source/line-width/diff guards.
+The inverse extension and coefficient-sum bijection remain under construction.
 
 Earlier pushed checkpoints: `f668154` (mountain equation (4) and potential
 independence; 1992 jobs, 2416 axioms), `b60d299` (Lemma A and abstract (**′**)),
 `ee8eb02` (actual color-product pairing), `e63e21b` (DAG/level/HRV blocks).
 Validation logs are under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-continuation/`:
-`finite-companion-library-build.log` and `finite-companion-axioms.log`.
+`finite-companion-library-build.log` and `finite-companion-axioms.log`
+(2017 jobs, 2529 axioms); next logs are `tight-flip-library-build.log` and
+`tight-flip-axioms.log`.
 All builds use the pinned Lean 4.34.0 / Mathlib
 `5ed2965256430c3649e86755f9576b54eca72435` through `lake-workspace`.
 No placeholders, custom axioms, unchecked native proofs or local package/build
@@ -38,11 +40,12 @@ source, imports, inventory, documentation, integration fixes and the sole
 serialized Lean build slot. Check active processes before each build.
 Current authorized build-free assignments:
 
-- Astra `component_review`: read-only next-step architecture review of tight-edge
-  flip reconstruction and coefficient transport; no edit ownership.
-- Luna `word_covers`: read-only ordinary global-product assembly decomposition.
-- Luna `word_swaps`: returned `Components/GainTightPotential.lean`; primary has
-  adopted the candidate, not yet built or included in this checkpoint.
+- Astra `component_review`: released TightFlipInverse candidate; primary is
+  validating it separately from the forward-extension checkpoint.
+- Luna `word_covers`: owns only `Components/BlockFullWords.lean`, the full-word
+  carrier/partition adapter. Build-free.
+- Luna `word_swaps`: completed read-only audit of score, cover and balanced-flip
+  modules; no material defect found. Idle, no edit ownership.
 
 All earlier candidates were returned, repaired where needed, and checked by
 primary. No build slot was transferred. No new account, supervisor worker or
@@ -101,7 +104,7 @@ All paths below are under `VerticalStripLLT/Components/`.
   `GainCoefficientCancellation.sum_powerset_cyclicNegative_eq_zero_of_gain_excess`
   proves the abstract (**′**) sign (-1)^(|J|+c(A∪J)). Astra independently audited
   current source: no defect, exact optional support/repetitions preserved. Actual balanced-F instantiation is now verified in
-  `GainCoefficientRecurrence`; W's recurrence remains separate.
+  `GainCoefficientRecurrence`; both semantic W recurrences are now verified.
 - `OrderedPartitions` enumerates actual compatible nonempty top-first blocks,
   proves completeness and the signed top-block recursion. `OrderedPartitionDAG`
   evaluates their actual signed sum for every acyclic relation, including empty sets.
@@ -139,8 +142,8 @@ Astra independently reviewed the tensor representation, multiplication order,
 coefficient signs and linear functional boundary: no defect found. Luna
 independently reviewed the gain/potential and actual HRV bridges: no defect
 found. Primary repaired and locally built all candidates. The generic gain
-recurrence and actual contracted coefficient recurrence are verified. The semantic
-recurrences for W remain to be instantiated.
+recurrence, actual contracted coefficient recurrence and both semantic W
+recurrences are verified.
 
 ## Remaining assembly
 
@@ -160,8 +163,8 @@ Circular track:
    `GainScaling` and `GainNegativeCancellation`.
 2. The full partition identity, actual coefficient recurrence (**), balanced base,
    potential independence and all contraction transports are complete.
-3. Supply an excess/deletion witness for each unbalanced set, the actual signed
-   deletion recurrence for W, and edge-count induction.
+3. The excess/deletion witness, both actual signed W recurrences and finite-set
+   induction are complete in the per-orientation finite companion.
 4. Integrate finite tight-edge flip reconstruction and prove whole-component
    isolation using identical contracted gain graphs.
 
@@ -195,11 +198,67 @@ Latest finite-companion ownership chronology is archived in
 
 ## Next concrete work
 
-The per-orientation finite companion is complete. Integrate and check the
-returned integer scaled tight-potential candidate, then formalize tight-path
-reconstruction, coefficient constancy on whole balanced components, and
-compatible-lift transport. Astra recommends transporting contracted graphs by
+The per-orientation finite companion, tight-path cover reconstruction and
+forward coefficient-preserving ambient extension are complete. Integrate the
+inverse extension, prove the coefficient-sum bijection/constancy on balanced
+components, then compatible-lift transport. Astra recommends transporting contracted graphs by
 an equality of the underlying EqvGen setoids, avoiding a new quiver-cast layer.
 The ordinary lane still needs global ordered mountain-product HRV extraction;
 `AncestorBlock` now identifies the incoming-closed block with its ancestor set.
 Both full component theorems remain open. Primary retains the single build slot.
+
+Primary owns `Components/TightReachability.lean` and
+`Components/CircularTightPaths.lean`: monotone-score path restriction and actual
+lifted-cover preservation. These are the next finite component-isolation steps.
+
+Astra reviewed the next architecture: retain weakBlock quotients and transport
+by equality of EqvGen setoids. No quiver-path transport layer is needed. The
+same-area undecorated adapter only preserves individual semantics, not entire
+components; universal-ambient component preservation remains an explicit gap.
+Astra component_review now owns only `Components/GainCoefficientTransport.lean`,
+implementing the quotientGain/setoid transport and coefficient equality for a
+common potential, equal weak closures, and equal residual selected edges.
+Build-free; primary retains all other sources and builds.
+
+Luna word_swaps now owns only `Components/GainTriangleSwap.lean`, a generic
+edge-triangle swap preserving all balanced-potential equations and weak
+connectivity under explicit endpoint/length identities and retained long edge.
+Primary adopted the compiled GainTightPotential candidate. Build ownership unchanged.
+
+Luna word_covers now owns only `Components/OrderedBlockHRV.lean`, deriving
+no-backward cross-block compatibility from the existing reversed-relation
+ordered partitions and constructing the owner map for HRVPartition. This is a
+bounded ordinary semantic adapter; it does not claim the global product sum.
+Build-free; all other ownership unchanged.
+Primary owns `Components/FlipTriangle.lean`: extract the actual retained long
+edge and endpoint/length identities from DirectedFlipWitness without no-wrap
+assumptions. This will connect the generic triangle swap to circular flips.
+Primary adopts released GainCoefficientTransport and OrderedBlockHRV candidates.
+Primary owns `Components/TightFlipReconstruction.lean`, lifting an existing
+flip witness through tight selections and constructing the exchanged ambient
+orientation using positive scaled potentials. All builds remain serialized.
+All returned modules are primary-owned. Astra component_review owns only
+`Components/TightFlipExistence.lean`, constructing the ambient exchanged
+orientation and lifted witness from an explicit positive scaled tight potential.
+It may use the compiled TightFlipReconstruction.of_tightSelections API; no
+builds or edits elsewhere. Primary owns actual balanced-flip/coefficient adapters.
+Luna word_covers owns only `Components/BlockWordSupport.lean`: membership of a
+blockWord is its block when the tail subset lies inside, and compatibility of
+a flattened family is exactly internal compatibility plus block-level cross
+compatibility. This is a build-free ordinary local adapter.
+Primary owns `Components/CircularBalancedFlip.lean`: actual balancedness and
+weak-connectivity preservation along circular flips, plus companion coefficient
+transport for an ambient exchange with matching residual selected edges.
+Astra released TightFlipExistence; primary adopts it. Astra now owns only
+`Components/TightFlipInverse.lean`, constructing the source ambient orientation
+from a target-tight selection for the same directed witness (not reversing the
+witness). This supplies the inverse direction required for the coefficient
+bijection. No builds or other edits are authorized.
+Primary owns `Components/CircularGoodFlip.lean`, assembling tight extension
+with actual coefficient equality and complete-component membership. The reverse
+extension is still Astra-owned until returned.
+Luna word_covers returned BlockWordSupport; primary repaired and compiled it.
+Luna now owns only `Components/BlockFullWords.lean`, proving fullWord of a
+flattened family of block words iff pairwise disjoint carriers and full carrier
+coverage. This connects the guarded actual component functional to partitions.
+Build-free; no other edits authorized.

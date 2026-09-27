@@ -297,3 +297,26 @@ constancy on complete balanced components, and compatible-lift transport.
 `AncestorBlock.block_eq_ambient_ancestor_filter` also supplies the ordinary
 incoming-closed unique-root block identification; global ordinary product
 assembly is still unfinished.
+
+### Tight flip reconstruction and ordinary block adapters
+
+`GainTightPotential` constructs positive integer-scaled tight potentials from
+contracted goodness. `TightReachability` and `CircularTightPaths` restrict every
+path between equal-score endpoints to tight edges, preserving the actual full
+integer covers. `FlipTriangle` extracts the retained long edge of an existing
+flip. `GainTriangleSwap` and `CircularBalancedFlip` prove preservation of balanced
+potentials and weak connectivity, including strict selected edges.
+`GainCoefficientTransport` identifies contracted graphs by equality of their
+weak-component setoids, avoiding a separate walk-transport representation.
+
+`TightFlipReconstruction` transfers every positive and negative cover condition.
+`TightFlipExistence` constructs the admissible ambient target, and
+`CircularGoodFlip.exists_coefficientExtension_in_component` proves the same
+coefficient survives inside the original complete component. The reverse
+construction and coefficient-sum bijection are still being integrated; the
+forward extension alone is not component isolation.
+
+For the ordinary case, `OrderedBlockHRV` constructs the owner map and identifies
+qualifying ordered blocks with actual HRV fibers. `BlockWordSupport` identifies
+flattened word compatibility with internal and cross-block conditions. The
+weighted global mountain-product sum remains to be assembled.
