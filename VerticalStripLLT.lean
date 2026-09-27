@@ -246,3 +246,10 @@ import VerticalStripLLT.Components.GainNegativeCancellation
 import VerticalStripLLT.Components.ColoringSubwords
 import VerticalStripLLT.Components.ColorProductPositions
 import VerticalStripLLT.Components.ColorProductPairing
+import VerticalStripLLT.Components.OrderedPartitions
+import VerticalStripLLT.Components.OrderedPartitionDAG
+import VerticalStripLLT.Components.GainLevels
+import VerticalStripLLT.Components.MountainWords
+import VerticalStripLLT.Components.ConjugationSubwords
+import VerticalStripLLT.Components.MountainCoefficients
+import VerticalStripLLT.Components.HRVPartition

@@ -99,7 +99,14 @@ global HRV extraction remains a separate required milestone.
 `CommutatorCoefficients` proves the finite inverse-conjugation coefficient
 identity, the first half of the ordered mountain expansion. Its coefficients
 are `(-1)^k adPow A u k`; identifying the signed ordered-subset expansion with
-individual mountain words is still required. `WordProductExpansion` proves
+individual mountain words is still required. `ConjugationSubwords` and
+`MountainCoefficients` provide the explicit ordered double-subword expansion
+and its degree coefficient. Overlap vanishing and disjoint-subset reindexing
+remain to connect it to the single-block cancellation. `MountainWords` proves
+the maximum-insertion identity and the local cancellation in that notation.
+`HRVPartition` identifies ordered covering blocks with unique induced sinks
+and nondecreasing owners along selected edges as the actual HRV fibers; the
+weighted global sum still needs assembly. `WordProductExpansion` proves
 the exact noncommutative product-to-subword sum and evaluates it through the
 actual component functional. `elementaryScalar_map` supplies scalar transport.
 
@@ -120,8 +127,12 @@ nonpositive closed-walk gains after scaling δ to Mδ+1 with M≥|V|.
 `GainNegativeCancellation.sum_powerset_simpleCyclesNegative_eq_zero_of_gain_excess`
 then proves Lemma X of the finite companion under the explicit endpoint-balance
 and positive-excess hypotheses. Choosing M>|Nsteps| preserves positive excess.
-The signed ordered-partition identity and contracted coefficient assembly
-remain required.
+`GainLevels` proves cancellation for each fixed level assignment by an upward
+edge toggle or the balanced-endpoint argument, including the optional-support
+hypothesis. `OrderedPartitions` enumerates actual top-first block partitions and
+proves the signed top-block recursion. `OrderedPartitionDAG.signedSum_eq_of_acyclic`
+proves the full DAG evaluation, including the empty set. The strong-component
+condensation reduction and contracted coefficient assembly remain required.
 
 `ComponentWords` now defines the guarded count on the actual complete component
 and extends it linearly. It proves vanishing for repeated, missing, or wrong-length
