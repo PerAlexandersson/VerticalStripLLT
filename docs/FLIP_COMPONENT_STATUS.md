@@ -48,8 +48,19 @@ or smaller corner-deletion packets. Their global regrouping remains open.
 Within this signed transport family, the regrouping equations are equivalent
 to integer potential differences on an exterior-subset multigraph. A potential
 exists exactly when all closed-walk sums vanish, including those crossing
-ascent levels. This criterion is proved; the required vanishing for actual
-source-component indicators remains the next companion lemma.
+ascent levels. This criterion is proved. The induced zero/full flip graphs
+also have proved transports, using the actual lifted covers.
+
+An ordinary extension removes the paired-multiplicity assumption by adding
+an explicit linear corner-deletion residual. Its target cannot always be
+reconstructed while that residual stays fixed: the existing saturated
+five-state diagnostic gives contradictory equations at two ascent levels.
+The next task is JOINT reconstruction of target and deletion packets.
+The two deletion diagrams embed as whole-component sectors of a shared
+diagram with two unmarked corners. Resolving a corner places every such
+component in a strictly smaller diagram, so its identity is available under
+area induction. This common component space is proved; the required joint
+redistribution is still open.
 The ordinary deletion quotient also expresses each component defect as a
 sum over states where the deleted corner was a cover. No component-uniqueness
 conjecture is required by this route.
@@ -136,8 +147,10 @@ Current ownership and running consultations belong only in
 [the Aristotle ledger](ARISTOTLE.md). Detailed experiment receipts stay next
 to the claims they test. Historical handoffs are archives, not active plans.
 
-The next mathematical task is the explicit recurrence transport and its
-flip-difference certificate, following the author's local cases. The corner,
+The next mathematical task is joint recurrence transport of the target and
+deletion packets, using their shared corner diagram. Do not freeze the
+ordinary residual and try to prove a period assertion already contradicted
+by the diagnostic. The corner,
 forest, winding and aggregate refinements remain available as tools and solved
 correction terms. Reuse the shared Rust LLT/HRV and flip tools before adding
 computation; capability audits and missing maintained interfaces are in the

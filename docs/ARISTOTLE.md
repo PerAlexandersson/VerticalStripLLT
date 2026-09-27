@@ -42,6 +42,19 @@ for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
   remains requested. The addendum was accepted into the SAME running task,
   confirmed by the unchanged task ID. Its log is
   `potential-addendum-submission.log`; no second task was created.
+- Further inline inputs to the same task record the next audit, all external:
+  `EXACT_CERTIFICATE_REQUEST.md`, SHA-256
+  `a24b2a0de0d45ccac2c527b637945abc53d8e987bb0aaccacec6524161ef05af`;
+  `CANONICAL_RESIDUAL_AUDIT.md`, SHA-256
+  `ebac55b53f5efa874d536cf91cefffea98770495c6f9aeeba14738367567123a`;
+  `SHARED_CORNER_SPACE.md`, SHA-256
+  `c5393ca9c436c40eaefa63fdb7cb2476e42bf0cdb143eab0f89692faebccec69`.
+  Primary asks for an exact certificate of a streamed computational failure,
+  supplies the audited ordinary residual and its explicit two-edge obstruction,
+  and supplies the common lower-diagram component sectors. These are user-side
+  proof inputs/audits, not evidence that Aristotle completed the full goal.
+  The task was still IN_PROGRESS when the first observer disconnected; primary
+  reattached to the same ID. HANDOFF records the native monitoring handle.
 
 ## Ordinary corner refinement: complete return, AU_prime still open
 

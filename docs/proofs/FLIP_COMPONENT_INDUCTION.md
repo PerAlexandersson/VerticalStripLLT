@@ -376,6 +376,161 @@ argument used in the reconstruction lemma. Primary derived the potential
 formulation; Astra and Luna independently checked the parity change and
 cycle criterion, including admissibility and the shared ascent levels.
 
+### Exterior flips at the two endpoint states
+
+Two classes of potential equations follow from actual flip-graph maps, not
+just polynomial identities. We retain all hypotheses of `dnSuccessor`.
+
+**Zero stratum.** The involution Q↦σQ identifies the induced flip graphs on
+source and target 00 states. Indeed, `dn_swap_step` conjugates the full
+selected lifted step relations, preserving reachability, covers and projected
+admissibility. `dnB_map_swap` carries the two exchanged exterior normals to
+exterior normals. A flip preserving 00 cannot use both swapped residues w,x:
+the forward adjacent pair wx is absent, while `hb` excludes the reverse
+length-(n−1) pair xw. Such a reverse pair cannot be a short in a window of
+length less than n either. Therefore the periodic swap preserves the order
+of the flip triangle. The retained selected long maps to a selected natural
+edge by the step conjugacy. This constructs the flip witness in both
+directions, using involutivity.
+
+**Full stratum.** The identity on Q identifies the induced flip graphs on
+source and target 11 states. The proof of `dn_top` gives equality of the full
+lifted transitive closures. The source-only long wz is redundant through
+w→x→z; the target-only long ux is redundant through u→w→x. Neither can be
+a retained cover. Every other selected pair agrees. Thus the exterior short
+edges remain normal on both sides, the retained cover long exists on both,
+and all source and target cover tests agree. Equality of lifted reachability
+also preserves projected admissibility.
+
+Consequently an ORIGINAL source-component indicator satisfies
+
+    f00(σQ)=f00(σQ') on a target 00↔00 flip,
+    f11(Q)=f11(Q')   on a target 11↔11 flip.
+
+In the paired-block formula, these equations reduce the endpoint constraints
+to constancy of β−α∘σ along the target zero-stratum flips, and of β−α along
+the full-stratum flips. Preprocessing a nonflip block changes multiplicities;
+we must retain its correction terms before applying such original-component
+constancies. The assertions above concern induced subgraphs, not complete
+components of the full diagram.
+
+There is also a geometric restriction on mixed flips. The target normal
+uw can only be toggled against wx in the internal 10↔01 flip. It was a maximal
+natural corner in the source; the only newly added natural interval containing
+it is ux, and x=w+1. Dually, the source normal xz can only be toggled against
+wx. To justify this second statement, use the eligible-DN gap `hgap`: the
+source left boundary is w at z and at least w+2=x+1 at z+1, and is nondecreasing
+on the integer cover. A natural interval containing [x,z] must therefore end
+at z and start at w or x. Its only proper containing interval is wz.
+
+It follows that target mixed flips have only types 00↔01 and 11↔10; source
+mixed flips have only types 00↔10 and 11↔01. These restrictions include wrapped
+intervals because the argument uses integer lifts. The strict-corner condition
+alone would not suffice for the source xz restriction without `hgap`.
+Primary and Astra independently checked these maps and their hypotheses.
+They are prose proofs using the existing Lean geometry; no new Lean flip-map
+declarations have yet been compiled. Mixed-state period cancellation and the
+regrouping of deletion packets remain separate obligations.
+
+### An ordinary linear residual, and why it cannot be held fixed
+
+For ordinary diagrams we can remove the paired-multiplicity hypothesis from
+the semantic formula. Keep the ORIGINAL source-component multiplicities f
+and put δ(Q)=f10(Q)−f01(Q). Let D_del be the source with its strict long wz
+deleted. For arbitrary β define
+
+    g00(Q)=(f00+f01)(σQ)−β(Q),
+    g10(Q)=g01(Q)=β(Q),
+    g11(Q)=f11(Q)+f10(Q)−β(Q),
+    R=Σ_Q δ(Q)([del00(Q)]−[del01(Q)]).
+
+Then, for BOTH valuations and every alphabet,
+
+    X_L(f)=X_R(g)+X_del(R).                           (Ordinary residual)
+
+To prove it, the endpoint maps and target diamond give
+X_R(g)=Σ_Q((f00+f01)X_L00+(f11+f10)X_L11). Subtracting this from the source
+sum and using its diamond leaves δ(Q)(X_L00−X_L01) in each block.
+The short wx has length one, so it cannot be implied by a base alternate path.
+If the two middle states flip, δ=0. If xz is already implied, its witness
+cannot use wz because all steps are positive and w<x. Thus both the source
+and deleted contrasts vanish. Otherwise the nonflip classification makes wz
+redundant in the base, so the source and deleted contrasts agree. This proves
+the formula with R summed over ALL Q, without a case-dependent indicator.
+We use ordinary acyclicity here; the circular one-cyclic-middle cases require
+an additional argument and are not included in this lemma.
+
+This formula is linear and supplies actual semantic transport. It does not
+prove reconstruction. In fact, keeping this R fixed leaves the target
+equations inconsistent in the already-recorded saturated five-state source
+component C={abc,abd,bcd,bde,cde} below. Use its notation
+a=23,b=24,c=34,d=35,e=45, with local bits a,d. Set
+
+    Q1={24,34},       Q2={24,45}.
+
+The target states {23,24,34} and {23,24,45} are both middle states and are
+joined by the actual flip at 3<4<5 retaining strict35. Equality of g therefore
+requires β(Q1)=β(Q2). Adding the target normal12 gives full states
+{12,23,24,34} and {12,23,24,45}, still joined by that same flip. However,
+the full-state endpoint coefficient f11+f10 equals 1 at Q1 and 0 at Q2:
+source abc belongs to C, source abe does not, and both f11 terms vanish by
+ascent. Equality of the two full-state multiplicities instead requires
+β(Q1)−β(Q2)=1. This is a two-edge nonzero period involving different ascent
+levels, not a failure of the proved potential criterion.
+
+Therefore the deletion packet must be allowed to change together with the
+target multiplicities. A different β with this fixed packet cannot suffice.
+This does not refute the earlier paired-block construction, whose hypothesis
+f10=f01 this C does not satisfy, or the author's component recurrence route.
+Indeed, the same diagnostic has the proved complete-component identity
+X_C=X_D−e5. Primary and Astra independently checked both the ordinary residual
+lemma and the explicit two-edge contradiction.
+
+### A common diagram for the two deletion packets
+
+Let e=uw, f=wz, e'=ux and r=xz. Source-delete(f) and target-delete(e') have
+the SAME natural graph G0: the DN move removes the natural pair f and adds
+e', and the second deletion removes e' again. Their strict sets are S0∪{e}
+and S0∪{r}, respectively, where S0 contains the unchanged strict edges.
+Let H have natural graph G0 and strict set S0.
+
+Both e and r are unmarked natural corners of H. Deleting f leaves the two
+area entries defining the e-corner unchanged: the head z is neither w nor
+x=w+1 because f has length at least two and less than n. On the target side,
+r is a surviving strict corner after deleting e'; their heads z and x are
+distinct. Unstricting a corner leaves its natural-corner property unchanged.
+These statements use the full eligible-DN hypotheses that made the target
+valid, including `hgap`. The description works on the circular integer cover
+as well. In Lean it requires the corner inclusion/restriction identifications
+between dependent edge types, rather than literal equality of edge terms.
+
+Since e and r are natural corners, their selected statuses are invariant on
+EVERY complete H component. Thus source-delete(f) identifies with the entire
+e-selected sector of H, and target-delete(e') with the entire r-selected
+sector. These are unions of complete components. The intersection where
+both corners are selected is the same selected relation on both sides,
+preserving colorings, covers and HRV data pointwise.
+
+There is no induction circularity in using complete H components as known
+packets. Deleting the strict corner f lowers doubled area by one; unstricting
+e raises it by one. Therefore H has the same doubled area as the source D.
+For any component of H, resolve its invariant e-status: strictification gives
+a diagram of doubled area `doubledArea D−1`, while deletion gives one of
+area `doubledArea D−2`. The exact corner-branch correspondence identifies the
+ENTIRE component with one in the chosen smaller diagram. Hence smaller-area
+component induction supplies all H component identities. Resolving both
+unmarked corners gives four smaller sectors if the two-sided bookkeeping
+requires them.
+
+This supplies a common component space in which to recombine deletion terms.
+It does not say that an arbitrary packet already has component-constant
+multiplicities. In particular, the two sides use different sectors of H;
+only their both-selected parts can be transferred directly. We must still
+construct the joint redistribution and any corrections by complete solved
+components. Primary and Terra checked the geometry, corner-status invariance
+and strict measure decreases. This is a component-level reduction under the
+stated induction hypothesis, not an application of the aggregate identity.
+
 ## The coloring redistribution is explicit
 
 Let P00 contain a<c, with arbitrary fixed exterior relations. Let P10 add

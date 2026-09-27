@@ -33,8 +33,9 @@ The current increment formulates the author's component recurrence and derives
 its explicit DN redistribution from the existing local maps. It changes no
 Lean, shared Rust, reference, or Overleaf source.
 
-Last pushed checkpoint: `1cb7420`, explicit recurrence transport and local
-nonflip reductions. Preceding `25a527c` proves exact winding
+Last pushed checkpoint: `b65b936`, integer-potential reconstruction criterion;
+`1cb7420` gives explicit recurrence transport and local nonflip reductions.
+Preceding `25a527c` proves exact winding
 aggregate and the component-isolation obstruction. Earlier `bca8fb0` proves
 forest-component semantics and primitive circular winding reduction. Earlier `1c93849` consolidated the proof notes. Checkpoint `ffa23fd` proves endpoint recovery and multivariate
 articulation gluing. Earlier `1a966fb` records the counterexample
@@ -239,10 +240,54 @@ the authoritative task list confirms the unchanged ID and IN_PROGRESS status.
 The next task is to express its fundamental-cycle period rows through source
 flip differences, incorporating the deletion packets and certified corrections.
 This vanishing has not been proved; the consultation is not evidence of
-completion. Native observer
-`71315` follows this exact task with a 30-minute process allowance and writes
-`component-recurrence/observer.log`. An observer timeout or disconnect does
+completion. Native observer `71315` disconnected and exited zero; the
+authoritative task list still reports IN_PROGRESS. Primary reattached native
+observer `54512` to this SAME task with a 30-minute process allowance, writing
+`component-recurrence/observer-reconnect.log`. The original log is retained.
+An observer timeout or disconnect does
 not cancel the remote task. On completion, inspect authoritative task status,
 download that task's result, and audit the claimed reconstruction before any
 Lean port. Primary retains monitoring ownership; no automatic wake-up promise
 is made.
+
+## Current recurrence audit increment
+
+The preceding goal turn made progress through `b65b936`. The worktree was
+clean at this continuation. Primary retains ownership of the recurrence note,
+status map, handoff and remote-request ledger; no source or build changes.
+Astra completed a bounded read-only audit of two new uniform flip-graph maps:
+the induced 00 graphs are conjugate by the exterior swap, and the induced 11
+graphs agree under identity on Q. These use actual lifted covers and
+admissibility, not only `orientMono` equalities. The source normal xz and target
+normal uw toggle only internally; `hgap` is required on the source side.
+The recurrence note records complete arguments and precise scope.
+
+The SAME Aristotle task remains IN_PROGRESS. Its streamed analysis reports
+a possible n=6 failure of the restricted β family, even after some deletion
+packets. This is unverified remote computation, not an accepted mathematical
+obstruction. Primary sent `EXACT_CERTIFICATE_REQUEST.md` inline, asking for
+one full input/component/period certificate and the exact preprocessing and
+packet space, and supplied the independently checked endpoint flip maps.
+Do not attempt to prove unconditional period vanishing until this certificate
+is audited. Failure of one transport family would not refute the author's
+recurrence route or the component HRV formula.
+
+Primary and Astra also proved an ordinary, linear semantic certificate with
+an explicit deletion residual R=Σ(f10−f01)([del00]−[del01]); it no longer
+requires paired source multiplicities. The existing saturated five-state
+diagnostic gives a hand-checked two-edge period showing that keeping this R
+fixed cannot reconstruct target components for ANY β. Thus the next task is
+joint transport of the target and deletion packets, not solving a false
+unconditional period-vanishing assertion. The recurrence note gives the
+exact states, cover flips and contradictory equations. The original paired
+family has different hypotheses and is not refuted by this diagnostic.
+
+Terra completed the audit of the shared lower natural graph of source-delete(wz) and
+target-delete(ux), with the two remaining corners uw,xz unmarked. The proposed
+common diagram has the same doubled area as the source, but resolving either
+unmarked corner gives strictly smaller branches. Corner-status invariance
+makes the forced sectors unions of ENTIRE components. Primary corrected an
+initially mistaken induced-sector limitation in Terra's return; Terra agreed
+and rechecked the full component correspondence. The shared diagram is now
+a proved component-level induction space, recorded in the recurrence note.
+All local read-only lanes are released; the joint reconstruction remains open.
