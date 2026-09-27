@@ -241,3 +241,8 @@ import VerticalStripLLT.Components.CommutatorCoefficients
 import VerticalStripLLT.Components.WordProductExpansion
 import VerticalStripLLT.Components.ColoringWord
 import VerticalStripLLT.Components.ComponentColoring
+import VerticalStripLLT.Components.GainScaling
+import VerticalStripLLT.Components.GainNegativeCancellation
+import VerticalStripLLT.Components.ColoringSubwords
+import VerticalStripLLT.Components.ColorProductPositions
+import VerticalStripLLT.Components.ColorProductPairing

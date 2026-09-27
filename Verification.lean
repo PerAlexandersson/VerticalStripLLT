@@ -2337,3 +2337,31 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Components.wordCompatible_coloringWord_iff
 #print axioms VerticalStripLLT.Components.cast_componentWordCount_eq_sum
 #print axioms VerticalStripLLT.Components.componentStrictEnumerator_eq_coloringWord_sum
+
+-- Strict scaling, negative-cycle cancellation, and the actual color-product pairing.
+#print axioms VerticalStripLLT.Components.GainData.walkLength
+#print axioms VerticalStripLLT.Components.GainData.SimpleCycle
+#print axioms VerticalStripLLT.Components.GainData.SimpleCyclesNonpos
+#print axioms VerticalStripLLT.Components.GainData.SimpleCyclesNegative
+#print axioms VerticalStripLLT.Components.GainData.closedWalksNonpos_iff_simpleCyclesNonpos
+#print axioms VerticalStripLLT.Components.GainData.simpleCycle_length_le_card
+#print axioms VerticalStripLLT.Components.GainData.strictScale
+#print axioms VerticalStripLLT.Components.GainData.walkGain_strictScale
+#print axioms VerticalStripLLT.Components.GainData.closedWalksNonpos_strictScale_iff
+#print axioms VerticalStripLLT.Components.GainData.exists_feasible_strictScale_iff
+#print axioms VerticalStripLLT.Components.GainData.sum_powerset_simpleCyclesNegative_eq_zero_of_gain_excess
+#print axioms VerticalStripLLT.Components.selectedColorSubword
+#print axioms VerticalStripLLT.Components.selectedColorSubword_sublist
+#print axioms VerticalStripLLT.Components.fullWord_map_snd_selectedColorSubword
+#print axioms VerticalStripLLT.Components.existsUnique_selectedColorSubword
+#print axioms VerticalStripLLT.Components.colorPositionFiber
+#print axioms VerticalStripLLT.Components.colorPositions
+#print axioms VerticalStripLLT.Components.fullWord_colorPositions
+#print axioms VerticalStripLLT.Components.colorPositions_filter_map_snd
+#print axioms VerticalStripLLT.Components.colorProductTensorRing
+#print axioms VerticalStripLLT.Components.colorProduct_finite_positions
+#print axioms VerticalStripLLT.Components.sum_subwords_eq_sum_colorings
+#print axioms VerticalStripLLT.Components.prod_selectedColorSubword
+#print axioms VerticalStripLLT.Components.colorPairingTensorRing
+#print axioms VerticalStripLLT.Components.componentScalarEval_colorProduct
+#print axioms VerticalStripLLT.Components.componentScalarEval_cauchyProduct

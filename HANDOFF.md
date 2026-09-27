@@ -8,16 +8,15 @@ The complete ordinary and aggregate circular formulas are Lean theorems.
 The full ordinary and circular **component** formulas have complete audited
 mathematical proofs but are **not yet complete Lean theorems**.
 
-Pushed source checkpoint `0cdd4f6` proves finite Cauchy factorization and
-canonical strict-slack cancellation. The next verified increment contains the
-actual forward HRV fiber bridge, gain feasibility and excess recurrence,
-scalar extension, commutator coefficients, subword expansion, and the direct
-strict-coloring refinement. Full library: **1968 jobs**. The expanded axiom
-inventory passed all **2271 entries**, using only the three standard axioms.
+Verified tandem increment atop pushed source `8df6968`: the actual ordinary
+color-product/strict-enumerator pairing, circular strict scaling and negative-cycle
+cancellation. Full library: **1973 jobs**; **2293 axiom entries** passed with only
+standard axioms. Luna independently audited these five modules, including empty
+cases, order/multiplicity, explicit forward hypothesis and scaling bounds; clean.
 
 Validation logs are under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-continuation/`:
-`checkpoint-library-build.log` and `checkpoint-axioms.log`.
+`pairing-library-build.log` and `pairing-axioms.log`.
 All builds use the pinned Lean 4.34.0 / Mathlib
 `5ed2965256430c3649e86755f9576b54eca72435` through `lake-workspace`.
 No placeholders, custom axioms, unchecked native proofs or local package/build
@@ -30,12 +29,21 @@ The academic-account restart continues in the assigned main checkout
 `/workspace/lean/VerticalStripLLT`, branch `main`. Primary owns all integrated
 source, imports, inventory, documentation, integration fixes and the sole
 serialized Lean build slot. Check active processes before each build.
+Primary additionally owns `Components/ColorProductPairing.lean`, the ordinary
+product/subword reindexing and strict-enumerator pairing.
 
 Current authorized build-free assignments:
 
 - Astra returned `Components/GainScaling.lean`; primary now owns its validation.
-- Luna `word_swaps`: only `Components/ColoringSubwords.lean`.
-- Luna `word_covers`: only `Components/ColorProductPositions.lean`.
+- Luna returned `Components/ColoringSubwords.lean`; primary now owns validation.
+- Luna returned `Components/ColorProductPositions.lean`; primary now owns validation.
+
+New tandem assignments (all build-free, disjoint):
+- Astra returned `Components/OrderedPartitions.lean`; primary owns validation of
+  finite partitions and top-block signed recursion. This is not yet Lemma A.
+- Luna returned `Components/GainNegativeCancellation.lean`; primary owns validation.
+- Luna `word_covers`: read-only API/proof plan for the ordered mountain expansion;
+  return notes only, no source ownership.
 
 All earlier candidate files were returned and adopted by primary. No build
 slot was transferred. No new account, supervisor worker or worktree was started.
@@ -76,6 +84,14 @@ All paths below are under `VerticalStripLLT/Components/`.
   equation (4), not yet the full ordered-subset mountain expansion.
 - `WordProductExpansion` expands ordered products into weighted subwords and
   evaluates them through the actual component functional.
+- `ColorProductPairing.componentScalarEval_colorProduct` identifies the actual
+  component strict enumerator with the finite color-product pairing.
+  `componentScalarEval_cauchyProduct` transfers this via the ordered Cauchy identity.
+  `ColoringSubwords` and `ColorProductPositions` prove full-subword/coloring
+  bijectivity, weights and ordering, including empty cases.
+- `GainScaling` proves the finite strict-scaling equivalence.
+  `GainNegativeCancellation` proves the alternating negative-simple-cycle sum
+  vanishes under the explicit balanced endpoints and positive gain excess.
 - `ColoringWord.wordCompatible_coloringWord_iff` proves that the full word formed
   by increasing colors and decreasing ties is compatible exactly for strict
   selected-edge colorings. `ComponentColoring.componentStrictEnumerator_eq_coloringWord_sum`
@@ -97,15 +113,13 @@ Astra independently reviewed the tensor representation, multiplication order,
 coefficient signs and linear functional boundary: no defect found. Luna
 independently reviewed the gain/potential and actual HRV bridges: no defect
 found. Primary repaired and locally built all candidates. The generic gain
-recurrence still needs its scaled contracted-graph instantiation.
+recurrence now has its strict-scaled form; actual contracted graphs remain to be instantiated.
 
 ## Remaining assembly
 
 Ordinary track:
 
-1. Reindex the product's surviving full subwords by finite colorings and identify
-   its paired value with `componentStrictEnumerator`. The direct coloring-word
-   refinement is already proved; the finite product/subword reindexing is active.
+1. The finite product/coloring pairing is complete in `ColorProductPairing`.
 2. Expand the inverse conjugation as ordered signed mountain words, then assemble
    local block cancellation into the global actual HRV fiber formula.
 3. Apply the same linear functional to the two sides of Cauchy to export the full
@@ -113,8 +127,8 @@ Ordinary track:
 
 Circular track:
 
-1. Prove the scaling bridge from negative simple-cycle gains δ to nonpositive
-   closed-walk gains γ = Mδ + 1 with a proved finite bound on M (active Astra task).
+1. Scaling and negative-cycle cancellation (Lemma X) are complete in
+   `GainScaling` and `GainNegativeCancellation`.
 2. Formalize the signed ordered-partition identity, contracted canonical
    coefficients, their deletion recurrence, and edge-count induction.
 3. Integrate finite tight-edge flip reconstruction and prove whole-component

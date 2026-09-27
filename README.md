@@ -118,6 +118,10 @@ local word exchanges and all four lifted-cover certificates assemble an actual
 directed flip. For ordinary forward diagrams,
 `Components.componentWordCount_four` proves the contextual four-term identity,
 and `Components.componentWordFunctional` descends the actual count to the word
-quotient. The finite Cauchy factorization, global HRV extraction and full
-component expansion remain to be assembled.
+quotient. The finite Cauchy factorization and its pairing with the actual component's
+strict-coloring enumerator are now proved (`Components/ColorProductPairing.lean`).
+Global mountain-word/HRV extraction and the full component expansion remain
+to be assembled. The circular finite companion's scaled negative-cycle
+cancellation is also proved; ordered-partition and whole-component assembly
+remain separate obligations.
 Cumulants remain outside the scope.

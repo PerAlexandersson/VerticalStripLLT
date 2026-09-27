@@ -63,9 +63,8 @@ library. Existing aggregate theorems are not component semantic bridges.
 Items 1--3 and the local sink cancellation in item 5 have passed local library
 and axiom checks. `WordRank` and `LiftCoverRank` prove the generic cover adapter
 used by item 4. The actual ordinary component-count functional and four-term
-identity are now implemented. The strict coloring refinement, global HRV
-extraction, finite Cauchy assembly, compatible-lift transport and the full
-finite companion still need Lean integration. Their mathematical proofs are complete.
+identity are now implemented. The global HRV extraction, final Cauchy assembly, compatible-lift transport
+and the full finite companion still need Lean integration. Their mathematical proofs are complete.
 
 `CauchyStep` now proves the finite ordered factorization
 `colorProduct_eq_cauchyProduct`, using the explicit finite elementary coefficient
@@ -94,9 +93,8 @@ their actual fibers, and proves `hrvFiber_blockCancellation_forward`.
 to a scalar tensor algebra. `FiniteWordCauchy` instantiates the Cauchy identity
 there, and `ElementaryScalars` identifies its finite coefficients with
 Mathlib's multiset elementary functions and the existing `XPoly` elementary
-polynomials. The full library with these bridges passed 1963 jobs; the
-color-product/strict-enumerator and global HRV extraction identifications
-remain separate required milestones.
+polynomials. The color-product/strict-enumerator identification is now proved;
+global HRV extraction remains a separate required milestone.
 
 `CommutatorCoefficients` proves the finite inverse-conjugation coefficient
 identity, the first half of the ordered mountain expansion. Its coefficients
@@ -109,9 +107,21 @@ actual component functional. `elementaryScalar_map` supplies scalar transport.
 color fiber decreasingly, and proves compatibility exactly when the coloring
 is strict on selected edges. `ComponentColoring` then proves
 `componentStrictEnumerator_eq_coloringWord_sum` for the actual complete
-component. Reindexing the product's surviving full subwords by these colorings
-is the remaining left-side assembly; it is being formalized in tandem with
-circular gain scaling. Aggregate identities are not used for this refinement.
+component. `ColoringSubwords` proves the unique full-subword/coloring
+correspondence; `ColorProductPositions` identifies the ordered positions.
+`ColorProductPairing.componentScalarEval_colorProduct` completes the finite
+product pairing with the actual component strict enumerator, including empty
+alphabets and vertex sets. `componentScalarEval_cauchyProduct` transfers this
+semantics through the verified ordered factorization. Aggregate identities
+are not used for this refinement.
+
+`GainScaling` proves that negative simple-cycle gains are equivalent to
+nonpositive closed-walk gains after scaling δ to Mδ+1 with M≥|V|.
+`GainNegativeCancellation.sum_powerset_simpleCyclesNegative_eq_zero_of_gain_excess`
+then proves Lemma X of the finite companion under the explicit endpoint-balance
+and positive-excess hypotheses. Choosing M>|Nsteps| preserves positive excess.
+The signed ordered-partition identity and contracted coefficient assembly
+remain required.
 
 `ComponentWords` now defines the guarded count on the actual complete component
 and extends it linearly. It proves vanishing for repeated, missing, or wrong-length
