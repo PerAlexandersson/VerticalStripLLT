@@ -1,246 +1,143 @@
 # VerticalStripLLT handoff
 
-## Result and verification boundary
+## Current result and verification boundary
 
-Current verified increment extends `948fbb4` / source `682b476` with five
-modules: `CauchyStep`, `GainPotential`, `GainCancellation`, `GainSlack`, and
-`SinkReachability`. The full library passed **1936 jobs**, and all **2206 axiom
-inventory entries** passed with only `propext`, `Classical.choice`, and
-`Quot.sound`. Source, width, whitespace and external-cache guards pass.
-Logs are under `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-continuation/`.
-The goal remains active; subsequent candidates are still under development
-as recorded in Ownership below.
+Active goal: **formalize the full circular component proof**, with ordinary
+component assembly proceeding in tandem at the user's explicit request.
+The complete ordinary and aggregate circular formulas are Lean theorems.
+The full ordinary and circular **component** formulas have complete audited
+mathematical proofs but are **not yet complete Lean theorems**.
 
-`colorProduct_eq_cauchyProduct` now proves the finite ordered Cauchy
-factorization. `GainData.potential_feasible` constructs the least potential
-from feasibility, and `potential_erase_eq` proves strictly slack deletion
-invariance. `sum_powerset_feasible_eq_zero` proves the resulting signed
-feasibility cancellation using the actual canonical-potential pivot.
-Feasibility from closed-walk inequalities, positive-excess slack, scalar
-extension and the actual forward HRV fiber bridge are the next increment.
+Pushed source checkpoint `0cdd4f6` proves finite Cauchy factorization and
+canonical strict-slack cancellation. The next verified increment contains the
+actual forward HRV fiber bridge, gain feasibility and excess recurrence,
+scalar extension, commutator coefficients, subword expansion, and the direct
+strict-coloring refinement. Full library: **1968 jobs**. The expanded axiom
+inventory passed all **2271 entries**, using only the three standard axioms.
 
-The ordinary actual-component word-count milestone is now formalized:
-`Components.componentWordCount_four` proves the contextual four-term identity
-under the ordinary forward-edge hypothesis, and `componentWordFunctional`
-descends the guarded count to the integer-linear word quotient. The proof uses
-actual directed flips within the original complete component, covers invalid
-words and absent long edges, and permits the retained long edge to be strict.
-This completes the former full-word/flip-bijection integration milestone.
-Final validation: the complete library passed 1931 jobs and all 2169 axiom
-inventory entries passed, using only `propext`, `Classical.choice`, and
-`Quot.sound`. All 71 public declarations added during this restart are
-inventoried. Source, 100-column, whitespace, 44 local-link, and external-cache
-guards passed. Final logs are `final-library-build.log` and `final-axioms.log`
-under `/lake-cache/ai-projects/requests/VerticalStripLLT/component-words/`.
+Validation logs are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/circular-continuation/`:
+`checkpoint-library-build.log` and `checkpoint-axioms.log`.
+All builds use the pinned Lean 4.34.0 / Mathlib
+`5ed2965256430c3649e86755f9576b54eca72435` through `lake-workspace`.
+No placeholders, custom axioms, unchecked native proofs or local package/build
+output are allowed. The expected axioms are only `propext`, `Classical.choice`,
+and `Quot.sound`.
 
-The requested finite companion lemma now has a COMPLETE mathematical proof,
-including isolation of entire circular flip components. See
-[the corrected proof](docs/proofs/COMPONENT_FINITE_COMPANION.md).
-Aristotle supplied the canonical coefficient recurrence; primary and Astra
-independently audited all steps, and Terra checked the ordered-partition
-identity and reindexing. Primary supplied an explicitly finite component
-reconstruction; Astra audited its covers, gains, signs and period handling.
+## Ownership
 
-The proof uses a signed ordered-partition identity, canonical integer
-longest-path potentials after scaling, a strict-slack edge involution, and
-induction on edge count. The final flip reconstruction preserves the original
-component and gives identical contracted gain graphs. It uses no polyhedral,
-topological or unproved confluence theorem. One unused false sentence about
-unscaled integer strict potentials was removed from the returned candidate;
-the scaled construction correctly gives rational strict potentials.
+The academic-account restart continues in the assigned main checkout
+`/workspace/lean/VerticalStripLLT`, branch `main`. Primary owns all integrated
+source, imports, inventory, documentation, integration fixes and the sole
+serialized Lean build slot. Check active processes before each build.
 
-The full ordinary and circular COMPONENT theorems are not yet Lean theorems.
-Their mathematical proofs are complete. The full ordinary and aggregate
-circular HRV formulas and e-positivity remain locally Lean-verified; see
-[ordinary completion](docs/COMPLETION.md) and
-[circular completion](docs/CIRCULAR_COMPLETION.md).
+Current authorized build-free assignments:
 
-## Ownership and current checkpoint
+- Astra returned `Components/GainScaling.lean`; primary now owns its validation.
+- Luna `word_swaps`: only `Components/ColoringSubwords.lean`.
+- Luna `word_covers`: only `Components/ColorProductPositions.lean`.
 
-Active goal continuation: formalize the **full circular component proof**.
-The preceding turn is classified as verified progress, not completion of this
-goal. Starting checkpoint is clean `948fbb4` / source `682b476`.
-Primary now owns new `Components/GainPotential.lean` and `Components/GainSlack.lean`, the returned Luna
-candidates `Components/SinkReachability.lean` and `Components/GainCancellation.lean`,
-plus integration, imports, inventory and documentation. Luna `word_swaps` now
-audits the actual HRV semantic bridge; Luna `word_covers` audits available
-difference-constraint APIs (both read-only). Astra's returned
-`Components/CauchyStep.lean` candidate is now primary-owned for integration.
-Luna `word_covers` returned `Components/GainExcess.lean`; primary adopted it
-for validation, and that subagent is now idle and build-free.
-Astra `component_review` next owns only new `Components/GainFeasibility.lean`.
-Luna `word_swaps` next owns only new `Components/WordScalars.lean`.
-Primary also owns new `Components/ForwardHRV.lean` for actual circular HRV
-fibers under the ordinary forward-edge hypothesis.
-All delegated work is build-free, and primary
-retains the sole serialized Lean build slot. No account or worker launch change.
+All earlier candidate files were returned and adopted by primary. No build
+slot was transferred. No new account, supervisor worker or worktree was started.
+The user allows several Luna subagents and Astra, with optional Claude advice.
 
-The explicitly requested academic-account restart on 2026-09-27 resumes the
-same primary ownership in `/workspace/lean/VerticalStripLLT` on `main`, from
-clean, pushed checkpoint `5dd1d2a`. The user subsequently explicitly authorized
-Luna subagents and Astra for formalization. Primary owns `Components/ComponentWords.lean`,
-the root import, verification inventory, and accompanying status documents.
-The resumed increment proves full-word counts, the actual four-term flip
-bijection and the resulting ordinary component quotient functional.
-The runtime Lean MCP is still rooted in RealRooted; use the existing explicit
-source-search / `lake-workspace` fallback described in
-`suggestions/project-tool-routing.md`. Check processes before each build.
+The runtime Lean MCP remains rooted in RealRooted. Explicit source search and
+serialized `lake-workspace` are the recorded fallback; see
+[suggestions/project-tool-routing.md](suggestions/project-tool-routing.md).
+`codex mcp list` and runtime registry discovery were performed this continuation.
+Git SSH has no loaded key. Routine pushes use the existing gh credential helper
+with command-local HTTPS rewriting, without changing remotes or stored config:
 
-Ownership (2026-09-27): primary owns all integrated modules, imports,
-inventory, documentation and the sole Lean build slot. Both Luna subagents
-(`word_swaps`, `word_covers`) and Astra (`component_review`) have returned all
-assignments and released editable ownership. All were build-free; no build
-slot was transferred. Primary compiled and repaired every candidate before
-integration. Luna independently audited the final bijection and functional,
-including no-edge and invalid-word cases, with no material issues found.
+```sh
+git -c url.https://github.com/.insteadOf=git@github.com: \
+  -c credential.helper='!gh auth git-credential' push origin main
+```
 
-Independent Astra review decision: construct target admissibility directly
-with the forward numeric coloring (`EdgeData.lt_of_transGen`), then use the
-selected-edge exchange identity for word compatibility and a finite conditional
-bijection for filtered counts. The existing component and full integer cover
-relations are retained. The completed finite companion audit is not repeated.
+## Verified component foundations
 
-Restart checkpoint verification: `ComponentWords` passed its focused build
-(1411 jobs), the root library passed 1920 jobs, and the expanded axiom inventory
-passed 2116 entries with only `propext`, `Classical.choice`, and `Quot.sound`.
-All 18 new declarations are inventoried. Source/100-column/whitespace guards,
-37 local documentation links, and absence of local package/build trees passed.
-Logs: `/lake-cache/ai-projects/requests/VerticalStripLLT/component-words/`.
-The first compile exposed an ordinary/circular `Orientation` name collision;
-explicit qualification fixed it. SSH fetch failed for lack of a loaded key;
-fetch over HTTPS using the existing `gh` credential helper succeeded without
-changing remotes, stored configuration, or accounts.
-The verified full-word checkpoint is committed and pushed as `de4645f`.
-The verified local-flip checkpoint is committed and pushed as `06fac39`.
+All paths below are under `VerticalStripLLT/Components/`.
 
-The local flip integration now passes the complete library build (1929 jobs)
-and 2164 axiom inventory entries, with only the three standard axioms.
-All 66 declarations added since the restart are inventoried; source, width,
-whitespace, 37 local-link and external-cache guards passed. Logs are
-`local-flip-library-build.log` and `local-flip-axioms.log` in the directory above.
-The `WordCover` candidate commits `4eed223`/`807114e` are adopted into this
-verified increment with canonical-residue and implicit-argument corrections.
-Two harmless unused-hypothesis linter warnings remain in the generic word
-exchanges; signatures are retained. The count reduction still has an explicit
-filtered-cardinality premise. `ComponentBijection` now discharges that premise
-for natural long edges; `ComponentFunctional` handles absent long edges and
-invalid words, then proves quotient descent without any cardinality premise.
+- `ComponentFunctional.componentWordCount_four` proves the contextual four-term
+  count identity inside the original complete flip component under the ordinary
+  forward-edge hypothesis. It handles invalid words, missing natural long
+  edges, and strict retained long edges. `componentWordFunctional` is its
+  integer-linear quotient descent. Source checkpoint `682b476`.
+- `WordAlgebra`, `WordGenerators` and `WordConjugation` give the exact ring
+  quotient, squarefree and triple relations, and finite conjugation identities.
+- `CauchyStep.colorProduct_eq_cauchyProduct` proves the finite ordered Cauchy
+  factorization. Colors and peak factors retain their multiplication order.
+- `WordScalars` and `FiniteWordCauchy` instantiate this identity over a scalar
+  tensor algebra. `ElementaryScalars` identifies the finite coefficients with
+  Mathlib elementary polynomials and proves transport along ring maps.
+  `ComponentScalars.componentScalarEval` remains linear; no multiplicativity
+  of the actual component functional is assumed.
+- `CommutatorCoefficients.inverseConjugationPolynomial_coeff` proves the signed
+  inverse-conjugation coefficient formula. This is the coefficient half of
+  equation (4), not yet the full ordered-subset mountain expansion.
+- `WordProductExpansion` expands ordered products into weighted subwords and
+  evaluates them through the actual component functional.
+- `ColoringWord.wordCompatible_coloringWord_iff` proves that the full word formed
+  by increasing colors and decreasing ties is compatible exactly for strict
+  selected-edge colorings. `ComponentColoring.componentStrictEnumerator_eq_coloringWord_sum`
+  gives the direct refinement of the actual complete component enumerator.
+- `SinkReachability` proves the finite unique-sink/reachability equivalence.
+  `ForwardHRV.hrvFiber_blockCancellation_forward` (in namespace
+  `Circular.Orientation`) applies local cancellation to actual circular HRV
+  fibers under the ordinary forward-edge hypothesis. Numeric maximality is
+  derived from the existing lifted HRV, not a replacement definition.
+- `GainPotential` proves least-potential feasibility and invariance under
+  inserting satisfied constraints or deleting strictly slack constraints.
+  `GainSlack` derives signed feasibility cancellation using its actual pivot.
+- `GainFeasibility.exists_feasible_iff_closedWalksNonpos` proves the full finite
+  difference-constraint criterion. `GainExcess` supplies slack from a positive
+  signed gain excess and derives the signed closed-walk recurrence. Edge
+  instances, loops, parallel edges and repeated walk steps are retained.
 
-Earlier word-ring and companion checkpoints are `3dcb0f8` and `5dd1d2a`.
-Their remote proof requests and worker assignments are terminal. No Rust,
-Overleaf, reference source or shared infrastructure was changed.
+Astra independently reviewed the tensor representation, multiplication order,
+coefficient signs and linear functional boundary: no defect found. Luna
+independently reviewed the gain/potential and actual HRV bridges: no defect
+found. Primary repaired and locally built all candidates. The generic gain
+recurrence still needs its scaled contracted-graph instantiation.
 
-Initialization commits `830cc6b` and `130f7e8` remain ancestors. The immutable
-paper references remain untouched. Overleaf v9 remains unchanged at SHA-256
-`3b02859804569cf17a9fc037bd69390fc1afae2265cff559c752369ef05c9195`.
+## Remaining assembly
 
-## Exact integrated declarations
+Ordinary track:
 
-Paths below are under `VerticalStripLLT/Components/`. Unless stated otherwise,
-the namespace is `VerticalStripLLT.Components`.
+1. Reindex the product's surviving full subwords by finite colorings and identify
+   its paired value with `componentStrictEnumerator`. The direct coloring-word
+   refinement is already proved; the finite product/subword reindexing is active.
+2. Expand the inverse conjugation as ordered signed mountain words, then assemble
+   local block cancellation into the global actual HRV fiber formula.
+3. Apply the same linear functional to the two sides of Cauchy to export the full
+   ordinary component theorem; transport entire balanced components by compatible lifts.
 
-- `WordRelations` and `WordContext`: additive contextual quotient, universal
-  functional descent, and preservation by prefix/suffix contexts; pushed at
-  `a8ebd20`.
-- `WordConjugation`: inverse finite products, `descendingProduct_conj`,
-  `letterSum_commute_descendingProduct`, and `descendingProduct_conj_adPow`;
-  locally checked Aristotle candidate, pushed at `6b7cd80`.
-- `WordMultiplication`: `wordCoefficients_context`,
-  `wordRelations_left_mul`, `wordRelations_right_mul`.
-- `WordAlgebra`: genuine ring quotient and `wordAlgebraEquiv`, a linear
-  equivalence to the original additive quotient; `wordProjection_eq_iff`
-  proves that exactly the original relations are imposed.
-- `WordGenerators`: `algebraWord_sandwich` and `algebraWord_triple` discharge
-  the concrete generator hypotheses of the conjugation module.
-- `BlockExtractor`: `blockWord_compatible_iff_forall_sink`.
-- `BlockCancellation`: `blockCancellation`, `blockCancellation_erase`, and
-  `blockCancellation_uniqueSink`, for arbitrary finite increasing graphs.
-- `WordRank`: `wordCompatible_idxOf_lt` and `idxOf_middle`.
-- `LiftCoverRank`, namespace `Circular.Diagram`: `rank_lt_of_liftReach`,
-  `liftCover_of_liftStep_rank_gap`, `liftCover_of_liftStep_rank_succ`.
-  These use the ACTUAL full integer cover relation; no no-wrap hypothesis.
-- `ComponentWords`: guarded counts in the actual flip component, their linear
-  extension, repeated-word vanishing, component invariance and strict ranks.
-- `ShortEdges`: normal short-edge construction and canonical forward lifts;
-  `EdgeSwap`: exact selected-relation exchange and its inverse.
-- `WordSwap`, `WordSwapInverse`, `WordNeutral`: compatibility of exchanged and
-  unchanged triples, plus permutation invariance of full-word guards.
-- `WordCover`: all four covers of contiguous `acb`/`bac` words.
-- `WordFlip`: `directedFlipWitness_of_compatible_triples` derives every cover
-  field and supplies actual component closure.
-- `ComponentSwap`: deterministic exchanged orientations and compatible forward
-  and backward actual flips, including the case of a strict retained long edge.
-- `CountReduction`: reduces the four-term count identity to the cardinality
-  equality of the selected-long-edge filters.
-- `ComponentBijection`: `selectedLong_card_eq_of_naturalLift`, the conditional
-  actual-component bijection satisfying that cardinality premise.
-- `ComponentFunctional`: `componentWordCount_four`,
-  `componentWordLinear_relations_le_ker`, `componentWordFunctional`, and
-  `componentWordFunctional_mk_basisWord`. The public count theorem has no
-  full-word, selected-edge, cover or cardinality premise; it assumes the
-  ordinary forward-edge condition and `a < b < c`.
+Circular track:
 
-These are full general ingredients, not examples or declarations of the
-complete component theorem. The component functional remains linear rather
-than a ring homomorphism.
+1. Prove the scaling bridge from negative simple-cycle gains δ to nonpositive
+   closed-walk gains γ = Mδ + 1 with a proved finite bound on M (active Astra task).
+2. Formalize the signed ordered-partition identity, contracted canonical
+   coefficients, their deletion recurrence, and edge-count induction.
+3. Integrate finite tight-edge flip reconstruction and prove whole-component
+   isolation using identical contracted gain graphs.
 
-## Checks of the pre-restart companion checkpoint
+These are remaining Lean obligations, not remaining mathematical conjectures.
+Do not infer component positivity from an aggregate theorem.
 
-The combined `lake-workspace build VerticalStripLLT` passed **1919 jobs**.
-`lake-workspace env lean Verification.lean` passed **2098 inventory entries**,
-using only `propext`, `Classical.choice`, and `Quot.sound`. The local versions
-are Lean 4.34.0 and Mathlib `5ed2965256430c3649e86755f9576b54eca72435`.
-No placeholders, custom axioms or unchecked native proofs are permitted.
-All ten component modules passed source and 100-column guards; 119 local
-link targets, whitespace, initialization ancestry and unchanged references
-were checked. No project-local package or build output was created.
+## Proof sources and history
 
-Logs under `/lake-cache/ai-projects/requests/VerticalStripLLT/word-algebra/`:
-`block-build.log`, `rank-build.log` (initial WordRank API failure),
-`word-rank-build.log` (corrected success), `library-build.log`, `axioms.log`.
-AXLE independently accepted the complete block files in `lean-4.34.0`, request
-`c2652d3c-f8d2-4088-9c22-dc377ca51674`, with no warnings or failed declarations;
-its full input/output is `block-axle-final.json` in that directory.
+Preferred source: [finite circular companion](docs/proofs/COMPONENT_FINITE_COMPANION.md).
+Ordinary source: [ordinary component proof](docs/proofs/COMPONENT_ORDINARY_PROOF.md).
+[The integration plan](docs/COMPONENT_FORMALIZATION.md) records module correspondence.
+The companion was independently audited by primary and Astra, with Terra
+checking its partition identity. The proof uses finite sums, potentials and
+flip reconstruction; general polyhedral machinery is unnecessary.
 
-An initial one-second BlockExtractor check briefly overlapped a newly started
-RealRooted build because inspection and launch were mistakenly batched before
-reading process output. We then paused all local builds until PID `3703098`
-finished. Subsequent RealRooted batches `3720768` and `3723625` also finished
-before our remaining checks. Native waiters ended. All later process checks
-and build launches were separate decisions. Existing RealRooted editor/LSP
-processes were left untouched. A shared-lock proposal is recorded in
-[suggestions](suggestions/shared-lean-build-lock.md); no wrapper was changed.
+Aristotle finite coefficient project `729ff94c-1911-422b-88a7-f1af1cef93d0`, task
+`91a37895-7b0f-420d-aa72-92da80540500`, is terminal `COMPLETE_WITH_ERRORS` and
+returned prose, not Lean. The corrected proof was accepted after independent
+audits, not from the service status. See [the ledger](docs/ARISTOTLE.md).
+All other old Aristotle tasks are terminal.
 
-## Aristotle result and provenance
-
-Finite coefficient project `729ff94c-1911-422b-88a7-f1af1cef93d0`, task
-`91a37895-7b0f-420d-aa72-92da80540500`, is terminal **COMPLETE_WITH_ERRORS**.
-It returned a complete prose proof, not a Lean formalization. Acceptance is
-based on the independent mathematical audits and correction above, not the
-service status. Original inputs, output archive and returned proof remain in
-external `circular-finite-coefficients/`; exact hashes and review findings are
-in [the ledger](docs/ARISTOTLE.md). Earlier observer connection errors did not
-trigger a replacement task. All relevant Aristotle tasks are terminal.
-
-The Overleaf v9 bounded-face proof remains an independently audited reference.
-The [comparison](docs/proofs/COMPONENT_CIRCULAR_FACE_PROOF.md) records the
-ordinary simplification and the direct cycle-deletion input. No manuscript
-source was edited by this task.
-
-## Remaining Lean work
-
-The proof-discovery objective is satisfied by the finite companion and its
-whole-component reconstruction. Full Lean integration is a separate remaining
-milestone, detailed in [the modular plan](docs/COMPONENT_FORMALIZATION.md):
-
-1. Prove the strict-coloring refinement and finite Cauchy factorization paired
-   with the now-verified `componentWordFunctional`.
-2. Assemble the global HRV extraction from the local block cancellation, then
-   transport entire balanced components via compatible lifts.
-3. Formalize the ordered-partition identity, scaled canonical potentials,
-   coefficient recurrence, edge-count induction and finite tight-flip
-   reconstruction. Ordered partitions may be surjective maps V→Fin k,
-   allowing k=0 for the empty vertex set.
-
-No remaining mathematical gap is asserted for the companion. The unfinished
-Lean milestones must not be reported as already formalized.
+Earlier checkpoints, exact audit provenance, build history and ownership are
+preserved in [the archived handoff](docs/archive/component-foundation-through-cauchy-20260927.md).
+No Rust, Overleaf, immutable references or shared infrastructure was changed.

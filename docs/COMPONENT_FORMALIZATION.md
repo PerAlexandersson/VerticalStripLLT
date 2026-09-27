@@ -80,9 +80,38 @@ insertion of satisfied constraints and deletion of strictly slack constraints.
 This replaces the longest-path construction for the invariance argument.
 `GainCancellation` supplies finite sign-reversing cancellation and `GainSlack`
 derives `sum_powerset_feasible_eq_zero` with the actual potential-dependent pivot.
-These focused builds pass; feasibility from nonpositive closed walks and slack
-from an excess walk are separate bridges under implementation. None of these
-lemmas alone identifies the canonical circular coefficient or isolates components.
+`GainFeasibility.exists_feasible_iff_closedWalksNonpos` now proves the complete
+finite feasibility criterion, using cycle deletion and a bounded supremum of
+attained gains. `GainExcess` supplies slack from a positive signed gain excess
+and proves the resulting signed closed-walk recurrence, with loops, repeated
+walk steps and parallel edge instances retained. None of these lemmas alone
+identifies the canonical circular coefficient or isolates components.
+
+`ForwardHRV` proves numeric maximality for the existing circular lifted HRV
+under the ordinary forward-edge hypothesis, restricts root-reaching paths to
+their actual fibers, and proves `hrvFiber_blockCancellation_forward`.
+`WordScalars` extends the exact word quotient and any integer-linear functional
+to a scalar tensor algebra. `FiniteWordCauchy` instantiates the Cauchy identity
+there, and `ElementaryScalars` identifies its finite coefficients with
+Mathlib's multiset elementary functions and the existing `XPoly` elementary
+polynomials. The full library with these bridges passed 1963 jobs; the
+color-product/strict-enumerator and global HRV extraction identifications
+remain separate required milestones.
+
+`CommutatorCoefficients` proves the finite inverse-conjugation coefficient
+identity, the first half of the ordered mountain expansion. Its coefficients
+are `(-1)^k adPow A u k`; identifying the signed ordered-subset expansion with
+individual mountain words is still required. `WordProductExpansion` proves
+the exact noncommutative product-to-subword sum and evaluates it through the
+actual component functional. `elementaryScalar_map` supplies scalar transport.
+
+`ColoringWord` now lists every vertex once, sorts colors increasingly and each
+color fiber decreasingly, and proves compatibility exactly when the coloring
+is strict on selected edges. `ComponentColoring` then proves
+`componentStrictEnumerator_eq_coloringWord_sum` for the actual complete
+component. Reindexing the product's surviving full subwords by these colorings
+is the remaining left-side assembly; it is being formalized in tandem with
+circular gain scaling. Aggregate identities are not used for this refinement.
 
 `ComponentWords` now defines the guarded count on the actual complete component
 and extends it linearly. It proves vanishing for repeated, missing, or wrong-length

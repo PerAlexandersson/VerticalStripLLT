@@ -2266,3 +2266,74 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Components.colorProduct_succ_cauchy
 #print axioms VerticalStripLLT.Components.cauchyProduct
 #print axioms VerticalStripLLT.Components.colorProduct_eq_cauchyProduct
+
+-- Actual forward HRV fibers, scalar semantics, and gain feasibility.
+#print axioms VerticalStripLLT.Circular.Orientation.selected_lt_of_forward
+#print axioms VerticalStripLLT.Circular.Orientation.selected_liftStep_of_forward
+#print axioms VerticalStripLLT.Circular.Orientation.reachable_lift_of_forward
+#print axioms VerticalStripLLT.Circular.Orientation.liftReach_canonical_of_forward
+#print axioms VerticalStripLLT.Circular.Orientation.liftedHRV_eq_coe_hrv_of_forward
+#print axioms VerticalStripLLT.Circular.Orientation.reachable_le_hrv_of_forward
+#print axioms VerticalStripLLT.Circular.Orientation.hrv_le_of_reachable_forward
+#print axioms VerticalStripLLT.Circular.Orientation.hrvFiber_reaches_root_forward
+#print axioms VerticalStripLLT.Circular.Orientation.hrvFiber_blockCancellation_forward
+#print axioms VerticalStripLLT.Components.GainData.selectedQuiver
+#print axioms VerticalStripLLT.Components.GainData.Walk
+#print axioms VerticalStripLLT.Components.GainData.walkGain
+#print axioms VerticalStripLLT.Components.GainData.ClosedWalksNonpos
+#print axioms VerticalStripLLT.Components.GainData.walkGain_le_potential
+#print axioms VerticalStripLLT.Components.GainData.closedWalksNonpos_of_feasible
+#print axioms VerticalStripLLT.Components.GainData.exists_feasible_of_closedWalksNonpos
+#print axioms VerticalStripLLT.Components.GainData.exists_feasible_iff_closedWalksNonpos
+#print axioms VerticalStripLLT.Components.GainData.potential_feasible_of_closedWalksNonpos
+#print axioms VerticalStripLLT.Components.GainData.endpoint_potential_sum_eq
+#print axioms VerticalStripLLT.Components.GainData.gain_sum_le_of_no_slack
+#print axioms VerticalStripLLT.Components.GainData.exists_slack_of_gain_excess
+#print axioms VerticalStripLLT.Components.GainData.sum_powerset_feasible_eq_zero_of_gain_excess
+#print axioms VerticalStripLLT.Components.GainData.sum_powerset_closedWalksNonpos_eq_zero_of_gain_excess
+#print axioms VerticalStripLLT.Components.scalarWord
+#print axioms VerticalStripLLT.Components.scalarWord_append
+#print axioms VerticalStripLLT.Components.scalarWord_repeated
+#print axioms VerticalStripLLT.Components.scalarWord_sandwich
+#print axioms VerticalStripLLT.Components.scalarWord_triple
+#print axioms VerticalStripLLT.Components.scalarWord_algebraMap_commutes
+#print axioms VerticalStripLLT.Components.scalarWordFunctional
+#print axioms VerticalStripLLT.Components.scalarWordFunctional_tmul
+#print axioms VerticalStripLLT.Components.scalarWordFunctional_tmul_algebraWord
+#print axioms VerticalStripLLT.Components.multiset_esymm_cons_succ
+#print axioms VerticalStripLLT.Components.elementaryScalar_eq_multiset_esymm
+#print axioms VerticalStripLLT.Components.elementaryScalar_ofFn_XPoly
+#print axioms VerticalStripLLT.Components.finiteLetter
+#print axioms VerticalStripLLT.Components.finiteLetter_sandwich
+#print axioms VerticalStripLLT.Components.finiteLetter_triple
+#print axioms VerticalStripLLT.Components.scalarAlphabet
+#print axioms VerticalStripLLT.Components.scalarAlphabet_commute
+#print axioms VerticalStripLLT.Components.finiteWordCauchy
+#print axioms VerticalStripLLT.Components.wordAlgebraEquiv_algebraWord
+#print axioms VerticalStripLLT.Components.componentScalarEval
+#print axioms VerticalStripLLT.Components.componentScalarEval_tmul_algebraWord
+#print axioms VerticalStripLLT.Components.componentScalarEval_scalarWord
+#print axioms VerticalStripLLT.Circular.EdgeData.strictOrderEnumerator_eq_selected_sum
+#print axioms VerticalStripLLT.Components.scalarWordTensorRing
+#print axioms VerticalStripLLT.Components.finiteWordTensorRing
+#print axioms VerticalStripLLT.Components.componentTensorRing
+
+-- Finite subword expansion and inverse-conjugation coefficients.
+#print axioms VerticalStripLLT.Components.inverseConjugationPolynomial
+#print axioms VerticalStripLLT.Components.inverseConjugationPolynomial_recurrence
+#print axioms VerticalStripLLT.Components.inverseConjugationPolynomial_coeff
+#print axioms VerticalStripLLT.Components.list_prod_one_add_eq_sum_subwords
+#print axioms VerticalStripLLT.Components.algebraWord_nil
+#print axioms VerticalStripLLT.Components.prod_weighted_letters
+#print axioms VerticalStripLLT.Components.prod_one_add_weighted_letters
+#print axioms VerticalStripLLT.Components.componentScalarEval_prod_one_add
+#print axioms VerticalStripLLT.Components.productExpansionTensorRing
+#print axioms VerticalStripLLT.Components.elementaryScalar_map
+
+-- The direct strict-coloring refinement of the actual component.
+#print axioms VerticalStripLLT.Components.coloringFiber
+#print axioms VerticalStripLLT.Components.coloringWord
+#print axioms VerticalStripLLT.Components.fullWord_coloringWord
+#print axioms VerticalStripLLT.Components.wordCompatible_coloringWord_iff
+#print axioms VerticalStripLLT.Components.cast_componentWordCount_eq_sum
+#print axioms VerticalStripLLT.Components.componentStrictEnumerator_eq_coloringWord_sum
