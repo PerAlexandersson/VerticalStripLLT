@@ -128,7 +128,8 @@ catalogue. All cleanup assignments are released; no owned process remains active
 ## Second streamlining pass: complete
 
 User requested further proof golf, useful shared lemmas and a Claude audit.
-Baseline: clean main `a8fdacd`. Primary owned all 13 edited component modules,
+Verified implementation checkpoint: **`0b64954`**, on `main`, based on `a8fdacd`.
+Primary owned all 13 edited component modules,
 Verification.lean and accompanying documentation. No account, worktree or
 supervisor worker changed. All implementation and review assignments are released.
 
