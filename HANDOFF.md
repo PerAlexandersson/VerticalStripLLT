@@ -63,11 +63,12 @@ build directory was introduced.
 
 ## Active general companion goal
 
-Primary is running a bounded read-only Claude Sonnet consultation on the
-source-branching cancellation, following the user's explicit request. It has
-no tools, edit rights or build slot. Prompt and response artifacts are external
-under `claude-source-companion/`; primary owns monitoring and integration.
-Native session `6592` runs the Sonnet consultation with a 20-minute timeout.
+The read-only Claude Sonnet consultation finished (native session `6592`).
+It found no proof; its claimed arbitrary-exterior pair cancellation omitted
+an exterior defect. Primary and Astra independently corrected the formula
+and checked a disjoint-fork counterexample. Prompt and response artifacts
+are external under `claude-source-companion/`; the correction is recorded
+in `COMPONENT_SOURCE_BRANCHING.md`. No returned code was integrated.
 
 Aristotle's inspected mathematical draft does NOT prove the goal. Its useful
 new source-deletion route is audited in `COMPONENT_SOURCE_BRANCHING.md`:
@@ -101,15 +102,22 @@ Neither identity is currently proved or formalized. Critical-edge forests
 preserve actual lifted HRV, but do not justify discarding coloring constraints.
 
 Aristotle project `d4b3ddfe-0051-4f80-b222-4e9374badcb3`, task
-`ae0d9a91-dc02-4f53-97a9-3ed6f8034bcf`, is active. Exact payload, hashes,
+`ae0d9a91-dc02-4f53-97a9-3ed6f8034bcf`, finished COMPLETE_WITH_ERRORS.
+The final archive and mathematical draft are `final-result.tar.gz` and
+`final-PROOF.md` in the request directory. Neither the companion nor the
+component theorem is proved. Primary/Astra verified its conditional
+near-symmetry argument: under smaller cases, compositions of length at least
+three have symmetric coefficients, whose equality with HRV remains open.
+The note also records an unconditional two-color support restriction from
+the proved aggregate formula. Exact payload, hashes,
 submission and steering receipts are external in
 `/lake-cache/ai-projects/requests/VerticalStripLLT/component-diamond-companion/`.
 The original task `e8ff79a8-7d41-4d95-98ea-34cd691a4653` was cancelled after
 an exhaustive n=6/7 enumeration stalled; inline redirection had not changed
 the reported computation. The continuation received `SINK_BRANCHING.md`
 and explicit proof-only instructions. Its same-task observation wrapper is
-running in native session `36244`, with a two-hour allowance and logs in that
-directory; IN_PROGRESS confirmed. See the ledger. No result was integrated.
+finished in native session `36244`, confirming the terminal status. See the
+ledger. No returned Lean result was integrated.
 
 Research checkpoints `8f566ad` and `1df6a5a` are pushed on private main. Whitespace checks
 passed; independent Astra and Luna reviews checked the reconstruction/induction
@@ -188,9 +196,9 @@ audit above. The repaired route allows auxiliary states and certified swaps.
 
 Primary owns strategy, final integration, this handoff and the sole local
 build slot. All delegate edit lanes, including Luna's documentation cleanup, are released.
-No build-slot transfer occurred. No local build is active. The component
-Aristotle request and Claude consultation above are active; neither owns the
-local build slot.
+No build-slot transfer occurred. No local build, Aristotle task or Claude
+consultation is active. Astra's read-only audit is complete; its lane is
+released. Primary owns the source-note, ledger and handoff checkpoint.
 Use only `lake-workspace`; check for other Lean/Lake processes before every
 invocation. Lean MCP targets RealRooted and is not used for implicit checks.
 

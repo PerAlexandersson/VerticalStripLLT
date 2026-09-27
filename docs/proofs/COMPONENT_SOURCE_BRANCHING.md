@@ -131,6 +131,87 @@ label. The root-only obstruction in the sink note still applies: exterior
 flips must be available. Existence of a balanced flow must be proved, not
 inserted as the hypothesis of a claimed solution.
 
+## Conditional coefficient reduction
+
+The final Aristotle return gives the following valid reduction, independently
+checked by primary and Astra. Assume the full component theorem for every
+smaller vertex count. Write the quasisymmetric coloring sum as
+`K_C = sum_alpha c_alpha M_alpha`. Its coefficients depend on the ordered
+positive color multiplicities alpha, independently of unused colors.
+
+For k>0, the source restriction theorem makes `[t^k] K_C(t,X)` symmetric
+in X: it is a sum of smaller complete-component enumerators. Therefore
+`c_(k,beta)` is invariant under every permutation of beta. Sink restriction
+likewise makes `c_(beta,k)` invariant under permutations of beta. For a
+composition with at least three parts, permutations fixing the first position
+and permutations fixing the last position generate all permutations. Hence
+`c_alpha` depends only on the multiset of parts when alpha has length at least
+three. The case k=n uses the empty-object convention.
+
+This proves symmetry of those coefficients, not their equality with E_C.
+One-part coefficients already agree: both models contribute x^n exactly for
+the empty selected relation. The remaining obligations are:
+
+- the two-part coefficients, including their symmetry;
+- one source-defect coefficient per partition lambda of length at least
+  three. If k is its smallest part, use the coefficient of
+  `M_(lambda with one k removed)` in `[t^k](left(Src)-right(Src))`.
+
+In particular, first-order source cancellation would settle every such
+partition containing a part 1. It does not settle partitions without a 1.
+
+There is also an unconditional support restriction. After forgetting strict
+labels, let k be the constant selected-edge count of C. For a+b=n, if k>a*b,
+both coefficients `[x_1^a x_2^b] K_C` and `[x_1^a x_2^b] E_C` vanish.
+Indeed, a strict two-coloring permits only directed edges from its a-element
+first color class to its b-element second class, at most a*b edge orbits.
+The already proved aggregate HRV formula at coefficient q^k has nonnegative
+terms; its zero coloring coefficient forces every individual HRV coefficient
+in that degree to vanish as well. In particular the two-letter obligation is
+automatic for k>floor(n^2/4). This does not isolate the surviving coefficients.
+
+## Audit of the Claude local cancellation proposal
+
+Claude Sonnet returned no general proof. A proposed pair-cancellation formula
+omitted the exterior defect. The corrected local identity is useful for
+checking future proposals, but does not prove (Src).
+
+Consider a directed flip a->b becoming b->c, with long a->c retained,
+where b initially has indegree 1 and outdegree 0. Its only incoming edge is
+a->b. Put r=HRV(c), and let (B,S) be the size and source count of r's old
+fiber. The old b-fiber is the singleton {b}: every other vertex reaching b
+also reaches c via a, and therefore has a strictly greater reachable endpoint.
+The flip changes only b's HRV and source status. Other vertices may lose
+reachability to b, but their maximum is unchanged because they already reach
+c. These statements also hold on the integer cover, by periodic translation.
+
+Write H_j=e_j+t e_(j-1), d(B,S)=G(B,S)-H_B. Let L_rest and R_rest be the
+source and target products, respectively, for the unchanged other fibers.
+Pascal's rule gives
+
+    G(B+1,S+1) = G(B+1,S) + t G(B,S).
+
+The exact defect of the two-state sum is therefore
+
+    L_rest * ((e_1+t)d(B,S) + d(B+1,S))
+      + (L_rest-R_rest) * ((e_1+t)H_B + H_(B+1)).
+
+The second line cannot be discarded. When S=1 the first line vanishes;
+the exterior defect still remains. Only an independently established equality
+L_rest=R_rest, or a proved cancellation after summing exterior states, removes
+it. An unchanged exterior is not sufficient.
+
+For a concrete certificate, take the flip {12,13}<->{13,23} and a fixed
+disjoint exterior fork {45,46}, in the ordinary complete diagram on six
+vertices. Here B=2,S=1, but
+
+    L_rest=e_1 H_2,    R_rest=(e_1+t)H_2.
+
+The pair defect is `-t H_2 ((e_1+t)H_2+H_3)`, which is nonzero. Summing the
+ENTIRE exterior component would cancel it. Thus this is a counterexample
+to the consultant's arbitrary-exterior pair claim, not to the component
+conjecture. Primary and Astra checked the correction independently.
+
 ## Provenance
 
 The inspected Aristotle snapshot is external at
@@ -139,4 +220,12 @@ draft extracted to `returned-PROOF.md`. The draft explicitly says it has not
 proved (Src), (S_k), or the full component theorem. Its remote compatibility
 work is not integrated. Primary clarified compression labels, the empty
 object, the evaluated/formal distinction, and the distinction between (S_k)
-and (S_T). No local Lean build was needed for this research note.
+and (S_T). The terminal return is `final-result.tar.gz`, with mathematical
+draft `final-PROOF.md`; the request ended COMPLETE_WITH_ERRORS.
+
+The read-only Sonnet consultation finished successfully as a process, but
+reported no proof. Its prompt, raw response and extracted `RESPONSE.md` are
+external under `claude-source-companion/`. The extracted response SHA256 is
+`d4664e67c13e01d55fe7aa486da1eb3988d9d01f11f889fd84877390c3159620`.
+The corrected local identity above supersedes its unrestricted pair claim.
+No local Lean build was needed for this research note.

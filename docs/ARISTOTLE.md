@@ -833,9 +833,10 @@ and residual transport were developed after its input snapshot `5266faa`.
   receipt is `cancel-stalled-search.log`; the authoritative task list reports
   CANCELED. No mathematical result was integrated.
 
-## Active sink-promotion continuation
+## Completed sink-promotion continuation: target unproved
 
-- Same project, new task `ae0d9a91-dc02-4f53-97a9-3ed6f8034bcf`, IN_PROGRESS.
+- Same project, new task `ae0d9a91-dc02-4f53-97a9-3ed6f8034bcf`,
+  COMPLETE_WITH_ERRORS. The task and its observer are terminal.
   `resume-sink-proof.log` records submission. The new input `SINK_BRANCHING.md`
   is the research note from source checkpoint `8f566ad`.
 - The explicit instruction forbids exhaustive searches and asks for a general
@@ -859,3 +860,11 @@ and residual transport were developed after its input snapshot `5266faa`.
   external request directory. The draft expressly disclaims a full proof.
   Remote Lean 4.28 compatibility changes and auxiliary degree-count lemmas
   have not been integrated into the Lean 4.34 project.
+- Final download: `final-result.tar.gz`, SHA256
+  `0d0334cc9605926abaf7e0dd6f3e7263f7809344ac8b9a69fb095668cb41810b`.
+  Extracted `final-PROOF.md`, SHA256
+  `05e7c1c149d025b12c599c919fb12a520c0458ac3c5881bed26c31cd85a97af5`.
+  Section 6 gives a conditional near-symmetry argument and explicitly leaves
+  the full coefficient cancellation open. Primary and Astra verified
+  that conditional argument. The returned auxiliary Lean source and compatibility tree
+  remain external; no source build was warranted by this return.
