@@ -71,8 +71,9 @@ git -c url.https://github.com/.insteadOf=git@github.com: \
 
 ## Checkpoints and recovery
 
-This completion increment adds HRVScanExtraction, ComponentPositive,
-OrdinaryComponentExpansion and ComponentExpansion. Preceding pushed checkpoints:
+Implementation checkpoint **`f355a28`** completes the component proof and adds
+HRVScanExtraction, ComponentPositive, OrdinaryComponentExpansion and
+ComponentExpansion. Preceding pushed checkpoints:
 
 - `8af13f9`: actual component scan semantics and cancellation, 2070/2784.
 - `d0244d7`: complete conditional circular-to-ordinary reduction, 2060/2743.

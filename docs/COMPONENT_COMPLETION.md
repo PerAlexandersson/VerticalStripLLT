@@ -1,6 +1,7 @@
 # Complete flip-component expansion
 
-The ordinary and full circular component identities are Lean theorems. The final
+The ordinary and full circular component identities are Lean theorems, committed
+in `f355a28`. The final
 library build passes **2074 jobs**, and **2800 axiom inventory entries** use only
 `propext`, `Classical.choice`, and `Quot.sound`. There are no proof placeholders,
 custom axioms or unchecked native proofs.
