@@ -12,8 +12,9 @@ and the full [circular identity](proofs/COMPONENT_CIRCULAR_FACE_PROOF.md) now
 have independently audited mathematical proofs. The circular proof comes
 from the Overleaf v9 draft: its bounded-face coefficients regroup into whole
 components admitting compatible lifts. Both full component formalizations
-remain unfinished. At the user's request we are seeking a finite gain-graph
-proof of the same coefficient identity, avoiding a general polyhedral library.
+remain unfinished. At the user's request we obtained and independently audited
+a [finite gain-graph companion](proofs/COMPONENT_FINITE_COMPANION.md) proving
+the same coefficient identity and component isolation without polyhedra.
 See the [Lean plan](COMPONENT_FORMALIZATION.md),
 [current proof status](FLIP_COMPONENT_STATUS.md), and
 [component interfaces](CIRCULAR_FLIPS.md).

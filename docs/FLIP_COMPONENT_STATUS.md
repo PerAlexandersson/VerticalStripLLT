@@ -10,6 +10,13 @@ See the [draft comparison and full circular proof](proofs/COMPONENT_CIRCULAR_FAC
 The ordinary and full aggregate circular expansions and positivity remain
 locally Lean-verified. Their verification boundary has not changed.
 
+The user's request for an easier-to-formalize circular argument is also
+resolved mathematically. The [finite companion](proofs/COMPONENT_FINITE_COMPANION.md)
+proves the canonical coefficients by ordered-partition cancellation and a
+strict-slack edge involution, then isolates whole components using identical
+gain graphs. Primary, Astra and Terra audited the proof. No polyhedral,
+topological or confluence theorem is needed. The full Lean proof remains pending.
+
 ## Complete ordinary component proof
 
 The [ordinary word-algebra proof](proofs/COMPONENT_ORDINARY_PROOF.md) covers
@@ -44,10 +51,10 @@ The proof uses these established ingredients:
 
 ## What remains
 
-**Lean.** The new theorem is currently prose. The
-[modular integration plan](COMPONENT_FORMALIZATION.md) assigns the additive
-word quotient to Luna and isolated conjugation lemmas to Aristotle, with
-primary-owned local verification and remaining semantic bridges. The existing component interfaces
+**Lean.** The full component theorems are currently prose. The
+[modular integration plan](COMPONENT_FORMALIZATION.md) records the word
+quotient, concrete ring and conjugation modules, with primary-owned local
+verification of bounded Luna/Terra/Aristotle contributions. The existing component interfaces
 are `Circular/Flip.lean` and `Circular/ComponentSemantics.lean`; see
 [CIRCULAR_FLIPS.md](CIRCULAR_FLIPS.md). An implementation must prove the actual
 component/permutation pairing, both semantic refinements, and the finite

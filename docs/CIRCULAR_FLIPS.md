@@ -3,7 +3,9 @@
 Source: the initial `LLT flip/old-main.tex` snapshot, lines 1939–1986,
 as hashed in the archived circular plan. The current full proof is the
 Overleaf `Circular Vertical-Strip LLT Polynomials-v9.tex`; see the
-[comparison audit](proofs/COMPONENT_CIRCULAR_FACE_PROOF.md).
+[comparison audit](proofs/COMPONENT_CIRCULAR_FACE_PROOF.md). A subsequently
+audited [finite companion](proofs/COMPONENT_FINITE_COMPANION.md) replaces its
+polyhedral step and isolates the same complete components.
 These foundations and the full aggregate circular expansion are locally verified.
 Ordinary and all circular component expansions now have audited mathematical
 proofs, pending Lean integration; the zero-normal component family is already

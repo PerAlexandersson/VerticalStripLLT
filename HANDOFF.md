@@ -1,181 +1,136 @@
 # VerticalStripLLT handoff
 
-## Results and current task
+## Result and verification boundary
 
-The full ordinary AND circular flip-component HRV formulas now have complete
-mathematical proofs. The ordinary word proof was audited by primary, Astra
-and Terra at `2b9421e`. At the user's request we compared the new Overleaf v9
-draft: primary and Astra independently accepted its bounded-face reduction
-and exact whole-component coefficient invariance, which closes every circular
-case. Terra checked the ordinary comparison and shorter HRV extraction.
-Neither full component theorem has yet been formalized in Lean.
+The requested finite companion lemma now has a COMPLETE mathematical proof,
+including isolation of entire circular flip components. See
+[the corrected proof](docs/proofs/COMPONENT_FINITE_COMPANION.md).
+Aristotle supplied the canonical coefficient recurrence; primary and Astra
+independently audited all steps, and Terra checked the ordered-partition
+identity and reindexing. Primary supplied an explicitly finite component
+reconstruction; Astra audited its covers, gains, signs and period handling.
 
-The user then asked for an easier-to-formalize argument without general
-polyhedral machinery. A direct signed cycle-deletion recurrence now has an
-independently audited longest-path toggle proof. Its canonical regrouping into
-whole components still needs a direct finite proof. A finite gain-graph
-coefficient statement isolates that task. This is a simplification and
-formalization question, not a reopened gap in the complete v9 proof.
-See [the comparison and circular proof](docs/proofs/COMPONENT_CIRCULAR_FACE_PROOF.md),
-[component status](docs/FLIP_COMPONENT_STATUS.md), and
-[Lean plan](docs/COMPONENT_FORMALIZATION.md).
+The proof uses a signed ordered-partition identity, canonical integer
+longest-path potentials after scaling, a strict-slack edge involution, and
+induction on edge count. The final flip reconstruction preserves the original
+component and gives identical contracted gain graphs. It uses no polyhedral,
+topological or unproved confluence theorem. One unused false sentence about
+unscaled integer strict potentials was removed from the returned candidate;
+the scaled construction correctly gives rational strict potentials.
 
-The full ordinary and aggregate circular expansions remain Lean-verified.
-The prior aggregate checkpoint `18fbb4d` passed 1908 build jobs and 2037
-inventory checks using only `propext`, `Classical.choice` and `Quot.sound`.
-The public circular declarations are
-`coloringLLT_shifted_eq_eval_shiftedOrientationExpansion`,
-`coloringLLT_shifted_eq_orientation_sum`, and `coloringLLT_shifted_e_positive`
-in `VerticalStripLLT.Circular`. They cover all valid diagrams and alphabets.
-The initialization commits `830cc6b`, `130f7e8` and immutable references remain
-preserved. No shared Rust or Overleaf source was changed.
+The full ordinary and circular COMPONENT theorems are not yet Lean theorems.
+Their mathematical proofs are complete. The full ordinary and aggregate
+circular HRV formulas and e-positivity remain locally Lean-verified; see
+[ordinary completion](docs/COMPLETION.md) and
+[circular completion](docs/CIRCULAR_COMPLETION.md).
 
-## Current source ownership: concrete word algebra
+## Ownership and current checkpoint
 
-Starting at pushed `72e0fa6`, primary integrated three new modules from a
-bounded Luna candidate and primary code. Focused local builds passed:
-`WordMultiplication` (1234 jobs), `WordAlgebra` (1242), and `WordGenerators`
-(1245). These prove two-sided stability, a genuine quotient ring, its linear
-equivalence to the original quotient, repeated-letter sandwiches and the
-ordered triple relation. These three files form the current focused checkpoint; their direct
-module builds and source guards passed. Root imports and updated inventory
-checks are pending in the current batch. The rest of the task-owned worktree
-contains the AXLE-checked block modules, root/inventory additions and notes;
-keep them for the next local verification batch.
+Primary owns strategy, every current edit, integration and the sole local
+Lean build slot. All Luna/Terra/Astra assignments have returned and released
+editable ownership. No remote proof task remains active. No build slot was
+transferred. Only primary invokes `lake-workspace`.
 
-Terra returned `Components/BlockExtractor.lean`; Luna returned
-`Components/BlockCancellation.lean`. Primary adopted and simplified both.
-AXLE accepted both complete files, including `blockCancellation_uniqueSink`,
-with no failed declarations or warnings. They await authoritative local checks.
-All delegates released editable ownership. Terra's read-only API audit is
-recorded in `docs/COMPONENT_FORMALIZATION.md`; primary owns every current edit.
+The focused word-ring checkpoint was committed and pushed at `3dcb0f8`,
+following `72e0fa6`. This batch integrates its root imports and inventory,
+adds block cancellation and rank-cover adapters, and records the complete
+finite companion. All current files are task-owned. No Rust, Overleaf,
+reference source or shared infrastructure was changed.
 
-A first BlockExtractor check briefly overlapped a newly started RealRooted
-batch: process inspection and launch were accidentally batched before the
-inspection output was read. That one-second check ended. We paused further
-local builds until RealRooted PID `3703098` finishes; native waiter `51464`
-observes its exit. Do not disturb the other project's batch or editor servers.
-Future inspection and launch are separate decisions. The suggested shared
-wrapper lock is recorded under `suggestions/`, with no infrastructure edit.
+Initialization commits `830cc6b` and `130f7e8` remain ancestors. The immutable
+paper references remain untouched. Overleaf v9 remains unchanged at SHA-256
+`3b02859804569cf17a9fc037bd69390fc1afae2265cff559c752369ef05c9195`.
 
-## Ownership and integrated Lean modules
+## Exact integrated declarations
 
-Primary owns strategy, every current editable file, integration and the sole
-global Lean build slot. Only primary uses `lake-workspace`; no transfer
-occurred. The earlier completed checkpoint found no competing batch build. Existing RealRooted
-Lake serve/LSP processes were left untouched. All subagents released ownership;
-the algebra request is terminal. One new bounded mathematical request is
-active, as recorded below.
+Paths below are under `VerticalStripLLT/Components/`. Unless stated otherwise,
+the namespace is `VerticalStripLLT.Components`.
 
-The user authorized parallel Lean implementation. The modular plan and ownership
-were committed at `683e4e7` before delegation. Luna returned two disjoint,
-build-free candidates. Primary reviewed, repaired and locally verified them,
-then committed and pushed `a8ebd20`:
+- `WordRelations` and `WordContext`: additive contextual quotient, universal
+  functional descent, and preservation by prefix/suffix contexts; pushed at
+  `a8ebd20`.
+- `WordConjugation`: inverse finite products, `descendingProduct_conj`,
+  `letterSum_commute_descendingProduct`, and `descendingProduct_conj_adPow`;
+  locally checked Aristotle candidate, pushed at `6b7cd80`.
+- `WordMultiplication`: `wordCoefficients_context`,
+  `wordRelations_left_mul`, `wordRelations_right_mul`.
+- `WordAlgebra`: genuine ring quotient and `wordAlgebraEquiv`, a linear
+  equivalence to the original additive quotient; `wordProjection_eq_iff`
+  proves that exactly the original relations are imposed.
+- `WordGenerators`: `algebraWord_sandwich` and `algebraWord_triple` discharge
+  the concrete generator hypotheses of the conjugation module.
+- `BlockExtractor`: `blockWord_compatible_iff_forall_sink`.
+- `BlockCancellation`: `blockCancellation`, `blockCancellation_erase`, and
+  `blockCancellation_uniqueSink`, for arbitrary finite increasing graphs.
+- `WordRank`: `wordCompatible_idxOf_lt` and `idxOf_middle`.
+- `LiftCoverRank`, namespace `Circular.Diagram`: `rank_lt_of_liftReach`,
+  `liftCover_of_liftStep_rank_gap`, `liftCover_of_liftStep_rank_succ`.
+  These use the ACTUAL full integer cover relation; no no-wrap hypothesis.
 
-- `Components/WordRelations.lean`: `WordModule`, `basisWord`, `fourWord`,
-  `wordGenerators`, `wordRelations`, `WordQuotient`, `relations_le_ker`,
-  `descend`, `descend_mk`, `quotient_eq_implies_eq`.
-- `Components/WordContext.lean`: `contextLinear_basisWord`,
-  `contextLinear_fourWord`, `contextLinear_relations_comap`,
-  `contextLinear_map_relations`, `contextQuotient`, `contextQuotient_mk`.
+These are full general ingredients, not examples or declarations of the
+complete component theorem. The component functional remains linear rather
+than a ring homomorphism.
 
-Aristotle returned the isolated general-ring conjugation task. Primary ported
-and integrated `Components/WordConjugation.lean` with narrow imports and `lia`:
+## Checks and global build coordination
 
-- `descendingProduct_mul_inverseProduct`;
-- `inverseProduct_mul_descendingProduct`;
-- `descendingProduct_conj`;
-- `letterSum_commute_descendingProduct`;
-- `descendingProduct_conj_adPow`.
+The combined `lake-workspace build VerticalStripLLT` passed **1919 jobs**.
+`lake-workspace env lean Verification.lean` passed **2098 inventory entries**,
+using only `propext`, `Classical.choice`, and `Quot.sound`. The local versions
+are Lean 4.34.0 and Mathlib `5ed2965256430c3649e86755f9576b54eca72435`.
+No placeholders, custom axioms or unchecked native proofs are permitted.
+All ten component modules passed source and 100-column guards; 119 local
+link targets, whitespace, initialization ancestry and unchanged references
+were checked. No project-local package or build output was created.
 
-All paths are below `VerticalStripLLT/`; namespace
-`VerticalStripLLT.Components`. The general algebraic hypotheses are explicit.
-The original word quotient is additive. The new `WordAlgebra` module gives
-a linearly equivalent ring quotient, with its concrete hypotheses proved in
-`WordGenerators`. The actual component-count pairing, global HRV extraction
-and full finite Cauchy factorization remain to be implemented. The new modules
-do not claim the component theorem.
-Primary also owns the root imports, inventory and synchronized scope/status docs.
+Logs under `/lake-cache/ai-projects/requests/VerticalStripLLT/word-algebra/`:
+`block-build.log`, `rank-build.log` (initial WordRank API failure),
+`word-rank-build.log` (corrected success), `library-build.log`, `axioms.log`.
+AXLE independently accepted the complete block files in `lean-4.34.0`, request
+`c2652d3c-f8d2-4088-9c22-dc377ca51674`, with no warnings or failed declarations;
+its full input/output is `block-axle-final.json` in that directory.
 
-## Aristotle provenance and checks
+An initial one-second BlockExtractor check briefly overlapped a newly started
+RealRooted build because inspection and launch were mistakenly batched before
+reading process output. We then paused all local builds until PID `3703098`
+finished. Subsequent RealRooted batches `3720768` and `3723625` also finished
+before our remaining checks. Native waiters ended. All later process checks
+and build launches were separate decisions. Existing RealRooted editor/LSP
+processes were left untouched. A shared-lock proposal is recorded in
+[suggestions](suggestions/shared-lean-build-lock.md); no wrapper was changed.
 
-Project `7e1e7b8f-b94d-4eef-86cf-51b2130269f5`, task
-`44384423-1c84-42b4-a525-bba5b13212f3`, is terminal COMPLETE. Native observer
-`50488` ended normally. The remote candidate used its coherent Lean 4.28.0
-cache with primary permission; the integrated source was checked locally with
-pinned Lean 4.34.0 / Mathlib `5ed2965256430c3649e86755f9576b54eca72435`.
-No remote package configuration or toolchain was imported. Exact input/output
-hashes and remote versions are in [the ledger](docs/ARISTOTLE.md).
+## Aristotle result and provenance
 
-The integrated library build passed (1912 jobs). The updated inventory audit
-passed all 2059 entries with only the three standard axioms. Source guards,
-100-column checks, 113 local links/anchors, unchanged Overleaf source hash,
-initialization ancestors and whitespace checks passed. External logs and returned sources are under
-`/lake-cache/ai-projects/requests/VerticalStripLLT/word-conjugation/`:
-`conjugation-build.log`, `conjugation-library-build.log`, and
-`conjugation-axioms.log`. The earlier word-only checkpoint passed its library
-and inventory checks; its logs use the `word-` prefix. No placeholders,
-custom axioms or unchecked native proofs are permitted.
+Finite coefficient project `729ff94c-1911-422b-88a7-f1af1cef93d0`, task
+`91a37895-7b0f-420d-aa72-92da80540500`, is terminal **COMPLETE_WITH_ERRORS**.
+It returned a complete prose proof, not a Lean formalization. Acceptance is
+based on the independent mathematical audits and correction above, not the
+service status. Original inputs, output archive and returned proof remain in
+external `circular-finite-coefficients/`; exact hashes and review findings are
+in [the ledger](docs/ARISTOTLE.md). Earlier observer connection errors did not
+trigger a replacement task. All relevant Aristotle tasks are terminal.
 
-## Overleaf source and mathematical comparison
+The Overleaf v9 bounded-face proof remains an independently audited reference.
+The [comparison](docs/proofs/COMPONENT_CIRCULAR_FACE_PROOF.md) records the
+ordinary simplification and the direct cycle-deletion input. No manuscript
+source was edited by this task.
 
-Read-only source:
-`/home/paxinum/Dropbox/Apps/Overleaf/LLT flip/Circular Vertical-Strip LLT Polynomials-v9.tex`.
-SHA-256 `3b02859804569cf17a9fc037bd69390fc1afae2265cff559c752369ef05c9195`.
-The old `main.tex` retains incomplete recurrence sketches; it is not the v9
-proof we accepted. The new circular argument belongs to the draft, not to
-this repository's preceding proof search. No attribution to a particular
-external agent was inferred from file timestamps.
+## Remaining Lean work
 
-V9's ordinary nested-commutator extraction is shorter than our mixed-poset
-refinement. We will combine it with our finite strict/e factorization, avoiding
-an unnecessary rational or infinite symmetric-function layer. Its circular
-proof expands in bounded tight-edge graphs, preserves the actual lifted HRV
-vector by box thresholds, and proves coefficient constancy by an involutive
-flip of the ORIGINAL source component with exactly the same face.
+The proof-discovery objective is satisfied by the finite companion and its
+whole-component reconstruction. Full Lean integration is a separate remaining
+milestone, detailed in [the modular plan](docs/COMPONENT_FORMALIZATION.md):
 
-The [periodic word audit](docs/proofs/COMPONENT_PERIODIC_WORDS.md) remains a
-valid explanation of why the ordinary quotient cannot be copied unchanged.
-Its negative-winding obstruction is no longer an unresolved theorem case.
+1. Define the actual component/permutation count with a FULL-WORD guard, and
+   prove its four-term identity using `DirectedFlipWitness`. Compatibility
+   alone does not make repeated-word counts vanish.
+2. Apply word-position ranks to the contiguous triple cover fields. Reuse
+   `length_le_of_strict_same_tail` for normal-short-edge geometry.
+3. Assemble the finite Cauchy factorization and global HRV extraction, then
+   transport entire balanced components via compatible lifts.
+4. Formalize the ordered-partition identity, scaled canonical potentials,
+   coefficient recurrence, edge-count induction and finite tight-flip
+   reconstruction. Ordered partitions may be surjective maps V→Fin k,
+   allowing k=0 for the empty vertex set.
 
-## Active finite-coefficient consultation
-
-The verified integration and v9 audit are pushed at `6b7cd80` (1912 library
-jobs, 2059 inventory checks). The user requested a simpler circular argument.
-Aristotle project `729ff94c-1911-422b-88a7-f1af1cef93d0`, task
-`91a37895-7b0f-420d-aa72-92da80540500`, is confirmed IN_PROGRESS. Native observer
-sessions `71491` and `58068` ended after observer connection errors.
-The task itself remains IN_PROGRESS (one-shot CLI check); no replacement
-request was created. Primary owns observation and integration; query this
-exact task after any interruption, rather than starting a replacement.
-
-The request supplies the full bounded-face proof, its finite gain-graph
-coefficient formulation, the elementary cycle-deletion involution and
-integer strict-feasibility construction. It asks only for a finite proof of
-the canonical coefficient identity (or an exact missing lemma), without
-scans or Lean builds. No output has been accepted. AXLE independently checked the ordinary
-BlockExtractor/BlockCancellation candidates in `lean-4.34.0`, request
-`c2652d3c-f8d2-4088-9c22-dc377ca51674`, with no failed declarations.
-Local pinned builds remain authoritative; its combined input/output is saved
-as `word-algebra/block-axle-final.json` under the request cache. Inputs are in external
-`circular-finite-coefficients/`; the hash is in the Aristotle ledger.
-
-## Exact next steps
-
-Monitor the finite-coefficient consultation and pursue two bounded tracks:
-
-1. Ordinary Lean integration: concrete word multiplication, actual component
-   permutation counts using existing circular flips under a forward-edge
-   hypothesis, and the direct sink-cancellation HRV extractor from v9.
-2. Simpler circular companion: prove the finite gain-graph coefficient
-   expansion combinatorially. Cycle deletion already preserves both valuations
-   and decreases edge count, but arbitrary termination does not prove
-   whole-component terminal multiplicities. Do not claim confluence or a
-   discrete matching without constructing it. The polyhedral proof remains
-   the complete mathematical reference.
-
-A filename/API search in pinned Mathlib found homological Euler characteristic
-but no ready Brianchon--Gram/polyhedral Euler module. This motivates the finite
-route; it does not establish that a smaller formalization is already complete.
-The active goal has made substantial progress. Requested formalization and
-simplification work remains; no blocking condition is present.
+No remaining mathematical gap is asserted for the companion. The unfinished
+Lean milestones must not be reported as already formalized.

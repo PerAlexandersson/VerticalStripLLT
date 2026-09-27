@@ -107,6 +107,9 @@ main library imports. The [ordinary flip-component expansion](docs/proofs/COMPON
 has a complete independently audited mathematical proof. The Overleaf v9
 [bounded-face companion](docs/proofs/COMPONENT_CIRCULAR_FACE_PROOF.md) also
 proves every circular component. Neither full component theorem is yet
-Lean-verified; the word quotient, contextual stability and conjugation
-ingredients have passed local Lean checks. See the
+Lean-verified. The new [finite companion](docs/proofs/COMPONENT_FINITE_COMPANION.md)
+replaces the polyhedral argument with a coefficient recurrence and finite
+cancellation, including whole-component isolation. The concrete word algebra,
+conjugation, unique-sink cancellation and integer-cover rank certificates
+have passed local Lean and axiom checks. See the
 [component status](docs/FLIP_COMPONENT_STATUS.md). Cumulants remain outside the scope.

@@ -208,3 +208,8 @@ import VerticalStripLLT.Circular.InteriorReversalReduction
 import VerticalStripLLT.Circular.Expansion
 import VerticalStripLLT.Components.WordContext
 import VerticalStripLLT.Components.WordConjugation
+import VerticalStripLLT.Components.WordGenerators
+import VerticalStripLLT.Components.BlockExtractor
+import VerticalStripLLT.Components.BlockCancellation
+import VerticalStripLLT.Components.LiftCoverRank
+import VerticalStripLLT.Components.WordRank

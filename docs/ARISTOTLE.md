@@ -11,24 +11,40 @@ ordinary/circular candidates. The entries below give current final outcomes
 for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
 [the proof map](FLIP_COMPONENT_STATUS.md) owns the mathematical overview.
 
-## Circular finite coefficient identity: active proof request
+## Circular finite coefficient identity: accepted mathematical proof
 
 - Project `729ff94c-1911-422b-88a7-f1af1cef93d0`, task
-  `91a37895-7b0f-420d-aa72-92da80540500`, confirmed **QUEUED**.
-  Native observer session `71491` is active; primary owns monitoring.
-- External `circular-finite-coefficients/TARGET.md`, SHA-256
+  `91a37895-7b0f-420d-aa72-92da80540500`, terminal service status
+  **COMPLETE_WITH_ERRORS**. Its mathematical response claims a complete prose
+  proof. No Lean proof or enumeration was requested or returned. We accept
+  the corrected mathematics on independent review, not on the service label.
+- External directory `circular-finite-coefficients/` under the request cache.
+  `TARGET.md`, SHA-256
   `0f82f88595fabe734ee15a4eb3cb15e9bfab60c6954a707d9a3db51769a02a6f`.
-- The full mathematical circular theorem is already proved by the audited
-  Overleaf v9 argument. This request addresses the user's subsequent request
-  for a simpler readily formalizable proof, not a new claim of a theorem gap.
-- Exact target: the finite signed expansion using balanced subsets whose
-  contracted integer-gain cycles are negative and whose contractions are
-  strongly connected on each original weak block. The input supplies the
-  complete geometric proof, actual whole-component reconstruction, direct
-  longest-path toggle cancellation and integer strict-feasibility construction.
-- No scans or Lean builds are requested. A discrete matching, confluence
-  assertion or Möbius argument must be proved, not merely named. No returned
-  result is yet accepted. Prior algebra and component-search tasks are terminal.
+  `result.tar.gz`, SHA-256
+  `0d5276fceb32611f70855d2a8120ba17015f54584d20d87f59002a6fb6505f11`.
+  `returned-PROOF.md`, SHA-256
+  `84e8fdf12b20c74ec923b3dbc8796a6acf39d8228f3cd8ebdea2e9b061ded327`.
+- Primary and Astra independently checked all coefficient signs, contraction,
+  ordered-partition cancellation, the scaled longest-path potential toggle,
+  the balanced base and strict edge-count induction. Terra independently
+  checked the ordered-partition identity and the two-case reindexing.
+- Correction: the unused introductory assertion about unscaled INTEGER strict
+  potentials is false. Negative gain cycles imply rational strict potentials,
+  obtained by dividing the scaled integer construction by M. The returned
+  proof's actual toggle uses the correct scaled construction. The corrected
+  repository note removes the false declared input.
+- Primary then wrote the complete finite component-isolation argument using
+  identical contracted gain graphs and zero-slack lifted paths; Astra checked
+  it independently, including the integer-period issue. It uses no faces,
+  boundedness or Euler characteristic.
+- Accepted result: [finite companion](proofs/COMPONENT_FINITE_COMPANION.md).
+  This answers the user's simplification request for the complete circular
+  theorem. The full companion remains a mathematical proof pending Lean.
+  No remote toolchain, package files or generated artifacts were imported.
+- Observer sessions `71491` and `58068` had transient connection failures.
+  Subsequent queries used the same task; no replacement task was started.
+  All Aristotle tasks relevant to this batch are now terminal.
 
 ## Finite word conjugation: complete, locally integrated candidate
 

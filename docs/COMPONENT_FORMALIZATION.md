@@ -15,15 +15,22 @@ library. Existing aggregate theorems are not component semantic bridges.
    generators and the four-word relation. Prove inverse finite products,
    truncated conjugation and commutation with the sum of letters. These are
    genuine algebraic lemmas with explicit hypotheses, not the component theorem.
-3. `Components/WordAlgebra.lean`: concatenation on the word module and its
+3. `Components/WordAlgebra.lean` and `WordGenerators.lean`: concatenation on the word module and its
    descent to the contextual quotient. Prove the algebraic hypotheses in item 2
-   in this concrete quotient. Mathlib `RingQuot` is an alternative if the
-   additive quotient induces unnecessary instance work; a component functional
-   is linear, not a ring homomorphism, in either implementation.
+   in this concrete quotient. The implementation uses
+   `MonoidAlgebra ℤ (FreeMonoid V)` with its coefficient linear equivalence to
+   the existing `WordModule`. `WordMultiplication.lean` proves two-sided
+   stability from contextual stability; Mathlib `TwoSidedIdeal`/`RingCon`
+   then supplies a quotient ring. A component functional remains linear,
+   not a ring homomorphism. `wordAlgebraEquiv` proves that the original
+   additive quotient and the ring quotient are linearly equivalent.
+   `algebraWord_sandwich` and `algebraWord_triple` discharge the two concrete
+   generator hypotheses of the general conjugation module.
 4. `Components/ComponentWords.lean`: use existing `Circular.Orientation D`
    and `Circular.flipComponent D θ`, with `∀ e : Edge D.area, e.tail < e.head`
    as the ordinary hypothesis. A compatible word has no duplicates, contains
-   every vertex and orders every selected edge forward by `List.idxOf`.
+   every vertex and has `List.Pairwise (fun x y => ¬ R y x)`.
+   This avoids index arithmetic and agrees with the direct block extractor.
    Count such states in the actual complete component. Prove the four-term
    identity via the conditional `acb` to `bac` bijection: retain the state if
    `ab` is absent; otherwise construct the actual flip replacing `ab` by `bc`
@@ -34,7 +41,9 @@ library. Existing aggregate theorems are not component semantic bridges.
    item 1. Prove the strict coloring refinement separately.
 5. `Components/HRVExtraction.lean`: use the shorter v9 nested-commutator
    extraction proved in the [comparison audit](proofs/COMPONENT_CIRCULAR_FACE_PROOF.md).
-   A mountain word is compatible exactly when its decreasing tail consists
+   `Components/BlockExtractor.lean` provides
+   `blockWord_compatible_iff_forall_sink` proves the local statement. A mountain word is
+   compatible exactly when its decreasing tail consists
    of induced sinks. The alternating subset sum detects the unique sink;
    decreasing block maxima then detect exactly the HRV fibers. This replaces
    formalizing the longer alternating-edge/mixed-poset detour for this theorem.
@@ -42,27 +51,78 @@ library. Existing aggregate theorems are not component semantic bridges.
    item 2, pair via item 4, and conclude equality with item 5 for every alphabet.
    Export the full ordinary component theorem and then compatible-lift transport.
 
-7. Circular companion: formalize compatible lifts and the actual tight-flip
-   reconstruction. Prefer a finite gain-graph coefficient identity over a
-   general polyhedral library. A strictly edge-decreasing cycle recurrence
-   now has a direct longest-path toggle proof. Its canonical regrouping still
-   needs a direct finite proof; the v9 bounded-face argument proves the
-   mathematical identity but is not yet translated into Lean.
+7. Circular companion: implement the complete
+   [finite coefficient proof](proofs/COMPONENT_FINITE_COMPANION.md).
+   Its independent pieces are the signed ordered-partition identity,
+   canonical integer potentials after scaling, strict-slack edge toggling,
+   the per-F coefficient recurrence and induction on edge count. The final
+   tight-edge flip reconstruction uses identical contracted gain graphs and
+   proves whole-component isolation directly. No polyhedral library or
+   confluence assumption is needed.
 
-Items 1 and contextual stability have passed local library and axiom checks.
-Aristotle returned item 2, now ported and locally library/axiom checked.
-The complete component theorem still requires items 3--7. The finite strict/e
-factorization remains the architecture; v9 does not require introducing
-infinite symmetric functions or its rational scalar convention.
+Items 1--3 and the local sink cancellation in item 5 have passed local library
+and axiom checks. `WordRank` and `LiftCoverRank` prove the generic cover adapter
+used by item 4. Actual component-count pairing, global HRV extraction, finite
+Cauchy assembly, compatible-lift transport and the full finite companion
+still need Lean integration. Their mathematical proofs are complete.
 
 ## Ownership and validation
 
-Primary owns architecture, source integration, all modules, imports, inventory
-and all local builds. Luna released its two build-free candidates after return.
-Aristotle's isolated request is terminal; primary owns local verification.
-No delegate owns editable files. See HANDOFF for exact checks and task IDs.
+Primary owns architecture, integration, imports, inventory and all local builds.
+Luna and Terra return bounded, build-free candidates; primary reviews and
+verifies them. Both the algebraic and finite circular-coefficient Aristotle requests are
+terminal; the latter returned an independently audited mathematical proof. See HANDOFF for current ownership,
+exact checks and task IDs.
 
 Use the pinned Lean/Mathlib versions and one serialized `lake-workspace`
 build slot. Keep remote requests and generated artifacts outside the source
 checkout. No placeholders or custom axioms enter library code. Each integrated
 statement must match its mathematical source before acceptance.
+
+## Next semantic adapter: full words and actual lifted covers
+
+The existing API is `Circular.Orientation`, `flipComponent`, `Flip`, and
+`DirectedFlipWitness`; there is no need for a second component relation.
+`mem_flipComponent_iff` identifies membership with `ReflTransGen Flip`.
+`DirectedFlipWitness.target_eq_source_swap` records the precise exchanged
+normal-edge set.
+
+Define the integer component word count to be zero unless the word is nodup
+and contains every vertex. On full words it is the cardinality of the filter
+of `flipComponent D θ` by `wordCompatible (D.edgeData.selected η.val)`.
+The full-word guard is essential: compatibility alone would not annihilate
+all repeated-letter words in `wordRelations`.
+
+The next substantial adapter is `liftCover_of_forward_contiguous_word`.
+Its cover part can be made simpler than a global no-wrap argument. Any full
+compatible word supplies a rank on residues increasing along selected edges,
+so every nontrivial integer lifted path increases this rank. A lifted edge
+is a full cover when no integer strictly between its endpoints has a rank
+strictly between their ranks. `Components/LiftCoverRank.lean` isolates this
+certificate using the existing `liftStep` and `liftCover`.
+
+For a<b<c in one canonical period, the source word has contiguous ranks
+(a,c,b) and the target word has contiguous ranks (b,a,c). The long edge ac
+has consecutive ranks on each side. For source ab, the sole possible
+intermediate rank belongs to c, which lies outside the integer interval
+(a,b). For target bc it belongs to a, outside (b,c). Integers in these
+intervals lie inside the canonical period, so their residues identify them
+without a global no-wrap hypothesis. This certifies all four actual lifted
+covers. The ordinary forward hypothesis remains relevant to the counting
+identity; it is unnecessary for this isolated rank certificate.
+
+Construct the target selected normal set as `insert ebc (η.val.erase eab)`;
+derive its admissibility from the exchanged compatible word and fill the
+four source/target cover fields. Component membership then follows from the
+existing flip reachability API.
+
+The two finite filters needed by the four-word identity can be paired using
+this adapter and `target_eq_source_swap`. The source full-word guard also
+handles invalid words without creating a separate permutation model.
+
+The strict-edge geometry needed by this construction already has a useful
+public lemma: `Diagram.length_le_of_strict_same_tail` in
+`Circular/StrictCornerAdjacency.lean`. The retained longer edge ac rules out
+ab being strict. The shorter length of bc relative to ac at the same head
+rules out bc being a corner directly. Reuse these facts when deriving the
+normal-short-edge hypotheses; do not postulate normality in the final pairing.

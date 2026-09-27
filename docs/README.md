@@ -41,6 +41,10 @@
 
 ## Component research: main route
 
+- [Finite circular companion](proofs/COMPONENT_FINITE_COMPANION.md): complete
+  coefficient recurrence, ordered-partition cancellation and whole-component
+  isolation without polyhedra; independently audited, pending Lean.
+
 Start with [the proof-status map](FLIP_COMPONENT_STATUS.md). The detailed
 notes below each own one argument; process status lives in the handoff.
 
@@ -118,5 +122,5 @@ notes below each own one argument; process status lives in the handoff.
   historical open induction routes and exact obstructions at `14e061d`.
 
 Lean declarations and local verification establish the formalized results.
-The ordinary component proof is independently audited mathematical prose,
+The ordinary and circular component proofs are independently audited mathematical prose,
 pending Lean integration. Each proof note records its verification boundary.

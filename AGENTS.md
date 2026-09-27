@@ -10,7 +10,9 @@ authorized the circular development; its aggregate HRV formula is also proved.
 See `docs/CIRCULAR_COMPLETION.md`. Ordinary and all circular flip-component
 expansions now have audited mathematical proofs, pending Lean integration.
 The Overleaf v9 bounded-face companion closes the circular case; see
-`docs/proofs/COMPONENT_CIRCULAR_FACE_PROOF.md`. Retain the faithful finite-degree
+`docs/proofs/COMPONENT_CIRCULAR_FACE_PROOF.md`. The independently audited
+`docs/proofs/COMPONENT_FINITE_COMPANION.md` now supplies the preferred finite
+proof, including component isolation, without general polyhedral machinery. Retain the faithful finite-degree
 model; do not build a general symmetric-functions library without an explicit demonstrated need and user
 approval.
 

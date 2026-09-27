@@ -2099,3 +2099,48 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Components.descendingProduct_conj
 #print axioms VerticalStripLLT.Components.letterSum_commute_descendingProduct
 #print axioms VerticalStripLLT.Components.descendingProduct_conj_adPow
+
+-- Concrete word algebra and direct block compatibility.
+#print axioms VerticalStripLLT.Components.wordCoefficients
+#print axioms VerticalStripLLT.Components.wordMonomial
+#print axioms VerticalStripLLT.Components.wordCoefficients_wordMonomial
+#print axioms VerticalStripLLT.Components.wordCoefficients_context
+#print axioms VerticalStripLLT.Components.wordCoefficients_left_context
+#print axioms VerticalStripLLT.Components.wordCoefficients_right_context
+#print axioms VerticalStripLLT.Components.wordRelations_left_mul
+#print axioms VerticalStripLLT.Components.wordRelations_right_mul
+#print axioms VerticalStripLLT.Components.wordCoefficients_mul_mem_left
+#print axioms VerticalStripLLT.Components.wordCoefficients_mul_mem_right
+#print axioms VerticalStripLLT.Components.wordIdeal
+#print axioms VerticalStripLLT.Components.mem_wordIdeal
+#print axioms VerticalStripLLT.Components.wordProjection
+#print axioms VerticalStripLLT.Components.wordProjection_surjective
+#print axioms VerticalStripLLT.Components.wordProjection_eq_iff
+#print axioms VerticalStripLLT.Components.algebraCoefficients
+#print axioms VerticalStripLLT.Components.algebraCoefficients_projection
+#print axioms VerticalStripLLT.Components.algebraCoefficients_bijective
+#print axioms VerticalStripLLT.Components.wordAlgebraEquiv
+#print axioms VerticalStripLLT.Components.algebraWord
+#print axioms VerticalStripLLT.Components.algebraWord_append
+#print axioms VerticalStripLLT.Components.algebraWord_repeated
+#print axioms VerticalStripLLT.Components.algebraWord_sandwich
+#print axioms VerticalStripLLT.Components.algebraWord_four
+#print axioms VerticalStripLLT.Components.algebraWord_triple
+#print axioms VerticalStripLLT.Components.incWord
+#print axioms VerticalStripLLT.Components.decWord
+#print axioms VerticalStripLLT.Components.blockWord
+#print axioms VerticalStripLLT.Components.wordCompatible
+#print axioms VerticalStripLLT.Components.sinkOn
+#print axioms VerticalStripLLT.Components.blockWord_compatible_iff_forall_sink
+
+#print axioms VerticalStripLLT.Components.blockCancellation
+#print axioms VerticalStripLLT.Components.blockCancellation_erase
+#print axioms VerticalStripLLT.Components.blockCancellation_uniqueSink
+
+-- Rank certificates for the actual circular lift-cover relation.
+#print axioms VerticalStripLLT.Circular.Diagram.rank_lt_of_liftReach
+#print axioms VerticalStripLLT.Circular.Diagram.liftCover_of_liftStep_rank_gap
+#print axioms VerticalStripLLT.Circular.Diagram.liftCover_of_liftStep_rank_succ
+
+#print axioms VerticalStripLLT.Components.wordCompatible_idxOf_lt
+#print axioms VerticalStripLLT.Components.idxOf_middle

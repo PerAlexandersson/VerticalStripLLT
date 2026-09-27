@@ -121,9 +121,9 @@ original unsigned HRV expression, not positivity of this intermediate sum.
 ## Simpler finite recurrence for formalization
 
 The user requested a readily formalizable replacement for the polyhedral
-machinery. We now have the following direct recurrence, independently
-checked by primary and Astra. It is a valid building block, but arbitrary
-iteration does not yet prove canonical whole-component regrouping.
+machinery. The [finite companion](COMPONENT_FINITE_COMPANION.md) now proves
+the canonical coefficient identity and whole-component isolation. Its first
+input is the following direct recurrence, checked by primary and Astra.
 
 Let an undirected cycle in an acyclic selected graph R have nonzero signed
 length. Choose its traversal so that its forward and backward edge sets P,N
@@ -147,8 +147,8 @@ signs before any fiber evaluation.
 Isolating J=N expresses W(R) as the same signed combination of proper
 edge subsets on both sides. Edge count strictly decreases. Iterating stops
 at graphs whose every undirected cycle has zero winding, hence at balanced
-graphs. The remaining task for this alternative route is to control the
-terminal multiplicities on complete balanced components.
+graphs. The finite companion proves the canonical terminal coefficients
+by a separate recurrence, then groups them into complete balanced components.
 
 There is a finite description of the draft's canonical coefficients. For a
 balanced F⊆R choose compatible potentials p and contract the weak blocks
@@ -168,20 +168,40 @@ cycles), and give integer offsets satisfying these scaled inequalities.
 Dividing by r+1 gives the required strict block shifts. Conversely, summing
 strict inequalities around a cycle forces negative total gain.
 
-A finite proof that these coefficients give the expansion would avoid a
-general polyhedral library; the cycle recurrence alone does not yet prove
-that assertion. This exact finite identity, with the existing toggle proof
-and reconstruction as inputs, is the new bounded Aristotle proof request.
-No enumeration or replacement of the actual HRV statistic is requested.
+The finite proof of this coefficient identity is now complete: a signed sum
+over ordered partitions removes the strong-connectivity condition, after which
+a strict-slack optional edge gives an involution. The resulting coefficient
+recurrence and edge-count induction prove the canonical expansion for both
+valuations. The [companion note](COMPONENT_FINITE_COMPANION.md) contains the
+full proof and the finite component-isolation argument.
+
+### Deletion commutes with a disjoint flip
+
+We can transport a cycle reduction term by term across an actual flip
+ab↔bc retaining ac if its signed circuit lies in the common selected edges
+and ac is not among the negative edges N. For every J⊆N, the graphs
+(R\N)∪J and (R′\N)∪J differ by the same actual flip. All three required
+local incidences remain. Deleting edges preserves covers; both children are
+acyclic subgraphs of their respective parents. The circuit and its signed
+length gap are unchanged, so the signs match as well.
+
+This local commuting lemma does not yet give a reduction of a whole component.
+A common usable circuit need not persist across all its flips. The remaining
+overlaps use an exchanged short edge or put the retained long edge in N.
+There the deletion can remove the flip witness, and changing the circuit
+changes the child family. The complete finite companion handles these cases
+through its canonical coefficient recurrence and componentwise coefficient
+constancy; it does not require a direct matching of individual recursion
+children across every overlapping flip.
 
 ## Verification boundary and next step
 
 The mathematical circular theorem is now proved by the audited v9 argument.
 Formalization still needs substantial work. A local Mathlib filename/API
 search found homological Euler characteristic but no ready Brianchon--Gram
-or polyhedral Euler-characteristic module. We will first seek the finite
-coefficient identity above, retaining the complete polyhedral proof as the
-reference rather than silently substituting an unproved simpler argument.
+or polyhedral Euler-characteristic module. The independently audited finite
+companion is now the preferred Lean route. The v9 argument remains a complete
+independent mathematical reference.
 
 Related Lean: current component definitions are in
 `VerticalStripLLT/Circular/Flip.lean` and `ComponentSemantics.lean`.
