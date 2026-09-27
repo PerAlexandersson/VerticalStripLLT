@@ -41,6 +41,8 @@
   reconstruction, proposed HRV branching, and its implication for components.
 - [Source-deletion companion](proofs/COMPONENT_SOURCE_BRANCHING.md): preserves
   remaining HRV and reduces the gap to a source/fiber cancellation identity.
+- [Movable leaf packets](proofs/COMPONENT_LEAF_PACKETS.md): proved packet
+  cancellation and star transport for one coefficient in every full component.
 - [Component induction brainstorming](proofs/FLIP_COMPONENT_INDUCTION.md):
   coloring redistribution, cross-ascent transfers and exact missing lemmas.
 - [Aristotle ledger](ARISTOTLE.md): request IDs, candidates, and local verification.

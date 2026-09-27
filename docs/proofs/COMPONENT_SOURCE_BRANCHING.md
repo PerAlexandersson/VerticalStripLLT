@@ -59,6 +59,9 @@ evaluations would require the corresponding injectivity and degree bounds.
 
 The identity is **unproved**. It is a global cancellation over a complete
 component. It generally fails for individual orientations or local fragments.
+The [leaf-packet note](COMPONENT_LEAF_PACKETS.md) proves a nontrivial packet
+family and the coefficient of t^(n-1) for every complete component. The
+remaining coefficients and a general packet decomposition are still open.
 
 ## Why (Src) would close the proof
 
@@ -291,6 +294,46 @@ The pair defect is `-t H_2 ((e_1+t)H_2+H_3)`, which is nonzero. Summing the
 ENTIRE exterior component would cancel it. Thus this is a counterexample
 to the consultant's arbitrary-exterior pair claim, not to the component
 conjecture. Primary and Astra checked the correction independently.
+
+## Bounded Rust check of complete components
+
+The external component probe reuses
+`sym_poly_sym::llt::circular_highest_reachable_vertices`. It enumerates a
+complete component from a supplied seed by BFS, checks both lifted cover
+conditions and projected acyclicity for every flip, and expands (Src) in
+formal elementary generators with checked integer arithmetic. Reaching the
+state cap reports SKIP, never PASS. Strict decorations are forgotten using
+the exact whole-component reduction, not by discarding selected constraints.
+
+Primary reviewed Luna's build-free implementation, corrected an initially
+reversed cover predicate and output/validation issues, and fixed two Rust
+type annotations. Three focused tests passed, including a nonzero partial
+component defect and a projected cycle invisible to the local cover test.
+The Rust component masks and adjacency counts exactly matched the previous
+enumerator on all 458 components, totaling 711 states, for areas
+(0), (0,1,2,3), (3,3,3,3), and (2,2,2,2).
+
+A deterministic sample then used n=5,...,8, ordinary complete diagrams,
+complete circular diagrams, and constant circular area floor(n/2), at selected
+edge counts n-1 and n+2. Seeds are acyclic with connected underlying graphs.
+Of these 24 specified components, 21 completed and passed the FULL (Src)
+identity; three exceeded the 20,000-state cap and remain inconclusive.
+The completed components total 27,836 enumerated states; the largest has
+10,646 states. No counterexample was found. This is evidence for the stated
+inputs, not a proof for any general range.
+
+Artifacts are external under `diamond-exploration/` in the existing request
+directory. The source is `hrv-bridge/src/bin/component_source_probe.rs`,
+SHA256 `ceb17c299e8698641acc171eed9cb924cf95d501f04b1aabc8bcffd21b8bb49e`.
+The exact sample input metadata is `component-source-samples-input.json`,
+SHA256 `5c48b2b8c9c1e71a1bbc48e9f50ff8a0902fb3b5e08a5e0e0d10d3383b3629df`.
+Receipts are `component-source-tests.log`, `component-source-crosscheck.log`,
+`component-source-samples.jsonl`, and `component-source-recheck.jsonl`.
+The Rust checkout was at `d53fb193af3c69adedbd9ec8592f87235d809ffa`; its
+actual `sym-poly/sym/src/llt.rs` SHA256 was
+`c841d4281307ff27dede4288b51c5cec6edacc735691293b36ceb0ce04e4db29`.
+No shared Rust source or new polynomial-family generator was introduced.
+Maintained flip enumeration remains a separate integration proposal.
 
 ## Provenance
 

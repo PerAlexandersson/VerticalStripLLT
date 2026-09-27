@@ -63,6 +63,24 @@ build directory was introduced.
 
 ## Active general companion goal
 
+Primary completed bounded component-by-component checks of (Src), reusing
+the existing Rust circular HRV implementation. Luna supplied only the external
+file `diamond-exploration/hrv-bridge/src/bin/component_source_probe.rs`, without
+builds or repository/shared Rust edits. Primary reviewed, corrected, built and
+ran it. Three meaningful tests and a 458-component comparison passed. Of 24
+specified n=5,...,8 samples, 21 complete components passed (27,836 states);
+three exceed the 20,000-state cap and remain inconclusive. This is evidence,
+not a proof. Exact inputs, source hashes and receipts are in the source note.
+The capability audit was
+refreshed: Cargo metadata and LLT API/test searches still expose no maintained
+flip-component enumerator. The existing Rust-integration suggestion remains
+open; this is a bounded external probe, not a new polynomial-family generator.
+The external edit lane is released. Primary corrected and verified the probe.
+Primary also owns the new `COMPONENT_LEAF_PACKETS.md` proof note and docs index:
+Terra checked the general star transport, and Astra checked the binomial
+packet cancellation. These establish a coefficient and a packet family,
+not the full component theorem.
+
 Primary and read-only Astra verified a new critical-fork normalization in
 `COMPONENT_SOURCE_BRANCHING.md`: equal-potential outgoing covers may be
 flipped circularly while preserving the entire lifted HRV; a finite increasing
