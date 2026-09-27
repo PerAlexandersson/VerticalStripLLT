@@ -45,6 +45,11 @@ zero state and the unchanged exterior in the full state. This gives explicit
 signed multiplicities with a free target-diamond parameter. A proved local
 classification reduces nonflip blocks to closure-degenerate endpoint terms
 or smaller corner-deletion packets. Their global regrouping remains open.
+Within this signed transport family, the regrouping equations are equivalent
+to integer potential differences on an exterior-subset multigraph. A potential
+exists exactly when all closed-walk sums vanish, including those crossing
+ascent levels. This criterion is proved; the required vanishing for actual
+source-component indicators remains the next companion lemma.
 The ordinary deletion quotient also expresses each component defect as a
 sum over states where the deleted corner was a cover. No component-uniqueness
 conjecture is required by this route.

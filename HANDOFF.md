@@ -33,7 +33,8 @@ The current increment formulates the author's component recurrence and derives
 its explicit DN redistribution from the existing local maps. It changes no
 Lean, shared Rust, reference, or Overleaf source.
 
-Last pushed checkpoint before this formulation: `25a527c`, exact winding
+Last pushed checkpoint: `1cb7420`, explicit recurrence transport and local
+nonflip reductions. Preceding `25a527c` proves exact winding
 aggregate and the component-isolation obstruction. Earlier `bca8fb0` proves
 forest-component semantics and primitive circular winding reduction. Earlier `1c93849` consolidated the proof notes. Checkpoint `ffa23fd` proves endpoint recovery and multivariate
 articulation gluing. Earlier `1a966fb` records the counterexample
@@ -225,10 +226,20 @@ and initially QUEUED in project `3fd0ed1d-ba60-404b-8b99-beaaae1c4d08`.
 The request is `component-recurrence/TARGET.md` under the external requests
 root; exact input hashes and submission logs are retained there. It asks for
 the concrete global regrouping, using these local reductions and the boundary
-equation. No local delegate is active or owns editable files. No edits or builds
-are delegated. The next task is to solve the target flip equations for β and
-regroup deletion packets into complete smaller components. This has not been
-proved; the new consultation is not evidence of completion. Native observer
+equation. Luna and Astra completed the read-only target-flip audit; no local
+delegate is active or owns editable files. Primary derived the parity change
+γ(Q)=(-1)^|Q|β(Q), turning all regrouping equations into integer potential
+differences. Reconstruction within this family is equivalent to zero periods
+around ALL closed walks of the exterior-index multigraph, including mixed
+ascent levels. A fixed spanning forest gives integer-linear transport, with
+no denominator. The reviewed proof is in the existing recurrence note.
+
+Primary sent `POTENTIAL_ADDENDUM.md` inline to the SAME running Aristotle task;
+the authoritative task list confirms the unchanged ID and IN_PROGRESS status.
+The next task is to express its fundamental-cycle period rows through source
+flip differences, incorporating the deletion packets and certified corrections.
+This vanishing has not been proved; the consultation is not evidence of
+completion. Native observer
 `71315` follows this exact task with a 30-minute process allowance and writes
 `component-recurrence/observer.log`. An observer timeout or disconnect does
 not cancel the remote task. On completion, inspect authoritative task status,

@@ -34,6 +34,14 @@ for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
   global reconstruction into whole smaller components. It explicitly forbids
   assuming local packets are complete, pointwise middle-state HRV matching,
   or discarding the deletion residual. No return or full proof is claimed.
+- Primary subsequently supplied `POTENTIAL_ADDENDUM.md` inline, SHA-256
+  `bb5a20333d5ed174e948e5a5e5205be87926b2f68a93a782f8d6101f69824c32`.
+  The parity change γ(Q)=(-1)^|Q|β(Q) makes reconstruction equivalent to
+  vanishing of all closed-walk periods on the exterior-subset multigraph.
+  Astra and Luna independently checked the criterion; actual period vanishing
+  remains requested. The addendum was accepted into the SAME running task,
+  confirmed by the unchanged task ID. Its log is
+  `potential-addendum-submission.log`; no second task was created.
 
 ## Ordinary corner refinement: complete return, AU_prime still open
 

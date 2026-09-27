@@ -316,6 +316,66 @@ complete smaller component, and eliminating middle multiplicities can change
 their compatibility with exterior flips. The target parameter β and the
 deleted packets must be handled together.
 
+### Reconstruction as an integer potential problem
+
+For the family g above, we can state the remaining equations without a
+general integer-matrix solve. Put
+
+    A(Q)=f00(σQ)+α(σQ),       B(Q)=f11(Q)+α(Q),
+    γ(Q)=(-1)^|Q| β(Q).
+
+For an admissible target state θ with exterior Q and t selected distinguished
+pairs, define b(θ)=A(Q) for t=0, b(θ)=0 for t=1, and b(θ)=B(Q) for t=2.
+Its total normal ascent count is k=|Q|+t. The multiplicity formula becomes
+
+    g(θ)=b(θ)−(-1)^k γ(Q).
+
+An actual target flip θ↔η preserves k. Consequently equality of transported
+multiplicities across this flip is exactly
+
+    γ(Q_θ)−γ(Q_η)=(-1)^k (b(θ)−b(η)).             (Potential)
+
+This uses signed integer multiplicities; no nonnegativity bounds on β are
+required. In particular, a flip toggling one distinguished pair also toggles
+one exterior pair, changing |Q| by one. A flip toggling both distinguished
+pairs has local type 10↔01 and leaves Q unchanged. If neither toggled pair
+is distinguished, the local bits stay fixed and |Q| is unchanged. The type
+00↔11 is impossible because a flip removes one pair and adds one pair.
+These facts explain why the apparent sum equations for β become difference
+equations for γ.
+
+Construct a finite multigraph with exterior subsets as vertices and one edge
+Q_θ→Q_η for each actual target flip. We retain parallel edges and loops, and
+label that edge by the right side of (Potential). Reverse traversal negates
+the label. Then an integer β making g constant on ENTIRE target components
+exists if and only if the labels sum to zero along every closed walk.
+
+Necessity follows by telescoping γ. For sufficiency choose a root and spanning
+tree in each connected component of the multigraph. Set γ at the root to
+zero and extend using (Potential) on tree edges. The closed-walk condition
+makes each remaining edge consistent. All labels are integers, so this gives
+integer γ and hence integer β, with no divisibility assumption. Loops require
+zero label; parallel edges impose their corresponding two-edge condition.
+Only flips between admissible target states enter the graph. Isolated
+exterior subsets impose no condition and may be assigned γ=0.
+
+We must include cycles that switch ascent levels at a shared Q: the same
+potential controls its zero, middle and full states. Checking the constraint
+graph separately at each ascent would miss these conditions.
+
+This is an exact reconstruction criterion for the displayed DN transport
+family. It turns the global obligation into a concrete companion lemma:
+prove that these closed-walk sums vanish for source-component multiplicities,
+after retaining the nonflip reductions and any certified correction packets.
+The potential argument does not prove that vanishing. With fixed trees, its
+construction is integer-linear in the source multiplicities whenever the
+compatibility conditions hold, as required by the earlier transport interface.
+Equivalently, each fundamental-cycle period row must be an integer combination
+of source flip-difference rows. This follows from the same spanning-tree row
+argument used in the reconstruction lemma. Primary derived the potential
+formulation; Astra and Luna independently checked the parity change and
+cycle criterion, including admissibility and the shared ascent levels.
+
 ## The coloring redistribution is explicit
 
 Let P00 contain a<c, with arbitrary fixed exterior relations. Let P10 add
