@@ -2878,3 +2878,23 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Components.cast_componentWordCount_eq_full_sum
 #print axioms VerticalStripLLT.Components.componentStrictEnumerator_eq_mountainScan_sum
 #print axioms VerticalStripLLT.Components.eval_hrvMonomial_eq_elementaryScalar_product
+
+-- Component positivity independent of the semantic identity.
+#print axioms VerticalStripLLT.Circular.naturalComponentHRV
+#print axioms VerticalStripLLT.Circular.weightedComponentHRV
+#print axioms VerticalStripLLT.Circular.naturalCast_naturalComponentHRV
+#print axioms VerticalStripLLT.Circular.componentHRV_coeff_nonneg
+#print axioms VerticalStripLLT.Circular.weightedComponentHRV_coeff_nonneg
+#print axioms VerticalStripLLT.Circular.componentHRV_isWeightedHomogeneous_degree
+#print axioms VerticalStripLLT.Circular.weightedComponentHRV_isWeightedHomogeneous_degree
+
+-- Unconditional complete-component extraction and expansion.
+#print axioms VerticalStripLLT.Circular.Orientation.hrvScanContinuation
+#print axioms VerticalStripLLT.Circular.Orientation.mountainScan_hrvScanContinuation
+#print axioms VerticalStripLLT.Circular.Orientation.mountainScan_hrvInitialSupport
+#print axioms VerticalStripLLT.Circular.Orientation.mountainScan_fullWord_compatible
+#print axioms VerticalStripLLT.Circular.component_strict_eq_elementary_of_forward
+#print axioms VerticalStripLLT.Circular.component_strict_eq_elementary
+#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_orientation_sum
+#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_eval
+#print axioms VerticalStripLLT.Circular.component_weighted_e_positive

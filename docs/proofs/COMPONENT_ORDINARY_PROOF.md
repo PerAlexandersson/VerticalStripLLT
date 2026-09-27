@@ -1,7 +1,8 @@
 # The ordinary flip-component HRV formula
 
 Status: complete mathematical proof, independently audited by primary, Astra
-and Terra. This is not yet a Lean verification. The proof applies to every
+and Terra. The finite strict/e component identity is now Lean-verified; see
+[the completion audit](../COMPONENT_COMPLETION.md). The proof applies to every
 ordinary natural graph with any subset of its corners strict. It requires
 neither saturation, connectedness, a forest hypothesis nor component-isolation
 assumptions. The circular case is supplied by the separate
@@ -227,7 +228,10 @@ now proves (1) as `componentWordCount_four`, including the zero extension off
 full words, and defines `componentWordFunctional` on the quotient.
 [ComponentBijection](../../VerticalStripLLT/Components/ComponentBijection.lean)
 proves the actual-flip pairing within the original complete component.
-These statements assume ordinary forward edges. The full component expansion
-still has no integrated Lean declaration: its semantic refinements and finite
-Cauchy assembly remain separate steps. They cannot be inferred from the
-already verified aggregate expansion.
+These foundational statements assume ordinary forward edges. The full theorem
+is now `Circular.component_strict_eq_elementary_of_forward` in
+`Components/OrdinaryComponentExpansion.lean`, using the direct signed-sink
+extraction and literal HRV threshold scan in `HRVScanExtraction.lean`. The
+circular result is `Circular.component_strict_eq_elementary`. No aggregate
+expansion is used to infer a component identity. Unlike the mathematical
+empty-graph convention above, the circular Diagram n model requires n>0.

@@ -7,9 +7,8 @@ Overleaf `Circular Vertical-Strip LLT Polynomials-v9.tex`; see the
 audited [finite companion](proofs/COMPONENT_FINITE_COMPANION.md) replaces its
 polyhedral step and isolates the same complete components.
 These foundations and the full aggregate circular expansion are locally verified.
-Ordinary and all circular component expansions now have audited mathematical
-proofs, pending Lean integration; the zero-normal component family is already
-Lean-verified. See [the component proof map](FLIP_COMPONENT_STATUS.md).
+Ordinary and all circular component expansions are now Lean-verified, including
+shifted weights and positivity. See [the completion audit](COMPONENT_COMPLETION.md).
 
 ## Full lifted covers
 
@@ -50,10 +49,10 @@ over this component. The full strict/e target is, for every D, θ, and m,
     Σ η ∈ flipComponent D θ, strictOrderEnumerator η.val m
       = evalElementary m (componentHRV D θ).
 
-This remains a theorem target, not a Lean assertion or a certificate assumed
-by the implementation. The source weak/h statement is its omega-translated
-form. That translation is to be formalized before finite-alphabet evaluation;
-we do not identify weak and strict order enumerators by definition.
+This is now `Circular.component_strict_eq_elementary`, with no semantic
+hypothesis. The source uses weak/h conventions; the formal result is the finite
+strict/e statement above. No finite-alphabet omega translation or identification
+of weak and strict order enumerators is claimed.
 
 ## Ownership boundary
 

@@ -8,13 +8,14 @@ Read `/workspace/AGENTS.md`, `/workspace/lean/AGENTS.md`, this file, and
 The ordinary Alexandersson--Sulzgruber expansion is complete. The user then
 authorized the circular development; its aggregate HRV formula is also proved.
 See `docs/CIRCULAR_COMPLETION.md`. Ordinary and all circular flip-component
-expansions now have audited mathematical proofs, pending Lean integration.
-The Overleaf v9 bounded-face companion closes the circular case; see
-`docs/proofs/COMPONENT_CIRCULAR_FACE_PROOF.md`. The independently audited
-`docs/proofs/COMPONENT_FINITE_COMPANION.md` now supplies the preferred finite
-proof, including component isolation, without general polyhedral machinery. Retain the faithful finite-degree
-model; do not build a general symmetric-functions library without an explicit demonstrated need and user
-approval.
+expansions, their shifted q-weights,
+and elementary positivity are also Lean-verified. See `docs/COMPONENT_COMPLETION.md`.
+The proof uses the ordinary word functional and signed-sink extraction, then the
+finite circular companion and a union of compatible ordinary components.
+The bounded-face source remains in `docs/proofs/COMPONENT_CIRCULAR_FACE_PROOF.md`;
+the checked finite replacement is `docs/proofs/COMPONENT_FINITE_COMPANION.md`.
+Retain the faithful finite-degree model; do not build a general
+symmetric-functions library without an explicit demonstrated need and user approval.
 
 The target mathematical source is arXiv:2004.09198 and its published version.
 Use the local paper cache when available. Record precise theorem/definition

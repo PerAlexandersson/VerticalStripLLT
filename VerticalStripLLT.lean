@@ -343,3 +343,7 @@ import VerticalStripLLT.Components.HRVSupportDifference
 import VerticalStripLLT.Components.HRVBlockContinuation
 import VerticalStripLLT.Components.MountainScanPairing
 import VerticalStripLLT.Components.ComponentScanSemantics
+import VerticalStripLLT.Components.ComponentPositive
+import VerticalStripLLT.Components.HRVScanExtraction
+import VerticalStripLLT.Components.OrdinaryComponentExpansion
+import VerticalStripLLT.Components.ComponentExpansion

@@ -103,33 +103,27 @@ closes the induction. See the [completion audit](docs/CIRCULAR_COMPLETION.md)
 and [proof explanation](docs/proofs/CIRCULAR_COLUMN_REVERSAL.md).
 
 Examples are isolated under `VerticalStripLLT/Examples/` and excluded from the
-main library imports. The [ordinary flip-component expansion](docs/proofs/COMPONENT_ORDINARY_PROOF.md)
-has a complete independently audited mathematical proof. The Overleaf v9
-[bounded-face companion](docs/proofs/COMPONENT_CIRCULAR_FACE_PROOF.md) also
-proves every circular component. Neither full component theorem is yet
-Lean-verified. The new [finite companion](docs/proofs/COMPONENT_FINITE_COMPANION.md)
-replaces the polyhedral argument with a coefficient recurrence and finite
-cancellation, including whole-component isolation. The concrete word algebra,
-conjugation, unique-sink cancellation and integer-cover rank certificates
-have passed local Lean and axiom checks. See the
-[component status](docs/FLIP_COMPONENT_STATUS.md). The guarded full-word count
-and its linear extension now use the actual complete flip component; the
-local word exchanges and all four lifted-cover certificates assemble an actual
-directed flip. For ordinary forward diagrams,
-`Components.componentWordCount_four` proves the contextual four-term identity,
-and `Components.componentWordFunctional` descends the actual count to the word
-quotient. The finite Cauchy factorization and its pairing with the actual component's
-strict-coloring enumerator are now proved (`Components/ColorProductPairing.lean`).
-The signed mountain-word expansion is proved; global HRV extraction and the
-full component expansion remain to be assembled. The circular finite companion's
-coloring and entire periodic HRV expansions now compile with the same canonical
-coefficients (`Components/CircularFiniteCompanion.lean`), including deletions of
-originally strict edges. The coefficient-preserving ambient flip bijection and
-coefficient constancy on complete flip components are also proved. Same-area
-undecoration now preserves entire components and both valuations. Compatible
-lift normalization and the complete conditional circular-to-ordinary reduction
-are now verified (`Components/CircularFromOrdinaryComponents.lean`). The ordinary
-preimage is a union of complete components, which removes reverse flip transport.
-Completing the ordinary weighted mountain extraction will finish both component
-theorems.
-Cumulants remain outside the scope.
+main library imports.
+
+## Complete flip-component expansions
+
+The ordinary and fully circular component formulas are now Lean-verified,
+including the common shifted q-weight and elementary positivity. The public
+results in [Components/ComponentExpansion.lean](VerticalStripLLT/Components/ComponentExpansion.lean)
+include `Circular.component_strict_eq_elementary`,
+`Circular.component_weighted_strict_eq_orientation_sum`, and
+`Circular.component_weighted_e_positive`. They use actual complete flip
+components and independently defined coloring and HRV sums, with no balance,
+connectivity or recurrence hypothesis.
+
+The ordinary proof uses the actual component word functional, finite Cauchy
+factorization and direct signed-sink extraction. The circular proof uses the
+finite companion and compatible lifts; its ordinary preimage is a union of
+complete components. The aggregate expansion is not used to infer the component
+identity. Every finite alphabet is covered, including the empty alphabet.
+The circular diagram model requires a positive vertex count.
+
+The final build passes **2074 jobs** and **2800 axiom inventory entries**, using
+only standard Lean axioms. See the [component completion audit](docs/COMPONENT_COMPLETION.md)
+for precise statements, source correspondence, proof modules and verification.
+Cumulants remain outside scope.

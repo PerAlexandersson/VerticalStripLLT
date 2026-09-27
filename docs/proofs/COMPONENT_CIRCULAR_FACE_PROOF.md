@@ -1,7 +1,10 @@
 # Circular component proof: comparison with the Overleaf v9 draft
 
 Status: complete mathematical proof for ALL circular flip components,
-independently audited by primary and Astra. Not yet a Lean theorem.
+independently audited by primary and Astra. The component identity is now a
+Lean theorem by the finite companion route; see
+[the completion audit](../COMPONENT_COMPLETION.md). The polyhedral argument
+below itself remains an audited prose proof.
 The polyhedral argument comes from the Alexandersson--Dai Overleaf draft;
 it was found during the user's requested comparison, not developed in this
 Lean repository. No Overleaf file was edited.

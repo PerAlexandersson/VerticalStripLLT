@@ -3,8 +3,9 @@
 Status: complete mathematical proof, audited independently by primary, Astra
 and Terra. The per-orientation coloring and entire-HRV companion expansions
 are now Lean theorems. Coefficient constancy on complete components of a fixed
-diagram is also verified; universal-ambient transport and final grouping remain. No enumeration was
-used. Aristotle supplied the coefficient proof; primary removed an unused
+diagram, whole-component transport, final grouping and the full component
+identity are now verified. See [the completion audit](../COMPONENT_COMPLETION.md).
+No enumeration was used. Aristotle supplied the coefficient proof; primary removed an unused
 incorrect claim about unscaled integer strict potentials and supplied the
 explicit finite component-isolation argument below.
 

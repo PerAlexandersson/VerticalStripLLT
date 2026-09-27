@@ -10,15 +10,17 @@
 - [Verified circular results](CIRCULAR_STATUS.md).
 - [Ordinary component proof](proofs/COMPONENT_ORDINARY_PROOF.md): complete
   audited proof for every ordinary component and, by lifts, balanced circular
-  components; not yet Lean-verified.
+  components; the finite strict/e component theorem is now Lean-verified.
 - [Circular component proof and draft comparison](proofs/COMPONENT_CIRCULAR_FACE_PROOF.md):
   audited v9 completion by bounded faces, and the finite cycle-deletion alternative.
+- [Component completion audit](COMPONENT_COMPLETION.md): unconditional ordinary
+  and circular identities, weighted expansion, positivity, degree and verification.
 - [Component Lean plan](COMPONENT_FORMALIZATION.md): independent word quotient
   and conjugation modules, followed by the actual component semantic bridges.
 - [Periodic word audit](proofs/COMPONENT_PERIODIC_WORDS.md): exact periodic
   HRV coefficients and the circular corrections to the four-word relation.
 - [Circular downstream work](CIRCULAR_GOALS.md): component Lean integration,
-  a finite coefficient proof and manuscript exposition.
+  completed finite coefficient proof and separate manuscript exposition.
 - [Flip-component proof status](FLIP_COMPONENT_STATUS.md): the current proof
   map, new ordinary proof, formalization boundary and remaining circular scope.
 - [HANDOFF](../HANDOFF.md): current ownership, checks, remote task, and next step.
@@ -43,7 +45,7 @@
 
 - [Finite circular companion](proofs/COMPONENT_FINITE_COMPANION.md): complete
   coefficient recurrence, ordered-partition cancellation and whole-component
-  isolation without polyhedra; independently audited, pending Lean.
+  isolation without polyhedra; integrated into the verified component theorem.
 
 Start with [the proof-status map](FLIP_COMPONENT_STATUS.md). The detailed
 notes below each own one argument; process status lives in the handoff.
@@ -122,5 +124,5 @@ notes below each own one argument; process status lives in the handoff.
   historical open induction routes and exact obstructions at `14e061d`.
 
 Lean declarations and local verification establish the formalized results.
-The ordinary and circular component proofs are independently audited mathematical prose,
-pending Lean integration. Each proof note records its verification boundary.
+The ordinary and circular component identities are now Lean-verified by the finite
+strict/e route. The completion audit distinguishes this from alternative prose proofs.
