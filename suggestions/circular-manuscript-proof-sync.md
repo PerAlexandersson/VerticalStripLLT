@@ -1,13 +1,12 @@
-# Align the circular manuscript proof with Lean
+# Circular manuscript synchronization — completed
 
-The aggregate circular theorem is now proved in Lean, while the current
-Overleaf proof outline still uses non-strict area and older no-wrap arguments.
-This risks obscuring the precise proved result and leaving resolved proof gaps
-mixed with the genuinely open flip-component identity.
+The user authorized the overhaul on 2026-09-27. The current Overleaf main.tex
+now proves the ordinary and circular component formulas using the finite
+strict/e route, with the shifted aggregate formula as a consequence. The former
+TODOs, AI notes, polyhedral reduction and obsolete recurrence sketches are kept
+only in the archived drafts. The component identity is fully proved.
 
-Proposed next writing step: replace the aggregate proof outline with the
-checked half-square area/strict-rank induction and interior column-reversal
-argument. Use docs/CIRCULAR_COMPLETION.md and
-proofs/CIRCULAR_COLUMN_REVERSAL.md as the declaration map. Audit each existing
-TODO before removing it; the component identity remains open. This is a
-proposal, not a claim that the manuscript exposition has already been updated.
+See docs/MANUSCRIPT.md and the Overleaf project's PROOF-MAP.md for the precise
+correspondence, archive, author preferences, independent reviews and clean PDF
+build. This resolves the earlier synchronization proposal. Future revisions
+should update that map when changing proof conventions or theorem scope.

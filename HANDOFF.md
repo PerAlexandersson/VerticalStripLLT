@@ -1,5 +1,13 @@
 # VerticalStripLLT handoff
 
+## Current manuscript
+
+The authorized Overleaf overhaul is complete: a clean 20-page draft, two new
+proof sections and six reusable TikZ proof figures. Original drafts are archived
+and hash-verified. See [manuscript synchronization](docs/MANUSCRIPT.md) for the
+source path, proof correspondence, author preferences, reviews and build checks.
+No Lean source changed; no owned auxiliary or compiler process remains active.
+
 ## Completed result
 
 The requested **full circular component proof is formalized**, together with the
@@ -91,8 +99,9 @@ and [the scan handoff](docs/archive/component-scan-handoff-20260927.md).
 The accepted shorter route needs only forward flip transport: the compatible
 ordinary preimage is a union of complete components. Direct HRV threshold
 induction replaces a global ordered-partition bijection.
-No further proof work is queued. Cumulants, manuscript rewriting and a general
-symmetric-functions library remain outside this completed task.
+No further Lean proof work is queued. Cumulant formalization and a general
+symmetric-functions library remain outside the completed formalization task.
+The subsequent user-authorized manuscript rewrite is recorded above.
 
 ## Post-completion cleanup
 

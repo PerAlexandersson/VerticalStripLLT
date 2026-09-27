@@ -28,3 +28,6 @@ The component result is the finite strict/e identity on actual complete componen
 - [Restricted recurrence audit](RESTRICTED_BOUNCE_AUDIT.md): an unused, separate open claim.
 - [Aristotle ledger](ARISTOTLE.md): external candidates and their verification.
 - [Handoff](../HANDOFF.md): current ownership, checkpoints and build logs.
+
+[Manuscript synchronization](MANUSCRIPT.md) records the current Overleaf draft,
+its proof correspondence and diagram/build checks.
