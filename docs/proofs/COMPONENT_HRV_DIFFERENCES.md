@@ -7,6 +7,11 @@ also audited the strict-corner case. They sharpen the
 prove component isolation or the full component theorem, and are not Lean
 declarations.
 
+The [complete ordinary component proof](COMPONENT_ORDINARY_PROOF.md) now uses
+this coefficient theorem through its labeled-poset and mountain-block
+consequences. The historical matching obstructions below remain valid; that
+proof does not assume any of the failed pointwise identities.
+
 ## A local characterization of a highest-reachability map
 
 All vertices lie in one fixed finite linear order and all edges point forward.

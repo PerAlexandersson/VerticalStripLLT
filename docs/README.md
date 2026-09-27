@@ -8,10 +8,13 @@
 - [Circular completion audit](CIRCULAR_COMPLETION.md): full aggregate HRV
   formula, e-positivity, source correspondence and verification.
 - [Verified circular results](CIRCULAR_STATUS.md).
-- [Circular downstream work](CIRCULAR_GOALS.md): open component identity and
-  manuscript exposition.
+- [Ordinary component proof](proofs/COMPONENT_ORDINARY_PROOF.md): complete
+  audited proof for every ordinary component and, by lifts, balanced circular
+  components; not yet Lean-verified.
+- [Circular downstream work](CIRCULAR_GOALS.md): primitive unbalanced components,
+  Lean integration and manuscript exposition.
 - [Flip-component proof status](FLIP_COMPONENT_STATUS.md): the current proof
-  map, proved reductions, remaining connectivity lemma, and circular scope.
+  map, new ordinary proof, formalization boundary and remaining circular scope.
 - [HANDOFF](../HANDOFF.md): current ownership, checks, remote task, and next step.
 
 ## Completed aggregate proof explanations
@@ -105,7 +108,9 @@ notes below each own one argument; process status lives in the handoff.
   historical snapshots, not current task status.
 - [Handoff through DN transport](archive/flip-component-handoff-through-dn-transport.md):
   winding and recurrence research chronology before component completion.
+- [Status before the ordinary word proof](archive/component-status-before-ordinary-word-proof.md):
+  historical open induction routes and exact obstructions at `14e061d`.
 
-Completed plans no longer duplicate the active agenda. The Lean declarations
-and local verification establish the results; explanatory notes record the
-mathematical arguments and their precise remaining boundaries.
+Lean declarations and local verification establish the formalized results.
+The ordinary component proof is independently audited mathematical prose,
+pending Lean integration. Each proof note records its verification boundary.

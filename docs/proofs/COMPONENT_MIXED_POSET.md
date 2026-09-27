@@ -2,8 +2,9 @@
 
 Status: mathematical proofs independently audited by primary and Astra, not
 Lean declarations. This extends the [mixed-closure companion](COMPONENT_MIXED_CLOSURE.md).
-The complete component theorem remains open; total mixed orders are not
-individual equality cases.
+The [ordinary word-algebra proof](COMPONENT_ORDINARY_PROOF.md) now uses these
+formulas to prove the complete ordinary component theorem. Total mixed orders
+are still not individual equality cases.
 
 ## Redundant reversed edges and the normalized valuation
 
@@ -130,16 +131,15 @@ each original forward selected relation gives the exact identities
 
 The SAME component-labeled multiplicities appear in both expressions. The
 second expression now has the explicit mountain-block formula above. This
-is a concrete permutation form of the remaining matching problem, not its
-solution. In particular Z(P_π) need not equal j_π: the former is generally
+is the permutation form used in the ordinary proof. In particular
+Z(P_π) need not equal j_π: the former is generally
 nonsymmetric, whereas the latter is a signed elementary expression.
 
-The next useful step would be a component-preserving redistribution of the
-compatible permutations that matches the first-block recurrence. Such a map
-must track the selected relation and its original complete component, as
-well as the commutative color monomial. Aggregate identities or equality of
-descent-set counts alone do not justify that redistribution. The existing
-corner recurrences remain available for supplying smaller-area corrections.
+The [ordinary proof](COMPONENT_ORDINARY_PROOF.md) supplies the missing
+step: actual local flips give a four-word identity for m_A, and the finite
+word-algebra factorization equates the two representatives modulo exactly
+those relations. It keeps the original component label. No equality of
+individual permutation valuations or unsupported descent-set matching is used.
 
 Related Lean: no new declaration. The optional-edge and mountain-block
 arguments were audited without enumeration or compilation. They use ordinary

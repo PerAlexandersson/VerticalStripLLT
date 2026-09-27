@@ -1,17 +1,17 @@
 # Flip-component induction: redistribution and component equations
 
-Status: the primary proof route, following the author's component-through-
-recurrences idea. The integer transport criterion below and the later corner
-reductions are proved mathematical lemmas. Their required global recurrence
-certificates remain to be constructed. No full component proof is claimed.
-No Lean source or Overleaf manuscript is changed by this audit.
+Status: the author's minimum-area realization and the signed transport
+criteria below are proved mathematical lemmas, not Lean declarations.
+The [ordinary component proof](COMPONENT_ORDINARY_PROOF.md) now proves the
+ordinary theorem by a word-algebra companion. This note retains the alternative
+recurrence framework; its stronger global transport certificates remain open.
+They are no longer prerequisites for the ordinary theorem. Primitive
+unbalanced circular components remain unresolved.
 
-The current concrete continuation is
-[ordinary DN component completion](DN_COMPONENT_COMPLETION.md): it proves
-reconstruction for an explicitly generated union of source components and
-isolates the remaining question of whether two unsolved components can be
-joined. This note retains the general signed framework and its exact local
-identities; the continuation does not duplicate them.
+The [ordinary DN completion](DN_COMPONENT_COMPLETION.md) proves reconstruction
+for a union of source components. Its remaining isolation question belongs
+to this alternative recurrence route, not the completed ordinary word proof.
+No Lean source or Overleaf manuscript is changed by this audit.
 
 We read `LLT flip/main.tex`, especially the local diamonds (around 1704),
 component target (around 1980), cut/transport/reassembly discussion
@@ -893,9 +893,10 @@ The transport criterion at the start of this note replaces the earlier
 informal reconstruction/isolation checklist. For each actual recurrence,
 construct T and the certified correction map R from the local cases, then
 check every target-flip row of (Transport) and both versions of (Semantics).
-The target diagrams must decrease a justified induction measure. The ordinary
-and circular component conjectures remain open until these constructions
-are supplied; the criterion alone does not prove them.
+The target diagrams must decrease a justified induction measure. These constructions remain necessary for this particular recurrence proof;
+the criterion alone does not provide them. The ordinary theorem is now proved
+by the separate word-algebra argument. The primitive unbalanced circular
+component formula remains open.
 
 The previously proposed fixed-diagram diamond-and-chain straightening theorem
 is false, even with signed rational coefficients. Its exact obstruction,

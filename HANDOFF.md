@@ -3,10 +3,14 @@
 ## Scope and verified results
 
 The ordinary and full aggregate circular HRV expansions and e-positivity are
-formalized. The stronger formula for **each entire flip component**, ordinary
-and circular, remains open. [Component proof status](docs/FLIP_COMPONENT_STATUS.md)
-is the research entry point; [circular completion](docs/CIRCULAR_COMPLETION.md)
-is authoritative for the completed aggregate theorem.
+formalized. The full ORDINARY flip-component formula now has a complete
+independently audited mathematical proof, as does the balanced circular case
+by compatible lifts. These new component proofs are not yet Lean-verified.
+Primitive unbalanced circular components remain open. The
+[component status](docs/FLIP_COMPONENT_STATUS.md) is the research entry point;
+[ordinary component proof](docs/proofs/COMPONENT_ORDINARY_PROOF.md) is the new
+mathematical completion; [circular completion](docs/CIRCULAR_COMPLETION.md)
+remains authoritative for the Lean-verified aggregate theorem.
 
 Verified Lean checkpoint: `18fbb4d`. Public declarations in
 `VerticalStripLLT/Circular/Expansion.lean`, namespace `VerticalStripLLT.Circular`:
@@ -25,66 +29,66 @@ research is audited prose, not new Lean declarations. Initialization commits
 
 ## Ownership and checkpoint
 
-Primary owns strategy, research notes, external diagnostics, integration,
-and the sole global Lean build slot. Only primary may use `lake-workspace`,
-after checking that no other build is active. No slot transfer occurred.
-No Lean, shared Rust, reference or Overleaf source changed; no compilation
-was needed or run in this increment.
+Primary owns strategy, research notes, integration, and the sole global Lean
+build slot. Only primary may use `lake-workspace`, after checking that no
+other build is active. No slot transfer occurred. No Lean, shared Rust,
+reference or Overleaf source changed; no compilation was needed or run.
 
-This continuation began clean at pushed `1863bad` (mixed closure). Primary
-owns `docs/proofs/COMPONENT_MIXED_POSET.md`, the mixed-closure and
-chain-normalization updates, and their linked handoff/status/index changes.
-Astra audited optional-edge absorption, the permutation formula and a
-closure-fiber obstruction. Terra supplied the saturated cover obstruction.
-Both tasks finished read-only/build-free; primary checked all integrated
-arguments. No delegate owns editable files and no new remote task was started.
+This continuation began clean at pushed `14e061d`. Primary owns the new
+`docs/proofs/COMPONENT_ORDINARY_PROOF.md`, the rewritten component status and
+its archived predecessor, and linked proof/index/README/AGENTS/circular-goal
+boundary updates. Primary also owns status-only corrections in
+`docs/proofs/FLIP_COMPONENT_INDUCTION.md` and
+`docs/proofs/COMPONENT_CORNER_DIFFERENCES.md`, preserving their valid
+minimum-area and signed-recurrence lemmas. Astra and Terra independently audited the full argument.
+Luna audited the current Lean interfaces and possible finite word model.
+All three tasks finished read-only/build-free; no delegate owns editable files.
+No new Aristotle task was started.
 
-## Current mathematical result and exact next step
+## Complete ordinary component proof and exact next step
 
-The author's minimum-area induction remains available: the saturated envelope
-is minimal, ordinary strict-corner deletion partitions whole components into
-ENTIRE smaller components, and alternating differences cancel mixed-cyclic
-states. The exact HRV-map coefficients, strict-chain normalization, anchor
-slides, mixed closure and DN completion remain in the
-[component status](docs/FLIP_COMPONENT_STATUS.md) and its linked proofs.
+The proof applies to arbitrary ordinary natural graphs and arbitrary corner
+decorations, with no saturation, connectivity, forest or isolation assumption.
 
-New [labeled mixed-poset companion](docs/proofs/COMPONENT_MIXED_POSET.md):
+1. The existing exact HRV coefficient theorem gives the labeled-poset
+   refinement and signed mountain-block formula for j_π. Both component sums
+   use the SAME count m_C(π) of compatible source states.
+2. Actual flips prove the contextual four-word identity
+   m_C(ρacbσ)+m_C(ρbcaσ)=m_C(ρcabσ)+m_C(ρbacσ), a<b<c.
+   Consecutive word positions make the required covers automatic. This keeps
+   the original COMPLETE component label and supplies isolation directly.
+3. Work in the finite word algebra modulo these relations and ALL repeated-
+   letter words. The functional m_C annihilates its ideal.
+4. With A=sum of lower letters and D(t) their decreasing product (1+t u_i),
+   direct conjugation gives Ad_D(u_n)=u_n+t[A,u_n]. A short induction proves
+   [A,D]=0; no external commutation theorem is needed. Inverse conjugation
+   identifies ad_A^k(u_n) with the ordered mountain commutators, without
+   a factorial.
+5. The finite coloring product factors as F_n=(1+W_n)F_(n−1), with
+   W_n=Σ_k e_(k+1)(X) ad_A^k(u_n). Prefix factors retain their order.
+   Its two free-word representatives have coefficients Z_π and j_π.
+   Equality IN THE QUOTIENT, paired with m_C, proves K(C)=E(C).
 
-- If a reversed optional edge is implied by the old mixed graph, inserting
-  it changes the full HRV-map alternating sum by a minus sign. The same is
-  true for the coloring sum. The coefficient proof works before OR after
-  insertion and needs no corner geometry.
-- Thus J=(−1)^|F|H and Z=(−1)^|F|K_F depend only on the LABELED mixed
-  poset. All non-Hasse edges can be removed with the proved sign rules.
-- Both valuations satisfy exact incomparable-pair resolution, so both refine
-  as sums over the same linear extensions, each counted once.
-- For a total mixed order π, the full signed map J is indexed by partitions
-  into contiguous increasing-then-decreasing mountain blocks with decreasing
-  maxima. Each block maps to its maximum; the sign is (−1)^(internal descents).
-- At elementary level this gives a recurrence at the largest label. If its
-  prefix is not increasing, J vanishes. Otherwise, if that label is at r and
-  the following decreasing run ends at s, j_π=Σ_(ℓ=r)^s (−1)^(ℓ−r)
-  e_ℓ j_(suffix after ℓ). Labels, not just descent sets, matter.
-- For each complete ordinary component A, BOTH K(A) and E(A) therefore have
-  exact permutation expansions with the SAME multiplicity m_A(π), counting
-  source states having π as a linear extension. Their total-order valuations
-  are generally different, so this refinement is not the component theorem.
+This is a complete mathematical proof of the ordinary statement. The existing
+compatible-lift theorem transfers ENTIRE balanced circular components and
+both sums, so their formula follows as well. No pointwise equality Z_π=j_π,
+closure-fiber connectivity or auxiliary DN isolation has been assumed.
+The prior 14e061d status is archived; its open ordinary isolation problems
+are alternative stronger claims, no longer blockers for this theorem.
 
-Two stronger shortcuts are now ruled out. In the saturated two-K4 articulation
-example, the size-five level of one live Boolean closure fiber splits across
-components with block counts (3,2) and (2,3); the states are connected,
-nonforest and not pointwise chains. The mixed-closure note records it.
-Also, even SATURATED diagrams admit actual normal-long flips whose normalized
-long becomes noncover. The new fixture replaces the weaker nonsaturated one
-in the chain-normalization note. Saturation does not repair that step.
+Next: (a) prepare the finite Lean integration, with actual component/permutation
+and coloring/word bridges; (b) resolve primitive unbalanced circular components.
+The current word proof uses one finite linear vertex order and cannot simply
+be applied to the periodic cover. The existing winding reduction still leaves
+that primitive case open. The full thread goal therefore remains active.
 
-Next: construct a component-preserving redistribution of compatible
-permutations matching the largest-label/mountain recurrence, or use the new
-poset identities to regroup corner-recurrence corrections into smaller
-ENTIRE components. Keep original component labels and actual intersection
-multiplicities throughout. Individual mixed orders or closure fibers are not
-solved equality cases. The complete ordinary and primitive circular component
-formulas remain open; the aggregate circular theorem is fully formalized.
+Luna's API audit found component interfaces only in `Circular/Flip.lean`
+(`flipComponent`, `componentHRV`) and `Circular/ComponentSemantics.lean`
+(`componentStrictEnumerator`). A finite `(List V →₀ ℤ)` module with all
+contextual relations and induced concatenation is a possible implementation;
+`Submodule.mkQ`/`liftQ` supply the additive quotient API. Concatenation must
+be proved compatible before using ring operations. Existing aggregate Lean
+bridges do NOT establish the new component semantic identifications.
 
 ## Consultation outcome and verification provenance
 
@@ -120,16 +124,26 @@ CLI/SDK. No credentials were printed or committed.
 
 ## Checks and history
 
-This checkpoint changes only six Markdown files. Proof audits, focused diff
-review, `git diff --check`, all 101 local links including heading anchors,
-and both initialization-ancestor checks passed.
-No new computation engine, scan, polynomial sequence, Lean source or build
-was introduced. The previous goal turn made progress (`1863bad`); this
-continuation adds the labeled-poset and exact permutation formulas and
-rules out two stronger shortcuts. The full goal is not complete.
+The full uniform proof was independently audited, without enumeration or
+compilation. Whitespace, all 156 local links in the 15 task-owned Markdown
+files, exact-file scope and both initialization-ancestor checks passed.
+Astra also rechecked the minimum-area normalization and signed deletion
+recurrence against the author's proposal: the ordinary residual regrouping
+is still open for that alternative route, but no longer needed for the
+ordinary word proof. Circular strict-corner reinsertion can fail admissibility. No new polynomial family or computation engine was
+introduced. The previous turn made progress (`14e061d`); this turn completes
+the ordinary mathematical component proof and its balanced circular corollary.
+Primitive circular components and Lean integration remain unfinished.
+
+A Rust capability audit read the library guide, refreshed Cargo metadata and
+searched the exact algebra APIs; no computation was ultimately needed.
+Paper-cache was registered but had no callable search tool in this session.
+A web cross-check read Blasiak--Fomin, arXiv:1608.05042v2, Corollary 1.3;
+its commutation theorem motivated a check, but the final proof is self-contained
+and does not depend on it. No private source was uploaded through web tools.
 
 The previous handoff, including winding and recurrence chronology and exact
 old observer status, is [archived through DN transport](docs/archive/flip-component-handoff-through-dn-transport.md).
 It is historical, not an active work list. Earlier checkpoint history remains
 in Git and the linked documentation archive. The current goal is active and
-has made progress; neither the full proof nor its Lean formalization is done.
+has made progress; the primitive circular proof and new Lean integration are not done.

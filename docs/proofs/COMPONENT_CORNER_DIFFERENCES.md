@@ -2,7 +2,10 @@
 
 Status: the ordinary quotient, inclusion–exclusion recurrence, and relative
 absorption identities below are proved mathematical statements. They are not
-Lean declarations. The general component HRV theorem remains open.
+Lean declarations. The [ordinary component theorem](COMPONENT_ORDINARY_PROOF.md)
+is now proved by a separate word-algebra argument. The deletion identities
+here remain valid; their stronger recurrence-isolation questions are no
+longer blockers for the ordinary theorem.
 
 We use K(A) for the strict coloring enumerator and E(A) for the evaluated
 HRV elementary monomial of a selected relation A, on one fixed finite alphabet.

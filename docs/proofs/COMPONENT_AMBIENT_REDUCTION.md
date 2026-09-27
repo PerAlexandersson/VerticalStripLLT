@@ -3,7 +3,9 @@
 We reduce the full decorated component problem to unmarked complete circular
 diagrams. We also give a stronger sufficient companion using projected covers.
 The reductions below are proved mathematical statements; the stronger companion
-and the full component formula remain open. None is asserted as a Lean theorem.
+and the primitive unbalanced circular component formula remain open. The
+ordinary theorem now proves the balanced case below. None of these component
+results is asserted as a Lean theorem.
 
 ## Complete circular diagrams suffice
 
@@ -86,11 +88,12 @@ selected path and their compatibility with each flip triangle.
 
 All actual flips within such a component are strong, because the two notions
 of cover agree. This proves the reduction for actual components, not merely
-for their strong subcomponents. The ordinary component theorem is still open,
-so the reduction does not alone prove general balanced component identities.
-The subsequent [connected aggregate argument](COMPONENT_CONNECTED_AGGREGATE.md)
-does prove all ordinary forest-component identities; transporting it here
-therefore proves the circular forest-component formula.
+for their strong subcomponents. The complete
+[ordinary component theorem](COMPONENT_ORDINARY_PROOF.md) is now proved in
+prose, so this transport proves the formula for EVERY balanced circular
+component. The earlier [connected aggregate argument](COMPONENT_CONNECTED_AGGREGATE.md)
+already covered forests; that case is now included in the general balanced
+result. Lean integration remains outstanding.
 
 **Forests and cycle winding.** Every selected forest admits compatible lifts.
 Choose one root lift in each weak block and propagate along its unique

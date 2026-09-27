@@ -103,5 +103,8 @@ closes the induction. See the [completion audit](docs/CIRCULAR_COMPLETION.md)
 and [proof explanation](docs/proofs/CIRCULAR_COLUMN_REVERSAL.md).
 
 Examples are isolated under `VerticalStripLLT/Examples/` and excluded from the
-main library imports. Complete flip-component expansions are downstream;
-cumulants remain outside the scope.
+main library imports. The [ordinary flip-component expansion](docs/proofs/COMPONENT_ORDINARY_PROOF.md)
+now has a complete independently audited mathematical proof, which also gives
+balanced circular components by compatible lifts. It is not yet Lean-verified.
+Primitive unbalanced circular components remain open; see the
+[component status](docs/FLIP_COMPONENT_STATUS.md). Cumulants remain outside the scope.

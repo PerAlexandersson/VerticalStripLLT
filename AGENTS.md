@@ -7,9 +7,11 @@ Read `/workspace/AGENTS.md`, `/workspace/lean/AGENTS.md`, this file, and
 
 The ordinary Alexandersson--Sulzgruber expansion is complete. The user then
 authorized the circular development; its aggregate HRV formula is also proved.
-See `docs/CIRCULAR_COMPLETION.md`. Flip-component expansion remains an open
-downstream claim. Retain the faithful finite-degree model; do not build a general
-symmetric-functions library without an explicit demonstrated need and user
+See `docs/CIRCULAR_COMPLETION.md`. Ordinary and balanced circular flip-component
+expansions now have audited mathematical proofs, pending Lean integration;
+primitive unbalanced circular components remain open. See
+`docs/proofs/COMPONENT_ORDINARY_PROOF.md`. Retain the faithful finite-degree
+model; do not build a general symmetric-functions library without an explicit demonstrated need and user
 approval.
 
 The target mathematical source is arXiv:2004.09198 and its published version.

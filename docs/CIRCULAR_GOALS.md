@@ -7,14 +7,15 @@ The full build and all 2037 axiom checks pass. See the
 and [column-reversal proof](proofs/CIRCULAR_COLUMN_REVERSAL.md).
 There are no remaining proof obligations for the aggregate theorem.
 
-The next research task is the full flip-component identity. Its exact target
-and proved foundations are retained in [CIRCULAR_FLIPS.md](CIRCULAR_FLIPS.md).
-The [diamond audit](proofs/DIAMOND_STRAIGHTENING_AUDIT.md) refutes
-fixed-diagram straightening and gives an auxiliary-state repair with an
-explicit exterior-swap correction. The next proof target is component-labeled
-packet decomposition and cancellation of those corrections. A complete
-component proof is not known here and must not be assumed.
-Weak/strict omega translation is a separate bridge.
+The [ordinary flip-component identity](proofs/COMPONENT_ORDINARY_PROOF.md)
+now has a complete independently audited mathematical proof. Compatible-lift
+transport also proves the balanced circular component case. These new
+component results are not yet Lean-verified. The remaining mathematical
+target is the primitive unbalanced circular component formula; the ordinary
+word proof has not been extended to the periodic setting. See the
+[current proof status](FLIP_COMPONENT_STATUS.md) and the exact
+[component interfaces](CIRCULAR_FLIPS.md). Weak/strict omega translation
+remains a separate formal bridge.
 
 The older manuscript proof outline also needs to be aligned with the checked
 half-square induction and interior column reversal. Historical paired-child

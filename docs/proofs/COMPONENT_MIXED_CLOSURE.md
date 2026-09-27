@@ -168,6 +168,10 @@ asserted to be components, their residuals need not satisfy K=E individually,
 and equality of mixed orders does not justify erasing source-component labels.
 No uniform solution of that reconstruction problem is claimed here.
 
+The subsequent [ordinary component proof](COMPONENT_ORDINARY_PROOF.md)
+resolves the theorem through a component-labeled word functional. It does
+not require closure-fiber levels to reconstruct whole components.
+
 The [labeled-poset continuation](COMPONENT_MIXED_POSET.md) also permits
 redundant reversed edges to be removed, with an explicit sign change. It
 gives a common incomparable-pair resolution and an exact total-order formula.

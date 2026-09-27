@@ -3,9 +3,10 @@
 Source: the initial `LLT flip/old-main.tex` snapshot, lines 1939–1986,
 as hashed in the archived circular plan. The current source is `main.tex`.
 These foundations and the full aggregate circular expansion are locally verified.
-The general component expansion remains unproved; the full zero-normal
-component family is proved. See [the component proof map](FLIP_COMPONENT_STATUS.md)
-for the current research boundary.
+The general circular component expansion remains unproved. Ordinary and
+balanced circular component expansions now have audited mathematical proofs,
+pending Lean integration; the zero-normal component family is already
+Lean-verified. See [the component proof map](FLIP_COMPONENT_STATUS.md).
 
 ## Full lifted covers
 
