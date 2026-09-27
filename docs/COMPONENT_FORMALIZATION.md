@@ -67,6 +67,23 @@ identity are now implemented. The strict coloring refinement, global HRV
 extraction, finite Cauchy assembly, compatible-lift transport and the full
 finite companion still need Lean integration. Their mathematical proofs are complete.
 
+`CauchyStep` now proves the finite ordered factorization
+`colorProduct_eq_cauchyProduct`, using the explicit finite elementary coefficient
+recurrence and preserving the order of all noncommuting factors. Its focused
+build passes. The remaining ordinary work is the coefficient/semantic assembly,
+not the algebraic factorization itself. `SinkReachability` supplies the generic
+finite forward-relation bridge from unique sinks to induced reachability.
+
+For the circular companion, `GainPotential` proves feasibility of the
+coordinatewise least nonnegative integer potential and its invariance under
+insertion of satisfied constraints and deletion of strictly slack constraints.
+This replaces the longest-path construction for the invariance argument.
+`GainCancellation` supplies finite sign-reversing cancellation and `GainSlack`
+derives `sum_powerset_feasible_eq_zero` with the actual potential-dependent pivot.
+These focused builds pass; feasibility from nonpositive closed walks and slack
+from an excess walk are separate bridges under implementation. None of these
+lemmas alone identifies the canonical circular coefficient or isolates components.
+
 `ComponentWords` now defines the guarded count on the actual complete component
 and extends it linearly. It proves vanishing for repeated, missing, or wrong-length
 words, invariance under the component representative, and strict word-position

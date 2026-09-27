@@ -225,3 +225,8 @@ import VerticalStripLLT.Components.CountReduction
 import VerticalStripLLT.Components.ComponentSwap
 import VerticalStripLLT.Components.ComponentBijection
 import VerticalStripLLT.Components.ComponentFunctional
+import VerticalStripLLT.Components.SinkReachability
+import VerticalStripLLT.Components.GainPotential
+import VerticalStripLLT.Components.GainCancellation
+import VerticalStripLLT.Components.GainSlack
+import VerticalStripLLT.Components.CauchyStep

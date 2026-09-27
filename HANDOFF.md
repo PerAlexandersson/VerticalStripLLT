@@ -2,10 +2,22 @@
 
 ## Result and verification boundary
 
-Verified source checkpoint: `682b476` (`Prove ordinary component four-term
-identity and quotient functional`), following pushed checkpoints `de4645f` and
-`06fac39`. All restart work is integrated on `main`; no subagent edit or build
-remains active.
+Current verified increment extends `948fbb4` / source `682b476` with five
+modules: `CauchyStep`, `GainPotential`, `GainCancellation`, `GainSlack`, and
+`SinkReachability`. The full library passed **1936 jobs**, and all **2206 axiom
+inventory entries** passed with only `propext`, `Classical.choice`, and
+`Quot.sound`. Source, width, whitespace and external-cache guards pass.
+Logs are under `/lake-cache/ai-projects/requests/VerticalStripLLT/circular-continuation/`.
+The goal remains active; subsequent candidates are still under development
+as recorded in Ownership below.
+
+`colorProduct_eq_cauchyProduct` now proves the finite ordered Cauchy
+factorization. `GainData.potential_feasible` constructs the least potential
+from feasibility, and `potential_erase_eq` proves strictly slack deletion
+invariance. `sum_powerset_feasible_eq_zero` proves the resulting signed
+feasibility cancellation using the actual canonical-potential pivot.
+Feasibility from closed-walk inequalities, positive-excess slack, scalar
+extension and the actual forward HRV fiber bridge are the next increment.
 
 The ordinary actual-component word-count milestone is now formalized:
 `Components.componentWordCount_four` proves the contextual four-term identity
@@ -44,6 +56,24 @@ circular HRV formulas and e-positivity remain locally Lean-verified; see
 [circular completion](docs/CIRCULAR_COMPLETION.md).
 
 ## Ownership and current checkpoint
+
+Active goal continuation: formalize the **full circular component proof**.
+The preceding turn is classified as verified progress, not completion of this
+goal. Starting checkpoint is clean `948fbb4` / source `682b476`.
+Primary now owns new `Components/GainPotential.lean` and `Components/GainSlack.lean`, the returned Luna
+candidates `Components/SinkReachability.lean` and `Components/GainCancellation.lean`,
+plus integration, imports, inventory and documentation. Luna `word_swaps` now
+audits the actual HRV semantic bridge; Luna `word_covers` audits available
+difference-constraint APIs (both read-only). Astra's returned
+`Components/CauchyStep.lean` candidate is now primary-owned for integration.
+Luna `word_covers` returned `Components/GainExcess.lean`; primary adopted it
+for validation, and that subagent is now idle and build-free.
+Astra `component_review` next owns only new `Components/GainFeasibility.lean`.
+Luna `word_swaps` next owns only new `Components/WordScalars.lean`.
+Primary also owns new `Components/ForwardHRV.lean` for actual circular HRV
+fibers under the ordinary forward-edge hypothesis.
+All delegated work is build-free, and primary
+retains the sole serialized Lean build slot. No account or worker launch change.
 
 The explicitly requested academic-account restart on 2026-09-27 resumes the
 same primary ownership in `/workspace/lean/VerticalStripLLT` on `main`, from
