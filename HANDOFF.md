@@ -29,11 +29,12 @@ Initialization commits `830cc6b`, `130f7e8` and the immutable references survive
 Primary owns strategy, all current research notes, external probes, integration,
 and the sole global Lean build slot. Only primary may run `lake-workspace`,
 after checking no other build is active. No slot transfer has occurred.
-The current increment proves a semantic forest-component companion in prose;
-it changes no Lean, Rust, reference, or Overleaf source.
+The current increment proves an aggregate companion at an exact winding class
+and checks its isolation boundary. It changes no Lean, shared Rust, reference,
+or Overleaf source.
 
-Last pushed checkpoint: `1c93849`, consolidated proof notes and audited tree
-connectivity. Checkpoint `ffa23fd` proves endpoint recovery and multivariate
+Last pushed checkpoint: `bca8fb0`, forest-component semantics and primitive
+circular winding reduction. Earlier `1c93849` consolidated the proof notes. Checkpoint `ffa23fd` proves endpoint recovery and multivariate
 articulation gluing. Earlier `1a966fb` records the counterexample
 to scalar active uniqueness. Primary owns the new proof map, tree-connectivity
 note, handoff/archive, index and Aristotle ledger. The pre-existing dirty
@@ -82,10 +83,12 @@ the lattice normal form, and Astra audited the entire-component/HRV transport.
 The primitive circular companion remains open. The source-cancellation route
 remains auxiliary and open.
 
-Next: pursue the exact quotient graph created by strict-corner deletion,
-keeping the exposed corners unmarked until their selected/unselected branches
-are separated. The forest family is settled mathematically; AU_prime beyond
-trees and primitive circular cancellation still need proofs.
+The user recalls a component-through-recurrences proof and identifies its
+precise formulation as the difficulty. This is now the primary route again:
+extract the draft's orientation cases and prove transport preserves both
+valuations and constant multiplicities on complete components. AU_prime and
+exact winding refinement are auxiliary tools, not necessary assumptions of
+that route. Keep exposed corners unmarked until their branches are separated.
 Do not start another broad enumeration or Lean scaffolding task in place of
 resolving that structural question.
 
@@ -125,7 +128,9 @@ has `flip_component`, `llt_flip_neighbors`, `is_llt_flip_pair`, and
 cover rule as a maintained public API. The existing external Rust component
 probe therefore remains useful and reuses the maintained circular HRV routine.
 The promotion proposal is [flip enumeration](suggestions/flip-enumeration-api.md).
-No shared Rust files were edited and no new computations were run here.
+No shared Rust files were edited or rebuilt. The current two targeted
+component diagnostics reused the existing Rust binaries and Python model;
+receipts are linked in the exact-winding companion note.
 
 External requests root:
 `/lake-cache/ai-projects/requests/VerticalStripLLT/`.
@@ -144,23 +149,44 @@ preserves every previous handoff line and the exact old Aristotle ledger
 (apart from adjusted relative links). Independent Astra review approved the
 tree proof and scope map. `git diff --check` passes. No compilation was needed.
 
-## Active forest-semantic increment
+## Current exact-winding companion
 
-Primary owns the new `docs/proofs/COMPONENT_CONNECTED_AGGREGATE.md`, edits to
-the tree/ambient notes, proof map, and this handoff. Primary found connected
-aggregate extraction by finite partition inversion; Astra independently audited
-induced strict corners, interleaved block HRV, coefficient isolation, and the
-ordinary/circular forest extensions. This yields the complete-component HRV
-identity for every forest, as a prose theorem. No Lean/build task is delegated.
-The prior goal turn made progress: consolidation and tree proof were pushed as
-`1c93849`. The full goal beyond forests remains active.
+Primary owns `docs/proofs/COMPONENT_LATTICE_AGGREGATE.md`, the proof map,
+index, winding-note link, this handoff and the external diagnostic receipts.
+Astra completed the read-only proof audit; no local delegate or remote proof
+process is active. The previous goal turn made progress at `bca8fb0`.
 
-Primary also owns the new `COMPONENT_WINDING_LATTICE.md` note. Terra
-returned a read-only integer-lattice invariant proof. Astra approved the
-primary's finite-cover reduction to primitive winding. No claim of
-primitive-component cancellation is made, and no computation/build is assigned.
+The new proved companion filters selected edges by their undirected signed
+walk relation W, compresses each block's compatible lift classes, and applies
+the existing aggregate theorem. Finite-poset inversion then proves the HRV
+identity for each EXACT W and edge count. W retains the separate cycle
+subgroup of each weak block; one global vertical coordinate would merge them.
+Astra checked that correction, the compatible natural diagrams, disconnected
+subsets, admissibility, actual HRV transport and inversion. This is prose,
+not a new Lean declaration or the full component theorem.
 
-Primary owns the Claude outcome entries in `docs/ARISTOTLE.md` and
-`COMPONENT_ACTIVE_CORNERS.md`. No process or proof target was restarted after
-its terminal return. The two new full-family reductions passed independent
-mathematical review; local Markdown links and `git diff --check` pass.
+Two complete active primitive components in area (3,1,2,3), strict {10,03},
+have the same W and ascent but different HRV sums. They have 3 and 4 states;
+none is a chain-poset state. The existing Rust component probe and HRV bridge
+agree with the old Python flip model; direct all-alphabet coloring identities
+verify both component formulas. The stronger obstruction is recorded in the
+new note, with exact input and source/result hashes. This rules out isolating
+arbitrary components by W, ascent and activity alone, even after discarding
+chain-only components. No broad screen or new enumeration engine was used.
+
+The Rust guide, workspace metadata and relevant HRV/flip/SNF APIs were checked
+before the diagnostic. Python only assembled fixed inputs and compared existing
+outputs; no new graph-potential classifier, polynomial family or component
+algorithm was needed. The new theorem and obstruction passed independent
+mathematical review. Markdown link and whitespace checks are required before
+this checkpoint; compilation is unnecessary for these documentation-only edits.
+
+## Author-steered recurrence formulation
+
+Primary owns the new transport-interface section in the existing
+`FLIP_COMPONENT_INDUCTION.md` and the corresponding status-map updates.
+Astra is auditing an integer flip-difference intertwining criterion read-only;
+Luna is extracting the exact author case table for relation (8') and relation
+(3) from `LLT flip/main.tex`, also read-only. No source, Overleaf, or build-slot
+ownership is delegated. Primary re-read the draft's transport/packet passages
+and original commented sketch; no manuscript changes are being made.

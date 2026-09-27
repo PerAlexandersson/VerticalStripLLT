@@ -142,6 +142,12 @@ blocks). Forests are already settled by the
 of lattice invariants does not itself isolate a component, and neither
 remaining family with undirected cycles is proved here.
 
+The subsequent [exact winding companion](COMPONENT_LATTICE_AGGREGATE.md)
+proves the aggregate identity separately at every blockwise signed-walk
+invariant. Keeping the entire undirected walk relation avoids merging cycle
+subgroups from different blocks into one shared vertical coordinate. This
+semantic refinement still does not isolate individual components.
+
 Related Lean: `Circular/HRV.lean`, `Circular/LiftCover.lean`, and
 `Circular/Flip.lean` fix the selected-edge and actual flip semantics. The
 lattice and cover-compression lemmas above are not yet implemented.

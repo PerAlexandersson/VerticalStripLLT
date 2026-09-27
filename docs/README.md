@@ -51,6 +51,8 @@ notes below each own one argument; process status lives in the handoff.
   ambient diagrams, the balanced-to-ordinary reduction, and StrongSrc.
 - [Winding lattice](proofs/COMPONENT_WINDING_LATTICE.md): invariant cycle data
   and exact reduction of unbalanced components to primitive circular components.
+- [Exact winding aggregate](proofs/COMPONENT_LATTICE_AGGREGATE.md): compatible-edge
+  filtering and finite-poset inversion, with a checked obstruction to component isolation.
 
 ## Component research: auxiliary routes and obstructions
 

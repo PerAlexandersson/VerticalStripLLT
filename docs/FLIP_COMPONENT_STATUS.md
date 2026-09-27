@@ -20,6 +20,7 @@ semantics. A sum over all components does not establish the individual claims.
 | Saturated distance-two band graphs: one entire component at every ascent, hence its HRV formula | Audited mathematical proof | [Adjacent-swap family](proofs/COMPONENT_ACTIVE_CORNERS.md#a-uniform-case-all-maximal-intervals-have-length-two) |
 | Complete circular ambient reduction; compatible lifts identify balanced components with ordinary components | Audited mathematical proofs | [Ambient reductions](proofs/COMPONENT_AMBIENT_REDUCTION.md) |
 | Winding lattice; finite-cover compression identifies unbalanced components with entire primitive circular components | Audited mathematical proofs | [Winding reduction](proofs/COMPONENT_WINDING_LATTICE.md) |
+| Aggregate identity at each exact blockwise signed-walk invariant and ascent | Audited mathematical proof | [Exact winding companion](proofs/COMPONENT_LATTICE_AGGREGATE.md) |
 
 The new prose proofs have not yet been ported to Lean. No conditional
 connectivity statement has been substituted for the component theorem.
@@ -74,9 +75,13 @@ is a flip invariant. Compression of the compatible n·g-periodic cover
 identifies its entire component, with both sums preserved, with a circular
 component whose winding gcd is 1. The [winding reduction](proofs/COMPONENT_WINDING_LATTICE.md)
 therefore reduces the remaining circular problem to these primitive components.
-Their formula remains open. Direct circular active uniqueness is false even
-for a four-vertex tree example. Neither fact is a gap in the **already proved
-aggregate circular theorem**.
+Their formula remains open. The [exact winding companion](proofs/COMPONENT_LATTICE_AGGREGATE.md)
+now refines the aggregate formula to each full signed-walk invariant and
+ascent. This still groups several complete components: the note gives two
+active primitive components with the same invariant, no chain-poset states,
+and different HRV sums. Further component isolation is necessary. These are
+obligations for the component theorem; the aggregate circular theorem remains
+fully proved.
 
 ## Auxiliary route and failed shortcuts
 
