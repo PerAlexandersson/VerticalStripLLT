@@ -27,8 +27,8 @@ library is needed.
 
 ## Source correspondence
 
-The current author draft is
-`/home/paxinum/Dropbox/Apps/Overleaf/LLT flip/main.tex`, SHA256
+The original author snapshot is now archived at
+`/home/paxinum/Dropbox/Apps/Overleaf/LLT flip/archive/2026-09-27-before-finite-proof/main.tex`, SHA256
 `287b5017072d50505f8fa0849c0ecefc52aac6536bb881015ab9cbe1c8611ce0`.
 The target is `thm:circular-e-expansion` (line 1500 in this snapshot).
 
@@ -102,10 +102,11 @@ The two initialization commits remain ancestors, and the ordinary references
 are unchanged. Earlier geometric checkpoints are preserved in Git and the
 archived handoff.
 
-## Separate open claims
+## Subsequent results and manuscript
 
-The flip-component HRV identity remains unproved. E-positivity of the total
-sum does not imply positivity of each component. The existing component
-interfaces and exact target are retained in [CIRCULAR_FLIPS](CIRCULAR_FLIPS.md);
-a complete proof should not be presumed. Weak/strict omega translation is a
-separate representation bridge. Neither is a premise of the aggregate result.
+The flip-component HRV identity was later proved independently; see
+[component completion](COMPONENT_COMPLETION.md). It is not a premise of this
+aggregate recurrence proof. Weak/strict omega translation remains a separate
+representation bridge. The circular-first exposition in the new Overleaf
+`dyck-first.tex` now follows this checked aggregate route; see
+[manuscript synchronization](MANUSCRIPT.md).

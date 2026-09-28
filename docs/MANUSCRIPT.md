@@ -1,10 +1,33 @@
 # Manuscript synchronization
 
+## Separate circular-first draft — 2026-09-28
+
+The user found the previous overhaul difficult to follow and requested a new
+file closer to the original. The new Overleaf entry point is `dyck-first.tex`,
+with `dyck-first.pdf` (12 pages) and source sections in `dyck-first/`. It proves
+the aggregate circular formula first, by unicellular/bounce relations and
+half-square-area/strict-rank induction; contact overlap uses interval reversal.
+Ordinary flip components follow, with the word calculation moved to an appendix.
+Eight diagrams explain the objects and reductions. Existing main/sections and
+the archived original drafts are preserved. `DYCK-FIRST-MAP.md` records exact
+correspondence, including the separate formal source for the root-alias endpoint.
+
+Independent Astra review of the circular proof supplied incorporated corrections
+to periodic HRV transport and overlap geometry. Luna reviewed the historical
+ordinary route: the completed proof is the word/Cauchy/sink argument, not the
+old unfinished component recurrence program. The weak/h consequence is written
+separately via stabilization and the QSym involution. Source references are
+resolved and the external LaTeX build has no warnings. Figures were visually
+inspected. Build artifacts remain in the `manuscript-dyck-first/` request cache.
+No Lean code or build changed. See the current handoff for final review status.
+
+## Previous overhaul — 2026-09-27
+
 The user-authorized proof overhaul is complete in the existing Overleaf project:
 
 `/home/paxinum/Dropbox/Apps/Overleaf/LLT flip/`
 
-The current entry point is `main.tex`; `main.pdf` is the reviewed 20-page preview.
+The previous entry point is `main.tex`; `main.pdf` is the reviewed 20-page preview.
 The original main and v9 drafts, bibliography, editorial audit and old PDF were
 preserved before editing in `archive/2026-09-27-before-finite-proof/`, with a
 verified SHA-256 manifest. The root v9 source and bibliography are unchanged.

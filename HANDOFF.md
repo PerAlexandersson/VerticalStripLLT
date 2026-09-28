@@ -2,11 +2,22 @@
 
 ## Current manuscript
 
-The authorized Overleaf overhaul is complete: a clean 20-page draft, two new
-proof sections and six reusable TikZ proof figures. Original drafts are archived
-and hash-verified. See [manuscript synchronization](docs/MANUSCRIPT.md) for the
-source path, proof correspondence, author preferences, reviews and build checks.
-No Lean source changed; no owned auxiliary or compiler process remains active.
+2026-09-28: completed the user's new separate circular-first draft in Overleaf:
+`/home/paxinum/Dropbox/Apps/Overleaf/LLT flip/dyck-first.tex` and
+`dyck-first.pdf` (12 pages, eight diagrams). The aggregate circular HRV proof
+comes first, by unicellular/bounce relations and half-square-area/strict-rank
+induction, including the column reversal. Ordinary components follow, with
+word algebra in an appendix. The previous main/sections and all original
+archives are preserved. See [manuscript synchronization](docs/MANUSCRIPT.md).
+
+Primary owns the new draft and metadata. Astra reviewed the circular argument;
+Luna reviewed the ordinary argument and its historical route. Corrections and
+notation clarifications are incorporated; assignments are released. The old
+component recurrence outline was never the completed proof. The new ordinary
+section follows the checked word/Cauchy/signed-sink approach.
+`DYCK-FIRST-MAP.md` in Overleaf gives exact source correspondence and review
+boundaries. Clean external LaTeX build, resolved references and visual checks.
+No Lean source or build changed; no account, worktree or supervisor worker changed.
 
 ## Completed result
 
