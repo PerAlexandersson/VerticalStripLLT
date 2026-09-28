@@ -4,7 +4,8 @@
 graphs have one undirected cycle contains a state in which every normal
 edge is a cover, provided all natural corners are strict. This gives a
 structural reason that unicyclic components admit minimal representatives.
-It does not supply the general component reconstruction after NN.
+We also classify the wholly mixed-cyclic components and control two
+families of NN corrections. The general component reconstruction remains open.
 
 We use the ordinary actual flips and the
 [tree-connectivity theorem](COMPONENT_TREE_CONNECTIVITY.md). Every edge
@@ -86,6 +87,166 @@ intervals cannot be exchanged shorts, so marking them strict does not
 change the component. The theorem then says that C contains a state
 whose only possible redundant edge is maximal in that selected envelope.
 
+## Exactly which unicyclic components are wholly mixed-cyclic
+
+Reverse every strict edge, retaining the forward orientation of normal
+edges. We call this the mixed graph of the state.
+
+**Theorem.** A connected ordinary unicyclic component has a directed
+cycle in every mixed graph if and only if one strict corner is redundant
+throughout the component. This corner is unique.
+
+For the nontrivial implication, consider a mixed-cyclic state A. Its
+directed cycle is the unique undirected cycle. Suppose this cycle contains
+at least two strict edges. Every selected edge is then a cover in the
+forward graph. Indeed, a redundant edge and its bypass would form the
+unique cycle; every other edge of that cycle would lie properly inside
+the redundant edge's interval, so none could be a strict corner.
+
+The mixed directed cycle contains both strict and normal edges: the
+former point backward and the latter forward. Choose a transition
+c→a→b where ac is strict and ab normal. Maximality of ac gives a<b<c.
+The actual flip retaining ac and replacing ab by bc is therefore valid.
+In the new unique cycle, bc and the former remaining path from b to c
+both point from b toward c in the mixed orientation. The cycle is no
+longer directed. Thus a wholly mixed-cyclic component cannot contain
+the state under consideration.
+
+Every state of such a component consequently has exactly one strict
+edge on its cycle. All remaining cycle edges form its forward bypass,
+so that strict edge is redundant. The no-change lemma above makes it
+the same edge throughout the component. Conversely, a redundant strict
+corner together with its bypass becomes a directed mixed cycle: all
+bypass edges lie properly inside the corner and are normal. Uniqueness
+follows from the unique undirected cycle.
+
+Deleting the common corner g gives a whole tree component. By
+[forced tree reachability](COMPONENT_TREE_CONNECTIVITY.md), its maximal
+intervals M contain an increasing chain between the endpoints of g.
+Conversely, inserting g into such a tree component gives precisely an
+inactive unicyclic component. We have therefore described all the
+unicyclic components discarded by the mixed-cycle reduction.
+
+## Inactive corners other than the NN corner stay separate
+
+Use the NN setting of
+[the packet theorem](COMPONENT_RECURRENCE_REDUCTION.md): f=ac is strict,
+b=a+1, q=ab, r=bc, and σ exchanges a,b. The NN hypotheses imply that
+every natural edge leaving a or b ends at or before c, and no strict
+edge ends at a or b. We use complete connected unicyclic source components.
+
+**Lemma.** If one endpoint of a packet join is a component inactive at
+a strict corner g≠f, the other endpoint is also inactive at g.
+
+Delete g from a state at the first endpoint. This gives a tree with
+envelope H. Its maximal intervals M contain the forced bypass of g.
+They also contain f. This bypass avoids a,b: at a the only possible
+maximal outgoing interval is f, and at b there is no maximal outgoing
+interval, since all its outgoing intervals lie properly inside f.
+The bypass lies inside g and therefore cannot use f. Neither a nor b
+can be its terminal vertex, by the strict-head hypothesis.
+
+For a middle join or a right mixed join, the selected edges change only
+by σ on the exterior and by changes inside f; f remains selected. Every
+edge of the bypass has both endpoints outside {a,b}, so σ fixes it.
+Since a,b are adjacent, swapping an interval's endpoints by σ does not
+change whether it contains one of these fixed bypass intervals. Added
+edges inside f cannot contain a bypass interval either, since that
+interval was maximal alongside f. Thus the bypass edges remain selected
+and maximal after deleting g at the other endpoint.
+
+A left mixed join has t<a<b<c and retains tb. It can also change ta,
+which lies outside f. This cannot remove a bypass edge, since the bypass
+avoids a. Inserting ta cannot contain a maximal bypass interval either:
+the common selected tb already contains ta. Thus the same conclusion
+holds for the left mixed joins.
+
+The packet invariant preserves connectedness and the unicyclic edge
+count. The retained bypass makes deletion of g a tree again. Its
+maximal intervals still force the bypass, so the whole component at
+the other endpoint is inactive at g, by the tree theorem. This proves
+the lemma for all three kinds of NN join.
+
+Consequently, a packet containing a surviving unicyclic component
+contains no component inactive at any corner other than f. This is a
+statement about arbitrary paths of joins, not just one chosen state.
+
+The lemma does not say that these inactive components are identical.
+For example, take area (0,1,2,3,4,5,6,4,5), strict corners g=06 and
+f=38, and the NN step at 3<4<8. Put
+
+    A = {06,02,26,13,38,35,45,68,78},
+    B = {06,02,26,14,48,35,38,68,78}.
+
+After deleting g, these are trees with maximal intervals respectively
+{02,13,26,38} and {02,14,26,38}. Both contain the forced chain 0→2→6,
+so they belong to inactive-g components. Those components are distinct:
+their deletion-tree envelopes differ. Yet R₀=σA admits the target flip
+45→34 retaining 35, and its result R₁ satisfies B=R₁−34+38. This is
+exactly a first mixed packet join. The conclusion needed above is
+preservation of the inactive corner, not equality of these components.
+
+## Two inactive-f families have controlled neighbors
+
+Let I be inactive at f, and let its deletion-tree envelope have the
+forced maximal chain
+
+    a=x₀ < x₁ < ⋯ < x_k=c.
+
+Suppose this chain contains b. Since b=a+1, we have x₁=b.
+
+If k=2, both q and r are maximal intervals of the deletion envelope,
+so both are selected throughout I. There is no middle join or first
+mixed join incident to I, by their q,r strata. A second mixed join
+would require a target flip exchanging q, with a selected retained
+long interval properly containing q. That interval is also selected
+in the source after deleting f, contradicting maximality of q.
+Thus I is an isolated vertex of the packet graph.
+
+If k>2, q is selected and r absent throughout I: selecting r would
+contradict maximality of the proper intervals on the suffix of the
+chain. Only middle joins can occur. Their other endpoints are the
+states
+
+    A − q + r,       A ∈ I.
+
+This entire family is connected by actual source flips. Every flip in
+I avoids q: no selected long interval other than f contains q, and
+the redundant f cannot support a flip. Deleting q preserves all the
+required cover tests. The remaining fixed chain b→⋯→c makes r
+redundant, so inserting r changes no reachability or cover test for
+the retained edges. Every original flip therefore lifts to its displayed
+image.
+
+Hence all middle joins from I reach the same complete source component.
+This component survives the mixed-cycle reduction. The unique cycle
+in each displayed image consists of r and the normal suffix b→⋯→c;
+all strict edges are bridges. Its mixed graph is acyclic. We have proved
+that I has exactly one neighboring component in the packet graph.
+
+What remains in the inactive-f analysis is the forced chain that skips b.
+Here r is absent throughout, but q can vary. Middle joins and first
+mixed joins must be shown to reach the same surviving component. In
+addition, joins whose two endpoints already survive need an actual
+source-connectivity proof. None of the lemmas above proves that step.
+
+One such right mixed join reduces, by an actual flip, to comparing
+
+    S₀ ∪ T ∪ {ac,ad,bd,bc},
+    S₀ ∪ σT ∪ {ac,ad,bd,bc},       a<b<d<c,
+
+where S₀ consists of the other strict edges. In cycle rank one the
+displayed four-cycle is the unique cycle, and the remaining selected
+edges form trees attached to its vertices. An outgoing branch attachment
+ax, with b<x<c, can be transferred ax→xc→bx, retaining ac and then bc.
+These are actual flips because the attachment remains a bridge and the
+core covers are unchanged. Incoming attachments require more work.
+A selected strict interval containing xa can belong to a different
+attached tree; interval containment alone does not place it in the
+branch containing x. Thus tree connectivity inside that branch does
+not justify the unrestricted exterior swap. We retain this as a
+specific open case.
+
 ## Relation to reconstruction and checks
 
 For a state with reachability P, being minimal among states with the same
@@ -115,3 +276,21 @@ Related Rust: `audit_unicyclic` in the frozen external
 `nn_capacity_repair.rs` consumer. Receipt `unicyclic.jsonl` is under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/deficit-repair/`.
 No Lean or manuscript source is changed.
+
+The later mixed-cycle classification and NN packet lemmas were derived
+by primary and the independent Astra reviewer, who audited the complete
+arguments. A finite check of all 76 eligible NN instances through n=6
+counts 99 connected unicyclic component occurrences: 22 surviving and
+77 wholly mixed-cyclic. The latter are exactly those with a common
+redundant strict corner. All 46 distinct intercomponent joins have an
+inactive-f endpoint and a surviving endpoint in this range. The two
+seven-vertex fixtures area0123434 and area0123343 satisfy the same
+proved predicates. The checks also verify the two neighbor conclusions
+when the forced bypass contains b; the skipped-b case remains a
+conjectural connectivity statement despite these finite successes.
+
+Related Rust: `nn_component_transport.rs`, modes
+`--scan-unicyclic-packets --audit-unicyclic-packet-edges` and the two
+seven-vertex fixture flags. Frozen sources, manifest, lock, commands,
+receipts and hashes are in
+`/lake-cache/ai-projects/requests/VerticalStripLLT/unicyclic-packet/`.

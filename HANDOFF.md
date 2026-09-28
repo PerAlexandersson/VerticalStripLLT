@@ -1,5 +1,61 @@
 # VerticalStripLLT handoff
 
+## Current unicyclic packet checkpoint
+
+2026-09-28, continuation from clean pushed `148cc9c`; previous goal turn
+made proved progress. The general recurrence/diamond component proof is
+still incomplete. Keep the full goal active and preserve the manuscript.
+
+New results in [the unicyclic note](docs/proofs/COMPONENT_UNICYCLIC_REDUNDANCY.md):
+
+- A connected unicyclic component is wholly mixed-cyclic exactly when one
+  strict corner is redundant throughout. A mixed directed cycle with two
+  strict edges has an actual flip breaking it; the no-switch lemma handles
+  the one-strict-edge case. Thus all discarded components are classified
+  by insertion into whole tree components with a forced maximal chain.
+- Across NN joins, inactivity at g different from the distinguished corner
+  f is preserved. The forced chain avoids the adjacent vertices a,b and
+  remains maximal under the swap. LEFT mixed joins also change ta outside
+  f; the common selected long tb shields it. This detail is incorporated
+  following the independent audit. Such vertices cannot lead to a survivor.
+- An inactive-f bypass a→b→c gives an isolated packet vertex. A longer
+  bypass through b gives exactly one neighboring component, which survives.
+  The entire middle image is connected by lifted actual flips.
+- A nine-vertex exact example joins DISTINCT inactive-g components (g≠f).
+  Different deletion envelopes prove they are different whole components.
+  Do not strengthen label preservation to equality of components.
+
+Exact scan: all 76 eligible NN instances through n=6, 99 connected
+unicyclic component occurrences (22 surviving, 77 inactive). The common
+strict-corner classification and proved NN predicates pass. Distinguished
+inactive bypass counts: 27 skip b, 22 have length two through b, 19 are
+longer through b. All 46 distinct intercomponent joins in this bounded
+scan go from inactive-f to surviving; this is NOT a uniform theorem.
+The two n=7 fixtures pass too. The n=9 example is checked locally,
+without enumerating its entire state space; the structural tree theorem
+supplies the whole-component and distinctness conclusions.
+
+Frozen sources, manifest/lock, receipts/logs, commands and 13 hashes:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/unicyclic-packet/`.
+All final jobs finished exit 0. Primary owns the notes/index/handoff and
+external consumer, retaining the sole Lean build slot. Existing Astra
+simpler_component_route supplied the classification and through-b cases,
+audited the other-corner proof, and independently checked the n=9 example.
+All bounded assignments are finished, no delegated edits or live jobs.
+Independent mathematical audit, exact assertions, frozen-file hashes,
+relative documentation links and `git diff --check` pass.
+No new worker/account, Claude call, Lean build, manuscript edit or shared
+Rust source edit. Registry/MCP and Rust capabilities refreshed; Lean MCP
+still targets RealRooted. Existing flip-enumeration API proposal remains.
+
+Next: control the inactive-f forced chain that skips b, and prove source
+connectivity for surviving-to-surviving joins. A right second mixed join
+contains an alternating four-cycle with attached exterior trees; outgoing
+branches can be swapped by two actual flips. Incoming branches can be
+shielded by a strict edge in a DIFFERENT branch, so tree connectivity
+inside one branch does not prove the general swap. Higher cycle ranks,
+DN/DD isolation and complete recurrence coverage remain necessary too.
+
 ## Current global-reassembly checkpoint
 
 2026-09-28, continuation from clean pushed `246345c`. The requested general

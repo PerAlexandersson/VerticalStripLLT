@@ -31,7 +31,8 @@ The component result is the finite strict/e identity on actual complete componen
 - [Closure repair tests](proofs/COMPONENT_CLOSURE_REPAIR_TESTS.md): exact
   component reconstructions and counterexamples to extremal restrictions.
 - [Unicyclic redundancy](proofs/COMPONENT_UNICYCLIC_REDUNDANCY.md): a
-  whole-component tree reduction and a saturation argument using tree connectivity.
+  tree reduction, a classification of mixed-cyclic components, and two
+  proved families of NN whole-component corrections.
 - [Redundancy diamond](proofs/COMPONENT_REDUNDANCY_DIAMOND.md): exact
   union/intersection formulas and a reduction when two cycles exchange redundancy.
 - [Whole-component corrections](proofs/COMPONENT_GLOBAL_REASSEMBLY.md):
