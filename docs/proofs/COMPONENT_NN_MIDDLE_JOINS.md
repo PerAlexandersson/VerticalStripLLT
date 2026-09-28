@@ -141,7 +141,10 @@ cycle avoids both f and r. The existing swap and incoming-bridge
 theorems require the cycle to use at least one of these edges.
 The reductions below narrow this issue further. The subsequent
 [first-join tree comparisons](COMPONENT_NN_FIRST_JOINS.md) also handle
-a least incoming tail and certain covering edges on a remote cycle.
+a least incoming tail and incoming bridges with a strict covering
+container anywhere in the graph. They now settle both first joins for
+mixed-acyclic representatives whose cycle avoids a,b. This does not supply
+those hypotheses at every representative or settle all first joins.
 The DN/DD steps, recurrence coverage and higher cycle ranks also
 remain. The user has made the circular extension optional; the
 current proof target is the ordinary component formula.

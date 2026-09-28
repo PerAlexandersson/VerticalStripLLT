@@ -323,3 +323,60 @@ review, exact commands, receipts and SHA256SUMS are in the request folder.
 retain leftward transitions, incoming transfer, inactive corrections,
 leftmost NN and path-square proofs with their verification boundaries.
 
+
+## Current first-join tree comparisons
+
+2026-09-28, from pushed `77913ae`. The requested combinatorial recurrence
+proof remains active. **Required scope: ordinary components only.** The
+user considers the circular extension optional; locality is not a proof
+of that extension. The existing separate Lean theorem remains intact.
+
+New [first NN joins](docs/proofs/COMPONENT_NN_FIRST_JOINS.md): a tree
+path with fixed exterior lifts whenever the exterior meets the local
+vertices at at most two attachments with no directed path between them.
+This lemma allows arbitrary exterior cycle rank. For connected unicyclic
+first left joins whose cycle avoids a,b, the least selected incoming
+tail makes the two attached trees have the same envelope. More generally,
+adjoin a covering cycle edge incident to the attachment root: the
+remaining cycle path has no directed connection between the two ends.
+Equal envelopes of these enlarged trees then prove the first join.
+The same criterion repairs an incoming bridge away from the cycle.
+
+The n10 nonleast-tail first join and n9 remote-cycle bridge examples
+both satisfy this enlarged-tree criterion. Their original attached-tree
+envelopes differ; after adjoining the strict cycle corner they agree.
+The known inactive example fails precisely because the exterior has a
+directed path across that corner. Survival alone has not been proved
+to provide a suitable covering edge incident to the attachment root.
+
+The preceding [middle-join theorem](docs/proofs/COMPONENT_NN_MIDDLE_JOINS.md)
+settles all middle joins in cycle rank one. General first joins, DN/DD,
+recurrence coverage and higher cycle ranks remain. Do not claim the full
+ordinary component recurrence proof from these partial results.
+
+Verification: exact local searches produced paths of 11 and 10 actual
+flips in the n10 and n9 examples. All 12,109 and 1,665 traversed local
+flip tests agree with the original full diagrams. Correct envelope
+maxima and the inactive failure were checked explicitly. Final Cargo
+command exits0. These finite checks support the general arguments.
+Primary and the existing Astra reviewer independently audited the
+criteria and the final written note. The written audit passed without
+further corrections, including both corrected fixture maxima.
+
+Primary owns the new note/index/handoff/archive and external consumers,
+and retains the sole serialized Lean build slot. Existing Astra
+simpler_component_route completed the bounded read-only, build-free
+written-note audit and released ownership. No new worker/account, Claude process, Lean build,
+maintained Rust edit or manuscript edit. Compiler jobs are terminal.
+
+Frozen sources, exact command, receipts and hashes:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/first-join-tree-lifts/`.
+Maintained Rust HEAD remains d53fb193af3c69adedbd9ec8592f87235d809ffa.
+No polynomial generator was introduced. Existing flip-API integration
+and Lean-MCP routing suggestions remain applicable. Earlier owned Claude
+consultations are terminal; no Claude result is used here.
+
+[Archived preceding checkpoints](docs/archive/component-recurrence-handoff-through-path-square-20260928.md)
+retain general middle joins, left/right transitions, inactive corrections,
+leftmost NN and path-square results with exact verification boundaries.
+

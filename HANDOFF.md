@@ -1,60 +1,75 @@
 # VerticalStripLLT handoff
 
-## Current first-join tree comparisons
+## Current general incoming-bridge checkpoint
 
-2026-09-28, from pushed `77913ae`. The requested combinatorial recurrence
-proof remains active. **Required scope: ordinary components only.** The
-user considers the circular extension optional; locality is not a proof
-of that extension. The existing separate Lean theorem remains intact.
+2026-09-28, from clean pushed `e7ea36e`; preceding turn made verified
+progress. The requested combinatorial recurrence proof remains active.
+**Required scope: ordinary components only.** Circular is optional.
 
-New [first NN joins](docs/proofs/COMPONENT_NN_FIRST_JOINS.md): a tree
-path with fixed exterior lifts whenever the exterior meets the local
-vertices at at most two attachments with no directed path between them.
-This lemma allows arbitrary exterior cycle rank. For connected unicyclic
-first left joins whose cycle avoids a,b, the least selected incoming
-tail makes the two attached trees have the same envelope. More generally,
-adjoin a covering cycle edge incident to the attachment root: the
-remaining cycle path has no directed connection between the two ends.
-Equal envelopes of these enlarged trees then prove the first join.
-The same criterion repairs an incoming bridge away from the cycle.
+Extended [NN tree comparisons](docs/proofs/COMPONENT_NN_FIRST_JOINS.md):
+an incoming bridge ta can be replaced by tb in a connected unicyclic
+saturated NN state selecting f=ac,r=bc and omitting q=ab, when the
+cycle avoids f,r and a selected STRICT COVERING corner contains ta,tb.
+The container may be anywhere: in the same attached tree, on the cycle,
+or in another attached tree. This removes the previous attachment-root
+restriction and the different-tree obstruction for this bridge move.
 
-The n10 nonleast-tail first join and n9 remote-cycle bridge examples
-both satisfy this enlarged-tree criterion. Their original attached-tree
-envelopes differ; after adjoining the strict cycle corner they agree.
-The known inactive example fails precisely because the exterior has a
-directed path across that corner. Survival alone has not been proved
-to provide a suitable covering edge incident to the attachment root.
+Proof: remove a spare cycle extremum and use two-attachment tree lifting.
+Without a spare extremum, normalize a COMMON connector (cycle on t-side)
+or a common core using the prescribed forest M+q. This puts the changed
+attachments behind one bridge. Slide that bridge across a covering cycle
+edge, or expand the cycle through it; the old root becomes available for
+the cut. For a container in another tree, either the same normalization
+points inward, or an endpoint of the container points outward from the
+changed root and inward from its own root. Normalize and move that tree
+instead. If the first stem is the strict container itself, expansion
+puts it on the cycle and reduces to the preceding case.
 
-The preceding [middle-join theorem](docs/proofs/COMPONENT_NN_MIDDLE_JOINS.md)
-settles all middle joins in cycle rank one. General first joins, DN/DD,
-recurrence coverage and higher cycle ranks remain. Do not claim the full
-ordinary component recurrence proof from these partial results.
+The theorem requires a covering container, not merely a strict one.
+Saturation plus mixed acyclicity of the INDIVIDUAL STATE supplies it.
+Together with the earlier cycle-on-f/r result, this proves incoming-bridge
+transfer for any mixed-acyclic connected unicyclic saturated NN state
+selecting f,r and omitting q. Membership in a component with some
+mixed-acyclic representative is not sufficient for that corollary.
+A further audited corollary now gives B∼σB when the unique cycle avoids
+a,b and B is mixed-acyclic: transfer the incoming/outgoing bridges one
+pair at a time. Each endpoint preserves the cycle and mixed acyclicity;
+intermediate macro paths need not do so. Both first NN joins are then
+internal under these same state hypotheses, by two bridge preparations,
+the swap, and a final incoming/outgoing held-edge repair. First joins
+with a cycle meeting a or b as a sink, arbitrary component representatives,
+DN/DD, recurrence coverage and higher ranks remain. Do not claim the full
+component recurrence proof.
 
-Verification: exact local searches produced paths of 11 and 10 actual
-flips in the n10 and n9 examples. All 12,109 and 1,665 traversed local
-flip tests agree with the original full diagrams. Correct envelope
-maxima and the inactive failure were checked explicitly. Final Cargo
-command exits0. These finite checks support the general arguments.
-Primary and the existing Astra reviewer independently audited the
-criteria and the final written note. The written audit passed without
-further corrections, including both corrected fixture maxima.
+Primary and existing Astra simpler_component_route independently audited
+the cycle-corner proof, both common normalization constructions, the
+other-tree argument, full swap/first-join consequences, and final written
+statements. Final audits pass with
+no outstanding correction. All eight exact fixtures pass: local path
+lengths [12,13,10,6,8,14,15,15], with 311,990 local/full actual-flip
+comparisons and strict-corner retention assertions. Seven fixtures also
+check paired preparations of [2,1,1,2,1,1,1] flips per endpoint. Checks
+include a core rooted at c, q normalization, both bridge orientations,
+and a strict containing edge entering the cycle. Final Cargo command
+exits0; these are finite checks supporting the uniform proof.
 
-Primary owns the new note/index/handoff/archive and external consumers,
-and retains the sole serialized Lean build slot. Existing Astra
-simpler_component_route completed the bounded read-only, build-free
-written-note audit and released ownership. No new worker/account, Claude process, Lean build,
-maintained Rust edit or manuscript edit. Compiler jobs are terminal.
+Primary owns the note/index/handoff/archive and external consumer and
+retains the sole serialized Lean build slot. Existing Astra audit is
+complete, read-only/build-free, ownership released. No new worker/account,
+Claude process, Lean build, maintained Rust edit or manuscript edit.
+All owned compiler processes are terminal.
 
-Frozen sources, exact command, receipts and hashes:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/first-join-tree-lifts/`.
-Maintained Rust HEAD remains d53fb193af3c69adedbd9ec8592f87235d809ffa.
-No polynomial generator was introduced. Existing flip-API integration
-and Lean-MCP routing suggestions remain applicable. Earlier owned Claude
-consultations are terminal; no Claude result is used here.
+Sources, commands, audit, receipts and hashes are frozen under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/cycle-path-tree-lifts/`.
+Maintained Rust HEAD remains d53fb193af3c69adedbd9ec8592f87235d809ffa;
+capability guide/metadata/source checks were renewed. No polynomial
+generator was introduced. Runtime registry and `codex mcp list` checked;
+Lean MCP still routes to RealRooted and is unused. Existing API-integration
+and MCP-routing suggestions remain applicable. No Claude result used.
 
 [Archived preceding checkpoints](docs/archive/component-recurrence-handoff-through-path-square-20260928.md)
-retain general middle joins, left/right transitions, inactive corrections,
-leftmost NN and path-square results with exact verification boundaries.
+retain the first tree criteria, general middle joins and earlier results
+with their verification boundaries.
 
 ## Earlier recurrence research
 
@@ -63,7 +78,7 @@ retain the right four-cycle, unicyclic classification and global-reassembly
 proofs and receipts. [Earlier checkpoints](docs/archive/component-recurrence-handoff-through-redundancy-20260928.md)
 retain the NN/DN/DD packet proofs, exact failures of stronger isolation
 claims, direct local reconstructions, and redundancy-diamond results.
-The latest preceding checkpoint is `77913ae`, pushed to `origin/main`.
+The latest preceding checkpoint is `e7ea36e`, pushed to `origin/main`.
 The current proof notes are indexed by [docs/README.md](docs/README.md).
 
 ## Current manuscript

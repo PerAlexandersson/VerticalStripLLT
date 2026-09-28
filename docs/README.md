@@ -56,9 +56,10 @@ The component result is the finite strict/e identity on actual complete componen
 - [General NN middle joins](proofs/COMPONENT_NN_MIDDLE_JOINS.md): three
   forest constructions give an exposing witness and close every active
   middle join in cycle rank one; first mixed joins remain open.
-- [First NN tree comparisons](proofs/COMPONENT_NN_FIRST_JOINS.md): a
-  least incoming tail, or a covering cycle edge incident to the attached
-  tree, gives equal envelopes and an actual path through the full diagram.
+- [NN trees and incoming bridges](proofs/COMPONENT_NN_FIRST_JOINS.md):
+  tree comparisons lift through the full diagram; a strict covering
+  container anywhere gives the incoming-bridge repair, then both first joins
+  for mixed-acyclic representatives whose cycle avoids the adjacent vertices.
 - [Path-square components](proofs/COMPONENT_PATH_SQUARE.md): all edge-count
   components, an explicit elementary formula, and terminal cases of
   arbitrary cycle rank.
