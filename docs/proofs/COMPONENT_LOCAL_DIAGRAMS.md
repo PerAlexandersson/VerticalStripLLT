@@ -6,6 +6,11 @@ The aim is to collect complete smaller components by proving that the
 corrected coefficient is unchanged across each target flip. We retain the
 entire exterior selection throughout each local argument.
 
+The later [direct DN calculation](COMPONENT_DN_DIRECT_OVERLAPS.md) removes
+the balance hypothesis from the five-vertex reduction: unmatched middle
+terms go directly to H10 in the deletion diagram, and both output diagrams
+are checked together. Its two ordered pictures are the current matching task.
+
 ## The two NN pictures
 
 Write a<b=a+1<c, with strict corner ac, and delete ac for the target.

@@ -1,6 +1,41 @@
 # VerticalStripLLT handoff
 
-## Active continuation: local diagrams for component recurrences
+## Current DN result: direct transport, two five-vertex repairs remain
+
+2026-09-28, from clean pushed `30a6e41`. This turn made proved progress.
+The author confirms the direct diagram-matching route and asks us to use
+the extensive existing data to identify the term matching. No cycle-rank
+subdivision, source balance or component isolation is a prerequisite.
+
+New proof: [direct DN overlaps](docs/proofs/COMPONENT_DN_DIRECT_OVERLAPS.md).
+For the original component indicator h, delta=h10-h01, the exact transport is
+
+    X_L(C)=X_R(t)+sum_Q delta(Q) X_H(Q+e+q),   X=K,E,
+    t00=(h00+h01) composed with sigma - h01,
+    t10=t01=h01,        t11=h11.
+
+Here f=wz is deleted in H; e=uw is selected, q=wx selected, r=xz absent.
+If delta is nonzero, f is redundant in L10 and can be deleted directly.
+This removes the old two-term residual and the need to balance h first.
+Both output coefficient vectors are constant across every flip except:
+
+- u<t<w<x<z: target retained ux exchanging ut,tx; target/deletion
+  retained tx exchanging tw,wx.
+- u<w<x<t<z: target/deletion retained wt exchanging wx,xt.
+
+The full exterior is retained. No saturation, connectedness, cycle-rank
+bound or completed component formula is used. Existing Astra reviewer
+independently derived and audited the formulas, both constancy proofs,
+interval bounds, and final written note; no correction remained.
+
+NEXT: use the existing exact data to identify joint target/deletion diamond
+repairs for these two pictures. The classification is proved; the repairs
+and their compatibility are not yet proved. Do not reintroduce source balance
+or hold the deletion coefficients fixed. No new computation, Lean build,
+manuscript edit, worker or account change this turn. Primary retains notes,
+integration and sole build ownership; reviewer is released.
+
+## Earlier diagram and transport context
 
 Latest author steering: the earlier argument used smarter local operations
 than the cycle-rank subdivision. Re-read the archived original main.tex
