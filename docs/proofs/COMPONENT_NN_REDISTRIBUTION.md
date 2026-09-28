@@ -170,6 +170,12 @@ uniform repair of (3) for every component is still missing. The five-state
 calculation above and its [sixteen-case table](COMPONENT_FOUR_EDGE_CASES.md)
 show the complete push, repair and collection in a proved example.
 
+The [tree-sector calculation](COMPONENT_NN_TREE_SECTORS.md) now proves a
+uniform recurrence for the connected source tree component: its image is
+exactly a union of complete smaller forest components, each with coefficient
+one. For an arbitrary source component, every connected target tree component
+selecting r already has a constant coefficient in this initial split.
+
 ## What Rust has checked
 
 We reused the existing Rust cover-flip model, the maintained exact sparse
@@ -215,11 +221,14 @@ numerical specialization. The relation calculations also independently
 certify the expressions from the permitted local identities.
 
 There are 177 source components and 362 deletion-diagram components in that
-six-vertex example. The seven tested source components have full-edge-mask
-seeds 543,575,639,767,1979,1023,2043, in the sorted natural-edge order.
-Only those seven were tested there; no all-component or all-degree assertion
-is made. Source components 31,47,38,50 in the enumerator are the four requiring
-the expanded collection of relations. The earlier restriction to target
+six-vertex example. The initial calculation tested seven source components;
+the complete `--six-all` run now tests all 177. Exactly 173 admit the first
+local construction; the other four are precisely those in the displayed
+table (indices 31,47,38,50). The expanded relations suffice for all four.
+All 177 resulting expressions have integer coefficients, with independent
+exact K and E checks. This is exhaustive for this diagram, not for arbitrary
+diagrams or degrees. The new receipt is `nn-all-components/six-all.jsonl`
+under the external request cache. The earlier restriction to target
 diamonds alone was insufficient for the chosen initial split; this is not
 an obstruction to the author's proposed argument.
 

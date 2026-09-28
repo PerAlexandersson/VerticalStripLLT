@@ -452,3 +452,76 @@ and MCP-routing suggestions remain applicable. No Claude result used.
 retain the first tree criteria, general middle joins and earlier results
 with their verification boundaries.
 
+
+
+## Sink repair checkpoint 4288406
+
+## Current NN sink repair and direct component bookkeeping
+
+2026-09-28, from clean pushed `b343045`; preceding turn made verified
+progress. The combinatorial proof goal remains active, ordinary only.
+**Latest user direction:** push ONE component through the recurrences,
+repair/identify the pieces on the other side, and collect whole smaller
+components. Keep this construction central. Packet isolation is only a
+sufficient alternative, not an extra goal or requirement.
+
+New [sink repair](docs/proofs/COMPONENT_NN_SINK_REPAIR.md) proves B∼σB
+for every connected unicyclic saturated NN state selecting f,r, omitting
+q, whose cycle avoids f,r and meets a or b as a sink. No mixed-acyclicity
+hypothesis is needed for this theorem. Choose a strict container of an
+incoming cycle edge. If it is on the cycle, a suitable cycle minimum
+permits equal-envelope tree comparison replacing a contained incoming
+edge by av. Freeze the f,r,b tree outside to keep q absent. For a corner
+in an attached tree, root normalizations and bridge slides/expansions
+reduce to such a cut. The difficult decreasing-arc loop terminates by
+moving the root one edge towards a. The b-branch macro has a separately
+proved swapped-endpoint connection; do NOT conjugate its interior path.
+The tree-lifting lemma now allows any number of exterior attachments,
+provided there is no directed exterior path between distinct ones.
+
+The [direct NN note](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md) now
+puts the single-component indicator h and its transported coefficients
+back at the center. Both left/right q-exchanging overlaps have
+Δ0=h10(P)−h01(P), Δ1=h01(Q)+h01(P)−(h00+h01)(σQ).
+All q-preserving target flips already have equal initial coefficients.
+The repair must have zero K and E valuation and produce coefficients
+constant across ALL target flips, after which they are whole-component
+coefficients. Local repairs may disturb other boundaries. This is still
+an open uniform construction, not a completed component recurrence.
+
+The sink theorem supplies a needed identification, but it does not by
+itself supply every held-edge repair, every component representative,
+DN/DD, higher ranks or recurrence coverage. Next work should track the
+remaining Δ coefficients for ONE component and repair/collect them;
+avoid turning all possible auxiliary connectivity statements into new
+requirements before doing that bookkeeping.
+
+Primary and existing Astra simpler_component_route independently audited
+the full sink argument, final written proof, and direct coefficient
+section. All final audits passed without an outstanding correction.
+Verification: all76 eligible NN instances n≤6 pass the complete-component
+sink swap check, with counts [2,2]; n7 area0123432 adds [2,2]. The n7
+three-corner fixture has no qualifying states. Three local tree cuts on
+8,11,10 vertices give paths of3,5,5 flips and36,170,341 local/full cover
+comparisons. Every original strict corner is retained; b is omitted from
+local vertices, so the paths stay q-free. These are supporting finite
+checks, not checks of every branch construction. Final Cargo runs exit0.
+
+Primary owns sink/first-join/direct-NN/middle-join notes, index/handoff/
+archive and existing external consumers; sole Lean build slot retained.
+Existing Astra reviewer completed its read-only/build-free assignments
+and released ownership. No new worker/account,
+Claude process, Lean build, shared Rust edit or manuscript edit. All
+owned compiler processes are terminal.
+
+Frozen sources, receipts, commands and hashes:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/sink-recurrence-repair/`.
+Maintained Rust HEAD d53fb193af3c69adedbd9ec8592f87235d809ffa; capability
+checks/metadata renewed. No polynomial generator introduced. MCP list
+rechecked; Lean MCP still routes to RealRooted and is unused. Existing
+API-integration/MCP-routing suggestions remain applicable. No Claude
+result used in this increment.
+
+[Archived checkpoints](docs/archive/component-recurrence-handoff-through-path-square-20260928.md)
+retain general incoming bridges, earlier first joins and middle joins.
+

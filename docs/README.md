@@ -18,6 +18,9 @@ The component result is the finite strict/e identity on actual complete componen
   proved auxiliary reductions; the general component step remains open.
 - [Direct NN redistribution](proofs/COMPONENT_NN_REDISTRIBUTION.md):
   one-component split, a three-diamond worked proof, and exact Rust certificates.
+- [NN tree components](proofs/COMPONENT_NN_TREE_SECTORS.md): the connected
+  tree component maps to complete smaller forest components; selected-r
+  target trees already have constant coefficients for every source component.
 - [NN triangle overlaps](proofs/COMPONENT_NN_OVERLAPS.md): only two flip
   geometries remain; proved local corrections and their compatibility gap.
 - [Left NN transfer](proofs/COMPONENT_NN_LEFT_TRANSFER.md): four diamonds
