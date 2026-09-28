@@ -3,8 +3,9 @@
 2026-09-28. We prove an incoming-edge transfer, including edges on the
 unique cycle, when a suitable containing interval is already selected.
 Primary and Astra independently audited the case split and cover tests.
-The more general saturated NN case with a containing corner uv, u<t,
-remains open when tv is not selected.
+The subsequent [incoming-edge induction](COMPONENT_NN_LEFT_REASSEMBLY.md)
+handles arbitrary containing corners uv in the saturated NN setting when
+the two exchanged incoming edges cover at their respective endpoints.
 
 ## Statement
 

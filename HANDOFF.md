@@ -1,70 +1,82 @@
 # VerticalStripLLT handoff
 
-## Current component recurrence: right NN comparisons proved
+## Current component recurrence: the unicyclic NN step is complete
 
-2026-09-28, continuation from clean pushed `50268ce`. Verified progress;
-the requested combinatorial component-proof goal remains active, ordinary
-only. Push ONE component through the recurrences, repair the pieces, and
-collect complete smaller components with the same K/E coefficients.
+2026-09-28, from clean pushed `f6a5f02`. This turn made verified progress.
+The full requested combinatorial proof remains active, ordinary only.
+Keep the user's construction central: push ONE component through each
+recurrence, repair the pieces, collect complete smaller components with
+identical coloring/HRV coefficients.
 
-New [active swap proof](docs/proofs/COMPONENT_NN_ACTIVE_SWAP.md): in a
-connected unicyclic component active at every strict corner, every state
-selecting f=ac,r=bc and omitting q=ab lies in the same component as its
-adjacent swap (a b). Activity means covering in SOME component state,
-not necessarily in the state under consideration.
+New [left comparison and NN theorem](docs/proofs/COMPONENT_NN_LEFT_REASSEMBLY.md)
+closes the entire connected unicyclic NN step for saturated eligible ordinary
+NN diagrams. For C active at every strict corner, the explicit correction
+wtilde=w_C+sum_I(w_I−1_DI) is constant on EVERY complete target component
+of L-f. Each summand has zero K/E valuation. Consequently
+X(C)=sum_D m_D X(D), X=K,E, with the SAME integers m_D and whole smaller
+components D. If C is inactive at any strict corner g, delete g to get a
+whole tree component. No completed word/component theorem is used.
 
-The new step exposes a redundant remote strict corner g using a prescribed
-forest. Retaining original incident edges alone was insufficient: new
-incoming lifts could change the swapped tree envelope. Replacing each bad
-new sa by sb fixes both envelopes while preserving the reverse quotient
-path. Separate tree-connectivity paths lift after reinserting maximal g.
-The existing cycle-position lemmas then complete the swap.
+The new incoming-edge result is carefully scoped. For ta ON the unique
+cycle, fr selected and q,tb absent, ta→tb is a component identification
+when ta covers initially and tb covers finally. No activity is needed
+for this on-cycle theorem. Actual left target flips supply both covers.
+Proof: selected-tv base; common tree normalization when t meets a–c–b
+at c; paired outgoing flip or swap reduces to a sink at a. If the strict
+container lies in the remaining common tree, normalize to select tv.
+Otherwise move its branch to a; a pair of local flips either puts it in
+that tree or reduces the incoming tail x<t. All new covers are proved.
 
-This proves ALL right first comparisons for the corrected unicyclic NN
-image, without assuming the target r or source f covers. All-strict-active,
-f-inactive, and other-strict-inactive source cases are accounted for.
-The preceding [whole-tree correction](docs/proofs/COMPONENT_NN_UNICYCLIC_REASSEMBLY.md)
-still gives the entire r-absent sector as complete smaller components and
-preserves all q-preserving equalities. Connected selected-r tree sectors,
-disconnected target unicycles and target components inactive at r were
-already settled.
+For a BRIDGE ta, a covering strict container uses earlier bridge lemmas.
+If its strict container g is redundant but active, delete g and use two
+tree envelopes H⊆H′. F=max(H)+fr+ta and F′=F−ta+tb have the same partition
+and contain their respective envelope maxima. A common reverse quotient
+path gives two exposed trees, with g covering in BOTH. Separate tree paths
+lift upon reinserting maximal g. Exposure may put ta on the cycle: the
+new on-cycle theorem handles it. This closes the bridge case for components
+active at all strict corners, and hence the left coefficient comparison.
+The inactive-f/other-inactive cases use the already proved indicator rules.
 
-Remaining at cycle rank one: LEFT first comparisons in selected-r connected
-active target unicycles. A sufficient next lemma transfers an incoming ta
-to tb in an all-strict-active unicycle while restoring every other edge.
-Existing incoming-bridge results cover only part of this claim. Higher
-cycle ranks, DN/DD reassembly and general recurrence coverage remain open.
-The completed word/component HRV theorem is not used in these arguments.
+Remaining: higher cycle ranks, DN/DD reassembly and general recurrence
+coverage. The new result proves a full NN step at cycle rank one, not the
+full requested component HRV proof. Next examine the component images of
+DN/DD and the hypotheses needed to propagate through subsequent diagrams.
+Do not silently assume that all resulting diagrams or components remain
+in the saturated connected setting without the existing reductions.
 
-Verification: all 76 eligible NN instances through six vertices give
-951 full swaps and 511 right comparisons; area (0,1,2,3,4,3,4), corner26,
-adds 435 swaps and 216 right comparisons. Existing whole-image assertions
-also pass. The exact eight-vertex normalized-lift example has two verified
-six-flip tree paths (383 and 164 local/full cover comparisons). Independent
-whole-component BFS connects all four endpoints in 38,433 states with
-107,468 flip edges. These finite checks do not settle the remaining cases.
-All three Rust jobs exited zero. No Lean/manuscript change or build.
+Final checks all passed: all76 eligible NN instances through six vertices
+with93 left/511 right comparisons,8396 middle/33584 state checks; the
+seven-vertex area0123434 at corner26 adds217 left/216 right comparisons,
+16384 middle/65536 state checks. Every full target component has constant
+repaired weight for each all-strict-active connected unicyclic source.
+Exact bridge-exposure fixture: separate1- and5-flip tree paths,2 and64
+local/full cover checks, then a4-flip on-cycle transfer. An8-vertex fixture
+checks the actual reduction of tail2 to0 and both new endpoint covers;
+its preparatory bridge and terminal selected-interval paths each have4
+actual flips. All Rust jobs exited zero and are terminal. No Lean build
+or manuscript change; this new proof is not claimed Lean-formalized.
 
-Primary retains note/index/handoff/archive and external-consumer ownership,
-and the sole serialized Lean build slot. Existing Astra reviewer completed
-both mathematical and written audits; the lift gap and two scope wording
-fixes were resolved, with no outstanding correction. All subagent ownership
-is released. No new worker or account was launched.
+Primary retains note/index/handoff/archive and existing external-consumer
+ownership, plus the sole serialized Lean build slot. Existing Astra reviewer
+independently audited the construction and final written note, checked no
+circular dependency, and released ownership. One citation clarification was
+applied (use the older cycle-uses-fr bridge corollary in that branch).
+No outstanding correction, new worker, account change or Claude child.
 
-The authorized nested Claude consultation returned no written answer before
-its 1200-second bound (exit124). Exact owned processes are confirmed gone;
-no retry or account/model change. It is NOT credited as a successful audit.
-Runtime registry, MCP list and Rust capabilities were checked. Lean MCP
-still routes to RealRooted and is unused. Maintained Rust HEAD remains
-`d53fb193af3c69adedbd9ec8592f87235d809ffa`; existing graph/flip APIs reused,
+Runtime registry, codex mcp list, Rust guide/metadata/source APIs inspected.
+Lean MCP remains rooted in RealRooted and unused. Maintained Rust HEAD:
+`d53fb193af3c69adedbd9ec8592f87235d809ffa`; shared graph/flip APIs reused,
 no maintained Rust edits or polynomial generator. Python only processed
-files, summaries and hashes. Existing integration suggestions apply.
+files, summaries and hashes. Writing-guide skill followed for the proof note.
+Frozen source, exact commands, receipts, independent audit and checked hashes:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/nn-left-transfer/`.
+The restricted simultaneous-preparation search in exploratory receipts fails
+on one bridge example; the proved separate tree paths resolve that example.
 
-Frozen source, receipts, independent audit, consultant terminal status and
-checked hashes:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/nn-active-first-joins/`.
 [Archived checkpoints](docs/archive/component-recurrence-handoff-through-path-square-20260928.md)
-retain the preceding `50268ce` whole-tree correction and earlier increments.
+retain `f6a5f02` (full active swap/right comparison), `50268ce` (whole-tree
+correction), and preceding increments. Current note links supersede the
+old remaining-left statements within their stated scope.
 
 ## Earlier recurrence research
 

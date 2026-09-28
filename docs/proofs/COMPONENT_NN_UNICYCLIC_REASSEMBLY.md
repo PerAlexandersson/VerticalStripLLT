@@ -4,10 +4,12 @@
 repair of its NN image. The repair completes every tree piece where r is
 absent, preserves every q-preserving flip equality, and leaves the already
 complete selected-r tree pieces unchanged. We also complete every target
-unicyclic component inactive at r. Only connected selected-r unicyclic
-target pieces active at r can still have nonconstant coefficients. We have
-not proved their uniform reassembly, so this is not yet the general
-unicyclic component recurrence.
+unicyclic component inactive at r.
+
+The [left comparison](COMPONENT_NN_LEFT_REASSEMBLY.md) completes the remaining
+sector for components active at every strict corner. Combined with deletion
+at any inactive corner, it proves the complete connected unicyclic NN
+reduction. This note supplies the simultaneous correction used there.
 
 ## Setup and the components used in the repair
 
@@ -189,15 +191,12 @@ They already agree across every q-preserving flip. Hence w̃_C is constant
 on the whole component D. This completes the target components inactive
 at r without a new valuation identity or a packet-isolation hypothesis.
 
-The remaining obligation is now the first mixed comparison inside
-connected selected-r target unicyclic components active at r. We have
-not proved that comparison uniformly, nor the higher-rank or DN/DD
-reassembly. The reductions above do not claim that all repaired pieces
-are already complete.
+The only obligation left by these reductions is the first mixed comparison
+inside connected selected-r target unicyclic components active at r.
 
 The subsequent [active-component swap](COMPONENT_NN_ACTIVE_SWAP.md) settles
 every right first comparison after reducing source components inactive at
-a strict corner. Only the left first comparison remains at cycle rank one.
+a strict corner. The [left comparison](COMPONENT_NN_LEFT_REASSEMBLY.md) now completes cycle rank one.
 
 ## Verification and provenance
 

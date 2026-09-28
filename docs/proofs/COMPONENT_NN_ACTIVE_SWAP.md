@@ -2,8 +2,10 @@
 
 2026-09-28. We prove the full adjacent-swap identification for a connected
 unicyclic component active at every strict corner. It settles every right
-first comparison in the repaired NN image. The left comparison, higher
-cycle ranks and the other diagram recurrences remain separate.
+first comparison in the repaired NN image. The
+[left comparison](COMPONENT_NN_LEFT_REASSEMBLY.md) is now proved separately,
+completing connected unicyclic NN reassembly. Higher cycle ranks and the
+other diagram recurrences remain open.
 
 We retain the saturated ordinary NN notation f=ac, b=a+1, q=ab, r=bc,
 and σ=(a b). Other strict corners avoid a,b. A component is active at a
@@ -171,10 +173,9 @@ a component inactive at the same g. Both indicators are then zero.
 Thus the repaired coefficients agree across every right q-changing flip
 between connected selected-r target unicycles. Components inactive at a
 strict corner are already reduced by whole-tree deletion. For the remaining
-source components, only the left first comparison still needs a uniform
-identification. A sufficient remaining lemma would move ta to tb in an
-all-strict-active component while restoring all other edges. The existing
-incoming-bridge theorem covers part, but not all, of that statement.
+source components, the left comparison is proved by the subsequent
+[incoming-edge induction and paired exposure](COMPONENT_NN_LEFT_REASSEMBLY.md).
+Together these comparisons complete the unicyclic NN reassembly.
 
 ## An exact example of the lift correction
 
@@ -208,5 +209,4 @@ checks 951 full swaps and 511 right first comparisons. The seven-vertex
 area (0,1,2,3,4,3,4), at corner 26, adds 435 swaps and 216 right
 comparisons. Component activity is checked separately for each strict
 edge. All assertions pass and the Rust processes exit zero. These checks
-support the independently audited arguments; they do not settle the left
-comparison or higher cycle ranks.
+support the arguments in this note; higher cycle ranks remain open.

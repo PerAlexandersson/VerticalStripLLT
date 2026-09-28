@@ -7,6 +7,10 @@ an auxiliary union of source components. The example and local transport
 below are proved; the uniform reconstruction for arbitrary components
 remains to be found.
 
+The [unicyclic NN theorem](COMPONENT_NN_LEFT_REASSEMBLY.md) now completes
+this construction for connected components of cycle rank one. It combines
+the split below with whole-tree corrections and both overlap repairs.
+
 The [overlap analysis](COMPONENT_NN_OVERLAPS.md) proves that this initial
 image already has constant coefficients across every flip preserving ab.
 Only two overlapping-triangle geometries need further redistribution.

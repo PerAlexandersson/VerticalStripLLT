@@ -11,7 +11,9 @@ first-join isolation remains open.
 The subsequent [active-component swap](COMPONENT_NN_ACTIVE_SWAP.md) uses
 normalized tree extensions to remove the pointwise strict-cover hypothesis
 from the remote swap. It settles right first joins for components active
-at every strict corner. The left held-edge repair remains separate.
+at every strict corner. The [left repair](COMPONENT_NN_LEFT_REASSEMBLY.md)
+is now proved separately,
+completing connected unicyclic NN reassembly.
 
 ## Lifting a tree path through fixed exterior attachments
 

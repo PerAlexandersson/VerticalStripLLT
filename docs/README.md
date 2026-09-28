@@ -21,12 +21,16 @@ The component result is the finite strict/e identity on actual complete componen
 - [NN tree components](proofs/COMPONENT_NN_TREE_SECTORS.md): the connected
   tree component maps to complete smaller forest components; selected-r
   target trees already have constant coefficients for every source component.
+- [Complete unicyclic NN step](proofs/COMPONENT_NN_LEFT_REASSEMBLY.md):
+  the incoming-edge induction and paired exposure finish the left comparison;
+  the repaired image of one component is a sum of whole smaller components
+  with the same coloring/HRV coefficients. Higher ranks and DN/DD remain open.
 - [Unicyclic NN reassembly](proofs/COMPONENT_NN_UNICYCLIC_REASSEMBLY.md):
   one simultaneous repair completes all r-absent pieces and preserves the
-  settled comparisons; only connected target unicycles active at r remain.
+  settled comparisons; the subsequent left comparison completes the proof.
 - [Active-component NN swaps](proofs/COMPONENT_NN_ACTIVE_SWAP.md):
   normalized tree extensions prove the full adjacent swap and settle every
-  right first comparison; the left incoming-edge repair remains.
+  right first comparison, used in the complete unicyclic NN step.
 - [NN triangle overlaps](proofs/COMPONENT_NN_OVERLAPS.md): only two flip
   geometries remain; proved local corrections and their compatibility gap.
 - [Left NN transfer](proofs/COMPONENT_NN_LEFT_TRANSFER.md): four diamonds
@@ -58,7 +62,7 @@ The component result is the finite strict/e identity on actual complete componen
   a selected containing interval suffices, including two bypass repairs.
 - [General NN inactive corrections](proofs/COMPONENT_NN_INACTIVE_CORRECTIONS.md):
   all inactive-corner neighbor cases, redundant middle images, and
-  rightward q-exits. First mixed joins remain open.
+  rightward q-exits, used in the complete unicyclic NN step.
 - [Leftward NN transition](proofs/COMPONENT_LEFT_EXIT.md): containing
   corners, tree normalization and induction on an incoming vertex handle
   a leftward q-exit that exposes the strict corner.

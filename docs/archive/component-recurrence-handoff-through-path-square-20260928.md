@@ -652,3 +652,73 @@ retain the tree recurrence, all177 exact reconstructions, sink repair and
 older first/middle-join scope. The immediately preceding checkpoint is
 `756f850`, pushed to origin/main.
 
+
+
+## Archived checkpoint f6a5f02
+
+## Current component recurrence: right NN comparisons proved
+
+2026-09-28, continuation from clean pushed `50268ce`. Verified progress;
+the requested combinatorial component-proof goal remains active, ordinary
+only. Push ONE component through the recurrences, repair the pieces, and
+collect complete smaller components with the same K/E coefficients.
+
+New [active swap proof](docs/proofs/COMPONENT_NN_ACTIVE_SWAP.md): in a
+connected unicyclic component active at every strict corner, every state
+selecting f=ac,r=bc and omitting q=ab lies in the same component as its
+adjacent swap (a b). Activity means covering in SOME component state,
+not necessarily in the state under consideration.
+
+The new step exposes a redundant remote strict corner g using a prescribed
+forest. Retaining original incident edges alone was insufficient: new
+incoming lifts could change the swapped tree envelope. Replacing each bad
+new sa by sb fixes both envelopes while preserving the reverse quotient
+path. Separate tree-connectivity paths lift after reinserting maximal g.
+The existing cycle-position lemmas then complete the swap.
+
+This proves ALL right first comparisons for the corrected unicyclic NN
+image, without assuming the target r or source f covers. All-strict-active,
+f-inactive, and other-strict-inactive source cases are accounted for.
+The preceding [whole-tree correction](docs/proofs/COMPONENT_NN_UNICYCLIC_REASSEMBLY.md)
+still gives the entire r-absent sector as complete smaller components and
+preserves all q-preserving equalities. Connected selected-r tree sectors,
+disconnected target unicycles and target components inactive at r were
+already settled.
+
+Remaining at cycle rank one: LEFT first comparisons in selected-r connected
+active target unicycles. A sufficient next lemma transfers an incoming ta
+to tb in an all-strict-active unicycle while restoring every other edge.
+Existing incoming-bridge results cover only part of this claim. Higher
+cycle ranks, DN/DD reassembly and general recurrence coverage remain open.
+The completed word/component HRV theorem is not used in these arguments.
+
+Verification: all 76 eligible NN instances through six vertices give
+951 full swaps and 511 right comparisons; area (0,1,2,3,4,3,4), corner26,
+adds 435 swaps and 216 right comparisons. Existing whole-image assertions
+also pass. The exact eight-vertex normalized-lift example has two verified
+six-flip tree paths (383 and 164 local/full cover comparisons). Independent
+whole-component BFS connects all four endpoints in 38,433 states with
+107,468 flip edges. These finite checks do not settle the remaining cases.
+All three Rust jobs exited zero. No Lean/manuscript change or build.
+
+Primary retains note/index/handoff/archive and external-consumer ownership,
+and the sole serialized Lean build slot. Existing Astra reviewer completed
+both mathematical and written audits; the lift gap and two scope wording
+fixes were resolved, with no outstanding correction. All subagent ownership
+is released. No new worker or account was launched.
+
+The authorized nested Claude consultation returned no written answer before
+its 1200-second bound (exit124). Exact owned processes are confirmed gone;
+no retry or account/model change. It is NOT credited as a successful audit.
+Runtime registry, MCP list and Rust capabilities were checked. Lean MCP
+still routes to RealRooted and is unused. Maintained Rust HEAD remains
+`d53fb193af3c69adedbd9ec8592f87235d809ffa`; existing graph/flip APIs reused,
+no maintained Rust edits or polynomial generator. Python only processed
+files, summaries and hashes. Existing integration suggestions apply.
+
+Frozen source, receipts, independent audit, consultant terminal status and
+checked hashes:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/nn-active-first-joins/`.
+[Archived checkpoints](docs/archive/component-recurrence-handoff-through-path-square-20260928.md)
+retain the preceding `50268ce` whole-tree correction and earlier increments.
+
