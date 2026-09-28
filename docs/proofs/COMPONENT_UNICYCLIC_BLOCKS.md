@@ -115,6 +115,41 @@ last state 24 is redundant again. It is never a required cover in the
 table. Thus every row is an actual flip and retains 04. This repairs
 one configuration; a uniform envelope-restoration argument is still needed.
 
+## Restoration for inactive components
+
+The remaining restoration problem can be restricted to surviving
+components. The inactive components admit a direct tree argument.
+
+**Proposition.** Let G be a connected saturated ordinary diagram and
+let f=0r be its corner incident to 0. If a connected unicyclic component
+is inactive at a strict corner g≠f, then it contains a state with 0 a
+leaf and with full remaining envelope G restricted to 1,...,n−1.
+An inactive-f component contains no state with 0 a leaf.
+
+Delete the common redundant edge g. We obtain a whole tree component
+with envelope H, whose maximal intervals M contain f and force a
+directed bypass of g. The graph H is connected and interval-closed,
+so its restriction H′ to 1,...,n−1 is connected. Also f is the only
+edge of M incident to 0.
+
+For r≥2, the edge 1r belongs to H′. The graph
+
+    (M minus {f}) ∪ {1r}
+
+is a forest. Otherwise 1 and r would lie in one increasing M-chain,
+whose edges would be properly contained in the maximal interval f.
+Extend this forest to a spanning tree of H′ and add f. The resulting
+tree has envelope H and has 0 as a leaf. Since g≠f has positive tail,
+its forced maximal-chain bypass avoids 0 and remains selected.
+Reinserting g therefore returns to the original whole component.
+
+The retained corners S minus {f}, together with 1r, generate every
+natural edge of the original diagram after deleting 0. Thus the
+remaining envelope is full. For r=1 we omit the extra edge 1r; the
+same construction with M minus {f} applies. Finally, redundancy of
+f requires a nontrivial path from 0 to r, so it excludes a leaf at 0.
+This proves the proposition. No assumption about articulation is needed.
+
 ## Exact search and scope
 
 The existing actual-flip enumerator checks every saturated ordinary

@@ -14,6 +14,10 @@ endpoints are joined by another directed path. A connected unicyclic
 state has n selected edges on n vertices. Flips preserve connectedness
 and edge count, so the condition holds throughout a component.
 
+The subsequent [leftmost NN theorem](COMPONENT_LEFTMOST_NN_UNICYCLIC.md)
+closes all these joins for a=0 in cycle rank one. Statements below
+about remaining middle/first joins concern general a unless specified.
+
 ## Redundancy cannot move directly to another edge
 
 **Lemma.** A unicyclic state has at most one redundant edge. If two
@@ -267,8 +271,12 @@ middle and first mixed joins remain open. The same note now proves
 full σ-invariance of a q-free state selecting f,r whenever its unique
 cycle contains either edge. In particular the 01 endpoint of every
 nonactual middle join is σ-invariant within its component. This does
-not identify it with the 10 endpoint or supply the attachment change
-required in a first mixed join.
+not identify it with the 10 endpoint. The right held-edge replacement
+is now proved separately in
+[the outgoing-edge transfer](COMPONENT_RIGHT_ARM_TRANSFER.md), including
+on-cycle cases; it does not settle the preceding middle join. The same
+note gives distinct inactive components showing that a general incoming
+replacement is false.
 
 ## Relation to reconstruction and checks
 

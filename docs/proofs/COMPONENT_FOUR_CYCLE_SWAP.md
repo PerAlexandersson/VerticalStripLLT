@@ -8,6 +8,10 @@ the shorter final version. The full
 component recurrence, its other joins and higher cycle
 ranks remain open. No Lean implementation is claimed here.
 
+The subsequent [leftmost NN theorem](COMPONENT_LEFTMOST_NN_UNICYCLIC.md)
+closes all these joins for a=0 in cycle rank one. Statements below
+about remaining middle/first joins concern general a unless specified.
+
 ## Setting and statement
 
 We use a saturated ordinary NN diagram with strict corner f=ac,
@@ -312,6 +316,10 @@ Flipping bd to q in the first state and taking its middle partner
 gives S₀∪σT∪{f,ad,r}. Even if the general swap theorem applies, its
 image is S₀∪T∪{f,bd,r}, with bd where the required endpoint has ad.
 Thus the swap theorem alone does not prove this first mixed join.
+The subsequent [outgoing-edge transfer](COMPONENT_RIGHT_ARM_TRANSFER.md)
+does supply the ad/bd replacement, including when that edge lies on the
+cycle. The preceding middle join and the applicability of the full swap
+remain separate obligations.
 
 There is nevertheless a consequence for every middle join that is not
 an actual flip. Its 10 endpoint has f redundant, since q always covers.

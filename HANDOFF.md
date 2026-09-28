@@ -1,106 +1,63 @@
 # VerticalStripLLT handoff
 
-## Current unicyclic block checkpoint
+## Current leftmost NN checkpoint
 
-2026-09-28, continuation from clean pushed `cd29b7a`. The preceding goal
-turn made proved progress. This increment adds a structural lemma, a
-checked local repair, and exhaustive evidence; it does not complete the
-requested general recurrence/diamond proof.
+2026-09-28, continuation from clean pushed `5ddde49`. The full requested
+recurrence/diamond component proof remains active. This checkpoint proves
+its **leftmost NN step for connected unicyclic components**, not the full
+NN/DN/DD induction or higher cycle ranks. The completed Lean word proof
+remains separate and is not completion of this requested route.
 
-New [unicyclic block note](docs/proofs/COMPONENT_UNICYCLIC_BLOCKS.md):
-contracting strict chains in an articulation-free ordinary natural graph
-creates no loops or articulation. Deleting one chain leaves consecutive
-labels at distance at most two, hence connected. The two-vertex multigraph
-case has parallel edges and is handled explicitly.
+New [leftmost NN proof](docs/proofs/COMPONENT_LEFTMOST_NN_UNICYCLIC.md):
+no packet contains two surviving connected unicyclic components. The
+packet identity therefore writes each surviving component as a sum of
+whole smaller target components minus whole tree corrections, with
+identical coefficients for K and E. The proof connects all middle images
+of one tree envelope by adjacent contraction. Forced reachability extends
+to any prescribed forest containing the maximal intervals. Two explicit
+paths handle the exceptional middle join; inactive-f components have zero
+or one surviving neighbor. Actual target-cover hypotheses justify the
+first join's q-introduction. Delete f to obtain a tree only after assuming
+f redundant; the covering case is handled first.
 
-The stronger uniqueness question remains open: is there at most one
-surviving connected unicyclic component in each natural block? Exact search
-passes every articulation-free saturated diagram on7 and8 vertices:
-42/132 graphs,59881/1280832 connected selected states, one survivor per graph.
-All survivors also contain a leaf-at-0 state with the full remaining
-natural envelope. These finite assertions do not prove either uniform claim.
-The known two-K4 articulation counterexample excludes unrestricted uniqueness.
+New [outgoing transfer](docs/proofs/COMPONENT_RIGHT_ARM_TRANSFER.md):
+B∼B−ad+bd for every connected unicyclic NN state selecting f,r,ad
+and omitting q,bd, b<d<c. Bridge normalization and three explicit cycle
+cases fix every other edge. At a=0 this proves unrestricted q-free σ
+invariance. The incoming analogue is false, with a checked nine-vertex
+counterexample whose distinct inactive components have different tree
+envelopes. The [block note](docs/proofs/COMPONENT_UNICYCLIC_BLOCKS.md)
+also proves full-envelope leaf restoration for components inactive at
+a strict corner other than the leftmost one; survival remains open there.
 
-Two precise obstructions guide the next proof attempt. Contracting the
-smallest cycle vertex can create a redundant strict edge before reaching
-a triangle. Also the tree envelope-augmentation sweep can make its retained
-corner redundant halfway through. A five-flip repair fixes the smallest
-K5 example and restores the smaller envelope. Primary and existing Astra
-independently audited the lemma, examples, repair and final written note.
-A full-envelope smaller component may still be inactive (explicit n4
-example), so an induction must retain its correction rather than discard it.
+Primary and existing Astra simpler_component_route independently audited
+the proofs and final written argument. Reviewer corrections above are
+incorporated. Exact checks pass: 555 outgoing transfers in all 76 eligible
+NN instances through n6, plus two n7 fixtures; all 41 leftmost instances
+through n6; two further n7 leftmost fixtures (no distinct joins); paired
+local paths n5–9; and all 132 articulation-free saturated n8 diagrams for
+the inactive-corner leaf assertion. Final commands all exit0.
 
-Frozen sources/model, Cargo files, commands, receipts and18 hashes:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/unicyclic-blocks/`.
-Final n7/n8 scans and repair finished exit0. An initial n8 run reached its
-200000-state BFS cap only at K8; a bounded1m-cap rerun completed it and the
-final full scan. A compile-only reference-pattern typo was fixed before
-leaf-test execution. Historical logs are labeled; neither error is a
-mathematical counterexample. Documentation links, hashes and diff checks pass.
+Frozen sources/model, manifests, commands and receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/leaf-envelope/`.
+The tool-free Claude leaf-envelope consultation ended at its 20-minute
+cap, exit124, with no final result. No Claude conclusion is adopted.
+Request/stream/status are retained; owned PID42854 is absent. All compiler
+sessions and the existing Astra assignment are terminal.
 
-Primary owns notes/index/handoff and the external consumer; sole serialized
-Lean build slot retained. Astra's bounded read-only assignments are finished,
-and all owned processes are terminal. No new workers/accounts, Claude call,
-Lean build, manuscript edit or maintained Rust edit. Runtime/MCP and Rust
-capabilities refreshed; Lean MCP still targets RealRooted and was unused.
-Existing flip-enumeration API integration proposal remains.
+Primary owns the notes/index/handoff/archive and external consumer, and
+retains the sole serialized Lean build slot. No new worker/account, Lean
+build, manuscript edit or maintained Rust edit. Runtime registry/MCP and
+Rust capabilities were refreshed; Lean MCP still targets RealRooted and
+was unused. The existing flip-enumeration integration proposal remains.
+Verification is mathematical review, exact finite assertions, receipt
+hashes, documentation links and diff checks. No Lean claim is added.
 
-Next: find a uniform repair that restores the smaller envelope after corner
-leaf normalization, or close the remaining first/middle NN joins directly.
-The unicyclic block evidence is a possible isolation route, not a replacement
-for the full goal: higher cycle ranks, DN/DD and recurrence coverage remain.
-
-## Current unicyclic swap checkpoint
-
-2026-09-28, continuation from clean pushed `47a9c13`. This goal turn made
-proved progress. The full recurrence/diamond component proof remains open;
-the completed Lean word proof is not a substitute for the requested route.
-
-[The four-cycle note](docs/proofs/COMPONENT_FOUR_CYCLE_SWAP.md) now proves
-both LEFT and RIGHT second mixed NN joins stay in one connected unicyclic
-source component. The left proof converts to the right core by two flips,
-uses the earlier strict-corner attachment transfer, and undoes the temporary
-moves. Arbitrary attached trees and all original strict corners are retained.
-
-New general theorem: if a connected unicyclic state contains f=ac,r=bc,
-omits q=ab, and its cycle contains either f or r, it is connected by actual
-flips to its full adjacent-swap image. Delete f (or first swap if needed).
-The tree envelope has r maximal; adjoining q to its maximal chains is a
-forest. Normalize toward a tree containing q, stop before its first
-introduction, apply the resulting four-cycle swap, and reverse the swapped
-prefix. This avoids normalizing any q-containing state by conjugation.
-
-Every nonactual middle join has a σ-invariant 01 endpoint. This does NOT
-connect it to the 10 endpoint. A first mixed join still has an additional
-ad/bd or ta/tb attachment discrepancy after the swap; the note displays it.
-Middle/first mixed joins between surviving components, skipped-b inactive-f
-neighbor uniqueness across q=0 pieces, higher cycle ranks, DN/DD isolation,
-and full recurrence coverage remain open. No manuscript replacement.
-
-Checks: left theorem on 24 states in all 76 eligible NN instances through
-n=6, plus 47 and 5 in two n=7 fixtures; two explicit conversion tables.
-General theorem with f on the cycle on 519 states in the same scan, plus
-257 and 72 in the fixtures. All are actual-component assertions, not
-polynomial comparisons. Every final Rust command finished exit 0.
-Historical manifest-path and missing-natural-edge lookup errors are retained
-and identified separately; both were fixed before the successful scans.
-
-Primary and existing Astra simpler_component_route audited the proofs and
-final statements. The authorized tool-free Claude audit finished exit 0
-(native session 40855) and confirmed the longer normal-form argument,
-cover preservation and stopped-prefix conjugation. Primary's shorter
-q-forcing argument received its own independent Astra review. No result
-is attributed to a reviewer who did not inspect that version.
-
-Frozen consumer/source model, Cargo files, commands, receipts, Claude outcome
-and 29 hashes: `/lake-cache/ai-projects/requests/VerticalStripLLT/left-four-cycle/`.
-Primary owns the proof notes, docs index, handoff/archive and external
-consumer, and retains the sole serialized Lean build slot. All bounded
-agent assignments and owned processes are finished. No new worker/account,
-Lean build, manuscript edit or maintained Rust edit. Existing flip API
-integration proposal remains; Lean MCP still targets RealRooted and was unused.
-Mathematical audits, finite assertions, documentation links, frozen receipt
-hashes and `git diff --check` are the checks for this checkpoint.
+Next: extend the recurrence method to leftmost DN/DD and larger cycle
+ranks, or prove a reduction that avoids those cases. General-a incoming
+transfers must not be assumed: the counterexample above excludes them.
+[Archived swap/block checkpoints](docs/archive/component-recurrence-handoff-through-blocks-20260928.md)
+retain the preceding arguments, unresolved routes and evidence.
 
 ## Earlier recurrence research
 
@@ -109,7 +66,7 @@ retain the right four-cycle, unicyclic classification and global-reassembly
 proofs and receipts. [Earlier checkpoints](docs/archive/component-recurrence-handoff-through-redundancy-20260928.md)
 retain the NN/DN/DD packet proofs, exact failures of stronger isolation
 claims, direct local reconstructions, and redundancy-diamond results.
-The latest preceding checkpoint is `cd29b7a`, pushed to `origin/main`.
+The latest preceding checkpoint is `5ddde49`, pushed to `origin/main`.
 The current proof notes are indexed by [docs/README.md](docs/README.md).
 
 ## Current manuscript
