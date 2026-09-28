@@ -1,5 +1,60 @@
 # VerticalStripLLT handoff
 
+## Current overlapping-corner checkpoint
+
+2026-09-28, continuation from clean pushed `6e296bc`. The goal remains
+active: prove general decreasing recurrences with whole-component
+reconstruction and identical coefficients for K and E. The remembered
+sixteen-case example has not been identified; the preceding four-edge
+note gives a new explicit sixteen-row table.
+
+See [overlapping corners](docs/proofs/COMPONENT_OVERLAPPING_CORNERS.md).
+For source area01233 with strict03,14, NN14 reconstructs the two remaining
+connected non-tree, not wholly mixed-cyclic components, of sizes34 and32.
+The first canonical image is already complete. For the second, adding
+`[246]−[181]=0` completes two target components simultaneously, and a
+redundant-edge cancellation gives seven whole components of area01232.
+Both identities extend to arbitrary exterior components meeting the core
+only at0,4 with no exterior undirected path joining them. Astra audited
+the corrections, completeness and exterior extension.
+
+See [closure repair tests](docs/proofs/COMPONENT_CLOSURE_REPAIR_TESTS.md).
+After the source NN split, equal reachability and the single safe NN swap
+suffice to reconstruct all31 source components in five selected fixtures.
+Largest target:32768states,6931classes,2639components. Every certificate
+passes original class-sum checks and exact K/E evaluations. This is finite
+evidence, not a uniform reconstruction theorem. Restricting to components
+containing class-maximal representatives FAILS, even with a joint solve
+retaining all free parameters. The class-minimal restriction also FAILS.
+The note records precise counterexamples. Do not revive either restriction
+as proved, or interpret their failures as failure of full reconstruction.
+The whole-component redundant normal edge addition/deletion lemma is valid
+under its throughout-the-component redundancy hypothesis.
+
+Receipts and frozen sources:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/overlapping-corners/`.
+Use `canonical_pieces.jsonl`, `local_certificates.jsonl`, and the final
+`capacity_minimal_repair.jsonl`; README gives commands/provenance and
+SHA256SUMS.json hashes20files. Intermediate capacity receipts are retained
+and labelled historical. All owned jobs finished exit zero; no live job.
+
+Primary owns the proof notes/index/handoff and external Rust consumers,
+and retains the sole Lean build slot. Existing Astra simpler_component_route
+worked read-only/build-free; its bounded audit of both new notes is complete.
+The requested redundant-edge proof clarification is incorporated.
+Other existing agents are idle with no assigned file edits.
+No new worker/account, Claude process, Lean build, manuscript edit or
+maintained Rust source edit. Runtime registry, MCP list and Rust
+capabilities were checked; Lean MCP still targets the other project.
+Shared Rust HEAD is d53fb193af3c69adedbd9ec8592f87235d809ffa, clean.
+The reusable flip API proposal remains suggestions/flip-enumeration-api.md.
+
+Next: find a uniform construction of the whole-component repair, retaining
+all needed target components. The finite class-incidence solves suggest
+a stronger NN claim using closure and one swap alone, but no solvability
+or integrality theorem is established. DN/DD and general exterior
+compatibility still require proof. Preserve the existing manuscript.
+
 ## Current four-edge reconstruction checkpoint
 
 2026-09-28, continuation from clean `a0019dd`; the previous turn made proved

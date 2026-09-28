@@ -26,6 +26,10 @@ The component result is the finite strict/e identity on actual complete componen
   square criteria and decreasing diamond identities for shared-edge cases.
 - [Four-edge cases](proofs/COMPONENT_FOUR_EDGE_CASES.md): a sixteen-row NN
   table repaired into whole components, and a repair with attached components.
+- [Overlapping corners](proofs/COMPONENT_OVERLAPPING_CORNERS.md): two further
+  component recurrences, with a simultaneous repair and exterior extension.
+- [Closure repair tests](proofs/COMPONENT_CLOSURE_REPAIR_TESTS.md): exact
+  component reconstructions and counterexamples to extremal restrictions.
 - [Component recurrence continuation](proofs/COMPONENT_RECURRENCE_REDUCTION.md):
   ordinary NN and DN packets, known corrections, and the remaining isolation question.
 - [DD component packets](proofs/COMPONENT_DD_PACKETS.md): exact corner sectors
