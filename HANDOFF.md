@@ -1,5 +1,63 @@
 # VerticalStripLLT handoff
 
+## Current four-edge reconstruction checkpoint
+
+2026-09-28, continuation from clean `a0019dd`; the previous turn made proved
+local progress. User clarified again that additional diamonds should repair
+pieces into whole components, and recalled a sixteen-orientation case split.
+The full goal remains active. We have not identified the remembered example.
+
+See [four-edge cases](docs/proofs/COMPONENT_FOUR_EDGE_CASES.md):
+
+- A sixteen-row table, with the remaining edge orientation as exterior data,
+  tracks the canonical NN image of the five-state K4 component. Exactly two
+  target components have nonconstant coefficients. Adding the zero relation
+  `[bcde]−[bce]` completes BOTH; then `[acde]−[ace]` cancels. Thus the
+  original component becomes four complete corner-deletion components.
+- This C5 recurrence holds uniformly with ANY whole exterior component
+  attached only at the maximum vertex: the NN swap fixes that exterior.
+  It includes cyclic exterior components and is independently Astra-audited.
+- Four paired diamonds and the safe internal swap (1 2) reconstruct the
+  eight-state K4 tree component into four whole components. The same proof
+  works with arbitrary exterior components meeting the core only at its
+  ends, provided no exterior path joins those ends. Two outputs disconnect
+  interior vertices; the other two delete the strict corner. These are
+  legitimate vertex/area induction terms, even with exterior cycles.
+- Cartesian products here are products of STATE SETS; valuations are on
+  their unions. No polynomial factorization across articulation is claimed.
+
+The Rust receipts are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/component-reassembly/`.
+`nn_four_bit_pieces.jsonl` checks both valuations exactly, all table entries,
+every repaired target flip, and complete component lists. The C5 extension
+has a 25-state check; the C8 extension includes a 40-state cyclic-exterior
+check and attachment at both endpoints. Sources/receipts are frozen with
+`SHA256SUMS.json`. All jobs finished with exit zero.
+
+A separate bounded complete-graph experiment passes active connected
+component uniqueness through n=7 (1,048,576 states and 34,558 components at
+n=7). This is finite evidence only; it does not prove general component
+closure. `complete_corner_components.jsonl` records its exact scope.
+
+Primary owns the proof notes/index/handoff and external Rust consumers and
+retains the sole Lean build slot. Astra `simpler_component_route` finished
+read-only/build-free audits of both reconstructions and exterior extensions.
+Luna `word_covers` considered only complete-graph root-helper flips; its
+bounded assignment is finished. Its conditional five-flip helper requires
+no exterior paths i→j, j→m or i→m and no exterior edge leaving 0;
+it does not prove general connectivity and is not used in these proofs.
+The exact statement is retained in the external receipt README. No delegated file edits,
+new worker/account, Claude process, Lean build, manuscript edit, or maintained
+Rust source edit. Runtime registry, MCP list, Rust guide/metadata and existing
+APIs were rechecked. The source consumer only widened two helper visibilities
+to reuse its exact valuation code; maintained API integration remains the
+existing proposal in `suggestions/flip-enumeration-api.md`.
+
+Next: use the four-edge table approach for arbitrary exteriors in each
+decreasing recurrence. The proved attached-block classes do not replace
+that requirement. Track whole target coefficient patterns and repair all
+their incident flips together; do not stop at isolated state reductions.
+
 ## Current NN flip-interaction checkpoint
 
 2026-09-28, continuation from clean `06655eb`. The user's full recurrence

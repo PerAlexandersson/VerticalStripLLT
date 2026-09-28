@@ -11,6 +11,10 @@ The [overlap analysis](COMPONENT_NN_OVERLAPS.md) proves that this initial
 image already has constant coefficients across every flip preserving ab.
 Only two overlapping-triangle geometries need further redistribution.
 
+The [four-edge case table](COMPONENT_FOUR_EDGE_CASES.md) gives a shorter
+repair of the canonical image for the five-state example below: one
+redundant-edge equality completes two target components simultaneously.
+
 Write [T] for either the strict-coloring enumerator K(T) or the HRV elementary
 expression E(T). All sums are unweighted. These state valuations depend on
 the full selected relation, not on which selected edges are marked strict.

@@ -24,6 +24,8 @@ The component result is the finite strict/e identity on actual complete componen
   transfer a left difference to a right difference, with explicit remainders.
 - [NN flip interactions](proofs/COMPONENT_NN_FLIP_INTERACTIONS.md): commuting
   square criteria and decreasing diamond identities for shared-edge cases.
+- [Four-edge cases](proofs/COMPONENT_FOUR_EDGE_CASES.md): a sixteen-row NN
+  table repaired into whole components, and a repair with attached components.
 - [Component recurrence continuation](proofs/COMPONENT_RECURRENCE_REDUCTION.md):
   ordinary NN and DN packets, known corrections, and the remaining isolation question.
 - [DD component packets](proofs/COMPONENT_DD_PACKETS.md): exact corner sectors
