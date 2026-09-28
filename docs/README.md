@@ -16,8 +16,12 @@ The component result is the finite strict/e identity on actual complete componen
 - [Ordinary component word proof](proofs/COMPONENT_ORDINARY_PROOF.md).
 - [Alternative diamond proof search](proofs/COMPONENT_AUXILIARY_DIAMONDS.md):
   proved auxiliary reductions; the general component step remains open.
+- [Direct NN redistribution](proofs/COMPONENT_NN_REDISTRIBUTION.md):
+  one-component split, a three-diamond worked proof, and exact Rust certificates.
 - [Component recurrence continuation](proofs/COMPONENT_RECURRENCE_REDUCTION.md):
   ordinary NN and DN packets, known corrections, and the remaining isolation question.
+- [DD component packets](proofs/COMPONENT_DD_PACKETS.md): exact corner sectors
+  and a decreasing ordinary area/moment order; individual redistribution remains open.
 - [Finite circular companion](proofs/COMPONENT_FINITE_COMPANION.md).
 - [Overleaf comparison](proofs/COMPONENT_CIRCULAR_FACE_PROOF.md): direct HRV
   extraction and the alternative bounded-face argument.

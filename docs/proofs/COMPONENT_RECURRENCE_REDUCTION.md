@@ -7,6 +7,16 @@ independent Luna audit. The DN reconstruction was proved in the
 to its unqualified isolation conjecture, a proved invariant of its packets,
 and a more precise remaining question. These are research results toward a
 combinatorial proof; they do not replace the completed manuscript argument.
+The [DD continuation](COMPONENT_DD_PACKETS.md) extends the packet argument
+to eligible ordinary DD steps and supplies a common decreasing measure.
+
+The author's subsequent clarification prioritizes a direct recurrence for
+one component: split its orientations, redistribute with diamonds, and
+reassemble complete smaller components using the same coefficients for K
+and E. Packet isolation below is only a sufficient alternative; it must not
+be imposed as an additional requirement on that direct construction.
+See the [direct NN redistribution](COMPONENT_NN_REDISTRIBUTION.md) for the
+resulting one-component split, a complete example, and exact Rust certificates.
 
 Throughout, K is the strict-coloring enumerator and E is the HRV elementary
 expression. We use ordinary diagrams, so every selected relation is acyclic.
@@ -181,13 +191,23 @@ envelopes differ: C has maximal intervals 03,24,36, while D has 03,36.
 The new target corner 04 contains 24 and removes that distinction. This
 explains why a recurrence using the global envelope can merge them.
 
-## The weak blocks of a DN packet are fixed
+## The weak blocks of NN and DN packets are fixed
 
-For every DN completion class, the weak vertex partition and the number of
+For every NN or DN completion class, the weak vertex partition and the number of
 selected edges in each block are invariant. In particular, the class is
 either connected throughout or disconnected throughout.
 
-To prove this, use the notation u<w<x<z of the DN note and put
+For NN, the middle join replaces the two-edge tree {ac,ab} by {ac,bc}.
+Both connect a,b,c, so adjoining the same exterior preserves the partition
+and edge count in each block. For a mixed target flip R_0(Q)↔R_1(P), these
+three vertices lie in one block at both endpoints, since R_1 contains ab,bc
+and flips preserve weak blocks. L_00(σQ) is the swap of R_0(Q), with a,b in
+one block; L_01(P) replaces {ab,bc} by {ac,bc}. This proves the first mixed
+join. For the second, applying σ to L_01(σQ) gives R_0(Q) with ac added,
+while L_11(P) is R_1(P) with ac added. Both additions contribute one edge
+inside the same block, and σ fixes each block.
+
+For DN, use the notation u<w<x<z of the DN note and put
 U={u,w,x,z}. Actual flips preserve the weak partition and replace one edge
 inside its fixed block. Replacing a connected local graph on U by another
 with the same number of edges also preserves this information after adjoining
@@ -214,8 +234,10 @@ The fixed strict set also makes the normal-edge count in each block invariant.
 
 We may use lexicographic induction on
 
-    (number of vertices, doubled area, ordinary area moment).
+    (number of vertices, number of natural edges, ordinary area moment).
 
+The [DD continuation](COMPONENT_DD_PACKETS.md) proves decrease of this measure
+for NN, DN, DD and corner deletion, including normalization of target envelopes.
 The moment is the one in the DN completion note. Three established
 combinatorial reductions are available before applying a packet equation.
 
@@ -236,8 +258,8 @@ See [the active-corner note](COMPONENT_ACTIVE_CORNERS.md),
 
 After these reductions, every remaining component is connected, has more
 than n-1 selected edges, and contains a state acyclic after reversing the
-strict corners. The DN block invariant shows that the first two reductions
-discard whole DN completion classes. Inside a surviving class, only the
+strict corners. The NN and DN block invariants show that the first two reductions
+discard whole completion classes. Inside a surviving class, only the
 third reduction is needed to remove additional known components.
 
 **Remaining isolation question.** Does each ordinary NN or DN completion
@@ -248,9 +270,10 @@ class indicator, transport it to whole target components, and subtract the
 known source components. Target diagrams decrease the displayed induction
 order. The extra source components stay in the original diagram; their
 identities are already supplied by the preceding reductions or the tree
-theorem. This question concerns the specified eligible NN
-and DN steps; coverage of all diagram reductions, including DD steps, remains
-a further obligation in a complete recurrence proof.
+theorem. The DD continuation gives an analogous sufficient condition for its
+selected corner sector. The direct individual-component redistribution need
+not satisfy these isolation conditions. General reconstruction, coverage by
+eligible reductions, and circular recurrence transport remain unproved.
 
 ## A smaller local DN question
 
@@ -285,6 +308,8 @@ The NN proof was derived by primary and independently audited by Luna in the
 ordinary setting. Astra independently supplied the DN counterexample's short
 certificate, audited all five block-invariance cases, and proved the two
 local lifting lemmas. Primary checked these arguments.
+Luna also independently audited the NN block invariant. The later DD and
+direct individual-component work have separate linked notes and receipts.
 
 Exact complete-state checks, using the previous cover-flip model, give:
 

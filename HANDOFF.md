@@ -2,7 +2,50 @@
 
 ## Active recurrence continuation
 
-2026-09-28: persistent user goal is a combinatorial proof of the component
+2026-09-28, latest user steering: work directly with the existing diagrams.
+Split ONE component by each decreasing recurrence, redistribute with diamonds,
+and collect whole smaller components with the same expression for colorings.
+Use Rust to study the details. Do not impose packet isolation as a necessary
+condition. Primary owns the proof notes/index/handoff and the external Rust
+probe; no shared Rust source, Lean source, or manuscript edits. No Lean build.
+
+New [direct NN note](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md) proves the
+initial split for any component, retaining unmatched middle states in the
+corner-deletion diagram. Its five-orientation example has a short hand proof
+using one source diamond and two smaller-diagram diamonds:
+`X(C)=X(D1)+X(D2)+X(D3)-X(D4)`, simultaneously for K/E. Astra supplied and
+audited the construction; Luna confirmed the local split after clarifying
+that unweighted state valuations ignore strict/normal marking.
+
+Rust reused the existing bounded cover-flip model, maintained exact linear
+algebra, strict P-partition enumeration and HRV APIs. It found direct integral
+expressions for all components of three selected diagrams (3,15,18 components)
+and three selected six-vertex components. Four further six-vertex components
+required additional target diamonds, equal transitive closures and safe
+adjacent relabelings; these have exact rational certificates, hence integral
+certificates after clearing denominators. Every expression was independently
+checked on BOTH symbolic valuations. This is finite evidence and one short
+worked proof, not a uniform reconstruction theorem. The next task is to turn
+the successful diagram redistributions into a general case argument, then
+handle the other decreasing recurrences. Auxiliary J isolation is optional.
+
+Also proved: NN packets preserve weak blocks and edge counts; ordinary DD
+packet transport follows from exact selected/unselected corner sectors.
+The common ordinary measure is `(vertices, raw area sum, area moment)`,
+which handles DD even when doubled decorated area increases. Both Astra
+and Luna audited DD; all 44 eligible saturated DD instances through seven
+vertices passed the refined finite isolation test. See
+`docs/proofs/COMPONENT_DD_PACKETS.md`. Circular transport remains open.
+
+External receipt directory: `recurrence-continuation/`; principal Rust receipt
+`nn_rust_transport_certificates.jsonl`. Source is
+`diamond-exploration/hrv-bridge/src/bin/nn_component_transport.rs`, reusing
+`component_source_probe.rs` (only crate visibility was widened there; prior
+text preserved). Hashes are in `SHA256SUMS.json`. All jobs and both existing
+read-only/build-free agent assignments finished. No new workers/accounts or
+Claude calls. Primary retains the sole serialized Lean build slot.
+
+Earlier increment, 2026-09-28: persistent user goal is a combinatorial proof of the component
 HRV formula. User explicitly prioritizes pushing components through the
 recurrences and points to Abreu--Nigro's increasing forests. Previous turn
 made proved mathematical progress; the goal remains active. Primary owns
