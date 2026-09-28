@@ -1,7 +1,10 @@
 # Completing components before the ordinary DN recurrence
 
 Status: the transport and conditional induction below are proved in prose.
-The active-component isolation assertion is **open**. This note makes the
+The unqualified active-component isolation assertion is **false**: see the
+seven-vertex certificate in [the recurrence continuation](COMPONENT_RECURRENCE_REDUCTION.md).
+After vertex factorization, tree cases, and mixed-cycle corner deletion,
+a refined isolation question remains open. This note makes the
 author's proposed redistribution precise for one ordinary recurrence; it
 does not prove the full component theorem or the primitive circular case.
 
@@ -176,10 +179,11 @@ This proves reconstruction over the integers; negative target multiplicities
 are allowed. In particular, no closed-walk consistency problem remains once
 h is constant on the explicitly defined graph J.
 
-## The remaining companion lemma and its precise consequence
+## The original isolation assertion and its conditional consequence
 
-The outstanding assertion is local to this recurrence, not the auxiliary
-global AU_prime proposal:
+The following original assertion is local to this recurrence, not the
+auxiliary global AU_prime proposal. It is now refuted by the seven-vertex
+example linked above; its conditional implication remains valid.
 
 > **DN completion isolation.** Every connected class of J contains at most
 > one f-active source component.
@@ -208,7 +212,7 @@ This justifies both kinds of smaller diagram in this conditional step.
 It does not supply the other recurrence transports, and this linear moment
 is not asserted to decrease across a wrapping circular DN move.
 
-The isolation assertion is sufficient, and may be stronger than necessary:
+The isolation assertion is sufficient, and is stronger than necessary:
 it uses 0/1 source corrections at one ascent and fixes β=α. A failure would
 leave the more general signed target/deletion transport available. It would
 not refute the component formula or the author's recurrence approach.

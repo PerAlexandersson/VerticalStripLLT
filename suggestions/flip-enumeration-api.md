@@ -25,3 +25,13 @@ but check ordinary versus circular lifted covers explicitly. The maintained
 `sym-poly/sym/tests/circular_hrv.rs` tests aggregate comparisons, not complete
 flip-component formulas. The missing maintained boundary is still the circular
 cover/flip/component enumerator and exact per-component comparison.
+
+The 2026-09-28 recurrence search now also needs an export of complete flip
+graphs and source/target component IDs for NN and DN moves. Include the small
+counterexamples in `docs/proofs/COMPONENT_RECURRENCE_REDUCTION.md` when testing
+that API: a correct graph enumerator must reproduce the unpruned collisions
+as well as the corrected packet multiplicities. The current external probe
+deduplicates diamond rows by linear list search, which limits larger scans;
+use keyed edge/row sets in the maintained implementation. This remains a
+proposal requiring Rust ownership coordination, not an instruction to build
+another local enumeration engine.

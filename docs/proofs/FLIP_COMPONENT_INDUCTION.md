@@ -5,6 +5,11 @@ route; see [the completion audit](../COMPONENT_COMPLETION.md). Open-status
 sentences below record this earlier approach. Its additional auxiliary
 claims are not automatically proved by the completed theorem.
 
+The [2026-09-28 recurrence continuation](COMPONENT_RECURRENCE_REDUCTION.md)
+proves ordinary NN packet reconstruction and refutes the original unqualified
+DN isolation condition. The refined question removes components already
+handled by vertex factorization, tree cases, and corner deletion.
+
 Status: the author's minimum-area realization and the signed transport
 criteria below are proved mathematical lemmas, not Lean declarations.
 The [ordinary component proof](COMPONENT_ORDINARY_PROOF.md) now proves the

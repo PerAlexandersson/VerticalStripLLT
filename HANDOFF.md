@@ -1,5 +1,38 @@
 # VerticalStripLLT handoff
 
+## Active recurrence continuation
+
+2026-09-28: persistent user goal is a combinatorial proof of the component
+HRV formula. User explicitly prioritizes pushing components through the
+recurrences and points to Abreu--Nigro's increasing forests. Previous turn
+made proved mathematical progress; the goal remains active. Primary owns
+recurrence research notes and all builds (none planned). Existing Astra
+`simpler_component_route` completed its DN transport audit; existing Luna
+`word_covers` audited the Abreu--Nigro comparison and ordinary NN proof and
+is finishing a prose audit. Both are read-only/build-free. No new workers,
+account changes or Claude calls. This continuation began at clean `e24da4a`.
+
+Primary now owns `docs/proofs/COMPONENT_RECURRENCE_REDUCTION.md`, the linked
+status corrections in `DN_COMPONENT_COMPLETION.md` and
+`FLIP_COMPONENT_INDUCTION.md`, and the documentation index. Proved ordinary
+NN reconstruction gives identical K/E recurrences in whole component packets.
+The old DN one-active-component condition is false at n=7; the short exact
+certificate and its repair by known reductions are recorded. NN has analogous
+raw collisions at n=6. DN packets preserve weak vertex blocks and edge counts
+in each block. After factoring disconnected states, tree cases and mixed-cycle
+corner deletion, refined isolation passes all eligible saturated NN instances
+through n=6 and DN through n=7. This remains a conjectural all-degree step.
+NN class indicators actually map to indicators of unions of whole target
+components: the source packet and target union have an explicit orientation
+bijection, with semantic equality supplied by paired diamonds. The remaining
+global isolation claim is still unproved. A concrete DN subproblem is lifting
+the exceptional target-long ux rotation with connected mixed-acyclic source
+endpoints and all actual target-cover hypotheses retained. DD coverage and
+circular recurrence transport are also not completed. No builds or manuscript
+changes. External receipts: `recurrence-continuation/`, with `SHA256SUMS.json`.
+The user goal remains active; this turn made mathematical and diagnostic
+progress, rather than merely restating the earlier obstruction.
+
 ## Ordinary diamond-proof search: latest result
 
 2026-09-28: user requests a more accessible general component proof using the
