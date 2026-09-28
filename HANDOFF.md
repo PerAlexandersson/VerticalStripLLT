@@ -1,5 +1,33 @@
 # VerticalStripLLT handoff
 
+## Author steering: keep the proof local
+
+The author says the current approach is overcomplicated. Return to the
+original diagram argument: split one component through a recurrence, use
+local diamonds to repair the pieces, and identify whole smaller components.
+Use the existing exact data to find the term matching. Do not make a new
+coefficient-graph formalism or a universal source-addition theorem a required
+intermediate goal. Source additions are one useful repair, not the only one.
+The actual unfinished obligation remains the local matching with arbitrary
+exterior, followed by the other recurrences and readable diagrams.
+
+Continuation from pushed `6c88ada` made a bounded observation before this
+steering: at a fixed selected-edge count every direct constancy equation
+reduces to a pair equality. The existing Astra reviewer audited the argument:
+non00 target comparisons are pairs; target00-preserving comparisons follow
+10; at a00/01 exit only one of the two source-count brackets is supported;
+H q-preserving comparisons are automatic and q-exits impose one pair.
+The resulting component-closure diagnostic passed all44 nondeletable
+components in the four n5--6 fixtures, including exact K/E and deletion
+completeness checks. This is auxiliary evidence, not the preferred exposition
+or a completed arbitrary-exterior proof. A separate probe found that the
+FIRST mixed bracket also need not follow from H/non00 comparisons alone:
+area011234 failures(49,23),(99,31). Do not assume either bracket independently.
+Logs and source snapshot: external `dn-mixed-comparisons/` receipt directory.
+All jobs are terminal exit0; existing reviewer released. Primary retains
+source/note ownership and sole Lean build slot. No new worker/account,
+Lean build or manuscript edit. Goal remains active.
+
 ## Current DN progress: source additions and dependent comparisons
 
 2026-09-28, from pushed `cbd469a`. The preceding reply was status-only;
