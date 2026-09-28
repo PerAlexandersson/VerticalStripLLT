@@ -1,36 +1,29 @@
-# Moving one outgoing edge in a unicyclic NN state
+# Moving one outgoing edge in an ordinary unicyclic state
 
-2026-09-28. We prove an actual-flip repair for the right first mixed NN
-join. It changes one outgoing edge and fixes every other selected edge.
-The preceding middle-component comparison remains open; this lemma alone
-is not a whole-component recurrence. Primary and Astra independently
-audited the proof and its local cover tests.
-
-The subsequent [leftmost NN theorem](COMPONENT_LEFTMOST_NN_UNICYCLIC.md)
-closes all these joins for a=0 in cycle rank one. Statements below
-about remaining middle/first joins concern general a unless specified.
+2026-09-28. We prove an actual-flip repair that changes one outgoing
+edge and fixes every other selected edge. The theorem applies to any
+ordinary interval-closed diagram; it does not need NN eligibility,
+saturation, or a strict retained long edge. Primary and Astra independently
+audited the local proof and all cover tests. Its application to
+[first mixed NN joins](COMPONENT_LEFTMOST_NN_UNICYCLIC.md) is given below.
 
 ## Statement and strategy
 
-We retain the saturated ordinary NN hypotheses and notation from
-[the packet theorem](COMPONENT_RECURRENCE_REDUCTION.md): f=ac is strict,
-b=a+1, r=bc, q=ab, and σ exchanges a,b.
+Let G be an ordinary interval-closed natural graph, with any allowed
+set of strict corners. Selected edges point forward in the vertex order.
+Write a<b=a+1<d<c and put f=ac, r=bc, q=ab.
 
 **Theorem.** Let B be a connected unicyclic selected state containing
-f,r,ad and omitting q,bd, where b<d<c. Then B and B−ad+bd belong
-to the same actual flip component.
+f,r,ad and omitting q,bd. Then B and B−ad+bd belong to the same actual
+flip component. The path retains f,r and fixes every other selected
+edge at its endpoints.
 
 We separate the case where ad is a bridge from the case where it lies
-on the unique cycle. In the latter case, the only obstructions to the
-two moves through c are directed bypasses of the displayed edges.
-We repair those bypasses explicitly.
-
-Every edge exchanged in the displayed local moves and sweeps lies
-properly inside f or r, so it is natural and not strict. The tree
-normalization used in the bridge case retains strict corners by its
-separate connectivity argument. A tree attached to the displayed cycle at one
-vertex cannot alter its cover tests. Such trees remain attached while
-their roots move, and all original strict edges are retained.
+on the unique cycle. Every exchanged edge lies properly inside f,
+so it is natural and cannot be a strict corner. An attached component
+meeting the displayed part in one vertex cannot alter its cover tests:
+a simple path cannot enter that component and return to the same vertex.
+Thus all other selected and strict edges may be retained.
 
 ## When ad is a bridge
 
@@ -39,28 +32,34 @@ If f and r both cover, use
     ad → dc, retaining f;
     dc → bd, retaining r.
 
-These moves only transfer the component attached by ad from a to b.
-The retained edges keep their cover status.
+These moves transfer the component attached by ad from a to b. This
+attached component may contain the unique cycle; the two bridge moves
+are still actual and do not change the cover status of f or r.
 
-Otherwise f or r lies on the unique cycle. Remove the tree attached
-by ad, leaving a connected unicycle containing f,r and omitting q.
-Use the q-free normalization in
-[the four-cycle note](COMPONENT_FOUR_CYCLE_SWAP.md) to reach a left or
-right four-cycle. If the cycle initially uses r, apply that construction
-after exchanging a,b and then exchange them back. The normalization
-retains f,r and has no state containing q.
+Otherwise exactly one of f,r is redundant. The unique cycle contains
+that edge and its directed bypass. The other edge is a bridge:
+a bypass of f cannot visit b, since a,b are adjacent and q is absent;
+a bypass of r cannot visit a. The component attached by ad is now a
+tree and contains no bypass vertex.
 
-This use needs only the normalizing path, not the full adjacent-swap
-theorem. The path remains valid on the reduced vertex set: a,b are
-still adjacent, f is still maximal, and all remaining strict edges
-remain maximal. Its construction does not require the restricted
-diagram to be saturated.
+Suppose first that f is redundant. Write its bypass as
 
-Lift the path with the removed tree still attached at a. At the
-four-cycle all core edges cover, so the two displayed moves transfer
-that tree to b. Undo the normalization. The tree, now attached only
-at b, cannot change any reversed cover test. All other edges return
-to their initial positions, proving the bridge case.
+    a→x₀→x₁→...→xₖ=c,       b<x₀.
+
+For i=k−1,...,0, replace xᵢxᵢ₊₁ by bxᵢ, retaining bxᵢ₊₁.
+The first retained edge is r. The first move breaks the bypass of f;
+afterwards every edge of the remaining cycle covers. We reach the
+four-cycle {f,r,ax₀,bx₀}, with the other bypass vertices attached at b.
+If r was redundant instead, sweep its bypass in the same way using
+a in place of b and initially retaining f. This reaches the same
+kind of four-cycle. Both sweeps stay inside f and retain every exterior
+edge; no tree normalization or NN symmetry is involved.
+
+At the four-cycle all core edges cover. Transfer the tree attached
+by ad from a to b by the two displayed flips, then undo the sweep.
+The transferred tree is attached only at b and does not affect the
+reversed cover tests. Every other edge returns to its original position,
+proving the bridge case.
 
 ## When ad lies on the unique cycle
 
@@ -142,7 +141,9 @@ prove the theorem.
 
 ## What this resolves in the first mixed join
 
-For a right target flip, put Q=T∪{ad,bd} and P=T∪{ad}. The first
+We now impose the eligible NN hypotheses from
+[the packet theorem](COMPONENT_RECURRENCE_REDUCTION.md), with strict f
+and adjacent swap σ=(a b). For a right target flip, put Q=T∪{ad,bd} and P=T∪{ad}. The first
 mixed source join compares
 
     S₀∪σT∪{f,ad,bd},       S₀∪T∪{f,ad,r}.
@@ -183,7 +184,7 @@ structural counterexample, not a failure of the component HRV formula.
 
 ## Verification
 
-The right transfer passes exact actual-component checks in all 76
+The original NN specialization passes exact actual-component checks in all 76
 eligible NN instances through six vertices: 555 transfers, including
 371 whose moved edge lies on the cycle. The two seven-vertex fixtures
 area0123434 and area0123343 give 224 and 66 transfers, including 128
@@ -198,3 +199,12 @@ and `right_arm_paths.rs`, reusing the existing cover/flip and component model.
 Frozen sources, commands, receipts and hashes are under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/leaf-envelope/`.
 No maintained Rust source, Lean build or manuscript change is involved.
+
+The stronger statement is also checked on all ordinary natural graphs
+through seven vertices, for every connected unicyclic selection and every
+selected retained f, whether or not f is maximal or strict. This includes
+unsaturated envelopes and diagrams without an eligible NN step. The
+consumer checks endpoint membership in the entire actual component.
+Related Rust: external `adjacent_transfer_general.rs`; frozen source,
+commands and final receipts are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/adjacent-transfer/`.

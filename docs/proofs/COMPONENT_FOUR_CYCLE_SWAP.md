@@ -278,6 +278,40 @@ of f,r.
 Indeed, σA is another valid source state with f,r selected and q absent.
 The cycle of σA contains f, so the theorem applied to σA gives the claim.
 
+## Transferring a single incoming bridge
+
+**Corollary.** Under the saturated NN hypotheses, let A be a connected
+unicyclic selected state containing f,r and omitting q. Suppose its unique cycle uses f or r, and ta is a selected
+bridge with t<a and tb absent. Then A∼A−ta+tb, with every other edge
+restored at the endpoint.
+
+Let X be the tree attached by ta. It contains none of a,b,c, since
+f,r connect these vertices without ta. Remove X only while constructing
+the q-free normalizing prefix of the preceding theorem on the remaining
+graph. That prefix retains the remaining strict edges and does not need
+saturation on the restricted vertex set. If the cycle uses r, apply
+the same construction after the adjacent swap and swap the prefix back.
+
+Lift the prefix with X still attached at a. Every original strict edge
+is retained, including any containing corner belonging to X. At the
+resulting four-cycle, apply the single-branch transfer proved above
+in the full original saturated diagram. This transfers X from a to b,
+including the case where its containing corner lies inside X. Finally
+undo the original prefix with X attached at b. A tree attached at one
+vertex cannot affect the reversed cover tests. The claimed endpoint
+follows.
+
+Exact checks of the proposed extension, allowing the incoming edge to
+lie on the cycle, pass 64 transfers through six vertices, including
+49 on-cycle cases. This finite evidence does not prove that extension.
+The seven-vertex shield fixture supplies an additional check; its receipt
+and the frozen consumer are in the external `adjacent-transfer/` directory.
+
+This does not cover an incoming edge on the cycle. The condition on
+the cycle cannot simply be omitted: the incoming-edge counterexample
+in [the transfer note](COMPONENT_RIGHT_ARM_TRANSFER.md) has its cycle
+at another strict corner and lies in two distinct components.
+
 ## Application to the NN packet joins
 
 For a right target flip, write its exterior states as

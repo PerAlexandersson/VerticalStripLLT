@@ -40,11 +40,14 @@ The component result is the finite strict/e identity on actual complete componen
   strict-chain contraction, a five-flip envelope repair, and finite
   evidence for the unresolved uniqueness question without articulation.
 - [Moving one outgoing edge](proofs/COMPONENT_RIGHT_ARM_TRANSFER.md):
-  a uniform unicyclic repair for the right held edge, with explicit
-  bypass sweeps and an incoming-edge counterexample.
+  an ordinary unicyclic repair requiring no NN eligibility or strict
+  retained edge, with bypass sweeps and an incoming-edge counterexample.
 - [Leftmost unicyclic NN recurrence](proofs/COMPONENT_LEFTMOST_NN_UNICYCLIC.md):
   packet isolation and a signed recurrence in whole smaller components,
   valid simultaneously for the coloring and HRV sums.
+- [Path-square components](proofs/COMPONENT_PATH_SQUARE.md): all edge-count
+  components, an explicit elementary formula, and terminal cases of
+  arbitrary cycle rank.
 - [Redundancy diamond](proofs/COMPONENT_REDUNDANCY_DIAMOND.md): exact
   union/intersection formulas and a reduction when two cycles exchange redundancy.
 - [Whole-component corrections](proofs/COMPONENT_GLOBAL_REASSEMBLY.md):
