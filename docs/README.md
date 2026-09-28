@@ -45,6 +45,11 @@ The component result is the finite strict/e identity on actual complete componen
 - [Leftmost unicyclic NN recurrence](proofs/COMPONENT_LEFTMOST_NN_UNICYCLIC.md):
   packet isolation and a signed recurrence in whole smaller components,
   valid simultaneously for the coloring and HRV sums.
+- [Incoming-edge repairs](proofs/COMPONENT_INCOMING_EDGE_TRANSFER.md):
+  a selected containing interval suffices, including two bypass repairs.
+- [General NN inactive corrections](proofs/COMPONENT_NN_INACTIVE_CORRECTIONS.md):
+  all inactive-corner neighbor cases, redundant middle images, and
+  rightward q-exits. Active-component joins remain open.
 - [Path-square components](proofs/COMPONENT_PATH_SQUARE.md): all edge-count
   components, an explicit elementary formula, and terminal cases of
   arbitrary cycle rank.

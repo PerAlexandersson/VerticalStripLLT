@@ -1,126 +1,68 @@
 # VerticalStripLLT handoff
 
-## Current general transfer and terminal-family checkpoint
+## Current incoming-transfer and inactive-correction checkpoint
 
-2026-09-28, continuation from clean pushed `8bb43ca`; the previous goal
-turn made proved progress. The requested full combinatorial recurrence
-proof remains active. This increment strengthens a local move, proves a
-new incoming-bridge case, and identifies terminal families of arbitrary
-rank. It does not close the general NN/DN/DD or circular recurrence proof.
+2026-09-28, continuation from clean pushed `e750bd9`; preceding goal turn
+made proved progress. The requested general combinatorial component proof
+remains active and incomplete. No Lean or manuscript work in this increment.
 
-[Outgoing transfer](docs/proofs/COMPONENT_RIGHT_ARM_TRANSFER.md) now holds
-for ANY ordinary connected unicyclic selected state with ac,bc,ad selected,
-ab,bd absent, a<b=a+1<d<c. The retained ac need not be maximal or strict;
-NN geometry and saturation are unnecessary. A backward bypass sweep
-replaces the old tree-normalization bridge argument. Every exchanged
-edge lies inside selected ac and cannot be strict. In the covering-bridge
-case the attached component may contain the cycle, so we do not call it
-a tree. All other endpoint edges are restored.
+New [incoming transfer](docs/proofs/COMPONENT_INCOMING_EDGE_TRANSFER.md):
+if t<a<b=a+1<v<c, A selects f=ac,r=bc,ta,tv, omits q=ab,tb, and
+its connected unicyclic graph has its cycle on f or r, then ta→tb
+is achievable with every other edge restored. Four cases: bv selected;
+plain three-stage transfer; break a t→b bypass by tx→xv; break a
+b→v bypass by bx→xc. Restore the bypass only after moving the incoming
+edge. This local theorem needs neither saturation nor NN eligibility.
+A containing corner uv with u<t does NOT supply selected tv; that
+remaining case must not be assumed solved.
 
-[Incoming bridge corollary](docs/proofs/COMPONENT_FOUR_CYCLE_SWAP.md):
-in saturated eligible NN, if the cycle uses f or r, a bridge ta may
-be moved to tb with every other edge restored. Normalize the remaining
-cycle while lifting with the attached tree, apply the four-cycle branch
-transfer in the full diagram, then undo. A containing strict corner
-inside that tree remains present throughout. Incoming edges ON the cycle
-remain open; 64 exact tests through n6 (49 on-cycle) and the n7 shield
-fixture pass, but are not a proof. The n9 counterexample still excludes
-incoming transfer without the condition on the cycle.
+New [general NN corrections](docs/proofs/COMPONENT_NN_INACTIVE_CORRECTIONS.md):
+for EVERY eligible saturated NN position, each inactive-f connected
+unicyclic component is isolated or has exactly one surviving neighbor.
+The skipped-b case is now proved. All redundant-f middle images of one
+fixed tree envelope connect: first transfer incoming BRIDGES, then
+outgoing edges, and apply tree connectivity after contracting q.
+Incoming edges are bridges because their cycle is inside [a,c]. First
+left joins therefore use the already-proved bridge lemma, not the still
+open unrestricted incoming transfer. Inactive vertices cannot connect
+two different survivors through a packet path; direct active joins remain.
 
-[Path-square terminal family](docs/proofs/COMPONENT_PATH_SQUARE.md):
-for area(0,1,2,...,2), all selections with k adjacent normal edges form
-one complete component, via 10↔01 moves. Aggregate coefficient extraction
-proves its HRV formula; a direct fiber count gives an explicit elementary
-expansion. The component survives iff k≤floor(n/2), and for k≥1 has
-cycle rank k−1. This supplies surviving terminal cases of unbounded rank.
-It also disproves automatic leftmost NN eligibility after reversal and
-articulation: the strict terminal gap fails (2<2), while boundary equality
-actually holds. The eligible DD triple is the terminal translate, not
-necessarily 02,13,24. The family is solved, not an unresolved counterexample.
+The same note proves every RIGHT q-exit that first makes f cover connects
+the original middle pair. The previous d<e paths extend to any a. For
+e<d, a seven-stage path (two outgoing-transfer macros) restores every
+edge. A q-preserving first-cover transition also lifts. Neither statement
+handles arbitrary runs of q-free states or the left q-exit, so general
+f-active middle/first isolation remains open. DN/DD, recurrence coverage,
+higher ranks and the full circular route also remain part of the goal.
 
-Primary and existing Astra simpler_component_route independently audited
-the mathematics and final notes. Exact transfer checks enumerate every
-ordinary natural graph through n7 and all connected unicyclic selections,
-including nonsaturated envelopes and nonmaximal retained edges. At n7:
-429 graphs,381430 states,10609 component occurrences,96554 transfers.
-All path-square components for n3–12 also pass. Final commands exit0.
+Primary and existing Astra simpler_component_route audited all statements
+and final written proofs. Reviewer corrections incorporated: require
+Env(T)=H explicitly; retained ad covers while redundant f does not, hence
+d<c before applying the unique-cycle argument. No result attributed to
+Claude in this increment; the previous timed-out call had no adopted result.
 
-Frozen sources/model, Cargo files, commands, independent review, receipts
-and hashes: `/lake-cache/ai-projects/requests/VerticalStripLLT/adjacent-transfer/`.
-Primary owns notes/index/handoff and external consumers, retaining the
-sole serialized Lean build slot. All owned processes and bounded reviewer
-assignments are terminal. No new worker/account, Claude process, Lean build,
-manuscript or maintained Rust edit. Runtime/MCP and Rust capability checks
-were refreshed; Lean MCP remains rooted in RealRooted and unused. Existing
-flip-enumeration API integration proposal remains. Previous timed-out Claude
-call is recorded in the preceding checkpoint; no conclusion was adopted.
+Checks: four selected-tv cases appear 19/36/1/1 times through n6 and
+20/57/4/0 in the n7 shield fixture; all nonmacro flips checked directly,
+outgoing macros checked against whole-component membership. General NN
+inactive families through all 76 n≤6 instances: skipped-b27, length-two22,
+longer-through-b19; n7 shield adds one skipped-b component. Every required
+neighbor assertion passes. Expanded e<d paths n5–9 use11–19 actual flips.
+Final commands exit0; no failed mathematical assertion or compiler run.
 
-Next: prove the incoming ON-cycle transfer under the NN f/r-cycle condition,
-or close the DN/DD joins directly. A general-a middle-image contraction
-would need incoming transfers and cannot silently use the false unrestricted
-statement. Leftmost NN alone has no proved coverage theorem. Uniform leaf
-envelope restoration in surviving unicyclic components is still open.
-The full objective includes higher ranks and cannot be replaced by these
-terminal cases or the already completed Lean word proof.
+Frozen sources/model, Cargo files, exact commands, review, receipts and
+hashes: `/lake-cache/ai-projects/requests/VerticalStripLLT/incoming-transfer/`.
+Primary owns notes/index/handoff/archive and the external consumers;
+sole serialized Lean build slot retained. All owned processes and bounded
+agent assignments are terminal. No new worker/account, Claude process,
+Lean build, manuscript edit or maintained Rust edit. Existing Rust API
+integration suggestion and Lean-MCP/RealRooted routing limitation remain.
 
-## Current leftmost NN checkpoint
-
-2026-09-28, continuation from clean pushed `5ddde49`. The full requested
-recurrence/diamond component proof remains active. This checkpoint proves
-its **leftmost NN step for connected unicyclic components**, not the full
-NN/DN/DD induction or higher cycle ranks. The completed Lean word proof
-remains separate and is not completion of this requested route.
-
-New [leftmost NN proof](docs/proofs/COMPONENT_LEFTMOST_NN_UNICYCLIC.md):
-no packet contains two surviving connected unicyclic components. The
-packet identity therefore writes each surviving component as a sum of
-whole smaller target components minus whole tree corrections, with
-identical coefficients for K and E. The proof connects all middle images
-of one tree envelope by adjacent contraction. Forced reachability extends
-to any prescribed forest containing the maximal intervals. Two explicit
-paths handle the exceptional middle join; inactive-f components have zero
-or one surviving neighbor. Actual target-cover hypotheses justify the
-first join's q-introduction. Delete f to obtain a tree only after assuming
-f redundant; the covering case is handled first.
-
-New [outgoing transfer](docs/proofs/COMPONENT_RIGHT_ARM_TRANSFER.md):
-B∼B−ad+bd for every connected unicyclic NN state selecting f,r,ad
-and omitting q,bd, b<d<c. Bridge normalization and three explicit cycle
-cases fix every other edge. At a=0 this proves unrestricted q-free σ
-invariance. The incoming analogue is false, with a checked nine-vertex
-counterexample whose distinct inactive components have different tree
-envelopes. The [block note](docs/proofs/COMPONENT_UNICYCLIC_BLOCKS.md)
-also proves full-envelope leaf restoration for components inactive at
-a strict corner other than the leftmost one; survival remains open there.
-
-Primary and existing Astra simpler_component_route independently audited
-the proofs and final written argument. Reviewer corrections above are
-incorporated. Exact checks pass: 555 outgoing transfers in all 76 eligible
-NN instances through n6, plus two n7 fixtures; all 41 leftmost instances
-through n6; two further n7 leftmost fixtures (no distinct joins); paired
-local paths n5–9; and all 132 articulation-free saturated n8 diagrams for
-the inactive-corner leaf assertion. Final commands all exit0.
-
-Frozen sources/model, manifests, commands and receipts:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/leaf-envelope/`.
-The tool-free Claude leaf-envelope consultation ended at its 20-minute
-cap, exit124, with no final result. No Claude conclusion is adopted.
-Request/stream/status are retained; owned PID42854 is absent. All compiler
-sessions and the existing Astra assignment are terminal.
-
-Primary owns the notes/index/handoff/archive and external consumer, and
-retains the sole serialized Lean build slot. No new worker/account, Lean
-build, manuscript edit or maintained Rust edit. Runtime registry/MCP and
-Rust capabilities were refreshed; Lean MCP still targets RealRooted and
-was unused. The existing flip-enumeration integration proposal remains.
-Verification is mathematical review, exact finite assertions, receipt
-hashes, documentation links and diff checks. No Lean claim is added.
-
-Next: extend the recurrence method to leftmost DN/DD and larger cycle
-ranks, or prove a reduction that avoids those cases. General-a incoming
-transfers must not be assumed: the counterexample above excludes them.
-[Archived swap/block checkpoints](docs/archive/component-recurrence-handoff-through-blocks-20260928.md)
-retain the preceding arguments, unresolved routes and evidence.
+Next: handle incoming on-cycle edges without selected tv, or left q-exits
+and longer q-free paths in active-middle comparison. The all-inactive
+correction theorem now separates that issue cleanly. Do not infer a
+complete proof from the solved path-square family or the Lean word proof.
+[Archived leftmost and transfer checkpoints](docs/archive/component-recurrence-handoff-through-path-square-20260928.md)
+retain the preceding proofs, review boundaries and finite receipts.
 
 ## Earlier recurrence research
 
@@ -129,7 +71,7 @@ retain the right four-cycle, unicyclic classification and global-reassembly
 proofs and receipts. [Earlier checkpoints](docs/archive/component-recurrence-handoff-through-redundancy-20260928.md)
 retain the NN/DN/DD packet proofs, exact failures of stronger isolation
 claims, direct local reconstructions, and redundancy-diamond results.
-The latest preceding checkpoint is `5ddde49`, pushed to `origin/main`.
+The latest preceding checkpoint is `e750bd9`, pushed to `origin/main`.
 The current proof notes are indexed by [docs/README.md](docs/README.md).
 
 ## Current manuscript

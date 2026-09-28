@@ -18,6 +18,12 @@ The subsequent [leftmost NN theorem](COMPONENT_LEFTMOST_NN_UNICYCLIC.md)
 closes all these joins for a=0 in cycle rank one. Statements below
 about remaining middle/first joins concern general a unless specified.
 
+The later [general NN correction theorem](COMPONENT_NN_INACTIVE_CORRECTIONS.md)
+closes the skipped-b inactive-f case for every eligible NN position.
+Each inactive-f component is isolated or has one surviving neighbor.
+The historical unresolved statements below are superseded in that scope;
+f-active middle and first joins remain open in general.
+
 ## Redundancy cannot move directly to another edge
 
 **Lemma.** A unicyclic state has at most one redundant edge. If two

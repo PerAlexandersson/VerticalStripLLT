@@ -7,6 +7,10 @@ components, with the same coefficients for the coloring and HRV sums.
 Primary and the independent Astra reviewer audited the argument.
 The DN/DD steps and higher cycle ranks remain open for this proof route.
 
+The later [inactive-correction theorem](COMPONENT_NN_INACTIVE_CORRECTIONS.md)
+extends the inactive-f part to arbitrary eligible NN positions. Full
+packet isolation proved here remains restricted to the leftmost case.
+
 ## Setting and conclusion
 
 We retain all saturated ordinary NN hypotheses from

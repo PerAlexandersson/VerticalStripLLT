@@ -307,7 +307,11 @@ lie on the cycle, pass 64 transfers through six vertices, including
 The seven-vertex shield fixture supplies an additional check; its receipt
 and the frozen consumer are in the external `adjacent-transfer/` directory.
 
-This does not cover an incoming edge on the cycle. The condition on
+The subsequent [selected-interval transfer](COMPONENT_INCOMING_EDGE_TRANSFER.md)
+also covers an incoming edge on the cycle when tv is selected for some
+b<v<c. It needs two additional directed-bypass repairs.
+
+The bridge corollary by itself does not cover an incoming edge on the cycle. The condition on
 the cycle cannot simply be omitted: the incoming-edge counterexample
 in [the transfer note](COMPONENT_RIGHT_ARM_TRANSFER.md) has its cycle
 at another strict corner and lies in two distinct components.
