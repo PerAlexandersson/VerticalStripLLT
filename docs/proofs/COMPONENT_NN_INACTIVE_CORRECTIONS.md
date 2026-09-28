@@ -8,6 +8,11 @@ The later [middle-join theorem](COMPONENT_NN_MIDDLE_JOINS.md) settles
 f-active middle joins. First mixed joins remain a separate obligation.
 Primary and the existing Astra reviewer independently audited the proofs.
 
+The subsequent [direct reassembly](COMPONENT_NN_UNICYCLIC_REASSEMBLY.md)
+uses these identifications to repair one component's coefficients at once.
+It completes the r-absent target sector without disturbing any
+q-preserving comparison, and also settles target components inactive at r.
+
 ## Connecting redundant middle images
 
 We retain the full saturated ordinary NN hypotheses and notation from

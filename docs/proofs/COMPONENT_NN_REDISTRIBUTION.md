@@ -176,6 +176,14 @@ exactly a union of complete smaller forest components, each with coefficient
 one. For an arbitrary source component, every connected target tree component
 selecting r already has a constant coefficient in this initial split.
 
+For a connected unicyclic source component, the
+[simultaneous inactive-corner repair](COMPONENT_NN_UNICYCLIC_REASSEMBLY.md)
+completes every r-absent piece and preserves all q-preserving equalities.
+The selected-r tree and disconnected sectors are already whole; target
+components inactive at r are now proved whole too. Only connected target
+unicyclic components active at r can still require repair. This does not
+settle the remaining first mixed comparisons or higher cycle ranks.
+
 ## What Rust has checked
 
 We reused the existing Rust cover-flip model, the maintained exact sparse

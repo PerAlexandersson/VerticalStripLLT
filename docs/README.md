@@ -21,6 +21,9 @@ The component result is the finite strict/e identity on actual complete componen
 - [NN tree components](proofs/COMPONENT_NN_TREE_SECTORS.md): the connected
   tree component maps to complete smaller forest components; selected-r
   target trees already have constant coefficients for every source component.
+- [Unicyclic NN reassembly](proofs/COMPONENT_NN_UNICYCLIC_REASSEMBLY.md):
+  one simultaneous repair completes all r-absent pieces and preserves the
+  settled comparisons; only connected target unicycles active at r remain.
 - [NN triangle overlaps](proofs/COMPONENT_NN_OVERLAPS.md): only two flip
   geometries remain; proved local corrections and their compatibility gap.
 - [Left NN transfer](proofs/COMPONENT_NN_LEFT_TRANSFER.md): four diamonds

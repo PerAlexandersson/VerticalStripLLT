@@ -525,3 +525,63 @@ result used in this increment.
 [Archived checkpoints](docs/archive/component-recurrence-handoff-through-path-square-20260928.md)
 retain general incoming bridges, earlier first joins and middle joins.
 
+
+
+## Tree-sector checkpoint 756f850
+
+## Current direct NN component recurrence
+
+2026-09-28, continuing from clean pushed `4288406`. This turn made verified
+progress; the combinatorial proof goal remains active, ordinary only.
+The user's requested construction remains central: push ONE component
+through the recurrence, repair the image, and collect whole smaller
+components. Do not replace this with a packet-isolation requirement.
+
+New [NN tree-sector proof](docs/proofs/COMPONENT_NN_TREE_SECTORS.md):
+for the unique connected source tree component of a saturated ordinary NN
+instance, the canonical image is exactly the union of (i) all connected
+D0 tree components selecting r and (ii) all two-component spanning forest
+components selecting r and separating a,c. Every coefficient is one.
+The indicator calculation excludes all nonforest outputs. The output
+conditions are flip-invariant, so this is a COMPLETE component recurrence
+for the tree case, with identical coefficients for K and E.
+
+For ANY source component C, every connected target tree component D
+selecting r already has coefficient 1_{C=C_tree}+1_{C=C_D}, where C_D
+contains T+f for T in D. This follows from tree connectivity, maximal-f
+flip lifting and the previously proved cycle-uses-f adjacent swap.
+It eliminates this entire target sector from the repair problem.
+Neither proof uses the previously formalized component HRV formula.
+
+The full six-vertex reconstruction now tests ALL177 source components in
+area012343, strict04,25, NN25. Exactly173 admit the first local system;
+the four already identified require the expanded permitted relations.
+All177 have integral whole-D0-component expressions, independently checked
+with exact strict P-partition K and HRV E valuations. This finite result is
+not a proof for arbitrary diagrams. The general cyclic-component repair,
+r-absent target trees, DN/DD and recurrence coverage remain open.
+
+Verification of the new formulas: all76 eligible NN instances through n=6,
+3647 source components, 555547 selected-r target tree comparisons; all30528
+entries of the full vectors for29 source tree components, collecting into
+131 complete output components. The separate six-vertex fixture yields5
+output components for C_tree. All Cargo processes finished exit0.
+Primary and existing Astra simpler_component_route independently derived
+and audited both statements, including the final written proof; no open
+correction, reviewer ownership released. Its initial fixed-relay obstruction
+on area01233 was withdrawn because actual component coefficients have no
+such defect. Do not treat arbitrary coefficient defects as realized ones.
+
+Primary owns the notes/index/handoff/archive and existing external consumer;
+sole Lean build slot retained. No new worker/account, Claude child, Lean
+build, maintained Rust edit or manuscript edit. All owned native jobs terminal.
+Rust capability guide/source search and metadata renewed, maintained HEAD
+still d53fb193af3c69adedbd9ec8592f87235d809ffa. No polynomial generator added;
+Python used only for receipt/file processing. Existing API/MCP suggestions
+remain applicable. No unavailable MCP fallback or Claude result this turn.
+
+Frozen sources, receipts, commands, independent review and checked hashes:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/nn-all-components/`.
+[Archived checkpoints](docs/archive/component-recurrence-handoff-through-path-square-20260928.md)
+retain sink repair, incoming bridges, first/middle joins and exact scope.
+

@@ -113,7 +113,10 @@ connects T+f to σ(T+f) by actual source flips. Hence the second indicator
 is precisely 1_{C=C_D}. This proves (3). ∎
 
 This assertion concerns target trees selecting r. Target trees omitting
-r, as well as targets with cycles, still require their own bookkeeping.
+r, as well as targets with cycles, require separate bookkeeping. For a
+connected unicyclic source, the subsequent
+[simultaneous repair](COMPONENT_NN_UNICYCLIC_REASSEMBLY.md) completes the
+r-absent sector and the target components inactive at r.
 
 ## Checks and provenance
 

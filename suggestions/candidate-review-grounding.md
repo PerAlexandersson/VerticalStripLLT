@@ -10,3 +10,11 @@ status before making a repair. A compiled theorem can still have a wrong
 statement, so compilation supplements rather than replaces semantic review.
 
 This is a workflow proposal, not a change to agent policy.
+
+For recurrence proof search, also require an actual source component before
+treating a coefficient pattern as an obstruction. A proposed NN relay failure
+on an eleven-state target tree component disappeared once its coefficients
+were computed from source-component indicators. An arbitrary assignment of
+piece weights need not occur in the recurrence. Record the diagram, corner,
+source component and nonzero boundary coefficients before investigating such
+a proposed obstruction; then seek a uniform repair for the realized pattern.

@@ -1,60 +1,67 @@
 # VerticalStripLLT handoff
 
-## Current direct NN component recurrence
+## Current direct unicyclic NN reassembly
 
-2026-09-28, continuing from clean pushed `4288406`. This turn made verified
-progress; the combinatorial proof goal remains active, ordinary only.
-The user's requested construction remains central: push ONE component
-through the recurrence, repair the image, and collect whole smaller
-components. Do not replace this with a packet-isolation requirement.
+2026-09-28, from clean pushed `756f850`. This turn made verified progress;
+the combinatorial component-proof goal remains active, ordinary only.
+Keep the user's requested construction central: push ONE component through
+the recurrences, repair the pieces, collect complete smaller components.
+Do not impose packet isolation as an extra requirement.
 
-New [NN tree-sector proof](docs/proofs/COMPONENT_NN_TREE_SECTORS.md):
-for the unique connected source tree component of a saturated ordinary NN
-instance, the canonical image is exactly the union of (i) all connected
-D0 tree components selecting r and (ii) all two-component spanning forest
-components selecting r and separating a,c. Every coefficient is one.
-The indicator calculation excludes all nonforest outputs. The output
-conditions are flip-invariant, so this is a COMPLETE component recurrence
-for the tree case, with identical coefficients for K and E.
+New [unicyclic reassembly](docs/proofs/COMPONENT_NN_UNICYCLIC_REASSEMBLY.md)
+proves a uniform repair for every f-active connected unicyclic source C.
+For each adjacent f-inactive I, its deletion D_I is a whole target tree
+component. Add the zero K/E vector w_I−1_{D_I} to the canonical image w_C.
+The summed source indicator h=1_C+sum1_I has h10=h01 globally. Thus the
+ENTIRE r-absent image is exactly −sum1_{D_I}, complete smaller components.
+All q-preserving equalities survive globally. This is a whole-piece
+compatible repair, not an isolated diamond adjustment.
 
-For ANY source component C, every connected target tree component D
-selecting r already has coefficient 1_{C=C_tree}+1_{C=C_D}, where C_D
-contains T+f for T in D. This follows from tree connectivity, maximal-f
-flip lifting and the previously proved cycle-uses-f adjacent swap.
-It eliminates this entire target sector from the repair problem.
-Neither proof uses the previously formalized component HRV formula.
+Explicitly, w_I−1_{D_I}=sum over q-absent T in D_I of
+(1_{sigma(T+f)}−1_T). Each difference has zero K/E separately. This recovers
+the single redundancy repair in the four-vertex sixteen-case table.
+Selected-r connected tree coefficients are unchanged and already constant.
+Disconnected target unicycles separate a from b,c; q is absent throughout
+their complete component, so all comparisons there were already settled.
 
-The full six-vertex reconstruction now tests ALL177 source components in
-area012343, strict04,25, NN25. Exactly173 admit the first local system;
-the four already identified require the expanded permitted relations.
-All177 have integral whole-D0-component expressions, independently checked
-with exact strict P-partition K and HRV E valuations. This finite result is
-not a proof for arbitrary diagrams. The general cyclic-component repair,
-r-absent target trees, DN/DD and recurrence coverage remain open.
+Also proved: every connected target unicyclic component inactive at r is
+whole after this repair. Its forced maximal b-to-c chain becomes a maximal
+a-to-c chain under sigma. The source bottom endpoint therefore lies in a
+WHOLE f-inactive component; the other endpoint has f as a bridge. The
+unique-neighbor theorem identifies their indicators. This uses the known
+first-join statement for inactive source components, not packet isolation.
 
-Verification of the new formulas: all76 eligible NN instances through n=6,
-3647 source components, 555547 selected-r target tree comparisons; all30528
-entries of the full vectors for29 source tree components, collecting into
-131 complete output components. The separate six-vertex fixture yields5
-output components for C_tree. All Cargo processes finished exit0.
-Primary and existing Astra simpler_component_route independently derived
-and audited both statements, including the final written proof; no open
-correction, reviewer ownership released. Its initial fixed-relay obstruction
-on area01233 was withdrawn because actual component coefficients have no
-such defect. Do not treat arbitrary coefficient defects as realized ones.
+Remaining possible discrepancies for connected unicyclic sources are now
+ONLY first mixed comparisons within connected selected-r target unicyclic
+components active at r. This still needs a uniform argument. Higher cycle
+ranks, DN/DD individual reassembly and recurrence coverage remain open.
+No use of the completed word/component HRV theorem in these new proofs.
 
-Primary owns the notes/index/handoff/archive and existing external consumer;
-sole Lean build slot retained. No new worker/account, Claude child, Lean
-build, maintained Rust edit or manuscript edit. All owned native jobs terminal.
-Rust capability guide/source search and metadata renewed, maintained HEAD
-still d53fb193af3c69adedbd9ec8592f87235d809ffa. No polynomial generator added;
-Python used only for receipt/file processing. Existing API/MCP suggestions
-remain applicable. No unavailable MCP fallback or Claude result this turn.
+Final exact checks: all76 eligible NN instances through six vertices,
+31 f-active sources,46 inactive corrections,8396 middle comparisons,
+33584 state coefficients,28 inactive-r target comparisons. The seven-vertex
+area0123434 at corner26 adds2 sources,1 correction,16384 middle checks,
+65536 states,2 inactive-r comparisons. No remaining coefficient defect in
+these finite fixtures. All163+65 individual relocations pass independent
+exact K and E valuation checks. This does not prove arbitrary active-r
+reassembly. All final Cargo processes exited0 and are terminal.
 
-Frozen sources, receipts, commands, independent review and checked hashes:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/nn-all-components/`.
+Primary owns notes/index/handoff/archive and the existing external consumer;
+sole serialized Lean build slot retained. Existing Astra simpler_component_route
+independently audited every step and the final written note; one wording fix
+applied, no open correction, ownership released. No new worker/account,
+Claude child, maintained Rust edit, Lean build or manuscript edit.
+Runtime tools/MCP rechecked; Lean MCP still routes to RealRooted and is unused.
+Maintained Rust HEAD d53fb193af3c69adedbd9ec8592f87235d809ffa. Existing graph,
+exact algebra, strict P-partition and HRV APIs reused; no polynomial generator.
+Python only processed files/receipts. Existing integration suggestions apply.
+
+Frozen sources, final receipts, independent audit and checked hashes:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/nn-inactive-reassembly/`.
 [Archived checkpoints](docs/archive/component-recurrence-handoff-through-path-square-20260928.md)
-retain sink repair, incoming bridges, first/middle joins and exact scope.
+retain the tree recurrence, all177 exact reconstructions, sink repair and
+older first/middle-join scope. The immediately preceding checkpoint is
+`756f850`, pushed to origin/main.
 
 ## Earlier recurrence research
 
@@ -63,7 +70,7 @@ retain the right four-cycle, unicyclic classification and global-reassembly
 proofs and receipts. [Earlier checkpoints](docs/archive/component-recurrence-handoff-through-redundancy-20260928.md)
 retain the NN/DN/DD packet proofs, exact failures of stronger isolation
 claims, direct local reconstructions, and redundancy-diamond results.
-The latest preceding checkpoint is `4288406`, pushed to `origin/main`.
+The tree-sector checkpoint is `756f850`, pushed to `origin/main`.
 The current proof notes are indexed by [docs/README.md](docs/README.md).
 
 ## Current manuscript
