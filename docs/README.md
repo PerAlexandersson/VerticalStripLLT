@@ -22,6 +22,8 @@ The component result is the finite strict/e identity on actual complete componen
   geometries remain; proved local corrections and their compatibility gap.
 - [Left NN transfer](proofs/COMPONENT_NN_LEFT_TRANSFER.md): four diamonds
   transfer a left difference to a right difference, with explicit remainders.
+- [NN flip interactions](proofs/COMPONENT_NN_FLIP_INTERACTIONS.md): commuting
+  square criteria and decreasing diamond identities for shared-edge cases.
 - [Component recurrence continuation](proofs/COMPONENT_RECURRENCE_REDUCTION.md):
   ordinary NN and DN packets, known corrections, and the remaining isolation question.
 - [DD component packets](proofs/COMPONENT_DD_PACKETS.md): exact corner sectors

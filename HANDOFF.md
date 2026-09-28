@@ -1,5 +1,49 @@
 # VerticalStripLLT handoff
 
+## Current NN flip-interaction checkpoint
+
+2026-09-28, continuation from clean `06655eb`. The user's full recurrence
+proof goal remains active. We have proved local progress, not whole-component
+closure. See [NN flip interactions](docs/proofs/COMPONENT_NN_FLIP_INTERACTIONS.md):
+
+- Ordinary actual flips need cover tests at only one endpoint.
+- With independent short pairs, two flips commute precisely when the four
+  relevant edges cover in the formal final state. A failure has a redundant
+  edge; a strict edge may be the only available one among those four.
+- The shared-edge exceptions are exhaustive. A single paired diamond
+  `[P]+[P−x+y]=[P−x]+[P−L+y]` handles all of them and decreases
+  `(raw diagram area, selected-edge count, total selected-edge length)`.
+- The common-short removal case can have all edges covering at all three
+  states. Its diamond correction preserves the displayed q-preserving
+  equality, but compatibility with other incident flips remains unproved.
+
+External Rust receipt:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/nn-interactions/interaction_audit.jsonl`.
+Four fixtures through seven vertices check 169,984 states and 1,063,936
+one-endpoint cover comparisons, plus all mixed/preserving interactions.
+All assertions pass, exit zero. These are structural checks, not fresh K/E
+evaluations. The valuation identities have direct proofs and independent
+Astra audit. Sources, manifest/lock and logs are frozen beside the receipt
+with `SHA256SUMS.json`. The bounded job is finished; no live owned process.
+
+Primary owns the proof notes/index/handoff and external Rust consumer, and
+retains the sole Lean build slot. Existing Astra `simpler_component_route`
+worked read-only/build-free on interactions; its bounded followup audited
+a spanning-tree decomposition of whole q-preserving pieces. That identity
+leaves a root residual in general and does not solve component reassembly.
+The followup is finished, with no delegated file ownership outstanding.
+Luna's bounded Abreu–Nigro review finished and supplies no new transport
+theorem. A relabeling changing the ambient diagram is not by itself an
+obstruction to cross-diagram transport. No new worker/account, Claude process,
+Lean build, manuscript edit or maintained Rust source edit. Runtime registry,
+`codex mcp list` and Rust guide/metadata/APIs were checked. The Lean MCP still
+targets the other project and was not used. Maintained Rust API integration
+remains the existing `suggestions/flip-enumeration-api.md` proposal.
+
+Next: extend the paired corrections along complete q-preserving pieces,
+handle their residuals, and regroup emitted states into whole smaller
+components. Do not treat decreasing individual states as completed induction.
+
 ## Current NN continuation
 
 2026-09-28, continuation from `ca02d67`. Previous turn made proved and exact
