@@ -8,7 +8,7 @@ with `dyck-first.pdf` (12 pages) and source sections in `dyck-first/`. It proves
 the aggregate circular formula first, by unicellular/bounce relations and
 half-square-area/strict-rank induction; contact overlap uses interval reversal.
 Ordinary flip components follow, with the word calculation moved to an appendix.
-Eight diagrams explain the objects and reductions. Existing main/sections and
+Diagrams explain the objects and reductions where they are needed. Existing main/sections and
 the archived original drafts are preserved. `DYCK-FIRST-MAP.md` records exact
 correspondence, including the separate formal source for the root-alias endpoint.
 
@@ -20,6 +20,13 @@ separately via stabilization and the QSym involution. Source references are
 resolved and the external LaTeX build has no warnings. Figures were visually
 inspected. Build artifacts remain in the `manuscript-dyck-first/` request cache.
 No Lean code or build changed. See the current handoff for final review status.
+
+The subsequent user clarification restored the ordinary diamond lemma as
+Section 4.2, with its coloring/HRV proof and an inline four-state diagram.
+The existing four-vertex example explains why fixed-diagram diamonds alone
+cannot reduce the component to chain states. The word argument remains the
+completed global step. The updated PDF is 12 pages and builds cleanly; the new
+page and diagram were visually inspected. No additional formalization is claimed.
 
 ## Previous overhaul — 2026-09-27
 

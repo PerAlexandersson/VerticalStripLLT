@@ -4,11 +4,17 @@
 
 2026-09-28: completed the user's new separate circular-first draft in Overleaf:
 `/home/paxinum/Dropbox/Apps/Overleaf/LLT flip/dyck-first.tex` and
-`dyck-first.pdf` (12 pages, eight diagrams). The aggregate circular HRV proof
+`dyck-first.pdf` (12 pages, nine diagrams). The aggregate circular HRV proof
 comes first, by unicellular/bounce relations and half-square-area/strict-rank
 induction, including the column reversal. Ordinary components follow, with
 word algebra in an appendix. The previous main/sections and all original
 archives are preserved. See [manuscript synchronization](docs/MANUSCRIPT.md).
+
+A follow-up restores the ordinary diamond lemma in Section 4.2 with an inline
+four-state diagram. The valid local identities are distinguished from the
+obstructed fixed-diagram chain-straightening proposal; the word argument supplies
+the global component step. The updated 12-page preview builds without warnings
+and the new page was visually inspected. No Lean change or build was needed.
 
 Primary owns the new draft and metadata. Astra reviewed the circular argument;
 Luna reviewed the ordinary argument and its historical route. Corrections and
