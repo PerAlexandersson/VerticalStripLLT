@@ -1,15 +1,16 @@
 # VerticalStripLLT handoff
 
-## Active ordinary diamond-proof search
+## Ordinary diamond-proof search: latest result
 
 2026-09-28: user requests a more accessible general component proof using the
 local diamond lemma. Primary owns research notes and the sole Lean build slot;
 no Lean source or manuscript proof is being replaced during exploration.
-Existing Astra simpler_component_route searches for a uniform auxiliary-poset
-reduction; existing Luna word_covers audits source/sink branching and previous
-obstructions. Both are read-only/build-free. Primary also owns a read-only
-nested Claude consultant (20-minute cap), with outputs under the external
-`diamond-proof-search/` request cache. No new account or supervisor worker.
+Existing Astra simpler_component_route investigated a uniform auxiliary-poset
+reduction; existing Luna word_covers audited source/sink branching and previous
+obstructions. Both were read-only/build-free and have finished. The primary's
+read-only nested Claude call reached its 20-minute timeout (exit 124) without
+output; no Claude proof or audit result was obtained. Its request files remain
+under external `diamond-proof-search/`. No new account or supervisor worker.
 Rust capability check completed (library guide, Cargo metadata and semantic/API
 search). A bounded external Python probe may orchestrate the existing flip
 model and Rust HRV bridge, extending the earlier exact rational relation-span
@@ -29,7 +30,12 @@ Exact rational tests pass for every forward poset through n=5, and all 1710
 ordinary components in degrees 2--5. This is evidence, not an all-degree or
 integral proof. Pairwise identification of permutation terms is insufficient
 already at n=4. Probe receipts are in external `diamond-proof-search/`.
-Astra and Luna assignments are now released; nested Claude is still pending.
+Astra and Luna assignments are released; no consultant remains running.
+The general diamond-based component proof was not obtained. The next precise
+target is equation (5) in the new note, or a weaker component-specific forest
+cancellation. Checkpoint `9e5013a` is pushed to `origin/main`; mathematical
+proof audit, bounded exact probes and `git diff --check` passed. No Lean or
+LaTeX source was changed and no compiler build was run in this search.
 
 ## Current manuscript
 

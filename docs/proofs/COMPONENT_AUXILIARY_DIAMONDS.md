@@ -221,7 +221,11 @@ Files: `quotient_probe.py`, `quotient-universal-result.jsonl`,
 `binomial_probe.py`, and `binomial-result.jsonl`. Existing supporting flip
 model: the neighboring `diamond-exploration/probe.py`. The independently
 working Astra reviewer supplied (2)--(4) and the normalization proof; primary
-checked the arguments and conducted the exact quotient tests.
+checked the arguments and conducted the exact quotient tests. Astra also
+supplied and checked the forest reduction. Luna audited the previous
+source/sink approaches and their counterexamples. The separate read-only
+Claude call reached its 20-minute timeout without output, so no conclusion
+here is attributed to that consultant.
 
 The useful next target is a constructive proof of (5), or a weaker recursive
 identity sufficient for complete components. Fixed-diagram straightening,
