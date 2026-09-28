@@ -28,6 +28,10 @@ The component result is the finite strict/e identity on actual complete componen
   another smaller corner-deletion diagram. Bypass shortening and local
   propagation lemmas retain arbitrary exteriors. Exact matching succeeds for
   376 components of six selected diagrams; general compatibility remains open.
+- [DN source additions](proofs/COMPONENT_DN_SOURCE_ADDITIONS.md): a proved
+  six-vertex recurrence adds two deletable components and matches the terms
+  by removing three isolated orientations from a fixed-size layer. Exact
+  source-addition checks succeed for 115 components in seven selected diagrams.
 - [Direct NN redistribution](proofs/COMPONENT_NN_REDISTRIBUTION.md):
   one-component split, a three-diamond worked proof, and exact Rust certificates.
 - [NN tree components](proofs/COMPONENT_NN_TREE_SECTORS.md): the connected

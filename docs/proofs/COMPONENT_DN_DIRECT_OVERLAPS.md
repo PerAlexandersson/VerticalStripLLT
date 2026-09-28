@@ -125,6 +125,32 @@ an L00 flip. Then add r to get an L01 flip, by the same q-absent argument
 as above. Hence h01(Q)=h01(P), and delta is unchanged. This proves the
 deletion assertion, without constraining the exterior paths or cycle rank.
 
+## The 00 comparisons follow the 10 comparisons
+
+For every actual flip between R00(Q) and R00(P), adding p gives an actual
+flip between R10(Q) and R10(P), and
+
+    t00(Q)-t00(P) = -(t10(Q)-t10(P)).                  (5)
+
+Indeed, the DN bottom identification conjugates the original flip to a
+source 00 flip on sigma Q,sigma P. It is an actual flip: the selected
+relations are relabeled by exchanging adjacent w,x, and a flip staying in
+00 cannot use both w,x in its triangle. Adding r to this source flip
+preserves every tested cover. The only source natural edge properly
+containing r is f; a new bypass of f using r would require the absent
+adjacent edge q. Hence both h00 and h01 agree on sigma Q,sigma P.
+
+Adding p to the original target flip also preserves every tested cover.
+Only e' properly contains p, and a new bypass of e' would again require
+q. Writing S=h00+h01, we therefore have S(sigma Q)=S(sigma P), while
+the direct coefficients are t00=S composed with sigma-h01 and t10=h01.
+This proves (5).
+
+In particular, a left-hand flip retaining e' imposes just one condition
+for its 00 and 10 versions: their coefficient differences have opposite
+signs. Repairing its 10 comparison automatically repairs its 00 comparison.
+No source balance or restriction on the exterior is used.
+
 ## The two ordered pictures
 
 The preceding statements leave the following comparisons. A listed flip

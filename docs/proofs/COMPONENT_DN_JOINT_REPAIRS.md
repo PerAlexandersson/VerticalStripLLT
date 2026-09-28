@@ -5,6 +5,10 @@ and the corner-deletion diagram. In the smallest right-hand picture,
 one such identity completes both images for every source component.
 For a general diagram, compatibility of all corrections remains open.
 
+The [source-addition continuation](COMPONENT_DN_SOURCE_ADDITIONS.md) proves
+a six-vertex recurrence by adding two deletable components. It also records
+exact source-addition checks beyond the minimal diagrams.
+
 We use the notation and direct transport of
 [Direct DN overlaps](COMPONENT_DN_DIRECT_OVERLAPS.md). Thus
 

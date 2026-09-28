@@ -1,6 +1,60 @@
 # VerticalStripLLT handoff
 
-## Current DN progress: both minimal five-vertex component recurrences
+## Current DN progress: source additions and dependent comparisons
+
+2026-09-28, from pushed `cbd469a`. The preceding reply was status-only;
+this continuation made proved and computational progress. Primary owns the
+notes/index/handoff and external dn_joint_span.rs, retaining the sole Lean
+build slot. Existing Astra reviewer audited read-only and is released.
+No new worker/account, Claude child, Lean build or manuscript edit.
+
+New proof: [DN source additions](docs/proofs/COMPONENT_DN_SOURCE_ADDITIONS.md).
+For area012233 strict02,14,25, the 18-state component C becomes a union
+of whole target/H components after adding a three-state I3 and four-state I4.
+I3 deletes corner02; I4 deletes14. The hand proof partitions the 28 states
+with nine selected edges into C+I3+I4+three isolated orientations. Direct DN
+maps the whole layer to the target layer, and the three excluded singletons
+to one target singleton T and two H singletons. Hence C equals five target
+components (sizes18,4,3,1,1), minus two H singletons, minus I3-02 and I4-14
+in their smaller diagrams. Same coefficients for K/E. Source connectivity,
+completeness, persistent redundancies and the term matching are hand-proved.
+
+New arbitrary-exterior lemma in direct-DN note: EVERY actual target00 flip
+has a corresponding actual10 flip, with Delta t00 = -Delta t10. Bottom
+conjugacy and addition of r preserve source covers because q is absent.
+Thus 00-preserving comparisons add no independent condition.
+
+Exact source-addition solver now checks 115 nondeletable components across
+seven selected n5--7 diagrams (812 total components). Every successful
+correction uses only +1 copies of whole deletable source components, with
+full target/H constancy, complete deletion images, and separate exact K/E
+checks. Includes new valid wide-left area0123323 strict03,36 (436 components,
+28 tested); other 408 admit a corner deletion by the component criterion.
+These are selected diagrams, NOT an exhaustive scan or arbitrary-exterior proof.
+No target/H zero-relation generators are used in the source-addition solve.
+Full homogeneous constancy RREFs have only pair rows; ranks1,2,19,3,3,24,108.
+
+NEXT: construct the source additions from the two local five-vertex pictures
+and prove closure of the remaining q-changing comparisons. Their mixed
+constraint is [h00(sigma V)-h01(P)]+[h01(sigma V)-h01(V)]=0.
+Do NOT assume the second bracket follows just from H and non00 target
+comparisons: pair-four.log gives a checked counterexample in area011234,
+h=indicator(C31 union C49), component sizes9 and4, at V={13,14,23,34,35}.
+The full mixed comparisons must be used jointly. No active-uniqueness,
+source-balance, cycle-rank or fixed-output-diagram precondition is assumed.
+General DN construction and integration of the other recurrences remain open.
+The five-vertex proof goal stays active.
+
+Sources/commands/logs/audit/checksums are frozen in
+`/lake-cache/ai-projects/requests/VerticalStripLLT/dn-left-exterior/`.
+All valid runs exited zero; one initial invalid wide fixture marked14 strict
+was rejected by the strict-preservation guard and is explicitly discarded.
+The corrected fixture has strict03,36. Registry and Rust capability/metadata
+checks completed; maintained Rust remains d53fb193af3c69adedbd9ec8592f87235d809ffa.
+Python only handled files, logs and hashes. Lean MCP is rooted at RealRooted,
+so it was not used. No live computation remains at this checkpoint.
+
+## Previous DN progress: both minimal five-vertex component recurrences
 
 2026-09-28, from clean pushed `0288d74`. Previous turn made progress.
 The [joint DN note](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md) now proves
