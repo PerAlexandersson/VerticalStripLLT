@@ -125,3 +125,69 @@ transfers must not be assumed: the counterexample above excludes them.
 [Archived swap/block checkpoints](component-recurrence-handoff-through-blocks-20260928.md)
 retain the preceding arguments, unresolved routes and evidence.
 
+
+
+## Incoming-transfer and inactive-correction checkpoint d77a68f
+
+2026-09-28, continuation from clean pushed `e750bd9`; preceding goal turn
+made proved progress. The requested general combinatorial component proof
+remains active and incomplete. No Lean or manuscript work in this increment.
+
+New [incoming transfer](docs/proofs/COMPONENT_INCOMING_EDGE_TRANSFER.md):
+if t<a<b=a+1<v<c, A selects f=ac,r=bc,ta,tv, omits q=ab,tb, and
+its connected unicyclic graph has its cycle on f or r, then ta→tb
+is achievable with every other edge restored. Four cases: bv selected;
+plain three-stage transfer; break a t→b bypass by tx→xv; break a
+b→v bypass by bx→xc. Restore the bypass only after moving the incoming
+edge. This local theorem needs neither saturation nor NN eligibility.
+A containing corner uv with u<t does NOT supply selected tv; that
+remaining case must not be assumed solved.
+
+New [general NN corrections](docs/proofs/COMPONENT_NN_INACTIVE_CORRECTIONS.md):
+for EVERY eligible saturated NN position, each inactive-f connected
+unicyclic component is isolated or has exactly one surviving neighbor.
+The skipped-b case is now proved. All redundant-f middle images of one
+fixed tree envelope connect: first transfer incoming BRIDGES, then
+outgoing edges, and apply tree connectivity after contracting q.
+Incoming edges are bridges because their cycle is inside [a,c]. First
+left joins therefore use the already-proved bridge lemma, not the still
+open unrestricted incoming transfer. Inactive vertices cannot connect
+two different survivors through a packet path; direct active joins remain.
+
+The same note proves every RIGHT q-exit that first makes f cover connects
+the original middle pair. The previous d<e paths extend to any a. For
+e<d, a seven-stage path (two outgoing-transfer macros) restores every
+edge. A q-preserving first-cover transition also lifts. Neither statement
+handles arbitrary runs of q-free states or the left q-exit, so general
+f-active middle/first isolation remains open. DN/DD, recurrence coverage,
+higher ranks and the full circular route also remain part of the goal.
+
+Primary and existing Astra simpler_component_route audited all statements
+and final written proofs. Reviewer corrections incorporated: require
+Env(T)=H explicitly; retained ad covers while redundant f does not, hence
+d<c before applying the unique-cycle argument. No result attributed to
+Claude in this increment; the previous timed-out call had no adopted result.
+
+Checks: four selected-tv cases appear 19/36/1/1 times through n6 and
+20/57/4/0 in the n7 shield fixture; all nonmacro flips checked directly,
+outgoing macros checked against whole-component membership. General NN
+inactive families through all 76 n≤6 instances: skipped-b27, length-two22,
+longer-through-b19; n7 shield adds one skipped-b component. Every required
+neighbor assertion passes. Expanded e<d paths n5–9 use11–19 actual flips.
+Final commands exit0; no failed mathematical assertion or compiler run.
+
+Frozen sources/model, Cargo files, exact commands, review, receipts and
+hashes: `/lake-cache/ai-projects/requests/VerticalStripLLT/incoming-transfer/`.
+Primary owns notes/index/handoff/archive and the external consumers;
+sole serialized Lean build slot retained. All owned processes and bounded
+agent assignments are terminal. No new worker/account, Claude process,
+Lean build, manuscript edit or maintained Rust edit. Existing Rust API
+integration suggestion and Lean-MCP/RealRooted routing limitation remain.
+
+Next: handle incoming on-cycle edges without selected tv, or left q-exits
+and longer q-free paths in active-middle comparison. The all-inactive
+correction theorem now separates that issue cleanly. Do not infer a
+complete proof from the solved path-square family or the Lean word proof.
+[Archived leftmost and transfer checkpoints](docs/archive/component-recurrence-handoff-through-path-square-20260928.md)
+retain the preceding proofs, review boundaries and finite receipts.
+

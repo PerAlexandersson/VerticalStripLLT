@@ -50,6 +50,9 @@ The component result is the finite strict/e identity on actual complete componen
 - [General NN inactive corrections](proofs/COMPONENT_NN_INACTIVE_CORRECTIONS.md):
   all inactive-corner neighbor cases, redundant middle images, and
   rightward q-exits. Active-component joins remain open.
+- [Leftward NN transition](proofs/COMPONENT_LEFT_EXIT.md): containing
+  corners, tree normalization and induction on an incoming vertex handle
+  a leftward q-exit that exposes the strict corner.
 - [Path-square components](proofs/COMPONENT_PATH_SQUARE.md): all edge-count
   components, an explicit elementary formula, and terminal cases of
   arbitrary cycle rank.

@@ -171,10 +171,11 @@ change only the cover status of f, by the terminal-gap geometry.
 The original flip cannot use redundant f as its retained long, and
 cannot exchange strict f. Thus all its cover tests survive.
 
-These are local transition statements. A general tree-normalizing path
-can have several q-free states before f becomes a cover. The lemmas
-do not yet control all such paths, nor the left q-exit, and therefore
-do not establish f-active middle-join connectivity in general.
+The [leftward counterpart](COMPONENT_LEFT_EXIT.md) now handles a left
+q-exit that exposes f, using containing corners and induction on the
+incoming tail. A general tree-normalizing path can still have several
+q-free states before f becomes a cover. These local transition statements
+do not yet establish f-active middle-join connectivity in general.
 
 ## Verification
 
