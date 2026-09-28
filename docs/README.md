@@ -23,11 +23,11 @@ The component result is the finite strict/e identity on actual complete componen
   deletion term handles unmatched orientations; all unsettled target and
   deletion comparisons fit two five-vertex pictures, without source balance
   or a cycle-rank restriction.
-- [Joint DN repairs](proofs/COMPONENT_DN_JOINT_REPAIRS.md): one zero identity
-  completes both output diagrams for every component of the smallest DN
-  example; bypass shortening and a two-flip consistency lemma retain arbitrary
-  exteriors. Exact matching succeeds for all 376 components of six selected
-  diagrams. Compatibility of the general corrections remains open.
+- [Joint DN repairs](proofs/COMPONENT_DN_JOINT_REPAIRS.md): complete component
+  recurrences for both minimal five-vertex pictures; the left repair uses
+  another smaller corner-deletion diagram. Bypass shortening and local
+  propagation lemmas retain arbitrary exteriors. Exact matching succeeds for
+  376 components of six selected diagrams; general compatibility remains open.
 - [Direct NN redistribution](proofs/COMPONENT_NN_REDISTRIBUTION.md):
   one-component split, a three-diamond worked proof, and exact Rust certificates.
 - [NN tree components](proofs/COMPONENT_NN_TREE_SECTORS.md): the connected

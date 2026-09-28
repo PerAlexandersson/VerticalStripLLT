@@ -1,6 +1,52 @@
 # VerticalStripLLT handoff
 
-## Current DN progress: bypass transfers and local coefficient consistency
+## Current DN progress: both minimal five-vertex component recurrences
+
+2026-09-28, from clean pushed `0288d74`. Previous turn made progress.
+The [joint DN note](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md) now proves
+an explicit recurrence for ALL 14 components of the minimal LEFT diagram
+area01222, complementing the previous complete minimal RIGHT diagram.
+
+Source stricts e=02,f=24; normals a=01,b=12,c=13,q=23,r=34. If c is
+absent, delete its natural corner to J of area01212; each of the nine
+I_ij components remains whole. If c is selected, adjacent swaps in the
+four bits (a,b,q,r) give exactly C_k, k=0..4, of sizes 1,4,6,4,1.
+For C_1 add I_11 and apply direct DN: its image is one whole eight-state
+component. Subtract I_11 as a whole J component. For C_2 add I_21:
+its image is whole target components of sizes 5+2+1; subtract I_21 in J.
+C_0,C_3,C_4 already have whole target images, of sizes 1,3+1,1.
+The full table and cover checks are in the proof note. This is an integral
+component recurrence for both K/E, without assuming the formula for any
+component. It uses the ADDITIONAL smaller diagram J, not just R/H.
+
+New arbitrary-exterior lemma (11): along a target00 flip, delete a
+preserved selected b_t=xt and replace e' by e,f. This is an actual source
+flip unless b_t or e' is retained. Intermediate orientations need not
+have a right q-exit, so losing an exit alone is harmless. In geometry
+w=u+1 the exceptional triangles retain b_t with x<s<t<z, or exchange
+b_t with x<t<s<=z. The s=z endpoint (retained r) must be included.
+
+NEXT: repair these remaining deletion-map transitions, and extend the
+left component addition/deletion method with arbitrary exterior. The
+minimal classification does NOT remain automatically valid with exterior
+paths. General DN propagation and NN/ND/DD recurrence integration remain
+open; the goal is not complete. Do not restrict every correction to R/H,
+require source balance, or reintroduce cycle-rank prerequisites.
+
+Exact --left-repair checks all 14 original components, complete R and J
+components, and identical integral K/E identities. All jobs exited zero.
+Discovery certificates and the preferred explicit recipe are frozen under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/dn-left-five/` with source,
+commands, logs, audit and checksums. Independent Astra reviewer checked the
+mathematics, five-row table and final written proof; applied its wording
+clarifications (unmarked c; domain requires b_t selected). Reviewer released.
+Primary owns notes/index/handoff and external dn_joint_span.rs, retaining the
+sole Lean build slot. No new worker/account, Claude child, Lean or manuscript
+build/change. Existing Rust APIs reused; registry/metadata checked, maintained
+Rust still d53fb193af3c69adedbd9ec8592f87235d809ffa. Python only handles files.
+
+## Previous DN progress: bypass transfers and local consistency
+
 
 2026-09-28, from clean pushed `bf0b454`. Previous turn was progress.
 The [joint DN note](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md) now proves:

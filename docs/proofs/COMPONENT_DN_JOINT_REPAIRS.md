@@ -140,6 +140,81 @@ All H terms in (3)--(4) select r. Thus these identities alone do not
 repair the initial r-absent deletion coefficients. We must match the
 terms introduced by different corrections as well.
 
+### A complete component recurrence for the left-hand diagram
+
+Consider the source area (0,1,2,2,2), with
+(u,t,w,x,z)=(0,1,2,3,4). The strict edges are e=02 and f=24;
+the normal edges are a=01, b=12, c=13, q=23, r=34.
+The target area is (0,1,2,3,1). We also use the smaller diagram J
+of area (0,1,2,1,2), obtained by deleting the unmarked natural corner c;
+its strict edges remain e,f. This additional deletion diagram makes
+the component recurrence considerably shorter than a repair confined to R,H.
+
+There are five source components with c selected:
+
+    C_k={e+f+c+B : B subset {a,b,q,r}, |B|=k},  0<=k<=4.
+
+Indeed, flips retaining e,c,f exchange adjacent unequal bits in the
+word (a,b,q,r). Their covers impose exactly the condition that one of
+the exchanged edges is selected. Thus C_k is a complete component of
+size binomial(4,k).
+
+With c absent, the flips retaining e and f act independently. The nine
+complete components are
+
+    I_ij={e+f+A+B : A subset {a,b}, |A|=i,
+                       B subset {q,r}, |B|=j},  0<=i,j<=2.
+
+Each I_ij remains a whole component in J. Deleting an absent natural
+corner changes no selected relation or available actual flip, so it
+preserves both valuations. This immediately gives a smaller-component
+identity for every c-absent source component.
+
+For the c-selected components, the following are exact identities for
+both X=K and X=E. Each set displayed in the target column is a complete
+component; separate sets are added. The last column is subtracted in J.
+
+| Source | Complete target components in R | Subtract in J |
+| --- | --- | --- |
+| C_0 | {R00(b)} | 0 |
+| C_1 | D_8 | I_11 |
+| C_2 | D_5 + D_2 + {R01(a+b)} | I_21 |
+| C_3 | {R10(a+b+c),R11(a+c),R11(b+c)} + {R01(a+b+c)} | 0 |
+| C_4 | {R11(a+b+c)} | 0 |
+
+Here
+
+    D_8={R00(a+b),R00(b+c),
+         R10(a),R01(a),R10(b),R01(b),R10(c),R01(c)},
+    D_5={R10(a+b),R10(a+c),R10(b+c),R01(b+c),R11(c)},
+    D_2={R00(a+b+c),R01(a+c)}.
+
+**Proof of the identities.** All source middle pairs L10(Q),L01(Q)
+are actual flips retaining f: the two shorts q,r are adjacent and f
+has no other possible bypass. Thus delta=0 for every source component.
+Apply the direct DN formula to C_0,C_3,C_4; its output is precisely
+the indicated target sum. For the two remaining cases, apply it to
+C_1+I_11 and C_2+I_21. Their target coefficients are respectively
+the indicator of D_8 and the sum of the indicators of
+D_5,D_2,{R01(a+b)}. Subtract the added I-component in J. This
+constructs an identity for one original component, with integer
+coefficients and whole smaller components on the other side.
+
+The target component checks are short. D_8 consists of all orientations
+with two selected normal edges except the two isolated states
+R00(a+c),R11(empty); its remaining eight states are connected by the
+displayed triangle flips. D_5 is a four-leaf star centered at R10(b+c).
+D_2 is one flip retaining c. The three-state set in the C_3 row is
+a path, with center R11(a+c), and its companion is isolated.
+All other displayed singleton sets are isolated. These checks also
+show that no unlisted orientation belongs to a displayed component.
+
+Thus both minimal five-vertex pictures now have component recurrences.
+The left-hand construction uses another smaller corner-deletion diagram;
+there is no requirement that every correction end in the original R,H pair.
+This proof uses the five-vertex source explicitly. It does not assume that
+its component classification persists unchanged with arbitrary exterior.
+
 ## What remains after the right-hand correction
 
 Here we return to a=wt, b=xt, c=tz and allow exterior Q. Put S=h00+h01.
@@ -269,6 +344,35 @@ This proves (10) and the equality of coefficients.
 Thus a correction at one 00 orientation is independent of which right-hand
 exit we use to specify its coefficient. We still need consistency along
 paths of 00 orientations and at the left-hand overlaps.
+
+### Propagating a deletion along flips
+
+Fix b_t=xt, x<t<z. Suppose an actual 00-to-00 target flip preserves
+b_t selected, does not retain b_t, and does not retain e'. Then deleting
+b_t and replacing e' by e,f gives an actual source flip
+
+    L01(Q-b_t) <-> L01(P-b_t).                        (11)
+
+The deleted b_t is neither retained nor exchanged, so all the tested
+selected edges remain and their covers survive deletion. Deleting maximal
+e' and adding the source natural corners e,f also preserve every tested
+cover. Apply this at both endpoints to obtain (11).
+
+Consequently this source component label propagates along any such target
+path. Intermediate orientations need not have a right-hand q-exit: a_t
+may be absent or may cease to cover, and b_t may itself become redundant.
+Losing an available exit is therefore not, by itself, an obstruction.
+
+When w=u+1, a 00 flip cannot retain e': its only interior vertex is w,
+and both corresponding shorts are absent. At a 00 orientation with b_t
+selected, the exceptions to (11) are precisely flips in triangles x,s,t
+retaining b_t, with x<s<t<z,
+or triangles x,t,s exchanging b_t, with x<t<s<=z. The endpoint s=z
+is allowed: it is the r-retained flip exchanging xt and tz.
+An incoming alternative v,x,t would require v=w, which changes q,
+or v<=u, whose long edge vt is excluded by maximality of e'.
+These are the remaining cases for propagating this particular deletion;
+their general repair is not proved by (11).
 
 ## Verification and remaining work
 
