@@ -1,6 +1,44 @@
 # VerticalStripLLT handoff
 
-## Current DN result: direct transport, two five-vertex repairs remain
+## Current DN result: joint five-vertex repair proved in the minimal diagram
+
+2026-09-28, from clean pushed `d090a36`. New proof:
+[joint DN repairs](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md).
+For the ordinary source area01123 (strict01,14), one zero relation
+R00(abc)=H(eabc) completes both direct images for EVERY source component.
+The correction is d(U-V), d=h01(ac)-h00(abc). Actual source flips force
+both target and deletion differences to have exactly these coefficients.
+U and V each have only one actual neighbor, so no other boundary reopens.
+The five-state example becomes D6+D2-T2-T1 in complete smaller components,
+with identical coefficients for coloring K and HRV E.
+
+The note also proves the right two-diamond identity and two left identities
+with arbitrary exterior. All 15 minimal source components passed exact
+transport, full output-component constancy and both valuation checks; only
+two need nonzero correction. Right identity checked on16 six-vertex exterior
+selections; both left identities on8 selections with a common strict.
+Rust run exited zero; frozen sources, dependencies, logs, audit and hashes:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/dn-joint-five-vertex/`.
+Independent existing Astra reviewer checked the mathematics and written
+proof; applied vertex-relabeling wording and distinct-background counting
+clarifications. Final written audit has no outstanding correction.
+
+NEXT: match the general right antisymmetric remainder k(Q) using incoming
+left and additional outgoing right pairs, with coefficients closing ALL
+component boundaries. The note gives its exact formula. A pairwise exterior
+swap need not be an actual flip; telescoping alone is not a completed repair.
+General DN compatibility and the other recurrences remain open. Do not impose
+source balance, packet isolation, fixed deletion coefficients or cycle rank.
+
+Primary owns notes/index/handoff and external dn_joint_matching.rs, and retains
+the sole Lean build slot. Existing Astra reviewer is read-only and released
+at the written checkpoint. No new worker/account, Claude child, Lean build or
+manuscript edit. Rust capability/registry checks were completed; existing APIs
+were reused without maintained Rust edits or a new polynomial generator.
+Rust HEAD d53fb193af3c69adedbd9ec8592f87235d809ffa. Python only copied/hashed
+files. The five-vertex proof goal remains active and is not claimed complete.
+
+## Previous DN reduction to two five-vertex pictures
 
 2026-09-28, from clean pushed `30a6e41`. This turn made proved progress.
 The author confirms the direct diagram-matching route and asks us to use

@@ -168,3 +168,8 @@ unnecessary restriction and already has a recorded counterexample.
 Primary and the existing independent Astra reviewer checked (2), every
 flip lift, normality and the interval bounds. The argument uses neither
 the completed component formula nor a finite enumeration as a proof.
+
+The subsequent [joint-repair note](COMPONENT_DN_JOINT_REPAIRS.md) completes
+both output diagrams for every component of the smallest right-hand
+example and gives further diamond identities with arbitrary exteriors.
+Their simultaneous use in the general diagram remains to be proved.

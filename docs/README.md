@@ -22,7 +22,11 @@ The component result is the finite strict/e identity on actual complete componen
 - [Direct DN overlaps](proofs/COMPONENT_DN_DIRECT_OVERLAPS.md): a single
   deletion term handles unmatched orientations; all unsettled target and
   deletion comparisons fit two five-vertex pictures, without source balance
-  or a cycle-rank restriction. Their joint diamond repairs remain open.
+  or a cycle-rank restriction.
+- [Joint DN repairs](proofs/COMPONENT_DN_JOINT_REPAIRS.md): one zero identity
+  completes both output diagrams for every component of the smallest DN
+  example; three further diamond identities retain arbitrary exteriors.
+  Compatibility of the general corrections remains open.
 - [Direct NN redistribution](proofs/COMPONENT_NN_REDISTRIBUTION.md):
   one-component split, a three-diamond worked proof, and exact Rust certificates.
 - [NN tree components](proofs/COMPONENT_NN_TREE_SECTORS.md): the connected
