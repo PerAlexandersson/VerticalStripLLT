@@ -230,22 +230,39 @@ mixed joins must be shown to reach the same surviving component. In
 addition, joins whose two endpoints already survive need an actual
 source-connectivity proof. None of the lemmas above proves that step.
 
-One such right mixed join reduces, by an actual flip, to comparing
+There is a reduction for this skipped-b case. On each connected piece
+of the q=1 subgraph of I, the map A↦A−q+r lifts every flip. The fixed
+f-bypass omits b and survives the replacement. Each image is connected
+and unicyclic, with f its sole redundant edge, so the other edges
+required by a transported flip cover.
+
+Every first mixed join incident to a q=0 state also corresponds to
+an actual q-changing flip inside I. In the right case, its source
+contains {f,ad,bd} and we exchange bd with q, retaining ad. In the
+left case it contains {f,ta,tb} and we exchange ta with q, retaining
+tb. These are covers because only f is redundant. The first-mixed
+neighbor and the middle neighbor of the resulting q=1 state differ
+by an exterior swap:
+
+    S₀∪T∪{f,ℓ,r},       S₀∪σT∪{f,ℓ,r},
+
+where ℓ=ad or tb. This identifies the comparison at each entrance
+or exit of a q=0 piece. A path through I may have several consecutive
+q=0 states; propagation across that entire piece remains unproved.
+
+One right second mixed join reduces, by an actual flip, to comparing
 
     S₀ ∪ T ∪ {ac,ad,bd,bc},
     S₀ ∪ σT ∪ {ac,ad,bd,bc},       a<b<d<c,
 
-where S₀ consists of the other strict edges. In cycle rank one the
-displayed four-cycle is the unique cycle, and the remaining selected
-edges form trees attached to its vertices. An outgoing branch attachment
-ax, with b<x<c, can be transferred ax→xc→bx, retaining ac and then bc.
-These are actual flips because the attachment remains a bridge and the
-core covers are unchanged. Incoming attachments require more work.
-A selected strict interval containing xa can belong to a different
-attached tree; interval containment alone does not place it in the
-branch containing x. Thus tree connectivity inside that branch does
-not justify the unrestricted exterior swap. We retain this as a
-specific open case.
+where S₀ consists of the other strict edges. This comparison is now
+proved in [the four-cycle swap theorem](COMPONENT_FOUR_CYCLE_SWAP.md),
+including incoming branches whose containing strict corner lies in a
+different attached tree. We first normalize that tree, move the cycle
+to meet the corner, transfer the incoming branch by six flips, and
+undo the temporary moves. Thus the right second mixed join does not
+join distinct connected unicyclic components. The left second mixed
+join and the other surviving-to-surviving cases remain open.
 
 ## Relation to reconstruction and checks
 

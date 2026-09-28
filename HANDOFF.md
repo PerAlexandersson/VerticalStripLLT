@@ -1,5 +1,58 @@
 # VerticalStripLLT handoff
 
+## Current four-cycle attachment checkpoint
+
+2026-09-28, continuation from clean pushed `37e813a`. Previous goal turn
+made proved progress. The full recurrence/diamond proof remains open;
+the new theorem resolves one complete NN generator in cycle rank one.
+
+New [four-cycle swap theorem](docs/proofs/COMPONENT_FOUR_CYCLE_SWAP.md):
+for eligible saturated ordinary NN a<b=a+1<c, any connected unicyclic
+state containing {ac,ad,bd,bc}, b<d<c, is connected by actual flips to
+its adjacent-swap image, with arbitrary attached trees. This proves the
+RIGHT second mixed NN join stays in one source component.
+
+Proof ingredients: a six-flip incoming-attachment transfer using a strict
+corner in another branch; seven flips move the interior cycle vertex along
+an attached edge. A new [tree interval-path lemma](docs/proofs/COMPONENT_TREE_CONNECTIVITY.md)
+normalizes the containing corner's branch so its path to the core stays
+inside the endpoint interval. Move the cycle along that path, transfer
+the incoming branch, then undo migration and normalization. The moved
+branch remains pendant and cannot alter the reversed cover tests.
+Strict edges are retained. Same-branch shields use tree connectivity and
+a conjugated return path. Primary and independent Astra audited the final
+written proof and every local cover test, including empty-path cases.
+
+Exact checks: six-/seven-flip tables; all 149 relevant unicyclic states in
+all 76 eligible NN instances through n=6; another 44 and 13 states in
+two n=7 fixtures. All adjacent-swap images lie in the same actual component.
+A separate exact K5 counterexample shows that keeping a normal edge
+redundant throughout a tree-normalizing path is too strong, even for the
+special pair and the same directed path. Do not use that rejected shortcut.
+
+The unicyclic note also records two partial skipped-b reductions: q=1
+paths lift under A→A−q+r, and first-mixed incidences correspond to actual
+q-changing flips inside the inactive component. Comparing their exterior
+swaps and propagating across whole q=0 excursions remain unproved.
+
+Receipts, frozen sources/manifest/lock, commands and 17 hashes:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/four-cycle-attachment/`.
+All final jobs finished exit 0. Primary owns notes/index/handoff and
+external consumer, retaining the sole Lean build slot. Existing Astra
+simpler_component_route supplied independent proofs/audits and the precise
+restricted-tree obstruction; all bounded assignments are finished.
+Independent proof audit, exact checks, frozen hashes, local documentation
+links and `git diff --check` pass. No delegated edits or owned live processes.
+No new worker/account, Claude
+call, Lean build, manuscript edit or maintained Rust source edit.
+Runtime/MCP and Rust capabilities refreshed; Lean MCP still targets the
+other project. Existing flip-enumeration integration proposal remains.
+
+Next: LEFT second mixed NN join; middle/first-mixed joins between surviving
+components; skipped-b inactive-f neighbor uniqueness including q=0 pieces.
+Higher cycle ranks, DN/DD isolation, and recurrence coverage remain part of
+the full goal. The completed word proof is not a substitute for this task.
+
 ## Current unicyclic packet checkpoint
 
 2026-09-28, continuation from clean pushed `148cc9c`; previous goal turn

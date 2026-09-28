@@ -158,6 +158,31 @@ Related Rust: external `global-reassembly/tree_forced_reach.rs` and
 [the reassembly note](COMPONENT_GLOBAL_REASSEMBLY.md). This finite check
 supports the proof; it is not its justification.
 
+## A tree path can be kept inside its endpoint interval
+
+**Lemma.** Let H be a connected interval-closed graph on an ordered
+vertex set V. For s<t in V, there is a spanning tree with envelope H
+whose s–t path uses only vertices in V∩[s,t]. Every tree with envelope
+H can be connected to such a tree by actual flips.
+
+Let M be the maximal intervals of H. The induced graph H[V∩[s,t]] is
+connected: every consecutive pair in V is a natural edge, since some
+edge crosses its separating cut and H is interval closed.
+
+Each increasing chain of M meets [s,t] in a connected subchain, possibly
+empty. Contract these subchains in the induced graph and choose a simple
+path between the classes of s and t. Lift its edges and adjoin all of M.
+The resulting graph is a forest: the lifted path joins distinct global
+M-chains in succession. Its s–t path lies inside [s,t], because the
+intermediate paths within the M-chains do so. Extend this forest to a
+spanning tree of H. The path is unchanged, and containing M gives the
+required envelope. The tree-connectivity theorem gives the flip path.
+
+The assertion concerns the endpoint tree. It does not require the
+normalizing flips to keep the original s–t path or any directed
+reachability constraint. That stronger restriction can disconnect the
+tree family; see [the four-cycle proof](COMPONENT_FOUR_CYCLE_SWAP.md).
+
 ## Scope and use
 
 For forests the theorem applies separately to each fixed undirected block
