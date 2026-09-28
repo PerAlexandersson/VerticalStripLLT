@@ -8,6 +8,11 @@ envelopes. We also prove an incoming-bridge repair whenever a containing
 strict covering corner lies anywhere in the selected graph. General
 first-join isolation remains open.
 
+The subsequent [active-component swap](COMPONENT_NN_ACTIVE_SWAP.md) uses
+normalized tree extensions to remove the pointwise strict-cover hypothesis
+from the remote swap. It settles right first joins for components active
+at every strict corner. The left held-edge repair remains separate.
+
 ## Lifting a tree path through fixed exterior attachments
 
 We work in an ordinary interval-closed natural graph, with its fixed

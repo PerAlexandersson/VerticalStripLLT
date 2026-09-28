@@ -195,6 +195,10 @@ not proved that comparison uniformly, nor the higher-rank or DN/DD
 reassembly. The reductions above do not claim that all repaired pieces
 are already complete.
 
+The subsequent [active-component swap](COMPONENT_NN_ACTIVE_SWAP.md) settles
+every right first comparison after reducing source components inactive at
+a strict corner. Only the left first comparison remains at cycle rank one.
+
 ## Verification and provenance
 
 Primary and the existing independent Astra reviewer derived and checked

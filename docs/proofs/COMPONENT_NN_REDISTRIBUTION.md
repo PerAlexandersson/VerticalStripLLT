@@ -183,6 +183,8 @@ The selected-r tree and disconnected sectors are already whole; target
 components inactive at r are now proved whole too. Only connected target
 unicyclic components active at r can still require repair. This does not
 settle the remaining first mixed comparisons or higher cycle ranks.
+The [active-component swap](COMPONENT_NN_ACTIVE_SWAP.md) subsequently settles
+the right first comparison in cycle rank one, leaving its left counterpart.
 
 ## What Rust has checked
 

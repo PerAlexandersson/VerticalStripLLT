@@ -24,6 +24,9 @@ The component result is the finite strict/e identity on actual complete componen
 - [Unicyclic NN reassembly](proofs/COMPONENT_NN_UNICYCLIC_REASSEMBLY.md):
   one simultaneous repair completes all r-absent pieces and preserves the
   settled comparisons; only connected target unicycles active at r remain.
+- [Active-component NN swaps](proofs/COMPONENT_NN_ACTIVE_SWAP.md):
+  normalized tree extensions prove the full adjacent swap and settle every
+  right first comparison; the left incoming-edge repair remains.
 - [NN triangle overlaps](proofs/COMPONENT_NN_OVERLAPS.md): only two flip
   geometries remain; proved local corrections and their compatibility gap.
 - [Left NN transfer](proofs/COMPONENT_NN_LEFT_TRANSFER.md): four diamonds

@@ -1,67 +1,70 @@
 # VerticalStripLLT handoff
 
-## Current direct unicyclic NN reassembly
+## Current component recurrence: right NN comparisons proved
 
-2026-09-28, from clean pushed `756f850`. This turn made verified progress;
-the combinatorial component-proof goal remains active, ordinary only.
-Keep the user's requested construction central: push ONE component through
-the recurrences, repair the pieces, collect complete smaller components.
-Do not impose packet isolation as an extra requirement.
+2026-09-28, continuation from clean pushed `50268ce`. Verified progress;
+the requested combinatorial component-proof goal remains active, ordinary
+only. Push ONE component through the recurrences, repair the pieces, and
+collect complete smaller components with the same K/E coefficients.
 
-New [unicyclic reassembly](docs/proofs/COMPONENT_NN_UNICYCLIC_REASSEMBLY.md)
-proves a uniform repair for every f-active connected unicyclic source C.
-For each adjacent f-inactive I, its deletion D_I is a whole target tree
-component. Add the zero K/E vector w_I−1_{D_I} to the canonical image w_C.
-The summed source indicator h=1_C+sum1_I has h10=h01 globally. Thus the
-ENTIRE r-absent image is exactly −sum1_{D_I}, complete smaller components.
-All q-preserving equalities survive globally. This is a whole-piece
-compatible repair, not an isolated diamond adjustment.
+New [active swap proof](docs/proofs/COMPONENT_NN_ACTIVE_SWAP.md): in a
+connected unicyclic component active at every strict corner, every state
+selecting f=ac,r=bc and omitting q=ab lies in the same component as its
+adjacent swap (a b). Activity means covering in SOME component state,
+not necessarily in the state under consideration.
 
-Explicitly, w_I−1_{D_I}=sum over q-absent T in D_I of
-(1_{sigma(T+f)}−1_T). Each difference has zero K/E separately. This recovers
-the single redundancy repair in the four-vertex sixteen-case table.
-Selected-r connected tree coefficients are unchanged and already constant.
-Disconnected target unicycles separate a from b,c; q is absent throughout
-their complete component, so all comparisons there were already settled.
+The new step exposes a redundant remote strict corner g using a prescribed
+forest. Retaining original incident edges alone was insufficient: new
+incoming lifts could change the swapped tree envelope. Replacing each bad
+new sa by sb fixes both envelopes while preserving the reverse quotient
+path. Separate tree-connectivity paths lift after reinserting maximal g.
+The existing cycle-position lemmas then complete the swap.
 
-Also proved: every connected target unicyclic component inactive at r is
-whole after this repair. Its forced maximal b-to-c chain becomes a maximal
-a-to-c chain under sigma. The source bottom endpoint therefore lies in a
-WHOLE f-inactive component; the other endpoint has f as a bridge. The
-unique-neighbor theorem identifies their indicators. This uses the known
-first-join statement for inactive source components, not packet isolation.
+This proves ALL right first comparisons for the corrected unicyclic NN
+image, without assuming the target r or source f covers. All-strict-active,
+f-inactive, and other-strict-inactive source cases are accounted for.
+The preceding [whole-tree correction](docs/proofs/COMPONENT_NN_UNICYCLIC_REASSEMBLY.md)
+still gives the entire r-absent sector as complete smaller components and
+preserves all q-preserving equalities. Connected selected-r tree sectors,
+disconnected target unicycles and target components inactive at r were
+already settled.
 
-Remaining possible discrepancies for connected unicyclic sources are now
-ONLY first mixed comparisons within connected selected-r target unicyclic
-components active at r. This still needs a uniform argument. Higher cycle
-ranks, DN/DD individual reassembly and recurrence coverage remain open.
-No use of the completed word/component HRV theorem in these new proofs.
+Remaining at cycle rank one: LEFT first comparisons in selected-r connected
+active target unicycles. A sufficient next lemma transfers an incoming ta
+to tb in an all-strict-active unicycle while restoring every other edge.
+Existing incoming-bridge results cover only part of this claim. Higher
+cycle ranks, DN/DD reassembly and general recurrence coverage remain open.
+The completed word/component HRV theorem is not used in these arguments.
 
-Final exact checks: all76 eligible NN instances through six vertices,
-31 f-active sources,46 inactive corrections,8396 middle comparisons,
-33584 state coefficients,28 inactive-r target comparisons. The seven-vertex
-area0123434 at corner26 adds2 sources,1 correction,16384 middle checks,
-65536 states,2 inactive-r comparisons. No remaining coefficient defect in
-these finite fixtures. All163+65 individual relocations pass independent
-exact K and E valuation checks. This does not prove arbitrary active-r
-reassembly. All final Cargo processes exited0 and are terminal.
+Verification: all 76 eligible NN instances through six vertices give
+951 full swaps and 511 right comparisons; area (0,1,2,3,4,3,4), corner26,
+adds 435 swaps and 216 right comparisons. Existing whole-image assertions
+also pass. The exact eight-vertex normalized-lift example has two verified
+six-flip tree paths (383 and 164 local/full cover comparisons). Independent
+whole-component BFS connects all four endpoints in 38,433 states with
+107,468 flip edges. These finite checks do not settle the remaining cases.
+All three Rust jobs exited zero. No Lean/manuscript change or build.
 
-Primary owns notes/index/handoff/archive and the existing external consumer;
-sole serialized Lean build slot retained. Existing Astra simpler_component_route
-independently audited every step and the final written note; one wording fix
-applied, no open correction, ownership released. No new worker/account,
-Claude child, maintained Rust edit, Lean build or manuscript edit.
-Runtime tools/MCP rechecked; Lean MCP still routes to RealRooted and is unused.
-Maintained Rust HEAD d53fb193af3c69adedbd9ec8592f87235d809ffa. Existing graph,
-exact algebra, strict P-partition and HRV APIs reused; no polynomial generator.
-Python only processed files/receipts. Existing integration suggestions apply.
+Primary retains note/index/handoff/archive and external-consumer ownership,
+and the sole serialized Lean build slot. Existing Astra reviewer completed
+both mathematical and written audits; the lift gap and two scope wording
+fixes were resolved, with no outstanding correction. All subagent ownership
+is released. No new worker or account was launched.
 
-Frozen sources, final receipts, independent audit and checked hashes:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/nn-inactive-reassembly/`.
+The authorized nested Claude consultation returned no written answer before
+its 1200-second bound (exit124). Exact owned processes are confirmed gone;
+no retry or account/model change. It is NOT credited as a successful audit.
+Runtime registry, MCP list and Rust capabilities were checked. Lean MCP
+still routes to RealRooted and is unused. Maintained Rust HEAD remains
+`d53fb193af3c69adedbd9ec8592f87235d809ffa`; existing graph/flip APIs reused,
+no maintained Rust edits or polynomial generator. Python only processed
+files, summaries and hashes. Existing integration suggestions apply.
+
+Frozen source, receipts, independent audit, consultant terminal status and
+checked hashes:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/nn-active-first-joins/`.
 [Archived checkpoints](docs/archive/component-recurrence-handoff-through-path-square-20260928.md)
-retain the tree recurrence, all177 exact reconstructions, sink repair and
-older first/middle-join scope. The immediately preceding checkpoint is
-`756f850`, pushed to origin/main.
+retain the preceding `50268ce` whole-tree correction and earlier increments.
 
 ## Earlier recurrence research
 
