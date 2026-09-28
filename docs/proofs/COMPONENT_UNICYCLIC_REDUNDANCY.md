@@ -24,22 +24,14 @@ There is only one such cycle. Traversing it along the bypass, all edges
 except the redundant edge point forward, and that edge points backward.
 This also proves uniqueness of the redundant edge.
 
-Let e be redundant before a flip. It can be neither the retained long
-nor the exchanged short, since those edges must be covers. If the flip
-does not delete a bypass edge, e remains redundant and uniqueness proves
-the claim.
-
-Suppose instead that the deleted short lies on the bypass. The retained
-long is not another cycle edge: consecutive bypass edges meet head to
-tail, whereas a long edge and one of its shorts share a tail or a head.
-The only other cycle edge is e, which is not a cover. Thus the retained
-long is a bridge, and its other endpoint lies outside the cycle.
-
-The flip replaces one forward cycle edge by a two-edge detour, one edge
-forward and one backward. The new cycle therefore has at least two edges
-in each direction. No edge has a directed bypass around this cycle, and
-bridges cannot be redundant. The new state has no redundant edge, proving
-the lemma.
+For an actual flip, write its endpoints as Z+ac+ab and Z+ac+bc.
+The graph T=Z+ab+bc is connected and unicyclic too. Every edge redundant
+at either endpoint remains redundant in T, since ab,bc simulate ac.
+Two different redundant edges at the endpoints would therefore give
+two redundant edges in T, contradicting uniqueness. This proves the
+lemma. The [redundancy diamond](COMPONENT_REDUNDANCY_DIAMOND.md)
+proves the stronger equality of redundant-edge sets and its general
+cycle-rank bound.
 
 ## Deletion gives a whole tree component
 

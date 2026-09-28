@@ -1,5 +1,43 @@
 # VerticalStripLLT handoff
 
+## Current redundancy-diamond checkpoint
+
+2026-09-28, continuation from clean pushed `8036b46`; previous goal turn
+made proved progress. User asked whether done: answered no, general
+whole-component reassembly remains unproved, while the existing Lean
+word/finite-companion proof is complete. Keep the requested goal active.
+
+New [redundancy diamond](docs/proofs/COMPONENT_REDUNDANCY_DIAMOND.md):
+for an actual flip P=Z+ac+ab, Q=Z+ac+bc, put B=Z+ac,T=Z+ab+bc.
+Then Red(B)=Red(P)∩Red(Q), Red(T)=Red(P)∪Red(Q). Delete the union
+simultaneously in the paired diamond: [P]+[Q]=[B]+[T−union], both K/E.
+The union has size at most cycle rank. In a connected rank-two loss/gain
+switch, each endpoint has exactly one redundant edge; the identity relates
+three all-cover unicyclic states and a tree. This also shortens the
+unicyclic no-change proof. Astra independently audited the path arguments.
+
+All90530 directed actual flips among selected graphs n4..6 pass the exact
+union/intersection assertions. Connected rank-two transfer counts are
+0,22,764. First n5 example retains04 and exchanges02/24, transferring
+redundancy03→14. Its source component has84states and all three lower
+unicyclic states lie in the same80statecomponent; emitted tree component
+has4states. BUT whole-component 84=80+4 identity is FALSE: E coefficient
+of e5 is28 versus18. Do not promote the state identity to that component
+recurrence. Tracking all emitted multiplicities remains the missing step.
+
+Receipts and frozen sources/manifest/lock, commands and hashes10files:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/redundancy-transfer/`.
+Final receipt diamond.jsonl checks exact K/E on the local example and
+complete component lists. All jobs finished exit0, no live owned process.
+
+Primary owns notes/index/handoff/external consumer and sole Lean build slot.
+Existing Astra simpler_component_route worked read-only/build-free on this
+lemma; other agents have no assigned edits. No new worker/account, Claude
+call, Lean build, manuscript edit or maintained Rust edit. Registry/MCP
+and Rust guide/metadata checks refreshed. Existing flip API proposal stays.
+Next: construct whole-component reconstruction using the recurrence and
+local identities; these additional state reductions alone do not finish it.
+
 ## Current unicyclic and NN scan checkpoint
 
 2026-09-28, continuation from clean pushed `3a247d9`; previous goal turn

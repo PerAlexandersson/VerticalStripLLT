@@ -32,6 +32,8 @@ The component result is the finite strict/e identity on actual complete componen
   component reconstructions and counterexamples to extremal restrictions.
 - [Unicyclic redundancy](proofs/COMPONENT_UNICYCLIC_REDUNDANCY.md): a
   whole-component tree reduction and a saturation argument using tree connectivity.
+- [Redundancy diamond](proofs/COMPONENT_REDUNDANCY_DIAMOND.md): exact
+  union/intersection formulas and a reduction when two cycles exchange redundancy.
 - [Component recurrence continuation](proofs/COMPONENT_RECURRENCE_REDUCTION.md):
   ordinary NN and DN packets, known corrections, and the remaining isolation question.
 - [DD component packets](proofs/COMPONENT_DD_PACKETS.md): exact corner sectors
