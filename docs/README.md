@@ -30,6 +30,8 @@ The component result is the finite strict/e identity on actual complete componen
   component recurrences, with a simultaneous repair and exterior extension.
 - [Closure repair tests](proofs/COMPONENT_CLOSURE_REPAIR_TESTS.md): exact
   component reconstructions and counterexamples to extremal restrictions.
+- [Unicyclic redundancy](proofs/COMPONENT_UNICYCLIC_REDUNDANCY.md): a
+  whole-component tree reduction and a saturation argument using tree connectivity.
 - [Component recurrence continuation](proofs/COMPONENT_RECURRENCE_REDUCTION.md):
   ordinary NN and DN packets, known corrections, and the remaining isolation question.
 - [DD component packets](proofs/COMPONENT_DD_PACKETS.md): exact corner sectors

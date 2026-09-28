@@ -247,6 +247,31 @@ zero at the second. Thus even its r-absent sector is not component-constant.
 Replacing h by χ_C+χ_I makes this particular δ(Q) zero. This repairs the
 displayed boundary, not automatically every boundary of the diagram.
 
+The existing middle-completion receipt makes the remaining corrections
+explicit. In its component numbering C=16 and I=67. The full class under
+source middle joins is
+
+    {16,39,47,48,63,67,68,79,81,82,84,97,100}.
+
+Its component sizes are respectively
+
+    84,6,2,3,5,3,2,2,1,1,1,2,1.
+
+Only C is f-active. Thus twelve whole inactive components, including I,
+close the source middle residual pointwise. This is exactly closure under
+all joins [L_10(Q)]↔[L_01(Q)]: the indicator has δ(Q)=0 for every Q if
+and only if it is constant on these joins. The separate target-generated
+joins are still required to obtain constant coefficients on target
+components. Merely summing residual coefficients over each deletion
+component would not suffice, since individual state valuations vary
+within a flip component.
+
+Related receipt: `component-recurrence/middle_completion_fixed_fixtures.json`
+under the external project request directory, first fixture, fields
+`boundary_blocks`, `components` and `f_active`. The class and sizes were
+rechecked directly from this existing receipt on 2026-09-28, including
+the equality of the two middle membership values for all 128 exteriors.
+
 Primary checked the complete components with both the existing model and
 the Rust component binary. The test above does not use a truncated component.
 

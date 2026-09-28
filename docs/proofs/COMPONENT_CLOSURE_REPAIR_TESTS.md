@@ -127,3 +127,64 @@ The remaining proof obligation is to show that every canonical NN image
 has a whole-component reconstruction, or to construct repairs by a
 different local argument. These experiments give no general solvability
 or integrality theorem, and do not address all DN or DD recurrences.
+
+## Further tests and a proved unicyclic case
+
+The [unicyclic redundancy lemma](COMPONENT_UNICYCLIC_REDUNDANCY.md)
+now proves the minimal-representative property for saturated connected
+unicyclic components. Its proof uses whole-component redundant-edge
+deletion and tree connectivity; it does not assert the failed property
+for arbitrary components.
+
+We also tested how far beyond maximal representatives the component
+columns must extend. Define the deficit of a component C to be
+
+    min_(A in C) (max_(B equivalent to A) |B| − |A|).
+
+Deficit zero means that C contains a largest representative of some
+equivalence class. The simultaneous exact solve gives:
+
+| Source diagram | Least bound sufficient for every tested source component |
+| --- | ---: |
+| (0,1,2,3) | 0 |
+| (0,1,2,3,3) | 0 |
+| (0,1,2,3,4,3) | 1 |
+| (0,1,2,3,4,3,2) | 1 |
+| (0,1,2,3,4,3,4) | 2 |
+
+In the last fixture, source indices 62 and 70 still give inconsistent
+systems at deficit one. All six pass at deficit two, allowing 1,651 of
+the 2,639 target components. Thus even a one-edge extension of the
+maximal-representative restriction is insufficient. This test does not
+establish any universal bound on the deficit.
+
+An exhaustive ordinary area-sequence scan through six vertices, with all
+corners strict, tests every NN instance satisfying the terminal gap,
+equal initial boundary, and absence of strict heads at the two swapped
+vertices. For each instance we retain exactly the connected non-tree
+source components containing a mixed-acyclic state. With all target
+columns allowed, every such source component passes:
+
+| Vertices | Eligible NN instances | Retained source components |
+| --- | ---: | ---: |
+| 3 | 1 | 0 |
+| 4 | 4 | 1 |
+| 5 | 15 | 8 |
+| 6 | 56 | 46 |
+
+Counts include repetitions when a diagram admits more than one NN move.
+All 55 resulting identities have integral coefficients in the returned
+solutions, although the solver works over the rationals. Each passes
+the original class-sum check and both exact valuation checks.
+
+A further seven-vertex test uses area (0,1,2,3,3,4,3), strict corners
+03,15,36, and NN at 1<2<5. This places strict overlaps on both sides of
+the distinguished corner. All four retained source components pass;
+the target has 8,192 states, 2,569 equivalence classes and 612 components.
+
+Related Rust: `nn_capacity_repair.rs`, with receipts `deficit.jsonl`,
+`scan_six.jsonl` and `three_corners.jsonl`, frozen under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/deficit-repair/`.
+The area-sequence fixture recursion follows the existing private LLT
+test helper `all_area_sequences`; the graph and linear algebra routines
+are reused. No polynomial family or maintained Rust API is introduced.

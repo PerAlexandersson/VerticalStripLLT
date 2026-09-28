@@ -1,5 +1,62 @@
 # VerticalStripLLT handoff
 
+## Current unicyclic and NN scan checkpoint
+
+2026-09-28, continuation from clean pushed `3a247d9`; previous goal turn
+made proved and checked progress. General NN/DN/DD whole-component
+reconstruction remains open; the full goal stays active.
+
+New proved result: [unicyclic redundancy](docs/proofs/COMPONENT_UNICYCLIC_REDUNDANCY.md).
+Across an actual flip of a unicyclic state, a redundant edge can disappear
+but cannot change directly to a different redundant edge. Thus a component
+with no normal-cover minimal state has a common redundant normal edge;
+deletion gives a whole TREE component with the same K/E sums. In a
+saturated connected component this second alternative is impossible:
+tree connectivity supplies a spanning tree containing that deleted edge.
+The same conclusion holds after normalizing to the selected envelope.
+Even without saturation, every connected unicyclic closure/swap column
+is supplied by a minimal-representative column (possibly its tree image).
+This does not prove the multicycle reconstruction.
+
+Further exact evidence is in [closure repair tests](docs/proofs/COMPONENT_CLOSURE_REPAIR_TESTS.md).
+All76 eligible saturated ordinary NN instances through n6 pass with all
+target columns:55 remaining source-component occurrences, integer returned
+coefficients, original class-mass checks and exact K/E valuations. A new
+n7 fixture area0123343, strict03,15,36, NN15 tests both-side overlap:
+all4 remaining components pass. The earlier n7 shield needs deficit2;
+deficit1 fails exactly for source indices62,70. No universal deficit bound
+or general closure/swap solvability theorem is established.
+
+The unicyclic scan checks all193 saturated ordinary diagrams n3..6:
+156 connected unicyclic components,12794 directed flips, all normal-cover
+minimal states present. It supports the independent mathematical proof.
+The DN note also records the existing thirteen-component middle class
+around its 84-state example; one three-state correction alone is not enough.
+All twelve added components in that middle class are f-inactive. Target
+joins remain necessary; zero sums of coefficients over flip components
+alone do NOT justify valuation cancellation.
+
+Receipts, source/manifest/lock snapshots, commands and hashes17files are in
+`/lake-cache/ai-projects/requests/VerticalStripLLT/deficit-repair/`.
+All four successful jobs finished exit0. Two initial compile errors were
+fixed and retained as labelled logs. No owned live processes.
+
+Primary owns notes/index/handoff and external Rust consumers, retaining
+the sole Lean build slot. Existing Astra simpler_component_route supplied
+and audited the unicyclic proof, read-only/build-free. Existing Luna
+word_covers inspected the DN residual and existing receipts; primary
+rejected its insufficient coefficient-sum shortcut and checked the actual
+middle class on all128 exterior masks. Both bounded tasks are finished.
+No delegated edits, new worker/account, Claude call,
+Lean build, manuscript edit or maintained Rust source edit. Registry/MCP
+and Rust guide/metadata/API checks were refreshed. Lean MCP still targets
+the other project. Existing Rust integration proposal remains unchanged.
+
+Next: use whole-component operations to prove the general reconstruction,
+especially with several selected cycles. The unicyclic lemma eliminates
+one obstruction but does not solve NN, DN or DD by itself. Preserve the
+existing manuscript and do not turn finite exact solves into a proof claim.
+
 ## Current overlapping-corner checkpoint
 
 2026-09-28, continuation from clean pushed `6e296bc`. The goal remains
