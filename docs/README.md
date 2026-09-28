@@ -36,6 +36,9 @@ The component result is the finite strict/e identity on actual complete componen
 - [Four-cycle swap](proofs/COMPONENT_FOUR_CYCLE_SWAP.md): actual flip
   paths for arbitrary attached trees, both second mixed NN joins,
   and an adjacent swap theorem for longer unicyclic states.
+- [Unicyclic natural blocks](proofs/COMPONENT_UNICYCLIC_BLOCKS.md):
+  strict-chain contraction, a five-flip envelope repair, and finite
+  evidence for the unresolved uniqueness question without articulation.
 - [Redundancy diamond](proofs/COMPONENT_REDUNDANCY_DIAMOND.md): exact
   union/intersection formulas and a reduction when two cycles exchange redundancy.
 - [Whole-component corrections](proofs/COMPONENT_GLOBAL_REASSEMBLY.md):

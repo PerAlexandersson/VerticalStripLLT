@@ -1,5 +1,55 @@
 # VerticalStripLLT handoff
 
+## Current unicyclic block checkpoint
+
+2026-09-28, continuation from clean pushed `cd29b7a`. The preceding goal
+turn made proved progress. This increment adds a structural lemma, a
+checked local repair, and exhaustive evidence; it does not complete the
+requested general recurrence/diamond proof.
+
+New [unicyclic block note](docs/proofs/COMPONENT_UNICYCLIC_BLOCKS.md):
+contracting strict chains in an articulation-free ordinary natural graph
+creates no loops or articulation. Deleting one chain leaves consecutive
+labels at distance at most two, hence connected. The two-vertex multigraph
+case has parallel edges and is handled explicitly.
+
+The stronger uniqueness question remains open: is there at most one
+surviving connected unicyclic component in each natural block? Exact search
+passes every articulation-free saturated diagram on7 and8 vertices:
+42/132 graphs,59881/1280832 connected selected states, one survivor per graph.
+All survivors also contain a leaf-at-0 state with the full remaining
+natural envelope. These finite assertions do not prove either uniform claim.
+The known two-K4 articulation counterexample excludes unrestricted uniqueness.
+
+Two precise obstructions guide the next proof attempt. Contracting the
+smallest cycle vertex can create a redundant strict edge before reaching
+a triangle. Also the tree envelope-augmentation sweep can make its retained
+corner redundant halfway through. A five-flip repair fixes the smallest
+K5 example and restores the smaller envelope. Primary and existing Astra
+independently audited the lemma, examples, repair and final written note.
+A full-envelope smaller component may still be inactive (explicit n4
+example), so an induction must retain its correction rather than discard it.
+
+Frozen sources/model, Cargo files, commands, receipts and18 hashes:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/unicyclic-blocks/`.
+Final n7/n8 scans and repair finished exit0. An initial n8 run reached its
+200000-state BFS cap only at K8; a bounded1m-cap rerun completed it and the
+final full scan. A compile-only reference-pattern typo was fixed before
+leaf-test execution. Historical logs are labeled; neither error is a
+mathematical counterexample. Documentation links, hashes and diff checks pass.
+
+Primary owns notes/index/handoff and the external consumer; sole serialized
+Lean build slot retained. Astra's bounded read-only assignments are finished,
+and all owned processes are terminal. No new workers/accounts, Claude call,
+Lean build, manuscript edit or maintained Rust edit. Runtime/MCP and Rust
+capabilities refreshed; Lean MCP still targets RealRooted and was unused.
+Existing flip-enumeration API integration proposal remains.
+
+Next: find a uniform repair that restores the smaller envelope after corner
+leaf normalization, or close the remaining first/middle NN joins directly.
+The unicyclic block evidence is a possible isolation route, not a replacement
+for the full goal: higher cycle ranks, DN/DD and recurrence coverage remain.
+
 ## Current unicyclic swap checkpoint
 
 2026-09-28, continuation from clean pushed `47a9c13`. This goal turn made
@@ -59,7 +109,7 @@ retain the right four-cycle, unicyclic classification and global-reassembly
 proofs and receipts. [Earlier checkpoints](docs/archive/component-recurrence-handoff-through-redundancy-20260928.md)
 retain the NN/DN/DD packet proofs, exact failures of stronger isolation
 claims, direct local reconstructions, and redundancy-diamond results.
-The latest preceding checkpoint is `47a9c13`, pushed to `origin/main`.
+The latest preceding checkpoint is `cd29b7a`, pushed to `origin/main`.
 The current proof notes are indexed by [docs/README.md](docs/README.md).
 
 ## Current manuscript
