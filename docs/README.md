@@ -17,8 +17,8 @@ The component result is the finite strict/e identity on actual complete componen
 - [Alternative diamond proof search](proofs/COMPONENT_AUXILIARY_DIAMONDS.md):
   proved auxiliary reductions; the general component step remains open.
 - [Local recurrence diagrams](proofs/COMPONENT_LOCAL_DIAGRAMS.md): the two
-  four-vertex NN overlaps and the proposed five-vertex organization for DN;
-  exterior cover conditions and the remaining commuting comparisons.
+  four-vertex NN overlaps and the proved five-vertex reduction of DN target
+  comparisons after source balance, with arbitrary exterior and cycle rank.
 - [Direct NN redistribution](proofs/COMPONENT_NN_REDISTRIBUTION.md):
   one-component split, a three-diamond worked proof, and exact Rust certificates.
 - [NN tree components](proofs/COMPONENT_NN_TREE_SECTORS.md): the connected

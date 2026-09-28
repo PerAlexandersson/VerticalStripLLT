@@ -2,6 +2,27 @@
 
 ## Active continuation: local diagrams for component recurrences
 
+Primary added the DN middle-flip lift and conditional five-vertex proposition
+to the local diagram note. Existing Astra reviewer independently checked both
+lifts and the full reduction, with arbitrary exterior and cycle rank.
+For component-constant balanced h, every target coefficient comparison is
+settled except retained-ux or wx-changing flips; these use at most five
+vertices together with the recurrence. Constructing the balanced correction
+and proving these remaining comparisons are still open in general.
+User also requests the same cell diagrams for the circular HRV proof, following
+the Robin paper. Primary owns the small figure-only changes to Overleaf
+`LLT flip/proof-diagrams.tex`, `dyck-first/diagrams.tex`, the bounce caption
+and triangle notation in `dyck-first/circular.tex`, README, map and preview.
+Previous files and PDF are copied to the external local-diagram-style receipt.
+The shared LLTCells/LLTSelectionTriangle macros now draw the circular bounce,
+circular triangle identity and ordinary diamond in the Robin paper's style.
+The 13-page preview builds without warnings/box errors and pages4/9 were
+visually inspected. No other manuscript proof change or Lean build.
+Final written Astra audit passed after clarifying that disjoint commuting
+flips can have a seven-vertex raw union; the exceptional bound stays five.
+Sources, before/after hashes, review and compile receipts are in
+`/lake-cache/ai-projects/requests/VerticalStripLLT/local-diagram-style/`.
+
 From clean pushed `0ff5980`; previous goal turn made verified progress.
 Primary owns notes/index/handoff and external-consumer additions. Existing
 Astra reviewer completed the read-only DN/coverage audit and released its task.
@@ -9,14 +30,14 @@ No new worker/account, Claude child, Lean or manuscript build. Runtime
 registry/MCP and Rust capabilities rechecked before bounded probes.
 
 Latest user direction: organize the recurrence/flip overlaps as diagrams,
-probably on five vertices. The new
+probably on five vertices, using the same cell notation for circular HRV. The
 [local diagram note](docs/proofs/COMPONENT_LOCAL_DIAGRAMS.md) records the
 proved two four-vertex NN overlap types. Every DN flip changing its local
 (p,q) sector uses at most five vertices together with the recurrence.
-Flips preserving the sector may share only one vertex and need a commuting
-argument; exterior paths also affect cover conditions. Do not claim that
-five isolated vertices already prove the arbitrary-exterior statement.
-Next examine DN middle-sector commuting comparisons, then shared-edge repairs.
+The new arbitrary-exterior lifting argument settles the commuting cases
+after source balance. Do not claim that five isolated vertices prove the
+remaining comparison identities. Next examine the retained-ux overlap
+u<t<w<x<z and the wx-changing overlaps, retaining the full exterior.
 
 Previous DN scan finished with exit zero: 111 eligible saturated instances
 through seven vertices, 31 all-active connected unicyclic component reports,

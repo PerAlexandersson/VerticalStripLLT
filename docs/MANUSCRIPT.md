@@ -1,5 +1,25 @@
 # Manuscript synchronization
 
+## Shared cell diagrams — 2026-09-28
+
+The author requested the diagram conventions of the paper with Robin for
+both the circular HRV proof and the ordinary component argument. Examples
+4.1 and 5.3 of the published Alexandersson--Sulzgruber paper were inspected.
+`proof-diagrams.tex` now provides `LLTCells` and `LLTSelectionTriangle`:
+yellow diagonal labels, gray cells without ascent weights, and configurable
+math entries. The circular NN/DN figure, circular four-selection identity,
+and ordinary diamond now use the same macros. Their captions/text distinguish
+weighted diagram sums from unweighted selected relations. Circular labels
+denote integer lifts with periodic exterior data retained.
+
+The preview is now 13 pages. It compiles without warnings or overfull/underfull
+boxes; pages 4 and 9 were visually inspected. The former source files and PDF
+are preserved under the external `local-diagram-style/before/` receipt, and
+the new sources, preview and logs under `local-diagram-style/build/` in the
+project requests cache. The proof text and theorem statements are unchanged
+apart from explaining the new notation. The new conditional five-vertex DN
+comparison proof remains in research notes, not in the manuscript.
+
 ## Separate circular-first draft — 2026-09-28
 
 The user found the previous overhaul difficult to follow and requested a new
