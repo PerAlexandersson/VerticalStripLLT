@@ -173,3 +173,51 @@ The circular bounce pictures use ordered integer lifts as their diagonal
 labels and denote the corresponding periodic local change. A cell picture
 does not license discarding exterior paths or cyclic cases. The circular
 triangle identity and periodic HRV comparison remain the justification.
+
+## Retain unmatched terms instead of requiring source balance
+
+The author recalls a more flexible diagram argument than the cycle-rank
+case split. The direct recurrence already gives the appropriate starting
+point. Balance is a sufficient hypothesis for the five-vertex proposition
+above, not a prerequisite for transporting a single component.
+
+For the original component indicator h and an arbitrary beta, put
+
+    g00=(h00+h01) composed with sigma - beta,
+    g10=g01=beta,             g11=h11+h10-beta,
+    delta=h10-h01.
+
+The proved [ordinary DN residual identity](FLIP_COMPONENT_INDUCTION.md#an-ordinary-linear-residual-and-why-it-cannot-be-held-fixed)
+is, for both valuations X,
+
+    X_L(C)=X_R(g)
+           + sum_Q delta(Q)(X_del00(Q)-X_del01(Q)).
+
+It requires no cycle-rank bound and no balancing of h. A mismatch between
+the middle terms either has zero contrast because the other short edge is
+already implied, or makes the strict long redundant in the relevant base
+state. This is why its contribution can be sent to the deletion diagram.
+The analogous [direct NN split](COMPONENT_NN_REDISTRIBUTION.md#the-initial-nn-split-for-any-one-component)
+also retains unmatched middle terms in a smaller diagram.
+
+We should therefore allow diamonds to change the target coefficients and
+the deletion coefficients together. The existing counterexample to holding
+the DN deletion residual fixed makes this flexibility necessary. The
+balanced construction is one possible repair, not an additional condition
+on the desired component recurrence. Likewise, the unicyclic NN theorem
+is a proved restricted result, not a reason to organize the general proof
+by the number of undirected cycles.
+
+Another available reduction already works in every cycle rank: deleting a
+strict corner partitions each source component into complete components of
+the deletion diagram. Inclusion--exclusion over several strict corners
+then solves a component if every one of its states has some redundant
+strict corner, even when that corner varies with the state. See
+[corner differences](COMPONENT_CORNER_DIFFERENCES.md#alternating-deletion-of-several-strict-corners).
+Neither this reduction nor a statewise redundant-edge deletion alone proves
+that all remaining recurrence outputs assemble into whole components.
+
+Next we should draw an actual exceptional recurrence/flip overlap and
+repair its target and deletion contributions jointly. If a balanced source
+combination appears, we may use the preceding proposition; we should not
+force that choice before examining the diagram identity.

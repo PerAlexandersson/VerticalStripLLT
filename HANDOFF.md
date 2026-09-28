@@ -2,6 +2,17 @@
 
 ## Active continuation: local diagrams for component recurrences
 
+Latest author steering: the earlier argument used smarter local operations
+than the cycle-rank subdivision. Re-read the archived original main.tex
+recurrence sketches and the direct NN/DN residual identities. The next step
+is DIRECT transport of one component, with target and deletion terms repaired
+together by diamonds. Do not impose source balance, packet isolation, or a
+cycle-rank induction as an extra goal requirement. The conditional balanced
+five-vertex theorem remains useful when applicable; it does not supersede
+the unrestricted direct residual identity. The new final section of
+COMPONENT_LOCAL_DIAGRAMS.md records this distinction and the general
+corner-deletion/inclusion--exclusion reduction. No manuscript edits this turn.
+
 Primary added the DN middle-flip lift and conditional five-vertex proposition
 to the local diagram note. Existing Astra reviewer independently checked both
 lifts and the full reduction, with arbitrary exterior and cycle rank.
