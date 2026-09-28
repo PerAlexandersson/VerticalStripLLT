@@ -1,5 +1,36 @@
 # VerticalStripLLT handoff
 
+## Active ordinary diamond-proof search
+
+2026-09-28: user requests a more accessible general component proof using the
+local diamond lemma. Primary owns research notes and the sole Lean build slot;
+no Lean source or manuscript proof is being replaced during exploration.
+Existing Astra simpler_component_route searches for a uniform auxiliary-poset
+reduction; existing Luna word_covers audits source/sink branching and previous
+obstructions. Both are read-only/build-free. Primary also owns a read-only
+nested Claude consultant (20-minute cap), with outputs under the external
+`diamond-proof-search/` request cache. No new account or supervisor worker.
+Rust capability check completed (library guide, Cargo metadata and semantic/API
+search). A bounded external Python probe may orchestrate the existing flip
+model and Rust HRV bridge, extending the earlier exact rational relation-span
+probe; no existing Rust API exposes this auxiliary-poset diamond/swap quotient.
+No new polynomial family or reusable computational library is being introduced.
+Known false targets: fixed-diagram chain straightening, root-only promotion,
+and confluent greedy critical-fork normalization. Auxiliary posets are allowed;
+full component labels and exterior terms must remain controlled.
+
+Primary owns `docs/proofs/COMPONENT_AUXILIARY_DIAMONDS.md` and its links in
+`docs/README.md` / `DIAMOND_STRAIGHTENING_AUDIT.md`. New results, independently
+checked by Astra: the auxiliary-diamond quotient is integrally the permutation
+coordinate ring; a terminating diamond recursion reduces every forward poset
+to increasing forests; certified whole-poset swaps give a maximal-letter
+normalization. The note states the remaining universal factorization precisely.
+Exact rational tests pass for every forward poset through n=5, and all 1710
+ordinary components in degrees 2--5. This is evidence, not an all-degree or
+integral proof. Pairwise identification of permutation terms is insufficient
+already at n=4. Probe receipts are in external `diamond-proof-search/`.
+Astra and Luna assignments are now released; nested Claude is still pending.
+
 ## Current manuscript
 
 2026-09-28: completed the user's new separate circular-first draft in Overleaf:

@@ -5,6 +5,11 @@ route; see [the completion audit](../COMPONENT_COMPLETION.md). Open-status
 sentences below record this earlier approach. Its additional auxiliary
 claims are not automatically proved by the completed theorem.
 
+For the renewed 2026-09-28 search, see
+[auxiliary diamonds](COMPONENT_AUXILIARY_DIAMONDS.md): a proved forest
+reduction and exact linear-extension expansion, with the remaining universal
+component step stated separately and checked only in bounded degree.
+
 This is a mathematical audit, not a Lean completion claim. The fixed-diagram
 straightening proposal in `FLIP_COMPONENT_INDUCTION.md` is false. A short
 repair of its first obstruction suggests a more flexible uniform lemma using

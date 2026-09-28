@@ -14,6 +14,8 @@ The component result is the finite strict/e identity on actual complete componen
 ## Proof sources
 
 - [Ordinary component word proof](proofs/COMPONENT_ORDINARY_PROOF.md).
+- [Alternative diamond proof search](proofs/COMPONENT_AUXILIARY_DIAMONDS.md):
+  proved auxiliary reductions; the general component step remains open.
 - [Finite circular companion](proofs/COMPONENT_FINITE_COMPANION.md).
 - [Overleaf comparison](proofs/COMPONENT_CIRCULAR_FACE_PROOF.md): direct HRV
   extraction and the alternative bounded-face argument.
