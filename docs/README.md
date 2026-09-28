@@ -26,7 +26,11 @@ The component result is the finite strict/e identity on actual complete componen
 - [Joint DN repairs](proofs/COMPONENT_DN_JOINT_REPAIRS.md): complete component
   recurrences for both minimal five-vertex pictures; the left repair uses
   another smaller corner-deletion diagram. Bypass shortening and local
-  propagation lemmas retain arbitrary exteriors. Exact matching succeeds for
+  propagation lemmas retain arbitrary exteriors; following the exchanged
+  deleted edge also handles xt/tz. The separate Overleaf `dn-local-cases.tex`
+  illustrates this rule and the two-diamond repair. An eight-pair table handles
+  the retained-edge case locally; a covering outer corner lets us move
+  obstructing edges aside and restore them after a flip. Exact matching succeeds for
   376 components of six selected diagrams; general compatibility remains open.
 - [DN source additions](proofs/COMPONENT_DN_SOURCE_ADDITIONS.md): a proved
   six-vertex recurrence adds two deletable components and matches the terms

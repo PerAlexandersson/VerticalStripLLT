@@ -1,5 +1,48 @@
 # VerticalStripLLT handoff
 
+## Current local-diagram progress
+
+2026-09-28, continuation from `1648f12`. The author's requested recurrence
+proof is NOT complete. Keep the argument local: push a component through
+the recurrence, repair pieces with diamonds, and identify whole smaller
+components, with identical coloring/HRV coefficients.
+
+New in [joint DN repairs](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md):
+
+- Following the deleted edge when a target flip exchanges it gives identical
+  source relations. This removes that exceptional case, including xt/tz,
+  with arbitrary exterior. Preserved marks propagate unless the flip retains
+  the mark or e'.
+- All eight pairs (sixteen states) in the retained-xt five-vertex calculation
+  have actual source paths of at most five flips. The table is hand-checked
+  and independently audited, and exact Rust paths agree. It extends to
+  exteriors with no directed path between distinct displayed vertices.
+  Unrestricted exterior is not covered by this table.
+- A short proof moves obstructing edges aside beneath a covering strict
+  corner: if wz covers, ws,wt are selected and s cannot reach t, successively
+  exchange suitable wv for vz, flip ws to st, then undo the exchanges.
+  This addresses normal bypasses without extra cases. Independent Astra
+  review passed the arbitrary-exterior proof and five-flip example.
+
+The separate Overleaf `dn-local-cases.tex`/PDF illustrates the moving-edge
+lemma and the right-hand two-diamond repair. Two pages, no LaTeX/box warnings;
+both pages visually inspected and the final PDF copied to Overleaf.
+Shared macros and main drafts are unchanged. Review/log/source receipts are
+under `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-local-cases/`.
+
+NEXT: handle remaining retained-edge transitions with unrestricted exterior,
+including a redundant outer corner, and the left-hand e' case. Then finish
+component reassembly and integrate the other recurrences. Do not reintroduce
+source-balance, cycle-rank, active-uniqueness or coefficient-graph prerequisites.
+
+Primary owns notes/index/handoff, the new Overleaf sheet/metadata, and the
+external `first_join_tree_lifts.rs --retained-mark-table` addition; sole Lean
+build ownership is unchanged. Existing Astra reviewer completed its read-only
+audit and is released. No new workers/accounts, Claude child, Lean edits or Lean builds.
+Rust table and LaTeX jobs exited zero. Registry and `codex mcp list` checked;
+Lean MCP remains rooted at RealRooted and was not used. Maintained Rust
+remains d53fb193af3c69adedbd9ec8592f87235d809ffa. Goal remains active.
+
 ## Author steering: keep the proof local
 
 The author says the current approach is overcomplicated. Return to the

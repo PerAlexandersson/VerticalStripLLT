@@ -378,6 +378,150 @@ or v<=u, whose long edge vt is excluded by maximality of e'.
 These are the remaining cases for propagating this particular deletion;
 their general repair is not proved by (11).
 
+### Letting the deleted edge move with the flip
+
+We can handle the exchanged-edge case without an additional diamond.
+Let A be a target 00 orientation and g a selected normal edge. Associate
+to it the source 01 orientation
+
+    A_g = (A - {e',g}) + {e,f}.
+
+Suppose an actual target 00 flip joins A=Z+ell+a to B=Z+ell+b, retaining
+ell and exchanging a,b. There are two immediate cases:
+
+| Edge deleted at A | Edge deleted at B | Source relations |
+| --- | --- | --- |
+| a | b | A_a=B_b |
+| g in Z, with ell different from e' | the same g | A_g and B_g are joined by the same flip |
+
+For the first row, both deletions leave Z+ell before replacing e' by e,f.
+This works even when ell=e'. For the second, deleting the two untested
+edges g,e' preserves all tested covers. Adding the source natural corners
+e,f cannot create a bypass of a tested edge. Thus the same source flip
+remains actual. All common exterior edges are retained.
+
+In particular, when a target flip exchanges xt with ts, we delete xt
+before the flip and ts afterwards. Both source orientations are identical.
+This includes s=z: the flip retaining r and exchanging xt,tz needs no
+separate repair. Along a succession of flips we may continue following the
+exchanged edge, rather than insisting on deleting the original xt.
+
+The cases still requiring a repair are a flip retaining the deleted edge,
+and a flip retaining e' while the deleted edge is unchanged. When w=u+1,
+the latter is impossible in 00. This reduces that propagation calculation
+to the retained-deleted-edge case; it does not prove its general repair.
+
+The separate Overleaf sheet `dn-local-cases.tex` displays the xt/tz case
+in the author's cell notation and illustrates (1)--(2) by deleting the
+redundant r and using two diamonds. The existing Astra reviewer checked
+the new lemma, all displayed cell indices and the written calculation.
+
+### The retained-edge case on five displayed vertices
+
+Here is the local calculation when the target flip retains the deleted
+edge g=xt and exchanges p=xs with j=st, where w<x<s<t<z.
+In the source, keep f=wz, r=xz and A=wt selected, with q=wx and g absent
+at the two endpoints. The remaining three bits are
+
+    alpha=ws, beta=sz, gamma=tz.
+
+The upstream strict edge e=uw stays selected throughout. First suppose
+these are all the vertices between w and z and there are no other selected
+edges incident with them. The following eight pairs give sixteen states.
+In each row, the displayed sequence replaces p by j, restoring all other
+edges. An arrow is an actual source flip; the last column lists its retained
+edge. Fixed e,f,r,A are omitted from the states.
+
+| (alpha,beta,gamma) | Selected variable edges along the path | Retained edges |
+| --- | --- | --- |
+| 000 | p -> beta -> alpha -> j | r,f,A |
+| 100 | alpha+p -> p+j -> beta+j -> alpha+j | A,r,f |
+| 010 | p+beta -> p+alpha -> p+j -> beta+j | f,A,r |
+| 110 | alpha+p+beta -> p+j+beta -> alpha+p+j -> alpha+beta+j | A,f,r |
+| 001 | p+gamma -> p+g -> g+j -> j+gamma | r,g,r |
+| 101 | alpha+p+gamma -> alpha+p+g -> alpha+g+j -> alpha+j+gamma | r,g,r |
+| 011 | p+beta+gamma -> p+j+beta -> alpha+p+j -> alpha+j+beta -> alpha+beta+gamma -> j+beta+gamma | beta,f,r,beta,A |
+| 111 | alpha+p+beta+gamma -> q+alpha+beta+gamma -> alpha+g+beta+gamma -> alpha+g+j+beta -> alpha+j+beta+gamma | alpha,A,beta,r |
+
+We can check the covers directly. When gamma=0, retaining r,f,A exchanges
+adjacent unequal bits in (p,beta,alpha,j); the first four rows perform
+these exchanges. When beta=0 and gamma=1, we replace gamma by g, perform
+the original g-retained flip, and replace g by gamma. The last two rows
+give the five- and four-flip paths when beta=gamma=1. In every listed
+triangle exactly one short is selected, and neither the long edge nor
+the selected short has an alternative directed path.
+
+All eight paths also work with any fixed exterior having no directed path
+between distinct vertices in {w,x,s,t,z} after the displayed local edges
+are removed. Indeed, a bypass that leaves these vertices would have to
+return to a different displayed vertex. The hypothesis rules this out,
+so every local cover test is unchanged. Branches attached at a single
+displayed vertex are allowed.
+
+This proves the local sixteen-state calculation. With unrestricted exterior,
+the original target g-flip does not certify the intermediate covers of
+f,r,alpha,beta. Those cases still need a diamond repair; the table is not
+an arbitrary-exterior component recurrence.
+
+Related Rust: `first_join_tree_lifts.rs --retained-mark-table`, using
+`component_source_probe::{component,flip}`, checks all eight pairs in
+area011234 with strict01,15 and prints the paths above. The existing Astra
+reviewer independently checked all eight local paths and the stated exterior
+extension. Sources, logs and review are frozen under the external
+`dn-local-cases/` receipt directory.
+
+### Moving obstructing edges aside beneath a corner
+
+The last flip of the 000 row can fail because an exterior path makes A=wt
+redundant. We can repair this without a diamond when the outer corner f=wz
+still covers. The following statement also allows ws to be redundant.
+
+**Lemma.** Let w<s<t<z lie beneath a natural strict corner f=wz. Suppose
+f,wt,ws are selected, f is a cover, and there is no selected directed path
+from s to t. Then replacing ws by st, with all other edges restored, gives
+an orientation in the same source component.
+
+**Proof.** List the selected edges wv, other than ws,wt, such that v can
+reach s or t. Each such v is less than t. In increasing order of v, replace
+wv by vz, retaining f. These are normal edges inside f.
+
+Each move is an actual flip. The edge wv is a cover when we reach it: a
+bypass would start with wy for y<v, with y also reaching s or t, so wy
+would already have been removed. The retained edge ws cannot start such
+a bypass, since s cannot reach t (or itself by a nonempty directed path).
+The changes into z do not affect any path ending at or before t.
+Finally, the cover of f excludes a path from v to z while wv is selected.
+After replacing wv by vz, a new bypass of f would require a previously
+existing bypass of wv. Thus f and the exchanged shorts have the required
+covers at both endpoints.
+
+After these moves, ws and wt both cover. We can perform the flip retaining
+wt and exchanging ws,st. It leaves f a cover: a newly created bypass of f
+would use st and continue from t to z, but that latter path was excluded
+by the cover of f and the selected edge wt.
+
+Now undo the preceding moves in reverse order. Compared with the forward
+path, ws is absent and st is present. Deleting ws cannot spoil a cover.
+Adding st cannot create a bypass of wv, since v<t, or a bypass of vz or
+f, since there is still no path from t to z. All reverse moves are
+therefore actual. They restore every edge except for the desired exchange
+ws to st. This proves the lemma.
+
+For example, take w<x<y<s<t<z in row000 and add wy,yt to its exterior.
+The target flip retaining xt is actual, but wt is redundant through y.
+After the first two moves of row000, we use
+
+    wy -> yz [retain f],
+    ws -> st [retain wt],
+    yz -> wy [retain f].
+
+This gives a five-flip source path with the exterior restored. Neither
+strict-corner deletion nor a longer list of orientation cases is needed
+for this obstruction. The lemma assumes f covers; it does not settle
+the retained-edge case when an exterior path also makes f redundant.
+The existing Astra reviewer independently checked the full argument,
+including reverse restoration with arbitrary exterior, and the example.
+
 ## Verification and remaining work
 
 The proposition has a direct cover-and-coefficient proof above. An
