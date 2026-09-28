@@ -1,456 +1,64 @@
 # VerticalStripLLT handoff
 
-## Current redundancy-diamond checkpoint
+## Current global-reassembly checkpoint
 
-2026-09-28, continuation from clean pushed `8036b46`; previous goal turn
-made proved progress. User asked whether done: answered no, general
-whole-component reassembly remains unproved, while the existing Lean
-word/finite-companion proof is complete. Keep the requested goal active.
+2026-09-28, continuation from clean pushed `246345c`. The requested general
+recurrence/diamond component proof is still incomplete; the earlier full
+Lean word/finite-companion proof remains complete. Keep the research goal
+active. No manuscript or Lean theorem has been replaced by this partial route.
 
-New [redundancy diamond](docs/proofs/COMPONENT_REDUNDANCY_DIAMOND.md):
-for an actual flip P=Z+ac+ab, Q=Z+ac+bc, put B=Z+ac,T=Z+ab+bc.
-Then Red(B)=Red(P)∩Red(Q), Red(T)=Red(P)∪Red(Q). Delete the union
-simultaneously in the paired diamond: [P]+[Q]=[B]+[T−union], both K/E.
-The union has size at most cycle rank. In a connected rank-two loss/gain
-switch, each endpoint has exactly one redundant edge; the identity relates
-three all-cover unicyclic states and a tree. This also shortens the
-unicyclic no-change proof. Astra independently audited the path arguments.
+New [whole-component correction](docs/proofs/COMPONENT_GLOBAL_REASSEMBLY.md):
+for NN at 26 in area (0,1,2,3,4,3,4), strict corners 04,26, the remaining 1693-state component
+has a packet consisting of itself plus an inactive 89-state component.
+The packet transports to 26 whole smaller components, total 1,782 states;
+deleting 26 from the correction gives one whole 89-state tree component.
+Thus this particular source component has the same signed recurrence for
+K/E. Finite packet identification is exhaustive, not a general theorem.
+All 1,405 source components give 703 packets; each has at most one of the six
+remaining components. All 55,232 directed target flips preserve packet weights.
 
-All90530 directed actual flips among selected graphs n4..6 pass the exact
-union/intersection assertions. Connected rank-two transfer counts are
-0,22,764. First n5 example retains04 and exchanges02/24, transferring
-redundancy03→14. Its source component has84states and all three lower
-unicyclic states lie in the same80statecomponent; emitted tree component
-has4states. BUT whole-component 84=80+4 identity is FALSE: E coefficient
-of e5 is28 versus18. Do not promote the state identity to that component
-recurrence. Tracking all emitted multiplicities remains the missing step.
+New uniform theorem in [tree connectivity](docs/proofs/COMPONENT_TREE_CONNECTIVITY.md):
+reachability common to all trees with envelope H is exactly Reach(M), where
+M is its maximal intervals. Contract the increasing chains of M, prove the
+quotient strongly connected, and extend a reverse quotient path to a tree.
+It characterizes inactive strict-corner insertions into tree components.
+Primary and independent Astra audited both proofs; exact enumeration agrees
+for 1,441 trees in 64 whole components, n=2..6.
 
-Receipts and frozen sources/manifest/lock, commands and hashes10files:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/redundancy-transfer/`.
-Final receipt diamond.jsonl checks exact K/E on the local example and
-complete component lists. All jobs finished exit0, no live owned process.
+The same 1,693-state example disproves endpoint-only redundant-edge repair:
+the canonical NN weights differ across an actual flip between two TREES.
+Both selected-edge lists and the safe whole-component correction are in
+the note. Do not infer that every bad boundary has a redundant endpoint.
 
-Primary owns notes/index/handoff/external consumer and sole Lean build slot.
-Existing Astra simpler_component_route worked read-only/build-free on this
-lemma; other agents have no assigned edits. No new worker/account, Claude
-call, Lean build, manuscript edit or maintained Rust edit. Registry/MCP
-and Rust guide/metadata checks refreshed. Existing flip API proposal stays.
-Next: construct whole-component reconstruction using the recurrence and
-local identities; these additional state reductions alone do not finish it.
+Receipts, frozen source/manifest/lock, reproduction commands and 20 hashes:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/global-reassembly/`.
+All mathematical computation jobs finished exit 0, including the final
+26-target-list and 89-state deletion check. No new polynomial family or
+maintained Rust edit; existing flip API integration proposal remains.
 
-## Current unicyclic and NN scan checkpoint
+Primary owns notes/index/handoff/external consumers and sole Lean build slot.
+Existing Astra simpler_component_route worked read-only/build-free and its
+bounded final audit is complete. No delegated edits or active Rust jobs.
+The authorized read-only Claude global-construction consultation reached
+its 20-minute timeout (exit 124, session 75994 terminal), without final text
+or a result record. No Claude proof or audit conclusion is adopted. Request,
+stream and status are retained externally. No account/model override or new worker.
+Registry/MCP and Rust capability checks refreshed. No Lean build occurred.
+All owned processes are terminal; exact Claude PIDs and descendants are absent.
+Independent proof audit, frozen receipt hashes, documentation links and
+`git diff --check` pass.
 
-2026-09-28, continuation from clean pushed `3a247d9`; previous goal turn
-made proved and checked progress. General NN/DN/DD whole-component
-reconstruction remains open; the full goal stays active.
+Next: prove general whole-component reconstruction. The remaining packet question is whether
+paths through solved source components can join two distinct surviving
+components. The new tree theorem does not establish that isolation claim.
 
-New proved result: [unicyclic redundancy](docs/proofs/COMPONENT_UNICYCLIC_REDUNDANCY.md).
-Across an actual flip of a unicyclic state, a redundant edge can disappear
-but cannot change directly to a different redundant edge. Thus a component
-with no normal-cover minimal state has a common redundant normal edge;
-deletion gives a whole TREE component with the same K/E sums. In a
-saturated connected component this second alternative is impossible:
-tree connectivity supplies a spanning tree containing that deleted edge.
-The same conclusion holds after normalizing to the selected envelope.
-Even without saturation, every connected unicyclic closure/swap column
-is supplied by a minimal-representative column (possibly its tree image).
-This does not prove the multicycle reconstruction.
+## Earlier recurrence research
 
-Further exact evidence is in [closure repair tests](docs/proofs/COMPONENT_CLOSURE_REPAIR_TESTS.md).
-All76 eligible saturated ordinary NN instances through n6 pass with all
-target columns:55 remaining source-component occurrences, integer returned
-coefficients, original class-mass checks and exact K/E valuations. A new
-n7 fixture area0123343, strict03,15,36, NN15 tests both-side overlap:
-all4 remaining components pass. The earlier n7 shield needs deficit2;
-deficit1 fails exactly for source indices62,70. No universal deficit bound
-or general closure/swap solvability theorem is established.
-
-The unicyclic scan checks all193 saturated ordinary diagrams n3..6:
-156 connected unicyclic components,12794 directed flips, all normal-cover
-minimal states present. It supports the independent mathematical proof.
-The DN note also records the existing thirteen-component middle class
-around its 84-state example; one three-state correction alone is not enough.
-All twelve added components in that middle class are f-inactive. Target
-joins remain necessary; zero sums of coefficients over flip components
-alone do NOT justify valuation cancellation.
-
-Receipts, source/manifest/lock snapshots, commands and hashes17files are in
-`/lake-cache/ai-projects/requests/VerticalStripLLT/deficit-repair/`.
-All four successful jobs finished exit0. Two initial compile errors were
-fixed and retained as labelled logs. No owned live processes.
-
-Primary owns notes/index/handoff and external Rust consumers, retaining
-the sole Lean build slot. Existing Astra simpler_component_route supplied
-and audited the unicyclic proof, read-only/build-free. Existing Luna
-word_covers inspected the DN residual and existing receipts; primary
-rejected its insufficient coefficient-sum shortcut and checked the actual
-middle class on all128 exterior masks. Both bounded tasks are finished.
-No delegated edits, new worker/account, Claude call,
-Lean build, manuscript edit or maintained Rust source edit. Registry/MCP
-and Rust guide/metadata/API checks were refreshed. Lean MCP still targets
-the other project. Existing Rust integration proposal remains unchanged.
-
-Next: use whole-component operations to prove the general reconstruction,
-especially with several selected cycles. The unicyclic lemma eliminates
-one obstruction but does not solve NN, DN or DD by itself. Preserve the
-existing manuscript and do not turn finite exact solves into a proof claim.
-
-## Current overlapping-corner checkpoint
-
-2026-09-28, continuation from clean pushed `6e296bc`. The goal remains
-active: prove general decreasing recurrences with whole-component
-reconstruction and identical coefficients for K and E. The remembered
-sixteen-case example has not been identified; the preceding four-edge
-note gives a new explicit sixteen-row table.
-
-See [overlapping corners](docs/proofs/COMPONENT_OVERLAPPING_CORNERS.md).
-For source area01233 with strict03,14, NN14 reconstructs the two remaining
-connected non-tree, not wholly mixed-cyclic components, of sizes34 and32.
-The first canonical image is already complete. For the second, adding
-`[246]−[181]=0` completes two target components simultaneously, and a
-redundant-edge cancellation gives seven whole components of area01232.
-Both identities extend to arbitrary exterior components meeting the core
-only at0,4 with no exterior undirected path joining them. Astra audited
-the corrections, completeness and exterior extension.
-
-See [closure repair tests](docs/proofs/COMPONENT_CLOSURE_REPAIR_TESTS.md).
-After the source NN split, equal reachability and the single safe NN swap
-suffice to reconstruct all31 source components in five selected fixtures.
-Largest target:32768states,6931classes,2639components. Every certificate
-passes original class-sum checks and exact K/E evaluations. This is finite
-evidence, not a uniform reconstruction theorem. Restricting to components
-containing class-maximal representatives FAILS, even with a joint solve
-retaining all free parameters. The class-minimal restriction also FAILS.
-The note records precise counterexamples. Do not revive either restriction
-as proved, or interpret their failures as failure of full reconstruction.
-The whole-component redundant normal edge addition/deletion lemma is valid
-under its throughout-the-component redundancy hypothesis.
-
-Receipts and frozen sources:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/overlapping-corners/`.
-Use `canonical_pieces.jsonl`, `local_certificates.jsonl`, and the final
-`capacity_minimal_repair.jsonl`; README gives commands/provenance and
-SHA256SUMS.json hashes20files. Intermediate capacity receipts are retained
-and labelled historical. All owned jobs finished exit zero; no live job.
-
-Primary owns the proof notes/index/handoff and external Rust consumers,
-and retains the sole Lean build slot. Existing Astra simpler_component_route
-worked read-only/build-free; its bounded audit of both new notes is complete.
-The requested redundant-edge proof clarification is incorporated.
-Other existing agents are idle with no assigned file edits.
-No new worker/account, Claude process, Lean build, manuscript edit or
-maintained Rust source edit. Runtime registry, MCP list and Rust
-capabilities were checked; Lean MCP still targets the other project.
-Shared Rust HEAD is d53fb193af3c69adedbd9ec8592f87235d809ffa, clean.
-The reusable flip API proposal remains suggestions/flip-enumeration-api.md.
-
-Next: find a uniform construction of the whole-component repair, retaining
-all needed target components. The finite class-incidence solves suggest
-a stronger NN claim using closure and one swap alone, but no solvability
-or integrality theorem is established. DN/DD and general exterior
-compatibility still require proof. Preserve the existing manuscript.
-
-## Current four-edge reconstruction checkpoint
-
-2026-09-28, continuation from clean `a0019dd`; the previous turn made proved
-local progress. User clarified again that additional diamonds should repair
-pieces into whole components, and recalled a sixteen-orientation case split.
-The full goal remains active. We have not identified the remembered example.
-
-See [four-edge cases](docs/proofs/COMPONENT_FOUR_EDGE_CASES.md):
-
-- A sixteen-row table, with the remaining edge orientation as exterior data,
-  tracks the canonical NN image of the five-state K4 component. Exactly two
-  target components have nonconstant coefficients. Adding the zero relation
-  `[bcde]−[bce]` completes BOTH; then `[acde]−[ace]` cancels. Thus the
-  original component becomes four complete corner-deletion components.
-- This C5 recurrence holds uniformly with ANY whole exterior component
-  attached only at the maximum vertex: the NN swap fixes that exterior.
-  It includes cyclic exterior components and is independently Astra-audited.
-- Four paired diamonds and the safe internal swap (1 2) reconstruct the
-  eight-state K4 tree component into four whole components. The same proof
-  works with arbitrary exterior components meeting the core only at its
-  ends, provided no exterior path joins those ends. Two outputs disconnect
-  interior vertices; the other two delete the strict corner. These are
-  legitimate vertex/area induction terms, even with exterior cycles.
-- Cartesian products here are products of STATE SETS; valuations are on
-  their unions. No polynomial factorization across articulation is claimed.
-
-The Rust receipts are under
-`/lake-cache/ai-projects/requests/VerticalStripLLT/component-reassembly/`.
-`nn_four_bit_pieces.jsonl` checks both valuations exactly, all table entries,
-every repaired target flip, and complete component lists. The C5 extension
-has a 25-state check; the C8 extension includes a 40-state cyclic-exterior
-check and attachment at both endpoints. Sources/receipts are frozen with
-`SHA256SUMS.json`. All jobs finished with exit zero.
-
-A separate bounded complete-graph experiment passes active connected
-component uniqueness through n=7 (1,048,576 states and 34,558 components at
-n=7). This is finite evidence only; it does not prove general component
-closure. `complete_corner_components.jsonl` records its exact scope.
-
-Primary owns the proof notes/index/handoff and external Rust consumers and
-retains the sole Lean build slot. Astra `simpler_component_route` finished
-read-only/build-free audits of both reconstructions and exterior extensions.
-Luna `word_covers` considered only complete-graph root-helper flips; its
-bounded assignment is finished. Its conditional five-flip helper requires
-no exterior paths i→j, j→m or i→m and no exterior edge leaving 0;
-it does not prove general connectivity and is not used in these proofs.
-The exact statement is retained in the external receipt README. No delegated file edits,
-new worker/account, Claude process, Lean build, manuscript edit, or maintained
-Rust source edit. Runtime registry, MCP list, Rust guide/metadata and existing
-APIs were rechecked. The source consumer only widened two helper visibilities
-to reuse its exact valuation code; maintained API integration remains the
-existing proposal in `suggestions/flip-enumeration-api.md`.
-
-Next: use the four-edge table approach for arbitrary exteriors in each
-decreasing recurrence. The proved attached-block classes do not replace
-that requirement. Track whole target coefficient patterns and repair all
-their incident flips together; do not stop at isolated state reductions.
-
-## Current NN flip-interaction checkpoint
-
-2026-09-28, continuation from clean `06655eb`. The user's full recurrence
-proof goal remains active. We have proved local progress, not whole-component
-closure. See [NN flip interactions](docs/proofs/COMPONENT_NN_FLIP_INTERACTIONS.md):
-
-- Ordinary actual flips need cover tests at only one endpoint.
-- With independent short pairs, two flips commute precisely when the four
-  relevant edges cover in the formal final state. A failure has a redundant
-  edge; a strict edge may be the only available one among those four.
-- The shared-edge exceptions are exhaustive. A single paired diamond
-  `[P]+[P−x+y]=[P−x]+[P−L+y]` handles all of them and decreases
-  `(raw diagram area, selected-edge count, total selected-edge length)`.
-- The common-short removal case can have all edges covering at all three
-  states. Its diamond correction preserves the displayed q-preserving
-  equality, but compatibility with other incident flips remains unproved.
-
-External Rust receipt:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/nn-interactions/interaction_audit.jsonl`.
-Four fixtures through seven vertices check 169,984 states and 1,063,936
-one-endpoint cover comparisons, plus all mixed/preserving interactions.
-All assertions pass, exit zero. These are structural checks, not fresh K/E
-evaluations. The valuation identities have direct proofs and independent
-Astra audit. Sources, manifest/lock and logs are frozen beside the receipt
-with `SHA256SUMS.json`. The bounded job is finished; no live owned process.
-
-Primary owns the proof notes/index/handoff and external Rust consumer, and
-retains the sole Lean build slot. Existing Astra `simpler_component_route`
-worked read-only/build-free on interactions; its bounded followup audited
-a spanning-tree decomposition of whole q-preserving pieces. That identity
-leaves a root residual in general and does not solve component reassembly.
-The followup is finished, with no delegated file ownership outstanding.
-Luna's bounded Abreu–Nigro review finished and supplies no new transport
-theorem. A relabeling changing the ambient diagram is not by itself an
-obstruction to cross-diagram transport. No new worker/account, Claude process,
-Lean build, manuscript edit or maintained Rust source edit. Runtime registry,
-`codex mcp list` and Rust guide/metadata/APIs were checked. The Lean MCP still
-targets the other project and was not used. Maintained Rust API integration
-remains the existing `suggestions/flip-enumeration-api.md` proposal.
-
-Next: extend the paired corrections along complete q-preserving pieces,
-handle their residuals, and regroup emitted states into whole smaller
-components. Do not treat decreasing individual states as completed induction.
-
-## Current NN continuation
-
-2026-09-28, continuation from `ca02d67`. Previous turn made proved and exact
-computational progress; this turn adds a four-diamond LEFT-to-RIGHT transfer.
-The user's full goal remains active: a combinatorial component HRV proof
-using the decreasing diagram recurrences, with the same reconstruction on
-colorings. Whole-component closure remains unproved; no completion claim.
-
-See [the left NN transfer](docs/proofs/COMPONENT_NN_LEFT_TRANSFER.md):
-
-- Saturation supplies a strict corner ud crossing the NN corner ac and
-  containing the retained left-overlap edge tb, with u≤t<a<b<d<c.
-- When u=t, four ordinary diamonds transfer a left difference to a right
-  difference with explicit terms in the further corner-deletion diagram.
-  The valuation identity is unconditional. The actual flip paths and
-  coefficient interpretation require the stated covers.
-- The local cases where that corner is redundant are completely split:
-  either delete it at both endpoints, or use one diamond to leave a
-  term with fewer selected edges and two corner-deleted terms.
-- When u<t and a covering edge ut is selected, two actual flips move the
-  left difference to a td-supported transfer. Since td is then normal,
-  its remainder stays in the same ambient diagram; this does not yet
-  establish an area decrease or provide ut in general.
-- If a q-absent state admits two different flips inserting q, either
-  endpoint has the other triangle's normal long redundant. Deleting that
-  edge preserves both valuations and lowers selected-edge count. Luna
-  independently audited this competing-triangle lemma.
-
-Primary owns the proof notes, index, this handoff and the external Rust
-consumer. Existing Astra `simpler_component_route` derived and audited the
-local results, read-only and build-free; its assignment is now finished.
-Existing Luna `word_covers` audited the competing-triangle lemma, also
-read-only/build-free and now finished. No file ownership was delegated.
-No new worker/account/model/worktree, no Claude call, no Lean build, and no
-manuscript or shared Rust source edit. Primary retains the sole Lean build
-slot. Tool registry and `codex mcp list` were rechecked; the only Lean MCP
-still has the wrong project root. Rust guide/metadata/APIs were rechecked.
-
-All Rust jobs finished with exit zero. Main receipt:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/nn-left/seven_tall_left_complete.jsonl`.
-It checks 4,096 arbitrary-exterior valuation identities, 1,288 actual
-four-diamond transfers, 1,136 cases with both endpoints redundant, 136
-remaining redundant-corner cases, and 544 earlier-starting-corner transports.
-The maintained P-partition/HRV APIs check BOTH valuations exactly. Component
-right-overlap tests pass for all 177 components of area012343, and all four
-and six components surviving known reductions in area0123432 and0123434,
-respectively. These are specified finite checks, not general theorems.
-Frozen source, Cargo manifest/lock, receipts and hashes are in `nn-left/`.
-No owned compiler, consultant or auxiliary assignment remains live.
-
-Next: extend the paired transfers along every incident flip so that their
-remainders are complete components, while controlling a decreasing measure.
-The new local pairs need not exhaust their q-preserving components; arbitrary
-component fragments still cannot be treated as solved. The conditional
-covering edge ut and the RIGHT global compatibility also need attention.
-
-## Previous NN checkpoint (`ca02d67`)
-
-
-2026-09-28, continuation after `c83dffb`. The user wants a direct component
-proof from the existing decreasing diagram recurrences: split one component,
-redistribute with diamonds, and collect whole smaller components with the
-same coefficients for colorings and HRV expressions. Rust is authorized for
-studying the cases. The goal remains active; this turn made mathematical
-progress but did not complete the uniform reconstruction.
-
-Primary owns the recurrence notes, documentation index, this handoff,
-`suggestions/flip-enumeration-api.md`, and the external Rust driver. No shared
-Rust source, Lean source, or manuscript was edited. Primary retains the sole
-serialized Lean build slot; no Lean build ran. Existing Astra
-`simpler_component_route` audited the new overlap lemmas and counterexample;
-its read-only/build-free assignment is finished. Luna's prior bounded audit
-is finished. No new worker, account, model or worktree was introduced.
-
-The [NN overlap note](docs/proofs/COMPONENT_NN_OVERLAPS.md) now proves:
-
-- The canonical image of ONE component has constant coefficients across
-  every smaller-diagram flip preserving ab. Only the left and right
-  overlapping triangles that exchange ab remain.
-- Right-overlap defects satisfy an antisymmetry identity. This gives a
-  two-state correction for a background fixed by swapping a,b, and a
-  four-state correction when there is a selected d-to-c path.
-- A further actual bc-long diamond has a local decreasing measure:
-  selected-edge count, then missing forward comparabilities. This is not
-  yet a global termination argument.
-
-The unrestricted four-state correction is false even for a saturated source.
-Astra supplied a seven-vertex disconnected counterexample; independent Rust
-BFS verifies its complete eight-state component, NN eligibility and defects.
-The proposed correction has coloring multilinear coefficient 189−147=42,
-although its HRV expression vanishes. Factoring disconnected components
-removes this example, but does not prove the connected version. The unresolved
-step is to propagate corrections along whole target components without
-breaking earlier coefficient equalities; the left overlap also remains open.
-
-The [direct NN note](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md) retains the
-proved three-diamond example and initial split. Four six-vertex certificates
-have been improved from rational expressions to positive integer sums of
-whole smaller components. Two are single-component identities. All were
-independently evaluated exactly for BOTH K and E using the maintained Rust
-P-partition and HRV APIs. The local relation quotient also certifies the
-expressions. These are finite examples, not an all-degree theorem.
-
-All owned jobs finished. The authorized Claude left-overlap consultation
-used the existing account/model, no tools, and a monitored 1,200-second cap;
-it ended with timeout exit 124 and no usable assistant output. Do not treat
-it as a proof audit. No Claude process remained in the subsequent process
-check. Rust jobs exited zero; no compiler or consultant remains active.
-
-External receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/nn-overlap/`.
-`nn_rust_small_certificates.jsonl` contains the improved expressions;
-`nn_boundary_classification.jsonl` and
-`nn_saturated_attachment_audit.jsonl` contain the flip checks;
-`nn_saturated_shield.jsonl` contains the seven-vertex counterexample.
-The frozen Rust source and `SHA256SUMS.json` are in the same directory.
-The prior source is retained as
-`recurrence-continuation/nn_component_transport-at-c83dffb.rs`.
-The driver reuses `component_source_probe.rs` and maintained exact Rust APIs;
-the pending maintained-API integration is linked in the suggestion above.
-
-The prior DD result remains valid: exact corner sectors give whole-component
-packet transport and the ordinary measure is `(vertices, area sum, area moment)`.
-Both Astra and Luna audited it; all 44 eligible saturated DD instances through
-seven vertices passed the refined finite isolation test. Individual DD and
-circular recurrence redistribution remain open. See
-`docs/proofs/COMPONENT_DD_PACKETS.md`. Existing Lean proofs remain complete.
-
-Earlier increment, 2026-09-28: persistent user goal is a combinatorial proof of the component
-HRV formula. User explicitly prioritizes pushing components through the
-recurrences and points to Abreu--Nigro's increasing forests. Previous turn
-made proved mathematical progress; the goal remains active. Primary owns
-recurrence research notes and all builds (none planned). Existing Astra
-`simpler_component_route` completed its DN transport audit; existing Luna
-`word_covers` completed its audit of the Abreu--Nigro comparison and ordinary
-NN proof, including the prose and indicator strengthening. Both assignments
-are released; no auxiliary process remains. Both were read-only/build-free. No new workers,
-account changes or Claude calls. This continuation began at clean `e24da4a`.
-
-Primary now owns `docs/proofs/COMPONENT_RECURRENCE_REDUCTION.md`, the linked
-status corrections in `DN_COMPONENT_COMPLETION.md` and
-`FLIP_COMPONENT_INDUCTION.md`, and the documentation index. Proved ordinary
-NN reconstruction gives identical K/E recurrences in whole component packets.
-The old DN one-active-component condition is false at n=7; the short exact
-certificate and its repair by known reductions are recorded. NN has analogous
-raw collisions at n=6. DN packets preserve weak vertex blocks and edge counts
-in each block. After factoring disconnected states, tree cases and mixed-cycle
-corner deletion, refined isolation passes all eligible saturated NN instances
-through n=6 and DN through n=7. This remains a conjectural all-degree step.
-NN class indicators actually map to indicators of unions of whole target
-components: the source packet and target union have an explicit orientation
-bijection, with semantic equality supplied by paired diamonds. The remaining
-global isolation claim is still unproved. A concrete DN subproblem is lifting
-the exceptional target-long ux rotation with connected mixed-acyclic source
-endpoints and all actual target-cover hypotheses retained. DD coverage and
-circular recurrence transport are also not completed. No builds or manuscript
-changes. External receipts: `recurrence-continuation/`, with `SHA256SUMS.json`.
-The user goal remains active; this turn made mathematical and diagnostic
-progress, rather than merely restating the earlier obstruction.
-Checkpoint `d77fb3f` records the new results; final audit clarifies that known
-source corrections stay in the original diagram and are justified separately
-by the earlier reductions. Mathematical audits, exact probes, and whitespace
-checks passed. No assertion of a complete new component proof is made.
-
-## Ordinary diamond-proof search: latest result
-
-2026-09-28: user requests a more accessible general component proof using the
-local diamond lemma. Primary owns research notes and the sole Lean build slot;
-no Lean source or manuscript proof is being replaced during exploration.
-Existing Astra simpler_component_route investigated a uniform auxiliary-poset
-reduction; existing Luna word_covers audited source/sink branching and previous
-obstructions. Both were read-only/build-free and have finished. The primary's
-read-only nested Claude call reached its 20-minute timeout (exit 124) without
-output; no Claude proof or audit result was obtained. Its request files remain
-under external `diamond-proof-search/`. No new account or supervisor worker.
-Rust capability check completed (library guide, Cargo metadata and semantic/API
-search). A bounded external Python probe may orchestrate the existing flip
-model and Rust HRV bridge, extending the earlier exact rational relation-span
-probe; no existing Rust API exposes this auxiliary-poset diamond/swap quotient.
-No new polynomial family or reusable computational library is being introduced.
-Known false targets: fixed-diagram chain straightening, root-only promotion,
-and confluent greedy critical-fork normalization. Auxiliary posets are allowed;
-full component labels and exterior terms must remain controlled.
-
-Primary owns `docs/proofs/COMPONENT_AUXILIARY_DIAMONDS.md` and its links in
-`docs/README.md` / `DIAMOND_STRAIGHTENING_AUDIT.md`. New results, independently
-checked by Astra: the auxiliary-diamond quotient is integrally the permutation
-coordinate ring; a terminating diamond recursion reduces every forward poset
-to increasing forests; certified whole-poset swaps give a maximal-letter
-normalization. The note states the remaining universal factorization precisely.
-Exact rational tests pass for every forward poset through n=5, and all 1710
-ordinary components in degrees 2--5. This is evidence, not an all-degree or
-integral proof. Pairwise identification of permutation terms is insufficient
-already at n=4. Probe receipts are in external `diamond-proof-search/`.
-Astra and Luna assignments are released; no consultant remains running.
-The general diamond-based component proof was not obtained. The next precise
-target is equation (5) in the new note, or a weaker component-specific forest
-cancellation. Checkpoint `9e5013a` is pushed to `origin/main`; mathematical
-proof audit, bounded exact probes and `git diff --check` passed. No Lean or
-LaTeX source was changed and no compiler build was run in this search.
+[Archived checkpoints](docs/archive/component-recurrence-handoff-through-redundancy-20260928.md)
+retain the NN/DN/DD packet proofs, exact failures of stronger isolation
+claims, direct local reconstructions, and redundancy-diamond results.
+The latest preceding checkpoint is `246345c`, pushed to `origin/main`.
+The current proof notes are indexed by [docs/README.md](docs/README.md).
 
 ## Current manuscript
 

@@ -101,6 +101,63 @@ undirected connectivity, and envelope are flip invariants. Any state in the
 same ambient component is therefore another spanning tree with envelope H,
 which proves the entire-component assertion.
 
+## Reachability forced throughout a tree component
+
+Let H be a connected interval-closed graph and let M be its maximal
+intervals. The complete tree component with envelope H consists precisely
+of the spanning trees of H containing M. We orient every edge forward.
+
+**Theorem.** A pair u<v is reachable in every tree of this component if
+and only if M contains a directed path from u to v.
+
+Every vertex has at most one incoming and one outgoing edge in M:
+two maximal intervals cannot have the same left or right endpoint.
+Thus M is a disjoint union of increasing chains, including isolated
+vertices. A path in M belongs to every tree, proving one implication.
+
+For the converse, suppose u and v belong to different chains. Contract
+the chains of M in H. The resulting directed graph is strongly connected.
+Indeed, if i→j is an edge of H, choose a maximal interval ab containing
+ij. The quotient has a return walk
+
+    [j] → [b] = [a] → [i],
+
+using the natural edges jb and ai and omitting steps with equal endpoints.
+Its underlying graph is connected, so these return walks prove the claim.
+
+Choose a simple directed quotient path from [v] to [u]. Lift its edges
+to H and adjoin M. This is a forest: after contracting the chain trees,
+its added edges form a simple path. Extend it to a spanning tree T of H.
+Because T contains M, its envelope is H. The unique u–v path in T
+traverses every interchain edge of the chosen path backwards. It is
+therefore not a directed path from u to v. This proves the theorem.
+
+**Corollary.** Suppose we insert an absent strict corner f=ac into every
+tree with envelope H. The inserted edge is redundant in every resulting
+state exactly when a and c belong to the same chain of M.
+
+Under this condition the resulting states form a whole unicyclic component.
+The new edge cannot participate in a flip because it is redundant. Adding
+or deleting it preserves reachability and hence all other cover tests.
+Every flip after its deletion stays in the original tree component; no
+new edge outside H can be introduced by such a flip, since each introduced
+interval lies inside the retained selected interval. Thus insertion and
+deletion identify the two whole flip graphs. Their K and E sums agree.
+
+Conversely, deleting a strict corner that is redundant throughout a
+connected unicyclic component gives a whole tree component. The theorem
+then forces its endpoints to lie on one maximal-interval chain. We have
+therefore characterized these inactive unicyclic components.
+
+The primary and independent Astra reviewer audited the quotient-path
+proof. A separate exact Rust check enumerated all 1,441 spanning trees
+on 2 through 6 ordered vertices, grouped into 64 envelope components;
+the intersection of their reachability relations was always Reach(M).
+Related Rust: external `global-reassembly/tree_forced_reach.rs` and
+`tree_forced_reach.jsonl`, with provenance in
+[the reassembly note](COMPONENT_GLOBAL_REASSEMBLY.md). This finite check
+supports the proof; it is not its justification.
+
 ## Scope and use
 
 For forests the theorem applies separately to each fixed undirected block
