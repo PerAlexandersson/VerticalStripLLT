@@ -8,8 +8,9 @@ recurrences and points to Abreu--Nigro's increasing forests. Previous turn
 made proved mathematical progress; the goal remains active. Primary owns
 recurrence research notes and all builds (none planned). Existing Astra
 `simpler_component_route` completed its DN transport audit; existing Luna
-`word_covers` audited the Abreu--Nigro comparison and ordinary NN proof and
-is finishing a prose audit. Both are read-only/build-free. No new workers,
+`word_covers` completed its audit of the Abreu--Nigro comparison and ordinary
+NN proof, including the prose and indicator strengthening. Both assignments
+are released; no auxiliary process remains. Both were read-only/build-free. No new workers,
 account changes or Claude calls. This continuation began at clean `e24da4a`.
 
 Primary now owns `docs/proofs/COMPONENT_RECURRENCE_REDUCTION.md`, the linked
@@ -32,6 +33,10 @@ circular recurrence transport are also not completed. No builds or manuscript
 changes. External receipts: `recurrence-continuation/`, with `SHA256SUMS.json`.
 The user goal remains active; this turn made mathematical and diagnostic
 progress, rather than merely restating the earlier obstruction.
+Checkpoint `d77fb3f` records the new results; final audit clarifies that known
+source corrections stay in the original diagram and are justified separately
+by the earlier reductions. Mathematical audits, exact probes, and whitespace
+checks passed. No assertion of a complete new component proof is made.
 
 ## Ordinary diamond-proof search: latest result
 

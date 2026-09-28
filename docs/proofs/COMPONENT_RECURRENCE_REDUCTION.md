@@ -245,8 +245,10 @@ class contain at most one component left after these reductions?
 
 If so, the packet equations give the desired individual recurrence: take the
 class indicator, transport it to whole target components, and subtract the
-known source components. All target and correction diagrams decrease the
-displayed induction order. This question concerns the specified eligible NN
+known source components. Target diagrams decrease the displayed induction
+order. The extra source components stay in the original diagram; their
+identities are already supplied by the preceding reductions or the tree
+theorem. This question concerns the specified eligible NN
 and DN steps; coverage of all diagram reductions, including DD steps, remains
 a further obligation in a complete recurrence proof.
 
