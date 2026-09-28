@@ -60,6 +60,9 @@ The component result is the finite strict/e identity on actual complete componen
   tree comparisons lift through the full diagram; a strict covering
   container anywhere gives the incoming-bridge repair, then both first joins
   for mixed-acyclic representatives whose cycle avoids the adjacent vertices.
+- [NN sink repair](proofs/COMPONENT_NN_SINK_REPAIR.md): cut-and-replace
+  tree comparisons and branch moves identify the adjacent-swap piece when
+  the unique cycle meets an adjacent vertex as a sink.
 - [Path-square components](proofs/COMPONENT_PATH_SQUARE.md): all edge-count
   components, an explicit elementary formula, and terminal cases of
   arbitrary cycle rank.

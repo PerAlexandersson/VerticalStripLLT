@@ -244,8 +244,9 @@ The same argument applies to a sink at b.
 In the displayed seven-vertex example, the cycle edge 03 is redundant
 and 05 is selected. The preparation is 01→15 retaining 05, followed
 by 03→35 retaining 05. Thus the example is covered by this lemma
-and the outgoing held-edge repair. The remaining sink cases do not
-come with such a selected containing edge at an incoming cycle tail.
+and the outgoing held-edge repair. The subsequent [sink repair](COMPONENT_NN_SINK_REPAIR.md) handles the
+remaining placements of a containing strict corner. It closes the sink
+swap, while the complete first-join redistribution remains separate.
 
 ## Verification and provenance
 

@@ -8,14 +8,13 @@ envelopes. We also prove an incoming-bridge repair whenever a containing
 strict covering corner lies anywhere in the selected graph. General
 first-join isolation remains open.
 
-## Lifting a tree path through two attachment vertices
+## Lifting a tree path through fixed exterior attachments
 
 We work in an ordinary interval-closed natural graph, with its fixed
 strict corners. Let W be a set of vertices, with the induced order,
 and let T₀,T₁ be trees on W with the same interval envelope H.
-Let X be a fixed selected exterior. Suppose X meets W at at most
-two vertices u,v and has no directed path between distinct attachment
-vertices. Assume T₀∪X is a valid selected state and that every strict
+Let X be a fixed selected exterior. Suppose X has no directed path
+between distinct vertices at which it meets W. Assume T₀∪X is a valid selected state and that every strict
 edge not in X is selected in T₀.
 
 **Lemma.** There is an actual flip path from T₀∪X to T₁∪X.
@@ -34,8 +33,10 @@ would thus give a directed path between distinct attachment vertices,
 contrary to the hypothesis. No exterior path can destroy a required
 local cover. Hence every tree flip lifts, proving the lemma.
 
-The exterior may have any undirected cycle rank. With one attachment
-vertex the directed-path hypothesis is automatic.
+The exterior may have any undirected cycle rank and any number of
+attachment vertices. With one attachment vertex the directed-path
+hypothesis is automatic. In particular, a two-attachment comparison
+may be accompanied by further singly attached exterior trees.
 
 ## A least incoming tail
 

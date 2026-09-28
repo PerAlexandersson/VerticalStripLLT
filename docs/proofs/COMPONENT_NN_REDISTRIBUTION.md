@@ -114,6 +114,62 @@ selected relation and fixes every sink label. Marking ac rather than bc
 strict is irrelevant to this unweighted equality. We do not assert equality
 of decorated diagrams or preservation of source component membership.
 
+## The two remaining coefficient comparisons
+
+We keep the indicator h of the single component C throughout. The initial
+image (2) has coefficients
+
+    w₀₀=0,                    w₁₀=h₁₀−h₀₁,
+    w₀₁=(h₀₀+h₀₁)∘σ,         w₁₁=h₁₁+h₀₁.
+
+These are already constant across every target flip preserving q, by
+[the overlap lemma](COMPONENT_NN_OVERLAPS.md). Since r is maximal in D0,
+no target flip exchanges r. Thus only the following two geometries remain:
+
+| Target overlap | P | Q | Retained edge | Exchanged edges |
+| --- | --- | --- | --- | --- |
+| Left, t<a<b<c | T+tb | T+ta+tb | tb | ta, q |
+| Right, a<b<d<c | T+ad | T+ad+bd | ad | bd, q |
+
+Here T includes the other strict edges, and the displayed target flip is
+assumed actual. For either row and j=0,1, put
+
+    Uⱼ=D0_0j(Q),       Vⱼ=D0_1j(P),
+    Δⱼ=w(Vⱼ)−w(Uⱼ),   H=h₀₀+h₀₁.
+
+Adding the maximal source corner lifts the target flip, giving
+h₁₀(P)=h₀₀(Q) and h₁₁(P)=h₀₁(Q). Substitution gives the SAME bookkeeping
+for both overlap types:
+
+    Δ₀=h₁₀(P)−h₀₁(P),
+    Δ₁=h₀₁(Q)+h₀₁(P)−H(σQ),
+    Δ₀+Δ₁=H(Q)−H(σQ).                              (3)
+
+Thus the remaining work is to repair these coefficients and collect whole
+target components. A repair must have zero valuation for both K and E;
+diamonds, redundant-edge equalities and the allowed adjacent relabelings
+supply such identities. Once the repaired coefficients agree across every
+target flip, choose one representative of each complete target component
+D. Its common coefficient m_D gives
+
+    X(C)=Σ_D m_D X(D),       X=K,E.
+
+This is the desired component recurrence, in the smaller diagram D0.
+It does not require proving that C is isolated in a larger source packet.
+After a local repair, agreement across other incident flips must still
+be checked; the initial q-preserving constancy cannot simply be assumed
+to survive arbitrary changes of coefficients.
+
+The recent unicyclic arguments are available precisely where (3) compares
+source memberships. The [middle-join theorem](COMPONENT_NN_MIDDLE_JOINS.md)
+and [inactive corrections](COMPONENT_NN_INACTIVE_CORRECTIONS.md) control
+the middle term. The [incoming-bridge repair](COMPONENT_NN_FIRST_JOINS.md)
+and new [sink swap](COMPONENT_NN_SINK_REPAIR.md) identify further first-join
+pieces. These are supporting repairs, with their stated hypotheses; a
+uniform repair of (3) for every component is still missing. The five-state
+calculation above and its [sixteen-case table](COMPONENT_FOUR_EDGE_CASES.md)
+show the complete push, repair and collection in a proved example.
+
 ## What Rust has checked
 
 We reused the existing Rust cover-flip model, the maintained exact sparse
