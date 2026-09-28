@@ -2,48 +2,73 @@
 
 ## Active recurrence continuation
 
-2026-09-28, latest user steering: work directly with the existing diagrams.
-Split ONE component by each decreasing recurrence, redistribute with diamonds,
-and collect whole smaller components with the same expression for colorings.
-Use Rust to study the details. Do not impose packet isolation as a necessary
-condition. Primary owns the proof notes/index/handoff and the external Rust
-probe; no shared Rust source, Lean source, or manuscript edits. No Lean build.
+2026-09-28, continuation after `c83dffb`. The user wants a direct component
+proof from the existing decreasing diagram recurrences: split one component,
+redistribute with diamonds, and collect whole smaller components with the
+same coefficients for colorings and HRV expressions. Rust is authorized for
+studying the cases. The goal remains active; this turn made mathematical
+progress but did not complete the uniform reconstruction.
 
-New [direct NN note](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md) proves the
-initial split for any component, retaining unmatched middle states in the
-corner-deletion diagram. Its five-orientation example has a short hand proof
-using one source diamond and two smaller-diagram diamonds:
-`X(C)=X(D1)+X(D2)+X(D3)-X(D4)`, simultaneously for K/E. Astra supplied and
-audited the construction; Luna confirmed the local split after clarifying
-that unweighted state valuations ignore strict/normal marking.
+Primary owns the recurrence notes, documentation index, this handoff,
+`suggestions/flip-enumeration-api.md`, and the external Rust driver. No shared
+Rust source, Lean source, or manuscript was edited. Primary retains the sole
+serialized Lean build slot; no Lean build ran. Existing Astra
+`simpler_component_route` audited the new overlap lemmas and counterexample;
+its read-only/build-free assignment is finished. Luna's prior bounded audit
+is finished. No new worker, account, model or worktree was introduced.
 
-Rust reused the existing bounded cover-flip model, maintained exact linear
-algebra, strict P-partition enumeration and HRV APIs. It found direct integral
-expressions for all components of three selected diagrams (3,15,18 components)
-and three selected six-vertex components. Four further six-vertex components
-required additional target diamonds, equal transitive closures and safe
-adjacent relabelings; these have exact rational certificates, hence integral
-certificates after clearing denominators. Every expression was independently
-checked on BOTH symbolic valuations. This is finite evidence and one short
-worked proof, not a uniform reconstruction theorem. The next task is to turn
-the successful diagram redistributions into a general case argument, then
-handle the other decreasing recurrences. Auxiliary J isolation is optional.
+The [NN overlap note](docs/proofs/COMPONENT_NN_OVERLAPS.md) now proves:
 
-Also proved: NN packets preserve weak blocks and edge counts; ordinary DD
-packet transport follows from exact selected/unselected corner sectors.
-The common ordinary measure is `(vertices, raw area sum, area moment)`,
-which handles DD even when doubled decorated area increases. Both Astra
-and Luna audited DD; all 44 eligible saturated DD instances through seven
-vertices passed the refined finite isolation test. See
-`docs/proofs/COMPONENT_DD_PACKETS.md`. Circular transport remains open.
+- The canonical image of ONE component has constant coefficients across
+  every smaller-diagram flip preserving ab. Only the left and right
+  overlapping triangles that exchange ab remain.
+- Right-overlap defects satisfy an antisymmetry identity. This gives a
+  two-state correction for a background fixed by swapping a,b, and a
+  four-state correction when there is a selected d-to-c path.
+- A further actual bc-long diamond has a local decreasing measure:
+  selected-edge count, then missing forward comparabilities. This is not
+  yet a global termination argument.
 
-External receipt directory: `recurrence-continuation/`; principal Rust receipt
-`nn_rust_transport_certificates.jsonl`. Source is
-`diamond-exploration/hrv-bridge/src/bin/nn_component_transport.rs`, reusing
-`component_source_probe.rs` (only crate visibility was widened there; prior
-text preserved). Hashes are in `SHA256SUMS.json`. All jobs and both existing
-read-only/build-free agent assignments finished. No new workers/accounts or
-Claude calls. Primary retains the sole serialized Lean build slot.
+The unrestricted four-state correction is false even for a saturated source.
+Astra supplied a seven-vertex disconnected counterexample; independent Rust
+BFS verifies its complete eight-state component, NN eligibility and defects.
+The proposed correction has coloring multilinear coefficient 189−147=42,
+although its HRV expression vanishes. Factoring disconnected components
+removes this example, but does not prove the connected version. The unresolved
+step is to propagate corrections along whole target components without
+breaking earlier coefficient equalities; the left overlap also remains open.
+
+The [direct NN note](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md) retains the
+proved three-diamond example and initial split. Four six-vertex certificates
+have been improved from rational expressions to positive integer sums of
+whole smaller components. Two are single-component identities. All were
+independently evaluated exactly for BOTH K and E using the maintained Rust
+P-partition and HRV APIs. The local relation quotient also certifies the
+expressions. These are finite examples, not an all-degree theorem.
+
+All owned jobs finished. The authorized Claude left-overlap consultation
+used the existing account/model, no tools, and a monitored 1,200-second cap;
+it ended with timeout exit 124 and no usable assistant output. Do not treat
+it as a proof audit. No Claude process remained in the subsequent process
+check. Rust jobs exited zero; no compiler or consultant remains active.
+
+External receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/nn-overlap/`.
+`nn_rust_small_certificates.jsonl` contains the improved expressions;
+`nn_boundary_classification.jsonl` and
+`nn_saturated_attachment_audit.jsonl` contain the flip checks;
+`nn_saturated_shield.jsonl` contains the seven-vertex counterexample.
+The frozen Rust source and `SHA256SUMS.json` are in the same directory.
+The prior source is retained as
+`recurrence-continuation/nn_component_transport-at-c83dffb.rs`.
+The driver reuses `component_source_probe.rs` and maintained exact Rust APIs;
+the pending maintained-API integration is linked in the suggestion above.
+
+The prior DD result remains valid: exact corner sectors give whole-component
+packet transport and the ordinary measure is `(vertices, area sum, area moment)`.
+Both Astra and Luna audited it; all 44 eligible saturated DD instances through
+seven vertices passed the refined finite isolation test. Individual DD and
+circular recurrence redistribution remain open. See
+`docs/proofs/COMPONENT_DD_PACKETS.md`. Existing Lean proofs remain complete.
 
 Earlier increment, 2026-09-28: persistent user goal is a combinatorial proof of the component
 HRV formula. User explicitly prioritizes pushing components through the

@@ -7,6 +7,10 @@ an auxiliary union of source components. The example and local transport
 below are proved; the uniform reconstruction for arbitrary components
 remains to be found.
 
+The [overlap analysis](COMPONENT_NN_OVERLAPS.md) proves that this initial
+image already has constant coefficients across every flip preserving ab.
+Only two overlapping-triangle geometries need further redistribution.
+
 Write [T] for either the strict-coloring enumerator K(T) or the HRV elementary
 expression E(T). All sums are unweighted. These state valuations depend on
 the full selected relation, not on which selected edges are marked strict.
@@ -124,10 +128,24 @@ In area (0,1,2,3,4,3), with strict corners 04,25 and NN corner 25, four
 further tested components required additional redistribution. Starting with
 (2), we allowed actual diamonds in D0, equality of transitive closures, and
 adjacent relabelings that remain in D0 and preserve the order of sinks.
-All four then admitted rational expressions in complete D0 components.
-Clearing denominators gives integer identities for positive multiples of
-the original component. The computed coefficients are not yet a useful
-paper proof; they locate valid redistributions without proving a uniform rule.
+All four then admitted expressions in complete D0 components. Ordering the
+component columns differently in the exact linear solve gives the following
+shorter, positive integer expressions, improving the first rational answers.
+Here C_m and D_m denote the complete components containing full-edge mask m
+in the source and deletion diagrams, respectively:
+
+| Source component | Expression in smaller components, for both K and E |
+| --- | --- |
+| C_767 | D_1151 + D_1279 + D_1499 + 2D_2303 + 5D_2751 + 4D_3709 |
+| C_1979 | D_1471 |
+| C_1023 | D_1279 + D_1535 + 2D_3711 |
+| C_2043 | D_1535 |
+
+The deletion diagram has area (0,1,2,3,4,2) and strict corner 04. Masks
+use the sorted full natural-edge list of the respective diagram, including
+strict edges; they are not normal-edge masks. These are exact finite
+certificates from the permitted relations. We have not yet extracted short
+hand proofs of the table or a uniform redistribution rule.
 
 For every successful expression we independently evaluated the same
 coefficients on both sides: strict P-partition generating functions agreed
@@ -150,10 +168,14 @@ External source:
     diamond-exploration/hrv-bridge/src/bin/nn_component_transport.rs
 
 under `/lake-cache/ai-projects/requests/VerticalStripLLT/`. The receipt
-`recurrence-continuation/nn_rust_transport_certificates.jsonl` contains the
-actual smaller-component coefficients; its `.log` records the five-state
-example and the allowed relation counts. `SHA256SUMS.json` records source
-and receipt hashes. Each Rust run used a 600-second cap and reduced priority.
+`recurrence-continuation/nn_rust_transport_certificates.jsonl` retains the
+first coefficients; its `.log` records the five-state example and the
+allowed relation counts. The improved table is in
+`nn-overlap/nn_rust_small_certificates.jsonl`. Each receipt directory has
+source and receipt hashes. The earlier source is preserved as
+`recurrence-continuation/nn_component_transport-at-c83dffb.rs`; the current
+source is also copied into `nn-overlap/`. Each Rust run used a 600-second
+cap and reduced priority.
 No shared Rust source, Lean source, or manuscript file was changed.
 
 Astra derived and audited the direct split, the local redistribution

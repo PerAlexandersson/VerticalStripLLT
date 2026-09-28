@@ -35,3 +35,14 @@ deduplicates diamond rows by linear list search, which limits larger scans;
 use keyed edge/row sets in the maintained implementation. This remains a
 proposal requiring Rust ownership coordination, not an instruction to build
 another local enumeration engine.
+
+The direct NN driver now also repeatedly combines this graph model with the
+maintained strict P-partition, HRV and sparse linear-algebra APIs. Preserve
+the positive integral certificates in `COMPONENT_NN_REDISTRIBUTION.md` and
+the saturated eight-state counterexample in `COMPONENT_NN_OVERLAPS.md` as
+regression fixtures during integration. The latter is especially useful:
+its HRV cancellation passes while its coloring cancellation fails by 42.
+The stable graph/certificate interface should move into the maintained Rust
+library after ownership coordination; keep research-specific coefficient
+search and presentation in an external consumer. Current frozen driver and
+receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/nn-overlap/`.

@@ -18,6 +18,8 @@ The component result is the finite strict/e identity on actual complete componen
   proved auxiliary reductions; the general component step remains open.
 - [Direct NN redistribution](proofs/COMPONENT_NN_REDISTRIBUTION.md):
   one-component split, a three-diamond worked proof, and exact Rust certificates.
+- [NN triangle overlaps](proofs/COMPONENT_NN_OVERLAPS.md): only two flip
+  geometries remain; proved local corrections and their compatibility gap.
 - [Component recurrence continuation](proofs/COMPONENT_RECURRENCE_REDUCTION.md):
   ordinary NN and DN packets, known corrections, and the remaining isolation question.
 - [DD component packets](proofs/COMPONENT_DD_PACKETS.md): exact corner sectors
