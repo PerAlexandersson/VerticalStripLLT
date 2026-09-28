@@ -1,5 +1,39 @@
 # VerticalStripLLT handoff
 
+## Active continuation: local diagrams for component recurrences
+
+From clean pushed `0ff5980`; previous goal turn made verified progress.
+Primary owns notes/index/handoff and external-consumer additions. Existing
+Astra reviewer completed the read-only DN/coverage audit and released its task.
+No new worker/account, Claude child, Lean or manuscript build. Runtime
+registry/MCP and Rust capabilities rechecked before bounded probes.
+
+Latest user direction: organize the recurrence/flip overlaps as diagrams,
+probably on five vertices. The new
+[local diagram note](docs/proofs/COMPONENT_LOCAL_DIAGRAMS.md) records the
+proved two four-vertex NN overlap types. Every DN flip changing its local
+(p,q) sector uses at most five vertices together with the recurrence.
+Flips preserving the sector may share only one vertex and need a commuting
+argument; exterior paths also affect cover conditions. Do not claim that
+five isolated vertices already prove the arbitrary-exterior statement.
+Next examine DN middle-sector commuting comparisons, then shared-edge repairs.
+
+Previous DN scan finished with exit zero: 111 eligible saturated instances
+through seven vertices, 31 all-active connected unicyclic component reports,
+no bad middle joins or remaining target/deletion coefficient defects.
+These are finite evidence only. Consumer:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/diamond-exploration/hrv-bridge/src/bin/dn_component_transport.rs`;
+receipts `dn-direct-rank-one/scan.jsonl` and `scan.log` in the same requests root.
+The optional exact valuation mode has not been run. Independent reviewer
+confirmed the direct DN formulas for beta=h10; uniform DN repair remains open.
+
+Coverage audit: NN/DN/DD/ND together cover saturated ordinary non-chain
+diagrams by choosing the least strict area drop of height at least two
+(with terminal sentinel area zero). NN/DN/DD alone do not: area012333 has
+only the eligible ND corner25. DD/ND unmarking intermediates need a separate
+extension because they are not saturated. Retain this as an induction gap.
+
+
 ## Current component recurrence: the unicyclic NN step is complete
 
 2026-09-28, from clean pushed `f6a5f02`. This turn made verified progress.
