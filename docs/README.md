@@ -34,7 +34,8 @@ The component result is the finite strict/e identity on actual complete componen
   tree reduction, a classification of mixed-cyclic components, and two
   proved families of NN whole-component corrections.
 - [Four-cycle swap](proofs/COMPONENT_FOUR_CYCLE_SWAP.md): actual flip
-  paths for arbitrary attached trees, resolving one unicyclic NN join.
+  paths for arbitrary attached trees, both second mixed NN joins,
+  and an adjacent swap theorem for longer unicyclic states.
 - [Redundancy diamond](proofs/COMPONENT_REDUNDANCY_DIAMOND.md): exact
   union/intersection formulas and a reduction when two cycles exchange redundancy.
 - [Whole-component corrections](proofs/COMPONENT_GLOBAL_REASSEMBLY.md):

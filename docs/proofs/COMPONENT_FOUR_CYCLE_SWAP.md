@@ -1,8 +1,11 @@
 # Swapping attachments of an ordinary four-cycle
 
 2026-09-28. This is a mathematical proof, independently audited by Astra
-and primary. It resolves the right second mixed NN join in cycle rank
-one. The full component recurrence, its other joins and higher cycle
+and primary. It resolves both second mixed NN joins in cycle rank
+one, and gives a swap theorem for longer unicyclic states. Claude
+also audited the reduction to a four-cycle; primary and Astra checked
+the shorter final version. The full
+component recurrence, its other joins and higher cycle
 ranks remain open. No Lean implementation is claimed here.
 
 ## Setting and statement
@@ -141,7 +144,137 @@ The reverse construction transfers a branch from b to a. Together with
 the outgoing moves, this handles every original branch rooted at a or b.
 Performing these transfers one at a time yields σA, proving the theorem.
 
-## Application to the NN packet join
+## The left four-cycle
+
+**Theorem.** In the same NN setting, suppose a connected unicyclic
+selected state A contains
+
+    {ta,tb,ac,bc},       t<a<b<c.
+
+Then A and σA belong to the same actual flip component.
+
+Again the displayed cycle is unique, and we transfer its attached
+branches one at a time. Outgoing attachments at a,b use the same
+two flips through c as before. An incoming attachment xa with t<x<a
+can be transferred by
+
+    xa → tx, retaining ta;
+    tx → xb, retaining tb.
+
+Thus we only need an incoming attachment with x<t. Choose a containing
+strict corner uv. As before, the NN hypotheses give
+
+    u≤x<t<a<b<v<c.
+
+If uv lies in the branch containing x, use the same-branch tree
+normalization and outgoing transfer already proved above.
+
+Suppose it lies in another branch, rooted at k∈{t,a,b,c}. First take
+k=t,a, or b. In the branch together with its root, let M be the maximal
+intervals of the tree envelope. They contain uv. Since u<k<v, the
+vertex k cannot belong to the increasing M-chain containing the edge
+uv. The graph M∪{kv} is therefore a forest, and kv is natural because
+it lies inside uv. Extend this forest to a spanning tree of the same
+envelope. Tree connectivity gives a normalization with kv selected,
+while retaining uv and every original strict edge. As always, it
+lifts to the whole state because this tree meets the rest only at k.
+
+For k=t, the following two flips convert the left core to the right
+core at v, retaining the bridge tv:
+
+    ta → av, retaining tv;
+    tb → bv, retaining tv.
+
+For k=a, use instead
+
+    ta → ab, retaining tb;
+    ab → bv, retaining av.
+
+The result has right core {ac,av,bv,bc}, with t attached by tb.
+If k=b, first transfer the bridge bv to av through c, then use this
+second conversion. Both conversions are actual: all local edges cover,
+except that ac is temporarily redundant after introducing ab. That
+edge is not used in the next cover test. No strict edge is exchanged.
+
+Finally, suppose k=c. Normalize the c–v path inside [v,c] by the
+interval-path lemma. Let z be its first vertex after c. Replace zc
+by az, retaining ac, and use the second conversion above with z in
+place of v. We now have a right core at z. Move that core along the
+remaining path to v by the already proved right-hand mobility. All
+its vertices are in (b,c), and the crossing strict corner uv is
+untouched.
+
+In all cases we have obtained the right core at v, while preserving
+uv and the branch attached by xa. Distinct branches give u<x. Apply
+the six-flip table to this one branch, transferring xa to xb, then
+undo the conversion, migration and normalization. Its new attachment
+at b cannot change cover tests in the other branches.
+
+This transfers every incoming branch, with all other edges restored.
+Reversing the construction handles attachments at b. Combining these
+transfers proves the theorem. We undo the original moves after a
+single branch transfer; we do not conjugate intermediate states that
+may contain ab.
+
+## Reduction of a unicyclic state to a four-cycle
+
+**Theorem.** Suppose a connected unicyclic selected state A contains
+f=ac and r=bc, omits q=ab, and f lies on its unique cycle. Then A and
+σA belong to the same actual flip component.
+
+We delete f and normalize the remaining tree toward a tree containing q.
+Immediately before the first introduction of q, we have one of the
+two four-cycles. The preceding path admits the adjacent swap.
+
+Delete f from A, leaving a spanning tree T. Write H for its envelope
+and M for the maximal intervals of H. The edge f does not belong to H:
+any selected interval containing f would contradict its maximality in
+the original diagram. Moreover, r is maximal in H. A larger interval
+containing r either begins at or before a and contains f, or begins
+at b and ends beyond c, contrary to the NN hypotheses. Thus r∈M.
+
+The edges of M form disjoint increasing chains. The vertices a and b
+belong to different chains, since an increasing path between adjacent
+vertices would require q∈M⊆T. Since r∈M, the same holds for a and c.
+
+Connectedness of H implies q∈H: an edge crossing the cut between the
+adjacent vertices a,b contains q. Since a,b lie in different M-chains,
+M∪{q} is a forest. Extend it to a spanning tree T′ of H. This tree
+contains M and has envelope H.
+
+Tree connectivity gives a path from T to T′ retaining M. Reinsert f
+at every step. This cannot destroy a cover test for another edge: a
+directed path using f could bypass an edge xy only if [x,y] contains
+[a,c], impossible for another natural edge. All original strict
+corners other than f belong to M and remain selected. We therefore
+obtain an actual source path from A to T′∪{f}.
+
+The endpoint contains q. We stop at the state P immediately before
+its first occurrence. A flip introducing q must retain either tb,
+exchanging ta with q for t<a, or ad, exchanging bd with q for d>b.
+The latter has d<c, since f∉H. Since f,r remain selected, P already
+contains the corresponding four-cycle. The flip cannot retain f,
+which is absent from every tree on the path. Since P is still a tree
+plus f, the displayed four-cycle is its unique cycle.
+
+The path from A to P omits q throughout and retains f,r. No flip
+triple contains both a,b, since such a flip would exchange q. Thus
+σ preserves the order on every flip triple. It also preserves the
+directed graph of each state, hence the required cover tests. The
+two edges f,r are interchanged but never removed, and every other
+strict corner is fixed. The σ-image of the path is consequently a
+valid source path from σA to σP. Apply the appropriate four-cycle
+theorem to connect P to σP, then reverse this image path. This proves
+the claim.
+
+**Corollary.** The same conclusion holds if r, rather than f, lies on
+the unique cycle. Thus it suffices that the cycle uses at least one
+of f,r.
+
+Indeed, σA is another valid source state with f,r selected and q absent.
+The cycle of σA contains f, so the theorem applied to σA gives the claim.
+
+## Application to the NN packet joins
 
 For a right target flip, write its exterior states as
 
@@ -158,19 +291,50 @@ retaining ad gives S₀∪T∪{ac,ad,bd,bc}. The theorem connects this to
 the first state. Thus this packet generator does not join distinct
 connected unicyclic source components.
 
-We do not claim the same conclusion yet for the left second mixed
-join, the surviving endpoints of middle or first mixed joins, or
-components with more than one cycle.
+For a left target flip, write Q=T∪{ta,tb} and P=T∪{tb}, where
+t<a<b<c. The corresponding second mixed join compares
+
+    S₀∪σT∪{ac,ta,tb,bc},
+    S₀∪T∪{ac,tb,ab,bc}.
+
+Adding redundant ac lifts the target flip that exchanges ab with ta,
+retaining tb. The resulting state has the left four-cycle, and the
+left theorem finishes the comparison. Thus neither kind of second
+mixed NN join identifies distinct connected unicyclic components.
+
+We do not claim the same conclusion yet for the surviving endpoints
+of middle or first mixed joins, or for components with more than one cycle.
+For example, a right first mixed join compares
+
+    S₀∪σT∪{f,ad,bd},       S₀∪T∪{f,ad,r}.
+
+Flipping bd to q in the first state and taking its middle partner
+gives S₀∪σT∪{f,ad,r}. Even if the general swap theorem applies, its
+image is S₀∪T∪{f,bd,r}, with bd where the required endpoint has ad.
+Thus the swap theorem alone does not prove this first mixed join.
+
+There is nevertheless a consequence for every middle join that is not
+an actual flip. Its 10 endpoint has f redundant, since q always covers.
+The unique cycle therefore contains f. Replacing q by r leaves this
+cycle if q was a bridge; if q was on the cycle, the new unique cycle
+contains r. The corollary applies to the 01 endpoint in both cases.
+Hence that endpoint and its full σ-image belong to the same source
+component. This does not yet connect it to the 10 endpoint.
 
 ## Checks and a restriction to avoid
 
 The explicit six- and seven-flip tables were found using the existing
 Rust actual-cover model and then verified mathematically. An exhaustive
 check over all 76 eligible NN instances through six vertices verifies
-the theorem on all 149 connected unicyclic states containing a four-cycle
-of the displayed form. These are checks of actual component membership,
+the right theorem on all 149 connected unicyclic states containing its
+four-cycle. These are checks of actual component membership,
 not comparisons of polynomial values. The seven-vertex fixtures
 area0123434 and area0123343 check another 44 and 13 such states.
+The left theorem passes the same scan on 24 states and the two fixtures
+on 47 and 5 states. The two left-to-right conversion tables also pass
+direct checks in the actual-cover model. The general swap theorem with
+f on the cycle passes on 519 states in the same six-vertex scan, and
+on 257 and 72 states in the two seven-vertex fixtures.
 
 One cannot instead delete bc after making it redundant and appeal to
 tree connectivity while insisting that b still reaches c. Even the
@@ -195,4 +359,9 @@ Related Rust: `nn_component_transport.rs`, modes `--shield-swap-path`,
 counterexample mode. Frozen sources, Cargo files,
 commands, receipts and hashes are under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/four-cycle-attachment/`.
+The left conversions, left theorem and general unicyclic swap use the
+additional modes `--cycle-cross`, `--cycle-from-a`,
+`--audit-left-four-cycle` and `--audit-unicyclic-swap`. Their frozen
+consumer, commands and receipts are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/left-four-cycle/`.
 The shared Rust sources and the Lean/manuscript sources were not changed.

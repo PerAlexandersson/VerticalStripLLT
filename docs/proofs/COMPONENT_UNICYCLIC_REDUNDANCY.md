@@ -260,9 +260,15 @@ proved in [the four-cycle swap theorem](COMPONENT_FOUR_CYCLE_SWAP.md),
 including incoming branches whose containing strict corner lies in a
 different attached tree. We first normalize that tree, move the cycle
 to meet the corner, transfer the incoming branch by six flips, and
-undo the temporary moves. Thus the right second mixed join does not
-join distinct connected unicyclic components. The left second mixed
-join and the other surviving-to-surviving cases remain open.
+undo the temporary moves. The same note now proves the left four-cycle
+swap by converting to a right core. Thus both second mixed joins stay
+within one connected unicyclic component. The surviving-to-surviving
+middle and first mixed joins remain open. The same note now proves
+full σ-invariance of a q-free state selecting f,r whenever its unique
+cycle contains either edge. In particular the 01 endpoint of every
+nonactual middle join is σ-invariant within its component. This does
+not identify it with the 10 endpoint or supply the attachment change
+required in a first mixed join.
 
 ## Relation to reconstruction and checks
 
