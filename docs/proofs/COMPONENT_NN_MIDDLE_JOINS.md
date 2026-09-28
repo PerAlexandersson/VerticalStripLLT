@@ -139,7 +139,9 @@ corner satisfy the separate corner-label invariant.
 First mixed joins still require attention when the unique selected
 cycle avoids both f and r. The existing swap and incoming-bridge
 theorems require the cycle to use at least one of these edges.
-Two reductions below narrow this issue further.
+The reductions below narrow this issue further. The subsequent
+[first-join tree comparisons](COMPONENT_NN_FIRST_JOINS.md) also handle
+a least incoming tail and certain covering edges on a remote cycle.
 The DN/DD steps, recurrence coverage and higher cycle ranks also
 remain. The user has made the circular extension optional; the
 current proof target is the ordinary component formula.

@@ -1,72 +1,60 @@
 # VerticalStripLLT handoff
 
-## Current general NN middle-join checkpoint
+## Current first-join tree comparisons
 
-2026-09-28, from clean pushed `6195af1`; preceding turn made verified
-progress. The requested combinatorial recurrence proof remains active.
-**User scope correction:** focus on ordinary components. A circular
-extension is optional, not a completion requirement, and is not inferred
-merely from locality. The completed separate Lean theorem remains intact.
+2026-09-28, from pushed `77913ae`. The requested combinatorial recurrence
+proof remains active. **Required scope: ordinary components only.** The
+user considers the circular extension optional; locality is not a proof
+of that extension. The existing separate Lean theorem remains intact.
 
-New [general NN middle joins](docs/proofs/COMPONENT_NN_MIDDLE_JOINS.md):
-every f-active middle join is internal for connected unicyclic states
-at any eligible saturated ordinary NN position. For T=A−f, H=Env(T),
-M its maximal intervals, F=M+q, the F-forcing case uses the preceding
-left/right exit proposition. Otherwise choose e=xy on the increasing
-bypass outside F and maximal g=uv containing it. In Z=F∪P, remove e.
-If g is on the a-side, reconnect by uy; on the c-side, reconnect by
-xv; in a third component, adjoin xv to Z. Each prescribed forest
-extends to a tree of H with a q-preserving exposing flip. The no-head
-NN condition makes the F-component of a point outward; other F-components
-are increasing chains. This supplies the increasing detours. Same-envelope
-tree connectivity and redundant-middle connectivity finish the theorem.
+New [first NN joins](docs/proofs/COMPONENT_NN_FIRST_JOINS.md): a tree
+path with fixed exterior lifts whenever the exterior meets the local
+vertices at at most two attachments with no directed path between them.
+This lemma allows arbitrary exterior cycle rank. For connected unicyclic
+first left joins whose cycle avoids a,b, the least selected incoming
+tail makes the two attached trees have the same envelope. More generally,
+adjoin a covering cycle edge incident to the attachment root: the
+remaining cycle path has no directed connection between the two ends.
+Equal envelopes of these enlarged trees then prove the first join.
+The same criterion repairs an incoming bridge away from the cycle.
 
-First-join reductions in the same note: a cycle in another natural block
-leaves a tree comparison in the f-block; an outgoing cycle edge at a/b
-can be moved to put the cycle on f,r. A sink with an incoming cycle
-edge ta and selected tv, b<v<c, reduces to the outgoing case in one
-or two flips. The seven-vertex surviving sink fixture is covered by this
-last lemma. Arbitrary cycles within the f-block avoiding a,b, and sinks
-without such a selected containing edge, remain. Left first joins also
-need their incoming held-edge repairs. DN/DD, recurrence coverage and
-higher cycle ranks remain; do not claim full NN or the ordinary theorem
-by this route yet.
+The n10 nonleast-tail first join and n9 remote-cycle bridge examples
+both satisfy this enlarged-tree criterion. Their original attached-tree
+envelopes differ; after adjoining the strict cycle corner they agree.
+The known inactive example fails precisely because the exterior has a
+directed path across that corner. Survival alone has not been proved
+to provide a suitable covering edge incident to the attachment root.
 
-Primary derived the exposure construction; existing Astra reviewer
-simpler_component_route independently audited it, the written theorem,
-the first-join reductions and sink preparation. No flaw or correction
-found. Assignment completed read-only and build-free, ownership released.
-Primary owns notes/index/handoff/archive and the external consumers and
-retains the sole serialized Lean build slot. No new worker/account,
-Lean build, maintained Rust edit or manuscript edit.
+The preceding [middle-join theorem](docs/proofs/COMPONENT_NN_MIDDLE_JOINS.md)
+settles all middle joins in cycle rank one. General first joins, DN/DD,
+recurrence coverage and higher cycle ranks remain. Do not claim the full
+ordinary component recurrence proof from these partial results.
 
-Verification: actual forest constructions pass all 76 eligible NN
-instances n≤6 with counts [107,86,25] (a-side,c-side,third component);
-n7 shield [12,48,0], n7 three-corner [17,12,16]. Each check extends the
-forest, checks membership in the original COMPLETE source component,
-checks the actual flip, preservation of F and exposure of f. Every
-final Cargo command exits0. The seven-vertex first-join fixture has an
-11-flip BFS path; the two-flip sink preparation and its adjacent-swap
-image both pass direct cover checks. This is supporting finite evidence
-for the independently audited proof, not a substitute for it.
+Verification: exact local searches produced paths of 11 and 10 actual
+flips in the n10 and n9 examples. All 12,109 and 1,665 traversed local
+flip tests agree with the original full diagrams. Correct envelope
+maxima and the inactive failure were checked explicitly. Final Cargo
+command exits0. These finite checks support the general arguments.
+Primary and the existing Astra reviewer independently audited the
+criteria and the final written note. The written audit passed without
+further corrections, including both corrected fixture maxima.
 
-External sources, receipts and consultation:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/middle-exposure/`.
-Maintained Rust HEAD remains d53fb193af3c69adedbd9ec8592f87235d809ffa;
-consumer reuses existing actual-flip and graph APIs. No polynomial family
-or generator was introduced. Existing API-integration and Lean-MCP routing
-suggestions remain applicable. Compiler processes are terminal.
+Primary owns the new note/index/handoff/archive and external consumers,
+and retains the sole serialized Lean build slot. Existing Astra
+simpler_component_route completed the bounded read-only, build-free
+written-note audit and released ownership. No new worker/account, Claude process, Lean build,
+maintained Rust edit or manuscript edit. Compiler jobs are terminal.
 
-The primary-owned tool-free Claude exposure consultation reached its
-20-minute cap with exit124 and no final result. Its exact owned PIDs are
-absent; native session41177 is terminal. The stream was producing thinking
-events, not a completed proof. No result is attributed to Claude. All
-owned processes and reviewer assignments are now terminal. Frozen sources,
-review, exact commands, receipts and SHA256SUMS are in the request folder.
+Frozen sources, exact command, receipts and hashes:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/first-join-tree-lifts/`.
+Maintained Rust HEAD remains d53fb193af3c69adedbd9ec8592f87235d809ffa.
+No polynomial generator was introduced. Existing flip-API integration
+and Lean-MCP routing suggestions remain applicable. Earlier owned Claude
+consultations are terminal; no Claude result is used here.
 
 [Archived preceding checkpoints](docs/archive/component-recurrence-handoff-through-path-square-20260928.md)
-retain leftward transitions, incoming transfer, inactive corrections,
-leftmost NN and path-square proofs with their verification boundaries.
+retain general middle joins, left/right transitions, inactive corrections,
+leftmost NN and path-square results with exact verification boundaries.
 
 ## Earlier recurrence research
 
@@ -75,7 +63,7 @@ retain the right four-cycle, unicyclic classification and global-reassembly
 proofs and receipts. [Earlier checkpoints](docs/archive/component-recurrence-handoff-through-redundancy-20260928.md)
 retain the NN/DN/DD packet proofs, exact failures of stronger isolation
 claims, direct local reconstructions, and redundancy-diamond results.
-The latest preceding checkpoint is `6195af1`, pushed to `origin/main`.
+The latest preceding checkpoint is `77913ae`, pushed to `origin/main`.
 The current proof notes are indexed by [docs/README.md](docs/README.md).
 
 ## Current manuscript
