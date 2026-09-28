@@ -172,6 +172,104 @@ We can telescope an exterior swap into these pairs algebraically, but
 an individual pair replacement need not be an actual flip. Turning
 that telescoping into joint diamond corrections is still required.
 
+## Transferring through a longer bypass
+
+We can strengthen (1). In the right-hand notation a=wt, b=xt, c=tz,
+
+    R00(Q+b+c)=H(sigma Q+e+a+c).                       (5)
+
+The extra arm a on the left of (1) is unnecessary. The DN bottom
+identification gives R00(Q+b+c)=L00(sigma Q+a+c). In this source
+term f is redundant through a,c; deleting f gives (5).
+More generally, whenever r is redundant in R00(Q),
+
+    R00(Q)=H(sigma Q+e).                              (6)
+
+An alternative path from x to z in Q swaps to a path from w to z
+in sigma Q, so f is redundant in L00(sigma Q). This proves (6)
+directly from the same DN bottom identification. Equivalently, delete r
+and swap w,x. In this argument x is a nonsink; the adjacent swap therefore
+preserves the relative order of the sinks, even if w itself is a sink.
+
+There is a useful difference identity for the exterior pairs in k(Q).
+Let ell,s be respectively the long and the other short edge in either
+triangle v<w<x or w<x<v, with q=wx as the remaining short. For any
+common selected background Z omitting q,ell,s, the diamond gives
+
+    H(Z+q+ell)-H(Z+q+s)=H(Z+ell)-H(Z+ell+s).           (7)
+
+In its full term ell is redundant through q,s. Thus (7) moves the
+difference between the two q-selected states into two q-absent states,
+without an actual-cover assumption.
+
+Suppose v differs from the right-hand vertex t and that we retain e,a,c.
+Combining (7) with (5) gives
+
+    H(Q+e+a+c+q+ell)-H(Q+e+a+c+q+s)
+      =R00(sigma Q+b+c+s)-R00(sigma Q+b+c+ell+s).      (8)
+
+Here sigma exchanges ell,s; Q omits all displayed local edges. Incoming
+and outgoing pairs are both allowed. Consequently a telescoped exterior
+swap can be transferred back to target 00 terms with r redundant.
+These are explicit zero relations for the remaining differences. We
+still have to choose their coefficients compatibly over whole components.
+
+### Shortening a bypass by diamonds
+
+Long paths in (6) do not require a new identity for every length.
+Suppose a selected bypass is v0->v1->...->vm, m>=3, inside a natural
+strict corner. Put a0=v0v1, b0=v1v2 and g=v0v2. All three edges are
+normal because their intervals lie properly inside that corner.
+If g is absent, then
+
+    X(Z+a0+b0)
+      =X(Z+g+a0)+X(Z+g+b0)-X(Z+g).                   (9)
+
+Indeed, insert redundant g into the left side and use its diamond.
+Each right-hand term retains the shorter path v0->v2->...->vm.
+If g is already present, simply choose that shorter path. Applying
+this to a shortest selected bypass decreases its length on every branch.
+Iteration terminates with two-edge bypasses and integer coefficients.
+
+We can use the same expansion on both sides of a cross-diagram identity.
+For redundant e', apply identical triangles in R and in H after deleting
+e'; all the shortcut edges are common. At each leaf, e' is redundant
+through a two-edge path. For (6), apply the triangles on the x-to-z
+path in R and their sigma images on the w-to-z path in H. The common
+coefficients are +1,+1,-1, and each leaf is an instance of (5).
+Thus the longer bypass identities follow constructively from ordinary
+diamonds, redundant-edge deletion and the two-edge cross identifications.
+
+A triangle used along a bypass can contain two vertices outside the
+original recurrence. Its union with the original four vertices can then
+have six vertices. We use successive local diagrams; we do not require
+every subsequent diamond to stay inside one fixed five-vertex set.
+
+### Two right-hand exits from one orientation
+
+There is already a local consistency statement for choosing correction
+coefficients. Suppose R00(Q) has actual q-changing flips at both triangles
+w,x,t and w,x,s, with t!=s. Put a_t=wt, b_t=xt and similarly a_s,b_s.
+All four edges belong to Q. The two q-selected target neighbors carry
+source coefficients h01(Q-b_t) and h01(Q-b_s). These are equal.
+
+Indeed, put Q'=Q-b_t-b_s. We have the actual source path
+
+    L01(Q-b_t) <-> L11(Q') <-> L01(Q-b_s).            (10)
+
+The first flip retains a_s and replaces b_s by q; the second retains
+a_t and replaces q by b_t. For the first, the required covers survive
+deleting b_t and replacing e' by e,f. For the second, q covers because
+it is adjacent. A new bypass of a_t would have to use q and then an
+x-to-t path in Q', contradicting the cover of b_t in the original target.
+The edges e,f,r cannot affect these paths: e is upstream, and f,r end
+at z>t,s. The exchanged shorts are normal inside the source corner f.
+This proves (10) and the equality of coefficients.
+
+Thus a correction at one 00 orientation is independent of which right-hand
+exit we use to specify its coefficient. We still need consistency along
+paths of 00 orientations and at the left-hand overlaps.
+
 ## Verification and remaining work
 
 The proposition has a direct cover-and-coefficient proof above. An
@@ -194,6 +292,58 @@ reuses `nn_component_transport::{components, valuations}` and
 run logs and checksums are under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-joint-five-vertex/`.
 No Lean source or build is involved in these new identities.
+
+A subsequent exact span calculation retains the full target and H state
+spaces. Its generators are ordinary diamonds, deletion of a normal edge
+made redundant by a two-edge path, deletion of e' through a two-edge path
+from R to H, and (6). We also include the indicator of every complete
+component of R and H. We assemble the original direct image of each source
+component and test membership in this rational span. No equality for a
+whole component is assumed when constructing the zero relations.
+
+The diamonds and within-diagram normal deletions in this test use at most
+one vertex outside {u,w,x,z}; relation (6) allows a longer bypass and has
+the constructive reduction (9).
+
+| Source area | Strict edges | Source components | Images outside the span |
+| --- | --- | ---: | ---: |
+| 01123 | 01,14 | 15 | 0 |
+| 01222 | 02,24 | 14 | 0 |
+| 011234 | 01,15 | 116 | 0 |
+| 012233 | 02,14,25 | 26 | 0 |
+| 0122332 | 02,14,25,46 | 28 | 0 |
+| 0112343 | 01,15,36 | 177 | 0 |
+
+These are six selected diagrams, not an exhaustive scan through seven
+vertices. If we restrict (6) to two-edge bypasses in the same test, six
+source images of 011234 remain outside the span. Allowing either the long
+bypass transfer or ordinary exterior triangles and their normal deletions
+resolves these six. Thus the path-shortening step has a concrete role.
+
+For the two-state source component in 011234,
+
+    C={01+15+12+13+34+45, 01+15+13+23+34+45},
+
+the direct image is H(01+12+13+34+45)+R00(13+23+34+45).
+The one instance of (6)
+
+    R00(13+23+34+45)=H(01+13+23+34+45)
+
+completes the two-state H component. Its bypass 2->3->4->5 has length
+three. The exact certificate contains only this zero relation and the
+whole H component. A 34-state source component in the same diagram also
+has a checked integral certificate, with 101 zero-relation terms and eight
+whole output components. Every certificate equation, each used zero
+relation, and both final valuations were checked exactly. The automatic
+certificate is not yet an expository proof of the general construction.
+
+Related Rust: `hrv-bridge/src/bin/dn_joint_span.rs` reuses
+`sym_poly_core::sparse_linear_algebra::{SparseQuotientSpace, sparse_rref}`
+and the same component/valuation APIs. Frozen sources, explicit commands,
+logs and checksums are in
+`/lake-cache/ai-projects/requests/VerticalStripLLT/dn-joint-span/`.
+All-case span membership is over the rationals; integrality is asserted
+only for the two explicit certificates just described.
 
 For general DN, we still need to choose the coefficients of joint repairs
 so that all component boundaries close simultaneously, including exterior

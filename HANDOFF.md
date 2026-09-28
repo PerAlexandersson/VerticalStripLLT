@@ -1,6 +1,55 @@
 # VerticalStripLLT handoff
 
-## Current DN result: joint five-vertex repair proved in the minimal diagram
+## Current DN progress: bypass transfers and local coefficient consistency
+
+2026-09-28, from clean pushed `bf0b454`. Previous turn was progress.
+The [joint DN note](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md) now proves:
+
+- Stronger right transfer R00(Q)=H(sigma Q+e) whenever r is redundant.
+  The earlier extra selected arm is unnecessary.
+- A twin-pair diamond transfers the antisymmetric deletion differences
+  back into target00 terms; incoming and outgoing pairs both apply.
+- A selected bypass can be shortened by the signed diamond expansion
+  (+1,+1,-1), decreasing its length on every branch. Synchronized expansions
+  reduce long cross-diagram transfers to two-edge ones with arbitrary exterior.
+- At one target00 orientation, all actual right q-exits prescribe the same
+  h01 coefficient: two actual source flips join their images. This is local
+  consistency; constancy along paths of 00 vertices and left overlaps is open.
+
+New exact consumer dn_joint_span.rs tests the ORIGINAL source images modulo
+ordinary local diamonds, normal redundant-edge deletion, cross-diagram
+transfers and indicators of COMPLETE output components. All376 source
+components in six selected n5--7 diagrams lie in this rational span. These
+are not all diagrams through seven. Of 116 components in area011234, six fail when
+right transfers are restricted to two-edge bypasses. Allowing long bypasses
+(or exterior triangles via the new shortening proof) resolves all six.
+A two-state example needs just one transfer and one whole H component.
+An explicit 34-state example has 101 zero terms and eight whole components, all
+integer coefficients. Both explicit certificates check every equation,
+each used zero identity, and final K/E values. Other membership results
+are rational; no general integral construction is asserted.
+
+NEXT: prove compatibility of coefficient choices along target00 paths and
+through left overlaps, retaining the full exterior. The optional diagnostic
+finds middle/full target coefficient conflicts in the two left examples,
+so fixing only 00 coefficients cannot handle the general left case. Right
+examples show no such conflict, but global right consistency is not proved.
+Do not reintroduce source balance, cycle-rank restrictions, or require a
+single fixed five-vertex set to contain all successive bypass triangles.
+General NN/DN/ND/DD whole-component recurrence proof remains unfinished.
+
+Primary owns notes/index/handoff and external dn_joint_span.rs; existing
+Astra reviewer independently checked identities, cover arguments and consumer
+semantics, read-only and build-free. No new worker/account or Claude child.
+No Lean or manuscript changes/builds. All Rust runs are terminal exit0;
+source/dependency snapshots, exact commands, logs and audit are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/dn-joint-span/`.
+Rust capability/metadata/registry checks completed; maintained Rust unchanged
+at d53fb193af3c69adedbd9ec8592f87235d809ffa. Python only handles files/hashes.
+Primary retains sole serialized Lean build ownership; goal stays active.
+
+## Previous DN result: joint five-vertex repair in the minimal diagram
+
 
 2026-09-28, from clean pushed `d090a36`. New proof:
 [joint DN repairs](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md).
