@@ -173,9 +173,9 @@ first coefficients; its `.log` records the five-state example and the
 allowed relation counts. The improved table is in
 `nn-overlap/nn_rust_small_certificates.jsonl`. Each receipt directory has
 source and receipt hashes. The earlier source is preserved as
-`recurrence-continuation/nn_component_transport-at-c83dffb.rs`; the current
-source is also copied into `nn-overlap/`. Each Rust run used a 600-second
-cap and reduced priority.
+`recurrence-continuation/nn_component_transport-at-c83dffb.rs`; the source
+used for the improved table is copied into `nn-overlap/`. Each Rust run
+used a 600-second cap and reduced priority.
 No shared Rust source, Lean source, or manuscript file was changed.
 
 Astra derived and audited the direct split, the local redistribution

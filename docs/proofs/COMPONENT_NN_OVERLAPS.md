@@ -6,6 +6,10 @@ We prove that only two types of target flip can change its coefficients,
 and give corrections for several right-overlap cases. The compatibility of
 these corrections along whole components remains open.
 
+The subsequent [left-overlap note](COMPONENT_NN_LEFT_TRANSFER.md) supplies
+a four-diamond transfer through a crossing corner, the redundant-corner
+cases, and a conditional transport when that corner starts earlier.
+
 We use unweighted valuations throughout: [P] denotes either the strict
 order-coloring enumerator K(P) or the HRV expression E(P). Marking a selected
 edge strict or normal does not change either valuation.
@@ -205,6 +209,11 @@ used to justify a local correction. The identities proved here do not
 yet prescribe compatible coefficients after those changes. Establishing
 that compatibility, or replacing these corrections by a different finite
 diamond argument, is the remaining NN reconstruction step.
+
+The left-overlap continuation also expands the exact right-overlap checks
+to all 177 six-vertex components and the components surviving the known
+reductions in two specified seven-vertex diagrams. These additional tests
+do not establish a general correction or remove the counterexample above.
 
 Astra independently audited the right-overlap identities, their cover
 hypotheses, the two-state orbit convention, the local measure, and the

@@ -1,6 +1,63 @@
 # VerticalStripLLT handoff
 
-## Active recurrence continuation
+## Current NN continuation
+
+2026-09-28, continuation from `ca02d67`. Previous turn made proved and exact
+computational progress; this turn adds a four-diamond LEFT-to-RIGHT transfer.
+The user's full goal remains active: a combinatorial component HRV proof
+using the decreasing diagram recurrences, with the same reconstruction on
+colorings. Whole-component closure remains unproved; no completion claim.
+
+See [the left NN transfer](docs/proofs/COMPONENT_NN_LEFT_TRANSFER.md):
+
+- Saturation supplies a strict corner ud crossing the NN corner ac and
+  containing the retained left-overlap edge tb, with u≤t<a<b<d<c.
+- When u=t, four ordinary diamonds transfer a left difference to a right
+  difference with explicit terms in the further corner-deletion diagram.
+  The valuation identity is unconditional. The actual flip paths and
+  coefficient interpretation require the stated covers.
+- The local cases where that corner is redundant are completely split:
+  either delete it at both endpoints, or use one diamond to leave a
+  term with fewer selected edges and two corner-deleted terms.
+- When u<t and a covering edge ut is selected, two actual flips move the
+  left difference to a td-supported transfer. Since td is then normal,
+  its remainder stays in the same ambient diagram; this does not yet
+  establish an area decrease or provide ut in general.
+- If a q-absent state admits two different flips inserting q, either
+  endpoint has the other triangle's normal long redundant. Deleting that
+  edge preserves both valuations and lowers selected-edge count. Luna
+  independently audited this competing-triangle lemma.
+
+Primary owns the proof notes, index, this handoff and the external Rust
+consumer. Existing Astra `simpler_component_route` derived and audited the
+local results, read-only and build-free; its assignment is now finished.
+Existing Luna `word_covers` audited the competing-triangle lemma, also
+read-only/build-free and now finished. No file ownership was delegated.
+No new worker/account/model/worktree, no Claude call, no Lean build, and no
+manuscript or shared Rust source edit. Primary retains the sole Lean build
+slot. Tool registry and `codex mcp list` were rechecked; the only Lean MCP
+still has the wrong project root. Rust guide/metadata/APIs were rechecked.
+
+All Rust jobs finished with exit zero. Main receipt:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/nn-left/seven_tall_left_complete.jsonl`.
+It checks 4,096 arbitrary-exterior valuation identities, 1,288 actual
+four-diamond transfers, 1,136 cases with both endpoints redundant, 136
+remaining redundant-corner cases, and 544 earlier-starting-corner transports.
+The maintained P-partition/HRV APIs check BOTH valuations exactly. Component
+right-overlap tests pass for all 177 components of area012343, and all four
+and six components surviving known reductions in area0123432 and0123434,
+respectively. These are specified finite checks, not general theorems.
+Frozen source, Cargo manifest/lock, receipts and hashes are in `nn-left/`.
+No owned compiler, consultant or auxiliary assignment remains live.
+
+Next: extend the paired transfers along every incident flip so that their
+remainders are complete components, while controlling a decreasing measure.
+The new local pairs need not exhaust their q-preserving components; arbitrary
+component fragments still cannot be treated as solved. The conditional
+covering edge ut and the RIGHT global compatibility also need attention.
+
+## Previous NN checkpoint (`ca02d67`)
+
 
 2026-09-28, continuation after `c83dffb`. The user wants a direct component
 proof from the existing decreasing diagram recurrences: split one component,
