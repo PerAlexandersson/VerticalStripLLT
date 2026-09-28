@@ -4,7 +4,8 @@
 redistribution at arbitrary adjacent vertices a,b. This extends the
 corresponding part of the
 [leftmost NN proof](COMPONENT_LEFTMOST_NN_UNICYCLIC.md).
-The joins between f-active components remain a separate obligation.
+The later [middle-join theorem](COMPONENT_NN_MIDDLE_JOINS.md) settles
+f-active middle joins. First mixed joins remain a separate obligation.
 Primary and the existing Astra reviewer independently audited the proofs.
 
 ## Connecting redundant middle images
@@ -173,9 +174,9 @@ cannot exchange strict f. Thus all its cover tests survive.
 
 The [leftward counterpart](COMPONENT_LEFT_EXIT.md) now handles a left
 q-exit that exposes f, using containing corners and induction on the
-incoming tail. A general tree-normalizing path can still have several
-q-free states before f becomes a cover. These local transition statements
-do not yet establish f-active middle-join connectivity in general.
+incoming tail. The middle-join theorem completes the active-middle
+comparison by constructing an exposing witness in each relevant tree
+envelope, without controlling arbitrary q-free normalization paths.
 
 ## Verification
 

@@ -49,10 +49,13 @@ The component result is the finite strict/e identity on actual complete componen
   a selected containing interval suffices, including two bypass repairs.
 - [General NN inactive corrections](proofs/COMPONENT_NN_INACTIVE_CORRECTIONS.md):
   all inactive-corner neighbor cases, redundant middle images, and
-  rightward q-exits. Active-component joins remain open.
+  rightward q-exits. First mixed joins remain open.
 - [Leftward NN transition](proofs/COMPONENT_LEFT_EXIT.md): containing
   corners, tree normalization and induction on an incoming vertex handle
   a leftward q-exit that exposes the strict corner.
+- [General NN middle joins](proofs/COMPONENT_NN_MIDDLE_JOINS.md): three
+  forest constructions give an exposing witness and close every active
+  middle join in cycle rank one; first mixed joins remain open.
 - [Path-square components](proofs/COMPONENT_PATH_SQUARE.md): all edge-count
   components, an explicit elementary formula, and terminal cases of
   arbitrary cycle rank.

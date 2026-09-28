@@ -191,3 +191,66 @@ complete proof from the solved path-square family or the Lean word proof.
 [Archived leftmost and transfer checkpoints](docs/archive/component-recurrence-handoff-through-path-square-20260928.md)
 retain the preceding proofs, review boundaries and finite receipts.
 
+
+
+## Leftward-transition checkpoint 6195af1
+
+2026-09-28, continuation from clean pushed `d77a68f`. The previous
+status-only turn made no durable progress; this turn proves a new local
+step and narrows the active-middle gap. The requested full combinatorial
+component proof remains active and incomplete.
+
+New [leftward NN transition](docs/proofs/COMPONENT_LEFT_EXIT.md): every
+left q-exit exposing redundant f in a connected unicyclic saturated NN
+state connects its middle pair. Choose a containing strict corner uv.
+The same attached tree reduces to the rightward lemma by tree connectivity
+on two adjacent attachment vertices. A head on the bypass gives a
+three-flip repair. A different attached tree moves to an earlier bypass
+vertex until it exposes f or gives an incoming tail u<t. Strong induction
+on t closes the latter case. The local normalization may lose q; its
+endpoint restores q, and the deleted-f envelope stays fixed.
+
+A further proposition closes the active middle join whenever F=M+q
+forces a→c but the maximal-edge forest M does not. A maximal interval
+containing q supplies either an outgoing bridge, or a crossing strict
+corner uv; F+ub is then a forest and gives an incoming bridge. Apply
+the rightward or new leftward lemma and redundant-middle-image connectivity.
+
+Remaining: when F does not force the bypass, a q-selected f-covering
+tree exists, but its comparison with redundant middle images is unproved.
+A sufficient next assertion is that some redundant q-selected tree of
+the same envelope has a flip immediately exposing f (q may be removed).
+Do not assume q-preserving tree connectivity: even an eligible K5 NN
+example in the note refutes it. General first joins, DN/DD, recurrence
+coverage, higher ranks and the full circular recurrence route remain.
+
+Primary and existing Astra `simpler_component_route` independently audited
+the written lemma and proposition. Reviewer scope corrections incorporated:
+state connected/unicyclic explicitly; identify maximal containers in the
+original diagram. No Claude result used in this increment.
+
+Checks: direct actual flips pass three local repairs (3,7,3 moves) and a
+two-move smaller-tail preparation plus its exposing exit. The first harness
+wrongly asserted q survived the deliberate q-exit; corrected without
+changing the proposed flips. Final run exits0. The exposure assertion has
+finite evidence in all 55 relevant envelopes across 76 NN instances n≤6
+(211 states,192 immediate exposures); n7 shield gives5/72/61 and n7
+three-corner gives3/28/18. These are evidence, not a uniform proof.
+
+Frozen consumers/model/manifests, commands, review, receipts and hashes:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/left-exit/`.
+The external consumer reuses the existing cover model and Rust APIs;
+maintained Rust HEAD remains d53fb193af3c69adedbd9ec8592f87235d809ffa.
+No maintained Rust edit or polynomial generator. Runtime registry and
+`codex mcp list` rechecked; Lean MCP still routes to RealRooted and is
+unused. Existing integration/routing suggestions remain applicable.
+
+Primary owns notes/index/handoff/archive and external consumers and retains
+the sole serialized Lean build slot. No Lean build or manuscript edit,
+new worker/account, or Claude process. All compiler checks are terminal.
+The existing Astra assignment finished read-only and build-free; ownership
+is released and no owned process remains live.
+[Archived preceding checkpoints](docs/archive/component-recurrence-handoff-through-path-square-20260928.md)
+retain incoming transfer, inactive corrections, leftmost NN, and path-square
+proofs with their exact verification boundaries.
+

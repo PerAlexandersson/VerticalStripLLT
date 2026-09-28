@@ -6,6 +6,10 @@ The argument uses tree connectivity and actual flips. It is a local
 ingredient of the requested component recurrence; general active-component
 isolation remains open.
 
+The subsequent [middle-join theorem](COMPONENT_NN_MIDDLE_JOINS.md)
+closes all f-active middle joins. The local lemmas and proposition
+here are ingredients of that result; first mixed joins remain open.
+
 ## Statement and two reductions
 
 We retain the saturated ordinary NN hypotheses of
@@ -198,18 +202,11 @@ removes q and simultaneously makes redundant f a cover. It also
 handles q-preserving transitions exposing f. A general path may
 remove q while f remains redundant and expose f only later. Such
 paths, and the remaining first mixed joins, are not settled here.
-For an active middle join, the proposition reduces the unresolved
-case to F=M∪{q} not forcing a→c. The prescribed-forest lemma then
-supplies a q-selected tree in which f covers, but a path to that
-tree need not retain q. We still need to connect this tree to the
-redundant middle-image family.
-
-More precisely, the following sufficient assertion remains unproved:
-whenever H has a redundant q-selected tree and M does not force a→c,
-some redundant q-selected tree of H has an actual source flip that
-makes f cover. The flip may retain or remove q; both cases are now
-handled by the local lemmas. The assertion would close the active
-middle joins, but further first-join comparisons would still be needed.
+The proposition reduces an active middle join to F=M∪{q} not forcing
+a→c. The later middle-join theorem resolves that case by constructing
+a redundant q-selected tree of the same envelope with a q-preserving
+flip exposing f. This avoids controlling an arbitrary normalization
+path. The original finite exposure checks below preceded that proof.
 
 Even the NN hypotheses do not ensure q-preserving tree connectivity.
 For example, take strict f=04 in K5 and H with maximal intervals
