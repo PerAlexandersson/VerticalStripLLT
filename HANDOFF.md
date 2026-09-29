@@ -32,6 +32,10 @@ not used in the diagram proof or its proposed next step. An initial
 basis-mismatched diagnostic failed; its corrected rerun passed. This did
 not affect previous diagram identities. No general collection result is
 claimed from these computations. The full goal remains active.
+Proof checkpoint `f8becf0` is pushed to `origin/main`. Both prior proof
+notes remain verbatim prefixes; 106 local file links and `git diff --check`
+pass. Maintained Rust is clean at `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
+All newly launched checks have finished; the final push was confirmed.
 
 ## Active boundary continuation — local descent proved
 
