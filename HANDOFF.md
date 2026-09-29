@@ -342,6 +342,7 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Proof checkpoint: `b4c577d` (temporary-tz retained-edge repair).
 Current incoming-s increment: arbitrary competing routes and redundant ys,
 using temporary tz during prefix restoration. Four fixed n10/n11 paths
 have 9,13,11,15 flips. They include an earlier incoming tail, later
