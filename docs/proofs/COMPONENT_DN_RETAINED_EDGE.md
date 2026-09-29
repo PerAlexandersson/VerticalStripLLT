@@ -1380,3 +1380,164 @@ Sources, full edge lists and receipts:
 The complete prior retained-edge note remains a verbatim prefix. No
 Lean/Lake build, worker, consultant, maintained Rust edit or independent
 review was used. The general component e-expansion remains open.
+
+## Advancing a common ancestor and completing the r-cover case
+
+2026-09-29 continuation. We remove the need to find a suitable covering
+interval in advance. Local fork flips move a common ancestor of the
+incoming branch and t forward until such an interval appears, or until
+we obtain a covering edge ending at t. All these fork tests end below t,
+so their inverses survive the final replacement of xs by st.
+
+### A covering edge ending at t from another prefix vertex
+
+**Lemma.** Keep the opening conditions and suppose
+
+    w<=a<y<s<t<z,       x<y,
+    r=xz, yz, at cover in S=Q+xs,
+    a reaches y,       y reaches s,
+    t does not reach z.                              (40)
+
+Then S~Q+st with every other edge restored. The original wt may be
+redundant, and no selected ys or direct ay is required.
+
+Use exactly the outgoing cut and temporary-tz constructions of (30)--(37),
+starting their saturated prefix at a instead of w. We justify this change
+of starting vertex explicitly. The cut still retains yz and only adds
+edges ending at z>t, so it preserves the cover of at and the whole
+interval at or below y. Thus we still have a selected a-to-y path.
+Such a prefix cannot use x, because r covering with yz selected excludes
+any x-to-y path. This replaces the earlier use of x=w+1. The prefix
+exchanges lie inside the covering at, and each new short supplies the
+next retained long, just as before. They preserve r and yz: no prefix
+vertex can be reached from x, and t does not reach z.
+
+If ys is selected, first expose it and use (32), undo the a-to-y prefix,
+then use (33) and undo the cut. During the inverse prefix both added
+edges end at z>t, outside all tested intervals in [a,t]. If ys is absent,
+the same nonempty outgoing cut supplies its last covering vz and a
+remaining v-to-s suffix. Use (35)--(37), undo the prefix while st is
+absent, restore st, and undo the suffix and outgoing cut. Suffix tests
+start above y, so the restored prefix cannot affect them. The absence
+of a t-to-z suffix still justifies the final outgoing-cut inverse.
+These are precisely the previous cover arguments; none of their other
+steps uses the identity of the initial prefix vertex. All exchanged
+edges are normal inside at, yz or r. This proves (40).
+
+### Two branches with a common ancestor
+
+**Proposition.** Keep the opening conditions and suppose
+
+    x<y<s<t<z,
+    r=xz and yz cover in S=Q+xs,
+    w reaches y,       y reaches s,
+    t does not reach z.                              (41)
+
+Then S~Q+st with arbitrary exterior and every other edge restored.
+No cover of wt is required. Since wt is selected, w also reaches t.
+If y reaches t, the earlier reachable-anchor theorem already applies.
+We may therefore assume y does not reach t.
+
+We maintain a vertex a with w<=a<y that reaches both y and t, beginning
+at a=w. Choose saturated selected paths from a to y and from a to t.
+Let their first edges be ab and av, respectively. Both cover, with
+
+    a<b<=y,       a<v<=t.
+
+If v>y and v<t, the covering-interval proposition (38) applies with
+this a,y,v. If v=t, apply (40) using the covering at. The case v=y
+is impossible because y does not reach t. It remains to explain how
+to advance a when v<y.
+
+If b=v, simply replace a by b; no edge changes. Otherwise make the
+single actual fork flip
+
+    ab -> bv [retain av],     if b<v,
+    av -> vb [retain ab],     if v<b.                (42)
+
+Both retained long and removed short cover. The new short is absent
+by the long-edge cover, so the flip is actual. Its new tail
+m=min(b,v) reaches both y and t: its original suffix to one endpoint
+is untouched, and the new short leads to the other branch. Replace
+a by m. In all cases the new a is strictly larger and still below y.
+
+We check all the invariants in the full relation. Before (42), neither
+x nor s can reach b: its suffix to y, followed by yz, would bypass r,
+using xs first in the latter case. Neither x nor s can reach v either,
+because v reaches t and the opening conditions exclude x-to-t and
+s-to-t even in S=Q+xs. Thus the new short starts at a vertex unreachable
+from x and s. It preserves r covering and all three conditions (1)
+after omitting xs. Both changed edges start below y and end at or below
+y, so they do not change any path starting at y or at t. In particular
+yz still covers, y still reaches s but not t, and t still does not
+reach z. The original recurrence edges, including wt, stay selected.
+No fork creates q or g: its new tail exceeds w and its head is at most
+y<t. The edges xs and st keep their original status during preparation.
+
+The vertex a increases in the finite interval [w,y). Therefore this
+procedure must stop in one of the two cases v>y. At that stage apply
+(38) or (40), replacing xs by st and restoring the full prepared state.
+Then undo every recorded fork flip in reverse order. Every tested
+interval of (42) ends at or below y<t, so the new st cannot occur on
+a tested path. Removing xs can only help covers and removes no tested
+edge: each tested tail is either a or one of b,v, and none can be x
+by the reachability exclusions just proved. Every inverse is actual.
+Pure advances of a require no restoration. All original edges except
+xs are restored, and st is inserted. This proves (41).
+
+The fork flips are normal because the exchanged edges are proper shorts
+of the selected natural long ab or av. The construction imposes no
+uniqueness of either saturated path and no cycle-rank bound.
+
+### Every comparison with r covering
+
+**Theorem.** Under the opening Q conditions, if r covers in Q+xs,
+then Q+xs~Q+st, with no additional hypothesis on the exterior.
+
+If t reaches z, use the earlier selected-suffix theorem. Otherwise
+form the original sets I,B. If B is empty, (C1) applies vacuously.
+If B is nonempty, let y be its largest member. When y reaches t,
+use the earlier truncated-cut/reachable-anchor theorem. In the remaining
+case y reaches s but not t, and y<s: equality would require the selected
+sz, impossible with r covering and xs selected.
+
+Apply the truncated incoming cut at heads h>y. It exposes yz, preserves
+r and (1), and leaves w reaching y and y reaching s. The selected wt
+still gives w a path to t; its cover status is irrelevant. We now have
+(41). Apply it and undo the truncated cut by its previously proved
+inverse argument. This exhausts all cases and proves the theorem.
+
+Together with the earlier f-cover proposition, every retained-edge
+comparison with EITHER f or r covering in Q+xs is now repaired.
+Consequently a nonzero source-component label difference forces both
+f and r redundant at Q+xs, and the earlier endpoint argument also forces
+f redundant at Q+st. We do not claim r must be redundant at Q+st.
+The source r is generally a normal edge, so its redundancy does not
+justify a whole-component corner deletion.
+
+This closes the r-cover part of the unrestricted retained-edge problem.
+The case with both original outer anchors redundant, the unrestricted
+left comparison, and simultaneous whole-component reassembly remain open.
+We do not infer the general e-expansion theorem from this local result.
+
+### Fixed checks
+
+Related Rust: external `first_join_tree_lifts.rs`, option
+`--retained-common-ancestor`. Three fixed n12 states have redundant wt
+and explicitly have no initial covering interval of type (38) for
+their y=6. Each uses both orders in (42), moving the common ancestor
+from 1 to 3 to 4. The first then uses a covering interval ending at
+v=7<t=9, together with an incoming cut. The other two use (40), with
+the covering 49 replacing the redundant original 19.
+
+The terminal examples have respectively redundant selected ys and no
+selected ys, as well as a competing direct a-to-s route. Both verify
+that at becomes redundant with st selected, so the temporary-tz order
+is necessary for their displayed inverse prefix. The three full paths
+have 15,15,17 flips. Every actual flip, strict edge and exact endpoint
+passes the existing oracle; no state space is enumerated.
+Sources, full edge lists and receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-common-ancestor-20260929/`.
+The entire prior retained-edge note is a verbatim prefix. No Lean/Lake
+build, worker, consultant, maintained Rust edit or independent review
+was used. The general component e-expansion remains open.

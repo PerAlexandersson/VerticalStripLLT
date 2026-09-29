@@ -291,12 +291,8 @@ separate order or reduction for recurrences crossing the chosen cut.
 | Exact completion at fixed selected-edge count | [Homogeneous DN completion](COMPONENT_DN_SOURCE_ADDITIONS.md#completing-one-selected-edge-layer-of-the-direct-dn-image) | Smallest required source union and complete output proved; independent reduction of every extra source component remains |
 | The corresponding NN completion | [Homogeneous NN completion](COMPONENT_NN_REDISTRIBUTION.md#exact-completion-within-one-selected-edge-layer) | Same minimal-union theorem; the five-state example adds one whole inactive two-state component |
 | DD boundary exchanging the upper corner | [Forced deletable additions](COMPONENT_DN_SOURCE_ADDITIONS.md#the-unmarked-upper-corner-forces-source-additions) | Exact arbitrary-exterior equations and all-sector reduction proved; compatibility between forced additions remains |
-| Retained-edge source paths | [Retained-edge repairs](COMPONENT_DN_RETAINED_EDGE.md) | Arbitrary-exterior conditions, selected suffixes and an incoming-cut preparation with multiple obstructions; unrestricted case remains |
-| Retained-edge auxiliary path to t | [Reachable covering anchor](COMPONENT_DN_RETAINED_EDGE.md#an-incoming-covering-anchor-with-a-path-to-t) | With r covering, a covering yz and y-to-t path suffice even for y<s; the largest bad incoming branch reaching t is resolved, including selected shared arms |
-| Shared retained-edge branch toward s | [Arbitrary prefix repair](COMPONENT_DN_RETAINED_EDGE.md#a-shared-branch-reached-by-an-arbitrary-prefix) | With r,wt,yz covering and all w-to-s paths using selected ys, arbitrary w-to-y prefixes and redundant direct wy are handled; multiple routes without this edge and redundant wt remain |
-| Several routes entering s | [Temporary-tz repair](COMPONENT_DN_RETAINED_EDGE.md#several-routes-entering-s) | Arbitrary competing routes and redundant selected ys are handled; the path extension below removes selected ys |
-| All r/wt-cover comparisons | [Path-to-s repair and corollary](COMPONENT_DN_RETAINED_EDGE.md#all-comparisons-with-r-and-wt-covering) | Complete arbitrary-exterior retained-edge repair when r and wt cover; remaining r-cover cases have redundant wt |
-| Covering interval with redundant wt | [Prefix inside av](COMPONENT_DN_RETAINED_EDGE.md#a-covering-interval-across-the-incoming-branch) | r,yz,av covering with a reaching y and y<v<t reaching t suffice; direct ay, ys and v-to-z restrictions are unnecessary |
+| Retained-edge source paths with a covering outer anchor | [General r-cover theorem](COMPONENT_DN_RETAINED_EDGE.md#every-comparison-with-r-covering) | Complete arbitrary-exterior repair when either f or r covers at Q+xs; the both-redundant case remains |
+| Constructing the needed covering interval | [Common-ancestor preparation](COMPONENT_DN_RETAINED_EDGE.md#advancing-a-common-ancestor-and-completing-the-r-cover-case) | Increasing common ancestor gives a covering interval below t or a terminal at; temporary-tz restoration handles arbitrary routes toward s |
 | Moving only the distinguished short | [Crossing-cover paths](COMPONENT_DN_RETAINED_EDGE.md#sliding-the-moving-edge-along-crossing-covers) | An arbitrary-length alternating path proves the retained-edge comparison, allowing both anchors redundant; path existence remains a hypothesis |
 | DD/ND inheritance | [Corner-unmarking reductions](COMPONENT_DD_PACKETS.md) | DD reduces to DN, ND to NN, keeping the same whole component |
 | Recurrence choice and induction | [First-drop coverage](COMPONENT_RECURRENCE_COVERAGE.md) | Proved for every ordinary saturated diagram; NN/DN reassembly is the remaining induction input |
@@ -328,27 +324,23 @@ problem is an intervening path on which that short is absent and the corner
 remains redundant. This is separate from the left retained-e-prime overlap.
 The retained-deleted-edge and left retained-e-prime cases are the next local
 checks; the target and corner-deletion pieces must be repaired together.
-For the right retained-edge comparison, the proved repairs now include
-all cases with r and wt covering. This uses the empty-B incoming cut,
-the last bad branch reaching t, and the path-to-s construction when it
-instead reaches s. The latter allows arbitrary competing routes and
-needs no selected ys; temporarily moving st to tz permits restoration.
+For the right retained-edge comparison, every r-cover case is now proved.
+After exposing the last bad incoming anchor yz, advance a common ancestor
+of y and t by local fork flips. Its vertex increases until a covering
+interval av with y<v<t appears, or a covering at is available. The first
+uses the reachable-anchor theorem; the second uses the temporary-tz
+construction with an arbitrary starting vertex a. All preliminary fork
+intervals end at or below y<t, so they can be restored after xs becomes st.
+This permits arbitrary exterior, redundant wt and missing or redundant ys.
+The needed covering interval is produced, not assumed in the original state.
 
-Further r-cover cases with redundant wt follow from a covering interval
-av: r,yz,av cover, a reaches y, and y<v<t with v reaching t. An incoming
-cut at yz either gives y a path to t immediately or removes v-to-z paths
-while preserving av. Move a saturated a-to-y prefix inside av, use the
-reachable-anchor theorem, and undo it; every inverse-prefix interval ends
-below t. Direct ay and ys may be absent or redundant. We have not proved
-that every remaining configuration supplies such an interval.
-
-The r-cover cases outside these repairs therefore have redundant wt.
-The earlier support theorem also forces f redundant at both endpoints
-of every nonzero retained-edge coefficient defect. Its one-corner
-alternating valuations vanish, but this does not collect whole components
-through zero states. The non-corner wt cannot simply be deleted by the
-whole-component corner theorem. The unrestricted retained-edge and
-simultaneous collection arguments remain separate obligations.
+Together with the earlier f-cover theorem, the remaining retained-edge
+defect is supported where BOTH f and r are redundant at Q+xs. The older
+endpoint argument also forces f redundant at Q+st; we have not proved
+this for r at that endpoint. The one-corner alternating valuations vanish,
+but this does not collect whole components through zero states. The normal
+source edges r and wt do not admit automatic whole-component corner deletion.
+The both-redundant comparison and simultaneous collection remain open.
 
 The left comparison now has a complete arbitrary-exterior repair when
 uw,td,ut cover and at least one outer anchor wz,xz covers (with the stated
