@@ -41,8 +41,9 @@ with RHS diamonds; the previous adjacent-only restriction was too strong.
 External consumer: `dn_joint_span --rhs-only-audit --permuted-closures`.
 Frozen sources, exact commands, compiler/check logs and verification are in
 `/lake-cache/ai-projects/requests/VerticalStripLLT/rhs-only-elimination-20260929/`.
-Both old proof notes are preserved verbatim as prefixes. The focused Rust
-consumer checks pass; maintained Rust is unchanged at `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
+Proof checkpoint `456753f` is pushed to `origin/main`. Both old proof notes
+are preserved verbatim as prefixes; 93 local file links and `git diff --check`
+pass. The focused Rust consumer checks pass; maintained Rust is unchanged at `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 Runtime discovery and `codex mcp list` were checked again; Lean MCP remains
 rooted at RealRooted and unused. No Lean build, extra worker or independent
 review. All launched checks have finished.
