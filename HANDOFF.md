@@ -372,6 +372,7 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Proof checkpoint: `0cbefcc` (general retained-edge r-cover theorem).
 Current common-ancestor increment closes every retained-edge comparison
 with r covering. Three fixed n12 paths have 15,15,17 flips; none has an
 initial covering interval of the earlier required type. They test both
