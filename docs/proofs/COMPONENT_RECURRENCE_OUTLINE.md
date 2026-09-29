@@ -306,6 +306,7 @@ separate order or reduction for recurrences crossing the chosen cut.
 | Push through a prefix after removing its short | [Prefix-push lemma](COMPONENT_DN_RETAINED_EDGE.md#pushing-a-short-along-a-prefix-that-does-not-already-reach-s) | R+ys~R+st when wt covers, w reaches y<s, w does not reach s and s does not reach t; all prefix edges are restored |
 | Redundant containing wt with a controlled outer bypass | [Suffix restoration behind an incoming cut](COMPONENT_DN_RETAINED_EDGE.md#a-redundant-containing-edge-when-every-outer-bypass-passes-through-t) | With r,sz covering, all w-to-z bypasses passing through t and all proper incoming wt-bypass tails above s, arbitrary wt/tz redundancy is allowed; other path patterns remain |
 | Arbitrary containing bypasses through t | [Theorem (61)](COMPONENT_DN_RETAINED_EDGE.md#allowing-incoming-bypasses-below-s-as-well) | r,sz covering in Q and every w-to-z bypass passing through t suffice; no wt cover, incoming-tail or suffix restriction remains |
+| Lower bypasses rejoining after t | [Theorem (64)](COMPONENT_DN_RETAINED_EDGE.md#allowing-lower-branches-to-rejoin-the-suffix-after-t) | With r,sz covering, every w-reachable proper incoming z-tail also t-reachable, and only the upper incoming t-tails required to reach z through t, outer bypasses avoiding t are allowed |
 | Moving only the distinguished short | [Crossing-cover paths](COMPONENT_DN_RETAINED_EDGE.md#sliding-the-moving-edge-along-crossing-covers) | An arbitrary-length alternating path proves the retained-edge comparison, allowing both anchors redundant; path existence remains a hypothesis |
 | DD/ND inheritance | [Corner-unmarking reductions](COMPONENT_DD_PACKETS.md) | DD reduces to DN, ND to NN, keeping the same whole component |
 | Recurrence choice and induction | [First-drop coverage](COMPONENT_RECURRENCE_COVERAGE.md) | Proved for every ordinary saturated diagram; NN/DN reassembly is the remaining induction input |
@@ -328,6 +329,11 @@ The new outer-bypass theorem (61) also handles redundant wt whenever
 every w-to-z bypass passes through t; its incoming tails may now lie on
 either side of s. Under r,sz covering, a remaining defect needs redundant
 wt AND an outer bypass avoiding t.
+Theorem (64) weakens the outer-path hypothesis further: it permits a
+bypass avoiding t provided its final incoming z-tail is reached from t,
+and the upper incoming tails cleared at t have no route to z avoiding t.
+The same prepared path works. Failures of these two conditions and of
+the background covers remain outside this construction.
 The prefix-push lemma without a covering containing edge is false; do not
 use that shortcut to assert the general remaining case.
 

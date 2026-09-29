@@ -19,6 +19,24 @@ is proved with arbitrary exterior. Together with the earlier f-cover
 result, it settles every comparison where either outer anchor covers
 at Q+xs. Checkpoints `0cbefcc` and `dd844e9` are pushed to origin/main.
 
+The latest [rejoining-bypass theorem (64)](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#allowing-lower-branches-to-rejoin-the-suffix-after-t)
+allows an outer bypass to avoid t and rejoin its suffix later. Assume r,sz
+cover in Q. Every proper selected az reached from w must also be reached
+from t; only the upper incoming tails h in (s,t) reached from w require
+all their h-to-z paths to pass through t. Then Q+xs~Q+st, even with
+redundant wt. The same construction as (61) works: its incoming z-cut
+exposes f, and the upper-tail condition protects suffix restoration.
+The lower branches need no such path restriction. Four fixed paths of
+9,17,17,15 flips pass, each with a genuine outer bypass avoiding t.
+
+The general recurrence proof remains unfinished. The outstanding cases
+include failure of these last-edge or upper-tail conditions, background
+cover failures, the left comparison and independent reduction of the extra
+source components in the homogeneous completion classes. Pointwise
+vanishing of a defect does not establish that last reduction.
+
+The preceding outer-path theorem is recorded below for comparison.
+
 The latest [outer-bypass theorem](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#allowing-incoming-bypasses-below-s-as-well)
 removes the restriction on incoming t-edges: r,sz covering in Q and
 every w-to-z path in Q-f passing through t suffice for Q+xs~Q+st.
@@ -438,6 +456,11 @@ actual source components forced by the three pair families.
 
 ## Ownership and restrictions
 
+Current rejoining-bypass continuation owns an append-only weakening of the
+outer-path hypotheses, fixed external-consumer checks, outline routing and
+both handoffs. It preserves the original proof text and checks examples
+whose w-to-z bypass really avoids t.
+
 Current lower-containing-bypass continuation owns append-only retained-edge
 arguments, fixed external-consumer diagnostics, outline routing and both
 handoffs. It investigates proper incoming t-edges with tails below s,
@@ -535,6 +558,14 @@ including its original dirty paragraph, is preserved in the
 Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
+
+Current rejoining-bypass increment: the n8 nine-flip row is checked exactly;
+three fixed n12 paths pass 17,17,15 flips. Every actual flip, strict edge
+and endpoint passes. No state space was enumerated. Receipt directory:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-rejoining-bypass-20260929/`.
+Prior retained-edge proof text remains a verbatim prefix. No Lean/Lake,
+worker, consultant, maintained Rust edit or independent review was used.
+
 
 Current lower-containing increment: fixed n7/n12 paths pass 7,17,17,17
 flips, with lower/upper incoming tails together, redundant wy and yt,

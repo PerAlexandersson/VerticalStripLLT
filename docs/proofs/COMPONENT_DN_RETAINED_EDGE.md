@@ -2495,3 +2495,108 @@ build, worker, consultant, maintained Rust edit or independent review
 was used. The unrestricted retained-edge and left comparisons and
 whole-component reassembly remain open; the full e-expansion proof is
 still unfinished.
+
+## Allowing lower branches to rejoin the suffix after t
+
+2026-09-29 continuation. The proof of (61) uses its outer-path hypothesis
+in two places: to expose f after the incoming cut at z, and to keep the
+new upper s-arms from obstructing suffix restoration. These requirements
+can be stated separately. In particular, a lower branch may bypass t
+and rejoin its suffix farther to the right.
+
+Keep the opening Q conditions and define
+
+    J={a : w<a<z, az selected, w reaches a},
+    K={a : t<=a<z, az selected, t reaches a},
+    H={h : s<h<t, ht selected, w reaches h}.
+
+Since wt is selected, K is automatically contained in J.
+
+**Theorem.** Suppose r=xz and sz cover in Q, and
+
+    J is contained in K;
+    for every h in H, every h-to-z path in Q passes through t.   (64)
+
+Then Q+xs~Q+st, with arbitrary exterior and every other edge restored.
+The edge wt need not cover. The first condition concerns the final
+incoming edges of w-to-z bypasses; it does NOT require those bypasses
+themselves to visit t. The second condition concerns only the upper
+incoming tails that the construction temporarily attaches to s. It is
+vacuous if H is empty.
+
+The hypotheses of (61) imply both clauses of (64), so this extends that
+theorem. To see the first implication, append az to a w-to-a path;
+the old hypothesis forces that path to pass through t. For the second,
+a w-to-h prefix with h<t cannot pass through t, so an h-to-z path
+avoiding t would violate the old hypothesis.
+
+We use exactly the path constructed in (61), with the same choices of
+P, H, y and the lower prefix. We verify the two weakened inputs.
+
+**Exposure of f.** The first clause implies w does not reach s. Otherwise
+sz would give s in J but not in K, since s<t. Also w cannot reach x.
+If K is empty, J is empty and f already covers in Q+xs, so the earlier
+f-cover theorem applies. Otherwise t reaches z and the borrowing path
+P exists. Its initial incoming cut removes every az with a in K, hence
+every final incoming edge of an original bypass of f. All additions of
+P start at s, which is inaccessible from w; the added xs is likewise
+inaccessible from w. Thus P exposes f even if an original w-to-z path
+avoided t before arriving at one of those incoming edges.
+
+**Restoration with the H-cut in place.** For h in H, the second clause
+replaces precisely the old global path condition. It first guarantees
+that adding sh after cutting ht does not bypass sz: the prepared suffix
+has no t-to-z path, and h cannot reach z without using t. It then
+justifies the inverse of P. Every tested long sb has b>=t on an original
+t-to-z suffix, or b=z. A path from h to b avoiding t, followed by that
+suffix, would be an h-to-z path avoiding t. The H-cut leaves no h-to-t
+path, so none of these h-to-b paths exists during restoration. Temporary
+s-arms start below h and cannot change that fact. Hence no new sh bypasses
+any tested long in the inverse of P.
+
+All other steps of (61) use only the opening hypotheses, the two
+background covers, w not reaching s, and the two conclusions just proved.
+The lower anchor yt is exposed by the maximal-tail argument; its proof
+does not restrict y-to-z paths. The prefix inverse occurs while sz is
+absent, and ys starts below every interval used in the suffix inverse.
+Thus an extra y-to-z route avoiding t causes no obstruction. The final
+yt-retained flip and reversal of H are unchanged. This proves (64),
+with the same count 2|P|+2|H|+2|R|+3.
+
+### A nine-flip example outside the preceding theorem
+
+Take (w,x,s,t,z)=(1,2,4,5,7), add the strict edge 01, and set
+
+    Q={01,17,27,15,13,35,47,56,67,36}.
+
+The edge wt=15 is redundant through 13,35. The path 1->3->6->7
+avoids t=5, so (61) does not apply. Nevertheless J=K={6} and H is
+empty. Both required background anchors 27,47 cover. The construction
+replaces 24 by 45 in the following nine flips:
+
+    67 -> 46 [47],    56 -> 45 [46],    13 -> 37 [17],
+    47 -> 34 [37],    37 -> 13 [17],    24 -> 47 [27],
+    45 -> 56 [46],    46 -> 67 [47],    34 -> 45 [35].
+
+Every other selected edge, including the bypass 36, is restored. This
+example illustrates the weaker last-edge condition; the theorem retains
+arbitrary exterior and does not rely on the size of this diagram.
+
+Related Rust: the existing external `first_join_tree_lifts.rs`, helper
+`retained_dominated_suffix`, now checks the two clauses of (64) instead
+of the stronger global path condition. Its actual path construction is
+unchanged. `--retained-rejoining-bypass` checks the displayed n8 row
+exactly and three fixed n12 paths of 17,17,15 flips. Each n12 state
+explicitly has redundant wt and a w-to-z bypass avoiding t. Two have
+upper incoming tails and absent/redundant tz. The third has H empty,
+an absent direct wy and a three-edge lower prefix. Every actual flip,
+strict edge and exact endpoint passes. No state space is enumerated.
+
+Sources and receipts are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-rejoining-bypass-20260929/`.
+All prior proof text remains a verbatim prefix. No Lean/Lake build,
+worker, consultant, maintained Rust edit or independent review was used.
+The condition still excludes an upper incoming tail that reaches the
+suffix while avoiding t, or an incoming edge in J not reached from t.
+Other background-cover failures, left comparisons and whole-component
+reassembly also remain open. The full recurrence proof is not complete.
