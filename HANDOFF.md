@@ -1,5 +1,47 @@
 # VerticalStripLLT handoff
 
+## Current continuation — prepared swaps
+
+Primary resumes from clean pushed `65cc9ac`; the preceding goal turn made
+verified progress. The full NN/DN component-tracking goal remains active.
+Ownership is unchanged: primary owns this handoff/outline, append-only NN
+redistribution and DN joint-repair continuations, and the external consumers.
+
+**New proved component-tracking increment:** the
+[prepared adjacent NN swap](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#prepared-adjacent-swaps-and-their-component-boundaries)
+is an isomorphism on the induced sector with q absent and two z-bypasses.
+For DN there are [two prepared channels](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#prepared-dn-swaps-and-sector-components):
+an involution with e selected, and an isomorphism from e-absent/u-reaching-w
+states to e-selected/e'-redundant states. The latter adds one selected edge.
+Both preserve K/E and every internal actual flip, with arbitrary exterior.
+Differences of whole induced components give zero corrections that can
+alter only q-insertion and specified bypass-loss boundary comparisons.
+Induced sector components are NOT claimed to be whole R components.
+
+**Simplified finite repair:** the seven previously difficult complete
+five-vertex NN images need only one additional prepared 0/1-swap relation:
+[02+03+12+14+24]=[02+12+13+14+24]. Delete redundant strict 14, swap, restore it.
+General/distant poset relabeling is unnecessary for those seven repairs.
+All 210 source components in the prior six fixed diagrams still collect
+integrally using the original local relations plus whole induced-sector
+corrections only. This is finite evidence, not the missing uniform theorem.
+
+**Remaining goal:** choose the sector-component corrections and RHS diamonds
+uniformly so every q-insertion and bypass-loss boundary cancels. The induced
+graph theorem prevents corrections from creating arbitrary internal flip
+defects, but does not close these exits. Do not mark NN/DN complete.
+
+Checks: exact state maps, inverse domain/image sets, both directions of
+internal flips, valuations and boundary classification in the six fixtures,
+a seven-vertex crossing extension, and an eight-vertex attached example
+with nontrivial internal flips in both DN channels. Frozen consumer sources,
+commands and receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/prepared-swaps-20260929/`.
+Previous proof text is preserved verbatim as prefixes. No Lean build,
+maintained Rust edit, additional worker, or independent review. All launched
+checks have finished. Runtime registry and `codex mcp list` were checked;
+Lean MCP remains rooted at RealRooted and unused. The Rust capability check
+was repeated before extending the existing bounded diagnostic.
+
 ## Active NN/DN continuation — 2026-09-29
 
 The user authorized work on both independent cases. Starting from clean,

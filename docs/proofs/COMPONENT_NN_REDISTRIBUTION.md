@@ -582,3 +582,112 @@ indicators. No component-expansion identity is assumed. Receipts and frozen
 consumer sources are in
 `/lake-cache/ai-projects/requests/VerticalStripLLT/rhs-only-elimination-20260929/`.
 These six finite checks do not prove the uniform collection theorem.
+
+## Prepared adjacent swaps and their component boundaries
+
+2026-09-29 continuation. The seven NN cases in the preceding finite table
+do not require distant relabelings. We can use the original adjacent
+contact swap after deleting the strict r when it is redundant. We now
+prove how this prepared swap tracks whole components of its domain sector,
+including an exact description of the possible exits. Sector components
+are not asserted to be whole components of R.
+
+Keep w<x=w+1<z, q=wx, r=xz and sigma=(w x). In the actual NN target R,
+let S be the following set of states A:
+
+    q is absent, and both w and x reach z in A-r.        (P1)
+
+In particular, the selected strict r is redundant. Define
+
+    Phi(A)=sigma(A-r)+r.                                (P2)
+
+**Prepared-swap theorem.** Phi is a valuation-preserving involution of S.
+It is also an isomorphism of the actual flip graph induced on S, with
+arbitrary exterior selection and no cycle-rank assumption.
+
+**Proof.** The common natural edges other than q are invariant under the
+eligible NN contact swap, and all common strict edges are fixed. Removing
+r avoids the one edge that would be sent to the missing f=wz. The two
+paths in (P1) exchange under sigma, so inserting r in the new state is
+redundant as well. Both endpoints are nonsinks. Thus redundant-edge
+deletion, the adjacent relabeling, and redundant insertion preserve K
+and E. The same path condition holds at the image, and applying (P2)
+twice restores every selected edge.
+
+Consider an actual flip A<->B with both endpoints in S. It cannot retain
+r, since r is redundant, or exchange r, since r is a natural corner.
+Deleting r changes no reachability relation or cover status of the other
+selected edges. The flip also preserves the absent q. Its triangle
+therefore cannot contain both w and x: for such a triangle q would be
+one of the two exchanged shorts. On every other triangle sigma preserves
+the order of its three vertices. Hence relabeling gives an actual flip
+of the relations with r deleted. Its edges remain natural, and the
+exchanged edges remain normal because common stricts are fixed.
+Reinserting redundant r changes none of these covers. This gives
+Phi(A)<->Phi(B). The same argument for the involution proves the converse,
+including absence of any extra edges in the induced graph.
+
+Let P be a COMPLETE connected component of this induced graph. Its image
+Phi(P) is another complete induced component, and
+
+    Z_P=sum_(A in P) [A]-sum_(A in Phi(P)) [A]=0,
+                                                       X=K,E. (P3)
+
+Adding any integer multiple of Z_P to a state expression preserves both
+valuations. Its coefficients agree across every flip within S. Across a
+flip with neither endpoint in S they are both zero. Consequently, a
+coefficient comparison can change only at an exit from S. Such an exit
+has exactly one of the following causes:
+
+1. q becomes selected;
+2. q stays absent and at least one of the two reachabilities in (P1)
+   is lost.
+
+In the second case either r becomes a cover, or the absent f would become
+a cover upon insertion. This follows directly from the missing bypass,
+using that q is absent and w,x are adjacent. Thus a correction on P does
+not introduce uncontrolled comparisons at arbitrary exterior flips. Its
+remaining boundaries are short insertion and bypass exposure. This is
+more restrictive than applying unrelated state corrections, but it does
+not by itself prove that these boundaries can all be closed.
+
+### The additional relation in the complete five-vertex check
+
+For the target with area 01233 and strict 14, the following single relation
+suffices, together with the previous diamonds, normal redundant deletions
+and unprepared adjacent swaps, to collect all 116 source components:
+
+    [02+03+12+14+24]=[02+12+13+14+24].                 (P4)
+
+Delete redundant 14 through 12,24, swap 0,1, and restore 14 through the
+same two-edge path. The two states are singleton components of the induced
+sector S, so (P4) is a correction of the precise form (P3). They are not
+isolated in the full flip graph: each has exits of the two kinds above.
+The common paths through vertex 2 make the prepared swap possible even
+though directly swapping the displayed strict edge 14 would produce the
+missing natural edge 04.
+
+Modulo the 512 original zero relations, (P4) contributes one additional
+independent relation. The seven previously uncollected source images now
+have integral whole-RHS-component expressions. This establishes the finite
+repair without general poset permutations. It does not establish that one
+such relation suffices in larger diagrams.
+
+The DN analogue includes a count-preserving channel and a second channel
+which inserts a redundant strict edge; see the
+[prepared DN sectors](COMPONENT_DN_JOINT_REPAIRS.md#prepared-dn-swaps-and-sector-components).
+In both moves the unresolved step is now explicit for these corrections:
+choose whole induced-sector corrections and RHS diamonds so that their
+short-insertion and bypass-exposure boundaries cancel simultaneously.
+We have not proved the existence of such choices in every diagram.
+
+Related Rust: the existing external `dn_joint_span` option
+`--prepared-sectors` verifies the state maps, both directions of every
+internal actual-flip comparison, exact K/E equality, and the exit
+classification in the fixed diagrams. Option `--packet-corrections`
+constructs complete components of the induced sectors and uses only their
+signed differences (P3), alongside the original local zero relations.
+The six-diagram collection check again passes all 210 source components
+with integral output coefficients. No general poset relabeling generators
+are used in that check. Frozen sources, commands, logs and checksums:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/prepared-swaps-20260929/`.

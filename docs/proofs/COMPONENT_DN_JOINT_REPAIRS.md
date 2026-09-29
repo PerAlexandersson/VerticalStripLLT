@@ -710,3 +710,117 @@ The [endpoint-attachment theorem](COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md#end
 therefore extends this same four-term component recurrence to arbitrary
 components attached at these two ends. Its product-component and marked
 HRV arguments apply without assuming expansions for the attached pieces.
+
+## Prepared DN swaps and sector components
+
+2026-09-29 continuation. We retain u<w<x=w+1<z, e=uw, e'=ux,
+q=wx and r=xz in the actual DN target R. Its strict edges are e',r
+and the unchanged common stricts. Define the double-bypass condition
+
+    q is absent, and w and x both reach z in A-r.       (P1)
+
+The adjacent swap sigma=(w x) fixes the common strict set and interchanges
+e,e'. Away from q,r the natural edges of R are invariant under sigma.
+The proofs below retain and relabel the entire exterior selection.
+
+### The channel with e selected
+
+Let S_1 contain the states satisfying (P1) with e selected. Then
+
+    Phi_1(A)=sigma(A-r)+r                               (P2)
+
+is an involution of S_1 preserving K,E and its induced actual flip graph.
+The proof is the [prepared NN swap proof](COMPONENT_NN_REDISTRIBUTION.md#prepared-adjacent-swaps-and-their-component-boundaries),
+with one decoration check. Both e,e' are selected, so their interchange
+retains the strict e'. In the target the only natural edge properly
+containing e is the new e'; a flip exchanging e must therefore exchange
+it with q. An internal S_1 flip preserves absent q, so cannot exchange
+e or e'. A flip retaining one of them is allowed to become a flip
+retaining the other: retained long edges need not be strict. All other
+strict edges remain fixed. These observations prove both directions of
+the flip correspondence without an extra cover assumption on e or e'.
+
+### The channel which inserts a redundant strict edge
+
+Let S_0 contain the states satisfying (P1) such that e is absent and
+u reaches w. Let T_1 contain the states satisfying (P1) such that e is
+selected and e' is redundant. We claim that
+
+    Phi_0(A)=sigma(A-r)+e'+r,
+    Psi(B)=sigma(B-e'-r)+r                              (P3)
+
+are inverse valuation-preserving isomorphisms between their induced flip
+graphs. Phi_0 adds one selected edge in total.
+
+**Proof of the state correspondence.** At A in S_0 the selected e'
+is sent to e. The edge e' is missing from sigma(A-r), since A omits e.
+The u-to-w path in A cannot use e', whose head is x>w, or r, whose
+head is z. After the swap it becomes a u-to-x path. Thus adding e' in
+(P3) is redundant. The two z-bypasses exchange, so r can also be
+reinserted redundantly. The image belongs to T_1.
+
+Conversely, take B in T_1. Delete redundant e',r. A u-to-x bypass of
+e' cannot use e: using e would require a subsequent w-to-x path, which
+is impossible with q absent and x=w+1. Nor can it use r. Its swap is
+therefore a u-to-w path in Psi(B), which omits e. The selected e in B
+becomes the required e', and the z-bypasses again justify insertion of r.
+Thus Psi(B) belongs to S_0. Inspecting the selected sets in (P3) proves
+that the two maps are inverse, not just inverse on reachability posets.
+Each operation preserves K,E, as in the NN proof.
+
+**Proof of flip transport.** A flip with both endpoints in either domain
+preserves absent q, so its triangle cannot contain both w,x. On S_0,
+it cannot exchange absent e or strict e'. On T_1 it cannot exchange e
+without selecting q, and cannot retain redundant e'. Removing the stated
+redundant edges changes no other cover. After the swap, a flip retaining
+e' in S_0 becomes one retaining e in T_1; the inverse has the reverse
+correspondence. The other triangles preserve their vertex order and
+strict/normal status. Reinserting the redundant edges changes no tested
+cover. This gives actual flips in both directions and proves the induced
+graph isomorphism.
+
+For example, in the six-vertex target with strict 03,14,35, the map sends
+
+    A={01,03,12,14,24,34,35,45}
+    to B={01,02,03,13,14,24,34,35,45}.                 (P4)
+
+The 0-to-2 path in A is 01,12. Delete 35, swap 2,3, then insert 03
+through 01,13 and restore 35 through 34,45. This is a prepared adjacent
+swap, even though its two endpoint states have different edge counts.
+
+### Corrections on complete induced components
+
+For a complete component P of either induced domain, subtract the sum
+on its image from the sum on P. This is a zero relation for both K and
+E, and both sets are complete in their respective induced graphs.
+A correction of this form preserves every internal coefficient comparison.
+It can change a boundary comparison only when q is inserted or a required
+reachability is lost. For S_1 these are the two z-bypasses; for S_0 we
+also require the u-to-w path; for T_1 we also require the bypass of e'.
+The status of e cannot change along a q-preserving flip. Thus the extra
+boundaries in the second channel are precisely exposures of the incoming
+corner in its two presentations.
+
+This proves a uniform way to group prepared-swap corrections while
+controlling which comparisons they can affect. The sectors are generally
+not closed in the full target flip graph. We still have to cancel their
+exits, together with the diamond corrections, before claiming the general
+NN/DN whole-component recurrence.
+
+Related Rust: `dn_joint_span --prepared-sectors` checks these maps and
+both directions of internal flip transport. The crossing six-vertex
+fixture has eight S_1 states with eight directed internal flips, and two
+S_0 states. Its seven-vertex extension with additional strict 46 has
+sixteen S_1 states with sixteen directed internal flips, and four S_0
+states. The latter has genuine q-preserving exposure exits. All state
+valuations and the domain/image equalities are exact. The separate
+`--packet-corrections` run uses complete induced-component differences,
+not arbitrary individual relabelings, in the six-diagram collection audit.
+Receipts are in `prepared-swaps-20260929/` under the external project request
+directory. No maintained Rust source, Lean build or extra worker is involved.
+
+An additional eight-vertex fixture attaches a triangle at vertex 5, with
+strict 57. It has thirty-two S_1 states and eight S_0 states. Both channels
+have nontrivial internal flips, so their graph-isomorphism check is not
+vacuous. This uses the same source/target maps, with the added attachment
+retained in every state.

@@ -25,6 +25,15 @@ component combinations when sink-order-preserving poset relabelings are
 allowed. This finite evidence does not settle uniform collection; the
 new residual replacements can change other output flip boundaries.
 
+The [prepared-swap continuation](COMPONENT_NN_REDISTRIBUTION.md#prepared-adjacent-swaps-and-their-component-boundaries)
+now proves an induced-sector graph isomorphism for NN and two analogous
+DN channels. Corrections taken on entire induced components preserve
+internal flip comparisons; only insertion of the distinguished short or
+loss of a required bypass can change a boundary comparison. The seven
+five-vertex NN repairs need just one prepared contact-swap relation.
+The outstanding construction must cancel the remaining sector exits;
+induced-sector components are not automatically whole target components.
+
 ## 1. The identity that gives positivity
 
 We work first with an ordinary decorated natural graph on ordered vertices
