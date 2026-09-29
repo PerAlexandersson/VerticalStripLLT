@@ -44,6 +44,11 @@ Frozen consumer sources, commands and receipts:
 `/lake-cache/ai-projects/requests/VerticalStripLLT/nn-middle-slices-20260929/`.
 The remaining main obligation is uniform NN collection, including empty
 unmarked corners; DN follows by the preceding proved reduction. Goal active.
+Proof checkpoint `d6e7ed7` is pushed to `origin/main`. The previous NN
+note remains a verbatim prefix; 107 local links in the three owned files
+and `git diff --check` pass. Maintained Rust remains clean at
+`d53fb193af3c69adedbd9ec8592f87235d809ffa`. All launched diagnostics
+finished successfully; no Lean or other build is running from this turn.
 
 ## Current continuation — DN reduces to NN by an empty corner
 
