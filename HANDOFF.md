@@ -411,6 +411,7 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Proof checkpoint: `abd4506` (arbitrary lower-prefix repairs).
 Current lower-prefix increment: four fixed n8/n12 paths under (47) pass
 12,8,16,10 flips, including absent/redundant wa, competing routes and
 redundant az. Two fixed n12 extension paths pass 12,6 flips to Q+xt and
