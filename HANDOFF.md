@@ -458,7 +458,8 @@ repairs with redundant tz and absent/redundant ws pass 36/32. Every actual
 flip, strict edge, prepared-state equality and exact endpoint is checked.
 No state space is enumerated. Prior proof text remains a verbatim prefix;
 no Lean/Lake build, worker, consultant, maintained Rust edit or independent
-review. Proof checkpoint pending.
+review. Proof checkpoint: `9ee31e8`. All 77 local file links and
+git diff --check pass.
 
 Current suffix increment: two fixed n9/n12 background transfers pass
 16/32 flips, including nonadjacent roots, multiple suffix paths and redundant
