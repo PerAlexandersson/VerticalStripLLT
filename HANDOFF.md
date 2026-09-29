@@ -523,7 +523,8 @@ is enumerated. The four-vertex failed prefix-push extension is checked
 by its exact two-state closure. One fixed n7 discovery pair visited 587
 states and found the seven-flip row. Prior retained-edge text remains
 a verbatim prefix; no Lean/Lake, worker, consultant, maintained Rust edit
-or independent review. Proof checkpoint pending.
+or independent review. Proof checkpoint: `156911e`.
+Prior-proof preservation, 84 local file links and git diff --check pass.
 
 Current no-lower-path increment: four fixed n12 comparisons pass
 21,29,25,33 flips with w not reaching s, absent/redundant tz and
