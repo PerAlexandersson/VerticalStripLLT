@@ -612,3 +612,115 @@ and proofs retain arbitrary exterior; these are exact checks of the new
 preparation, not a claim of exhaustive retained-edge coverage.
 Receipts and preserved before-files are under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/two-anchor-transfer-20260929/`.
+
+## Sliding the moving edge along crossing covers
+
+2026-09-29 continuation. We give a direct local-diagram construction which
+does not require either f or r to cover. It retains the same background Q
+at every step and moves only the additional edge incident with s.
+The criterion is sufficient for the unrestricted retained-edge problem;
+we do not assert that every Q satisfies it.
+
+**Crossing-cover lemma.** Let Q be a selected forward relation in an
+ordinary interval-closed natural diagram, containing all its strict edges.
+Fix a vertex s. Take vertices
+
+    v_0=x, v_1, ..., v_m=t,
+
+alternately below and above s, where x<s<t. Suppose that for every i:
+
+- if v_i<s, Q has no v_i-to-s path;
+- if v_i>s, Q has no s-to-v_i path;
+- for each consecutive pair, the edge joining its smaller to its larger
+  endpoint is selected and covers in Q.
+
+Then Q+xs and Q+st are connected by m actual flips. Every edge of Q is
+retained throughout. There is no adjacency, cycle-rank or anchor hypothesis.
+All reachability and cover conditions refer to the full Q, with its exterior.
+
+**Proof.** Write h(v)=vs for v<s and h(v)=sv for v>s. Each h(v_i)
+is absent from Q by its corresponding reachability condition. For one
+consecutive pair a<s<b, its selected long edge ab covers in Q, while
+Q has neither an a-to-s path nor an s-to-b path. In Q+as, the new as
+covers. The only new possible bypass of ab would use as followed by an
+s-to-b path, which is absent. Thus as->sb [retain ab] is actual.
+Equivalently, in Q+sb a new bypass of ab would need an a-to-s path;
+the reverse flip is actual as well. This proves each step
+
+    Q+h(v_i) <-> Q+h(v_(i+1)).
+
+Their concatenation proves the lemma. Each exchanged edge is a proper
+short of a selected natural long edge, so it is natural and cannot be a
+strict corner. All other edges, including those incident with s already
+in Q, remain untouched. This proves the arbitrary-exterior statement.
+
+The criterion is also necessary for a path constrained to retain every
+edge of this same Q and move only one additional edge incident with s.
+Each step must retain an edge ab of Q with a<s<b. Its long-edge cover
+implies that ab covers in Q. The two endpoint short covers imply that Q
+has no a-to-s or s-to-b path. Hence each step uses exactly an edge allowed
+by the criterion. Failure to find such a path means that a proof must
+temporarily change some background edges; it does not imply that the two
+states belong to different components.
+
+### A direct repair with both original anchors redundant
+
+For example, on six vertices put (w,x,s,t,z)=(0,1,2,4,5) and
+
+    Q={03,04,05,13,15,35,45}.
+
+The original anchors 05,15 are both redundant. Nevertheless 13,03,04
+are covers in Q and give the alternating path 1,3,0,4 across s=2.
+The lemma gives
+
+    12 -> 23 [retain 13],
+    23 -> 02 [retain 03],
+    02 -> 24 [retain 04].
+
+This moves xs to st directly. It does not transfer wt to xt. Indeed,
+the latter intermediate transfer is false in general, even when x does
+not reach t, as proved in the
+[outgoing-arm obstruction](COMPONENT_RIGHT_ARM_TRANSFER.md#why-absence-of-a-target-path-does-not-replace-the-anchor-covers).
+One may add a new vertex before w with its strict edge to w, shifting all
+labels by one, to place this example in an actual saturated DN source.
+That edge cannot affect any displayed cover test.
+
+The path need not have three steps. For a fixed ten-vertex example, let
+s=5, x=1, t=8, with the original anchors 09,19 and arm 08, and set
+
+    Q={09,19,08,16,26,27,37,38,69,79,89,05,45,59}.
+
+The crossing covers 16,26,27,37,38 give the path
+
+    1,6,2,7,3,8.
+
+Thus 15 becomes 58 in five actual flips, retaining all of Q. Both
+original anchors are redundant, and Q has both incoming and outgoing
+edges at s. The latter shows why the proof uses precise reachability
+conditions instead of assuming that s is isolated in the background.
+
+The same lemma applies to a left retained-e-prime comparison ut versus tx,
+using t as the moving-edge vertex and Q equal to the source with ut removed.
+When its crossing-cover path exists, it proves the required h01 equality;
+the opposite-defect identity then supplies the corresponding t00 equality.
+Existence of such a path is an additional hypothesis, not a consequence of
+the first-drop geometry proved so far.
+
+### Verification and scope
+
+Related Rust: the existing external `first_join_tree_lifts.rs`, option
+`--crossing-cover-check`, constructs the permitted crossing-edge paths and
+checks each actual flip with `component_source_probe::flip`. Among the
+576 retained-edge comparisons in one fixed complete six-vertex diagram,
+56 satisfy this criterion, including 10 with both original anchors
+redundant. Their 168 flips pass, with exact endpoints and strict edges
+preserved. The fixed ten-vertex example passes all five flips and checks
+the full exterior; no ten-vertex state space is enumerated.
+
+These checks do not cover the other 520 comparisons by this construction.
+Other proved repairs may apply to them; no new exhaustive coverage partition
+is claimed. The unrestricted retained-edge proof, unrestricted left repair
+and simultaneous whole-component collection remain open. No new independent
+review is claimed. No Lean/Lake build, worker, consultant, manuscript build
+or maintained Rust change was used.
+Receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/outgoing-no-path-20260929/`.

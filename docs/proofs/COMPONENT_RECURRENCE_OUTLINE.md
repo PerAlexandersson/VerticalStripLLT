@@ -253,6 +253,7 @@ separate order or reduction for recurrences crossing the chosen cut.
 | DN diamonds and minimal components | [Joint repairs](COMPONENT_DN_JOINT_REPAIRS.md) | Both minimal pictures completed; local propagation lemmas |
 | Additional whole source components | [Source additions](COMPONENT_DN_SOURCE_ADDITIONS.md) | Six-vertex example proved; general construction remains |
 | Retained-edge source paths | [Retained-edge repairs](COMPONENT_DN_RETAINED_EDGE.md) | Arbitrary-exterior conditions, selected suffixes and an incoming-cut preparation with multiple obstructions; unrestricted case remains |
+| Moving only the distinguished short | [Crossing-cover paths](COMPONENT_DN_RETAINED_EDGE.md#sliding-the-moving-edge-along-crossing-covers) | An arbitrary-length alternating path proves the retained-edge comparison, allowing both anchors redundant; path existence remains a hypothesis |
 | DD/ND inheritance | [Corner-unmarking reductions](COMPONENT_DD_PACKETS.md) | DD reduces to DN, ND to NN, keeping the same whole component |
 | Recurrence choice and induction | [First-drop coverage](COMPONENT_RECURRENCE_COVERAGE.md) | Proved for every ordinary saturated diagram; NN/DN reassembly is the remaining induction input |
 
@@ -302,3 +303,14 @@ their component steps from NN/DN. It is enough to settle transport at those
 first-drop contacts and the stated selected-corner intermediates. The
 remaining obligations are the general transport and collection statements;
 coverage is no longer an additional gap.
+
+The latest crossing-cover lemma supplies a direct retained-edge repair when
+the moving short can slide along selected covers crossing its middle vertex.
+It also identifies exactly when a path is possible while every background
+edge stays fixed. If it fails, use a preparation that changes background
+edges or a joint diamond correction. Do not replace this task by a general
+single-arm transfer: the [five-vertex obstruction](COMPONENT_RIGHT_ARM_TRANSFER.md#why-absence-of-a-target-path-does-not-replace-the-anchor-covers)
+proves that transfer false, even with no path from the receiving root to
+the arm endpoint and even when the starting component is active at its
+strict corner. The original retained-edge comparison has extra data and
+has not been refuted by that example.

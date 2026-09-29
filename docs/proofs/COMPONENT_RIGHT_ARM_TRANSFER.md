@@ -308,3 +308,93 @@ condition in the theorem. It also records the eight-flip example above.
 Frozen sources, commands and logs are under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/two-anchor-transfer-20260929/`.
 No Lean/Lake build, new reviewer, worker or maintained Rust change was used.
+
+## Why absence of a target path does not replace the anchor covers
+
+2026-09-29 continuation. The following obstruction rules out a proposed
+shortcut for the retained-edge DN comparison. It does not contradict the
+two-cover theorem above or the retained-edge comparison itself.
+
+Take the complete natural diagram on 0,1,2,3,4 with 04 strict, and set
+
+    B = {02,03,04,12,14,24,34},
+    B'= {02,04,12,13,14,24,34}.
+
+Thus a=0, b=1, d=3, c=4; B contains ac,bc,ad, omits ab,bd, and has
+no b-to-d path. The moved arm ad even covers. Nevertheless B and B'
+belong to different actual components.
+
+We prove separation without enumerating components. Delete 04 from B',
+and let H be the interval envelope with maximal edges 02,14. Its edges are
+
+    {01,02,12,13,14,23,24,34}.
+
+Every state in the H-component of B'-04 selects its two maximal edges
+02,14 and has six edges. Every such selection has a 0-to-4 path. If 01
+is selected, use 01,14. Otherwise four of 12,13,23,24,34 are selected.
+If 24 is present, use 02,24; if not, both 23 and 34 are present, giving
+02,23,34. Inserting 04 therefore makes it redundant throughout this
+whole H-component. Insertion preserves reachability and all other cover
+tests. The inserted corner cannot be retained by an actual flip, and any
+other retained edge has both shorts in H. Consequently the inserted family
+is a whole component in the original complete diagram. None of its states
+selects 03. Since B selects 03, it lies outside that component.
+
+This does not merely compare two components inactive at 04. Starting from
+B, the following four actual flips make 04 a cover:
+
+    12 -> 01 [retain 02],
+    01 -> 13 [retain 03],
+    34 -> 23 [retain 24],
+    24 -> 12 [retain 14].
+
+Their endpoint is {02,03,04,12,13,14,23}. Here 04 is the only selected
+edge ending at 4 from a vertex reachable from 0, so it covers. The
+displayed source and retained edges cover at each step; this is also
+verified by the external diagnostic.
+
+Even retaining the cover assumption on bc alone is insufficient if the
+moved arm may be redundant. Replace B by
+
+    B0 = {02,03,04,14,23,24,34}.
+
+Now 14 covers and 1 still does not reach 3. Replacing 03 by 13 again
+gives a state in the closed six-edge H-family after deleting 04, whereas
+B0 selects 03. The two flips 34->13 [retain 14] and 24->12 [retain 14]
+connect B0 to the same 04-covering state above.
+
+Thus neither absence of b-to-d reachability nor activity of the source
+component at ac permits us to drop the proved anchor hypotheses. In the
+retained-edge DN problem, we cannot simply transfer wt to xt, flip
+xs to st, and transfer back. A direct repair must use the extra s-data.
+This distinction already occurs in a genuine DN source. Shift the labels
+of B up by one and adjoin the strict edge 01. With
+(w,x,s,t,z)=(1,2,3,4,5), the source state is
+
+    S={01,13,14,15,23,25,35,45}.
+
+The attempted 14-to-24 transfer still changes its component: the added
+edge 01 cannot take part in any flip or affect a cover test on 1,...,5.
+But the desired retained-edge comparison 23-to-34 is valid, by the
+previously proved four-flip row:
+
+    23 -> 12 [retain 13],
+    12 -> 24 [retain 14],
+    45 -> 34 [retain 35],
+    24 -> 45 [retain 25].
+
+It restores every other edge, including 14. Thus the failed intermediate
+transfer is not a counterexample to the required retained-edge theorem.
+The [crossing-cover construction](COMPONENT_DN_RETAINED_EDGE.md#sliding-the-moving-edge-along-crossing-covers)
+is one such repair, with separately stated hypotheses.
+
+Related Rust: the external `first_join_tree_lifts.rs`, option
+`--outgoing-no-path-probe`, reuses the established component oracle on one
+fixed complete six-vertex diagram. Of 2336 no-path comparisons, 60 fail;
+of 736 comparisons with a path, 152 fail. The displayed five-vertex
+obstruction occurs with one isolated vertex inserted. Its components have
+34 and 9 states, but those counts are not used in the separation proof.
+In contrast, all 576 applicable retained-edge comparisons in that same
+fixed diagram lie in one component pairwise. This is finite evidence for
+the latter statement, not its arbitrary-exterior proof.
+Receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/outgoing-no-path-20260929/`.

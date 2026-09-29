@@ -14,7 +14,15 @@ remain intact in the [component catalogue](docs/COMPONENT_NOTE_CATALOGUE.md).
 
 Active goal: prove the general non-circular component e-expansion for
 Motzkin/Dyck diagrams by the diagram-bijection/recurrence approach.
-Latest continuation proves an [incoming-arm transfer](docs/proofs/COMPONENT_INCOMING_EDGE_TRANSFER.md#three-covering-anchors-arbitrary-exterior-and-cycle-rank)
+Latest continuation proves a [crossing-cover path repair](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#sliding-the-moving-edge-along-crossing-covers):
+the moving short slides along an alternating path of covers across its
+middle vertex, with arbitrary exterior and possibly both anchors redundant.
+It is exact for paths that retain the full background Q at every step;
+existence of that path is an additional hypothesis. The proposed shortcut
+of transferring wt to xt is false in general: a five-vertex obstruction
+has no x-to-t path and starts in a component active at the strict corner.
+The retained-edge comparison itself is not refuted.
+The preceding continuation proves an [incoming-arm transfer](docs/proofs/COMPONENT_INCOMING_EDGE_TRANSFER.md#three-covering-anchors-arbitrary-exterior-and-cycle-rank)
 with three covering anchors, arbitrary exterior and arbitrary cycle rank.
 Its DN corollary settles t10 and corresponding t00 constancy for a stated
 class of left retained-e-prime comparisons. The general left repair remains.
@@ -48,6 +56,11 @@ terms, not from the signs of intermediate recurrence coefficients.
   construction, and reuse of a shorter covering pair of anchors. These
   settle the three displayed old uncovered paths in a general setting.
   The unrestricted retained-edge and left retained-e-prime repairs remain open.
+- A crossing-cover path now gives a direct retained-edge repair of arbitrary
+  length, retaining every background edge. The same construction applies to
+  the left comparison when its analogous path exists. It permits redundant
+  original anchors and other incoming/outgoing edges at the moving vertex.
+  The full exterior determines every cover and reachability test.
 - With both anchors covering, a covering outgoing arm transfers between
   them by an ordered cut, at arbitrary cycle rank and without adjacent roots.
   A redundant arm also transfers if the competing first neighbors are
@@ -116,6 +129,10 @@ one-sided cut handles this if x does not reach d; the direct common-branch
 row handles covering wd,xd even when the outer anchors are redundant.
 Common branches with redundant short arms, the other failed cover cases,
 and simultaneous full collection remain.
+First check the new crossing-cover path criterion. If it fails, a local
+repair must change some background edges; fixed-background searching cannot
+help. Do not assume a general wt-to-xt transfer, even with x not reaching t.
+The new obstruction is a proved separation, not merely a failed path search.
 
 ## Ownership and restrictions
 
@@ -126,9 +143,10 @@ is authorized; no Lean/Lake builds are authorized. No manuscript proof or PDF
 change is currently needed. The combinatorics-paper-writing skill was used
 for the outline and note organization.
 
-Current continuation owns an append-only extension of the incoming-edge
-note, its DN corollary/routing, the outline, both handoffs and the external
-diagnostic. The right-arm and retained-edge notes remain unchanged.
+Current continuation owns append-only extensions of the right-arm and
+retained-edge notes, their outline routing, both handoffs and the external
+diagnostic. Existing note contents remain verbatim prefixes. The incoming-edge
+note is unchanged in this increment.
 No previous independent review is asserted for new arguments.
 
 The reboot terminated the old workers/consultant. Its saved Claude output
@@ -139,6 +157,17 @@ including its original dirty paragraph, is preserved in the
 Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
+
+Current increment: crossing-cover lemma and the structural obstruction to
+unrestricted outgoing-arm transfer. The new construction applies to 56 of
+576 retained-edge comparisons in a fixed complete six-vertex diagram,
+including 10 with both anchors redundant; 168 actual flips pass. A fixed
+ten-vertex state with exterior at the moving vertex passes a five-flip
+path; no ten-vertex state space is enumerated. The same six-vertex fixture
+has 60 failures of the stronger no-path arm-transfer claim, but zero
+failures of the original 576 retained-edge comparisons. The five-vertex
+separation proof uses a closed smaller-envelope family, independently of
+these component counts. The unrestricted proof remains incomplete.
 
 Proof checkpoint: `b34b9a7` (arbitrary-exterior incoming-arm transfer and
 left DN coefficient repairs). All 142 qualifying states at four fixed
@@ -174,9 +203,9 @@ Two fixed DN states at n=8 and n=10 check the new preparation at both
 endpoints (10 and 24 flips total), reducing to the proved two-cover lemma.
 No state space at either larger size is enumerated. Both extended notes
 preserve their previous contents verbatim as prefixes.
-Current ownership: incoming-edge note, direct DN note, outline, both handoffs
-and external consumer. The retained-edge and right-arm notes are unchanged
-this increment.
+Current ownership: retained-edge and right-arm notes, outline, both handoffs
+and external consumer. Their previous contents are preserved as prefixes.
+The incoming-edge and direct DN notes are unchanged this increment.
 No Lean/Lake or manuscript build was run; no new worker or consultant.
 Runtime registry and `codex mcp list` were inspected; Lean MCP is rooted at
 RealRooted and unused. No model, account, worker or service-tier change.
@@ -190,7 +219,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/incoming-anchor-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/outgoing-no-path-20260929/`.
+Incoming-arm receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/incoming-anchor-20260929/`.
 Coverage receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/first-drop-coverage-20260929/`.
 Two-anchor receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/two-anchor-transfer-20260929/`.
 Outline/archival checks: `/lake-cache/ai-projects/requests/VerticalStripLLT/component-recurrence-outline-20260929/`.
