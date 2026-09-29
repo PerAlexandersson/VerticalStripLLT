@@ -14,10 +14,13 @@ remain intact in the [component catalogue](docs/COMPONENT_NOTE_CATALOGUE.md).
 
 Active goal: prove the general non-circular component e-expansion for
 Motzkin/Dyck diagrams by the diagram-bijection/recurrence approach.
-Latest continuation proves [first-drop recurrence coverage](docs/proofs/COMPONENT_RECURRENCE_COVERAGE.md)
-for every ordinary saturated diagram, with a complete conditional induction.
-It closes recurrence choice, forward direction and base-case coverage;
-the remaining induction input is NN/DN whole-component reassembly.
+Latest continuation proves an [incoming-arm transfer](docs/proofs/COMPONENT_INCOMING_EDGE_TRANSFER.md#three-covering-anchors-arbitrary-exterior-and-cycle-rank)
+with three covering anchors, arbitrary exterior and arbitrary cycle rank.
+Its DN corollary settles t10 and corresponding t00 constancy for a stated
+class of left retained-e-prime comparisons. The general left repair remains.
+The preceding [first-drop coverage](docs/proofs/COMPONENT_RECURRENCE_COVERAGE.md)
+closes recurrence choice, forward direction and base cases for every ordinary
+diagram. NN/DN whole-component reassembly remains the induction input.
 The previous [two-anchor transfer](docs/proofs/COMPONENT_RIGHT_ARM_TRANSFER.md#arbitrary-exterior-transfer-with-two-covering-anchors)
 and [DN preparation](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#clearing-the-obstructing-part-of-an-incoming-cut)
 remain available for the local repair work.
@@ -51,6 +54,14 @@ terms, not from the signs of intermediate recurrence coefficients.
   unreachable from the other root. In DN with r covering and t not reaching
   z, this clears all obstructing incoming branches provided their direct
   wv edges are absent. Shared direct branches remain outside this argument.
+- With t<w<x<d<z and covers wz,xz,td,tw, the incoming arm tw transfers
+  to tx, restoring all exterior. Cuts handle t-to-x and x-to-d paths;
+  an incoming cut before suffix borrowing preserves both outer covers.
+  In the left DN comparison, this applies after ut->tw [retain uw],
+  provided the stated covers hold. A further outgoing cut treats e,f,r,td
+  covering initially when w,x do not both reach d. A four-flip row treats
+  e,td,wd,xd covering even with BOTH f,r redundant. First-drop saturation
+  supplies td but not its cover. Other failed cover cases remain.
 - The key missing lemma takes ONE component to a signed sum of WHOLE smaller
   components, with identical coefficients for K/E. Source additions are
   allowed when each added whole component is independently reduced to a
@@ -97,8 +108,14 @@ excursion, not to redo the final left/right exposing flip or impose a
 cycle-rank classification. The two-anchor transfer now clears a whole set
 of incoming obstructions; the residual direct common branch needs a general
 repair. Its smallest example has an eight-flip path in the receipt, which
-is evidence rather than the arbitrary-exterior proof. Left retained-e-prime
-and full collection remain.
+is evidence rather than the arbitrary-exterior proof. For left retained-e-prime,
+the incoming-arm theorem now resolves the three-anchor covering case.
+Do not infer that the containing strict edge remains a cover after the
+initial e-retained flip: a w-to-d path can make it redundant. The new
+one-sided cut handles this if x does not reach d; the direct common-branch
+row handles covering wd,xd even when the outer anchors are redundant.
+Common branches with redundant short arms, the other failed cover cases,
+and simultaneous full collection remain.
 
 ## Ownership and restrictions
 
@@ -109,10 +126,10 @@ is authorized; no Lean/Lake builds are authorized. No manuscript proof or PDF
 change is currently needed. The combinatorics-paper-writing skill was used
 for the outline and note organization.
 
-Current continuation owns the new first-drop coverage note, corresponding
-outline/routing updates, both handoffs and the existing external diagnostic.
-The right-arm and retained-edge notes remain unchanged from the previous
-checkpoint. No previous independent review is asserted for new arguments.
+Current continuation owns an append-only extension of the incoming-edge
+note, its DN corollary/routing, the outline, both handoffs and the external
+diagnostic. The right-arm and retained-edge notes remain unchanged.
+No previous independent review is asserted for new arguments.
 
 The reboot terminated the old workers/consultant. Its saved Claude output
 was empty; do not relaunch it. The pre-crash dirty retained-edge note was
@@ -123,6 +140,15 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Current increment: arbitrary-exterior incoming-arm transfer and its left
+DN coefficient consequence. All 142 qualifying states at four fixed
+six-vertex positions pass (684 actual flips). Two fixed n=10 states check
+multiple suffixes and multiple arm bypasses (10 and 8 flips); no n=10
+state space is enumerated. Four one-sided left-DN comparisons pass (22
+flips), as do two common-branch rows (8 flips, including one with both
+outer anchors redundant). Two further fixed states at n=8,10 check the
+left outgoing cut (7 and 9 flips). The old incoming-edge
+note is retained verbatim as a prefix; no new independent review is claimed.
 Proof checkpoint: `85419e1` (first-drop coverage, local source correspondence,
 and conditional completion from NN/DN reassembly). Six fixed diagrams verify all
 four contact types, an interior first drop and the chain base case. The
@@ -148,9 +174,9 @@ Two fixed DN states at n=8 and n=10 check the new preparation at both
 endpoints (10 and 24 flips total), reducing to the proved two-cover lemma.
 No state space at either larger size is enumerated. Both extended notes
 preserve their previous contents verbatim as prefixes.
-Current ownership: coverage note, outline, DD inheritance note, documentation
-routing, both handoffs and the external consumer. No new independent review
-is claimed. Both earlier local-transfer notes are unchanged this increment.
+Current ownership: incoming-edge note, direct DN note, outline, both handoffs
+and external consumer. The retained-edge and right-arm notes are unchanged
+this increment.
 No Lean/Lake or manuscript build was run; no new worker or consultant.
 Runtime registry and `codex mcp list` were inspected; Lean MCP is rooted at
 RealRooted and unused. No model, account, worker or service-tier change.
@@ -164,7 +190,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/first-drop-coverage-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/incoming-anchor-20260929/`.
+Coverage receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/first-drop-coverage-20260929/`.
 Two-anchor receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/two-anchor-transfer-20260929/`.
 Outline/archival checks: `/lake-cache/ai-projects/requests/VerticalStripLLT/component-recurrence-outline-20260929/`.
 Notebook continuation: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-notebook-continuation-20260929/`.

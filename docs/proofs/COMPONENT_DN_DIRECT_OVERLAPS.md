@@ -206,3 +206,27 @@ The subsequent [joint-repair note](COMPONENT_DN_JOINT_REPAIRS.md) completes
 both output diagrams for every component of the smallest right-hand
 example and gives further diamond identities with arbitrary exteriors.
 Their simultaneous use in the general diagram remains to be proved.
+
+## A covering-anchor class of left retained-e-prime comparisons
+
+2026-09-29. The new
+[incoming-arm construction](COMPONENT_INCOMING_EDGE_TRANSFER.md#a-dn-left-overlap-consequence)
+proves t10 constancy, and hence the corresponding t00 constancy by (5),
+under the following arbitrary-exterior conditions. For the comparison
+retaining ux and exchanging ut,tx, let A=L01(Q+ut). The source corners
+e,f and the edge r must cover in A. After the actual source flip
+ut -> tw [retain e], the resulting state must select a covering td
+with x<d<z. The construction then gives an actual source path to
+L01(Q+tx), without a cycle-rank or connectedness hypothesis.
+
+At a saturated genuine first-drop DN contact, there is automatically a
+strict corner with tail t and head d in that interval. Its cover after
+inserting tw is an additional condition, not a consequence of strictness.
+The same note also proves two further classes. If e,f,r,td cover initially
+and w,x do not both reach d, an outgoing cut handles the initially
+obstructing w-to-d paths. If instead e,td,wd,xd and ut cover, the four-flip
+row xd->tx, ut->tw, tw->wx, wx->xd works even when both f,r are redundant.
+Each construction proves the required source-component equality and hence
+both t10/t00 comparisons, without adding a correction. The other cover
+cases and global collection remain open, and the earlier independent audit
+does not cover this new continuation.
