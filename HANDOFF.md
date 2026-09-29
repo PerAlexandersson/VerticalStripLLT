@@ -14,15 +14,20 @@ remain intact in the [component catalogue](docs/COMPONENT_NOTE_CATALOGUE.md).
 
 Active goal: prove the general non-circular component e-expansion for
 Motzkin/Dyck diagrams by the diagram-bijection/recurrence approach.
-Latest continuation proves a [multiple-route retained-edge repair](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#several-routes-entering-s).
-With r,wt,yz covering, w reaching y, t not reaching z, and selected ys,
-the comparison is repaired with arbitrary exterior. The edge ys may be
-redundant, and incoming tails may precede y. An outgoing cut exposes ys;
-a saturated prefix supplies yt; temporarily replacing st by tz permits
-the entire prefix to be restored, after which ys and the cut are restored.
-The truncated outer cut permits yz to start redundant as well.
-Missing ys and redundant wt remain outside this new construction.
-General component reassembly is still open.
+Latest continuation proves the [retained-edge comparison whenever r and wt cover](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#all-comparisons-with-r-and-wt-covering),
+with arbitrary exterior. The new path-to-s lemma removes the selected-ys
+hypothesis: an outgoing cut clears y-to-s paths, and a remaining suffix
+supplies a temporary sz. Moving st to tz then permits the full prefix
+to be restored. Every other edge is restored. Combined with the earlier
+t-reaching branch and the empty-B case, this settles every r/wt-cover
+comparison. The r-cover cases left outside these repairs have redundant
+wt. Cases with both outer anchors redundant and general component
+reassembly are still open.
+
+The preceding [multiple-route repair](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#several-routes-entering-s)
+handles selected, possibly redundant ys with arbitrary competing routes
+and earlier incoming tails. It is used as a case of the new result.
+Proof checkpoint `b4c577d` and metadata `51d0dfe` are pushed to origin/main.
 
 The preceding continuation proves a [shared-branch prefix repair](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#a-shared-branch-reached-by-an-arbitrary-prefix).
 With r,wt,yz covering, w reaching y and every w-to-s path using selected
@@ -145,6 +150,8 @@ terms, not from the signs of intermediate recurrence coefficients.
   The latest construction removes the common-edge condition: selected ys
   may be redundant, and incoming tails may precede y. Temporarily moving
   st to tz permits the full prefix to be restored despite those routes.
+  The path-to-s extension removes selected ys as a hypothesis. Together
+  these results settle all retained-edge comparisons with r,wt covering.
   The unrestricted retained-edge and left retained-e-prime repairs remain open.
 - A crossing-cover path now gives a direct retained-edge repair of arbitrary
   length, retaining every background edge. The same construction applies to
@@ -262,7 +269,14 @@ selected. Expose ys by an outgoing yz-retained cut, prepare yt along
 a saturated prefix, then use xs->sz[r], ys->st[yt], st->tz[sz]. Undo
 the prefix while both added edges end at z>t, then tz->st[sz] and
 sz->ys[yz], and undo the cut. Do not impose a least incoming tail.
-Missing ys and redundant wt remain outside this new construction.
+The path-to-s extension removes missing ys from the remaining cases.
+After its outgoing cut, use the last new vz and a saturated v-to-s path
+to supply sz; park st at tz, undo the prefix, restore st, then undo the
+suffix and outgoing cut. Together with the t-reaching and empty-B cases,
+this settles all comparisons with r and wt covering. Do not reimpose a
+selected ys, a common final edge or a least incoming tail. The remaining
+r-cover cases have redundant wt; this normal edge cannot simply be
+passed through the whole-component corner-deletion theorem.
 The new reverse preparation supplies the same conclusion from covers at
 the tx endpoint: expose r first, then clear t-to-w paths using td. This
 can make f redundant, but r remains covering, which is sufficient. The
@@ -329,6 +343,10 @@ Current shared-prefix continuation owns an append-only retained-edge branch
 lemma with arbitrary w-to-y paths, both handoffs, outline routing and fixed
 checks in the external consumer. It preserves the complete prior note.
 
+Current s-path continuation owns the append-only retained-edge path lemma
+and r/wt-cover corollary, both handoffs, outline routing and fixed external
+consumer checks. The full prior proof text remains a verbatim prefix.
+
 Current incoming-s continuation owns the append-only multiple-route
 extension of that lemma, outline routing, both handoffs and fixed consumer
 checks. All previous retained-edge text remains a verbatim prefix.
@@ -341,6 +359,13 @@ including its original dirty paragraph, is preserved in the
 Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
+
+Current s-path increment: a path y-to-s replaces the selected edge ys;
+all r/wt-cover comparisons now follow. Three fixed n10/n12 paths have
+15,19,19 flips, with suffix lengths 1,3,2. Every actual flip, strict edge
+and exact endpoint passes. No state enumeration, Lean/Lake build, worker,
+consultant, maintained Rust edit or new independent review. Prior proof
+text remains a verbatim prefix. Sources and receipts are external.
 
 Proof checkpoint: `b4c577d` (temporary-tz retained-edge repair).
 Current incoming-s increment: arbitrary competing routes and redundant ys,
@@ -512,7 +537,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-incoming-s-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-s-path-20260929/`.
+Multiple-route receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-incoming-s-20260929/`.
 Shared-prefix receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-shared-prefix-20260929/`.
 Reachable-anchor receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-reachable-anchor-20260929/`.
 Either-endpoint receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/left-endpoint-covers-20260929/`.
