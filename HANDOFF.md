@@ -1,5 +1,45 @@
 # VerticalStripLLT handoff
 
+## Resumed ownership — 2026-09-29
+
+The replacement primary worker resumes at the user's explicit request from
+clean, pushed `2511182138c3f3a27f8f6207a982ec1e28b6c3c7` on `main`.
+It owns `HANDOFF.md`, append-only continuation of
+`docs/proofs/COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md`, related outline
+routing, and the existing external `hrv-bridge` diagnostic lane. The paused
+worker released this lane; all other ownership is preserved. We first audit
+the endpoint-marked DN identities and the proposed attached-component fixture.
+The general diagram-recursion proof remains unfinished.
+
+**New proved increment:** the
+[endpoint-attachment theorem](docs/proofs/COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md#endpoint-attachment-theorem-completed-audit)
+is now proved mathematically. HRV diamonds preserve a multiset of full HRV
+maps; internal DN swaps preserve endpoint fibre data. Any completed recurrence
+using these endpoint-preserving maps extends to arbitrary components attached
+at the two ends, with whole output components and the same decreasing measure.
+No component expansion for the attachments is assumed. In particular all
+fourteen rows of the five-vertex left DN table extend.
+
+The fixed `dn_joint_span --endpoint-attachments` check passes all fourteen
+attached rows, including 16/32/16 in the C_1 row. It checks actual complete
+components, strict edges and signed endpoint HRV profiles; the nine-vertex
+checks visit 128/88/64 distinct L/R/J states without global enumeration.
+The small external Rust consumer build passed. Receipt and frozen sources:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/endpoint-attachments-20260929/`.
+Maintained Rust remains unchanged at `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
+
+**Next:** general source reassembly with crossing exterior edges and independent
+reduction of added source components remain open. The endpoint theorem settles
+the first item in the historical resume list below, not those general steps.
+It also does not assert the NN extension when its swap moves an endpoint.
+
+Runtime tools and `codex mcp list` were inspected. Lean MCP is rooted at
+RealRooted, not this project. No Lean build is currently needed; no additional
+worker or consultation is authorized or launched. The following account-switch
+status is retained as the starting record; new proved results will be recorded
+above it. The actual final swap checkpoint is `2511182`; `ae4c3a2` below was
+its preceding proof/handoff checkpoint.
+
 ## Account-switch checkpoint — 2026-09-29
 
 **Paused at the user's request for an account swap. The general recurrence
