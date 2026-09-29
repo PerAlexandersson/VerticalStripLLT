@@ -1,5 +1,47 @@
 # VerticalStripLLT handoff
 
+## New arbitrary-exterior retained-edge repairs
+
+2026-09-28--29, continuation from `66574a3`. The previous turn made progress;
+this turn proves two further cases in
+[retained-edge DN flips](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md).
+
+For the actual target flip retaining xt and exchanging xs,st, put
+Q=the source relation with those three edges absent, keeping f=wz,
+r=xz and A=wt selected, q=wx absent. Its hypotheses say Q has no path
+x-to-s, s-to-t or x-to-t. We now prove the source endpoints are in the
+same component, with all exterior restored, in either case:
+
+- f covers: a decreasing incoming sweep makes r cover; an increasing
+  outgoing sweep prepares the three-flip local row; reverse both sweeps.
+- r covers and t reaches z: borrow xt by flips along a saturated t-to-z
+  path, exchange xs for st, then restore the path. Here f is redundant.
+
+Independent Astra audit passed both arbitrary-exterior constructions.
+The actual retained-edge probe checks all 8 pairs in area011234 and all 576
+pairs in area0112345 (16,384 source states/1,471 components); every pair has
+the same source component. At n7, the proved cases cover 144 and 108 pairs;
+14 have r covering with no t-to-z path, and 310 have neither anchor covering.
+These remaining cases are finite evidence only, not a general proof.
+
+The broader generic sweep without the f-cover hypothesis is false already
+on five vertices; both counterexample components delete f directly. Its
+receipt records the explicit five-state and singleton example. Do not
+replace the actual DN hypotheses by this overbroad statement.
+
+NEXT: the two uncovered retained-edge cases, then the left retained-e'
+case and component reassembly. Keep the local-diagram approach; no new
+classification or coefficient framework is a prerequisite.
+
+Primary owns the proof notes/index/handoff and external
+`first_join_tree_lifts.rs` modes `--outer-sweep-check` and
+`--retained-exterior`. Existing reviewer passed the final combined-note
+audit and is released. Sole Lean build ownership unchanged. No new worker,
+account, Claude child, Lean source/build or manuscript change. Rust jobs
+exited zero; maintained Rust remains d53fb193af3c69adedbd9ec8592f87235d809ffa.
+Commands, sources, logs and review are frozen under external `dn-outer-sweep/`.
+Goal remains active; full requested recurrence proof is not complete.
+
 ## Current local-diagram progress
 
 2026-09-28, continuation from `1648f12`. The author's requested recurrence

@@ -522,6 +522,11 @@ the retained-edge case when an exterior path also makes f redundant.
 The existing Astra reviewer independently checked the full argument,
 including reverse restoration with arbitrary exterior, and the example.
 
+The [retained-edge continuation](COMPONENT_DN_RETAINED_EDGE.md) uses this
+sweep to prove the full xs-to-st source transfer with arbitrary exterior
+whenever f covers, with no cover assumption on r. It also handles the case
+where r covers and a selected t-to-z path makes f redundant.
+
 ## Verification and remaining work
 
 The proposition has a direct cover-and-coefficient proof above. An

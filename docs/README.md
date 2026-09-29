@@ -32,6 +32,9 @@ The component result is the finite strict/e identity on actual complete componen
   the retained-edge case locally; a covering outer corner lets us move
   obstructing edges aside and restore them after a flip. Exact matching succeeds for
   376 components of six selected diagrams; general compatibility remains open.
+- [Retained-edge DN flips](proofs/COMPONENT_DN_RETAINED_EDGE.md): with arbitrary
+  exterior, two sweeps prove the repair when f covers. Borrowing xt along a
+  selected t-to-z path proves another case when r covers. Other cases remain open.
 - [DN source additions](proofs/COMPONENT_DN_SOURCE_ADDITIONS.md): a proved
   six-vertex recurrence adds two deletable components and matches the terms
   by removing three isolated orientations from a fixed-size layer. Exact
