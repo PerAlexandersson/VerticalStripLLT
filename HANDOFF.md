@@ -269,6 +269,7 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Proof checkpoint: `e5fb7eb` (either-endpoint covers and left defect support).
 Current endpoint increment: reverse-endpoint left repair and the exact
 three-corner support restriction on nonzero genuine-DN left defects.
 The external consumer verifies fixed eight-/ten-flip paths with e redundant
