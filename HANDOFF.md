@@ -45,6 +45,7 @@ Do not promote the one-way middle pairing to a general equivalence.
 The goal remains active. Previous proof notes remain verbatim prefixes;
 136 local file links, frozen receipt hashes and `git diff --check` pass.
 Maintained Rust is clean at `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
+Proof checkpoint `14fe4c9` is pushed to `origin/main`.
 
 ## Current continuation — all fixed-terminal-short cases are reduced
 
