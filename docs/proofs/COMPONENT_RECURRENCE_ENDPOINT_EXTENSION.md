@@ -331,3 +331,37 @@ components in a general homogeneous completion class. Those are still
 the missing parts of the general diagram-recursion proof. The NN bottom
 swap can move a marked endpoint, so it does not automatically satisfy
 this theorem's hypothesis. No NN endpoint extension is asserted here.
+
+## The forced source union also factors at the endpoints
+
+There is a component-level strengthening of the gluing statement. For a
+DN recurrence contained in the middle block, write U_m(C) for its minimal
+homogeneous source-completion class from the
+[source-addition theorem](COMPONENT_DN_SOURCE_ADDITIONS.md#completing-one-selected-edge-layer-of-the-direct-dn-image).
+If every state of P,C,T has respectively p,m,t selected edges, then
+
+    U_(p+m+t)(P*C*T)
+      = {P*I*T : I in U_m(C)}.                            (EA6)
+
+We count edges, so there is no shared-vertex correction in p+m+t.
+To prove (EA6), use the three families of pair equations defining U.
+All DN edge changes and the internal swap leave both attached relations
+fixed. A target flip in an attachment lifts to the same attachment flip
+in each source preimage, so it relates a source component only to itself.
+Each target flip in the middle has exactly its old cover tests and
+source preimages, together with unchanged attachment states. It therefore
+induces precisely the old pair equation, with P and T adjoined. The
+target 00 exits and the deletion-diagram q exits also lie in the middle
+and give exactly their old equations. Every old generating equation
+occurs after choosing any states of P and T. Taking connected classes
+of these pair equations proves both containments in (EA6).
+
+Thus endpoint attachments create no new forced source additions and
+cannot connect two different attachment components. If all extra middle
+components delete an absent or everywhere-redundant middle corner, all
+extra glued components delete that same corner independently: the cover
+tests remain internal and the deleted output is the corresponding full
+product component. This applies to the five-vertex construction and to
+the [uniform square-of-a-path recurrence](COMPONENT_DN_SOURCE_ADDITIONS.md#a-uniform-square-of-a-path-recurrence).
+It leaves unchanged the open source-isolation problem for a middle block
+with crossing exterior edges.

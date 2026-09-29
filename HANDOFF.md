@@ -4,8 +4,9 @@
 
 The replacement primary worker resumes at the user's explicit request from
 clean, pushed `2511182138c3f3a27f8f6207a982ec1e28b6c3c7` on `main`.
-It owns `HANDOFF.md`, append-only continuation of
-`docs/proofs/COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md`, related outline
+It owns `HANDOFF.md`, append-only continuations of
+`docs/proofs/COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md` and
+`docs/proofs/COMPONENT_DN_SOURCE_ADDITIONS.md`, related outline
 routing, and the existing external `hrv-bridge` diagnostic lane. The paused
 worker released this lane; all other ownership is preserved. We first audit
 the endpoint-marked DN identities and the proposed attached-component fixture.
@@ -28,10 +29,35 @@ The small external Rust consumer build passed. Receipt and frozen sources:
 `/lake-cache/ai-projects/requests/VerticalStripLLT/endpoint-attachments-20260929/`.
 Maintained Rust remains unchanged at `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
-**Next:** general source reassembly with crossing exterior edges and independent
-reduction of added source components remain open. The endpoint theorem settles
-the first item in the historical resume list below, not those general steps.
-It also does not assert the NN extension when its swap moves an endpoint.
+**Second proved increment:** the
+[full-layer selected-corner criterion](docs/proofs/COMPONENT_DN_SOURCE_ADDITIONS.md#isolating-one-selected-corner-sector-by-a-full-layer)
+isolates C when it is the unique component in its selected-corner sector and
+total-edge layer. All added components omit a specified corner and delete
+independently. This gives a signed whole-component DN recurrence for every
+component of the saturated square of a path on n>=5 vertices, including
+crossing prefix edges. Its targets are the complete R layer minus the complete
+corner-deletion J layer. This is a new recurrence proof, not a new claim that
+the square-path expansion was previously unknown.
+
+All eighteen fixed rows at n=5,6,7 pass exact K and E checks, actual-component
+checks and independent deletion-image checks. Receipt/frozen-source directory:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/square-path-layers-20260929/`.
+Equation (EA6) in the endpoint note also proves that homogeneous forced source
+classes factor exactly under endpoint attachments; they create no new additions.
+
+**Remaining general gap:** when several components survive the available
+reductions in a selected-corner sector, the full-layer identity gives only
+their sum. We have not excluded or uniformly resolved that case. Independent
+reducibility of every extra member of the minimal NN/DN completion class is
+still unproved. The endpoint theorem settles the first historical resume item,
+and the square-path recurrence settles a restricted crossing family. Neither
+settles arbitrary crossing exteriors or the NN endpoint-moving swap.
+
+Endpoint proof checkpoint `df1ea28` is pushed to `origin/main`; the original
+endpoint note is preserved byte-for-byte as a prefix, 65 local file links and
+`git diff --check` pass. The second increment preserves the source-addition
+note at that checkpoint verbatim as a prefix. No new independent review is
+claimed for either increment.
 
 Runtime tools and `codex mcp list` were inspected. Lean MCP is rooted at
 RealRooted, not this project. No Lean build is currently needed; no additional

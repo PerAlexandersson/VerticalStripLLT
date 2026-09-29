@@ -517,3 +517,160 @@ of (12). The theorem above is the arbitrary-exterior proof of closure and
 minimality; general reducibility of the added components remains open.
 No Lean/Lake build, new worker, consultant or maintained Rust change was used.
 Receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/homogeneous-dn-closure-20260929/`.
+
+## Isolating one selected-corner sector by a full layer
+
+2026-09-29, after the endpoint-attachment checkpoint `df1ea28`. We give
+a sufficient source-addition criterion which avoids repairing individual
+output flips. It supplies whole-component recurrences for every saturated
+square of a path, with arbitrarily many vertices. This family already has
+an expansion by the separate aggregate argument in the
+[active-corner note](COMPONENT_ACTIVE_CORNERS.md#a-uniform-case-all-maximal-intervals-have-length-two).
+The new conclusion here is its explicit diagram recurrence, with independent
+reductions of every extra source component. We do not use that expansion
+or the general word-functional theorem in this construction.
+
+For a decorated diagram D, let F_m(D) be the set of all its selected
+states with exactly m selected edges, including the strict edges. We
+use X(F_m(D)) for the sum over this set. Since flips preserve m, this is
+always a union of complete components; a layer can be empty.
+
+### The full DN layer has no boundary defect
+
+Let N be any eligible forward DN source, with target R and common
+deletion diagram H as above. Then, for both X=K,E,
+
+    X(F_m(N)) = X(F_m(R)).                              (13)
+
+This follows directly from the diagram identities. For the indicator of
+F_m(N), and b=|Q|, we have
+
+    h00(Q)=[b+2=m],  h10(Q)=h01(Q)=[b+3=m],
+    h11(Q)=[b+4=m].
+
+The adjacent interchange sigma preserves |Q|. Thus delta=0, the two
+h01 terms in t00 cancel, and the four target coefficients are exactly
+the indicators of |Rij(Q)|=m. In particular (13) is already an identity
+between unions of whole components, with no remaining H term.
+
+**Selected-corner criterion.** Suppose N has an unmarked natural corner
+g, and exactly one complete component C in F_m(N) selects g. Then
+
+    X_N(C) = X(F_m(R)) - X(F_m(N-g)),     X=K,E.        (14)
+
+Every term on the right is a union of whole components in strictly
+smaller diagrams for the forward DN order.
+
+Indeed, g cannot be exchanged as a short edge, so its status is constant
+on each source component. By the uniqueness hypothesis, all other members
+of F_m(N) omit g. The identity map identifies that entire absent-g sector
+with F_m(N-g), component by component. An absent retained edge cannot
+support an actual flip, so deleting it neither removes nor adds a flip;
+selected relations and cover tests are unchanged. Subtract this sector
+from (13). The R diagram decreases the area moment at fixed area, while
+N-g decreases area. These are independent reductions of every added
+source component, not merely a zero valuation for their combined defect.
+
+The same proof allows a set of unmarked natural corners: if C is the
+unique component of F_m(N) selecting all of them, every other component
+omits at least one such corner and deletes there. We subtract each whole
+component only once, choosing one of its absent corners. This variant
+does not require an inclusion-exclusion identity or overlapping copies.
+
+The uniqueness hypothesis concerns a specified layer and selected-corner
+sector. It is not a claim of uniqueness for arbitrary active components,
+and it is not yet known at general first-drop contacts.
+
+### A uniform square-of-a-path recurrence
+
+Let n>=5, and let D_n have natural edges ij with 1<=j-i<=2, all
+distance-two edges strict. Its area sequence is
+
+    (0,1,2,...,2).
+
+For 0<=k<=n-1, write C_(n,k) for the states selecting k of the n-1
+adjacent edges, together with all n-2 strict edges. This is one complete
+component. Its flips are exactly exchanges 10<->01 in the binary word
+of adjacent-edge selections: each natural triangle consists of three
+consecutive vertices, its adjacent selected short is a cover, and its
+retained distance-two edge has no alternate path when exactly one short
+is selected. These exchanges connect all words of weight k. This also
+checks all possible flips and hence completeness.
+
+The first area drop is at the last vertex. Its DD contact has
+
+    u=n-5, w=n-3, x=n-2, z=n-1,
+    e=(n-5,n-3), f=(n-3,n-1), g=(n-4,n-2).
+
+Unmark g, obtaining the eligible DN source N_n. The g-selected sector
+is the unchanged flip graph of D_n. Thus C_(n,k) is its unique g-selected
+component with m=n-2+k total selected edges. The extra source components
+all have g absent and delete independently to J_n=N_n-g.
+
+Define R_n by replacing the natural edge f with e'=(n-5,n-2), marking
+e' and r=(n-2,n-1) strict and retaining every other strict edge of N_n
+except e,f. The old edge e becomes normal. In area coordinates, R_n
+has the same rows as D_n except
+
+    a_(n-2)=3,   a_(n-1)=1.
+
+The deletion diagram J_n has a_(n-2)=1, with all other rows unchanged,
+and its strict edges are the distance-two edges other than g. Applying
+(14) gives the promised recurrence
+
+    X_Dn(C_(n,k))
+      = sum_(B a component of R_n; |B-state|=n-2+k) X_Rn(B)
+        - sum_(I a component of J_n; |I-state|=n-2+k) X_Jn(I),
+        X=K,E.                                          (15)
+
+Here |B-state| means the number of selected edges of any state in B,
+which is constant on B; it is not the number of states of B. All
+coefficients are +1 or -1, all outputs are whole, and every output
+diagram is smaller. Specifically A(R_n)=A(D_n), M(R_n)=M(D_n)-1,
+and A(J_n)=A(D_n)-1. This proves the required push-through step for
+every component of D_n, with no bound on n or cycle rank.
+
+We can also describe the subtracted components explicitly. Omitting g
+removes the exchange between the two adjacent-edge bits at positions
+n-4 and n-3. The remaining flips permute a left word of length n-3
+and a right word of length 2 independently. Thus the J_n layer splits
+into components I_(i,j) with i+j=k+1, 0<=i<=n-3, 0<=j<=2, of sizes
+
+    binomial(n-3,i) binomial(2,j).
+
+These descriptions concern entire source additions; no member is
+discarded because a corner happens to be redundant at that member.
+
+For n>=6 the contact has crossing exterior edges, for example the strict
+edge (n-6,n-4) enters the interior of the five displayed vertices.
+Thus (15) is not simply the endpoint-attachment theorem applied to the
+five-vertex table. It handles these particular crossing exteriors by
+the full-layer construction. It does not handle arbitrary crossing
+exteriors: there may then be several g-selected components at the same
+selected-edge count, and (13) alone gives only their sum.
+
+All operations used in (15) fix the outer vertices 0,n-1. By the
+[endpoint-attachment theorem](COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md#endpoint-attachment-theorem-completed-audit),
+the recurrence also extends to arbitrary complete components attached
+at these outer vertices, with the same whole-component and measure claims.
+
+### Verification and the remaining general step
+
+The existing external consumer now has `--square-path-layers`. It reuses
+the actual-flip component BFS and the maintained exact strict P-partition
+and HRV APIs. For each of n=5,6,7, every k=0,...,n-1 passes (15):
+eighteen fixed recurrences. Each source set is verified as a complete
+component; every target is a union of actual complete components; every
+deleted component lifts back to an entire g-absent source component.
+The K and E identities are checked separately using exact rational
+coefficients. Each diagram has at most 128 admissible states. The
+uniform proof is the binary-word and full-layer argument, not an
+extrapolation of these checks.
+
+Frozen sources, build output and check output are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/square-path-layers-20260929/`.
+No Lean/Lake build, maintained Rust edit, worker or consultant was used.
+The whole-component recurrence for general NN/DN contacts remains open:
+we still need to isolate a component when several unreduced components
+survive in its selected-corner sector. Neither (14) nor (15) assumes
+that uniqueness in general.
