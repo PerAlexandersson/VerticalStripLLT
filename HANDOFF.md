@@ -243,8 +243,9 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
-Current proof increment: arbitrary-exterior left repair under the one-outer-
-anchor hypotheses, with exact restored endpoints. Fixed path checks:
+Proof checkpoint: `e765523` (shared-branch left DN repair).
+Current increment proves the arbitrary-exterior left repair with one outer
+anchor covering and exact restored endpoints. Fixed path checks:
 nonshared proper arms, 11/21/22 flips; shared branch, 6/18/18 flips at
 n=7,10,10; normalization followed by shared repair, 12 flips at n=9;
 one redundant outer anchor in either direction, 8 flips each at n=8.
