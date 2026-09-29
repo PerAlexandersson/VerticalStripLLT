@@ -235,10 +235,11 @@ separate order or reduction for recurrences crossing the chosen cut.
 | One-component NN split and repair | [NN redistribution](COMPONENT_NN_REDISTRIBUTION.md) | General initial split; full worked example |
 | Larger complete NN step | [NN left reassembly](COMPONENT_NN_LEFT_REASSEMBLY.md) | Saturated eligible connected unicyclic case; arbitrary cycle rank remains |
 | Middle-state transfer at exposure | [General exposure](COMPONENT_CORNER_EXPOSURE.md) | Both left/right exposing exits, with arbitrary exterior and cycle rank; intervening q-free paths remain |
+| Transfer between covering anchors | [Two-anchor transfer](COMPONENT_RIGHT_ARM_TRANSFER.md#arbitrary-exterior-transfer-with-two-covering-anchors) | Arbitrary exterior for covering arms and the stated outgoing-cut extension; a general shared-branch repair remains |
 | One-component DN split | [Direct DN overlaps](COMPONENT_DN_DIRECT_OVERLAPS.md) | General identity; two ordered five-vertex overlap types remain |
 | DN diamonds and minimal components | [Joint repairs](COMPONENT_DN_JOINT_REPAIRS.md) | Both minimal pictures completed; local propagation lemmas |
 | Additional whole source components | [Source additions](COMPONENT_DN_SOURCE_ADDITIONS.md) | Six-vertex example proved; general construction remains |
-| Retained-edge source paths | [Retained-edge repairs](COMPONENT_DN_RETAINED_EDGE.md) | Arbitrary-exterior conditions, including a selected suffix of any length and shorter anchors; unrestricted case remains |
+| Retained-edge source paths | [Retained-edge repairs](COMPONENT_DN_RETAINED_EDGE.md) | Arbitrary-exterior conditions, selected suffixes and an incoming-cut preparation with multiple obstructions; unrestricted case remains |
 | DD/ND inheritance and induction order | [Corner-unmarking reductions](COMPONENT_DD_PACKETS.md) | DD reduces to general DN, ND to general NN; final targets decrease (5); coverage remains |
 
 The older [detailed catalogue](../COMPONENT_NOTE_CATALOGUE.md) retains the
@@ -268,6 +269,11 @@ problem is an intervening path on which that short is absent and the corner
 remains redundant. This is separate from the left retained-e-prime overlap.
 The retained-deleted-edge and left retained-e-prime cases are the next local
 checks; the target and corner-deletion pieces must be repaired together.
+The two-anchor transfer now handles arbitrary-exterior covering arms and
+clears a DN incoming cut when its obstructing branches have no selected
+direct wv. A selected direct common branch remains outside that preparation.
+Keep this precise obstruction separate from the already-resolved exposing
+exit and from an assertion that all redundant-arm transfers are proved.
 After those repairs, prove closure of the complete collected components,
 then supply general NN reassembly and a compatible choice-of-recurrence
 argument. The DD/ND inheritance already supplies their one-component steps

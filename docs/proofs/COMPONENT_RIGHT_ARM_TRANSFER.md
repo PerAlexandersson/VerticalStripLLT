@@ -208,3 +208,103 @@ consumer checks endpoint membership in the entire actual component.
 Related Rust: external `adjacent_transfer_general.rs`; frozen source,
 commands and final receipts are under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/adjacent-transfer/`.
+
+## Arbitrary-exterior transfer with two covering anchors
+
+2026-09-29 continuation. The following construction is independent of the
+unicyclic argument above. We retain all exterior edges and allow arbitrary
+cycle rank. We do not claim that the earlier independent audit covers this
+new argument.
+
+Let u,v be distinct vertices, both less than d<c. Suppose a selected state B
+contains uc,vc,ud, omits vd, and both anchors uc,vc cover. Their cover tests
+imply that neither root reaches the other. There is no selected d-to-c path.
+Neither adjacency of the roots nor maximality of the anchors is required.
+
+**Covering-arm lemma.** If ud also covers, then
+
+    B ~ B-ud+vd.                                      (A1)
+
+Both anchors still cover at the endpoint. All other edges are restored.
+
+Put P=B-ud, and list in increasing order
+
+    J={y : v<y<d, vy is selected in P, y reaches d in P}.
+
+First exchange vy for yc, retaining vc, for each y in J. The edge vy
+covers when processed: a bypass starts with an earlier outgoing edge vz
+with z<y and z reaching d, which has already been removed. Added edges end
+at c and cannot supply that bypass. Each exchange preserves the cover of
+vc. It preserves the cover of uc as well: a new bypass through yc would
+give an original u-to-y-to-d path in P, contrary to the cover of ud.
+
+The sweep removes every v-to-d path; new edges end above d. It leaves ud
+a cover and does not create a d-to-c path. We can now perform
+
+    ud -> dc [retain uc],
+    dc -> vd [retain vc].                            (A2)
+
+For the first flip, uc and ud cover and dc is absent. The second retained
+anchor vc covers after the first flip because the sweep cleared all
+v-to-d paths. The edge dc covers, and vd is absent, so the second flip
+is actual too.
+
+Undo the J-sweep in reverse order. Relative to the corresponding forward
+state, ud is removed and vd is added. The latter cannot bypass a tested vy,
+whose head y is below d, or a tested yc, whose tail y is above v. It cannot
+bypass vc because there is no d-to-c path. Every inverse flip is actual.
+The other anchor uc still covers: a new bypass using vd would require
+u to reach v, which was excluded at the outset and was not changed below c.
+This gives 2|J|+2 moves and proves (A1).
+
+**Outgoing-cut extension.** We may drop the cover assumption on ud under
+the following explicit condition. With P=B-ud, let
+
+    I={y : u<y<d, uy is selected in P, y reaches d in P}.
+
+Assume v does not reach any y in I. Then (A1) still holds.
+
+Process I increasingly, replacing uy by yc while retaining uc. The same
+first-edge argument makes each uy a cover. The condition on v means that
+these additions cannot bypass vc, so both anchors remain covers. The sweep
+clears every u-to-d path except ud. Apply the covering-arm lemma to this
+prepared state, then undo the I-sweep.
+
+During restoration, the added vd cannot bypass a tested uy, whose head is
+below d, or a tested yc: such a bypass would require a d-to-c suffix,
+which remains absent. It cannot bypass uc for the same reason. Thus all
+inverse flips are actual. This construction has
+
+    2|I| + 2|J_prepared| + 2
+
+moves. Every exchanged edge lies properly inside one of the selected
+natural anchors, so it is natural and cannot be a strict corner. The proof
+therefore includes arbitrary exterior edges and strict decorations.
+
+The condition is automatic when ud covers, since I is empty. It is not
+automatic for a redundant arm. For example, the selected relation
+{04,14,02,12,23,03}, with roots 0,1 and arm 03, has 2 in I and 1 reaches 2.
+An exact eight-flip path transfers 03 to 13 in this particular example,
+but the construction above does not prove the general shared-branch case.
+It also does not assert a transfer with redundant anchors.
+
+### Verification of the new construction
+
+Related Rust: the existing external `first_join_tree_lifts.rs`, function
+`two_anchor_path` and option `--two-anchor-check`, uses the established
+`component_source_probe::{cover,flip}` oracle. In the fixed complete
+six-vertex natural diagram, with 05 strict, it checks every ordered choice
+of the two roots and d<c and every state satisfying the stated hypotheses.
+All 5032 covering-arm and 296 redundant-arm instances pass, comprising
+11888 actual flips and exact endpoint/strict-edge checks. There are 222
+instances outside the outgoing-cut hypothesis; these are not failures.
+This is one fixed small diagram, not a scan over diagram families.
+
+The separate `--two-anchor-probe` compares whole-component membership only
+at roots 0,1, c=5 in that same diagram. All 411 covering-arm and 106
+redundant-arm comparisons pass. That finite evidence does not remove the
+condition in the theorem. It also records the eight-flip example above.
+
+Frozen sources, commands and logs are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/two-anchor-transfer-20260929/`.
+No Lean/Lake build, new reviewer, worker or maintained Rust change was used.

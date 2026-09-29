@@ -14,10 +14,12 @@ remain intact in the [component catalogue](docs/COMPONENT_NOTE_CATALOGUE.md).
 
 Active goal: prove the general non-circular component e-expansion for
 Motzkin/Dyck diagrams by the diagram-bijection/recurrence approach.
-Latest continuation proves a uniform middle-state transfer whenever an
-actual short-edge exit exposes the retained long. It handles both exit
-sides, arbitrary exterior, and arbitrary cycle rank. See
-[general exposure](docs/proofs/COMPONENT_CORNER_EXPOSURE.md).
+Latest continuation proves an arbitrary-exterior two-anchor arm transfer
+and uses it to clear obstructing branches of a DN incoming cut. See
+[the transfer](docs/proofs/COMPONENT_RIGHT_ARM_TRANSFER.md#arbitrary-exterior-transfer-with-two-covering-anchors)
+and [the DN preparation](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#clearing-the-obstructing-part-of-an-incoming-cut).
+The preceding [general exposure](docs/proofs/COMPONENT_CORNER_EXPOSURE.md)
+handles both sides of an exit exposing the retained long.
 The full recurrence proof is still incomplete; the goal remains active.
 
 The proof target is K(C)=sum_(A in C) e_(lambda(A)). Carry the SAME signed
@@ -42,6 +44,12 @@ terms, not from the signs of intermediate recurrence coefficients.
   construction, and reuse of a shorter covering pair of anchors. These
   settle the three displayed old uncovered paths in a general setting.
   The unrestricted retained-edge and left retained-e-prime repairs remain open.
+- With both anchors covering, a covering outgoing arm transfers between
+  them by an ordered cut, at arbitrary cycle rank and without adjacent roots.
+  A redundant arm also transfers if the competing first neighbors are
+  unreachable from the other root. In DN with r covering and t not reaching
+  z, this clears all obstructing incoming branches provided their direct
+  wv edges are absent. Shared direct branches remain outside this argument.
 - The key missing lemma takes ONE component to a signed sum of WHOLE smaller
   components, with identical coefficients for K/E. Source additions are
   allowed when each added whole component is independently reduced to a
@@ -80,7 +88,11 @@ For the unmatched middle coefficient, first discard all routes settled by
 the new exposure lemma. A possible nonzero coefficient must lose q before
 f becomes a cover. The remaining task is to transport through that q-free
 excursion, not to redo the final left/right exposing flip or impose a
-cycle-rank classification. Left retained-e-prime and full collection remain.
+cycle-rank classification. The two-anchor transfer now clears a whole set
+of incoming obstructions; the residual direct common branch needs a general
+repair. Its smallest example has an eight-flip path in the receipt, which
+is evidence rather than the arbitrary-exterior proof. Left retained-e-prime
+and full collection remain.
 
 ## Ownership and restrictions
 
@@ -91,6 +103,11 @@ is authorized; no Lean/Lake builds are authorized. No manuscript proof or PDF
 change is currently needed. The combinatorics-paper-writing skill was used
 for the outline and note organization.
 
+Current continuation extends the owned right-arm and retained-edge notes,
+preserving both existing texts in full. Its new constructions are an
+arbitrary-exterior two-anchor transfer and a DN incoming-cut preparation.
+No previous independent review is asserted for these new arguments.
+
 The reboot terminated the old workers/consultant. Its saved Claude output
 was empty; do not relaunch it. The pre-crash dirty retained-edge note was
 preserved in full, extended and committed. The full previous handoff,
@@ -100,6 +117,7 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Current increment: two-anchor transfer and DN incoming-cut preparation.
 Proof checkpoint: `1b4f794` (general exposure and DD/ND inheritance).
 Proof checkpoint: `e1ef5eb` (selected-suffix repair and notebook recurrence).
 Pushed: `c9c0e3a` (preserved and extended retained-edge proof), `c458c8e`
@@ -108,13 +126,19 @@ The preceding continuation's suffix row passes all instances
 in the fixed n6/n7 fixtures (47 pairs, 196 actual flips) and one explicit
 n11 fixture (five-edge suffix, 14 flips, no state-space enumeration).
 Its recovered retained-edge note was preserved byte-for-byte as a prefix.
-The current general exposure path passes all 801 applicable exits at three
+The preceding general exposure path passes all 801 applicable exits at three
 fixed positions (4179 actual flips), plus a nonmaximal-long example and
 a fixed ten-vertex state with six simultaneous bypasses (5 and 15 flips).
 No larger state space is enumerated. The full proof treats arbitrary exterior.
-Current ownership: exposure note, route links in the two old NN notes and
-direct DN note, DD/ND inheritance in the DD note, outline, both handoffs,
-and the existing external consumer.
+The new transfer construction passes all 5328 applicable instances in one
+fixed complete six-vertex diagram (11888 actual flips). The 222 instances
+outside its hypothesis are not failures or a general coverage conclusion.
+Two fixed DN states at n=8 and n=10 check the new preparation at both
+endpoints (10 and 24 flips total), reducing to the proved two-cover lemma.
+No state space at either larger size is enumerated. Both extended notes
+preserve their previous contents verbatim as prefixes.
+Current ownership: right-arm and retained-edge notes, outline, both handoffs,
+and the existing external consumer. No new independent review is claimed.
 No Lean/Lake or manuscript build was run; no new worker or consultant.
 Runtime registry and `codex mcp list` were inspected; Lean MCP is rooted at
 RealRooted and unused. No model, account, worker or service-tier change.
@@ -128,8 +152,9 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/two-anchor-transfer-20260929/`.
 Outline/archival checks: `/lake-cache/ai-projects/requests/VerticalStripLLT/component-recurrence-outline-20260929/`.
-Current source snapshots/checks: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-notebook-continuation-20260929/`.
+Notebook continuation: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-notebook-continuation-20260929/`.
 Exposure continuation: `/lake-cache/ai-projects/requests/VerticalStripLLT/corner-exposure-20260929/`.
 The archive also retains all prior build counts, axiom checks, source hashes,
 review boundaries and the established push command. The current task does

@@ -511,3 +511,104 @@ The earlier 190 uncovered-pair count predates these two observations; we
 have not recomputed an updated coverage partition. The unrestricted
 retained-edge statement, the left retained-e' repair and simultaneous
 whole-component collection remain open.
+
+## Clearing the obstructing part of an incoming cut
+
+2026-09-29 continuation. We retain the notation of the opening configuration
+and all exterior edges. This gives another arbitrary-exterior reduction to
+the proved two-cover lemma. It allows multiple incoming branches and does
+not assume any cycle-rank bound.
+
+Suppose r covers in S=Q+p and t does not reach z in Q. Define
+
+    I={v : x<v<z, vz is selected in Q, w reaches v in Q},
+    B={v in I : v reaches s or t in Q}.
+
+**Proposition.** If wv is absent for every v in B, then
+
+    Q+p ~ Q+j.                                       (C1)
+
+The hypothesis concerns the direct edges wv, not the existence of paths:
+by definition w already reaches each such v. The anchors may initially
+have different cover status; only r is required to cover.
+
+First process I in decreasing order, replacing vz by xv while retaining r.
+Every vz covers when processed: a bypass ends at a later uz that was already
+removed. The cover of r excludes an existing x-to-v path, and the added
+edges start at x, which w cannot reach because x=w+1 and wx is absent.
+Thus this is an actual incoming sweep, it preserves r as a cover, and it
+clears every bypass of f. Both anchors now cover.
+
+Only the new xv with v in B can introduce unwanted x-to-s or x-to-t paths.
+We transfer these edges to w one at a time, in increasing order of v, using
+the covering-arm lemma in
+[the two-anchor transfer](COMPONENT_RIGHT_ARM_TRANSFER.md#arbitrary-exterior-transfer-with-two-covering-anchors).
+The anchors are xz,wz, the transferred arm is xv, and wv is absent by
+hypothesis.
+
+To justify the cover test for xv, an original x-to-v path is excluded by
+the original cover of r together with the selected vz. Any new bypass
+must start with an earlier new xy and then reach v. Such a y also reaches
+s or t, hence lies in B; its edge xy was already transferred to wy. Later
+new edges cannot reach v. The original p=xs cannot start this bypass either:
+if v reaches s this contradicts the vertex order, and if v reaches t it
+would give the forbidden s-to-t path. Thus xv covers at every transfer.
+Each transfer restores its temporary edges and leaves both anchors covering.
+
+Let S*=Q*+p be the resulting state. Relative to the original S, its only
+changes are
+
+    vz -> wv for v in B,
+    vz -> xv for v in I\B.
+
+There is no x-to-s or x-to-t path in Q*: original such paths were excluded,
+and every remaining new xv has v outside B. New edges starting at w are
+unreachable from x. There is still no s-to-t path. The edges f,r,wt remain
+selected, and f,r cover in S*. Therefore the opening two-cover lemma,
+with y=w, gives S* ~ Q*+j.
+
+We finally undo the full preparation. We must check this in the presence
+of j, not infer it merely from the path on S. Every preparation edge starts
+below t or is an incoming edge to z. The auxiliary incoming edges used
+inside a transfer have tails below its arm endpoint v<t. Consequently
+the preparation never creates a t-to-z path. Adding st cannot bypass any
+tested edge ending at z.
+
+For the initial incoming sweep, the other tested edges are xv with original
+vz selected. A bypass using st would require t to reach v. Below z this
+reachability is unchanged by the preparation, since all new edges start
+at w or x, and within a transfer all additional heads below z are below t.
+An original t-to-v path, followed by vz, would contradict t not reaching z.
+For each subsequent arm-transfer sweep, all tested edges not ending at z
+have heads at most its endpoint v<t, so st cannot bypass them either.
+Deleting p cannot spoil any cover. The very same preparation is therefore
+actual on Q+j, and its inverse restores every exterior edge after the
+two-cover repair. This proves (C1).
+
+The condition may fail when wv is already selected at an obstructing
+incoming branch. We have not proved a transfer that absorbs that common
+branch without changing the other edges. The proposition does not settle
+all r-cover cases, the cases with both anchors redundant, or left
+retained-e-prime reassembly.
+
+### Exact checks with more than one incoming branch
+
+Related Rust: external `first_join_tree_lifts.rs`, function
+`retained_cut_preparation`, option `--retained-cut-check`. The diagnostic
+checks the preparation at BOTH endpoints Q+p and Q+j, every actual flip,
+strict-edge preservation, the exact prepared endpoints and all hypotheses
+of the already-proved two-cover lemma. The middle lemma is used as proved
+above; this diagnostic does not construct its middle path anew.
+
+Two explicit states, with only 01 and 1z strict, are checked:
+
+| n | (w,x,s,t,z) | Selected edges | Obstructing vertices B | Preparation plus inverse |
+| --- | --- | --- | --- | ---: |
+| 8 | (1,2,5,6,7) | 01,17,27,16,25,13,34,47,45 | {4} | 10 flips |
+| 10 | (1,2,7,8,9) | 01,19,29,18,27,13,34,45,49,59,47,57 | {4,5} | 24 flips |
+
+No state space on eight or ten vertices is enumerated. The hypotheses
+and proofs retain arbitrary exterior; these are exact checks of the new
+preparation, not a claim of exhaustive retained-edge coverage.
+Receipts and preserved before-files are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/two-anchor-transfer-20260929/`.
