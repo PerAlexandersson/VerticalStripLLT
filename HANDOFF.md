@@ -14,12 +14,13 @@ remain intact in the [component catalogue](docs/COMPONENT_NOTE_CATALOGUE.md).
 
 Active goal: prove the general non-circular component e-expansion for
 Motzkin/Dyck diagrams by the diagram-bijection/recurrence approach.
-Latest continuation proves an arbitrary-exterior two-anchor arm transfer
-and uses it to clear obstructing branches of a DN incoming cut. See
-[the transfer](docs/proofs/COMPONENT_RIGHT_ARM_TRANSFER.md#arbitrary-exterior-transfer-with-two-covering-anchors)
-and [the DN preparation](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#clearing-the-obstructing-part-of-an-incoming-cut).
-The preceding [general exposure](docs/proofs/COMPONENT_CORNER_EXPOSURE.md)
-handles both sides of an exit exposing the retained long.
+Latest continuation proves [first-drop recurrence coverage](docs/proofs/COMPONENT_RECURRENCE_COVERAGE.md)
+for every ordinary saturated diagram, with a complete conditional induction.
+It closes recurrence choice, forward direction and base-case coverage;
+the remaining induction input is NN/DN whole-component reassembly.
+The previous [two-anchor transfer](docs/proofs/COMPONENT_RIGHT_ARM_TRANSFER.md#arbitrary-exterior-transfer-with-two-covering-anchors)
+and [DN preparation](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#clearing-the-obstructing-part-of-an-incoming-cut)
+remain available for the local repair work.
 The full recurrence proof is still incomplete; the goal remains active.
 
 The proof target is K(C)=sum_(A in C) e_(lambda(A)). Carry the SAME signed
@@ -58,13 +59,16 @@ terms, not from the signs of intermediate recurrence coefficients.
   proved NN/DN/DD/deletion targets and subsequent envelope normalization.
   DD now reduces to one-component DN, and ND to one-component NN, by
   unmarking the obstructing corner and keeping the same complete component.
-  This requires the general NN/DN steps with unmarked exterior corners.
-  Complete recurrence coverage remains; NN/DN/DD alone miss area012333.
-  The equal-measure unmarking intermediate is never an induction input.
+  The first strict area drop supplies one of NN/ND/DN/DD in every connected
+  saturated natural diagram outside the chain base case. Area012333 is ND.
+  It suffices to prove NN/DN collection at these contacts, with at most the
+  upper contact corner unmarked and selected by C. The equal-measure
+  unmarking intermediate is never an induction input.
 - That moment order is for FORWARD DN. The notebook uses reverse DN after
   marking a corner: its neutral move increases the moment. Its unmarked
   top row lowers doubled area, but that marking decrease cannot be counted
-  again after normalization. Keep directions explicit; coverage is not proved.
+  again after normalization. The first-drop proof fixes FORWARD DN throughout;
+  it does not use reverse DN as an induction step.
 
 The separate ordinary/circular component theorem is already Lean-verified
 by the word/finite-companion route. It is not an input to this new proof.
@@ -84,6 +88,8 @@ is false; the paired diamond gives the complete four-vertex proof.
 Next collect one exact DN image into complete output components, keeping
 the chosen direction and its induction order consistent. Do not count the
 reconstructed aggregate top row as a proof of that collection.
+Recurrence choice is now settled by the first-drop theorem; do not reopen
+it as a separate missing hypothesis or assume NN/DN/DD without ND suffice.
 For the unmatched middle coefficient, first discard all routes settled by
 the new exposure lemma. A possible nonzero coefficient must lose q before
 f becomes a cover. The remaining task is to transport through that q-free
@@ -103,10 +109,10 @@ is authorized; no Lean/Lake builds are authorized. No manuscript proof or PDF
 change is currently needed. The combinatorics-paper-writing skill was used
 for the outline and note organization.
 
-Current continuation extends the owned right-arm and retained-edge notes,
-preserving both existing texts in full. Its new constructions are an
-arbitrary-exterior two-anchor transfer and a DN incoming-cut preparation.
-No previous independent review is asserted for these new arguments.
+Current continuation owns the new first-drop coverage note, corresponding
+outline/routing updates, both handoffs and the existing external diagnostic.
+The right-arm and retained-edge notes remain unchanged from the previous
+checkpoint. No previous independent review is asserted for new arguments.
 
 The reboot terminated the old workers/consultant. Its saved Claude output
 was empty; do not relaunch it. The pre-crash dirty retained-edge note was
@@ -117,6 +123,11 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Current increment: first-drop coverage, local source correspondence, and
+conditional completion from NN/DN reassembly. Six fixed diagrams verify all
+four contact types, an interior first drop and the chain base case. The
+checks include exact edge sets, strict-corner validity, adjacent-interchange
+invariance and the decreasing measure. No states or components are enumerated.
 Proof checkpoint: `9a209a8` (two-anchor transfer and DN incoming-cut preparation).
 Proof checkpoint: `1b4f794` (general exposure and DD/ND inheritance).
 Proof checkpoint: `e1ef5eb` (selected-suffix repair and notebook recurrence).
@@ -137,8 +148,9 @@ Two fixed DN states at n=8 and n=10 check the new preparation at both
 endpoints (10 and 24 flips total), reducing to the proved two-cover lemma.
 No state space at either larger size is enumerated. Both extended notes
 preserve their previous contents verbatim as prefixes.
-Current ownership: right-arm and retained-edge notes, outline, both handoffs,
-and the existing external consumer. No new independent review is claimed.
+Current ownership: coverage note, outline, DD inheritance note, documentation
+routing, both handoffs and the external consumer. No new independent review
+is claimed. Both earlier local-transfer notes are unchanged this increment.
 No Lean/Lake or manuscript build was run; no new worker or consultant.
 Runtime registry and `codex mcp list` were inspected; Lean MCP is rooted at
 RealRooted and unused. No model, account, worker or service-tier change.
@@ -152,7 +164,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/two-anchor-transfer-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/first-drop-coverage-20260929/`.
+Two-anchor receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/two-anchor-transfer-20260929/`.
 Outline/archival checks: `/lake-cache/ai-projects/requests/VerticalStripLLT/component-recurrence-outline-20260929/`.
 Notebook continuation: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-notebook-continuation-20260929/`.
 Exposure continuation: `/lake-cache/ai-projects/requests/VerticalStripLLT/corner-exposure-20260929/`.

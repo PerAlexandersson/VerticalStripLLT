@@ -238,6 +238,10 @@ corner. This distinction is part of the required theorem's hypotheses.
 The exact direct NN/DN initial splits already allow these decorations;
 their general collection into complete components is still open.
 
-Recurrence coverage also remains separate: the present argument assumes
-an eligible DD or ND geometry and does not show that every nonterminal
-ordinary diagram admits one of the four eligible local moves.
+The [first-drop coverage theorem](COMPONENT_RECURRENCE_COVERAGE.md) now
+settles the separate choice-of-recurrence question. Every connected
+saturated ordinary diagram outside the chain base case has an eligible
+NN, ND, DN or DD contact at its first strict area drop. Combined with the
+inheritance above, this gives a forward NN/DN step for the same single
+component, with strictly smaller final targets. General NN/DN collection
+is still required; coverage itself is no longer an open input.

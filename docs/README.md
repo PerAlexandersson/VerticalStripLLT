@@ -14,6 +14,7 @@ proof is unfinished; the separate verified component theorem remains complete.
 | DN: push one component | [Direct split and overlaps](proofs/COMPONENT_DN_DIRECT_OVERLAPS.md) |
 | DN: repair its pieces | [Joint diamonds](proofs/COMPONENT_DN_JOINT_REPAIRS.md), [source additions](proofs/COMPONENT_DN_SOURCE_ADDITIONS.md), [retained edges](proofs/COMPONENT_DN_RETAINED_EDGE.md) |
 | DD and the induction order | [Corner split and measure](proofs/COMPONENT_DD_PACKETS.md) |
+| Choosing a recurrence for every ordinary diagram | [First-drop coverage and conditional induction](proofs/COMPONENT_RECURRENCE_COVERAGE.md) |
 
 [Detailed component catalogue](COMPONENT_NOTE_CATALOGUE.md) retains all the
 supporting notes, earlier constructions and local examples. The outline

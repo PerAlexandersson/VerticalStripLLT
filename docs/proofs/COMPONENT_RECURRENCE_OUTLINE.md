@@ -200,8 +200,9 @@ selected-corner sector. The top row decreases doubled decorated area,
 but after marking that selected corner, reverse DN preserves area and
 increases M. We cannot mix it with forward neutral DN steps and claim
 that (5) decreases. The [direction calculation](COMPONENT_NOTEBOOK_MAP.md#direction-and-the-induction-order)
-records the exact changes. A complete proof must fix a compatible
-recurrence direction and coverage argument as well as reassembly.
+records the exact changes. We now fix the forward direction and use the
+first-drop coverage argument below. The notebook remains the source for
+the split/repair/collection method; its reverse move is not mixed into (5).
 
 Marking a corner is a representation change, not a recursive call on an
 equally large unknown problem. We also do not invoke induction on an unmarked
@@ -213,16 +214,27 @@ supports a flip. Every component is a singleton and its selected relation
 is a disjoint union of chains. A chain with ell vertices contributes e_ell,
 so (1) is immediate by multiplication, including isolated vertices.
 
-We still need a complete choice-of-recurrence argument compatible with (5)
-and the reassembly lemma. The recorded saturated coverage analysis uses
-NN, DN, DD and ND; NN/DN/DD alone miss the diagram of area 012333.
+The [first-drop coverage theorem](COMPONENT_RECURRENCE_COVERAGE.md) supplies
+a complete choice compatible with (5). For a connected saturated natural
+diagram that is not a path, append a_n=0 and choose the first t with
+a_(t+1)<a_t. Then a_t>=2. Put x=t-a_t and y=x+1<t. All entries through
+a_t are nondecreasing, so a_y is a_x or a_x+1. The former gives DN or DD;
+the latter gives NN or ND, according to the strict status of row y.
+The proof checks the full local hypotheses, including the root gap and
+the extra ND/DN area bounds. In particular area 012333 has an ND contact
+at root 25, so it is covered.
+
 The [one-component inheritance argument](COMPONENT_DD_PACKETS.md#direct-one-component-inheritance-for-dd-and-nd)
 reduces DD to DN and ND to NN by unmarking the obstructing corner.
 The selected-corner sector is exactly the same whole component, and the
-final NN/DN outputs decrease (5). Thus general NN/DN reassembly with
-arbitrary exterior decorations suffices for all four eligible types.
+final NN/DN outputs decrease (5). Thus general NN/DN reassembly suffices
+for all four types. More precisely, it is enough to prove reassembly at
+these first-drop contacts, for saturated sources or their intermediates
+with just the upper contact corner unmarked and selected by C.
 No component theorem is assumed in the equal-measure unmarked intermediate.
-Aggregate recurrence coverage alone does not finish the choice argument.
+The coverage note gives the resulting conditional induction, including
+natural-component factorization and the chain base case. Coverage and
+well-foundedness are proved; general whole-component reassembly remains.
 This outline concerns ordinary components. A circular extension requires a
 separate order or reduction for recurrences crossing the chosen cut.
 
@@ -240,7 +252,8 @@ separate order or reduction for recurrences crossing the chosen cut.
 | DN diamonds and minimal components | [Joint repairs](COMPONENT_DN_JOINT_REPAIRS.md) | Both minimal pictures completed; local propagation lemmas |
 | Additional whole source components | [Source additions](COMPONENT_DN_SOURCE_ADDITIONS.md) | Six-vertex example proved; general construction remains |
 | Retained-edge source paths | [Retained-edge repairs](COMPONENT_DN_RETAINED_EDGE.md) | Arbitrary-exterior conditions, selected suffixes and an incoming-cut preparation with multiple obstructions; unrestricted case remains |
-| DD/ND inheritance and induction order | [Corner-unmarking reductions](COMPONENT_DD_PACKETS.md) | DD reduces to general DN, ND to general NN; final targets decrease (5); coverage remains |
+| DD/ND inheritance | [Corner-unmarking reductions](COMPONENT_DD_PACKETS.md) | DD reduces to DN, ND to NN, keeping the same whole component |
+| Recurrence choice and induction | [First-drop coverage](COMPONENT_RECURRENCE_COVERAGE.md) | Proved for every ordinary saturated diagram; NN/DN reassembly is the remaining induction input |
 
 The older [detailed catalogue](../COMPONENT_NOTE_CATALOGUE.md) retains the
 supporting NN tree/bridge arguments, further examples and previous approaches.
@@ -274,9 +287,10 @@ clears a DN incoming cut when its obstructing branches have no selected
 direct wv. A selected direct common branch remains outside that preparation.
 Keep this precise obstruction separate from the already-resolved exposing
 exit and from an assertion that all redundant-arm transfers are proved.
-After those repairs, prove closure of the complete collected components,
-then supply general NN reassembly and a compatible choice-of-recurrence
-argument. The DD/ND inheritance already supplies their one-component steps
-conditional on the required NN/DN theorems with unmarked exterior corners.
-The outline is complete as a logical plan; these general transport and
-coverage assertions remain mathematical proof obligations.
+After those repairs, prove closure of the complete collected components
+and supply the NN reassembly step. The first-drop theorem now gives a
+compatible choice for every ordinary diagram, and DD/ND inheritance supplies
+their component steps from NN/DN. It is enough to settle transport at those
+first-drop contacts and the stated selected-corner intermediates. The
+remaining obligations are the general transport and collection statements;
+coverage is no longer an additional gap.
