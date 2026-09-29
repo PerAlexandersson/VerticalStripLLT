@@ -1,5 +1,52 @@
 # VerticalStripLLT handoff
 
+## Active NN/DN continuation — 2026-09-29
+
+The user authorized work on both independent cases. Starting from clean,
+pushed `725ee04`, primary owns append-only continuations of the NN
+redistribution and DN joint-repair notes, the current outline/handoff, and
+the existing external `nn_component_transport` / `dn_joint_span` diagnostics.
+Prior restrictions and all other ownership remain unchanged.
+
+**Proved:** every unmatched deletion residual for NN or DN can be moved
+into the actual RHS using at most one additional diamond and the eligible
+adjacent swap, with arbitrary exterior and arbitrary bypass length. See
+[NN elimination](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#eliminating-every-unmatched-term-into-the-actual-rhs)
+and [DN elimination](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#eliminating-the-dn-deletion-residual).
+This is state transport, not yet whole-component collection.
+
+**Proved complete repair:** the left DN four-state C_1 has a direct
+[RHS-only recurrence](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#a-direct-rhs-only-repair-for-the-left-four-state-component),
+C_1 = D_8 - T_3 - 2 T_4 - T_5, for both K and E. Four RHS diamonds,
+one internal swap and redundant-edge deletion suffice. Every output is
+a complete component; no source additions or component expansion is assumed.
+The endpoint-attachment theorem applies to these maps as well.
+
+**Finite evidence:** all 210 source components in six fixed NN/DN diagrams
+have integral combinations of whole actual RHS components modulo diamonds,
+redundant-edge equalities and sink-order-preserving poset relabelings.
+Exact K/E checks pass independently. Seven complete-five-vertex NN images
+are outside the span if relabeling is restricted to adjacent swaps which
+stay inside R; general poset relabeling closes all seven. This restricted
+span failure is not a counterexample to the proposed recurrence.
+
+**Still open:** construct these repairs uniformly and prove all output flip
+boundaries close simultaneously. The new residual elimination need not
+preserve the old q-preserving coefficient comparisons. Do not infer a
+uniform theorem from the finite quotient computations, or native weighted
+polynomial recurrence coefficients from the unweighted DN formula.
+Next investigate sink-order-preserving relabeling preparations together
+with RHS diamonds; the previous adjacent-only restriction was too strong.
+
+External consumer: `dn_joint_span --rhs-only-audit --permuted-closures`.
+Frozen sources, exact commands, compiler/check logs and verification are in
+`/lake-cache/ai-projects/requests/VerticalStripLLT/rhs-only-elimination-20260929/`.
+Both old proof notes are preserved verbatim as prefixes. The focused Rust
+consumer checks pass; maintained Rust is unchanged at `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
+Runtime discovery and `codex mcp list` were checked again; Lean MCP remains
+rooted at RealRooted and unused. No Lean build, extra worker or independent
+review. All launched checks have finished.
+
 ## Current direction — direct images of one component
 
 The user has reiterated the four-recurrence argument: start with one complete

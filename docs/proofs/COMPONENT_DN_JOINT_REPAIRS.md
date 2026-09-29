@@ -607,3 +607,106 @@ so that all component boundaries close simultaneously, including exterior
 flips and the left-hand picture. This note settles the complete minimal
 example and supplies identities for the general matching; it does not
 claim that this last compatibility step, or the other recurrences, is done.
+
+## Eliminating the DN deletion residual
+
+2026-09-29. Retain the direct-split notation at the start of this note.
+For every nonzero delta(Q), f is redundant in Q+e+f+q. The deletion
+residual H(Q+e+q) can always be replaced by actual R states, with at most
+one additional diamond:
+
+    H(Q+e+q)=R11(Q)                                   (D1)
+
+if x reaches z in Q. Otherwise choose the first edge alpha=wt on any
+selected w-to-z bypass; put beta=xt. Then
+
+    H(Q+e+q)=R00(sigma Q)+R11(Q-alpha+beta)
+                                  -R00(sigma Q+alpha). (D2)
+
+These are valuation identities for both K and E with arbitrary exterior.
+In the second case x<t<z, beta is absent, and Q contains the entire
+selected t-to-z suffix. The proof is the
+[NN one-diamond elimination](COMPONENT_NN_REDISTRIBUTION.md#eliminating-every-unmatched-term-into-the-actual-rhs),
+carrying e along in its three intermediate terms. In the two q-absent
+terms, the swap sends e to the required e'. In the middle term e' is
+redundant through e,q and can be inserted. In (D1), both e' and r are
+redundant. Thus every output has both required strict edges e',r.
+
+This removes the auxiliary H diagram from the general state-level split.
+It does not assert that the new coefficient function is already constant
+on target components. In particular, full output states can have more
+selected edges than the residual. We use the unweighted induction K=E;
+we do not infer polynomial coefficients for a recurrence in native
+normal-selection weights by dividing by that parameter.
+
+## A direct RHS-only repair for the left four-state component
+
+The component C_1 in the five-vertex left table has a short repair using
+only the actual DN target. Write
+
+    a=01, b=12, c=13, e=02, q=23, p=03, r=34.
+
+The source still has strict 02,24, and
+
+    C_1={02+24+c+B : B in {a,b,q,r}}.
+
+The target has all edges of the complete graph on 0,1,2,3 together with
+34; p,r are strict. In the following brackets p+r are always included.
+The initial DN split gives exactly
+
+    X(C_1)=[ab]+[bc]+[b]-[c]+[ec]+[qc].                (D3)
+
+The eight-state component already checked above is
+
+    D_8={ab,bc,ea,qa,eb,qb,ec,qc},
+
+with the same implicit strict edges. Its missing terms in (D3) are
+
+    X(D_8)-X(C_1)=[ea]+[qa]+[eb]+[qb]-[b]+[c].         (D4)
+
+Apply two diamonds retaining p, exchanging e,q, with backgrounds a and b:
+
+    [ea]+[qa]=[a]+[eqa],
+    [eb]+[qb]=[b]+[eqb].
+
+Next use the p-diamond exchanging a,c and the e-diamond exchanging a,b
+with q retained as background:
+
+    [a]+[c]=[empty]+[ac],
+    [eqa]+[eqb]=[eq]+[eqab].
+
+Finally [ac]=[eq] by swapping vertices 1,2, and [eqab]=[abq] by deleting
+redundant e. The swap fixes the strict edges and has one nonsink endpoint,
+so it preserves both valuations. We obtain
+
+    X(C_1)=X(D_8)-X(T_3)-2 X(T_4)-X(T_5),             (D5)
+    T_3={p+r},   T_4={p+r+e+q},   T_5={p+r+a+b+q}.
+
+All four outputs are whole components of the actual smaller target. The
+three T's are isolated: at T_3 every possible exchange has both shorts
+absent; at T_4 the long p is redundant and the shorts under e are both
+absent; at T_5 every nonadjacent selected edge is redundant. The previous
+D_8 check proves connectivity and absence of exits for its eight states.
+Thus (D5) is a complete component recurrence, with no source additions or
+assumed expansion for another source component.
+
+For orientation, the T valuations are respectively e_(3,1,1), e_(4,1)
+and e_5, since their reachability relations are a chain and isolated
+vertices. We use the diagram equalities above to prove (D5), not a
+comparison of elementary profiles. The target remains smaller in the
+established first-drop order.
+
+Related Rust: the `--rhs-only-audit --permuted-closures` check verifies
+each of the four displayed diamonds, the swap and redundant deletion,
+actual completeness of D_8,T_3,T_4,T_5, and the final equality separately
+for exact K and E. It also verifies integral RHS-only collection for all
+fourteen source components here, all fifteen in the minimal right-hand
+picture, and all twenty-six in the fixed crossing six-vertex picture.
+The full six-diagram table and receipt location are in the NN continuation.
+The general simultaneous boundary repair for NN and DN remains unfinished.
+
+Every map in (D3)--(D5) fixes vertices 0,4, and the only swap is internal.
+The [endpoint-attachment theorem](COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md#endpoint-attachment-theorem-completed-audit)
+therefore extends this same four-term component recurrence to arbitrary
+components attached at these two ends. Its product-component and marked
+HRV arguments apply without assuming expansions for the attached pieces.

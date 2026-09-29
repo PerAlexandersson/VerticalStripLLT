@@ -475,3 +475,110 @@ the source HRV profile. The source has five states and the outputs have
 three, three and one. No extra source component, family scan, maintained
 Rust change or Lean build is used. Frozen sources and build/check output:
 `/lake-cache/ai-projects/requests/VerticalStripLLT/nn-rhs-only-20260929/`.
+
+## Eliminating every unmatched term into the actual RHS
+
+2026-09-29. The following local theorem holds with arbitrary exterior
+selection. It removes the r-absent terms in (2), using at most one extra
+diamond each. It does not yet collect the resulting terms into components.
+
+Write w=a, x=b=w+1, z=c, so f=wz, q=wx and r=xz. We use
+
+    R0(Q)=Q+r,                 R1(Q)=Q+q+r.
+
+Here Q excludes f,q,r and contains the common strict edges. Assume f is
+redundant in Q+f+q, as it must be whenever delta(Q) is nonzero. Then:
+
+* If x reaches z in Q, we have
+
+      [Q+q]=[R1(Q)].                                      (E1)
+
+* Otherwise, choose the first edge alpha=wt of any selected w-to-z
+  bypass in Q+q. Put beta=xt. Then
+
+      [Q+q]=[R0(sigma Q)]
+             +[R1(Q-alpha+beta)]-[R0(sigma Q+alpha)].       (E2)
+
+Both statements hold for K and E. Every term on the right belongs to the
+actual shortened target, including its strict r. The two natural short
+edges alpha,beta are normal, so common strict edges are retained.
+
+**Proof.** In the first case r is redundant, proving (E1). In the second,
+a bypass cannot start with q: that would give x a path to z. It therefore
+starts with wt for x<t<z, and its remaining t-to-z path lies in Q. The
+natural interval under f contains both wt and xt. Moreover beta is absent
+from Q, or x would already reach z. Since f is a natural corner, neither
+alpha nor beta can be a strict corner of the source.
+
+Apply the diamond retaining alpha and exchanging q,beta. Its full term
+has redundant alpha through q,beta. Thus
+
+    [Q+q]=[Q]+[Q-alpha+q+beta]-[Q+beta].                  (E3)
+
+In the first term, swap w,x. The selected bypass becomes an x-to-z
+path, so we may insert r. In the middle term, beta and the unchanged
+suffix already give that path, and again we insert r. In the last term,
+swap w,x: its selection becomes sigma Q+alpha, and sigma Q contains the
+same x-to-z bypass. Insert r there as well. This proves (E2).
+
+The swaps act on the ENTIRE exterior relation. They are forward because
+q is absent in the terms being swapped. In the first term w is a nonsink;
+in the last both w and x are nonsinks. Swapping adjacent vertices with at
+least one nonsink preserves the relative order of all sinks, so it preserves
+the HRV fibre partition. It also preserves K by the induced vertex
+relabeling. The eligible NN hypotheses ensure that sigma Q is an allowed
+common exterior and retains the common strict set, exactly as in the
+original bottom map. No cover hypothesis is used for the diamond in (E3),
+and the bypass suffix may have arbitrary length or meet arbitrary exterior
+edges.
+
+Applying (E1) or (E2) to every nonzero delta term in (2) gives an integral
+state expression supported entirely in R. This proves that the auxiliary
+r-absent diagram is unnecessary for state transport. Uniform collection
+into whole components remains open: these changes need not preserve the
+previously established coefficient equalities along q-preserving flips.
+
+The same one-diamond proof works for DN after carrying its edge e along;
+the precise formula is recorded in the
+[DN continuation](COMPONENT_DN_JOINT_REPAIRS.md#eliminating-the-dn-deletion-residual).
+
+### Finite collection checks and a relabeling distinction
+
+We checked all components of three fixed NN diagrams and three fixed DN
+diagrams, first with RHS diamonds, redundant normal-edge deletions, and
+adjacent nonsink swaps. We then allowed relabelings of the reachability
+poset which preserve the relative order of its sinks. These are still
+valid diagram identifications: a coloring is transported by the poset
+isomorphism, and the highest reachable sink is transported because sink
+order is preserved. Equality of reachability relations permits redundant
+edges to be inserted or deleted. The intermediate presentations need not
+all lie in the fixed RHS natural graph; the resulting two states do.
+
+| Move | Source area | Strict source edges | Source components | Locally uncollected | Uncollected with poset relabeling |
+| --- | --- | --- | ---: | ---: | ---: |
+| NN | 0123 | 03 | 15 | 0 | 0 |
+| NN | 01233 | 03,14 | 24 | 0 | 0 |
+| NN | 01234 | 04 | 116 | 7 | 0 |
+| DN | 01123 | 01,14 | 15 | 0 | 0 |
+| DN | 01222 | 02,24 | 14 | 0 | 0 |
+| DN | 012233 | 02,14,25 | 26 | 0 | 0 |
+
+Every one of the 210 source images has an INTEGRAL combination of whole
+components in its actual RHS diagram, modulo the stated zero relations.
+We also checked the final K and E identities independently and exactly.
+The seven locally uncollected NN components have sizes 80,84,34,4,6,9,5.
+This is an obstruction only to that restricted finite relation span;
+it is not a counterexample to the recurrence. In particular, restricting
+all relabeling preparations to adjacent swaps inside R is unnecessarily
+strong in this example.
+
+Related Rust: the existing external `dn_joint_span` consumer, options
+`--rhs-only-audit` and `--permuted-closures`, uses the maintained sparse
+rational quotient and linear-system APIs, actual-flip component enumeration,
+and strict P-partition / HRV valuations. It constructs the initial images
+from component indicators, checks (E1)/(E2) or their DN counterparts for
+every unmatched exterior, and solves against complete RHS component
+indicators. No component-expansion identity is assumed. Receipts and frozen
+consumer sources are in
+`/lake-cache/ai-projects/requests/VerticalStripLLT/rhs-only-elimination-20260929/`.
+These six finite checks do not prove the uniform collection theorem.

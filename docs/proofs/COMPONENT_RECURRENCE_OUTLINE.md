@@ -16,6 +16,15 @@ not extra requirements of that task. A shorter
 [NN repair entirely in its RHS diagram](COMPONENT_NN_REDISTRIBUTION.md#a-shorter-repair-entirely-in-the-nn-right-hand-diagram)
 now gives the worked example with three target components and no source additions.
 
+The new [residual-elimination lemma](COMPONENT_NN_REDISTRIBUTION.md#eliminating-every-unmatched-term-into-the-actual-rhs)
+moves every unmatched NN or DN term into its actual RHS with at most one
+extra diamond, retaining arbitrary exterior edges. The left DN four-state
+component also has a direct [RHS-only repair](COMPONENT_DN_JOINT_REPAIRS.md#a-direct-rhs-only-repair-for-the-left-four-state-component).
+All 210 source components in six fixed diagrams collect into integral RHS
+component combinations when sink-order-preserving poset relabelings are
+allowed. This finite evidence does not settle uniform collection; the
+new residual replacements can change other output flip boundaries.
+
 ## 1. The identity that gives positivity
 
 We work first with an ordinary decorated natural graph on ordered vertices
