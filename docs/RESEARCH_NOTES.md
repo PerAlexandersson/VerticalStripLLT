@@ -1,5 +1,16 @@
 # Proof notes and research catalogue
 
+## Active recurrence route
+
+The author is developing a separate proof of component e-positivity by
+pushing whole components through the recurrences. Start with
+[the main outline](proofs/COMPONENT_RECURRENCE_OUTLINE.md); its status table
+separates proved reductions and examples from the general reassembly gap.
+[The detailed component catalogue](COMPONENT_NOTE_CATALOGUE.md) preserves
+the supporting notes formerly listed in the main documentation index.
+The completed word/finite-companion proof below is separate and is not used
+as an input to this recurrence argument.
+
 ## Verified results
 
 - [Ordinary completion audit](COMPLETION.md): unconditional expansion,

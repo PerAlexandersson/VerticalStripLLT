@@ -55,7 +55,8 @@ axiom counts are in [HANDOFF](../HANDOFF.md).
 | Actual exterior coloring and HRV transport | `InteriorMergedComponent.boundaryNaturalLift_reversal_iff`, `normalPairs_reversal_iff`, `reversalLift_order_sinks`, `liftStep_exterior_reversal_iff`, `orientSum_exterior_reversal`, `coloringLLT_exterior_reversal`; [exterior geometry](../VerticalStripLLT/Circular/InteriorExteriorBoundary.lean), [actual residual sums](../VerticalStripLLT/Circular/InteriorResidualTransport.lean). Retains all strict edges and removes exactly internal normal edges. |
 | Full aggregate circular expansion | `coloringLLT_shifted_eq_eval_shiftedOrientationExpansion`, `coloringLLT_shifted_eq_orientation_sum`, `coloringLLT_shifted_e_positive`; [Expansion](../VerticalStripLLT/Circular/Expansion.lean), [InteriorReversalReduction](../VerticalStripLLT/Circular/InteriorReversalReduction.lean), [ComponentFactorization](../VerticalStripLLT/Circular/ComponentFactorization.lean). |
 
-Theorem explanations remain in [proofs/](README.md#proof-explanations).
+Theorem explanations are indexed in the
+[research catalogue](RESEARCH_NOTES.md#completed-aggregate-proof-explanations).
 Early examples are isolated in `VerticalStripLLT/Examples/` and excluded from
 the main library imports. Historical planning and request records do not
 constitute proof; every result listed above passed the local pinned toolchain.
