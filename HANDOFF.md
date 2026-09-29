@@ -582,6 +582,9 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Current paired-suffix proof checkpoint: `ed60dcc`. Prior-proof preservation,
+91 local file links and git diff --check pass.
+
 Current paired-suffix increment: four fixed paths pass 17,39,41,29 flips.
 Each preparation, every actual flip, every strict edge, equality before
 target reversal and the final endpoint are checked. The earlier four
