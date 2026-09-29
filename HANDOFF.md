@@ -154,9 +154,10 @@ proof checkpoint, receipt and ownership record, is retained in the
 Only relative Markdown links were adjusted there. The older account-swap
 history and original notebook/Overleaf paths remain available through it.
 
-The maximum-layer proof checkpoint `c2c5a0d` is pushed to `origin/main`.
-The lower-layer continuation preserves both proof-note prefixes at that commit.
+Both proof checkpoints are pushed to `origin/main`: `c2c5a0d` for the
+maximum-layer recurrences and `0ff8024` for lower-layer chain normalization.
+The latter preserves both proof-note prefixes at `c2c5a0d`.
 The outline now removes the stale account-pause and unfinished-attachment
 instructions and routes to the proved attachment theorem and current gap.
-Both frozen receipt hash lists, local file links in the four edited files,
-and `git diff --check` pass. No background job needs monitoring or restarting.
+Both frozen receipt hash lists, all 126 local file links in the four edited
+files, and `git diff --check` pass. No background job needs monitoring or restarting.
