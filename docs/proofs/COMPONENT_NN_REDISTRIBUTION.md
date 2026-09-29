@@ -1694,3 +1694,111 @@ every same-block ordered pair in three fixed diagrams, including an
 empty unmarked corner. No polynomial calculation, Lean build or new
 worker is involved. Frozen sources, commands, counts and receipts are
 under `general-fixed-r-20260929/` in the external project request folder.
+
+## Pairing the middle states when joint selection is absent
+
+2026-09-29 continuation. We retain f=wz, q=wx, r=xz and x=w+1.
+We call an edge a bridge when deleting it disconnects its endpoints in
+the undirected selected graph. This is stronger than being a cover.
+The following argument uses the preceding reachability lemma and actual
+flips only. It applies to both NN and DN, with arbitrary exterior.
+
+### Introducing q while keeping r
+
+**Lemma.** Suppose A selects f,r and omits q. If either f or r is
+not a bridge of A, an actual path introduces q while keeping r selected.
+Every prescribed strict corner stays selected.
+
+First suppose f is not a bridge. In A-f, the vertices w,z are in
+the same weak block; the selected r puts x in that block too. Apply
+the adjacent reachability lemma to w,x in D=L-f. This introduces q.
+The edge r is maximal in D and therefore cannot be exchanged by these
+flips. Every flip lifts after inserting f: an alternate directed path
+using maximal f could not bypass any other natural edge. Thus we have
+the required path with f,r retained.
+
+Now suppose f is a bridge and r is not. Deleting f does not destroy
+a cycle through r, so x,z are weakly connected in A-f-r. The two
+successive corner deletions give the ordinary diagram H=L-f-r.
+Apply the reachability lemma in H to make x reach z. Lift this path
+by inserting r and then f. The first insertion preserves all other
+cover tests because r is maximal in D; the second does so because f
+is maximal in L. The selected weak block of w stays separate from
+the block containing x,z in D. Consequently f stays a bridge, hence
+a cover, throughout this preparation. We have produced a directed
+x-to-z path avoiding r.
+
+Let I consist of the selected incoming tails v with x<v<z which
+are reachable from x. The set I is nonempty. In decreasing order of
+v, perform vz->wv retaining f. These are the same incoming-cut moves
+as before: a bypass of the current vz would end in a larger incoming
+tail already removed. The extra selected r cannot occur in a path
+starting at v>x. Every cut move therefore retains a covering f.
+
+After the cut x no longer reaches z without r. The last inserted wp,
+where p=min I, covers, and x still reaches p. Choose a last cover tp
+on an x-to-p path and perform tp->wt retaining wp. Repeat with p=t.
+The strictly decreasing p eventually reaches x and introduces q.
+All these cover tests end below z, so retaining r does not change
+them. Until the last move, f still covers: any new bypass would begin
+with wt for t>x, but no such t reachable from x can reach z without
+r, and it cannot use the earlier tail x of r. On the final move f
+becomes redundant through q,r. That is allowed: this last flip retains
+wp, not f. We have kept r selected throughout and proved the lemma.
+
+### A component consequence and its precise scope
+
+**Theorem.** Let C be a whole source component containing no state
+which selects both q and r. In every r-selected state of C, both
+f and r are bridges. Hence its same-exterior middle mate belongs to C:
+
+    Q+f+r in C  implies  Q+f+q in C.                  (JS1)
+
+Otherwise the lemma would produce a forbidden jointly selected state
+inside C. Since both displayed arms are bridges, deleting them leaves
+w,x,z in three different weak blocks. In particular f,r are covers,
+and their single actual root flip proves (JS1), restoring exactly Q.
+The paired state also has f,q as bridges.
+
+Thus h01(Q)<=h10(Q) for every exterior Q in this class of components.
+The NN split (2) has only nonnegative coefficients: its only possible
+negative coefficient was h10-h01. In fact every coefficient is zero or
+one. The two summands in h00+h01 have different selected-edge counts,
+whereas one component has fixed edge count; and h11 is zero here.
+We have therefore transported C to a set of smaller-diagram states
+using paired diamonds, endpoint swaps and redundant-f deletion.
+
+This is not yet a whole-component recurrence. It proves the direction
+(JS1), not the reverse for every 10 state. Any unmatched 10 state has
+redundant f by the original exposure argument. Nor have we proved that
+f is a bridge at every 00 or 10 state of C. These stronger assertions
+must not be inferred from the finite examples.
+
+### The remaining output boundary is real
+
+Even the nonnegative image above can omit a neighbor in the target.
+Take the NN source with area 01232, f=24, w=2, x=3, z=4, and no other
+strict edge. The component with seed {01,02,03,24} has eleven states,
+has both short edges varying, and never selects them jointly.
+In D=L-f, the initial image gives
+
+    {03,12,13,34} coefficient 0,
+    {03,13,23,34} coefficient 1.
+
+These states are adjacent by the actual flip 12->23 retaining 13.
+So pairing the middle states and obtaining a nonnegative image does
+not by itself finish the output component. This example has an unmarked
+maximal corner 03; it does not contradict the tree theorem's saturated
+eligible-source hypothesis. Additional diamonds or another permitted
+recurrence are still needed to complete these output pieces.
+
+Related Rust: graph-only `dn_joint_span --nn-joint-shorts` constructs
+both paths in the lemma, replays every step through the actual-flip
+oracle, and checks component membership, strict edges, edge count and
+retention of r. It separately checks (JS1), both bridges and the three
+exterior weak blocks for every applicable component in five NN and six
+DN fixtures. It checks the zero-or-one NN coefficient vector against
+every complete target component, including the displayed failed
+boundary. These are graph and indicator calculations, not polynomial
+or basis calculations. Frozen sources and receipts are in the external
+`joint-shorts-20260929/` directory.

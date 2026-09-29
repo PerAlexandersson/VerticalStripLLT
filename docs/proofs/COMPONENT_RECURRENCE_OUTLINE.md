@@ -53,6 +53,17 @@ lets us follow the swap after a bypass is lost, but does not close the
 q-insertion and retained-corner boundaries. Keep the resulting signed
 terms together when finishing those component brackets.
 
+The [no-joint-selection lemma](COMPONENT_NN_REDISTRIBUTION.md#pairing-the-middle-states-when-joint-selection-is-absent)
+now proves one middle comparison with arbitrary exterior. If a component
+never selects q,r jointly, every r-selected state has both displayed
+arms as bridges and flips directly to its same-exterior q-selected mate.
+Otherwise a corner-deletion preparation and explicit path would introduce
+q while keeping r. Thus its initial NN image has zero-or-one coefficients.
+This does not finish collection: the note gives an actual target flip
+whose endpoints have coefficients zero and one in an unsaturated example.
+The corresponding DN middle residual is nonnegative, but its remaining
+coefficients and whole-component collection still need repair.
+
 The new [empty-corner reduction](COMPONENT_DN_JOINT_REPAIRS.md#dn-through-an-empty-corner-nn-diagram)
 shows that the uniform NN statement would also settle DN. Adding the
 missing corner EMPTY and unmarking its neighbor preserves the exact

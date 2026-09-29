@@ -1,5 +1,51 @@
 # VerticalStripLLT handoff
 
+## Current continuation — middle pairing without joint short selection
+
+Primary continued from clean pushed `4437e5b`, which completed the
+general fixed-r reduction below. Ownership remains this handoff/outline,
+append-only NN/DN notes and the existing external Rust consumer. We retain
+the user's diagram-only direction. No basis calculation, Lean build,
+maintained Rust edit, additional worker or review.
+
+**New proved lemma:** [introduce q while retaining r](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#pairing-the-middle-states-when-joint-selection-is-absent).
+In a 01 state, if either selected arm f or r is not an undirected
+bridge, an actual path introduces q without removing r. For cyclic f,
+delete f, activate adjacent q inside that smaller diagram, and lift.
+For bridge f and cyclic r, delete both corners, make x reach z, lift,
+then cut the incoming z-edges and descend cover forks. The last fork
+inserts q and is allowed to make f redundant; it does not retain f.
+All strict corners, including DN's incoming e, stay selected.
+
+**Component consequence:** if C never selects q,r jointly, every
+01 state has both arms as bridges. Its 10 mate with EXACTLY the same
+exterior lies in C by one actual root flip. Hence h01<=h10. The
+canonical NN image has only coefficients 0 or 1. The corresponding
+[DN consequence](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#dn-middle-pairing-without-joint-short-selection)
+makes its middle residual nonnegative, without a sign claim for the
+other DN coefficients. This is not yet whole-component collection.
+
+**Verified:** graph-only `--nn-joint-shorts` constructs 8467 paths with
+12503 actual flips. All 340 selected-r states in 66 applicable components
+(1220 states) have the proved bridges and exact mates. The 49 NN images
+all have zero-or-one coefficients; 42 are whole and 7 omit target
+neighbors. The note records a concrete missing neighbor in area 01232,
+source seed {01,02,03,24}. This unsaturated-source example does not
+contradict the saturated tree theorem. Frozen sources, command and logs:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/joint-shorts-20260929/`.
+The final run exited zero with empty stderr; no launched process remains.
+
+**Remaining full goal:** general collection when both q and r vary.
+Even without joint selection, nonnegative coefficients need not be
+constant on a target component. Complete these output pieces with
+diamonds/endpoint maps or another permitted recurrence. The finite
+observation that f is a bridge at ALL states of the 66 components is
+not proved; the theorem only asserts this on their selected-r sector.
+Do not promote the one-way middle pairing to a general equivalence.
+The goal remains active. Previous proof notes remain verbatim prefixes;
+136 local file links, frozen receipt hashes and `git diff --check` pass.
+Maintained Rust is clean at `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
+
 ## Current continuation — all fixed-terminal-short cases are reduced
 
 Primary resumed from clean pushed `e559bc3`; the preceding turn made
@@ -50,6 +96,7 @@ The goal remains active. All launched diagnostics have finished.
 Previous proof notes remain verbatim prefixes; 132 local file links,
 frozen receipt hashes and `git diff --check` pass. Maintained Rust is
 clean at `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
+Proof checkpoint `4437e5b` is pushed to `origin/main`.
 
 ## Current continuation — fixed terminal short with variable adjacent short
 

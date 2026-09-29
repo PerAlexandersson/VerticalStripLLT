@@ -1193,3 +1193,27 @@ has both q and r varying. The assertion that those remaining pieces
 collect in general is still unproved. The six graph-only DN fixtures
 verify the new paths and exact smaller-component images; their frozen
 receipt is in `general-fixed-r-20260929/`.
+
+## DN middle pairing without joint short selection
+
+2026-09-29 continuation. The
+[joint-short path lemma](COMPONENT_NN_REDISTRIBUTION.md#pairing-the-middle-states-when-joint-selection-is-absent)
+applies directly to DN, retaining the strict incoming e=uw. If C has
+no state selecting both q=wx and r=xz, then every r-selected member
+has f=wz and r as bridges. Otherwise deleting the appropriate maximal
+corners, applying the reachability lemma and lifting its flips would
+introduce q while retaining r. In the second case an incoming cut and
+descending cover forks supply the final q insertion.
+
+Consequently every L01(Q) in C has its same-exterior L10(Q) mate in C
+by one actual flip retaining f. In the DN initial split, the residual
+coefficient delta=h10-h01 is therefore nonnegative for this class.
+This does not assert nonnegativity of all the other DN coefficients,
+or whole-component collection of the image. The additional fixed
+strict e causes no exception to the path proof or to this pairing.
+
+The six DN fixtures in `--nn-joint-shorts` check the paths and pairings
+with all strict decorations retained. The full two-variable DN
+component recurrence remains unproved; the new result supplies one
+of its middle-state comparisons, with the stated no-joint-selection
+hypothesis. Frozen sources and receipts are in `joint-shorts-20260929/`.
