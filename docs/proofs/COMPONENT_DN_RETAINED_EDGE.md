@@ -2332,3 +2332,166 @@ The entire prior note remains a verbatim prefix. No Lean/Lake build,
 worker, consultant, maintained Rust edit or independent review was used.
 The general retained-edge and left comparisons and whole-component
 reassembly remain open; the requested recurrence proof is unfinished.
+
+## Allowing incoming bypasses below s as well
+
+2026-09-29 continuation. We remove the last condition in (59), which
+restricted all proper incoming tails at t to lie above s. The lower
+incoming edges can instead supply the covering long used in the final
+flip, after we expose the largest relevant tail.
+
+**Theorem.** Keep the opening Q conditions. Suppose
+
+    r=xz and sz cover in Q;
+    every w-to-z path in Q-f passes through t.       (61)
+
+Then Q+xs~Q+st, with arbitrary exterior and every other edge restored.
+There is no cover assumption on wt and no restriction on the proper
+incoming edges at t. The direct tz may be absent or redundant, and
+arbitrary competing paths are allowed below and above t.
+
+If t does not reach z, the path hypothesis makes f a cover in Q.
+Adding xs cannot change that cover, since w cannot reach the adjacent
+x without wx. The earlier f-cover theorem applies. We henceforth assume
+t reaches z and give the construction.
+
+As before, (61) implies w does not reach s: a path to s followed by
+sz would avoid t. Define the upper incoming cut and the final lower tail
+using the ORIGINAL Q:
+
+    H={h : s<h<t, ht selected, w reaches h};
+    y=max{h : w<h<s, ht selected, w reaches h},
+      or y=w if this set is empty.                  (62)
+
+The edge yt is selected in either case. We have y!=x, and y does not
+reach s. The edge yt may be redundant initially; we do not retain it
+until the upper cut has exposed it.
+
+### Borrow the suffix, then expose the lower long
+
+Use the borrowing path P from the preceding proof: take the decreasing
+incoming cut at z along the t-to-z cone and carry its last new long
+backwards to create st. At its endpoint, st,sz,f cover and t does not
+reach z. The only change made by P in an interval with head at most t
+is the addition of st. Its other new edges are sb with b>t originally
+on a t-to-z path, and its deletions have tails at least t.
+
+Now make the H-cut, in decreasing order, exchanging ht->sh while
+retaining st. Its last-edge cover proof is unchanged. The completed
+cut removes every h-to-t path for h in H. It keeps sz covering, because
+any h-to-z path with h in H originally passed through t, and the
+borrowing path has cleared that suffix. It also keeps f covering:
+the new sh cannot be used from w, which still does not reach s.
+
+The original w-to-y paths lie below s and survive both preparations.
+Choose one saturated path and carry the long f=wz forwards along it,
+exchanging ab->bz while retaining az at each step. Call this prefix
+preparation R. Its path shorts cover, since all prior additions have
+heads above y. Each new short gives the next covering long, ending
+with yz. The edge sz remains covering, because every new long of R
+starts below s. If y=w, R is empty and this anchor is simply f.
+
+Exchange sz->ys while retaining yz. Then immediately reverse R,
+keeping ys selected and sz absent. This inverse is actual. The new ys
+ends above every tested path short. It cannot bypass a tested long az,
+since removing the covering sz left no s-to-z path. Every edge changed while reversing R starts below s, so that exclusion
+persists throughout the inverse. No edge used by R is sz or ys.
+We restore the entire original w-to-y prefix, including any competing
+paths and any redundant direct wy.
+
+We can now exchange xs->sz while retaining r. The original Q had r
+covering. All remaining temporary additions from P and H start at s,
+and, with sz removed, s does not reach z. The edge ys cannot create
+an x-to-z bypass either. For y=w it starts below x; otherwise x does
+not reach y, since the original selected yt and t-to-z suffix would
+contradict the cover of r. None of our preparations adds a path ending
+at y<s. The edge xs still covers for the same reason. This flip is
+actual and restores sz.
+
+### Restore the suffix before using yt
+
+Relative to the endpoint of P followed by the H-cut, we have now changed
+ONLY xs to ys. Both edges have tails below s. We can reverse P while
+keeping the H-cut and ys in place.
+
+The obstruction check is the same as in (59), without any condition on
+lower incoming tails. For h in H and any b>=t on an original t-to-z
+suffix, a path from h to b in Q must pass through t; otherwise it gives
+a w-to-z path avoiding t. The H-cut clears every h-to-t path. During
+suffix restoration, a path starting at h uses only edges of Q-H,
+because the other temporary arms start at s<h. Consequently an added
+sh cannot bypass any tested long sb or sz. The other tested edges of
+P start at or above t and cannot use those sh at all. The change from
+xs to ys has tails below every tested interval and is harmless.
+Every inverse flip is actual.
+
+After reversing P the exact state is
+
+    Q-H+{sh : h in H}+ys.
+
+Here yt covers. A bypass in Q-H would have a final edge kt with k>y.
+If k<s, it contradicts the choice of y in (62); k=s is impossible
+because st is absent in Q; every k>s reached from y also is reached
+from w, so kt belongs to H and has been removed. This argument includes
+y=w when there is no proper lower incoming tail.
+
+The added ys and sh do not create another bypass. Originally s did
+not reach t, and each h in H no longer reaches t after the cut. Thus
+s still does not reach t before st is inserted. Also ys covers, since
+y did not reach s in Q and all other additions start at s. We may
+therefore exchange
+
+    ys -> st [retain yt].                           (63)
+
+Finally reverse the H-cut. Its cover tests all lie in [s,t]. The
+borrowing path changed this interval only by adding st, which (63)
+has just reinserted. The prefix preparation has been fully restored,
+and the removal of xs affects only an edge starting below s. Thus the
+relation on every tested interval is exactly the corresponding forward
+relation. Every inverse is actual and the final state is exactly Q+st.
+This proves (61), restoring all exterior edges and strict decorations.
+
+If P has b moves, H has k edges and R has m moves, the path has
+2b+2k+2m+3 flips. For a direct covering tz and a covering lower pair
+wy,yt with w<y<s, its smallest row is
+
+    tz -> st [sz],    wy -> yz [f],    sz -> ys [yz],
+    yz -> wy [f],     xs -> sz [r],    st -> tz [sz],
+    ys -> st [yt].
+
+The general construction allows wy and yt to be initially redundant,
+allows wy to be absent, and permits arbitrary competing lower-prefix
+and upper-suffix paths. It also includes the preceding upper-only
+construction as y=w, with no prefix preparation.
+
+Under the background covers r,sz, an unresolved retained-edge defect
+must therefore have BOTH a redundant wt (by (58)) and a w-to-z path
+in Q-f avoiding t (by (61)). Failures of those background covers remain
+separate cases. These are pointwise restrictions; we do not infer
+independent reducibility of whole source components or complete recurrence
+reassembly from them.
+
+### Checks of the lower-tail extension
+
+Related Rust: external `first_join_tree_lifts.rs`, generalized helper
+`retained_dominated_suffix`, option `--retained-dominated-lower`.
+Four constructed paths pass: a fixed n7 state uses seven flips; three
+fixed n12 states use seventeen flips each. They include lower and upper
+incoming tails simultaneously, initially redundant wy and yt, competing
+w-to-y paths, absent/redundant tz and a three-edge borrowed suffix.
+The consumer checks yt's cover after the upper cut and again before
+its final use, as well as every actual flip, strict edge and exact endpoint.
+
+Because the existing helper was generalized, its earlier upper-only
+fixtures were replayed: the 7,15,15,17-flip paths still pass, as does
+the two-state prefix-push obstruction. No n12 state space is enumerated.
+The separate fixed n7 discovery comparison visited 849 states and found
+the displayed seven-flip row; the proof is the uniform construction above.
+
+Sources and receipts are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-lower-containing-bypass-20260929/`.
+The complete previous proof note remains a verbatim prefix. No Lean/Lake
+build, worker, consultant, maintained Rust edit or independent review
+was used. The unrestricted retained-edge and left comparisons and
+whole-component reassembly remain open; the full e-expansion proof is
+still unfinished.
