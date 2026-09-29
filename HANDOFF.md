@@ -503,7 +503,8 @@ the target preparation. Every actual flip, strict edge, exact prepared
 state and final endpoint passes; no state space is enumerated.
 The prior retained-edge note remains a verbatim prefix; the right-arm
 note is unchanged. No Lean/Lake build, worker, consultant, maintained
-Rust edit or independent review. Proof checkpoint pending.
+Rust edit or independent review. Proof checkpoint: `310f2b7`.
+Prior-proof preservation, 82 local file links and git diff --check pass.
 
 Current comparable-suffix increment: two fixed n12 one-sided shared-arm
 paths pass 22 flips each, with both root orders, a clearing below h,
