@@ -1,5 +1,51 @@
 # VerticalStripLLT handoff
 
+## Current continuation — two recurrences resolve an empty-corner example
+
+Primary resumed from clean pushed `c34e458`; the preceding turn made
+verified progress. Ownership and diagram-only restrictions are unchanged:
+this handoff/outline, append-only NN/DN notes and existing external
+consumers. No basis/quotient calculation, Lean build or additional worker.
+
+**Proved fixed component recurrences:** [using DN to separate an NN pair](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#using-dn-to-separate-two-surviving-nn-components).
+In area 012333 with strict 14,25, the standard seven-edge NN completion
+of an empty-03 component C_69 is exactly C_69+C_126. The other component
+selects 03. Both survive strict-corner and mixed-cycle reductions. Thus
+the previous same-layer inactive-only correction cannot handle this source.
+This is not an obstruction to other edge layers or direct RHS diamonds.
+Deleting absent 03 from C_69 merely returns the original DN input; do not
+count that as a completed DN reduction.
+
+We resolve this example by using BOTH recurrences. In its native DN source
+012233, C_69 is the full seven-edge layer except one isolated state.
+The DN target has the same 69+1 split, and the singleton states correspond
+under the bottom swap. Subtracting them proves C_69 = D_69 in whole
+components. In the NN image of C_69+C_126, cancel D_69 using that identity.
+The result is a positive sum of eight whole target components for C_126,
+with sizes 52,33,29,1,3,4,1,3. The note lists their seeds and gives the
+full diagram derivation. Every final diagram decreases the proper original
+source order. No component expansion or polynomial comparison is used.
+
+**Uniform extension:** all swaps fix endpoints 0,5, so the proved
+endpoint-attachment theorem extends both identities to arbitrary chosen
+components attached at BOTH ends. This does not allow crossing exterior.
+A fixed two-triangle attachment checks eleven whole products: DN has
+276 states on each side, NN 504 on each side.
+
+**Checks:** `dn_joint_span --nn-empty-completion` checks all source joins,
+the exact two-component class, common/native mixed-acyclic witnesses,
+the two DN layers and singleton swap, every NN target coefficient and
+whole component, and the attached products. It uses graph routines only.
+Rust capability guide/metadata/APIs, runtime registry and `codex mcp list`
+were checked. Frozen sources, commands and receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/empty-nn-correction-20260929/`.
+
+The full goal remains active: general NN collection with arbitrary exterior
+and the required empty corners is unproved. A universal assertion that
+forced additions are always inactive is unavailable. The new example shows
+how an independent recurrence can replace deletion; it does not prove that
+such a replacement is always available. Direct RHS diamonds remain allowed.
+
 ## Current NN continuation — whole-component certificate and right attachment
 
 Primary resumed from clean pushed `b9239d1`; the prior turn made verified

@@ -1096,3 +1096,159 @@ attachment proof above is the justification beyond this fixed check.
 The general NN collection theorem, and therefore the DN consequence,
 remain open. This continuation supplies a direct component certificate
 and its right-end extension, not a claim of uniform reassembly.
+
+## Using DN to separate two surviving NN components
+
+2026-09-29 continuation. The inactive additions in the preceding example
+do not suffice for the standard same-layer completion in every empty-corner
+source needed in the DN reduction. We give the precise obstruction and then resolve this
+example by using DN as well as NN. All calculations below concern
+whole components and diagram maps.
+
+Let N have area 012333 and strict edges 14,25. We use NN at f=25,
+with q=23 and r=35. The unmarked corner 03 has fixed status on each
+source component. There are two distinct connected seven-edge components
+
+    C_69:  seed {01,02,12,13,14,23,25}, size 69,
+    C_126: seed {01,02,03,12,13,14,25}, size 126.
+
+The first omits 03 and the second selects it. Their source completion
+under the standard NN middle and target-flip joins is exactly their
+union. In particular the upper join associated with the target triangle
+123 equates membership at the following representatives:
+
+    {01,02,12,13,14,25,35} in C_69,
+    {01,03,13,14,23,25,35} in C_126.
+
+These are imposed joins for completing the NN image, not actual source
+flips. They cannot be actual source connections, since a maximal corner's
+selected status cannot change.
+
+Both components contain a state acyclic after reversing the common
+strict edges 14,25. Thus neither can be removed by an everywhere-redundant
+strict corner or by the mixed-cycle deletion rule for those stricts.
+Thus the standard completion at seven selected edges forces a surviving
+addition; it cannot be made using inactive seven-edge additions alone.
+This does not exclude corrections using different edge layers or further
+RHS diamonds. Nor does it refute the recurrence or the saturated isolation
+question.
+
+There is also an induction trap to avoid. Deleting absent 03 from C_69
+and marking its selected corner 02 gives its original DN representation
+L of area 012233, strict 02,14,25. That identity map returns to the
+original DN problem. It cannot by itself be counted as a completed DN
+reduction. Conversely, marking 03 in C_126 gives the saturated diagram
+with strict 03,14,25. The respective states
+
+    {01,02,13,14,23,25,45} in C_69,
+    {01,03,12,14,25,34,45} in C_126
+
+remain mixed-acyclic with these native strict markings. The additional
+markings do not supply an inactive-corner solution either.
+
+### First apply DN to the smaller representation
+
+In L there are eight normal edges. Its seven-edge layer has four
+selected normals, so it has 70 states. It is exactly C_69 together with
+the singleton component
+
+    S={01,02,12,14,24,25,45}.
+
+The DN target R has area 012332 and strict 03,14,35. Its seven-edge
+layer likewise consists of a 69-state component D_69 and the singleton
+
+    S'={01,03,13,14,34,35,45}.
+
+These component assertions are verified by complete actual-flip checks
+in the two fixed layers. A seed for D_69 is
+
+    {01,02,03,12,13,14,35}.
+
+The full DN layer goes to the full target layer. Indeed, for each
+exterior selection the two middle states have equal edge counts, so
+they occur together or neither occurs. Pair them by the diamond, use
+the empty/full endpoint maps, and use the target diamond. The swap
+preserves the number of exterior edges, and the result is exactly the
+indicator of the target seven-edge layer.
+
+The bottom endpoint swap 2<->3 takes S to S' on the entire selected
+relation. It preserves the sink order: the isolated vertex 3 becomes
+2 and the other sink remains 5. Subtracting this singleton identity from
+the full-layer identity gives the complete DN recurrence
+
+    X(C_69)=X(D_69),                    X=K,E.       (E1)
+
+This uses the DN diagram identity and whole-component checks; it does
+not appeal to the component expansion or to matching polynomial values.
+The target has the same area as L and smaller moment, so (E1) is a
+valid forward DN step in the induction order.
+
+### Now finish the NN component bracket
+
+Return to N and the NN target Y of area 012332, strict 14,35, with 03
+unmarked. The component D_69 is still whole in Y: it selects the maximal
+corner 03, so unmarking it changes no available flip.
+
+Applying the proved NN construction to C_69+C_126 gives D_69 plus the
+eight whole Y components in the table below. Each term has coefficient
+one. The construction's coefficients agree across every actual target
+flip; the fixed check verifies the entire target components, not only
+their displayed seeds.
+
+| Whole Y-component seed | Size |
+| --- | ---: |
+| 01,02,03,12,14,35 | 52 |
+| 01,02,12,13,14,35 | 33 |
+| 01,02,12,13,14,23,35 | 29 |
+| 01,02,12,14,24,35 | 1 |
+| 01,02,12,14,23,24,35 | 3 |
+| 01,03,13,14,34,35 | 4 |
+| 02,13,14,34,35,45 | 1 |
+| 01,02,13,14,34,35,45 | 3 |
+
+Use (E1) to cancel C_69 against D_69. We obtain
+
+    X(C_126)=sum_(eight displayed components D) X(D),
+                                                 X=K,E. (E2)
+
+The sizes sum to 126. Every final diagram has fewer natural edges than
+N. This is a complete NN collection for C_126, and (E1) handles the
+empty-corner component which forced its addition. It illustrates why
+using another recurrence can succeed when deleting inactive components
+alone cannot.
+
+### Endpoint attachments and the remaining scope
+
+All swaps in (E1),(E2) exchange 2,3 and fix endpoints 0,5. Their diamonds
+and redundant-edge identities preserve the endpoint-marked quantities.
+Consequently the proved
+[endpoint-attachment theorem](COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md#endpoint-attachment-theorem-completed-audit)
+extends both identities to arbitrary chosen components attached at BOTH
+ends, with no edges crossing between block interiors. No component
+expansion for either attachment is assumed.
+
+A fixed check attaches the two-state triangle component at each end.
+After shifting the middle vertices by two, the three areas are
+
+    DN source: 0121223312,
+    NN source: 0121233312,
+    common target: 0121233212.
+
+All eleven products (the two terms of (E1), the source of (E2), and its
+eight outputs) are complete actual components. Their sizes are 276 on
+each side of (E1), and 504 on each side of (E2).
+
+Related Rust: `dn_joint_span --nn-empty-completion` checks the two source
+components, their exact completion class, the displayed forced join,
+mixed-acyclic witnesses with both common and native strict markings,
+the two 70-state DN layers and their singleton swap, all NN target
+coefficients and component sets, and the eleven attached products.
+It uses graph routines only, without polynomial or quotient calculations.
+Frozen sources and receipts: `empty-nn-correction-20260929/` under the
+external request folder.
+
+The general NN collection problem is still open. We have not proved
+that every forced extra component admits a suitable independent recurrence,
+or that direct RHS diamonds always complete the image. The two identities
+here resolve this particular empty-corner obstruction and extend under
+the stated attachments; they are not an extrapolation to crossing exterior.

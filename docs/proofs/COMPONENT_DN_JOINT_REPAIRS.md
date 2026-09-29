@@ -1075,3 +1075,15 @@ of the final diagram order in six fixed examples. Source component
 counts are 3,15,14,26,28,78 (four through eight vertices), with crossing
 and attached exterior examples included. Frozen sources, commands and
 receipts: `empty-corner-dn-20260929/` under the external request folder.
+
+## A completed DN step inside the empty-corner example
+
+The [two-recurrence continuation](COMPONENT_NN_REDISTRIBUTION.md#using-dn-to-separate-two-surviving-nn-components)
+now gives a direct diagram proof for the 69-state component of area
+012233, strict 02,14,25. It is the seven-edge layer minus one isolated
+state; the target has the same 69+1 decomposition, and the bottom swap
+matches the isolated states. Subtracting that singleton identity gives
+one whole target component. This DN identity then removes the surviving
+addition from a 126-state NN image. Both identities extend to arbitrary
+components attached at the two fixed endpoints. This is a completed
+example, not a general DN or NN collection theorem.

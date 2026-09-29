@@ -71,6 +71,14 @@ extends it to arbitrary components attached on the right, where the NN
 swap fixes the shared endpoint. These results do not close arbitrary
 crossing exteriors or the general empty-corner NN source.
 
+The [two-recurrence example](COMPONENT_NN_REDISTRIBUTION.md#using-dn-to-separate-two-surviving-nn-components)
+now resolves an empty-corner case where same-layer completion forces two
+surviving source components. A DN full-layer calculation minus one matched
+singleton handles the 69-state component; substituting it into their NN
+component union handles the 126-state component. Both identities extend
+to arbitrary endpoint attachments on both sides. This is a direct diagram
+certificate for that case, not a general assertion about forced additions.
+
 ## 1. The identity that gives positivity
 
 We work first with an ordinary decorated natural graph on ordered vertices
