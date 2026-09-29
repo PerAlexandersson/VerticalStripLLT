@@ -119,3 +119,4 @@ history and original notebook/Overleaf paths remain available through it.
 Verification preserves both previous proof-note prefixes and the complete
 archived handoff; 155 local file links, frozen receipt hashes and
 `git diff --check` pass. No background job needs monitoring or restarting.
+Proof checkpoint `b861fb7` is pushed to `origin/main`.
