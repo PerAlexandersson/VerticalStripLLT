@@ -690,3 +690,213 @@ Sources and receipts are under
 The complete previous note is preserved as a verbatim prefix. No Lean/Lake
 build, worker, consultant, maintained Rust edit or independent review was
 used. These local source paths do not claim whole-component reassembly.
+
+## Clearing or advancing the target branch
+
+2026-09-29 continuation. We remove the target-root path restriction from
+(A7). This allows the proper incoming tails in (A10) to be comparable.
+We retain all previous statements and their proofs as special cases.
+
+**One-sided shared-suffix lemma.** Let u,v be distinct with u,v<h<d<c.
+Suppose B contains covering uc,vc,uh,vh, selects ud, omits vd, and
+
+    h reaches d;
+    B-ud-uh has no u-to-d path.                      (A12)
+
+Then B~B-ud+vd, restoring every other edge and preserving both outer
+covers at the endpoint. We impose no restriction on the other v-to-d
+paths. Neither adjacency nor an ordering of u,v is required.
+
+We first prepare the target root v so that (A7) holds for both roots,
+possibly with a larger shared first endpoint h. At each completed step
+we maintain the four covers uc,vc,uh,vh and (A12). The roots remain
+incomparable. Also d does not reach c: this follows initially from the
+cover of uc with ud selected and will persist throughout the preparation.
+
+Choose the smallest a with v<a<d, a!=h, such that va is selected and
+a reaches d. If there is no such a, the preparation is finished. There
+are two possible steps.
+
+### Clear a branch not reached from h
+
+Suppose h does not reach a. The edge va covers. A bypass would start
+with a smaller selected vb leading to a and hence to d. By minimality
+its only possible first head is h, but h does not reach a. Exchange
+
+    va -> ac [retain vc].
+
+The edge ac was absent because vc covered, and the flip preserves that
+cover. It also preserves uc: by (A12), a path from u to a would have
+to start with uh (the direct ud ends above a), contrary to h not reaching
+a. Thus the new ac cannot bypass uc. The covers of uh,vh persist, and
+h-to-d reachability is unchanged. The new edge ends at c>d, so it creates
+no competing u-to-d path. This step removes one target arm.
+
+This case includes a<h. The head a may also lie between the two roots;
+that causes no problem, since the new ac still starts strictly above v.
+
+### Advance the shared endpoint along a reached branch
+
+Suppose h reaches a, so h<a<d. First exchange uh->hc, retaining uc.
+Now use the cut-and-path preparation inside hc from the preceding lemma,
+with a in place of its endpoint d: cut every proper outgoing hb leading
+to a, including ha if selected, and carry the last new bc along a
+saturated path to a. Denote this inner preparation by P_a. It leaves
+hc and ac covering and clears every h-to-a path. All its changes below
+c have heads at most a; its new edges ending at c have tails in [h,a].
+
+The source anchor uc stays covering throughout P_a. After uh is removed,
+u reaches no vertex b<d leading to d, by (A12); the selected ud ends
+too high to reach b. Every new bc has b<=a<d and originally leads to a
+and then d. Thus none can create a bypass of uc. In particular, ua is
+absent. We can perform
+
+    ac -> ua [retain uc],
+    vh -> ha [retain va].                            (A13)
+
+For the second flip, va now covers. Every original v-to-a path other
+than va starts with vh: any other first head would be a smaller member
+of the set used to choose a. The preparation cleared every h-to-a
+suffix, and its additions end at c>a. The edge vh still covers, ha is
+absent, and so the second flip is actual. The newly created ua continues
+to cover after adding ha, since u does not reach h once uh is removed.
+
+At this endpoint both outer anchors cover. The source uc cannot acquire
+a bypass through ha because u does not reach h. For the target vc, the
+new edges ending at c have tails b<=a. After vh is removed, v reaches
+none of those tails b<a: an earlier target arm leading there, and hence
+to d, would contradict the choice of a. The tail a has lost ac in the
+first flip of (A13). The new ua starts at the inaccessible other root,
+and the new ha starts at the now unreachable h. Thus no new edge
+bypasses vc.
+
+We have obtained covering ua,va in place of uh,vh. The vertex a still
+reaches d, since its suffix lies above the interval changed by P_a.
+Every competing u-to-d path starts with ua: uh was removed, no original
+u-path avoiding uh reached the old suffix by (A12), and the only new
+u-arm is ua. Thus (A12) holds with the shared endpoint advanced from
+h to a. Other target branches, including ones not reached from this new
+endpoint, may remain; they are treated by subsequent steps.
+
+### Termination and restoration
+
+Each clearing step removes va. Each advancing step removes the OLD
+vh and keeps the selected va as the new shared arm; its other additions
+do not start at v. Thus the number of selected target arms with head
+below d decreases by one at every completed step. The procedure terminates.
+All flips have been justified using the complete selected exterior.
+
+At termination, every v-to-d path starts with the current vh, and (A12)
+gives the corresponding property at u after removing ud. Apply (A8) to
+this prepared state, replacing ud by vd and restoring its entire background.
+Let R be the whole preceding preparation, including its clearings, inner
+paths P_a and endpoint advances. We can undo all of R after this transfer.
+
+Indeed, every edge tested by R is of one of the following forms:
+
+- an edge with head strictly below d;
+- one of the two outer anchors uc,vc;
+- an edge bc with b>v.
+
+The new vd cannot bypass an edge of the first kind, because its head is
+d. It cannot bypass an edge of the last kind, because its tail v is
+below b. It cannot bypass an outer anchor either: d never reaches c
+in a preparation state. The original graph had no such path, and every
+new edge ending at c in R starts strictly below d. Every other new
+edge also has head below d. Removing ud can only help these cover tests;
+R never exchanges or retains ud or vd. Thus each inverse flip is actual,
+by comparison with its full forward state. This restores every edge except
+the desired ud-to-vd change and proves the one-sided lemma.
+
+If R has r moves and the final shared-suffix preparation in (A8) has b,
+this gives 2r+2b+6 moves. No shortest-path assertion is needed. Every
+exchanged edge is a normal short inside one of the selected natural
+longs used in the construction; all strict decorations are preserved.
+
+## Background-anchor transfer with an arbitrary suffix
+
+**Theorem.** Let u,v be distinct vertices below d<c. Suppose Q contains
+covering uc,vc and has neither a u-to-d nor a v-to-d path. Then
+
+    Q+ud ~ Q+vd,                                    (A14)
+
+with arbitrary exterior, arbitrary cycle rank and every other edge restored.
+No selection or cover assumption is imposed on dc or on any other suffix
+edge. The two outer anchors need only cover in Q, before the arm is added.
+
+If dc is absent, this is (A3). Suppose dc is selected. Use the two
+opposite incoming cuts of (A11), now with the full set
+
+    I={h : d<h<c, hc selected in Q, d reaches h}.
+
+Their last-edge argument did not require the members of I to be
+incomparable: in decreasing order each hc covers when removed, and dc
+covers after all proper incoming edges in this set have been removed.
+We again reach the exact states
+
+    Q0+ud+vd+{vh : h in I},
+    Q0+ud+vd+{uh : h in I},
+
+where Q0 removes dc and all the displayed hc from Q. Both outer anchors
+and both root arms ud,vd cover. All reachability inside [d,c) is unchanged.
+
+Transfer vh to uh for h in I in INCREASING order, using the one-sided
+shared-suffix lemma. Its moving root is v, its target root is u, its
+shared first endpoint is d and its moving endpoint is h. The moving
+root's remaining added proper arms have heads greater than h, so cannot
+start a path to h. In Q itself v could not reach h, since hc was selected
+and vc covered. Consequently every competing v-to-h path starts with vd.
+This is the one-sided condition (A12). The target root u may already reach
+h through an earlier transferred uk; the new lemma explicitly allows it.
+
+Each complete transfer preserves both outer covers and restores all other
+edges, including the shared pair ud,vd. After all transfers, we are exactly
+at the second prepared state. Reverse the recorded target cut. Every
+inverse is actual at its exact endpoint, proving (A14). Together with
+(A3), this handles every possible status and redundancy pattern of the
+suffix, including arbitrarily many comparable proper incoming tails.
+
+### The previously uncovered six-vertex configuration
+
+The example following (A10) is now covered. After its first proper-arm
+transfer, the state needing 14->04 is
+
+    B={05,15,02,12,03,14,23,34}.
+
+The shared endpoint is 2, and the obstructing target arm is 03. The
+advancing preparation is the explicit four-flip row
+
+    12 -> 25 [retain 15],
+    23 -> 35 [retain 25],
+    35 -> 13 [retain 15],
+    02 -> 23 [retain 03].
+
+The shared endpoint is now 3. Apply the earlier eight-flip lemma there
+to replace 14 by 04, then undo these four flips. This takes sixteen
+flips for the remaining proper-arm transfer. Including both incoming
+cuts and the first eight-flip transfer gives a thirty-flip path for the
+original background-anchor comparison. Its role is illustrative; the
+proof above does not restrict the exterior to these six vertices.
+
+### Verification of the unrestricted suffix construction
+
+Related Rust: external `first_join_tree_lifts.rs`, new helper
+`shared_suffix_one_sided_path` and generalized `selected_suffix_anchor_path`.
+The first helper asserts its cover and source-path invariants after every
+completed clearing or advance, checks the earlier shared-suffix path, and
+reverses the exact preparation. The second checks both incoming cuts,
+their exact prepared-state match and the exact final relation.
+
+`--shared-suffix-one-sided` checks both root orders in two fixed n12
+states, each with a clearing below h, an advance, and a later clearing
+above the new shared endpoint. Both paths have 22 flips.
+`--comparable-suffix-anchors` checks the recorded n6 pair in 30 flips,
+a fixed n12 configuration with four comparable incoming tails in 98
+flips, and an n12 fork with incomparable earlier tails that both reach
+a later tail in 48 flips. The fork exercises clearing after an advance;
+the chain exercises several successive advances. Every actual flip,
+strict edge, invariant and exact endpoint passes. No state space is
+enumerated. Sources and receipts are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-comparable-suffix-20260929/`.
+The previous proof text remains a verbatim prefix. No Lean/Lake build,
+worker, consultant, maintained Rust edit or independent review was used.

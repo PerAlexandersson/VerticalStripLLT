@@ -1926,3 +1926,47 @@ No Lean/Lake build, worker, consultant, maintained Rust edit or independent
 review was used. Prior text remains a verbatim prefix. The general left
 comparison and whole-component reassembly remain open, and the requested
 recurrence proof of component e-expansion is still incomplete.
+
+## Removing every suffix restriction after short extension
+
+2026-09-29 continuation. The unrestricted background-anchor transfer
+removes the remaining suffix hypotheses from (51)--(53).
+
+**Proposition.** Under the opening Q conditions, suppose
+
+    wt covers in Q+xs;
+    w reaches s;
+    r=xz and sz cover in Q.                          (54)
+
+Then Q+xs~Q+st, with arbitrary exterior and every other edge restored.
+There is no condition on tz: it may be absent, covering or redundant.
+The other incoming edges at z may also be redundant and their tails may
+be comparable along arbitrary competing paths. The edge ws may be absent
+or redundant as before.
+
+Apply the short-extension lemma (50), reaching Q+xt and restoring the
+whole lower prefix. Apply the [general background-anchor theorem](COMPONENT_RIGHT_ARM_TRANSFER.md#background-anchor-transfer-with-an-arbitrary-suffix)
+(A14), with (u,v,d,c)=(x,s,t,z). Its two anchors cover in Q by (54),
+and the opening conditions exclude x-to-t and s-to-t paths in Q.
+Thus Q+xt~Q+st, proving the proposition.
+
+This closes ALL suffix cases under (54), including the comparable-tail
+case explicitly left open after (53). It does not remove the hypotheses
+that wt covers, w reaches s, and r,sz cover before xs is inserted.
+Those lower-prefix and background-cover failures remain part of the
+unrestricted both-redundant retained-edge problem. The left comparison
+and whole-component reassembly remain separate obligations.
+
+Related Rust: external `first_join_tree_lifts.rs`, option
+`--retained-comparable-suffix`, checks two fixed n12 states with redundant
+tz, a redundant proper incoming edge at z, competing suffix paths, and
+absent or redundant ws. The short extensions take 10/6 flips and the
+following transfer takes 34 in both cases, for totals 44/40. Every actual
+flip, strict edge and exact endpoint passes. No state space is enumerated.
+Receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-comparable-suffix-20260929/`.
+The complete prior note remains a verbatim prefix. No Lean/Lake build,
+worker, consultant, maintained Rust edit or independent review was used.
+The requested general recurrence proof of component e-expansion remains
+incomplete until the remaining source comparisons and whole-component
+reassembly are established.

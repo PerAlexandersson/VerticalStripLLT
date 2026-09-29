@@ -19,7 +19,24 @@ is proved with arbitrary exterior. Together with the earlier f-cover
 result, it settles every comparison where either outer anchor covers
 at Q+xs. Checkpoints `0cbefcc` and `dd844e9` are pushed to origin/main.
 
-The latest continuation proves a [shared-first-edge suffix lemma](docs/proofs/COMPONENT_RIGHT_ARM_TRANSFER.md#a-shared-first-edge-with-an-arbitrary-suffix):
+The latest continuation proves [background-anchor transfer with an arbitrary suffix](docs/proofs/COMPONENT_RIGHT_ARM_TRANSFER.md#background-anchor-transfer-with-an-arbitrary-suffix):
+if uc,vc cover in Q and neither root reaches d, then Q+ud~Q+vd,
+with NO assumption on dc or any other suffix edge. For selected dc,
+we transfer the proper incoming arms in increasing order. An obstructing
+target branch is either cleared through its outer anchor or used to
+advance the shared first endpoint. Each step removes one target arm;
+after the transfer, the whole preparation reverses with actual covers.
+
+The [retained-edge corollary (54)](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#removing-every-suffix-restriction-after-short-extension)
+now closes EVERY suffix case when wt covers in Q+xs, w reaches s,
+and r,sz cover in Q. Short extension gives Q+xt and the new theorem
+gives Q+st. The previous selected-redundant and comparable-incoming-tail
+restrictions are removed. The remaining retained-edge work concerns
+failures of these lower-prefix or background-cover assumptions; the
+left comparison and whole-component reassembly are also still open.
+The general recurrence proof is not claimed complete.
+
+The preceding continuation proves a [shared-first-edge suffix lemma](docs/proofs/COMPONENT_RIGHT_ARM_TRANSFER.md#a-shared-first-edge-with-an-arbitrary-suffix):
 a redundant arm transfers across two roots when their competing routes
 start with a shared covering pair. The suffix beyond that pair may have
 arbitrary competing paths. A cut and path prepare dc; four central flips
@@ -33,7 +50,8 @@ therefore permits redundant tz under the previous wt, w-to-s and background
 r,sz hypotheses when all proper incoming suffix edges cover. Under those
 same assumptions, a remaining suffix case needs BOTH redundant tz and
 a redundant proper incoming hz. The six-vertex comparable-tail example
-in the right-arm note shows exactly why the current transfer row stops.
+in the right-arm note shows why that earlier transfer row stops; the
+new one-sided preparation above now resolves it.
 This does not settle other failed-cover cases, the left comparison or
 whole-component reassembly. The general recurrence proof remains open.
 
@@ -374,6 +392,12 @@ actual source components forced by the three pair families.
 
 ## Ownership and restrictions
 
+Current comparable-suffix continuation owns append-only one-sided shared-arm
+and unrestricted background-anchor proofs, their retained-edge corollary,
+fixed external-consumer checks, outline routing and both handoffs. Earlier
+proof text will remain a verbatim prefix. The preparation clears a target
+branch or advances the shared first endpoint.
+
 Current selected-suffix continuation owns append-only shared-suffix and
 selected-direct-suffix proofs in the right-arm and retained-edge notes,
 fixed external-consumer checks, outline routing and both handoffs. The
@@ -450,6 +474,17 @@ including its original dirty paragraph, is preserved in the
 Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
+
+Current comparable-suffix increment: two fixed n12 one-sided shared-arm
+paths pass 22 flips each, with both root orders, a clearing below h,
+an advance, and a later clearing above h. The recorded n6 pair passes
+30 flips; two n12 background transfers with a chain/fork of incoming tails
+pass 98/48 flips. Two n12 retained repairs pass 44/40 flips, with redundant
+tz and a redundant proper incoming edge. Every actual flip, strict edge,
+preparation invariant and exact endpoint passes; no state space is enumerated.
+Both prior proof notes remain verbatim prefixes. No Lean/Lake build,
+worker, consultant, maintained Rust edit or independent review.
+Proof checkpoint pending.
 
 Current selected-suffix increment: four fixed n12 shared-suffix paths
 pass 14,14,12,12 flips, with both root orders and absent/redundant internal
@@ -688,7 +723,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-selected-suffix-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-comparable-suffix-20260929/`.
+Incomparable-suffix receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-selected-suffix-20260929/`.
 Absent-suffix receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-suffix-covers-20260929/`.
 Lower-prefix receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-lower-prefix-20260929/`.
 Lower-bypass receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-both-redundant-20260929/`.
