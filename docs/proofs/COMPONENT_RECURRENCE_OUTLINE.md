@@ -76,6 +76,18 @@ by this construction. The remaining full-layer isolation problem is
 cyclic: several connected full-envelope components can have the same
 edge count. No general uniqueness or reduction of all extras is proved.
 
+The [dense-corner theorem](COMPONENT_NN_REDISTRIBUTION.md#the-largest-edge-layer-in-which-a-corner-can-cover)
+now isolates one cyclic class uniformly. For a strict corner f of length
+d in a graph with N natural edges, k*=N-d+1 is the largest possible
+edge count with f covering. At equality, all covering states are cut
+states joined by actual f-retained flips. Hence there is exactly one
+f-active component in that layer, and every other source-layer component
+independently deletes f. The full NN/DN layer identities therefore give
+complete signed recurrences, with exact whole-component cancellations
+in NN. All components above the layer delete f as well. This includes
+complete-graph components of unbounded cycle rank. General lower cyclic
+layers, with additional missing edges, remain outside the cut proof.
+
 The new [empty-corner reduction](COMPONENT_DN_JOINT_REPAIRS.md#dn-through-an-empty-corner-nn-diagram)
 shows that the uniform NN statement would also settle DN. Adding the
 missing corner EMPTY and unmarking its neighbor preserves the exact

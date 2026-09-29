@@ -1919,3 +1919,115 @@ block diagrams and the strict decrease of every final diagram.
 Five NN and six DN fixtures are checked; the DN formula is recorded
 in the companion note. Frozen sources, commands and receipts are in
 the external `forest-layers-20260929/` directory.
+
+## The largest edge layer in which a corner can cover
+
+2026-09-29 continuation. We now give a whole-component recurrence for
+a uniform cyclic class, without assuming general active-component
+uniqueness. The source need not be saturated, and the exterior is arbitrary.
+
+Let f=wz be a strict maximal natural edge, let d=z-w>=2, and let
+N be the number of natural edges. Put k*=N-d+1. A component is
+f-active if f covers in at least one of its states.
+
+**Theorem.** Every component with more than k* selected edges is
+inactive at f. At exactly k* selected edges there is exactly ONE
+f-active component C*. All its f-covering states form an explicit
+path of d states. Every other component in that layer deletes f to
+one whole smaller component.
+
+### The covering states are a chain of cuts
+
+For every w<i<z, at least one of wi,iz must be absent if f covers.
+These d-1 pairs of edges are disjoint, so at least d-1 natural edges
+are absent. This proves the upper bound k*.
+
+At equality, exactly one edge of each pair is absent, and EVERY other
+natural edge is selected. Write T for the intermediate vertices with
+wi absent and iz selected, and S for those with wi selected and iz
+absent. If i in S precedes j in T, the selected edges wi,ij,jz
+bypass f. The middle edge ij is selected because it belongs to none
+of the arm pairs. Thus every vertex of T precedes every vertex of S.
+
+The covering states are therefore precisely
+
+    A_p = G - {wi : w<i<=p} - {iz : p<i<z},
+          w<=p<z,                                    (DL1)
+
+where G denotes the full selected natural edge set. Conversely f
+covers in each A_p: an increasing path leaving w without f starts
+above p, whereas an increasing path entering z without f ends at or
+below p. It cannot do both. Such a path cannot leave [w,z] and return.
+Every state (DL1) retains all strict decorations, since every omitted
+edge lies properly inside the maximal f.
+
+For w<=p<z-1, the actual flip
+
+    w(p+1) -> (p+1)z, retaining f,                    (DL2)
+
+takes A_p to A_(p+1). The retained f covers, and w(p+1) covers
+because w has no selected outgoing edge with a smaller intermediate
+head. Thus all d covering states lie in one actual component C*.
+Every f-active component of this layer contains one of these states,
+so C* is unique. All other components have f redundant throughout;
+the established inactive-corner deletion identifies each with one
+whole component of L-f. This proves the theorem.
+
+In an eligible NN or DN source, q=wx with x=w+1 and r=xz. The first
+two states of (DL1) differ by q->r, so BOTH short edges vary on C*.
+Thus this result directly handles a class of the remaining two-variable
+cases. It does not follow merely from a fixed-short reduction.
+
+### The complete NN recurrence and its cancellations
+
+Let R be the NN target and D0=L-f, with r normal in D0 and strict
+in R. Apply (TL1) at k=k* and subtract the other source components.
+For both X=K,E we obtain
+
+    X(C*) = X(F_k(R)) + X(F_(k-1)(R))
+            - sum_(D in F_k(L), D != C*) X(D-f).     (DL3)
+
+The theorem proves independently that EVERY subtracted image is a
+whole component of D0. Both R and D0 have natural area N-1, so all
+terms decrease the original induction order. Every component above
+this layer already reduces by the same inactive-f deletion.
+
+There is a useful exact cancellation in (DL3). A subtracted component
+has k-1 edges. If it selects r, it is also one whole component of R
+and cancels its copy in F_(k-1)(R). Distinct source components have
+distinct deletion images, so no term is cancelled twice. What remains
+has coefficients +1 on whole R components and -1 on whole r-absent
+components of D0. The F_k(R) terms are unaffected. This collects the
+whole output, rather than only checking individual middle terms.
+
+This class has unbounded cycle rank. For the complete natural graph
+on n vertices with only strict f=0(n-1), we have
+k*=binomial(n-1,2)+1. The component C* is connected, and its cycle
+rank is (n-2)(n-3)/2. Formula (DL3) holds for every n>=3. No expansion
+for C*, its corrections, or any other cyclic component is assumed.
+
+### Scope and checks
+
+The proof uses equality in the missing-edge bound. Below k* there
+can be extra absent edges not accounted for by the d-1 arm pairs;
+the cut classification (DL1) then does not apply. The theorem does
+not establish uniqueness of active components in arbitrary layers.
+General NN/DN collection in those lower cyclic layers remains open.
+
+Related Rust: graph-only `dn_joint_span --dense-recurrences` checks
+the bound against every f-covering state in five NN and six DN fixtures,
+checks the complete list (DL1) and every flip (DL2), and verifies each
+inactive deletion image with BOTH directions of its actual flip graph.
+It checks all cancellations against complete target components and
+the decrease of every final diagram. The companion DN formula is
+recorded in its note. Frozen sources and receipts are in the external
+`dense-corner-layers-20260929/` directory.
+
+A separate bounded activity scan is recorded in the same receipt.
+It finds no duplicate connected active component at one edge count
+in 148 saturated diagrams on 7--9 vertices without articulation and
+with at most 18 natural edges (1,274,304 selected states). The fixed
+articulation control reproduces its two different active components.
+This is evidence for the older refinement, not its proof and not an
+input to (DL1)--(DL3). In particular we do not use it to subtract an
+unproved extra cyclic component in a lower layer.

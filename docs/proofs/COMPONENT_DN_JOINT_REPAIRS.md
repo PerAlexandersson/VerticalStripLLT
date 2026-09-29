@@ -1250,3 +1250,34 @@ with full envelope, and this argument does not isolate one of them.
 The six DN fixtures in `--forest-layers` verify the full-layer indicator
 identity and every complete correction graph. Frozen sources and
 receipts are in `forest-layers-20260929/`.
+
+## The largest f-active DN layer
+
+2026-09-29 continuation. The
+[dense-corner theorem](COMPONENT_NN_REDISTRIBUTION.md#the-largest-edge-layer-in-which-a-corner-can-cover)
+applies unchanged to an eligible DN source with strict e=uw and f=wz.
+Put N=|G|, d=z-w and k*=N-d+1. At this selected-edge count all
+f-covering states are the cut states (DL1), and (DL2) connects them.
+They retain e and all other strict edges. Hence exactly one whole
+source component C* is f-active; every other component in that layer,
+and every component above it, has f redundant throughout.
+
+The full DN layer identity and independent inactive-corner deletions
+therefore give, for X=K,E,
+
+    X(C*) = X(F_(k*)(R))
+             - sum_(D in F_(k*)(L), D != C*) X(D-f).
+
+Every deletion image is ONE whole component of L-f with e and the
+common strict set retained. Its natural area drops by one. The actual
+DN target R keeps the area and lowers the area moment by z-x. Thus
+every final diagram decreases the original DN induction order, and
+the equation is a complete signed component recurrence. No enlarged
+NN diagram or expansion theorem is used.
+
+This proves the dense two-variable DN case, including arbitrary
+crossing exterior. The cut classification does not cover lower edge
+layers with additional absent edges; their general collection remains
+unproved. The six DN fixtures in `--dense-recurrences` verify the cut
+paths, every whole deletion image and the complete target layer.
+Frozen sources and receipts are in `dense-corner-layers-20260929/`.
