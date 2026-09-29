@@ -123,8 +123,8 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
-Current increment: first-drop coverage, local source correspondence, and
-conditional completion from NN/DN reassembly. Six fixed diagrams verify all
+Proof checkpoint: `85419e1` (first-drop coverage, local source correspondence,
+and conditional completion from NN/DN reassembly). Six fixed diagrams verify all
 four contact types, an interior first drop and the chain base case. The
 checks include exact edge sets, strict-corner validity, adjacent-interchange
 invariance and the decreasing measure. No states or components are enumerated.
