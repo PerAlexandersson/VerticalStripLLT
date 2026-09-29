@@ -185,6 +185,7 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Proof checkpoint: `96c0bb0` (left-sector reduction and forced DD source additions).
 Current increment: arbitrary-exterior R01-to-R10 left-flip lifting and exact
 upper-corner source-addition equations. The fixed 01222 source has the two
 four-state components with opposite h-status, two checked target flips
@@ -195,6 +196,8 @@ fixed five-vertex test proves closure of the four common-preparation
 backgrounds; its three undirected edges form the displayed path in the
 receipt. These are small fixed checks, not a family scan. General
 coefficient compatibility and full reassembly remain open.
+Both extended note prefixes, 48 local file links and `git diff --check`
+pass. The maintained Rust checkout remains unchanged.
 
 The same target obstruction also occurs for C2 versus I21, of sizes six
 and two, with the displayed selected-h representative connected unicyclic
