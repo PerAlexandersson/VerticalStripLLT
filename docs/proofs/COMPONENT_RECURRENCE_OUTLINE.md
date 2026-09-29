@@ -131,6 +131,30 @@ positivity assertion for the intermediate signed recurrence.
 The implication (2) => (1) is proved by this induction argument. Producing
 (2) uniformly, including the component-boundary checks, is the open step.
 
+There is now an exact partial completion of this step for DN. The
+[homogeneous completion theorem](COMPONENT_DN_SOURCE_ADDITIONS.md#completing-one-selected-edge-layer-of-the-direct-dn-image)
+determines the smallest union U_k(C) of k-edge source components containing
+C whose unmodified direct image is a sum of whole output components.
+Three explicit kinds of pairwise coefficient equalities generate this
+union. Its indicator gives an identity for both K and E with output
+coefficients in {-1,0,1}. No local exterior flip is omitted from its
+closure proof. What remains for this construction is to reduce every
+extra member of U_k(C) independently, so we can subtract it and isolate C.
+That reducibility statement is not yet proved. If it fails for the known
+reductions, joint output diamonds or other allowed recurrences remain
+available; homogeneous closure is a sufficient route, not a restriction
+on all possible proofs.
+
+The [NN companion](COMPONENT_NN_REDISTRIBUTION.md#exact-completion-within-one-selected-edge-layer)
+proves the same minimal-union statement for the initial NN split. Its
+classes V_k(C) use the two r-selected output sizes and the r-absent
+q-exit equations. Thus both recurrence types now have complete output
+reassembly for explicit forced source unions. A sufficient remaining
+theorem for this route is independent reducibility of every extra member
+of U_k(C) or V_k(C) at the first-drop contacts. Together with DD/ND
+inheritance and the proved induction coverage, that statement would finish
+the ordinary component expansion. It remains unproved.
+
 We must distinguish a local source-path repair from this coefficient
 reassembly. In a first-drop DD intermediate, the upper natural corner h
 is unmarked and its selected status is invariant on source components.
@@ -263,6 +287,8 @@ separate order or reduction for recurrences crossing the chosen cut.
 | One-component DN split | [Direct DN overlaps](COMPONENT_DN_DIRECT_OVERLAPS.md) | General identity; two ordered five-vertex overlap types remain |
 | DN diamonds and minimal components | [Joint repairs](COMPONENT_DN_JOINT_REPAIRS.md) | Both minimal pictures completed; local propagation lemmas |
 | Additional whole source components | [Source additions](COMPONENT_DN_SOURCE_ADDITIONS.md) | Six-vertex example proved; general construction remains |
+| Exact completion at fixed selected-edge count | [Homogeneous DN completion](COMPONENT_DN_SOURCE_ADDITIONS.md#completing-one-selected-edge-layer-of-the-direct-dn-image) | Smallest required source union and complete output proved; independent reduction of every extra source component remains |
+| The corresponding NN completion | [Homogeneous NN completion](COMPONENT_NN_REDISTRIBUTION.md#exact-completion-within-one-selected-edge-layer) | Same minimal-union theorem; the five-state example adds one whole inactive two-state component |
 | DD boundary exchanging the upper corner | [Forced deletable additions](COMPONENT_DN_SOURCE_ADDITIONS.md#the-unmarked-upper-corner-forces-source-additions) | Exact arbitrary-exterior equations and all-sector reduction proved; compatibility between forced additions remains |
 | Retained-edge source paths | [Retained-edge repairs](COMPONENT_DN_RETAINED_EDGE.md) | Arbitrary-exterior conditions, selected suffixes and an incoming-cut preparation with multiple obstructions; unrestricted case remains |
 | Moving only the distinguished short | [Crossing-cover paths](COMPONENT_DN_RETAINED_EDGE.md#sliding-the-moving-edge-along-crossing-covers) | An arbitrary-length alternating path proves the retained-edge comparison, allowing both anchors redundant; path existence remains a hypothesis |
@@ -312,8 +338,16 @@ For the DD intermediate, do not demand source paths across the boundary
 exchanging its unmarked upper corner: opposite corner statuses forbid them.
 Use the proved forced-addition equations there and establish compatibility
 with the other left comparisons, q-changing flips and deletion terms.
-After those repairs, prove closure of the complete collected components
-and supply the NN reassembly step. The first-drop theorem now gives a
+For the unmodified direct DN split at fixed selected-edge count, closure
+is now exact for the forced union U_k(C). Use the local paths to identify
+its paired representatives within actual source components, and the known
+corner maps to reduce genuinely added components. The outstanding global
+claim is that every extra component so forced can be independently
+reduced; no such general claim is yet proved. Joint diamond corrections
+may be needed if this source-addition construction cannot isolate C.
+The NN companion gives the same conclusion for V_k(C), with the same
+unproved independent-reduction requirement for its extra members.
+The first-drop theorem now gives a
 compatible choice for every ordinary diagram, and DD/ND inheritance supplies
 their component steps from NN/DN. It is enough to settle transport at those
 first-drop contacts and the stated selected-corner intermediates. The

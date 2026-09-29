@@ -14,7 +14,23 @@ remain intact in the [component catalogue](docs/COMPONENT_NOTE_CATALOGUE.md).
 
 Active goal: prove the general non-circular component e-expansion for
 Motzkin/Dyck diagrams by the diagram-bijection/recurrence approach.
-Latest continuation proves the [forced-addition equations](docs/proofs/COMPONENT_DN_SOURCE_ADDITIONS.md#the-unmarked-upper-corner-forces-source-additions)
+Latest continuation proves [exact homogeneous DN completion](docs/proofs/COMPONENT_DN_SOURCE_ADDITIONS.md#completing-one-selected-edge-layer-of-the-direct-dn-image).
+At fixed total selected-edge count k, three explicit families of pairwise
+equalities determine the smallest source-component union U_k(C) whose
+unmodified direct DN image is constant on all output components. The
+same K/E identity has whole output components and coefficients 0,+1,-1.
+All added source coefficients in this minimal union are forced to +1.
+The remaining sufficient statement is independent reducibility of EVERY
+extra member of U_k(C), not just the first deletable neighbor. It is open.
+This theorem does not cover mixed-degree additions or rule out joint
+output diamonds when the homogeneous source-addition route is insufficient.
+The [NN companion](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#exact-completion-within-one-selected-edge-layer)
+proves the same minimal-union result for V_k(C). Both recurrence types now
+have full output reassembly for these explicit source unions. To isolate C
+we still need independent reductions of their extra members. The K4
+five-state example adds exactly the inactive two-state {fabe,fbce}; its
+direct image is complete and subtracting it recovers the earlier example.
+The preceding continuation proves the [forced-addition equations](docs/proofs/COMPONENT_DN_SOURCE_ADDITIONS.md#the-unmarked-upper-corner-forces-source-additions)
 for the DD boundary exchanging the unmarked upper corner. A universal left
 source-path lemma is false there: the two source preimages have opposite
 invariant corner status, already in the genuine first-drop example 01222.
@@ -88,6 +104,19 @@ terms, not from the signs of intermediate recurrence coefficients.
   components, with identical coefficients for K/E. Source additions are
   allowed when each added whole component is independently reduced to a
   smaller diagram. No balance, isolation or cycle-rank prerequisite is imposed.
+- The direct DN formula now has an exact completion theorem at fixed k.
+  Primary equalities lift every target k-edge flip; secondary equalities
+  handle exits from target 00 at k-1 edges; deletion equalities handle
+  q-removing H flips. These are necessary and sufficient for all output
+  coefficients to be component-constant. The minimal union U_k(C) gives
+  a proved whole-component recurrence for that UNION. Subtracting its
+  other members still requires independent reductions; this is not yet
+  a uniform recurrence for the individual C.
+- NN has the analogous exact theorem, with two r-selected output layers
+  and the r-absent q-exit comparisons. Its minimal union V_k(C) has a
+  whole-component identity with unit signed coefficients. Independent
+  reduction of all extra components in these NN/DN unions would complete
+  the first-drop induction; that general reduction remains unproved.
 - In a DD intermediate, a target e-prime-retained flip exchanging the
   unmarked upper corner h forces equal coefficients on an h-absent source
   component I and its paired h-selected component C. I always deletes to
@@ -158,6 +187,16 @@ in one fixed K6; do not turn this into a general normalization claim.
 For the left DD boundary, stop searching for source paths across h-status.
 Use the forced deletable additions and test their compatibility with the
 other boundaries. All-sector constancy there reduces to the R10 equations.
+The new homogeneous theorem performs that closure explicitly for all DN
+boundaries at once. The next task is to prove that any further components
+forced into U_k(C) are independently reducible, or to supply additional
+output-diamond corrections where this stronger source-addition condition
+does not suffice. Do not claim reducibility from the mere existence of the
+closure, and do not impose it as a prerequisite on every allowed proof.
+Apply the same analysis to the NN classes V_k(C); their output closure is
+now proved too. Avoid repeating the bookkeeping or solving a fresh linear
+system for each component: the remaining issue is the status of the extra
+actual source components forced by the three pair families.
 
 ## Ownership and restrictions
 
@@ -168,12 +207,13 @@ is authorized; no Lean/Lake builds are authorized. No manuscript proof or PDF
 change is currently needed. The combinatorics-paper-writing skill was used
 for the outline and note organization.
 
-Current continuation owns append-only extensions of the source-addition and
-direct DN notes, the outline routing, both handoffs and the external diagnostic.
-The retained-edge, right-arm and incoming-edge notes are unchanged in this
-increment. We are making the DD upper-corner boundary explicit: a universal
-left source-path lemma is false there, and deletable additions are required
-if we use the unmodified direct-transport coefficients.
+This continuation owns an append-only source-addition section: an exact closure
+description for one fixed selected-edge count, using the existing direct DN
+formula and its already-proved flip lifts. It also owns the outline, both
+handoffs and external verification receipts. The direct-overlap, retained-edge,
+right-arm and incoming-edge notes are unchanged in this increment.
+Primary also owns the analogous append-only NN redistribution continuation
+and its fixed four-vertex check in the existing external consumer.
 No previous independent review is asserted for new arguments.
 
 The reboot terminated the old workers/consultant. Its saved Claude output
@@ -185,8 +225,26 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Current increment: homogeneous DN and NN closure, minimality, unit output
+coefficients and the exact criterion for completion using a specified
+collection of independently reduced source components. Existing Rust
+`dn_joint_span --component-closure --source-additions=active
+--all-corner-deletions --skip-span` checks two fixed diagrams, with no new
+computation implementation or build. Area012233: 736 comparisons, three
+pair edges, 23 classes among 26 source components; all eleven tested
+nondeletable components complete using deletable additions. Area01222:
+34 comparisons, two pair edges, 12 classes among 14 components; all four
+tested components complete. Every recipe checks exact K/E, full target
+components and full deletion images. These checks do not prove general
+reducibility of the extra source components.
+The NN check uses the existing external consumer with one new bounded
+option on K4: 32 states, 15 source components, eight target comparisons,
+one pair edge and 14 classes. It verifies complete outputs and exact K/E
+for every class, including the five-/two-state example. Its small external
+Rust build passed; no Lean/Lake build or maintained Rust edit occurred.
+
 Proof checkpoint: `96c0bb0` (left-sector reduction and forced DD source additions).
-Current increment: arbitrary-exterior R01-to-R10 left-flip lifting and exact
+Preceding increment: arbitrary-exterior R01-to-R10 left-flip lifting and exact
 upper-corner source-addition equations. The fixed 01222 source has the two
 four-state components with opposite h-status, two checked target flips
 (10 and 00), and two oriented R01-to-R10 lifts. The established external
@@ -253,9 +311,9 @@ Two fixed DN states at n=8 and n=10 check the new preparation at both
 endpoints (10 and 24 flips total), reducing to the proved two-cover lemma.
 No state space at either larger size is enumerated. Both extended notes
 preserve their previous contents verbatim as prefixes.
-Current ownership: source-addition and direct DN notes, outline, both handoffs
-and external consumer. Their previous contents are preserved as prefixes.
-The retained-edge, right-arm and incoming-edge notes are unchanged this increment.
+Current ownership: source-addition and NN redistribution notes, outline,
+both handoffs and external consumer/receipts. Both old note contents are
+preserved as prefixes. All other proof notes are unchanged.
 No Lean/Lake or manuscript build was run; no new worker or consultant.
 Runtime registry and `codex mcp list` were inspected; Lean MCP is rooted at
 RealRooted and unused. No model, account, worker or service-tier change.
@@ -269,7 +327,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/common-preparation-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/homogeneous-dn-closure-20260929/`.
+DD-boundary receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/common-preparation-20260929/`.
 Crossing-cover receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/outgoing-no-path-20260929/`.
 Incoming-arm receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/incoming-anchor-20260929/`.
 Coverage receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/first-drop-coverage-20260929/`.
