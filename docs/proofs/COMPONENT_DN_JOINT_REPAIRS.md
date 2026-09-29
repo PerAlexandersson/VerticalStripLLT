@@ -1162,3 +1162,34 @@ with r absent or changing, and q changing, remain unfinished.
 The six DN fixtures in the graph-only `--nn-fixed-r` check verify all
 applicable cover-preserving paths and exact whole deletion images. The
 frozen receipts are in the external `fixed-r-20260929/` directory.
+
+## The absent terminal short with arbitrary incoming exterior
+
+2026-09-29 continuation. The
+[general fixed-r argument](COMPONENT_NN_REDISTRIBUTION.md#removing-the-least-vertex-restriction)
+removes the least-vertex condition from the preceding absent-r reduction.
+It applies to DN with its selected strict incoming edge e=uw intact.
+
+If r is always absent and q varies on C, then w,x lie in the same
+selected weak block. Were f to cover somewhere, normalize its tail w
+so that f is its only outgoing edge. Flips away from w still lift even
+with incoming edges: a bypass through w would use f and force a natural
+edge properly containing that maximal corner. The new reachability
+lemma then handles the block containing x after w is removed. Either x
+can be made to reach z, or a selected incoming tail t<w can be made to
+reach x; in the latter case flips below x introduce q. The explicit paths in
+the linked proof preserve f's cover and eventually introduce r, a
+contradiction.
+
+Thus f is redundant everywhere on C. Delete f and the absent maximal r.
+The result is one whole component of L-f-r with e and the common strict
+set unchanged. It preserves K and E and decreases natural area by two.
+This does not pass to a larger NN diagram or assume the component
+expansion for any intermediate state.
+
+All fixed-r DN components are now reduced, combining this theorem with
+the selected-r and fixed-q results. The remaining DN collection problem
+has both q and r varying. The assertion that those remaining pieces
+collect in general is still unproved. The six graph-only DN fixtures
+verify the new paths and exact smaller-component images; their frozen
+receipt is in `general-fixed-r-20260929/`.

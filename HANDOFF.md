@@ -1,5 +1,56 @@
 # VerticalStripLLT handoff
 
+## Current continuation — all fixed-terminal-short cases are reduced
+
+Primary resumed from clean pushed `e559bc3`; the preceding turn made
+verified progress. Ownership remains this handoff/outline, append-only
+NN/DN notes and the existing external Rust consumer. The diagram-only
+direction is unchanged. No basis calculation, Lean build, maintained
+Rust edit or new worker.
+
+**New general reduction:** [remove the least-vertex restriction](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#removing-the-least-vertex-restriction).
+If r=xz is always absent and q=wx varies, f=wz is redundant throughout
+the component, with arbitrary incoming exterior. Delete f and absent r
+to obtain ONE whole smaller component. The
+[DN consequence](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#the-absent-terminal-short-with-arbitrary-incoming-exterior)
+keeps its strict e=uw selected throughout. This closes the incoming
+exception left at the previous checkpoint.
+
+The new elementary path lemma makes u reach v whenever u<v lie in one
+selected weak block. Shorten a Hasse path by flipping at its extreme
+vertices outside [u,v], then normalize leftwards inside that interval.
+For adjacent u,v this introduces their edge. We apply it after making
+f the sole outgoing edge at w. Even with incoming edges, flips away
+from w lift: a bypass through w would contain maximal f. After removing
+w, either x shares z's block, or it shares a block with an incoming
+tail t<w. These two cases give explicit f-cover-preserving paths that
+introduce r. Thus a fixed-absent-r component cannot contain an exposure
+of f. No assumption of component expansion enters this argument.
+
+**Verified:** graph-only `--nn-fixed-r-general` checks 7796 paths with
+22541 actual flips in five NN and six DN fixtures, including both block
+cases and incoming DN states. All 255 variable-q/fixed-absent-r components
+(2931 states) delete to exact whole smaller components. The independent
+`--reachability-activation` check constructs 26677 paths / 21056 flips
+for all same-block ordered pairs in three fixed diagrams; 9503 pairs
+are adjacent. All checks pass with empty stderr. Frozen sources,
+commands and receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/general-fixed-r-20260929/`.
+Runtime registry, `codex mcp list`, Rust capability guide, Cargo metadata
+and existing Graph/Poset/flip APIs were checked. Lean is unused.
+
+**Remaining full goal:** all fixed-r components now have proved
+recurrences, using this theorem, the selected-r theorem and the fixed-q
+theorem together. General NN/DN collection remains open precisely in
+the case with BOTH q and r varying, after those reductions. Such a
+component is f-active. We still need to collect its paired diamond terms
+into whole smaller components; merely finding an r-changing path does
+not prove that step or general same-exterior middle membership.
+The goal remains active. All launched diagnostics have finished.
+Previous proof notes remain verbatim prefixes; 132 local file links,
+frozen receipt hashes and `git diff --check` pass. Maintained Rust is
+clean at `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
+
 ## Current continuation — fixed terminal short with variable adjacent short
 
 Primary resumed from clean pushed `cb218d3`; the preceding turn made

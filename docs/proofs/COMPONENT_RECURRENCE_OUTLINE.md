@@ -93,11 +93,13 @@ Some variable-q components are now reduced by the
 [fixed terminal-short theorem](COMPONENT_NN_REDISTRIBUTION.md#when-the-terminal-short-is-fixed).
 If r is always selected, a cover-preserving cut proves that f is
 everywhere redundant, so corner deletion gives one whole smaller
-component. This holds for NN and DN with arbitrary exterior. If r is
-always absent, the same conclusion is proved when w is least in its
-selected weak block. The latter hypothesis is unavailable for DN.
-Neither statement closes collection when both short edges vary, or
-settles the general incoming case with r always absent.
+component. The [general absent-r continuation](COMPONENT_NN_REDISTRIBUTION.md#removing-the-least-vertex-restriction)
+now removes its earlier least-vertex restriction, including incoming DN
+edges. It uses Hasse-path shortening and two block cases after making
+f the sole outgoing edge at w. Thus ALL fixed-r components are reduced
+for NN and DN. General collection remains open when BOTH short edges
+vary; the new paths do not establish same-exterior middle membership
+or the required whole-component multiplicities in that case.
 
 ## 1. The identity that gives positivity
 

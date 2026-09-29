@@ -1543,3 +1543,154 @@ All 681 claimed inactive-component images are whole; 146 of these
 components have variable q and were outside the preceding fixed-q class.
 Frozen sources, commands and receipts are in `fixed-r-20260929/` under
 the project's external request directory.
+
+## Removing the least-vertex restriction
+
+2026-09-29 continuation. We now prove the absent-r reduction with arbitrary
+incoming exterior, including the DN geometry. The least-vertex condition
+in the preceding section is no longer needed. We first establish the
+simple path normalization used in its place.
+
+### Making one vertex reach another inside a component
+
+**Reachability lemma.** In an ordinary decorated natural diagram, let
+u<v belong to the same selected weak block of a state A. There is an
+actual-flip path from A to a state in which u reaches v. All prescribed
+strict corners remain selected. If v=u+1, the endpoint selects uv.
+
+Take an undirected path from u to v in the Hasse graph of A. Such a
+path exists because replacing each selected edge by a path of covers
+preserves the weak blocks. Let [a,b] be the smallest label interval
+containing the chosen path.
+
+If b>v, the vertex b is internal to the path and has two neighbors
+i<j<b. The two incoming covers ib,jb give the actual flip
+
+    jb -> ij, retaining ib.
+
+Shortcut the old segment i-b-j by the selected ij. All edges of the
+shortened path remain selected and have endpoints in [a,b-1]. They
+need not remain covers, but each can be replaced by a cover path inside
+its own endpoint interval, since all edges point forward. We thus
+obtain a Hasse walk, and then a path, entirely in [a,b-1].
+
+If a<u instead, the two neighbors of the internal minimum a are
+a<i<j. Use the outgoing-cover flip ai->ij retaining aj, and the same
+shortcut and cover refinement gives a path in [a+1,b]. Each step
+strictly shortens the containing interval. The exchanged shorts are
+normal: they lie properly inside the retained natural long. We finish
+with a Hasse path from u to v inside [u,v].
+
+Now perform leftward cover flips inside [u,v] until none remains.
+Their finite endpoint-label sum decreases. Cover tests inside this
+interval are the full cover tests: a forward path between its vertices
+cannot leave it and return. These flips preserve the weak blocks of
+the selected graph induced on [u,v]. At termination every vertex has
+at most one incoming cover. Each connected Hasse component is an
+increasing directed tree rooted at its least vertex. The component
+containing u and v has least vertex u, so u reaches v. This proves
+the lemma, including arbitrary fixed exterior.
+
+Consequently, if an adjacent edge is absent throughout a whole component,
+its endpoints lie in different selected weak blocks. This conclusion is
+about a single adjacent edge; the argument does not simultaneously make
+all pairs comparable.
+
+### Normalize away from w even when edges enter w
+
+Suppose f=wz covers in A, r=xz is absent, and w,x lie in the same
+selected weak block. As before x=w+1. We claim that a path introduces
+r and keeps f covering throughout, without assuming that w is least.
+
+If q is selected, the f-retained flip q->r already does this. Otherwise
+apply the outgoing sweep (FR3): replace selected wv, x<v<z, by vz in
+increasing order of v, retaining f. Its proof used only outgoing paths
+from w, so incoming selected edges do not affect it. We reach a state
+where f is the ONLY outgoing edge at w. Incoming edges tw may remain.
+
+Consider the selected graph with w removed, leaving its incident edges
+unchanged in the full state while we make flips on the other vertices.
+The induced natural graph is interval-closed in the remaining order,
+and its surviving strict corners are still maximal.
+These flips lift exactly to the original graph. Indeed an alternate
+path between other vertices which visits w must leave it along f.
+It could bypass a tested natural edge only if that edge properly
+contained f, contradicting maximality of f. Thus the cover tests agree.
+All these flips also keep f covering, because it stays w's only
+outgoing edge. They preserve the weak blocks of the graph with w removed.
+The absent r is a maximal natural edge of that graph and stays absent.
+
+Let B be the weak block containing x in this graph with w removed.
+There are two cases, neither requiring a least-vertex assumption.
+
+**The block B contains z.** Apply the reachability lemma to x<z in
+the graph with w removed. We obtain x-to-z reachability while f still
+covers and r remains absent. Now use the incoming cut and descending
+cover forks (FR4) from the preceding section: remove, in decreasing
+order, the selected vz whose tail v is reachable from x, replacing
+them by wv while retaining f. This clears x-to-z reachability and
+leaves a covering wp with x reaching p. The cover-fork descent decreases
+p to x, introducing q without losing the cover of f. Finish with
+q->r retaining f. Those cut and fork proofs do not use an assumption
+on incoming edges at w.
+
+**The block B does not contain z.** Since x and w were weakly connected
+in the full state, some selected incoming tw has t in B. The only
+other kind of edge incident to w is f, whose endpoint z is outside B.
+In particular t<w<x. Apply the reachability lemma in the graph with
+w removed to make t reach x. This keeps tw selected, keeps f covering,
+and preserves the separation of B from z. Thus x still does not reach z.
+
+The selected tw and the increasing t-to-x path now put w,x in the
+same weak block of the graph induced on vertices at most x. Apply the
+adjacent case of the reachability lemma there, stopping when q appears.
+Every flip lifts to the full graph, since cover tests ending at or
+below x use only vertices at or below x.
+
+Until q appears, w still has f as its only outgoing edge. Moreover none
+of these lower flips can change a path starting at x: every changed
+edge has tail strictly below x and head at most x. Hence x still does
+not reach z after q appears. Adding q therefore does not bypass f.
+The final flip q->r retaining f is actual. This proves the claim in
+both cases and retains every strict decoration throughout.
+
+### Whole-component conclusion for both recurrences
+
+**Theorem.** Let C be a whole NN or DN source component. Suppose r is
+absent throughout C and q varies on C. Then f is redundant throughout C.
+Deleting f and then the absent maximal r identifies C with ONE whole
+component of L-f-r, preserving K and E and decreasing natural area by two.
+
+Since q appears somewhere in C, its endpoints w,x belong to the same
+invariant selected weak block. If f covered in any member, the preceding
+construction would introduce r inside C, contradicting its constant
+absence. Thus the inactive-corner deletion and absent-corner identity
+apply to the entire component, proving the theorem.
+
+Together with the preceding selected-r theorem, every component with
+fixed r and variable q is now reduced, with no incoming-edge exception.
+The fixed-q theorem covers the other fixed-r components. Thus every
+component still requiring general NN/DN collection has BOTH q and r
+varying. Such a component is f-active because every flip changing r
+retains f as a cover. This is a proved reduction to that remaining case,
+not a proof that its paired middle states share the same exterior or
+that its initial image is already a union of whole RHS components.
+
+### Verification
+
+Related Rust: `dn_joint_span --nn-fixed-r-general` extends the same
+external consumer, using the existing cover/flip model and maintained
+Graph/Poset APIs. The new path constructor selects cover paths, removes
+their extreme vertices, and then performs the stated leftward flips;
+it does not search the full component for a desired endpoint. A complete
+component index is used only to verify each resulting move's membership.
+The checks verify strict edges, edge count and coverhood of f at every
+step, and compare every claimed corner-deletion image to a whole smaller
+component. Both upper and lower path-shortening cases occur, as do both
+cases for the block B, including DN states with selected e=uw.
+
+The separate `--reachability-activation` check tests the path lemma for
+every same-block ordered pair in three fixed diagrams, including an
+empty unmarked corner. No polynomial calculation, Lean build or new
+worker is involved. Frozen sources, commands, counts and receipts are
+under `general-fixed-r-20260929/` in the external project request folder.
