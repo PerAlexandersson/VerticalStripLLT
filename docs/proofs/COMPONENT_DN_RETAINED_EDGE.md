@@ -1880,3 +1880,49 @@ The complete prior note remains a verbatim prefix. No Lean/Lake build,
 worker, consultant, maintained Rust edit or independent review was used.
 The whole-component reassembly needed for the general e-expansion is
 still open.
+
+## A redundant tz with covering proper incoming suffix edges
+
+2026-09-29 continuation. The new shared-suffix arm construction settles
+part of the selected-redundant-tz case left after (52).
+
+**Proposition.** Keep the opening Q conditions. Suppose wt covers in
+S=Q+xs, w reaches s, and r=xz and sz cover in Q. Suppose tz is selected,
+and every selected hz with
+
+    t<h<z and t reaching h in Q
+
+covers in Q. Then
+
+    Q+xs ~ Q+st.                                    (53)
+
+The direct tz may be redundant. We allow arbitrary competing paths from
+t to each proper incoming tail h, and arbitrary exterior subject to the
+stated hypotheses. The edge ws may be absent or redundant.
+
+Apply (50) to reach Q+xt and restore the lower prefix. Apply the
+[selected-suffix background-anchor proposition](COMPONENT_RIGHT_ARM_TRANSFER.md#a-selected-direct-suffix-with-covering-proper-incoming-edges)
+(A10) with (u,v,d,c)=(x,s,t,z). The opening conditions exclude both
+x-to-t and s-to-t paths in Q, and the required two anchors cover there.
+Its last-edge hypothesis is exactly the displayed assumption. Hence
+Q+xt~Q+st, proving (53), with every other edge restored.
+
+Together with (51) and (52), the remaining suffix case under these same
+wt, w-to-s and background-anchor assumptions must have BOTH selected
+redundant tz and a redundant proper incoming hz reachable from t.
+Equivalently, two selected proper incoming tails are comparable by a
+path in Q. This does not restrict the whole unresolved retained-edge
+problem, where those earlier cover assumptions may also fail.
+
+Related Rust: external `first_join_tree_lifts.rs`, option
+`--retained-selected-suffix`, checks two fixed n12 states with redundant
+tz, two incomparable proper incoming tails, competing paths, and absent
+or redundant ws. The short extensions take 10/6 flips and the following
+transfer takes 26 in both cases, for totals 36/32. Every actual flip,
+strict edge and exact endpoint is checked; no state space is enumerated.
+Receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-selected-suffix-20260929/`.
+No Lean/Lake build, worker, consultant, maintained Rust edit or independent
+review was used. Prior text remains a verbatim prefix. The general left
+comparison and whole-component reassembly remain open, and the requested
+recurrence proof of component e-expansion is still incomplete.

@@ -495,3 +495,198 @@ that example. Sources and receipts are under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-suffix-covers-20260929/`.
 No Lean/Lake build, worker, consultant, maintained Rust edit or independent
 review was used. Earlier text in this note remains a verbatim prefix.
+
+## A shared first edge with an arbitrary suffix
+
+2026-09-29 continuation. The eight-flip shared-fork example following (A1)
+extends to an arbitrary suffix. We first state the exact path hypotheses;
+the next proposition supplies them in a selected-direct-suffix comparison.
+
+Let u,v be distinct, with u,v<h<d<c. Suppose B contains covering
+uc,vc,uh,vh, selects ud and omits vd. Put Q=B-ud, and assume
+
+    h reaches d in Q;
+    Q-uh has no u-to-d path;
+    Q-vh has no v-to-d path.                         (A7)
+
+Thus every u-to-d path in Q starts with uh and every v-to-d path starts
+with vh. We allow arbitrary competing h-to-d paths and arbitrary exterior
+subject to these conditions. In particular, ud is redundant in B.
+
+**Shared-suffix lemma.** Under these hypotheses,
+
+    B ~ B-ud+vd,                                    (A8)
+
+with both outer anchors covering at the endpoint and every other edge
+restored. Neither adjacency nor an ordering between u and v is required.
+
+The original covering anchors imply that the roots do not reach each
+other and that h does not reach c. Since h reaches d, d does not reach c
+either. First exchange vh->hc, retaining vc. Its required covers hold,
+and hc becomes a covering edge. We will use hc to prepare a covering dc
+and clear every h-to-d path.
+
+### Preparing dc inside hc
+
+In increasing order process
+
+    J={a : h<a<=d, ha selected, a reaches d}.
+
+All reachability here may be read in the state just after vh->hc. Exchange
+ha->ac while retaining hc. The usual first-edge argument makes ha cover
+at its turn. Its new ac was absent since hc covered; removing ha clears
+h-to-a reachability, so hc stays covering. The cut removes every h-to-d
+path, including hd if selected. New edges end at c>d.
+
+The set J is nonempty. Let a be its largest member. The last flip supplies
+a covering ac. If a=d, we already have the required dc. Otherwise choose
+a saturated a-to-d path and carry the long ac forwards along it, exchanging
+
+    b_i b_(i+1) -> b_(i+1)c [retain b_i c].
+
+Each new short supplies the next covering long. Earlier new edges end at
+c and cannot bypass a tested path short. The edge hc remains covering:
+h reaches none of these path vertices after the cut, because any such
+path would reach d, and these later exchanges create no new path below c.
+We finish with dc covering and still no h-to-d path. Call this full
+cut and path preparation P. Every tested edge of P has tail at least h.
+
+### Four central flips and delayed restoration
+
+Use the following row:
+
+    uh -> hd [retain ud],
+    dc -> vd [retain vc],
+    ud -> dc [retain uc],
+    hd -> vh [retain vd].                            (A9)
+
+Here are the cover checks with the full exterior retained. After P,
+ud covers: any competing u-to-d path in the original Q starts with uh,
+and the cut cleared the remaining h-to-d suffix. The new edges of P
+end at c>d. The cover of uh is unchanged, since P changes no edge with
+head at most h, and hd is absent. Thus the first flip is actual.
+
+After vh was removed, v had no path to d by (A7). It also reaches none
+of the original vertices a on a suffix to d, since such reachability
+would give a v-to-d path without vh. Consequently the new ac edges of
+P do not bypass vc. The added hd cannot do so either: v does not reach
+h after removing the originally covering vh. The edges vc,dc cover and
+vd is absent, proving the second flip actual.
+
+Now uc covers. The first flip removed uh, so u reaches no original
+vertex below d leading to d, by the u-path condition in (A7). Thus the
+new ac edges with a<d cannot bypass uc. The edge dc was just removed,
+and d has no other path to c. The new vd cannot be used from u, since
+the roots remain incomparable. The edge ud still covers and dc is
+absent, so the third flip is actual. Finally, vd covers below d, and
+hd covers because P cleared every h-to-d path before it was inserted.
+The absent vh can therefore be restored by the fourth flip.
+
+Relative to the endpoint of P, row (A9) has removed uh,ud and added
+vh,vd. All four changed edges have tails STRICTLY BELOW h. They cannot
+occur in a path testing any edge used by P, whose tails are at least h.
+Nor is any changed edge itself used by P. Every inverse of P is therefore
+actual. Notice that hd has already been removed again and dc restored
+before this inverse begins; this is the purpose of the fourth central flip.
+
+After reversing P, exchange hc->uh while retaining uc. The edge hc
+covers, since the extra changes below h cannot alter its cover. The
+original cover of uh excludes u reaching h after its removal. Apart from
+hc, the only added edge is vd, starting at the inaccessible other root.
+Thus uc covers as well, and this last flip is actual. The endpoint is
+exactly B-ud+vd. The anchor vc covers there: the only new edge vd has
+no d-to-c suffix. The anchor uc covers after the final actual flip.
+
+This gives 2|P|+6 moves. When hd is the sole suffix edge, P is the single
+flip hd->dc [hc], recovering the recorded eight-flip example. All removed
+edges lie properly inside the selected natural anchors uc,vc or hc; no
+strict corner is changed.
+
+## A selected direct suffix with covering proper incoming edges
+
+We now allow the direct suffix dc in (A3) to be selected and redundant.
+The following condition closes the shared-arm obstruction left there.
+
+**Proposition.** Let u,v be distinct vertices below d<c. Suppose Q selects
+covering uc,vc, has no u-to-d or v-to-d path, and selects dc. Put
+
+    I={h : d<h<c, hc selected in Q, d reaches h in Q}.
+
+If every hc with h in I covers in Q, then
+
+    Q+ud ~ Q+vd.                                    (A10)
+
+The edge dc itself need not cover. All exterior edges are restored.
+
+The members of I are pairwise incomparable by directed reachability in Q:
+if h reaches a larger k in I, the path to k followed by kc bypasses hc.
+Conversely, a bypass of hc ends in such a larger kc, so the displayed
+cover hypothesis is exactly this incomparability condition.
+
+Prepare S=Q+ud by the decreasing incoming cut hc->vh [retain vc] for
+h in I, followed by dc->vd [retain vc]. The last-edge argument from
+(A4) makes every flip actual, including the last one after all other
+d-to-c paths have been cleared. Prepare T=Q+vd symmetrically, using
+hc->uh and finally dc->ud, all retaining uc. Write Q0 for Q with dc
+and every hc, h in I, removed. The exact prepared states are
+
+    S_v=Q0+ud+vd+{vh : h in I},
+    T_u=Q0+ud+vd+{uh : h in I}.                      (A11)
+
+Both anchors cover in both states. The root arms ud,vd cover too, since
+Q had no path from either root to d and all other new arms end above d.
+The relation inside [d,c) is unchanged, so d still reaches each h in I.
+
+Transfer each vh to uh by the shared-suffix lemma (A8), with roots v,u,
+common first endpoint d, and moving endpoint h. Its hypotheses hold
+at each stage. Neither original root reaches any h in I in Q, since
+that would bypass its covering outer anchor using hc. Another added arm
+to k in I cannot reach h, by incomparability. Thus, after deleting the
+moving vh, every v-to-h path starts with vd and every u-to-h path starts
+with ud. These are precisely (A7). The lemma restores all other edges
+and preserves both outer covers. We may process I in increasing order.
+
+After all transfers we are exactly at T_u; both ud and vd have remained
+selected. Reverse the recorded preparation from T. Every inverse is actual
+because its complete starting state is exactly (A11). This proves (A10).
+For I empty the construction is just the familiar two-flip row for a
+covering dc; for nonempty I it genuinely includes redundant dc.
+
+The condition on the OTHER incoming edges is substantive. If h,k in I
+satisfy h<k and h reaches k, an already transferred uh may give an
+u-to-k path avoiding ud. Then (A7) fails for the next transfer. We have
+not proved (A10) with such comparable incoming tails. This is the remaining
+selected-direct-suffix obstruction in this construction, rather than a
+restriction on the number of competing paths to each individual tail.
+
+For a concrete remaining diagram, take u=0, v=1, d=2, c=5 and
+
+    Q={05,15,25,23,34,35,45}.
+
+The proper incoming tails are 3,4, with 3 reaching 4; both 25 and 35
+are redundant. The two incoming cuts give Q0={05,15,23,34} and the
+first prepared state Q0+02+12+13+14. Lemma (A8) transfers 13 to 03.
+But in the resulting state, removing 02 no longer clears the target
+root's path to 4: the edges 03,34 remain. Thus the second proposed
+application of (A7) is unavailable. This is a failure of these hypotheses,
+not a separation proof or a counterexample to the desired transfer.
+It identifies the next local configuration requiring a different repair.
+
+### Fixed checks of both constructions
+
+Related Rust: external `first_join_tree_lifts.rs`, helpers
+`shared_suffix_arm_path` and `selected_suffix_anchor_path`, reusing the
+established full cover/flip oracle. `--shared-suffix-arm` checks four
+fixed n12 states with multiple competing suffixes, absent or redundant
+hd, both root orders and exterior shared descendants. The paths have
+14,14,12,12 flips, respectively. `--selected-suffix-anchors` checks two
+fixed n12 states with redundant dc and two incomparable incoming tails;
+its paths have 28 and 26 flips. Every actual flip, strict edge, outer
+cover at each macro endpoint, prepared-state equality and final selected
+set is checked. No state space is enumerated.
+
+Sources and receipts are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-selected-suffix-20260929/`.
+The complete previous note is preserved as a verbatim prefix. No Lean/Lake
+build, worker, consultant, maintained Rust edit or independent review was
+used. These local source paths do not claim whole-component reassembly.

@@ -19,7 +19,25 @@ is proved with arbitrary exterior. Together with the earlier f-cover
 result, it settles every comparison where either outer anchor covers
 at Q+xs. Checkpoints `0cbefcc` and `dd844e9` are pushed to origin/main.
 
-The latest continuation proves [transfer with covers only in the background](docs/proofs/COMPONENT_RIGHT_ARM_TRANSFER.md#covers-in-the-background-and-an-absent-direct-suffix).
+The latest continuation proves a [shared-first-edge suffix lemma](docs/proofs/COMPONENT_RIGHT_ARM_TRANSFER.md#a-shared-first-edge-with-an-arbitrary-suffix):
+a redundant arm transfers across two roots when their competing routes
+start with a shared covering pair. The suffix beyond that pair may have
+arbitrary competing paths. A cut and path prepare dc; four central flips
+move the obstructing arm before the preparation is reversed.
+
+This proves [selected-direct-suffix transfer](docs/proofs/COMPONENT_RIGHT_ARM_TRANSFER.md#a-selected-direct-suffix-with-covering-proper-incoming-edges)
+when the proper incoming tails reached from d are pairwise incomparable,
+equivalently their incoming edges cover. The direct dc may be redundant.
+The [retained-edge corollary (53)](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#a-redundant-tz-with-covering-proper-incoming-suffix-edges)
+therefore permits redundant tz under the previous wt, w-to-s and background
+r,sz hypotheses when all proper incoming suffix edges cover. Under those
+same assumptions, a remaining suffix case needs BOTH redundant tz and
+a redundant proper incoming hz. The six-vertex comparable-tail example
+in the right-arm note shows exactly why the current transfer row stops.
+This does not settle other failed-cover cases, the left comparison or
+whole-component reassembly. The general recurrence proof remains open.
+
+The preceding continuation proves [transfer with covers only in the background](docs/proofs/COMPONENT_RIGHT_ARM_TRANSFER.md#covers-in-the-background-and-an-absent-direct-suffix).
 If uc,vc cover in Q, neither root reaches d, and dc is absent, then
 Q+ud~Q+vd even with arbitrary d-to-c paths. Different incoming cuts at
 the endpoints, followed by increasing covering-arm transfers, meet exactly.
@@ -27,8 +45,8 @@ the endpoints, followed by increasing covering-arm transfers, meet exactly.
 Its [retained-edge corollary](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#an-absent-tz-with-arbitrary-paths-from-t-to-z)
 settles absent tz whenever wt covers, w reaches s, and r,sz cover in Q.
 The short extension reaches Q+xt; the new transfer finishes at Q+st.
-Together with (51), only selected redundant tz remains under those
-other hypotheses. The general both-redundant comparison, the unrestricted
+Together with (51), this originally left selected redundant tz under those
+other hypotheses; the latest result above now covers incomparable proper tails. The general both-redundant comparison, the unrestricted
 left comparison and whole-component reassembly remain open.
 
 The preceding continuation proves [arbitrary lower-prefix repairs](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#preparing-an-arbitrary-lower-prefix-inside-ws).
@@ -356,6 +374,12 @@ actual source components forced by the three pair families.
 
 ## Ownership and restrictions
 
+Current selected-suffix continuation owns append-only shared-suffix and
+selected-direct-suffix proofs in the right-arm and retained-edge notes,
+fixed external-consumer checks, outline routing and both handoffs. The
+construction restores its suffix only after exchanging the shared arm.
+All prior proof text will remain a verbatim prefix.
+
 Primary retains the academic Astra/high assignment on `main`, with unchanged
 profile, role and service tier. Primary owns the outline, notes, documentation
 routing, handoffs and external diagnostic. No additional worker or consultant
@@ -426,6 +450,15 @@ including its original dirty paragraph, is preserved in the
 Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
+
+Current selected-suffix increment: four fixed n12 shared-suffix paths
+pass 14,14,12,12 flips, with both root orders and absent/redundant internal
+hd. Two fixed n12 selected-dc transfers pass 28/26 flips; two retained-edge
+repairs with redundant tz and absent/redundant ws pass 36/32. Every actual
+flip, strict edge, prepared-state equality and exact endpoint is checked.
+No state space is enumerated. Prior proof text remains a verbatim prefix;
+no Lean/Lake build, worker, consultant, maintained Rust edit or independent
+review. Proof checkpoint pending.
 
 Current suffix increment: two fixed n9/n12 background transfers pass
 16/32 flips, including nonadjacent roots, multiple suffix paths and redundant
@@ -654,7 +687,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-suffix-covers-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-selected-suffix-20260929/`.
+Absent-suffix receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-suffix-covers-20260929/`.
 Lower-prefix receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-lower-prefix-20260929/`.
 Lower-bypass receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-both-redundant-20260929/`.
 General r-cover receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-common-ancestor-20260929/`.
