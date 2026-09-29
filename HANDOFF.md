@@ -391,6 +391,7 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Proof checkpoint: `116254b` (both-redundant lower-bypass repair).
 Current lower-bypass increment: seven-flip arbitrary-exterior rows with
 both outer anchors redundant and r redundant after xs deletion. Three
 fixed n7/n11 paths pass, including an initially covering wa and exterior
