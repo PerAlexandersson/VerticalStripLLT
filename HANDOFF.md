@@ -42,7 +42,7 @@ close that gap. The full goal remains active. Both previous proof notes
 remain verbatim prefixes; 124 local file links, receipt hashes and
 `git diff --check` pass. Maintained Rust is clean at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`. No process remains from
-the diagnostic run. This is the fixed-short proof checkpoint.
+the diagnostic run. Proof checkpoint `07012b6` is pushed to `origin/main`.
 
 ## Current continuation — two recurrences resolve an empty-corner example
 
