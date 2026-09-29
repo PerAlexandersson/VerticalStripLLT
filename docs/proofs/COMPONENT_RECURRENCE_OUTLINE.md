@@ -294,6 +294,7 @@ separate order or reduction for recurrences crossing the chosen cut.
 | Retained-edge source paths | [Retained-edge repairs](COMPONENT_DN_RETAINED_EDGE.md) | Arbitrary-exterior conditions, selected suffixes and an incoming-cut preparation with multiple obstructions; unrestricted case remains |
 | Retained-edge auxiliary path to t | [Reachable covering anchor](COMPONENT_DN_RETAINED_EDGE.md#an-incoming-covering-anchor-with-a-path-to-t) | With r covering, a covering yz and y-to-t path suffice even for y<s; the largest bad incoming branch reaching t is resolved, including selected shared arms |
 | Shared retained-edge branch toward s | [Arbitrary prefix repair](COMPONENT_DN_RETAINED_EDGE.md#a-shared-branch-reached-by-an-arbitrary-prefix) | With r,wt,yz covering and all w-to-s paths using selected ys, arbitrary w-to-y prefixes and redundant direct wy are handled; multiple routes without this edge and redundant wt remain |
+| Several routes entering s | [Temporary-tz repair](COMPONENT_DN_RETAINED_EDGE.md#several-routes-entering-s) | With r,wt,yz covering, w reaching y and t not reaching z, any selected ys suffices, even redundant and with earlier incoming tails; missing ys and redundant wt remain |
 | Moving only the distinguished short | [Crossing-cover paths](COMPONENT_DN_RETAINED_EDGE.md#sliding-the-moving-edge-along-crossing-covers) | An arbitrary-length alternating path proves the retained-edge comparison, allowing both anchors redundant; path existence remains a hypothesis |
 | DD/ND inheritance | [Corner-unmarking reductions](COMPONENT_DD_PACKETS.md) | DD reduces to DN, ND to NN, keeping the same whole component |
 | Recurrence choice and induction | [First-drop coverage](COMPONENT_RECURRENCE_COVERAGE.md) | Proved for every ordinary saturated diagram; NN/DN reassembly is the remaining induction input |
@@ -337,7 +338,12 @@ condition fails. When wt covers and every w-to-s path uses a selected ys,
 the new prefix construction handles the s-reaching branch too, including
 redundant wy and competing prefix paths. The truncated cut may expose yz
 first. Cases with several routes lacking this common edge, or with wt
-redundant, still require repair. For this retained-edge comparison, a
+redundant, still require repair under that construction. The new incoming-s
+construction removes the common-edge condition whenever ys is selected,
+allowing redundant ys and earlier incoming tails. Temporarily moving st
+to tz puts both added edges above every inverse-prefix interval, so
+all original prefix edges can be restored. Missing ys and redundant wt
+remain outside this new construction. For this retained-edge comparison, a
 nonzero coefficient
 defect also forces f redundant at both endpoints, so their one-corner
 alternating valuations vanish. This local support does not collect whole

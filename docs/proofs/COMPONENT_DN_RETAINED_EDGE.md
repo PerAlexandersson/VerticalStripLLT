@@ -984,3 +984,144 @@ space is enumerated. Exact edge lists, sources and receipts:
 Every previous retained-edge paragraph is preserved as a verbatim prefix.
 No Lean/Lake build, worker, consultant, maintained Rust edit or new
 independent review was used.
+
+## Several routes entering s
+
+2026-09-29 continuation. We remove the common-final-edge condition in
+(26). We restore the prefix while st is temporarily replaced by tz.
+Both temporary edges then end above every interval tested by the inverse
+prefix. Competing routes into s cause no difficulty, even when they enter
+from before y. The selected ys may also start redundant.
+
+Keep the opening configuration S=Q+xs, T=Q+st. Suppose
+
+    w<x<y<s<t<z,
+    r=xz, wt, yz cover in S,
+    ys is selected,       w reaches y,
+    t does not reach z.                              (30)
+
+**Proposition.** Under (30), S~T with every other selected edge restored.
+The exterior and cycle rank are arbitrary. We require neither a least
+incoming tail nor a common edge on the w-to-s paths.
+
+### Expose ys and prepare the prefix
+
+First process increasingly every selected yv with y<v<s and v reaching
+s in S. Exchange yv->vz while retaining yz. Each yv covers at its turn:
+a bypass would start with an earlier qualifying outgoing edge, already
+removed. Added edges end at z and cannot create such a bypass. Each
+exchange preserves the cover of yz, and the cut exposes the selected ys.
+Denote this preparation by O, with o flips, and its resulting state by S0.
+
+The cut also preserves r. An old x-to-v path would imply an old Q-path
+from x to s, and xs cannot reach v<s. Thus no new vz bypasses r.
+New heads z lie above t, so wt remains covering. The cut changes nothing
+at or below y, and no new edge starts at or above t; w still reaches y
+and t still does not reach z. Conditions (1), after omitting xs, persist.
+
+Choose a saturated selected prefix
+
+    w=v_0 < v_1 < ... < v_m=y.
+
+It cannot use x because w,x are adjacent and wx is absent. For
+i=0,...,m-1 exchange
+
+    v_i v_(i+1) -> v_(i+1)t [retain v_i t].          (31)
+
+Call these m flips P. The first retained long wt covers; each actual
+flip supplies the next covering long. Earlier added edges end above y,
+so every original prefix short still covers when used. The final yt
+covers. Earlier longs may become redundant through competing routes;
+we do not retain them again until their recorded inverse step.
+
+Both r and yz remain covering because no t-to-z suffix exists. The
+edge ys remains covering because new heads t exceed s. The edge xs
+also remains covering. No prefix move creates a t-to-z suffix.
+
+### Temporarily remove st before restoring the prefix
+
+Use the three flips
+
+    xs -> sz [retain r],
+    ys -> st [retain yt],
+    st -> tz [retain sz].                            (32)
+
+The first two use the covers just proved. In the second, the newly added
+sz ends above t and cannot interfere. Before the third, sz still covers:
+adding st could bypass it only if t reached z. Thus the third flip is
+actual. It leaves sz and tz selected, with xs,ys,st absent.
+
+Now undo all of P in reverse order. Relative to its recorded states,
+xs and ys have been deleted and sz,tz added. Every tested interval is
+contained in [w,t]. The added edges both end at z>t and cannot occur on
+any tested forward path. Deletion cannot create a bypass. Neither xs
+nor ys is a tested edge: x is not a prefix vertex and s>y. Every inverse
+is therefore actual. The full original prefix is restored, even when
+an earlier long would have been redundant had st remained selected.
+
+The resulting state is S0-xs-ys+sz+tz. Finish with
+
+    tz -> st [retain sz],
+    sz -> ys [retain yz].                            (33)
+
+For the first flip, sz and tz cover. In S0 we have s not reaching t by
+(1), and s not reaching z because r covers with xs selected. The cut O
+has preserved these facts. Therefore the two displayed new edges are
+the only possible new paths from s or t to z; neither bypasses the other.
+
+After tz->st, t again does not reach z. Since ys covered in S0, removing
+it leaves no y-to-s path. The new st cannot alter that fact. Consequently
+sz cannot bypass yz, and st cannot bypass yz without a t-to-z suffix.
+Thus yz and sz cover, making the last flip actual. We reach S0-xs+st.
+
+Finally undo O. Relative to each original cut state, xs is removed and
+st added. A new bypass of yz or vz would require a t-to-z suffix, still
+absent; a tested yv ends below s and cannot use st. Every inverse is
+actual. We have restored every original edge except xs and inserted st.
+This proves the proposition with 2(o+m)+5 flips.
+
+All exchanges are normal: (31) lies properly inside wt, and the remaining
+exchanges lie properly inside yz, r, yt or sz, themselves natural edges.
+The complete exterior participates in every cover test. We have proved
+an actual component path, without assuming invariance of either valuation
+under an individual flip.
+
+### The last obstructing incoming branch
+
+Use the earlier sets I,B. Suppose r and wt cover, t does not reach z,
+and the largest y in B reaches s but not t. If ys is selected, then
+S~T even when yz and ys are initially redundant.
+
+Apply the truncated incoming cut at heads h>y to expose yz. It preserves
+r,wt, the selected ys, and all w-reachability below z: its added xh are
+unreachable from w, and these heads do not reach s or t. Conditions (1)
+and t not reaching z persist. Apply (30)--(33), then undo the truncated
+cut by the earlier inverse argument. If the cut has a flips, the full
+path has 2(a+o+m)+5 flips.
+
+This treats arbitrary competing routes into s when the displayed ys is
+selected. Neither an earlier incoming tail nor redundancy of ys is an
+obstruction. The remaining s-reaching cases outside this construction
+include missing ys and redundant wt. Cases with both original outer
+anchors redundant, the unrestricted left comparison, and general
+whole-component reassembly still require further arguments.
+
+### Fixed checks
+
+Related Rust: external `first_join_tree_lifts.rs`, option
+`--retained-temporary-suffix`. Four fixed n10/n11 states use
+w=1,x=2,y=4,s=7,t=8, with incoming edges 37,47,57,67. Thus an incoming
+tail precedes y, and ys is not common to all w-to-s paths. All have
+competing prefix routes and redundant direct wy. Two also select 45,46,
+making ys redundant; the n11 states first expose the redundant yz.
+
+The four paths have 9,13,11,15 flips. Each explicitly checks that the
+earlier temporary long 38 is redundant after ys->st, so simply reversing
+the prefix at that point would fail. Temporarily replacing st by tz
+makes the full inverse valid. Every actual flip, strict edge and exact
+endpoint passes the existing oracle. No state space is enumerated.
+Sources, full edge lists and receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-incoming-s-20260929/`.
+The complete prior retained-edge note remains a verbatim prefix. No
+Lean/Lake build, worker, consultant, maintained Rust edit or independent
+review was used.
