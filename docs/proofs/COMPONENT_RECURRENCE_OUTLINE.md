@@ -131,6 +131,17 @@ positivity assertion for the intermediate signed recurrence.
 The implication (2) => (1) is proved by this induction argument. Producing
 (2) uniformly, including the component-boundary checks, is the open step.
 
+We must distinguish a local source-path repair from this coefficient
+reassembly. In a first-drop DD intermediate, the upper natural corner h
+is unmarked and its selected status is invariant on source components.
+The new target corner can retain a flip that exchanges h. Its two source
+preimages have opposite h-status, so a universal source-path repair is
+impossible. The [forced-addition analysis](COMPONENT_DN_SOURCE_ADDITIONS.md#the-unmarked-upper-corner-forces-source-additions)
+gives the explicit 01222 example, its complete recurrence, and the exact
+compatibility equations for adding h-absent components. Every such added
+component deletes to D-h. This boundary requires coefficient correction;
+it is not a further missing cover case in a universal connectivity lemma.
+
 The notebook's initial decomposition is now reconstructed exactly. Its
 identity sectors already give whole components. Its remaining sector uses
 reverse DN; equation (N2) in the [notebook note](COMPONENT_NOTEBOOK_MAP.md)
@@ -252,6 +263,7 @@ separate order or reduction for recurrences crossing the chosen cut.
 | One-component DN split | [Direct DN overlaps](COMPONENT_DN_DIRECT_OVERLAPS.md) | General identity; two ordered five-vertex overlap types remain |
 | DN diamonds and minimal components | [Joint repairs](COMPONENT_DN_JOINT_REPAIRS.md) | Both minimal pictures completed; local propagation lemmas |
 | Additional whole source components | [Source additions](COMPONENT_DN_SOURCE_ADDITIONS.md) | Six-vertex example proved; general construction remains |
+| DD boundary exchanging the upper corner | [Forced deletable additions](COMPONENT_DN_SOURCE_ADDITIONS.md#the-unmarked-upper-corner-forces-source-additions) | Exact arbitrary-exterior equations and all-sector reduction proved; compatibility between forced additions remains |
 | Retained-edge source paths | [Retained-edge repairs](COMPONENT_DN_RETAINED_EDGE.md) | Arbitrary-exterior conditions, selected suffixes and an incoming-cut preparation with multiple obstructions; unrestricted case remains |
 | Moving only the distinguished short | [Crossing-cover paths](COMPONENT_DN_RETAINED_EDGE.md#sliding-the-moving-edge-along-crossing-covers) | An arbitrary-length alternating path proves the retained-edge comparison, allowing both anchors redundant; path existence remains a hypothesis |
 | DD/ND inheritance | [Corner-unmarking reductions](COMPONENT_DD_PACKETS.md) | DD reduces to DN, ND to NN, keeping the same whole component |
@@ -294,8 +306,12 @@ of left retained-e-prime comparisons. They include e,f,r,td covering at
 the source when w,x do not both reach d; and a common direct branch with
 e,td,wd,xd covering, even when f,r are redundant. A saturated genuine
 first-drop DN diagram supplies td as a strict edge, but not its cover.
-The remaining left repair must handle the other failures of these cover
-assumptions and common branches with redundant short arms.
+For genuine DN, the remaining left repair must handle the other failures
+of these cover assumptions and common branches with redundant short arms.
+For the DD intermediate, do not demand source paths across the boundary
+exchanging its unmarked upper corner: opposite corner statuses forbid them.
+Use the proved forced-addition equations there and establish compatibility
+with the other left comparisons, q-changing flips and deletion terms.
 After those repairs, prove closure of the complete collected components
 and supply the NN reassembly step. The first-drop theorem now gives a
 compatible choice for every ordinary diagram, and DD/ND inheritance supplies

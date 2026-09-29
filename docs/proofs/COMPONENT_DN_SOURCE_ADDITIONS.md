@@ -197,3 +197,136 @@ solves the explicit coefficient equations. Frozen source, commands, logs,
 independent audit and checksums are in
 `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-left-exterior/`.
 No Lean source or manuscript is changed by this note.
+
+## The unmarked upper corner forces source additions
+
+2026-09-29 continuation. We isolate a boundary which cannot be settled by
+extending the conditional source-path lemmas. This occurs in an actual
+first-drop DD step, so it remains part of the restricted completion target
+in the main outline. The required repair is a coefficient correction.
+
+Let D have strict corners e=uw, f=wz and h=(u+1)x, where x=w+1 and
+u+1<w. Unmark h to obtain the DN intermediate N. Put a=u(u+1).
+The status of h is invariant on every complete N-component: it is still
+a natural corner. The h-selected components are exactly those of D;
+the h-absent components are whole components in N-h=D-h, a smaller
+natural diagram. These are the existing corner identifications, with
+arbitrary exterior and no restriction on selected cycle rank.
+
+In the DN target, e'=ux properly contains h. It can retain an actual
+flip a<->h. In the R10 sector, the direct coefficients at that comparison
+are the source multiplicities at
+
+    A=L01(Q+a),             B=L01(Q+h).              (8)
+
+The two source states have opposite h-status and therefore can NEVER
+belong to the same N-component. Thus, if B belongs to the chosen original
+component C, its indicator gives coefficients 0 and 1 at this actual target
+comparison. No source path can make them equal. The cover hypotheses for
+the target comparison are still required; we do not assert that every Q
+supports the comparison.
+
+### A first-drop example and its complete repair
+
+Take D with area 01222 and all three corners 02,13,24 strict. Its first
+strict area drop is after vertex 4, with the DD contact (u,w,x,z)=(0,2,3,4).
+Unmark h=13. In N the four states
+
+    C={02,13,24}+choose one of {01,12,23,34}
+
+form one complete component. Each flip exchanges adjacent unequal choices
+along this four-edge list, retaining 02,13 or 24. The h-absent component
+
+    I={02,24}+choose one of {01,12}+choose one of {23,34}
+
+is a complete square: the two independent exchanges retain 02 and 24.
+Both descriptions include all possible source flips, since every natural
+long is one of these three length-two corners. The h-status distinguishes
+the two components.
+
+In particular A={01,02,24,34} belongs to I, whereas
+B={02,13,24,34} belongs to C. The target, of area 01231 with 03,34 strict,
+has the actual flip
+
+    {01,02,03,34} <-> {02,03,13,34}, retaining 03.   (9)
+
+The exchanged shorts 01,13 and the retained 03 have the required covers.
+Its direct t10 coefficients for the indicator of C are 0 and 1. This
+explicitly refutes unrestricted left source-connectivity for the DD
+intermediate, including when the original component selects the unmarked
+upper corner. Selecting that corner does not remove (9) from the target.
+
+The obstruction is not confined to forest components. Add 12 to both A
+and B and to the two target states in (9). The target flip is still actual.
+The selected-h source component is now the six-state connected unicyclic
+component C_2 from the minimal left calculation, whereas its h-absent
+partner is the two-state I_21. Its representative
+{02,12,13,24,34} is acyclic after reversing all three strict corners:
+3,1,4,2,0 is a topological order for the resulting mixed graph. Thus the
+usual disconnected, forest and mixed-cycle reductions do not exclude this
+counterexample to the source-path assertion.
+
+Adding I with coefficient one repairs this boundary. Here it also completes
+the entire DN image, as proved in the
+[five-vertex left construction](COMPONENT_DN_JOINT_REPAIRS.md#a-complete-component-recurrence-for-the-left-hand-diagram):
+
+    X_D(C)=X_R(D8)-X_(D-h)(I),          X=K,E.         (10)
+
+The eight-state D8 is the whole target component listed there. Its complete
+reassembly is essential to (10); the single comparison (9) alone would
+not prove that recurrence. Both output diagrams decrease the ordinary
+induction order. This is a worked instance of the notebook's component
+completion by adding and then subtracting a deletable component.
+
+### Exact equations for this boundary, with arbitrary exterior
+
+Suppose we fix integer multiplicities m(C) on the h-selected source
+components. For each h-absent component I, let N(I) be the set of
+h-selected components containing a state B paired with a state A in I
+as in (8), for an ACTUAL target R10 flip a<->h.
+
+**Proposition.** We can assign multiplicities m(I) to the h-absent components
+so that the unmodified direct DN coefficients agree on every target flip
+retaining e' and exchanging a,h if and only if m(C) is constant on N(I)
+for each I. If N(I) is nonempty, m(I) is forced to be that common value;
+if N(I) is empty, we may set m(I)=0.
+
+**Proof.** At each R10 comparison, direct transport gives exactly the
+equation m(I)=m(C), by (8). Necessity follows. Conversely, the proposed
+assignment satisfies all these equations, hence every R10 comparison
+of this type. The
+[sector reduction](COMPONENT_DN_DIRECT_OVERLAPS.md#all-left-retained-e-prime-comparisons-reduce-to-the-10-sector)
+then supplies the 00 and 01 comparisons; the 11 sector has no actual
+flip retaining e'. This proves sufficiency for this boundary subsystem.
+Every added I is a whole component of D-h, independently of the assignment,
+so it has an available smaller-diagram interpretation for both valuations.
+
+For the indicator of one C, this says that every h-absent I meeting C is
+forced to have coefficient one. Such an assignment can leave every other
+h-selected component at zero exactly when no such I also meets a different
+h-selected component. We have not proved this compatibility in general.
+Nor does the proposition settle the other left vertices, q-changing flips,
+or the deletion-diagram coefficients. Those may require further source
+additions or joint diamond corrections. If output coefficients themselves
+are changed by zero-valuation identities, the displayed equalities need
+not remain the full repair equations; the necessity assertion is explicitly
+for source additions followed by the unmodified direct split.
+
+The proposition therefore identifies a compulsory first part of a
+source-addition construction, rather than asserting that the complete
+construction always exists. It also prevents a false proof target:
+unrestricted source connectivity cannot replace coefficient reassembly.
+
+### Verification
+
+Related Rust: the existing external `first_join_tree_lifts.rs`, option
+`--dd-boundary-check`, checks the two four-state source components, their
+opposite h-status, the target comparison and its 00 version, and all
+R01-to-R10 lifts in this fixed target. It also checks the six-/two-state
+unicyclic comparison and the displayed mixed-acyclic witness. The established `dn_joint_span`
+binary, `--left-repair --skip-span`, independently replays the complete
+fourteen-component minimal left calculation, with whole target/deletion
+components and exact K/E identities. These checks support (9)--(10);
+the arbitrary-exterior proposition is proved by the coefficient equations.
+No new general compatibility or independent review is claimed.
+Receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/common-preparation-20260929/`.

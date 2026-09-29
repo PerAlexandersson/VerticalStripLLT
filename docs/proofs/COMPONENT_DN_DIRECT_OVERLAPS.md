@@ -230,3 +230,36 @@ Each construction proves the required source-component equality and hence
 both t10/t00 comparisons, without adding a correction. The other cover
 cases and global collection remain open, and the earlier independent audit
 does not cover this new continuation.
+
+## All left retained-e-prime comparisons reduce to the 10 sector
+
+2026-09-29 continuation. Fix u<t<w<x<z and a target flip retaining
+e'=ux and exchanging ut,tx. It preserves the e=uw and q=wx bits.
+The 00 comparisons already follow the 10 comparisons by (5). The same
+reduction holds for 01; there are no such comparisons in 11.
+
+Indeed, take an actual flip in R01. Delete its preserved adjacent edge q
+at both endpoints. This preserves every required cover: q is neither
+exchanged nor retained by this flip. Now add e. The only target natural
+edge properly containing e is e'. A new bypass of e' using e would
+require a w-to-x path. Since x=w+1 and q has been removed, no such path
+exists. Thus the same flip is actual in R10, with identical exterior
+endpoints. Both sectors have coefficient h01, so their coefficient
+differences are equal. In R11, e' is redundant through e,q and cannot
+retain an actual flip.
+
+Consequently, for an arbitrary integer function h constant on source
+components, constancy on every left R10 comparison implies constancy on
+every target flip retaining e' with third vertex strictly between u,w.
+No rank, saturation or exterior hypothesis was added. This does not
+assert that the original indicator of one source component is constant
+on those R10 comparisons.
+
+In fact such a blanket source-connectivity assertion is false for the
+DD intermediate with its upper corner unmarked. The
+[forced-addition analysis](COMPONENT_DN_SOURCE_ADDITIONS.md#the-unmarked-upper-corner-forces-source-additions)
+gives an actual first-drop DD example and the exact correction equations
+for the boundary which exchanges that corner. Those comparisons must be
+repaired as coefficients, rather than by demanding a nonexistent source
+path. The earlier covering-anchor path lemmas remain valid within their
+stated hypotheses.

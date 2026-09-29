@@ -14,7 +14,16 @@ remain intact in the [component catalogue](docs/COMPONENT_NOTE_CATALOGUE.md).
 
 Active goal: prove the general non-circular component e-expansion for
 Motzkin/Dyck diagrams by the diagram-bijection/recurrence approach.
-Latest continuation proves a [crossing-cover path repair](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#sliding-the-moving-edge-along-crossing-covers):
+Latest continuation proves the [forced-addition equations](docs/proofs/COMPONENT_DN_SOURCE_ADDITIONS.md#the-unmarked-upper-corner-forces-source-additions)
+for the DD boundary exchanging the unmarked upper corner. A universal left
+source-path lemma is false there: the two source preimages have opposite
+invariant corner status, already in the genuine first-drop example 01222.
+The added h-absent components all delete to D-h. Compatibility of their
+forced coefficients, and with the remaining boundaries, is still open.
+All left retained-e-prime comparisons now reduce to the R10 equations:
+R00 has opposite defect, R01 lifts to R10 with the same defect, and
+R11 cannot retain the redundant e-prime. This holds with arbitrary exterior.
+The preceding continuation proves a [crossing-cover path repair](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#sliding-the-moving-edge-along-crossing-covers):
 the moving short slides along an alternating path of covers across its
 middle vertex, with arbitrary exterior and possibly both anchors redundant.
 It is exact for paths that retain the full background Q at every step;
@@ -79,6 +88,13 @@ terms, not from the signs of intermediate recurrence coefficients.
   components, with identical coefficients for K/E. Source additions are
   allowed when each added whole component is independently reduced to a
   smaller diagram. No balance, isolation or cycle-rank prerequisite is imposed.
+- In a DD intermediate, a target e-prime-retained flip exchanging the
+  unmarked upper corner h forces equal coefficients on an h-absent source
+  component I and its paired h-selected component C. I always deletes to
+  D-h. For prescribed selected-sector coefficients, this subsystem is
+  solvable exactly when every I has a common coefficient among its selected
+  neighbors. That compatibility is not yet proved. The 01222 example needs
+  I11 added to C1; its complete eight-state target recurrence is verified.
 - The ordinary order (n, number of natural edges, sum_j j*a_j) handles the
   proved NN/DN/DD/deletion targets and subsequent envelope normalization.
   DD now reduces to one-component DN, and ND to one-component NN, by
@@ -133,6 +149,15 @@ First check the new crossing-cover path criterion. If it fails, a local
 repair must change some background edges; fixed-background searching cannot
 help. Do not assume a general wt-to-xt transfer, even with x not reaching t.
 The new obstruction is a proved separation, not merely a failed path search.
+Identical preparation at both endpoints followed by a crossing-cover path
+is also not universal: the basic five-vertex example already has a closed
+four-background preparation component without such a terminal. Its ordinary
+three-flip repair works by changing backgrounds differently along the path.
+The bounded check finds a common preparation for 343 of 576 comparisons
+in one fixed K6; do not turn this into a general normalization claim.
+For the left DD boundary, stop searching for source paths across h-status.
+Use the forced deletable additions and test their compatibility with the
+other boundaries. All-sector constancy there reduces to the R10 equations.
 
 ## Ownership and restrictions
 
@@ -143,10 +168,12 @@ is authorized; no Lean/Lake builds are authorized. No manuscript proof or PDF
 change is currently needed. The combinatorics-paper-writing skill was used
 for the outline and note organization.
 
-Current continuation owns append-only extensions of the right-arm and
-retained-edge notes, their outline routing, both handoffs and the external
-diagnostic. Existing note contents remain verbatim prefixes. The incoming-edge
-note is unchanged in this increment.
+Current continuation owns append-only extensions of the source-addition and
+direct DN notes, the outline routing, both handoffs and the external diagnostic.
+The retained-edge, right-arm and incoming-edge notes are unchanged in this
+increment. We are making the DD upper-corner boundary explicit: a universal
+left source-path lemma is false there, and deletable additions are required
+if we use the unmodified direct-transport coefficients.
 No previous independent review is asserted for new arguments.
 
 The reboot terminated the old workers/consultant. Its saved Claude output
@@ -158,9 +185,25 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Current increment: arbitrary-exterior R01-to-R10 left-flip lifting and exact
+upper-corner source-addition equations. The fixed 01222 source has the two
+four-state components with opposite h-status, two checked target flips
+(10 and 00), and two oriented R01-to-R10 lifts. The established external
+`dn_joint_span --left-repair --skip-span` replay passes all fourteen minimal
+left components, with exact K/E and whole-component checks. A separate
+fixed five-vertex test proves closure of the four common-preparation
+backgrounds; its three undirected edges form the displayed path in the
+receipt. These are small fixed checks, not a family scan. General
+coefficient compatibility and full reassembly remain open.
+
+The same target obstruction also occurs for C2 versus I21, of sizes six
+and two, with the displayed selected-h representative connected unicyclic
+and mixed-acyclic. That check passes; forest and mixed-cycle reductions do
+not remove the need for this coefficient repair.
+
 Proof checkpoint: `8f359bd` (crossing-cover lemma and the structural obstruction to
 unrestricted outgoing-arm transfer).
-Current increment: crossing-cover lemma and the structural obstruction to
+Preceding increment: crossing-cover lemma and the structural obstruction to
 unrestricted outgoing-arm transfer. The new construction applies to 56 of
 576 retained-edge comparisons in a fixed complete six-vertex diagram,
 including 10 with both anchors redundant; 168 actual flips pass. A fixed
@@ -207,9 +250,9 @@ Two fixed DN states at n=8 and n=10 check the new preparation at both
 endpoints (10 and 24 flips total), reducing to the proved two-cover lemma.
 No state space at either larger size is enumerated. Both extended notes
 preserve their previous contents verbatim as prefixes.
-Current ownership: retained-edge and right-arm notes, outline, both handoffs
+Current ownership: source-addition and direct DN notes, outline, both handoffs
 and external consumer. Their previous contents are preserved as prefixes.
-The incoming-edge and direct DN notes are unchanged this increment.
+The retained-edge, right-arm and incoming-edge notes are unchanged this increment.
 No Lean/Lake or manuscript build was run; no new worker or consultant.
 Runtime registry and `codex mcp list` were inspected; Lean MCP is rooted at
 RealRooted and unused. No model, account, worker or service-tier change.
@@ -223,7 +266,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/outgoing-no-path-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/common-preparation-20260929/`.
+Crossing-cover receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/outgoing-no-path-20260929/`.
 Incoming-arm receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/incoming-anchor-20260929/`.
 Coverage receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/first-drop-coverage-20260929/`.
 Two-anchor receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/two-anchor-transfer-20260929/`.
