@@ -99,7 +99,8 @@ Neither check proves a general bijection or component formula.
 
 Prior pushed checkpoints: `d6c755a` (rejoining bypass), `ed60dcc` (paired
 suffix, removes upper-tail guard), `9b622b0` (metadata). The final account-swap
-checkpoint is recorded below after commit. No new independent review claimed.
+checkpoint is `ae4c3a2`, pushed to origin/main. Archive preservation, 208 local
+file links and git diff --check pass. No new independent review claimed.
 
 Receipt directories under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/`:
