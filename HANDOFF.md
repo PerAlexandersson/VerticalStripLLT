@@ -19,20 +19,25 @@ is proved with arbitrary exterior. Together with the earlier f-cover
 result, it settles every comparison where either outer anchor covers
 at Q+xs. Checkpoints `0cbefcc` and `dd844e9` are pushed to origin/main.
 
-The latest continuation adds a [seven-flip lower-bypass repair](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#a-lower-bypass-when-both-outer-anchors-are-redundant).
-For x<a<s, assume ws,wt,xa,az,sz,tz cover, and either w does not reach
-a or wa itself covers. Four flips briefly use wx, moving xs to a new
-wa while restoring xa. Moving wa to at before or after these four flips,
-according to its initial status, and a two-flip closing row finish.
-Here both outer anchors are redundant, and r stays redundant even after
-xs deletion. A shorter covering xv with a t-to-v suffix also suffices
-without requiring selected wv.
+The latest continuation proves [arbitrary lower-prefix repairs](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#preparing-an-arbitrary-lower-prefix-inside-ws).
+For x<a<s, assume ws,wt,xa,sz,tz cover, w reaches a, and r covers after
+xs and xa are deleted. Preparing wa entirely inside [w,s] allows its
+full restoration after xt becomes st. The edge wa may be absent or
+redundant, with arbitrary competing routes; az need not cover or be selected.
 
-Longer w-to-a routes or redundant wa, failures of the displayed covers,
-the general both-redundant comparison, unrestricted left comparison and
-whole-component reassembly remain open. A nonzero retained-edge defect
-has both f,r redundant at Q+xs and f redundant at Q+st; we do not claim
-r redundant at Q+st. The full e-expansion proof is still unfinished.
+A second [short-extension lemma](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#extending-xs-to-xt-along-an-arbitrary-lower-prefix)
+proves Q+xs~Q+xt whenever wt covers and w reaches s, allowing absent or
+redundant ws. With r covering in Q and sz,tz covering, two further flips
+finish at Q+st. These results keep the general both-redundant case open
+when the post-deletion, containing or suffix cover assumptions fail.
+The unrestricted left comparison and whole-component reassembly remain open.
+
+The preceding seven-flip lower-bypass repair is complementary: it requires
+az covering and either w not reaching a or wa covering, but it allows
+other x-to-z bypasses after xs and xa deletion. Its checkpoints `116254b`
+and `629c34e` are pushed to origin/main. The full e-expansion proof remains
+unfinished; a nonzero retained-edge defect has f,r redundant at Q+xs and
+f redundant at Q+st, without an assertion about r at Q+st.
 
 The [covering-interval construction](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#a-covering-interval-across-the-incoming-branch)
 is now a proved stopping case of this general procedure, not an additional
@@ -292,8 +297,18 @@ this row when wa is initially selected, otherwise afterward. Remove tz
 before retaining az to restore it. This permits r redundant even after
 xs deletion. Longer w-to-a routes or redundant wa remain outside this row.
 A shorter covering xv with t reaching v needs no selected wv.
-The full constructions and earlier sufficient conditions remain in the
-retained-edge note; the general both-redundant case and collection remain.
+The new lower-prefix preparation handles arbitrary w-to-a routes and
+redundant wa provided r covers after xs and xa are deleted. First use
+xs->wx[ws], wx->xt[wt]; prepare covering wa wholly below s, then use
+xa->wx[wa], tz->st[sz], xt->tz[r], wx->xa[wa]. Undo the preparation:
+its only changed exterior edges xt,st both end above s. No az cover
+is needed. The short-extension lemma separately replaces xs by xt when
+wt covers and w reaches s, even with ws absent or redundant; its inverse
+uses w not reaching x and the other tested tails lying above x. If r
+covers in Q and sz,tz cover, the usual two-flip closing row finishes.
+These do not remove arbitrary post-deletion or suffix cover failures.
+The full constructions remain in the retained-edge note; the general
+both-redundant case and whole-component collection remain open.
 The new reverse preparation supplies the same conclusion from covers at
 the tx endpoint: expose r first, then clear t-to-w paths using td. This
 can make f redundant, but r remains covering, which is sufficient. The
@@ -360,6 +375,11 @@ Current shared-prefix continuation owns an append-only retained-edge branch
 lemma with arbitrary w-to-y paths, both handoffs, outline routing and fixed
 checks in the external consumer. It preserves the complete prior note.
 
+Current lower-prefix continuation owns append-only arbitrary-prefix and
+short-extension proofs, six fixed path checks and two bounded n8 discovery
+comparisons in the external consumer, outline routing and both handoffs.
+It preserves the complete prior retained-edge proof text.
+
 Current both-redundant continuation owns the append-only shorter-suffix
 and lower-bypass proofs, three fixed path checks and two bounded n7
 comparisons in the external consumer, outline routing and both handoffs.
@@ -390,6 +410,15 @@ including its original dirty paragraph, is preserved in the
 Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
+
+Current lower-prefix increment: four fixed n8/n12 paths under (47) pass
+12,8,16,10 flips, including absent/redundant wa, competing routes and
+redundant az. Two fixed n12 extension paths pass 12,6 flips to Q+xt and
+14,8 flips to Q+st, with absent/redundant ws. Every actual flip, strict
+edge and exact endpoint is checked; no n12 enumeration. Two n8 discovery
+pairs visit 15046/11937 states and find eight-flip paths. No Lean/Lake,
+worker, consultant, maintained Rust edit or independent review. Earlier
+proof text remains a verbatim prefix.
 
 Proof checkpoint: `116254b` (both-redundant lower-bypass repair).
 Current lower-bypass increment: seven-flip arbitrary-exterior rows with
@@ -597,7 +626,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-both-redundant-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-lower-prefix-20260929/`.
+Lower-bypass receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-both-redundant-20260929/`.
 General r-cover receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-common-ancestor-20260929/`.
 Covering-interval receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-covering-fork-20260929/`.
 Path-to-s receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-s-path-20260929/`.

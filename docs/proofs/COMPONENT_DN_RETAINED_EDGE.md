@@ -1659,3 +1659,178 @@ claim. Sources, full edge lists and receipts:
 The entire prior retained-edge note remains a verbatim prefix. No Lean/Lake
 build, worker, consultant, maintained Rust edit or independent review
 was used. The general component e-expansion remains open.
+
+## Preparing an arbitrary lower prefix inside ws
+
+2026-09-29 continuation. We can allow arbitrary w-to-a routes and a
+redundant wa if deleting xs and xa exposes r. This condition is separate
+from the hypotheses of (43); unlike that proposition, we need no cover
+or even selection of az. We make the entire prefix preparation inside
+[w,s], so that its inverse is unaffected by the final change above s.
+
+**Proposition.** Keep the opening Q conditions and suppose x<a<s with
+
+    ws, wt, xa, sz, tz cover in S=Q+xs,
+    w reaches a,
+    r covers in Q-xa.                                (47)
+
+Then S~T with arbitrary exterior and every other edge restored. The
+edge wa may be absent, covering or redundant, and its longer paths
+may have arbitrary competing branches.
+
+First exchange
+
+    xs -> wx [retain ws],
+    wx -> xt [retain wt].                            (48)
+
+The first flip uses the covers of xs and ws. After it, x has no path
+to t: removing xs leaves Q, and the new wx starts below x. Thus wx
+cannot bypass wt, making the second flip actual. We reach B=Q+xt,
+with xt covering. The covers of ws,xa,sz,tz are preserved by the
+ordering of their intervals and the absence of wx at this endpoint.
+
+### Expose or create wa below s
+
+In increasing order process all selected wb with w<b<a and b reaching
+a in B, exchanging wb->bs while retaining ws. Each wb covers at its
+turn by the first-edge argument. The cut preserves ws covering and
+removes every w-to-a path except the direct wa, if selected.
+All added heads s exceed a. The cut therefore preserves xa covering.
+Also b cannot equal x, since wx is absent in B, so every processed
+head b exceeds x.
+
+If wa is selected, it now covers and this is the whole preparation.
+If wa is absent, the cut is nonempty. Let b be its largest processed
+head. The final cut flip supplies a covering bs, and b still reaches a.
+Along a saturated b-to-a path, successively exchange
+
+    v_i v_(i+1) -> v_(i+1)s [retain v_i s].
+
+Each new short supplies the next covering long, ending with as. Earlier
+added edges end above a and cannot affect a path-short cover. The edge
+ws remains covering: w cannot reach any path vertex, since such a path
+would reach a, which the outgoing cut has made impossible. Now exchange
+as->wa, retaining ws. This creates a covering wa and removes the
+temporary as. Denote the complete cut and suffix preparation by P.
+
+Every interval tested by P is contained in [w,s]. At its endpoint, all
+new edges other than wa have the form bs with x<b<a, where b originally
+reached a. The original cover of xa excludes an x-to-b path: it would
+provide an alternative x-to-a path. None of the preparations creates one,
+since all its new heads are at or above a and wa starts below x.
+In particular, x has acquired no path to s at the endpoint of P.
+The transient as in the absent-wa construction has been removed.
+
+### The central row and full restoration
+
+In this prepared state use
+
+    xa -> wx [retain wa],
+    tz -> st [retain sz],
+    xt -> tz [retain r],
+    wx -> xa [retain wa].                            (49)
+
+The first flip uses the exposed wa and preserved xa covers. The second
+uses sz and tz; no preceding change can affect a path starting at s or t.
+Removing the covering tz leaves no t-to-z path.
+
+For the third flip, r now covers. The original Q-xa has r covering by
+(47). The preparation's new bs are unreachable from x, and wa and wx
+start below x. The added xt has no t-to-z suffix, and st cannot give a
+bypass because x does not reach s. These observations exclude every
+new x-to-z bypass. The edge xt also covers: the only newly possible
+bypass after st was inserted would require x reaching s. Thus the third
+flip is actual. The fourth restores xa, using covers whose tests lie
+inside [w,a], below all changes made by the middle two flips.
+
+Relative to the endpoint of P, (49) removes xt and adds st, restoring
+xa and the absence of wx. Both changed edges end at t>s. Consequently
+neither affects ANY interval tested by P, all of which lie in [w,s].
+Every inverse flip of P is actual. We restore the complete original
+lower prefix, including the original status of wa, and finish at Q+st.
+This proves the proposition with 2|P|+6 flips. All exchanged edges are
+normal inside the selected natural longs ws,wt or r.
+
+The cover of r after deleting both xs and xa is substantive. Other
+x-to-z bypasses may survive those deletions, and (47) does not cover
+that case. Conversely (43) can allow such additional bypasses, so the
+two propositions provide different sufficient conditions.
+
+## Extending xs to xt along an arbitrary lower prefix
+
+The same preparation gives a useful intermediate transfer with no outer
+anchor hypothesis.
+
+**Lemma.** Under the opening Q conditions, if wt covers in Q+xs and
+w reaches s, then
+
+    Q+xs ~ Q+xt,                                     (50)
+
+with every other edge restored. The edge ws may be absent or redundant.
+This moves the edge starting at x; it does not assert the previously
+refuted transfer wt->xt.
+
+Prepare a covering ws using the construction above with the target a
+replaced by s and the containing endpoint s replaced by t. Explicitly,
+cut every proper outgoing wb with b<s and b reaching s, using wb->bt
+while retaining wt. If ws is selected, the cut exposes it. Otherwise
+take the last new bt, carry it forward along a saturated b-to-s suffix,
+and exchange the resulting st for ws, retaining wt. The cut has removed
+all w-to-s paths before this last flip, so wt stays covering throughout.
+Call this preparation P_t.
+
+The original cover of xs excludes x reaching any prepared suffix vertex
+below s. All new edges ending at t therefore have tails unreachable from
+x, except the temporary st, which is removed before the central row.
+The edge xs still covers, and there is no x-to-t path after xs is omitted.
+Use (48), now with the prepared ws, to replace xs by xt.
+
+We can undo all of P_t while keeping xt selected. A new bypass of its
+retained wt through xt would require w reaching x. This is impossible:
+w,x are adjacent, wx is absent, and no preparation or inverse introduces
+it. Every other tested edge ending at t has tail strictly above x and
+hence cannot use the new xt. All tested edges with smaller heads end
+at or below s<t, so cannot use it either. Removing xs only helps covers and removes no tested
+edge, since no suffix vertex equals x. All inverses are actual and restore
+the original ws and its entire prefix. This proves (50) with 2|P_t|+2 flips.
+No original strict corner is changed.
+
+### A consequence with r covering after xs deletion
+
+Suppose, in addition to the hypotheses of (50), that r covers in Q and
+sz,tz cover in Q+xs. After (50), finish with
+
+    tz -> st [retain sz],
+    xt -> tz [retain r].                             (51)
+
+The first flip uses the unchanged sz,tz covers. Then t does not reach z,
+and x does not reach s. Thus the added xt and st cannot bypass the
+originally covering r in Q, making the second flip actual. The final
+relation is Q+st. This gives a retained-edge repair with arbitrary
+w-to-s routes and no selected or covering ws assumption. It uses
+2|P_t|+4 flips. Both original outer anchors can be redundant in Q+xs.
+
+### Fixed checks and remaining cases
+
+Related Rust: external `first_join_tree_lifts.rs`.
+`--retained-lower-prefix` checks four fixed n8/n12 paths of 12,8,16,10
+flips under (47). They have absent or redundant wa. The n12 states have
+competing routes and redundant az, and the absent-wa case uses a two-edge
+suffix after its outgoing cut. `--retained-short-extension` checks (50)
+and (51) separately in two fixed n12 states with absent or redundant ws.
+Their extension paths have 12,6 flips and their complete retained-edge
+repairs have 14,8 flips. Every actual flip, strict edge and exact endpoint
+passes. No n12 state space is enumerated.
+
+The discovery option `--retained-lower-prefix-fixed` checks only two fixed
+n8 comparisons. It visits 15046 and 11937 states and finds eight-flip
+paths, with absent and redundant wa respectively. The general construction
+need not give a shortest path. Sources, full edge lists and receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-lower-prefix-20260929/`.
+
+The general both-redundant comparison remains open when the stated
+post-deletion covers or the containing/suffix covers fail. The unrestricted
+left comparison and whole-component reassembly are still separate tasks.
+The entire prior retained-edge note remains a verbatim prefix. No Lean/Lake
+build, worker, consultant, maintained Rust edit or independent review
+was used. The general component e-expansion remains open.
