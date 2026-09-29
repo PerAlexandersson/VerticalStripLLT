@@ -544,7 +544,8 @@ The generalized helper's earlier upper-only cases replay at 7,15,15,17
 flips; the two-state prefix-push obstruction remains checked. No n12
 state space is enumerated. One fixed n7 discovery pair visited 849 states.
 Prior proof text remains a verbatim prefix; no Lean/Lake, worker,
-consultant, maintained Rust edit or independent review. Proof checkpoint pending.
+consultant, maintained Rust edit or independent review. Proof checkpoint: `10e8a59`.
+Prior-proof preservation, 86 local file links and git diff --check pass.
 
 Current containing-bypass increment: four constructed paths pass 7,15,15,17
 flips at n7/n12. They include absent/redundant tz, three competing incoming
