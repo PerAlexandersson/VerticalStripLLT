@@ -1252,3 +1252,139 @@ that every forced extra component admits a suitable independent recurrence,
 or that direct RHS diamonds always complete the image. The two identities
 here resolve this particular empty-corner obstruction and extend under
 the stated attachments; they are not an extrapolation to crossing exterior.
+
+## Components on which the adjacent short is fixed
+
+2026-09-29 continuation. We give a uniform whole-component reduction for
+one class of NN inputs, with arbitrary exterior and no cycle-rank bound.
+We use the same eligible geometry as above:
+
+    w<x=w+1<z,     f=wz,     q=wx,     r=xz.
+
+The source L has f strict and q,r normal. The only natural edge properly
+containing r is f. The target R deletes f and marks r strict. The common
+exterior is invariant under sigma=(w x), which fixes its strict edges.
+We also put H=L-f-r, retaining only the common strict edges. Both deletions
+are legal: r is a maximal natural edge after deleting f.
+
+**Theorem.** If the selected status of q is constant on a whole source
+component C, then C has a bijection with a whole component of a smaller
+diagram, preserving both K and E. The possibilities are exactly:
+
+| q | r | Map on each state A | Smaller diagram |
+| --- | --- | --- | --- |
+| absent | absent | sigma A | R |
+| selected | absent | A-f | H |
+| selected | selected | A-f | R |
+
+In particular, a whole component cannot have q always absent and r
+always selected. The theorem allows empty unmarked exterior corners;
+we do not require saturation or a first-drop choice of this contact.
+We prove the missing-sector assertion first, then the whole-component
+claims in the table.
+
+### A leftward path must introduce q
+
+We use the following elementary observation about the actual flips.
+If two selected covers ij and kj have i<k<j, then
+
+    kj -> ik, retaining ij,                              (FQ1)
+
+is actual. The edge ik is natural because it lies inside ij. It is
+absent: otherwise ij would be bypassed through k. The cover of kj
+ensures that ij still covers after the exchange; the cover of ij
+ensures that there was no old i-to-k path. These are precisely the
+cover conditions for (FQ1). The exchanged edges cannot be strict
+corners, since both lie properly inside the natural edge ij.
+
+For a selected state A set W(A)=sum_(ij in A)(i+j). Each move (FQ1)
+strictly decreases W, by j-i. Thus successive leftward flips terminate.
+At a terminal state, every vertex has at most one incoming cover.
+Consequently the predecessors of any fixed vertex form a chain: follow
+its unique incoming cover backwards, and use that every comparability
+in a finite poset is a path of covers.
+
+Now start with any source state selecting f,r and omitting q. Until q
+first appears, f remains selected because it is strict, and r remains
+selected because its only possible exchange is r->q retaining f.
+Such a state cannot be terminal for leftward flips. Indeed w and x
+both reach z, so the terminal chain property would make w reach x.
+Since they are adjacent, this would require q itself.
+
+We may therefore keep making (FQ1) until q appears. Strict decrease
+of W proves termination, and every move stays in the actual component.
+This proves, for NN and also for the DN geometry, that every state
+selecting f,r lies in a component with a q-selected member. We do not
+claim that the path keeps q selected, exposes f, or pairs the two
+middle states with identical exterior. Those stronger conclusions do
+not follow from this argument.
+
+### The three whole-component maps
+
+If q is fixed on C, then r is fixed too: every flip changing r changes
+q. The preceding path excludes the constant 01 sector.
+
+In sector 10, f must be redundant at every state. If it covered, the
+adjacent q would also cover and the f-retained flip q->r would leave
+that sector, contrary to constancy of q on the whole component.
+The inactive-corner deletion theorem therefore identifies C exactly
+with a whole component of L-f. Its newly exposed corner r is absent,
+so deleting r gives the stated whole component of H.
+
+In sector 11, q,r already bypass f. The same inactive-corner theorem
+deletes f on the entire component. Marking the selected maximal r
+changes no flip, giving a whole component of R.
+
+For sector 00, relabel all selected edges by sigma. This gives actual
+states of R. A source flip preserving q,r conjugates to a target flip
+preserving q. Conversely every q-preserving target flip conjugates
+back: a triangle containing both adjacent vertices would exchange q,
+so no such triangle occurs among these flips. Relabeling the remaining
+triangles preserves all their cover tests. Thus sigma C is connected
+and closed under q-preserving flips, including all exterior flips.
+
+We still have to exclude a target flip introducing q. There are two
+forms, and we must exchange the roles of its other two selected edges
+when pulling it back:
+
+| Target flip introducing q | Source flip introducing q |
+| --- | --- |
+| tw -> q, retaining tx, t<w | tw -> q, retaining tx |
+| xd -> q, retaining wd, x<d | xd -> q, retaining wd |
+
+Although the displayed edge names agree, sigma interchanges the two
+selected edges within each row. Both were covers in the target state,
+so both are covers in the source state; the indicated source flip is
+therefore actual. Its two non-q edges are natural and its exchanged
+short is normal because it lies inside the selected long. Either row
+would introduce q in C, a contradiction. There is no further form
+of q-changing triangle. Thus sigma C has no exit and is a whole
+target component, completing the table.
+
+Corner deletion in sectors 10 and 11 preserves the full selected
+closure. In sector 00, sigma is the usual NN endpoint map: w has its
+outgoing edge f, so the adjacent interchange preserves sink order and
+hence HRV fibre sizes. All three maps preserve K and E. Their target
+natural areas are smaller by two, one and one edges, respectively
+in the order of sectors 10, 11 and 00. We have proved a component
+recurrence, rather than only an equality of total diagram sums.
+
+### Scope and checks
+
+This removes all components with fixed q from the general NN question.
+The remaining components contain both q-selected and q-absent states.
+The leftward argument supplies a path introducing q but does
+not collect the signed output terms there. In particular it does not
+resolve the 84-state or the coupled 69/126 examples uniformly.
+
+Related Rust: the existing external `dn_joint_span --nn-fixed-short`
+uses only the actual graph routines in `component_source_probe.rs` and
+`nn_component_transport::components`. It checks each complete image
+against the full target component, not just flips inside its stratum.
+It also constructs the decreasing leftward path from every q-absent,
+r-selected state in the fixed diagrams. No polynomial calculation is
+called. The NN fixtures are the same five as in the preceding middle
+slice check; six DN fixtures check the consequence below. Frozen
+sources, commands and counts are in `fixed-short-20260929/` under the
+project's external request directory. These checks support the general
+proof above; their finite range is not used to infer the theorem.

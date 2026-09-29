@@ -1087,3 +1087,46 @@ one whole target component. This DN identity then removes the surviving
 addition from a 126-state NN image. Both identities extend to arbitrary
 components attached at the two fixed endpoints. This is a completed
 example, not a general DN or NN collection theorem.
+
+## DN components on which the adjacent short is fixed
+
+2026-09-29 continuation. The
+[fixed-short NN theorem](COMPONENT_NN_REDISTRIBUTION.md#components-on-which-the-adjacent-short-is-fixed)
+also gives an unconditional component recurrence for each DN component
+on which q=wx has constant selected status. We retain e=uw, f=wz,
+r=xz, e'=ux and the common strict set S. The input has e,f strict.
+
+As proved in that note, r is then constant too, and sector 01 cannot
+be a whole component: leftward cover flips from any q-absent state
+selecting f,r must eventually introduce q. There are three cases.
+
+| q | r | Map | Whole smaller component |
+| --- | --- | --- | --- |
+| absent | absent | A -> sigma A | DN target with e',r strict |
+| selected | absent | A -> A-f | L-f-r, strict e and S |
+| selected | selected | A -> A-f | L-f with r marked, strict e,r and S |
+
+The last two rows follow directly from redundancy of f throughout C,
+exact inactive-corner deletion, and the fixed status of the newly
+exposed corner r. For the first row, we may use the proved empty-corner
+construction: add e' EMPTY and unmark e, preserving exactly C as a whole
+NN component. The NN sector-00 map sends C to one whole component in
+the NN target. Every image selects e', since every original state
+selects e, and omits e, since the added e' was absent. Marking the
+maximal e' changes no flip and identifies precisely a whole component
+in the DN target. This also proves the direct endpoint map claimed
+in the table, including its boundary checks.
+
+Both valuations are preserved. The DN target in row 00 has the original
+natural-edge count and area moment smaller by z-x. Rows 10 and 11
+have fewer natural edges than the original DN source. Thus each row
+is a legitimate component induction step from the original diagram;
+we do not induct on the enlarged NN input.
+
+This proves the fixed-q class for both remaining recurrence types.
+Components in which q changes are still the unresolved general case.
+No general active-middle connectivity or whole-component collection is
+claimed. The six graph-only DN checks in `dn_joint_span --nn-fixed-short`
+verify the exact component maps and the leftward paths, using the same
+fixtures as `--dn-via-empty-nn`; their frozen receipt is in the external
+`fixed-short-20260929/` directory.

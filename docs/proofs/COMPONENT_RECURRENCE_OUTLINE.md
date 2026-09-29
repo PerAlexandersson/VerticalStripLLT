@@ -79,6 +79,16 @@ component union handles the 126-state component. Both identities extend
 to arbitrary endpoint attachments on both sides. This is a direct diagram
 certificate for that case, not a general assertion about forced additions.
 
+The [fixed-short theorem](COMPONENT_NN_REDISTRIBUTION.md#components-on-which-the-adjacent-short-is-fixed)
+now handles every NN component on which q=wx has constant selected status,
+with arbitrary exterior. A leftward cover-flip descent excludes an entire
+01 component; sector 00 maps by the endpoint swap to a whole target
+component, and sectors 10 and 11 use redundant-corner deletion. The
+[DN consequence](COMPONENT_DN_JOINT_REPAIRS.md#dn-components-on-which-the-adjacent-short-is-fixed)
+gives the corresponding three whole-component maps and decreases the
+original DN induction order. Components in which q varies remain open;
+the new descent does not prove general middle-state connectivity.
+
 ## 1. The identity that gives positivity
 
 We work first with an ordinary decorated natural graph on ordered vertices

@@ -1,5 +1,49 @@
 # VerticalStripLLT handoff
 
+## Current continuation — fixed-short components reduce uniformly
+
+Primary resumed from clean pushed `099877c`. Ownership is unchanged:
+this handoff/outline, append-only NN/DN notes and the existing external
+Rust consumer. The user's diagram-only direction remains in force.
+No basis calculation, Lean build, maintained Rust edit or new worker.
+
+**Proved with arbitrary exterior:** the
+[fixed-short NN theorem](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#components-on-which-the-adjacent-short-is-fixed)
+and its [DN consequence](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#dn-components-on-which-the-adjacent-short-is-fixed).
+Every component on which q=wx has constant selected status maps to ONE
+whole smaller component. Sector 00 uses the full endpoint relabeling;
+10 deletes the everywhere redundant f and absent r; 11 deletes f and
+marks r. In DN the latter output is L-f with e,r strict, not necessarily
+the main DN target. All outputs decrease the original induction order.
+
+Sector 01 cannot be an entire component. Whenever two covers enter one
+vertex, the right incoming cover can flip left. Such moves strictly
+decrease the sum of the selected edges' endpoint labels. At a terminal
+state each vertex has at most one incoming cover, so its predecessors
+form a chain. Keeping f=wz and r=xz while q is absent contradicts that
+property. Thus leftward flips must introduce q. This is a uniform actual
+path argument, not an active-middle connectivity theorem; it does not
+keep q selected or expose f. An initially contemplated signed recurrence
+for a whole 01 sector is unnecessary because that sector cannot occur.
+
+**Verified:** graph-only `dn_joint_span --nn-fixed-short` checks 1319
+whole component images (2365 states) among 1862 source components in
+five NN and six DN fixtures. It constructs 9081 leftward paths comprising
+19873 actual flips, with strict descent at every step. All checks pass;
+stderr is empty. Frozen sources, command and receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/fixed-short-20260929/`.
+Rust capability guide, Cargo metadata/APIs, runtime registry and
+`codex mcp list` were checked. Lean MCP is rooted at RealRooted and unused.
+
+**Still open:** uniform collection for components in which q varies,
+including arbitrary crossing exterior and empty unmarked corners.
+The fixed-short theorem and the previous two-recurrence example do not
+close that gap. The full goal remains active. Both previous proof notes
+remain verbatim prefixes; 124 local file links, receipt hashes and
+`git diff --check` pass. Maintained Rust is clean at
+`d53fb193af3c69adedbd9ec8592f87235d809ffa`. No process remains from
+the diagnostic run. This is the fixed-short proof checkpoint.
+
 ## Current continuation — two recurrences resolve an empty-corner example
 
 Primary resumed from clean pushed `c34e458`; the preceding turn made
