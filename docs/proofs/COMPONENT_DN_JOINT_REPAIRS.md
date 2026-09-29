@@ -1335,3 +1335,21 @@ whole deletion image and the strict decrease of every final diagram.
 Sources and logs are frozen in `joint-corner-capacity-20260929/`.
 The maximum-path hypothesis is essential to the proved normalization;
 general DN collection below m* remains open.
+
+## Corner-chain preparation in lower DN layers
+
+The [lower-layer continuation](COMPONENT_NN_REDISTRIBUTION.md#lower-layers-require-temporary-redundant-corners)
+proves ordered corner-chain normalization for every simultaneous-cover
+state, without initial mixed acyclicity. This applies directly to DN,
+retaining the incoming strict e and all other original strict corners.
+One chain is made absorbing at a time. Other corners may be redundant
+during its processing; they recover their covers when the chain is done.
+The explicit endpoint keeps increasing-chain-max normals and replaces
+each inversion vy by yh, where h is v's strict successor.
+
+This gives actual paths and a deterministic endpoint in every layer.
+It does not make the endpoint constant on a whole component, nor collect
+the DN image. In particular the already-normalized anchors still need
+comparison. The nine DN fixtures in `--joint-chain-normalization` verify
+the paths and restored block invariants. General lower DN collection
+remains open; see `lower-corner-normalization-20260929/` for the receipt.

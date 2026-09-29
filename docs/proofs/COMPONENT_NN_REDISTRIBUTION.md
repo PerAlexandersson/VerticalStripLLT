@@ -2217,3 +2217,115 @@ in those layers. In particular the 125-state eight-edge NN component
 in area 012333 and the 3381-state eight-edge NN component in area
 0123434 remain outside this result. General NN/DN collection in these
 lower cyclic layers is still unproved.
+
+## Lower layers require temporary redundant corners
+
+2026-09-29 continuation. The maximum-layer proof cannot be extended by
+simply choosing a different path that keeps every corner covering.
+There is already an obstruction in area 012333. Let
+
+    M={03,14,25},
+    A=M+{01,02,12,34,45},
+    B=M+{01,12,34,35,45}.
+
+Both states cover all M and have eight selected edges. Their auxiliary
+path occupancies are (2,1,2) on (01,13,34), (02,23,35), (12,24,45).
+But A has NO actual flip neighbor covering all M. Its only possible
+flips are 01->13 retaining 03, 12->24 retaining 14, 34->13 retaining
+14, and 45->24 retaining 25. They make, respectively, 14,25,03,14
+redundant. The remaining selected nonmaximal long 02 is redundant via
+01,12 and supports no actual flip. This checks every natural triangle,
+so allowing normal retained edges does not avoid the obstruction.
+
+Nevertheless A and B belong to the same whole component. Retaining M,
+the following six actual flips connect them:
+
+    01->13 [03], 45->24 [25], 02->23 [03],
+    23->35 [25], 13->01 [03], 24->45 [25].
+
+Square brackets specify the retained corner. All five intermediate
+states have 14 redundant; the retained 03 or 25 and the exchanged
+short cover at every step. Thus temporary redundancy is required,
+not an artifact of a poor choice of forward-move priority. This does
+not itself give the recurrence for the whole 125-state component.
+
+### Normalize entire corner chains, allowing temporary redundancy
+
+We can use temporary redundancy systematically. The following extends
+[ordered strict-chain normalization](COMPONENT_CHAIN_NORMALIZATION.md#ordered-normalization-of-every-strict-chain)
+to ALL simultaneous-cover states, even those whose normal edges and
+reversed corners initially contain a directed cycle. It is a structural
+path theorem, independent of the word-functional proof.
+
+Let S contain all original strict edges and consist of selected maximal
+corners, all covering in A. These corners partition the vertices into increasing chains, with singleton chains
+included. Let r(v) be the largest vertex in v's chain. Then A is joined
+by actual flips retaining corners in S to the explicit state P(A):
+
+* keep each selected normal edge vy with r(v)<r(y);
+* replace each selected normal edge vy with r(v)>r(y) by yh, where
+  h is the strict successor of v in its chain;
+* retain S.
+
+Here normals are relative to S. Other strict decorations can be included
+in S; the theorem will be used with S=M. The endpoint has all normals
+increasing in chain maximum, hence its normals together with reversed
+S are acyclic. Every corner in S covers at the endpoint. Each inversion
+edge is exchanged exactly once, and the total selected-edge count and
+whole component are preserved. We do NOT assert that every intermediate
+state has all S covering, or that P is constant on a component.
+
+To prove this, process entire chains in decreasing order of their maxima.
+Keep the previously processed union U absorbing for selected edges. In
+the remaining vertices, the next chain B has largest terminal vertex,
+so its terminal has no outgoing edge outside B. A normal edge vy leaving
+an earlier vertex v of B has v<y<h, where h is v's strict successor:
+a longer normal interval would contain the maximal corner vh.
+
+Choose such an exit with smallest head y, ignoring edges entering U.
+The short vy covers. An alternate v-to-y path cannot enter U and return,
+cannot start with the strict vh because h>y, and would otherwise start
+with a selected exit having smaller head. The long vh covers by the
+block invariant. Hence vy->yh retaining vh is an actual flip.
+
+This removes one exit from B and adds an edge entering B. Every other
+corner of B keeps its cover, since its interval is disjoint from the
+interior of vh. The retained vh keeps its cover by the flip criterion.
+Thus we can repeat until B has no exit to the remaining vertices.
+Corners of other unprocessed chains are allowed to become redundant
+DURING this procedure.
+
+At completion, U union B is absorbing. Any newly created bypass of a
+corner whose endpoints remain outside this union would have to use one
+of the added edges, hence enter B and never return. This is impossible.
+Such corners therefore recover their covers. Previously processed corner
+covers also persist, because paths starting in U cannot leave U and its
+internal edges have not changed. These observations supply the invariants
+for the next chain, and prove termination of the ordered construction.
+
+Every inserted edge has increasing chain maxima and enters the processed
+union, so it is never removed later. Every removed edge is precisely an
+original inversion. Its replacement was originally absent: selecting both
+would bypass its corner. Different inversions have different replacements,
+since a strict head has a unique predecessor. This proves the displayed
+endpoint formula and its exact path length.
+
+Consequently, within any whole component selecting S, existence of a
+simultaneous-cover state is EQUIVALENT to existence of a state whose
+normals together with reversed S are acyclic. The reverse implication
+is the usual bypass-cycle observation; the forward implication now uses
+an actual path. These conditions are not equivalent state by state.
+This does not identify all anchors P(A) in one component or collect their
+NN/DN images. In the six-vertex obstruction, BOTH A and B are already
+anchors, so this normalization alone cannot connect them.
+
+Related Rust: graph-only `--joint-chain-normalization` checks the explicit
+endpoint map, every prescribed flip, every completed block invariant and
+final mixed acyclicity on all 7911 simultaneous-cover states of the 14
+fixtures. The separate `--corner-occupancy` check finds the obstruction
+above, checks its six-flip path and confirms that no all-cover path can
+start at A. Its exploratory same-occupancy connectivity checks, allowing
+temporary redundancy, pass in all 14 fixtures; this is NOT a general
+same-occupancy connectivity theorem. Frozen sources and receipts are in
+`lower-corner-normalization-20260929/`. General lower-layer whole-component
+collection remains unproved.

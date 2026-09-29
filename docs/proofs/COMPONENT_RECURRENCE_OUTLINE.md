@@ -103,6 +103,16 @@ corners, including the 77-state NN component at k=9 in 012333 and the
 2305-state component at k=12 in 0123434. Lower layers remain open: the
 priority argument requires maximum selections on the auxiliary paths.
 
+The [lower-layer obstruction and preparation](COMPONENT_NN_REDISTRIBUTION.md#lower-layers-require-temporary-redundant-corners)
+show that temporary redundant corners are essential. An all-cover state
+in area 012333 has no all-cover neighbor, yet six corner-retaining flips
+connect it to another all-cover state. We now normalize ANY all-cover
+state along entire corner chains: process one chain until it is absorbing,
+then all other corners recover their covers. This proves an actual path to
+the explicit chain-max anchor even from an initially mixed-cyclic state.
+It does not connect all anchors in a component or collect their recurrence.
+The two states of the obstruction are already anchors.
+
 The new [empty-corner reduction](COMPONENT_DN_JOINT_REPAIRS.md#dn-through-an-empty-corner-nn-diagram)
 shows that the uniform NN statement would also settle DN. Adding the
 missing corner EMPTY and unmarking its neighbor preserves the exact

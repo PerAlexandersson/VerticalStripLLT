@@ -69,6 +69,39 @@ and the 2305-state twelve-edge component of the second are now solved.
 The connected 4998-state DN component at m*=15 in area 012333333 is
 also solved (the older one-corner bound was 19).
 
+## Lower-layer continuation — temporary redundancy is necessary
+
+The [six-vertex obstruction and chain normalization](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#lower-layers-require-temporary-redundant-corners)
+are now proved. In area 012333, write M={03,14,25}. The states
+A=M+{01,02,12,34,45} and B=M+{01,12,34,35,45} cover every corner,
+but A has NO actual neighbor doing so. Its four possible flips each
+make another corner redundant. Nevertheless six corner-retaining flips
+join A to B, with 14 redundant at all five intermediate states. Both
+states are already chain-normalized anchors. This is an exact obstacle
+to requiring simultaneous covers along a lower-layer path, not a
+counterexample to connectivity or the component recurrence.
+
+A uniform preparation theorem now allows this temporary redundancy:
+process entire corner chains in decreasing maximum order; repeatedly
+flip their smallest-head exit into an incoming edge. The current
+chain's corners remain covers. At completion the processed union is
+absorbing, so all other corners recover their covers. The explicit
+endpoint keeps increasing-chain-max normals and replaces each inversion
+vy by yh, with h the strict successor of v. Thus EVERY simultaneous-cover
+state reaches a mixed-acyclic anchor by actual flips, even if initially
+mixed-cyclic. Endpoint constancy and lower-layer collection are NOT proved.
+Use this diagram path theorem only; do not reintroduce basis calculations.
+
+Graph-only `--joint-chain-normalization` passes all 7911 states in the
+14 fixtures, including 328 initially mixed-cyclic states: 10877 actual
+flips and 593 intermediate redundant states, with every block invariant
+and explicit endpoint checked. `--corner-occupancy` verifies the six-flip
+obstruction. Its 1017 same-occupancy groups have 1022 all-cover pieces;
+allowing temporary redundancy merges the pieces in every tested group.
+This last observation is finite evidence, NOT a general connectivity
+lemma. Both runs exited zero with empty stderr. Frozen sources and logs:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/lower-corner-normalization-20260929/`.
+
 ## Established reductions to retain
 
 - [Outline](docs/proofs/COMPONENT_RECURRENCE_OUTLINE.md) and
@@ -121,8 +154,9 @@ proof checkpoint, receipt and ownership record, is retained in the
 Only relative Markdown links were adjusted there. The older account-swap
 history and original notebook/Overleaf paths remain available through it.
 
-Verification preserves both proof-note prefixes at `f27da0d`.
+The maximum-layer proof checkpoint `c2c5a0d` is pushed to `origin/main`.
+The lower-layer continuation preserves both proof-note prefixes at that commit.
 The outline now removes the stale account-pause and unfinished-attachment
 instructions and routes to the proved attachment theorem and current gap.
-Receipt hashes, all 122 local file links in the four edited files, and
-`git diff --check` pass. No background job needs monitoring or restarting.
+Both frozen receipt hash lists, local file links in the four edited files,
+and `git diff --check` pass. No background job needs monitoring or restarting.
