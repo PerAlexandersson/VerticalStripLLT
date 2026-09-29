@@ -1130,3 +1130,35 @@ claimed. The six graph-only DN checks in `dn_joint_span --nn-fixed-short`
 verify the exact component maps and the leftward paths, using the same
 fixtures as `--dn-via-empty-nn`; their frozen receipt is in the external
 `fixed-short-20260929/` directory.
+
+## DN components with the terminal short always selected
+
+2026-09-29 continuation. The
+[terminal-short reduction](COMPONENT_NN_REDISTRIBUTION.md#when-the-terminal-short-is-fixed)
+applies directly to a DN component C in which r=xz is always selected,
+even when q=wx varies. If the strict f=wz covered somewhere, process
+the selected incoming vz, x<v<z, from right to left by
+
+    vz -> wv, retaining f.
+
+The cover tests proved in that note hold with the full exterior and the
+additional strict e=uw. They expose r while preserving the cover of f.
+The next actual flip r->q would leave the selected-r stratum, contradicting
+completeness of C there. Thus f is redundant throughout C.
+
+Delete f, then mark the newly maximal selected r. This identifies C
+with ONE whole component of L-f with e,r and the common S strict.
+It preserves both K and E and decreases natural area by one. The output
+is a permitted smaller deletion diagram; it need not be the main DN
+target with e' strict. This is an unconditional component recursion for
+this class, not merely a statewise identity.
+
+The companion absent-r argument requires w to be least in its selected
+weak block. That hypothesis is unavailable for a DN input: its selected
+strict e=uw already places u<w in the same block. We do not apply that
+companion to DN or infer it from the finite checks. The general cases
+with r absent or changing, and q changing, remain unfinished.
+
+The six DN fixtures in the graph-only `--nn-fixed-r` check verify all
+applicable cover-preserving paths and exact whole deletion images. The
+frozen receipts are in the external `fixed-r-20260929/` directory.

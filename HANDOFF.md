@@ -1,5 +1,53 @@
 # VerticalStripLLT handoff
 
+## Current continuation — fixed terminal short with variable adjacent short
+
+Primary resumed from clean pushed `cb218d3`; the preceding turn made
+verified progress. Ownership is unchanged: this handoff/outline,
+append-only NN/DN notes and existing external Rust consumer. The user's
+diagram-only direction is retained. No basis calculation, Lean build,
+maintained Rust edit or additional worker.
+
+**New uniform component reduction:** [fixed terminal short](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#when-the-terminal-short-is-fixed).
+If r=xz is selected throughout C, f=wz is redundant throughout C, even
+when q=wx varies. Otherwise an f-covering state admits a descending
+incoming cut at z, retaining f, followed by r->q. That contradicts
+constant r. Delete f and mark r to get ONE whole smaller component.
+For NN this is its actual target; for DN it is L-f with e,r strict.
+The [DN continuation](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#dn-components-with-the-terminal-short-always-selected)
+records the latter output and its area decrease.
+
+**Second proved reduction, with a necessary stated hypothesis:** if r
+is always absent, q varies, and w is LEAST in its selected weak block,
+then f is again inactive. From an f-covering state, normalize w to a
+pendant vertex, normalize the remaining block leftwards, then use an
+incoming cut and a decreasing chain of cover forks to introduce q and r.
+Every move keeps f covering. Delete f and absent r to get a whole
+component of L-f-r. In particular all fixed-r components at a leftmost
+NN contact are now reduced, using the preceding fixed-q theorem too.
+The least-vertex hypothesis fails for DN because e=uw is selected.
+
+**Checks:** graph-only `dn_joint_span --nn-fixed-r` constructs 5132
+paths / 8346 actual flips in the five NN and six DN fixtures, checking
+coverhood of f, strict edges, edge count and component membership at
+every step. All 681 claimed deletion images match whole components;
+146 have variable q and lie outside the preceding fixed-q class.
+Frozen sources, command and receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/fixed-r-20260929/`.
+All runs finished successfully with empty stderr. Runtime registry and
+`codex mcp list` were checked; Lean remains wrong-root and unused.
+The existing Rust guide/metadata check was retained, and Graph/Poset
+APIs were inspected and reused for weak blocks and reachability.
+
+**Still open:** the general two-variable collection, and the general
+fixed-absent-r reduction with incoming vertices before w. The latter
+passes these finite fixtures, but is NOT proved. These results do not
+prove general active-middle connectivity or the full NN/DN goal, which
+remains active. Previous proof-note contents are preserved as prefixes;
+128 local file links, frozen receipt hashes and `git diff --check` pass.
+Maintained Rust remains clean at
+`d53fb193af3c69adedbd9ec8592f87235d809ffa`. No launched process remains.
+
 ## Current continuation — fixed-short components reduce uniformly
 
 Primary resumed from clean pushed `099877c`. Ownership is unchanged:

@@ -86,8 +86,18 @@ with arbitrary exterior. A leftward cover-flip descent excludes an entire
 component, and sectors 10 and 11 use redundant-corner deletion. The
 [DN consequence](COMPONENT_DN_JOINT_REPAIRS.md#dn-components-on-which-the-adjacent-short-is-fixed)
 gives the corresponding three whole-component maps and decreases the
-original DN induction order. Components in which q varies remain open;
+original DN induction order. The general case where q varies remains open;
 the new descent does not prove general middle-state connectivity.
+
+Some variable-q components are now reduced by the
+[fixed terminal-short theorem](COMPONENT_NN_REDISTRIBUTION.md#when-the-terminal-short-is-fixed).
+If r is always selected, a cover-preserving cut proves that f is
+everywhere redundant, so corner deletion gives one whole smaller
+component. This holds for NN and DN with arbitrary exterior. If r is
+always absent, the same conclusion is proved when w is least in its
+selected weak block. The latter hypothesis is unavailable for DN.
+Neither statement closes collection when both short edges vary, or
+settles the general incoming case with r always absent.
 
 ## 1. The identity that gives positivity
 

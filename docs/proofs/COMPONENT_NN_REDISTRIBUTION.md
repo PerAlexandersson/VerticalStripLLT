@@ -1388,3 +1388,158 @@ slice check; six DN fixtures check the consequence below. Frozen
 sources, commands and counts are in `fixed-short-20260929/` under the
 project's external request directory. These checks support the general
 proof above; their finite range is not used to infer the theorem.
+
+## When the terminal short is fixed
+
+2026-09-29 continuation. We now allow q to vary on C. We prove two
+further whole-component reductions, using actual cover-preserving paths
+and then the ordinary inactive-corner identity. We retain the preceding
+NN notation f=wz, q=wx, r=xz with x=w+1. The first reduction also
+applies directly to DN.
+
+**Theorem.** If r is selected throughout a whole source component C,
+then f is redundant throughout C. Consequently deleting f identifies C
+with one whole component of L-f, and marking its selected corner r gives
+a whole component of the NN target R. Both K and E are preserved.
+
+Here q can change arbitrarily, and exterior edges can cross the displayed
+triangle. We do not assume a bound on cycle rank or any exposure condition
+on the other strict corners.
+
+### Expose r while keeping f a cover
+
+Suppose instead that A in C has f covering. Then q is absent, since
+q,r would bypass f. Process all selected edges vz with x<v<z in
+DECREASING order of v, performing
+
+    vz -> wv, retaining f.                              (FR1)
+
+Each move is actual. At the stage for v, any bypass of vz would end
+in uz with u>v. All such selected incoming edges have already been
+removed. The newly added edges start at w<v, so no path from v can
+use them. Thus vz covers. The retained f covers initially and remains
+a cover after each actual f-retained flip; its cover also ensures that
+wv is absent before the move. Both exchanged shorts lie properly
+inside f and therefore are natural and normal.
+
+After this sweep the only selected edges into z are f and r. Indeed
+any natural tz with t<w would properly contain the maximal f, and
+there is no vertex strictly between w and x. The edge r now covers:
+a path from x cannot reach the earlier vertex w, so it has no alternate
+way to enter z. We finish with the actual flip
+
+    r -> q, retaining f.                               (FR2)
+
+This gives an r-absent member of C, contradicting the hypothesis.
+The contradiction proves the theorem. The path has at most z-x moves
+and retains every strict edge. Its purpose is to change the status
+of r; it does not claim to restore the exterior at its endpoint.
+
+In particular, an f-active component which has any r-selected member
+must have BOTH r statuses. Conversely, any component with both r
+statuses is f-active, since a flip changing r must retain f as a cover.
+The possibility of an f-active component with r always absent is a
+separate question; the first theorem does not rule it out.
+
+### The absent-r case when w is least in its selected block
+
+**Lemma.** Suppose f covers in A, r is absent, and w,x belong to the
+same selected weak block, whose least vertex is w. Then an actual path
+from A introduces r while keeping f a cover at every step.
+
+If q is present, use q->r retaining f immediately. Otherwise, first
+process the selected edges wv, x<v<z, in INCREASING order of v, using
+
+    wv -> vz, retaining f.                              (FR3)
+
+At the stage for v there is no smaller selected outgoing edge at w:
+q is absent and all earlier ones have been removed. Hence wv covers.
+The inserted edges end at z and cannot create a new path from w to v.
+The covering f excludes a selected vz. Thus each move is actual and
+keeps f covering. No such move introduces r.
+
+The vertex w now has only its selected edge f. It has no incoming
+selected edge because it is least in its weak block, and f's maximality
+excludes natural outgoing edges beyond z. Deleting this pendant vertex
+leaves the rest of that selected block connected, with least vertex x.
+Normalize this rest by the leftward cover flips (FQ1), never using w.
+The finite endpoint-label sum decreases, so this terminates. At the
+terminal state each vertex has at most one incoming cover. Its connected
+Hasse graph is therefore a directed tree rooted at its least vertex x;
+in particular x reaches z. Hasse edges and selected edges have the same
+weak blocks, since every selected comparability is a path of covers.
+
+Every normalizing flip is also actual in the full source. The pendant
+w cannot occur inside a path between other vertices, and f keeps covering
+because it is still w's sole outgoing edge. The edge r stays absent:
+its only possible exchange uses f and therefore w.
+
+We next use the same incoming cut as the earlier exposure argument.
+In this prepared state let
+
+    I={v : x<v<z, vz is selected, and x reaches v}.
+
+This set is nonempty because x reaches z and r is absent. Apply (FR1)
+only to I, again in decreasing order. A bypass of the currently processed
+vz would end in uz with u>v reachable from x, so u would belong to I
+and its incoming edge would already have been removed. New edges starting
+at w cannot change paths starting at x or v. Thus all cut moves are
+actual and retain the covering f.
+
+After the cut, x no longer reaches z. Put p=min I. The last move
+inserted the covering edge wp, while x still reaches p: no edge ending
+below z was removed. Choose the last cover tp on a cover path from
+x to p. The two covers wp,tp permit
+
+    tp -> wt, retaining wp.                             (FR4)
+
+Here x<=t<p, and the new wt is a cover. This move also preserves
+coverhood of f. Any new bypass would have to start with the newly
+inserted wt, but t is reachable from x and x does not reach z.
+Removing tp cannot create a t-to-z path, and an edge starting at w<t
+cannot create one either. The x-to-t prefix survives the exchange,
+and x still does not reach z.
+
+Replace p by t and repeat. This strictly decreases p until t=x,
+when the new edge is q. The edge f still covers, so the actual flip
+q->r retaining f finishes the path. All exchanged edges in the cut
+and in (FR4) are properly contained in selected natural longs. The
+normalization step likewise exchanges only normal shorts. Thus every
+original strict decoration and every exterior edge not explicitly
+changed by these moves remains valid. This proves the lemma.
+
+**Whole-component consequence.** Suppose r is absent throughout C,
+q varies on C, and w is least in its selected weak block. Since q
+occurs somewhere, x belongs to that same invariant block. If f covered
+in any member, the lemma would introduce r, a contradiction. Therefore
+f is redundant everywhere. Deleting f and then the absent maximal r
+identifies C with one whole component of H=L-f-r, preserving K and E.
+This decreases natural area by two.
+
+In particular, at a leftmost NN contact w=0, every component with
+constant r is now reduced: use this result when q varies, and the
+preceding fixed-q theorem otherwise. This is not a proof of the
+NN step for components where both short edges vary.
+
+### Remaining boundary and verification
+
+For a general contact, the second argument needs the stated least-vertex
+hypothesis. An incoming selected edge at w prevents (FR3) from making w
+pendant; simply ignoring that edge would invalidate the subsequent
+normalization. We have not proved that all constant-absent-r components
+with variable q are inactive at f. The fixed examples satisfy that
+stronger statement, but their finite checks are not a general proof.
+Nor do either of these reductions collect the main two-variable sector.
+
+Related Rust: `dn_joint_span --nn-fixed-r` constructs the paths above
+using the existing cover/flip oracle, and checks the component label,
+strict edges, selected-edge count and coverhood of f at EVERY move.
+It uses `Graph::neighbors` for the selected weak block and
+`Poset::order_ideal_generated_by` for reachability. It also checks each
+claimed deletion image against a complete component computed in the
+smaller diagram. No polynomial or component-expansion theorem is used.
+The five NN and six DN fixtures give 5132 paths with 8346 checked flips.
+All 681 claimed inactive-component images are whole; 146 of these
+components have variable q and were outside the preceding fixed-q class.
+Frozen sources, commands and receipts are in `fixed-r-20260929/` under
+the project's external request directory.
