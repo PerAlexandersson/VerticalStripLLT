@@ -14,7 +14,18 @@ remain intact in the [component catalogue](docs/COMPONENT_NOTE_CATALOGUE.md).
 
 Active goal: prove the general non-circular component e-expansion for
 Motzkin/Dyck diagrams by the diagram-bijection/recurrence approach.
-Latest continuation proves a [reachable-anchor retained-edge repair](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#an-incoming-covering-anchor-with-a-path-to-t).
+Latest continuation proves a [shared-branch prefix repair](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#a-shared-branch-reached-by-an-arbitrary-prefix).
+With r,wt,yz covering, w reaching y and every w-to-s path using selected
+ys, the retained-edge comparison has a 2m+3-flip repair along any saturated
+w-to-y prefix of length m (in the remaining case t not reaching z).
+The direct wy may be redundant; competing prefix paths are allowed.
+Earlier temporary anchors may also become redundant, but removing ys
+before reversing the prefix makes every inverse actual. A truncated
+incoming cut permits yz to be initially redundant too. The remaining
+s-reaching branch still includes multiple routes with no common selected
+final edge, and redundant wt. General component reassembly remains open.
+
+The preceding continuation proves a [reachable-anchor retained-edge repair](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#an-incoming-covering-anchor-with-a-path-to-t).
 With r covering, any covering yz with x<y<t and y reaching t supplies
 an actual source path, even if y<s and yt is absent. Stop the path sweep
 one edge before t, use the appropriate local repair, and undo the sweep.
@@ -118,6 +129,9 @@ terms, not from the signs of intermediate recurrence coefficients.
   The new reachable-anchor repair allows a path to t from a covering yz
   even with y<s. The largest obstructing incoming branch is also resolved
   if it reaches t, without requiring its direct wv to be absent.
+  If it instead reaches s through a selected edge ys used by every
+  w-to-s path, a covering wt now permits an arbitrary w-to-y prefix,
+  including a redundant direct shared wy and competing prefix paths.
   The unrestricted retained-edge and left retained-e-prime repairs remain open.
 - A crossing-cover path now gives a direct retained-edge repair of arbitrary
   length, retaining every background edge. The same construction applies to
@@ -225,6 +239,11 @@ new truncated-cut/reachable-anchor proof finishes. The remaining branch
 therefore reaches s but not t; at least one obstructing direct wv must
 also be selected, since otherwise (C1) finishes. Do not repeat the already
 settled t-reaching branch or require y>s in the path-to-t construction.
+For the s-reaching branch, if wt covers and all w-to-s paths use a
+selected ys, the new prefix repair handles arbitrary w-to-y paths and
+redundant direct wy. Removing ys before reversing the prefix is essential.
+Several routes without a common selected final edge, or redundant wt,
+remain outside that construction.
 The new reverse preparation supplies the same conclusion from covers at
 the tx endpoint: expose r first, then clear t-to-w paths using td. This
 can make f redundant, but r remains covering, which is sufficient. The
@@ -287,6 +306,10 @@ extension and support corollary in the retained-edge note, the outline and
 both handoffs. The external consumer checks fixed paths only. Every prior
 retained-edge hunk will remain a verbatim prefix.
 
+Current shared-prefix continuation owns an append-only retained-edge branch
+lemma with arbitrary w-to-y paths, both handoffs, outline routing and fixed
+checks in the external consumer. It preserves the complete prior note.
+
 The reboot terminated the old workers/consultant. Its saved Claude output
 was empty; do not relaunch it. The pre-crash dirty retained-edge note was
 preserved in full, extended and committed. The full previous handoff,
@@ -296,8 +319,19 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Current shared-prefix increment: arbitrary w-to-y paths in the stated
+shared-branch case, with redundant wy and competing prefix paths allowed.
+Two fixed n10 examples pass nine-flip paths, including temporarily
+redundant earlier anchors. One fixed n11 example includes an initially
+redundant yz and the truncated incoming cut; its path has eleven flips.
+Every actual flip and exact endpoint is checked. No state space is
+enumerated and no Lean/Lake build, worker, consultant, maintained Rust
+edit or independent review occurred. The old retained-edge prefix is
+preserved in full.
+All 54 local file links and `git diff --check` pass.
+
 Proof checkpoint: `08259c0` (retained-edge reachable-anchor repair).
-Current retained-edge increment: a covering yz and any y-to-t path give
+Preceding retained-edge increment: a covering yz and any y-to-t path give
 the repair with arbitrary exterior; a truncated incoming cut handles the
 largest bad branch reaching t. Three fixed n10 paths (nine flips each)
 check last predecessors on both sides of s and an outgoing cut with
@@ -444,7 +478,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-reachable-anchor-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-shared-prefix-20260929/`.
+Reachable-anchor receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-reachable-anchor-20260929/`.
 Either-endpoint receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/left-endpoint-covers-20260929/`.
 Shared-branch receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/left-common-cone-20260929/`.
 Homogeneous-completion receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/homogeneous-dn-closure-20260929/`.

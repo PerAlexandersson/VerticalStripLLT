@@ -860,3 +860,127 @@ Sources, exact edge lists and receipts:
 `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-reachable-anchor-20260929/`.
 The full previous note remains a verbatim prefix. No Lean/Lake build,
 new worker, consultant, maintained Rust edit or independent review was used.
+
+## A shared branch reached by an arbitrary prefix
+
+2026-09-29 continuation. We treat part of the remaining branch reaching s
+but not t. The direct shared arm wy may be absent or redundant. We use
+an arbitrary selected w-to-y path and restore it after removing the edge
+through which every w-to-s path passes.
+
+Keep S=Q+xs, T=Q+st and the opening conditions. Suppose
+
+    w<x<y<s<t<z,
+    r=xz, wt, yz, ys cover in S,
+    w reaches y,       t does not reach z,
+    w does not reach s in S-ys.                      (26)
+
+The last condition says that every w-to-s path uses ys. In particular
+ws is absent. Given selected ys and w reaching y, it also implies that
+ys covers; we have displayed that cover to make the local tests explicit.
+
+**Proposition.** Under (26), S~T, with every other selected edge restored.
+There is no uniqueness assumption on the w-to-y path and no cycle-rank
+bound. A selected direct wy need not cover. If the chosen saturated prefix
+has m edges, the construction uses 2m+3 flips.
+
+Choose a path of selected covers
+
+    w=v_0 < v_1 < ... < v_m=y.
+
+It cannot use x because w,x are adjacent and wx is absent. All its
+vertices after w therefore lie strictly between x and s. For
+i=0,...,m-1, exchange
+
+    v_i v_(i+1) -> v_(i+1)t [retain v_i t].          (27)
+
+The first long is the covering wt. At each later step the preceding
+actual flip supplies the new covering long. Its selected path short
+still covers: all earlier added edges end at t>y, and deletions cannot
+create a bypass of a path short. Thus every step is actual. The final
+edge yt covers, and ys still covers. We do NOT require the earlier
+longs v_i t to remain covering after later steps; competing prefix paths
+can make them redundant temporarily.
+
+The edges r and yz remain covering. Their only possible new bypasses
+would use one of the inserted v_i t and then a t-to-z suffix, which
+does not exist. No preparation creates such a suffix: all its added
+tails lie below t. The short xs remains covering, because all new heads
+are above s. Conditions (1), tested after omitting xs, are preserved.
+In particular, x cannot acquire a path to t through a new v_i t,
+since an old x-to-v_i path would imply an old Q-path to s. The selected
+xs cannot reach v_i<s either.
+
+Now exchange
+
+    ys -> st [retain yt].                            (28)
+
+This is actual by the two displayed covers. Before undoing (27), note
+that none of its path vertices v_i can reach s without ys. Otherwise
+the original w-to-v_i prefix followed by that path would give a w-to-s
+path avoiding ys, contradicting (26). The new edges ending at t>s
+cannot create a path to s, and restoring old prefix edges cannot create
+a path absent in the original S-ys.
+
+Consequently we may undo the whole prefix (27). Relative to the recorded
+inverse, ys has been removed and st added. Removal only helps covers.
+The new st could bypass a tested edge v_i t only through a v_i-to-s path,
+which we have just excluded. All other tested intervals end at or before
+y<s, so they cannot use st. Every reverse flip is actual. This restores
+the full prefix and removes all artificial v_i t except the original wt.
+
+We have reached Q-ys+xs+st. Finish with
+
+    xs -> sz [retain r],
+    sz -> ys [retain yz].                            (29)
+
+The edge r still covers, because st has no t-to-z suffix; xs still
+covers because no new edge ends at or below s. The first flip therefore
+creates a covering sz. The original cover of ys implies that y does
+not reach s after ys is removed. Thus the new sz does not bypass yz,
+and the second flip is actual. It restores ys and leaves exactly Q+st.
+This proves the proposition. The edge wt may become redundant at the
+final endpoint; it is not retained after that happens.
+
+All exchanges are normal: (27)--(28) lie properly inside wt, and (29)
+inside the selected natural edges r,yz. The complete exterior participates
+in every cover test. This is an actual-component argument, not a claim
+that either valuation is constant on an individual flip.
+
+### Application after a truncated incoming cut
+
+Return to the sets I,B of the preceding section. Suppose r and wt cover,
+t does not reach z, and the largest member y of B reaches s but not t.
+Suppose ys is selected and w does not reach s after removing ys.
+Then S~T even if yz starts redundant or wy is selected and redundant.
+
+Indeed, the same truncated cut at h>y exposes yz while preserving r
+and (1). Its added xh are unreachable from w; below z the w-to-y and
+w-to-s relations are unchanged. The new heads h do not reach s or t,
+so the cover of wt is preserved. The cover of ys also persists, and
+the condition after deleting ys is unchanged. Apply (26)--(29), then
+undo the truncated cut exactly as in the preceding proposition.
+
+This closes the stated common-branch case, not every branch reaching s.
+There may be several w-to-s routes with no shared selected final edge,
+the common final edge may have no suitable covering yz after preparation,
+or wt may be redundant. Those configurations still need a general repair
+or a coefficient correction. Whole-component reassembly remains open.
+
+### Fixed path checks
+
+Related Rust: external `first_join_tree_lifts.rs`, option
+`--retained-shared-prefix`. Two fixed n10 states have a three-edge
+w-to-y prefix and a selected redundant wy. One also has competing
+prefix paths; two earlier artificial anchors become redundant before
+the central exchange. Both nine-flip paths pass every actual cover test
+and restore the exact exterior.
+
+A fixed n11 state adds the truncated incoming cut: y=5,s=7,t=8,z=10,
+I={5,9}, B={5}; the anchor 5,10 is initially redundant and the direct
+shared arm 15 is redundant. Its eleven-flip path also passes. No state
+space is enumerated. Exact edge lists, sources and receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-shared-prefix-20260929/`.
+Every previous retained-edge paragraph is preserved as a verbatim prefix.
+No Lean/Lake build, worker, consultant, maintained Rust edit or new
+independent review was used.
