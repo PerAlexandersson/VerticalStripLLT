@@ -390,3 +390,88 @@ exactly. It recovers the five-/two-state class and all terms of (5), and
 checks that the added component is inactive at f. No diagram-family scan,
 new polynomial generator, maintained Rust change or Lean/Lake build is used.
 Receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/homogeneous-dn-closure-20260929/`.
+
+## A shorter repair entirely in the NN right-hand diagram
+
+2026-09-29. The user reiterated the direct task: start with one complete
+component on the left, follow its image through a recurrence, and use
+diamonds and relabeling until the result is a linear combination of whole
+components on the right. Source additions and uniqueness assumptions are
+optional methods for obtaining that identity. They are not hypotheses of
+the desired general statement.
+
+The four-vertex example at the start of this note has a shorter repair
+which stays in the actual shortened NN target throughout. Retain
+
+    a=01, b=02, c=12, d=13, e=23, f=03,
+    C={fabc,fabd,fbcd,fbde,fcde}.
+
+The source is the complete natural diagram with strict corner f. Its
+shortened NN target R has natural edges a,b,c,d,e and strict corner d.
+The initial source diamond and endpoint maps already give
+
+    X(C)=X(D1)+[abcd]+[bde],
+    D1={abd,bcd,bde},                         X=K,E.       (R1)
+
+For completeness, pair fabc and fbcd by the diamond retaining f. Its
+empty and full terms map to bcd and abcd, respectively, by swapping
+0,1 and deleting redundant f. Of the other source terms, fabd deletes
+f to abd, and fbde deletes f to bde. In fcde, first delete d, redundant
+through c,e, and then swap 0,1; this also gives bde. Thus (R1) keeps
+the multiplicity of each output term, including the second copy of bde.
+
+Now use just ONE additional diamond in R, retaining b and exchanging
+a,c, with d,e fixed:
+
+    [abde]+[bcde]=[bde]+[abcde].                         (R2)
+
+In its full term b is redundant through a,c, so [abcde]=[acde]. Hence
+
+    [bde]=[abde]+[bcde]-[acde].                         (R3)
+
+Substituting into (R1), the terms collect as
+
+    X(C)=X(D1)+X(D2)-X(T),
+    D2={abcd,abde,bcde},    T={acde}.                    (R4)
+
+These are three complete components of R, all selecting its strict edge d.
+The only natural triangles of R are 012 and 123. Testing their two possible
+exchanges gives exactly the paths
+
+    abd <-> bcd <-> bde,
+    abcd <-> abde <-> bcde.
+
+There is no other neighbor of any of these six states. At acde, the only
+selected possible long edge d is redundant through c,e, while b is absent,
+so T is isolated. This proves both connectivity and completeness of every
+right-hand component, independently of its valuation.
+
+All source states have three selected normal edges. The corresponding
+counts in D1,D2,T are two, three, three. If F denotes the component
+contribution weighted by t to the number of selected normal edges, (R4)
+therefore gives the polynomial identity
+
+    F(C)=t F(D1)+F(D2)-F(T).                            (R5)
+
+There is no division by t. The HRV sums on the right are respectively
+e_(2,2)+e_(3,1)+e_4, e_(3,1)+2e_4, and e_4. They give the same
+e_(2,2)+2e_(3,1)+2e_4 as the original four-component repair.
+
+The local identity (R3) also holds with any common exterior relation
+adjoined to every term: its proof uses a diamond and the selected
+two-edge path a,c, with no cover assumption. What does not follow merely
+from this identity is the five-vertex-or-larger analogue of the component
+check after (R4). A flip involving an exterior vertex can change one of
+the displayed edges and leave the proposed collection. The general task
+is to choose further RHS diamonds and relabelings so that all such
+boundaries close. It does not require proving that the source is unique
+in an edge-count layer, or that a prescribed source-completion method works.
+
+Related Rust: the existing external `nn_component_transport` consumer,
+option `--four-vertex-rhs-only`, checks C,D1,D2,T by full actual-flip BFS,
+checks their strict-edge status and ascent counts, and verifies (R3),(R4)
+separately for exact K and E using the maintained APIs. It passes, including
+the source HRV profile. The source has five states and the outputs have
+three, three and one. No extra source component, family scan, maintained
+Rust change or Lean build is used. Frozen sources and build/check output:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/nn-rhs-only-20260929/`.

@@ -1,5 +1,37 @@
 # VerticalStripLLT handoff
 
+## Current direction — direct images of one component
+
+The user has reiterated the four-recurrence argument: start with one complete
+left-hand component, apply the recurrence's diagram maps, then use diamonds
+and vertex relabeling to collect a linear combination of whole right-hand
+components. This is the primary task. Source additions, homogeneous completion
+classes and selected-sector uniqueness are optional constructions, not
+requirements of the desired theorem or reasons to stop the direct argument.
+
+Continuation starts from clean, pushed `be76843`. Primary additionally owns an
+append-only section of `docs/proofs/COMPONENT_NN_REDISTRIBUTION.md` and its
+existing external Rust diagnostic. The immediate check simplifies the known
+four-vertex example to one RHS diamond and three components of the actual
+shortened NN target. Other ownership and the no-worker/no-Lean restrictions
+are unchanged.
+
+That check now passes and its proof is appended as
+[a shorter RHS-only NN repair](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#a-shorter-repair-entirely-in-the-nn-right-hand-diagram).
+The five-state C maps to D1+ D2-T, with component sizes 3,3,1, all in the
+actual shortened target with strict 13. One additional RHS diamond and
+deletion of its redundant 02 edge give the repair. With normal-selection
+weight t, the coefficients are t,1,-1. Exact K/E and complete-component
+checks pass; sources and receipts are in `nn-rhs-only-20260929/` under the
+external project request directory. No new general reassembly theorem is
+claimed. The open direct check is compatibility of RHS repairs with every
+output flip, including flips meeting exterior vertices.
+
+Verification: the NN note at `be76843` is preserved verbatim as a prefix;
+82 local file links and `git diff --check` pass. The focused external Rust
+consumer build and check are complete. No background job, Lean build,
+additional worker or new independent review.
+
 ## Resumed ownership — 2026-09-29
 
 The replacement primary worker resumes at the user's explicit request from

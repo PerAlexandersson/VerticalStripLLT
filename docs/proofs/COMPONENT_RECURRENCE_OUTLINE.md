@@ -9,6 +9,13 @@ to be proved. The component theorem
 itself is already known by the separate word proof; that theorem is not an
 input to this proposed recurrence proof.
 
+The current task is the direct image of ONE left-hand component under each
+of the four recurrences, allowing further diamonds and vertex relabeling
+on the right. The source-union criteria below are sufficient constructions,
+not extra requirements of that task. A shorter
+[NN repair entirely in its RHS diagram](COMPONENT_NN_REDISTRIBUTION.md#a-shorter-repair-entirely-in-the-nn-right-hand-diagram)
+now gives the worked example with three target components and no source additions.
+
 ## 1. The identity that gives positivity
 
 We work first with an ordinary decorated natural graph on ordered vertices
@@ -216,6 +223,12 @@ with the smaller-component identities, gives
 All five states have three selected normal edges, so the weighted
 component contribution is t^3 times this expression. The sign in (4)
 does not become a negative elementary coefficient in the final formula.
+
+The [shorter RHS repair](COMPONENT_NN_REDISTRIBUTION.md#a-shorter-repair-entirely-in-the-nn-right-hand-diagram)
+replaces D3-D4 by the negative singleton component T={acde}. Thus the
+same example is X(C)=X(D1)+X(D2)-X(T), entirely in the shortened NN
+diagram with strict edge d. One additional diamond suffices after the
+initial split; all three RHS components are checked directly.
 
 ## 6. Induction order and the other recurrences
 
