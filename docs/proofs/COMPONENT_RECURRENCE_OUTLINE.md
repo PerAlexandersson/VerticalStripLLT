@@ -131,6 +131,13 @@ positivity assertion for the intermediate signed recurrence.
 The implication (2) => (1) is proved by this induction argument. Producing
 (2) uniformly, including the component-boundary checks, is the open step.
 
+The notebook's initial decomposition is now reconstructed exactly. Its
+identity sectors already give whole components. Its remaining sector uses
+reverse DN; equation (N2) in the [notebook note](COMPONENT_NOTEBOOK_MAP.md)
+gives a valid split for one such component, with an explicit deletion
+residual. The direct DN note gives the opposite direction. Neither initial
+split has yet been collected into whole components in arbitrary exterior.
+
 ## 5. A complete example of splitting, repairing and collecting
 
 Take the complete natural graph on four vertices with strict corner 03.
@@ -187,6 +194,15 @@ component's envelope either decreases A further or merely marks corners,
 leaving (A,M) unchanged. These decreases are proved in
 [the ordinary DD measure](COMPONENT_DD_PACKETS.md).
 
+This is an order for the FORWARD DN direction. The notebook's top row
+is instead F(D0)=t F(I)+F(II)+t F(III), with reverse DN in the
+selected-corner sector. The top row decreases doubled decorated area,
+but after marking that selected corner, reverse DN preserves area and
+increases M. We cannot mix it with forward neutral DN steps and claim
+that (5) decreases. The [direction calculation](COMPONENT_NOTEBOOK_MAP.md#direction-and-the-induction-order)
+records the exact changes. A complete proof must fix a compatible
+recurrence direction and coverage argument as well as reassembly.
+
 Marking a corner is a representation change, not a recursive call on an
 equally large unknown problem. We also do not invoke induction on an unmarked
 intermediate merely because it occurs while deriving a DD or ND relation.
@@ -209,14 +225,14 @@ separate order or reduction for recurrences crossing the chosen cut.
 
 | Task in the outline | Main source | Proven scope / remaining work |
 | --- | --- | --- |
-| Author's diagrams and identity maps | [Notebook map](COMPONENT_NOTEBOOK_MAP.md) | Corner maps proved; exact I/II/III transcription remains |
+| Author's diagrams and identity maps | [Notebook map](COMPONENT_NOTEBOOK_MAP.md) | Top row reconstructed; identity sectors and reverse initial split proved; general DN collection remains |
 | Whole-component normalization | [Corner branching and envelopes](FLIP_COMPONENT_INDUCTION.md) | Proved; read the reduction sections, not the later optional matrix formalism |
 | One-component NN split and repair | [NN redistribution](COMPONENT_NN_REDISTRIBUTION.md) | General initial split; full worked example |
 | Larger complete NN step | [NN left reassembly](COMPONENT_NN_LEFT_REASSEMBLY.md) | Saturated eligible connected unicyclic case; arbitrary cycle rank remains |
 | One-component DN split | [Direct DN overlaps](COMPONENT_DN_DIRECT_OVERLAPS.md) | General identity; two ordered five-vertex overlap types remain |
 | DN diamonds and minimal components | [Joint repairs](COMPONENT_DN_JOINT_REPAIRS.md) | Both minimal pictures completed; local propagation lemmas |
 | Additional whole source components | [Source additions](COMPONENT_DN_SOURCE_ADDITIONS.md) | Six-vertex example proved; general construction remains |
-| Retained-edge source paths | [Retained-edge repairs](COMPONENT_DN_RETAINED_EDGE.md) | Several arbitrary-exterior sufficient conditions; unrestricted case remains |
+| Retained-edge source paths | [Retained-edge repairs](COMPONENT_DN_RETAINED_EDGE.md) | Arbitrary-exterior conditions, including a selected suffix of any length and shorter anchors; unrestricted case remains |
 | DD and induction order | [DD packets](COMPONENT_DD_PACKETS.md) | Corner split, packet transport and measure proved; one-component reassembly remains |
 
 The older [detailed catalogue](../COMPONENT_NOTE_CATALOGUE.md) retains the
@@ -226,10 +242,16 @@ component push-through lemma.
 
 ## 8. Next proof work
 
-We first label the cells in the notebook's I/II/III diagrams and write each
-map beside the piece it transports. Resolve the identity-map sectors at the
-component level. For the remaining pieces, check the first flip that crosses
-one of the red component brackets and give the matching local repair.
+The notebook's I/II/III cells and positive signs have been reconstructed,
+and its two identity sectors are resolved at the component level. The
+middle states must be paired by a diamond: the proposed individual poset
+map fails already on four vertices. The smallest component calculation
+is now written out completely in the notebook note.
+
+For arbitrary exterior, follow one of the exact initial DN splits to the
+first flip crossing a red component bracket and give the matching repair.
+Fix the recurrence direction before invoking the induction order; switching
+between the forward note and reverse notebook move is not a decrease.
 
 For DN the direct-overlap analysis already locates the unsettled comparisons.
 The retained-deleted-edge and left retained-e-prime cases are the next local

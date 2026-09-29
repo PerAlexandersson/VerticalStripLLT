@@ -394,3 +394,120 @@ proposition, and additional bypasses can prevent the conditional covers in
 also remain open. The current receipts and source snapshot are under external
 `dn-crash-recovery-20260929/`. No Lean/Lake build or manuscript proof change
 is involved.
+## Continuation: moving along a selected suffix
+
+2026-09-29. The preceding recovered text is unchanged. The following
+construction handles a family in which both original anchors are redundant;
+its length depends on a saturated exterior path, rather than on the number
+of vertices in the displayed recurrence.
+
+**Proposition.** Keep S=Q+xs and T=Q+st and all hypotheses of the original
+configuration. Suppose ws and wt are selected covers in S, xz covers in Q,
+and Q has no path from t to z. Suppose there is a selected cover sv, with
+t<v<=z, and a selected path from v to z. Then S and T lie in the same
+complete source component, with every other selected edge restored.
+
+We choose a saturated path
+
+    v=v_0<v_1<...<v_m=z.
+
+It may be trivial when v=z. We first perform
+
+    xs -> wx [retain ws],
+    wx -> xt [retain wt].                            (6)
+
+The first move is actual because ws and xs cover. It does not destroy
+the cover of wt: a new bypass would use wx followed by an x-to-t path
+in Q, excluded by (1). The second move is therefore actual. After (6)
+the relation is Q+xt. The edge r=xz covers there: it covers in Q, and
+a new bypass through xt would require the forbidden t-to-z suffix.
+
+Borrow xv backwards along the chosen path. For i=m-1,...,0 perform
+
+    v_i v_(i+1) -> xv_i [retain xv_(i+1)].           (7)
+
+The current long edge covers. The path short covers because the path
+was saturated and preceding changes only deleted path edges and added
+edges starting at x<v. An existing x-to-v_i path would bypass the
+current long. Thus every flip is actual, and its new short supplies
+the next covering long. The edge xt still covers, since the new edges
+from x all end at or beyond v>t. Now perform
+
+    xt -> tv [retain xv].                           (8)
+
+This is actual by the two cover tests just obtained. We undo (7) in
+reverse order. The only extra edge relative to the corresponding forward
+states is tv, in place of xt. There is no remaining x-to-t path: it was
+absent in Q, and every added x-edge ends above t. Thus tv cannot bypass
+any tested long or short beginning at x. The other tested edges start
+at or beyond v, so tv cannot bypass them either. All reverse flips are
+actual, leaving exactly Q+tv.
+
+Finally sv is still a cover: a new bypass through tv would require the
+absent s-to-t path in Q. The edge tv is a cover too; all restored path
+edges start at or beyond v and cannot affect its cover test. We may use
+
+    tv -> st [retain sv].                           (9)
+
+The resulting relation is exactly T. There are 2m+4 actual flips. Every
+exchanged edge is a proper subinterval of the natural corner f=wz, so
+it is normal. All other strict edges and the complete exterior remain
+unchanged at the end.
+
+Both f and r are redundant in S: they have the respective selected
+bypasses w->s->v->...->z and x->s->v->...->z. Thus this proposition
+does not assume that an original outer anchor covers. It does assume
+the displayed branch covers and the cover of r after deleting xs.
+
+For the previously uncovered seven-vertex state
+
+    S={01,13,14,16,23,26,35,56},
+
+take (w,x,s,t,v,z)=(1,2,3,4,5,6). The six flips are
+
+    23->12 [13], 12->24 [14], 56->25 [26],
+    24->45 [25], 25->56 [26], 45->34 [35].
+
+They restore the entire suffix and replace only 23 by 34. This is now
+an instance of the arbitrary-length proof, not just the recorded BFS path.
+
+## Using a shorter pair of anchors
+
+The earlier covering-f proposition also works with an auxiliary endpoint
+v satisfying t<v<=z, provided wv and xv are selected and wv covers in S.
+We retain the original natural corner wz to ensure that all exchanged
+edges are normal, and run that proposition's incoming sweep, outgoing
+sweep and three-flip repair with v in place of z. All their tested
+intervals lie in [w,v]. Edges with an endpoint above v cannot occur
+in a forward path testing one of those intervals. Neither the proof
+nor its restoration requires wv itself to be strict.
+
+For example, the recorded states
+
+    {01,14,15,16,23,25,26,56},
+    {01,13,14,15,16,23,25,26,56}
+
+use v=5, with original z=6. The covering anchors 15,25 give the two
+three-flip rows already recorded in the exact receipt. The redundant
+original edges 16,26 and the selected suffix 56 remain fixed.
+
+## Verification of this continuation
+
+Related Rust: the existing external `first_join_tree_lifts.rs` consumer,
+new option `--branch-suffix-check`, reuses `component_source_probe::cover`
+and `component_source_probe::flip`; no cover or flip model is reimplemented.
+It checks every instance of the proposition in the same fixed natural
+diagrams as the recovery run: one pair at area 011234 and 46 pairs at
+area 0112345, respectively 4 and 192 actual flips, with exact exterior
+restoration. One explicit eleven-vertex state checks a five-edge suffix
+and all 14 flips; no eleven-vertex state space is enumerated.
+
+Receipts and preserved before-files are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/dn-notebook-continuation-20260929/`.
+The library guide, Cargo package metadata and existing Rust APIs were
+checked before extending the consumer. Maintained Rust sources are unchanged.
+These checks support the proof above, not a claim of unrestricted coverage.
+The earlier 190 uncovered-pair count predates these two observations; we
+have not recomputed an updated coverage partition. The unrestricted
+retained-edge statement, the left retained-e' repair and simultaneous
+whole-component collection remain open.
