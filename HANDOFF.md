@@ -19,7 +19,24 @@ is proved with arbitrary exterior. Together with the earlier f-cover
 result, it settles every comparison where either outer anchor covers
 at Q+xs. Checkpoints `0cbefcc` and `dd844e9` are pushed to origin/main.
 
-The latest [rejoining-bypass theorem (64)](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#allowing-lower-branches-to-rejoin-the-suffix-after-t)
+The latest [paired-suffix theorem (65)](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#matching-two-suffix-preparations-removes-the-upper-tail-restriction)
+removes the upper-tail guard entirely. Assume r,sz cover in Q and every
+proper selected incoming z-tail reached from w is also reached from t
+(J=K). Then Q+xs~Q+st, allowing redundant wt and upper/lower bypasses
+avoiding t. Prepare the source with s-arms and the target with x-arms,
+using identical deletions. Move xs to a lower ys, transfer the new arms
+in increasing order, then flip ys to st. This matches the entire target
+preparation, so its recorded inverse restores all exterior.
+
+Together with (58), a remaining retained-edge defect under the background
+covers r,sz needs BOTH redundant wt and an incoming z-tail reached from
+w but not t. The upper-tail guard of (64) is no longer a gap. Fixed
+paths of 17,39,41,29 flips pass, with exact prepared-state and endpoint
+checks. Last-edge failures, background-cover failures, the left comparison
+and independent reduction of extra whole source components remain open.
+The general recurrence proof is still unfinished.
+
+The preceding [rejoining-bypass theorem (64)](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#allowing-lower-branches-to-rejoin-the-suffix-after-t)
 allows an outer bypass to avoid t and rejoin its suffix later. Assume r,sz
 cover in Q. Every proper selected az reached from w must also be reached
 from t; only the upper incoming tails h in (s,t) reached from w require
@@ -456,6 +473,12 @@ actual source components forced by the three pair families.
 
 ## Ownership and restrictions
 
+Current paired-suffix continuation owns an appended retained-edge theorem,
+fixed checks in the existing external Rust consumer, the outline and both
+handoffs. It proves removal of the upper-tail guard by matching independently
+prepared endpoints. Rejoining-bypass theorem checkpoint `d6c755a` is pushed.
+
+
 Current rejoining-bypass continuation owns an append-only weakening of the
 outer-path hypotheses, fixed external-consumer checks, outline routing and
 both handoffs. It preserves the original proof text and checks examples
@@ -558,6 +581,16 @@ including its original dirty paragraph, is preserved in the
 Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
+
+Current paired-suffix increment: four fixed paths pass 17,39,41,29 flips.
+Each preparation, every actual flip, every strict edge, equality before
+target reversal and the final endpoint are checked. The earlier four
+rejoining paths replay unchanged. No state enumeration or Lean/Lake.
+Receipt directory:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-paired-suffix-20260929/`.
+No worker, consultant, maintained Rust edit or independent review.
+The preceding rejoining theorem was checkpointed and pushed as `d6c755a`.
+
 
 Current rejoining-bypass increment: the n8 nine-flip row is checked exactly;
 three fixed n12 paths pass 17,17,15 flips. Every actual flip, strict edge

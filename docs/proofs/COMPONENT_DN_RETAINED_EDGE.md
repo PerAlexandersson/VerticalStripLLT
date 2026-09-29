@@ -2600,3 +2600,173 @@ The condition still excludes an upper incoming tail that reaches the
 suffix while avoiding t, or an incoming edge in J not reached from t.
 Other background-cover failures, left comparisons and whole-component
 reassembly also remain open. The full recurrence proof is not complete.
+
+## Matching two suffix preparations removes the upper-tail restriction
+
+2026-09-29 continuation. Instead of reversing the source preparation with
+its upper s-arms still present, we move all its new arms to x. This gives
+exactly a preparation made independently from Q+st. We then reverse that
+target preparation. No upper-tail path restriction is needed.
+
+**Theorem.** Under the opening Q conditions, suppose r=xz and sz cover
+in Q. Define J and K as in (64). If
+
+    J is contained in K, equivalently J=K,                       (65)
+
+then Q+xs~Q+st with arbitrary exterior restored. In particular, wt may
+be redundant and an upper or lower branch may bypass t before rejoining
+its suffix. There is no restriction on direct tz or on the number or
+comparability of incoming tails. The inclusion K in J follows from wt.
+
+We give the complete construction. If K is empty, J is empty, so f
+covers in Q+xs and the earlier f-cover theorem applies. Otherwise t
+reaches z. Condition (65) implies w does not reach s: the selected sz
+would otherwise put s in J but not K. Also w cannot reach x, since x=w+1
+and wx is absent. Define
+
+    H={h : s<h<t, ht selected in Q, w reaches h in Q},
+    y=largest h with w<h<s, ht selected, w reaches h,
+      or y=w if there is no such h.
+
+Then yt is selected, y is distinct from x, and y does not reach s.
+We do not assume yt covers yet.
+
+### Prepare the two endpoints with the same deletions
+
+At Q+xs, process K in decreasing order, exchanging az for sa while
+retaining sz. At Q+st, use exactly the same list, exchanging az for xa
+while retaining r. Both initial retained edges cover: sz covers in Q+xs
+because xs starts below s; r covers in Q+st because Q has no x-to-s path.
+The decreasing incoming cut makes every exchanged az cover, and the
+covering long excludes a pre-existing path to the new short's endpoint.
+
+Let a be the least element of K. Choose a saturated t-to-a path in Q,
+allowing the length-zero path when a=t. This path is unchanged by either
+incoming cut. Carry sa backwards along the path at the source, and xa
+backwards along the same path at the target. Thus each path edge bc is
+replaced by sb retaining sc, or by xb retaining xc. These are actual
+flips, as in the suffix-borrowing construction of (61). They end with
+covering st and xt, respectively. Call these two preparations P_s,P_x.
+They remove the same original edges and add corresponding arms.
+
+The source preparation exposes f. Every original w-to-z bypass has a
+last incoming edge with tail in J=K, all of which have been removed;
+new s-arms and xs are inaccessible from w. Both preparations also
+remove every h-to-z path for each h in H. Indeed, w reaches h in Q,
+so the last incoming edge of any such path has its tail in J. The new
+arms start below h and cannot be used by a path from h. This argument
+allows the original h-to-z path to avoid t.
+
+Now process H in decreasing order. At the source use ht->sh [st];
+at the target use ht->xh [xt]. The last-edge argument exposes each ht:
+a bypass through kt has k>h, w reaches k, and kt has already been cut.
+There is no pre-existing s-to-h or x-to-h path in Q, since h reaches z
+through ht and the original t-to-z path, while sz and r cover. New arms
+to larger vertices cannot create such a path. Thus all these flips are
+actual, and their new arms cannot bypass sz or r because h no longer
+reaches z. The source f also stays covering.
+
+Write D for the set of original edges deleted by P and the H-cut, and
+B for the heads of all newly added arms. More explicitly, B consists of
+K, the vertices of the borrowed path except its final vertex already
+in K, and H. All its elements satisfy s<b<z and reach z in original Q.
+The two prepared states are exactly
+
+    (Q-D)+xs+{sb : b in B},
+    (Q-D)+st+{xb : b in B}.                          (66)
+
+In particular t belongs to B. Every displayed sb and xb was absent in
+Q, by the two original background covers. The original edges deleted
+at the two endpoints coincide, not just their reachability effects.
+
+The upper cut also exposes yt. A proper bypass of yt would have a
+last edge kt with k>y and w reaching k. A lower k<s contradicts the
+maximal choice of y; k=s is impossible because st was absent in Q;
+a higher k is in H and its edge was removed. New s-arms are inaccessible
+from y, and new x-arms are inaccessible from y: either y=w and w does
+not reach x, or y>x. This also proves the cover needed later at the
+other prepared endpoint.
+
+### Move the short, then match the prepared arms
+
+At the source, borrow yz by carrying the covering f along a saturated
+w-to-y path. This preparation R consists of ab->bz [az], with all
+path vertices at most y<s. It is empty when y=w. New longs have tails
+below s and preserve the cover of sz. Use sz->ys [yz] and immediately
+reverse R. With sz absent, s has no path to z; hence the new ys cannot
+bypass any long used in this inverse. Every prefix edge is restored.
+
+Next use xs->sz [r]. At this moment r covers: original Q has covering
+r; with sz absent the temporary s-arms do not reach z; and x cannot
+reach y, since yt in Q would give the forbidden x-to-t path (or y=w<x).
+The prefix preparation has been completely undone. Thus we have reached
+
+    (Q-D)+ys+{sb : b in B},                          (67)
+
+with both sz and r covering. The only change to (66)'s source state is
+xs replaced by ys.
+
+Transfer the arms sb to xb in increasing order of b, using the
+[covering-arm lemma (A1)](COMPONENT_RIGHT_ARM_TRANSFER.md#arbitrary-exterior-transfer-with-two-covering-anchors).
+Before its turn, sb covers. There is no original s-to-b path, since b
+reaches z in Q and sz covers there. Earlier new s-arms have been removed;
+remaining new s-arms have heads larger than b. Already transferred
+x-arms and ys start below s, so cannot create an s-to-b bypass. The
+edge xb is still absent, although x may now reach b through earlier
+transferred arms. Lemma (A1) permits this and restores all other edges;
+it also preserves both outer covers at each endpoint.
+
+After all transfers, the state is
+
+    (Q-D)+ys+{xb : b in B}.                          (68)
+
+The edge st is now absent, having been among the transferred arms.
+The edge yt covers by the maximal-tail argument above. The edge ys
+covers because Q had no y-to-s path, and none of the new x-arms is
+accessible from y. Also s still has no path to t. Therefore ys->st [yt]
+is actual. Its result is EXACTLY the target state in (66).
+
+Reverse the recorded target H-cut and then P_x. These inverses are
+actual because we have matched the full target state, not merely a
+subset of its edges or its poset. They restore precisely Q+st. This
+proves (65). If L is the total number of flips in the covering-arm
+transfers, the constructed path has
+
+    2|P|+2|H|+2|R|+L+3
+
+flips. All modified edges lie properly inside f, so no strict corner
+is exchanged. The proof uses no bound on the exterior or cycle rank.
+
+### Checks with upper branches bypassing t
+
+Take (w,x,s,t,z)=(1,2,3,5,7) and
+
+    Q={01,17,27,15,14,45,37,56,67,46}.
+
+We have J=K={6}, H={4} and y=w. The upper branch 4->6->7 avoids t,
+so (64) does not apply; wt is redundant through 14,45. The construction
+replaces 23 by 35 in these seventeen actual flips:
+
+    67->36 [37], 56->35 [36], 45->34 [35],
+    37->13 [17], 23->37 [27],
+    34->47 [37], 47->24 [27],
+    35->57 [37], 57->25 [27],
+    24->47 [27], 36->67 [37], 67->26 [27], 47->24 [27],
+    13->35 [15], 24->45 [25], 25->56 [26], 26->67 [27].
+
+Related Rust: the existing external `first_join_tree_lifts.rs`, helper
+`retained_paired_suffix`, checks both preparations independently, every
+actual flip and strict edge, exact equality before reversing the target,
+and the final endpoint. Its `--retained-paired-suffix` mode checks this
+n8 path and three n12 paths of 39,41,29 flips. The larger fixtures include
+two upper bypasses avoiding t, comparable incoming tails, lower prefixes,
+absent/redundant tz, and an absent direct lower-prefix edge. No state
+space is enumerated. The earlier rejoining-bypass checks are unchanged.
+
+Receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-paired-suffix-20260929/`.
+No Lean/Lake build, worker, consultant, maintained Rust edit or independent
+review was used. All previous proof text remains a verbatim prefix.
+The last-edge equality J=K and the two background covers remain hypotheses;
+failures of these conditions, the left comparison and whole-component
+reassembly are still open. This is not the full recurrence proof.

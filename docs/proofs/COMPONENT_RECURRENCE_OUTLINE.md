@@ -307,6 +307,7 @@ separate order or reduction for recurrences crossing the chosen cut.
 | Redundant containing wt with a controlled outer bypass | [Suffix restoration behind an incoming cut](COMPONENT_DN_RETAINED_EDGE.md#a-redundant-containing-edge-when-every-outer-bypass-passes-through-t) | With r,sz covering, all w-to-z bypasses passing through t and all proper incoming wt-bypass tails above s, arbitrary wt/tz redundancy is allowed; other path patterns remain |
 | Arbitrary containing bypasses through t | [Theorem (61)](COMPONENT_DN_RETAINED_EDGE.md#allowing-incoming-bypasses-below-s-as-well) | r,sz covering in Q and every w-to-z bypass passing through t suffice; no wt cover, incoming-tail or suffix restriction remains |
 | Lower bypasses rejoining after t | [Theorem (64)](COMPONENT_DN_RETAINED_EDGE.md#allowing-lower-branches-to-rejoin-the-suffix-after-t) | With r,sz covering, every w-reachable proper incoming z-tail also t-reachable, and only the upper incoming t-tails required to reach z through t, outer bypasses avoiding t are allowed |
+| Matched preparations with arbitrary upper bypasses | [Theorem (65)](COMPONENT_DN_RETAINED_EDGE.md#matching-two-suffix-preparations-removes-the-upper-tail-restriction) | r,sz covering and equality J=K of the incoming z-tails reached from w and t suffice; transfer all prepared s-arms to x and reverse the exactly matched target preparation; no upper-tail guard remains |
 | Moving only the distinguished short | [Crossing-cover paths](COMPONENT_DN_RETAINED_EDGE.md#sliding-the-moving-edge-along-crossing-covers) | An arbitrary-length alternating path proves the retained-edge comparison, allowing both anchors redundant; path existence remains a hypothesis |
 | DD/ND inheritance | [Corner-unmarking reductions](COMPONENT_DD_PACKETS.md) | DD reduces to DN, ND to NN, keeping the same whole component |
 | Recurrence choice and induction | [First-drop coverage](COMPONENT_RECURRENCE_COVERAGE.md) | Proved for every ordinary saturated diagram; NN/DN reassembly is the remaining induction input |
@@ -317,6 +318,27 @@ They are available tools, rather than extra hypotheses imposed on the main
 component push-through lemma.
 
 ## 8. Next proof work
+
+Use the following current retained-edge results before resolving a new
+comparison. The longer table above also preserves superseded intermediate
+hypotheses and their constructions.
+
+- Either f or r covering in Q+xs suffices, with arbitrary exterior.
+- With r,sz covering in Q, (58) permits all suffixes when wt covers
+  in Q+xs, and (65) permits redundant wt when J=K. Here J,K are the
+  proper incoming z-tails reached from w,t respectively.
+- Thus, under those background covers, an unresolved defect needs both
+  redundant wt and a tail in J not reached from t. Upper-tail bypasses
+  avoiding t are no longer a separate gap: the matched preparations
+  transfer all new s-arms to x before reversing the target path.
+
+The local conclusions identify source components for the stated comparisons.
+They do not reduce every extra component in U_k(C) or V_k(C). That separate
+whole-component assertion, the remaining retained cases and the left
+coefficient repairs still require proof.
+
+The preceding constructions and their historical remaining cases follow.
+
 
 The broad three-cover retained-edge result is (58): covering wt at Q+xs and
 covering r,sz in Q suffice without ANY lower-reachability or suffix
