@@ -62,6 +62,15 @@ proved conditional reduction, not completed NN/DN collection. The NN
 statement must allow the empty unmarked corner and the eligible contact;
 the enlarged source need not be saturated or have its first drop there.
 
+A new [whole-component certificate](COMPONENT_NN_REDISTRIBUTION.md#a-complete-component-certificate-beyond-cycle-rank-one)
+handles an 84-state connected NN example by completing its source brackets,
+deleting twelve inactive additions and cancelling eight whole terms. It
+uses diagrams and actual component checks only. The
+[one-end attachment theorem](COMPONENT_NN_REDISTRIBUTION.md#nn-recurrences-extend-at-the-fixed-right-endpoint)
+extends it to arbitrary components attached on the right, where the NN
+swap fixes the shared endpoint. These results do not close arbitrary
+crossing exteriors or the general empty-corner NN source.
+
 ## 1. The identity that gives positivity
 
 We work first with an ordinary decorated natural graph on ordered vertices

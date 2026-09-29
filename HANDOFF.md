@@ -1,5 +1,50 @@
 # VerticalStripLLT handoff
 
+## Current NN continuation — whole-component certificate and right attachment
+
+Primary resumed from clean pushed `b9239d1`; the prior turn made verified
+progress. Ownership is unchanged: this handoff/outline, append-only NN/DN
+notes, existing external consumers. The diagram-only direction is retained;
+no basis/quotient calculation, Lean build, maintained Rust edit or worker.
+
+**New direct certificate:** the [84-state NN component](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#a-complete-component-certificate-beyond-cycle-rank-one)
+in area 01234, strict 04, with seed {01,02,03,04,12,24}, has a checked
+recurrence with eight positive whole components in the strict-14 target
+and four negative whole components in the same graph with 14 unmarked.
+Close its source brackets using the proved NN reconstruction; the twelve
+additional whole components all have 04 redundant everywhere. Delete 04,
+subtract them, and cancel eight terms by redundant insertion of 14. The
+note lists every final component by seed and size. This gives a diagram
+certificate for a difficult fixed example previously covered only by the
+broader finite collection checks; it is not a new uniform NN theorem.
+
+**Proved extension:** [NN at the fixed right endpoint](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#nn-recurrences-extend-at-the-fixed-right-endpoint).
+Any such recurrence extends to arbitrary chosen components attached at
+its fixed right endpoint. Whole products, fixed-endpoint coloring identities
+and distinguished HRV-fibre data prove the claim, without assuming an
+expansion for the attached component. Left attachments moved by the NN
+swap and crossing exteriors remain excluded. The 84-state recurrence thus
+extends to an arbitrary right attachment. A two-state triangle check gives
+168 source states = 198 positive - 30 negative; all thirteen products are
+verified whole components.
+
+**Important proof-search correction:** retaining q until an exposure is NOT
+always possible, even in a complete five-vertex NN source. The displayed
+seed has a singleton q-selected slice; its sole neighbor still has 04
+redundant. Two flips leaving q expose 04, and a nine-flip path reaches
+its middle mate. The global certificate avoids imposing that extra path
+condition. In five fixed diagrams, all 6469 middle states in f-active
+components have their middle mate in the same component; 574 need a
+q-detour. This is evidence, not the unproved general active-middle lemma.
+Do not substitute that optional lemma for the full collection objective.
+
+Checks use graph/actual-flip routines only. The Rust capability guide,
+metadata, existing APIs, runtime tools and `codex mcp list` were inspected.
+Frozen consumer sources, commands and receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/nn-middle-slices-20260929/`.
+The remaining main obligation is uniform NN collection, including empty
+unmarked corners; DN follows by the preceding proved reduction. Goal active.
+
 ## Current continuation — DN reduces to NN by an empty corner
 
 Primary resumed from clean pushed `060d2e6`. The previous turn made

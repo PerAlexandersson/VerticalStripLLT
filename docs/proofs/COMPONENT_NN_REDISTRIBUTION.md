@@ -928,3 +928,171 @@ need not be applied at the first area drop of the enlarged diagram.
 The existing saturated unicyclic theorem is insufficient for that
 hypothesis. We have proved the reduction, not the uniform NN collection
 it assumes. No polynomial basis enters the argument.
+
+## A complete component certificate beyond cycle rank one
+
+2026-09-29 continuation. We keep the proof in terms of the notebook's
+component brackets. The former finite checks already included this
+five-vertex example; here we give a certificate using only whole
+components, the NN diamonds and redundant-corner deletion. No polynomial
+or basis calculation is used in this certificate.
+
+Take the complete natural graph on 0,...,4 with strict f=04, and let C
+be the whole component containing
+
+    A={01,02,03,04,12,24}.
+
+It has 84 states, all connected with six selected edges, hence cycle
+rank two. Put q=01, r=14. Let R have area 01233 and strict 14; let D
+have the same natural graph and no strict edges.
+
+For each row of the following table, the term means the WHOLE component
+containing the displayed seed, in the specified diagram. The size helps
+identify and verify it; we do not take just the displayed seed.
+
+| Sign | Diagram | Seed | Component size |
+| --- | --- | --- | ---: |
+| + | R | 01,02,03,12,14 | 34 |
+| + | R | 01,02,12,13,14 | 16 |
+| + | R | 01,02,03,12,13,14 | 32 |
+| + | R | 01,02,12,13,14,23 | 9 |
+| + | R | 12,13,14,23,24 | 3 |
+| + | R | 01,02,13,14,34 | 3 |
+| + | R | 12,13,14,23,34 | 1 |
+| + | R | 12,14,23,24,34 | 1 |
+| - | D | 01,02,12,13,24 | 6 |
+| - | D | 01,02,03,12,34 | 5 |
+| - | D | 01,02,03,23,34 | 2 |
+| - | D | 01,02,23,24,34 | 2 |
+
+For both X=K,E, X(C) is the signed sum of these twelve whole-component
+terms. In particular every term belongs to the smaller NN corner-deletion
+graph; the first eight also belong to the actual strict-r target.
+
+Here is the diagram certificate. Close C under the middle and target-flip
+joins from the proved [NN component reconstruction](COMPONENT_RECURRENCE_REDUCTION.md#an-nn-recurrence-in-complete-component-sums).
+In this fixed graph the resulting union consists of C and twelve other
+whole components I, of sizes
+
+    6,2,3,5,3,2,2,1,1,1,2,1.
+
+The edge 04 is redundant at EVERY state of each I. Deleting it maps I
+identically to a whole component of D. The reconstruction theorem,
+which pairs middle states by diamonds and relabels the empty endpoint,
+sends the 113-state union to sixteen whole R components. Subtract the
+twelve deleted components. In eight of them, 14 is also redundant
+throughout after deletion. Inserting 14 maps each of those eight whole
+components to one of the positive R components and cancels it. This
+leaves exactly the displayed table, with 99 positive and 15 negative
+states. The count 99-15=84 is a consistency check, not the proof of the
+valuation identity.
+
+The complete source joins, constancy of every target coefficient, all
+inactive-corner claims, exact deletion/insertion component maps and the
+final table are checked by finite actual-flip enumeration. The same
+coefficients work for K,E because each step of the certificate is one
+of the already-proved diagram identities. This replaces an algebraic
+span check for this example by an explicit component certificate. It
+does not show that such inactive additions always suffice.
+
+### Why we cannot require a path which keeps q selected
+
+The middle mate of A is
+
+    B={02,03,04,12,14,24}.
+
+Both lie in C. However A has no actual flip which keeps q selected,
+and its only neighbor still has f redundant. To expose f one must
+first leave that stratum. For example, the first two moves below expose
+04; the complete path verifies that the middle mate belongs to C.
+Each row retains the indicated long edge and replaces the indicated short.
+
+| Retain | Remove | Insert |
+| --- | --- | --- |
+| 03 | 01 | 13 |
+| 03 | 02 | 23 |
+| 04 | 24 | 02 |
+| 02 | 12 | 01 |
+| 04 | 01 | 14 |
+| 04 | 02 | 24 |
+| 03 | 13 | 01 |
+| 03 | 23 | 02 |
+| 02 | 01 | 12 |
+
+This refutes the stronger proposed shortcut that every active middle
+state can reach an exposure while preserving q up to the last move.
+It does not refute middle membership, which this path proves in the
+example, or the general exposure lemma with its stated hypotheses.
+We use the whole-component certificate above for collection, rather
+than imposing a q-preserving path as an extra requirement.
+
+Related Rust: `dn_joint_span --nn-middle-slices` uses the existing actual
+flip/component model only. In five fixed diagrams it checks 1698 source
+components and 8616 middle states. All 6469 middle states in components
+where f is exposed somewhere have their mates in the same component.
+Of these, 574 cannot reach an exposure by keeping q selected until the
+last move. These counts are finite evidence; the corresponding general
+middle-membership assertion remains unproved. The code also verifies
+every step of the complete 84-state certificate above. Frozen sources,
+commands and receipts are in `nn-middle-slices-20260929/` under the
+external request folder.
+
+## NN recurrences extend at the fixed right endpoint
+
+The endpoint-attachment argument does have a useful NN version, even
+when the bottom swap moves the left endpoint. We attach only at the
+RIGHT endpoint, which that swap fixes.
+
+**One-end attachment theorem.** Suppose a signed component recurrence
+on [a,c] has been proved by diamonds, redundant-edge changes, identity
+maps and sink-order-preserving relabelings which fix c. Attach any
+ordinary diagram on [c,d], with no natural edge crossing between the
+two interiors, and choose any whole component T in the attachment.
+Then the same signed recurrence holds after gluing T to every term.
+Every resulting term is a whole component. No component expansion for
+T is assumed.
+
+Every natural triangle lies in a single block. A directed path between
+two vertices of that block cannot leave and return, so the cover tests
+are unchanged. Hence the full flip graph is the Cartesian product of
+the two block graphs. Gluing takes whole components to whole components.
+
+For K, keep the color at c fixed throughout the middle calculation.
+Diamonds, redundancy and the relabelings fixing c preserve the identity
+with that color fixed. Multiply by the corresponding attachment sums,
+counting the weight of c once, and then sum its color.
+
+For E, retain the size of the HRV fibre containing c as distinguished
+from the other fibre sizes. Diamonds preserve the multiset of entire
+HRV maps, as proved in the
+[endpoint audit](COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md#diamonds-preserve-full-hrv-maps).
+Redundancy preserves them, and each allowed relabeling fixes c and
+preserves sink order, hence preserves these distinguished fibre data.
+On gluing, exactly the two fibres containing c merge, counting c once;
+all other fibres stay unchanged. This gives the attached E identity
+with exactly the same integer coefficients. These facts prove the
+claimed extension without assuming the unmarked identity implies its
+marked version.
+
+Every relabeling in the 84-state certificate swaps 0,1 and fixes 4.
+It therefore extends to arbitrary chosen components attached at 4.
+The added block contributes the same area and moment to each diagram,
+so the decrease in the induction order is retained. In particular this
+is a family with arbitrary right exterior, not just a single finite
+example. It does not allow exterior edges crossing into the middle or
+an attachment at a left endpoint moved by the swap.
+
+For the fixed check, attach the two-state triangle component
+
+    T={46+45,46+56}.
+
+The source area is 0123412 and the target/deletion area is 0123312.
+The source has strict 04,46; R has strict 14,46; D has strict 46.
+Actual-flip searches verify all thirteen products (one source and twelve
+signed outputs) as whole components. Their sizes are 168 on the source,
+198 in the positive terms and 30 in the negative terms. The general
+attachment proof above is the justification beyond this fixed check.
+
+The general NN collection theorem, and therefore the DN consequence,
+remain open. This continuation supplies a direct component certificate
+and its right-end extension, not a claim of uniform reassembly.
