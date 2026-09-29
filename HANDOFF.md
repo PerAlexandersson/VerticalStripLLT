@@ -484,7 +484,8 @@ tz and a redundant proper incoming edge. Every actual flip, strict edge,
 preparation invariant and exact endpoint passes; no state space is enumerated.
 Both prior proof notes remain verbatim prefixes. No Lean/Lake build,
 worker, consultant, maintained Rust edit or independent review.
-Proof checkpoint pending.
+Proof checkpoint: `543bd1b`. Prior-proof preservation, all 82 local
+file links and git diff --check pass.
 
 Current selected-suffix increment: four fixed n12 shared-suffix paths
 pass 14,14,12,12 flips, with both root orders and absent/redundant internal
