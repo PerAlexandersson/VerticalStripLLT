@@ -1,5 +1,66 @@
 # VerticalStripLLT handoff
 
+## Current continuation — whole tree recurrences, including unsaturated sources
+
+Primary resumed from clean pushed `31580f8`; the preceding turn made
+verified progress. Ownership remains this handoff/outline, append-only
+NN/DN notes and the existing external Rust consumer. The user's diagram
+direction is unchanged. No basis calculation, Lean build, maintained
+Rust edit, new worker or independent review.
+
+**Proved uniform recurrence:** [arbitrary source trees](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#full-layer-recurrence-for-arbitrary-source-trees),
+with its [DN version](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#full-layer-dn-recurrence-for-arbitrary-source-trees).
+For a connected full-envelope tree C, use the complete n-1-edge source
+layer. Its NN image is F_(n-1)(R)+F_(n-2)(R); its DN image is F_(n-1)(R).
+Every extra source component is either a tree with proper envelope,
+which deletes an absent corner, or disconnected. In the latter case,
+concatenate its induced weak-block diagrams. The blockwise increasing
+relabeling gives ONE whole component in a diagram with strictly smaller
+natural area. These corrections can contain cycles; their reduction
+does not assume their expansion. Subtract them, each once. All final
+terms are whole components in smaller diagrams, with the same K/E
+coefficients. This extends the tree recurrence to unsaturated sources;
+the forest expansion itself was already known by another argument.
+
+**Concrete boundary resolved:** the eleven-state area-01232 example
+from the previous turn has 20 whole positive target components with
+35 states, minus four smaller-envelope tree components (13 states)
+and seven disconnected corrections (11 states). Thus 11=35-13-11.
+The original unmodified image remains incomplete; the completed
+recurrence permits the independently smaller correction diagrams.
+
+**Verification:** `--forest-layers` checks 11 source tree components
+(667 states), 218 positive target components (1820 states), and 127
+smaller correction components (1153 states). It verifies BOTH directions
+of every correction's actual flip graph, valid decorations, the full-layer
+coefficients and every diagram's induction decrease. All checks pass,
+with empty stderr. Frozen sources, command and receipt:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/forest-layers-20260929/`.
+Rust capabilities/Cargo metadata and runtime MCP registrations were
+rechecked. Lean remains unused. No launched process remains.
+
+**Next focus:** connected CYCLIC components with full envelope, after
+the established absent/inactive-corner and fixed-short reductions.
+All 66 previous no-joint-selection examples already reduce: 43 by block
+separation, 9 by smaller envelope, 11 by the tree recurrence and 3 by an
+inactive corner. This is finite evidence, NOT a theorem that every
+no-joint-selection component reduces this way. Do not spend another
+turn repairing those seven raw NN boundaries as if they were new
+unresolved instances. The full-layer argument for a cyclic C can have
+other connected cyclic full-envelope members; general independent
+reduction of those extras, or direct RHS diamond collection, remains
+unproved. The goal is active.
+
+The new diagnostic logs surviving higher-cycle candidates for the next
+step. Examples beyond the earlier 69/126 certificate include the 125-state
+eight-edge NN component in area 012333 and the 3381-state eight-edge
+component in area 0123434. They pass the connected/full-envelope,
+corner-activity and native mixed-acyclic filters. These filters do not
+assert that no other known reduction applies or prove their recurrence.
+Previous proof-note contents are preserved as verbatim prefixes; 143
+local file links, frozen receipt hashes and `git diff --check` pass.
+Maintained Rust is clean at `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
+
 ## Current continuation — middle pairing without joint short selection
 
 Primary continued from clean pushed `4437e5b`, which completed the

@@ -1217,3 +1217,36 @@ with all strict decorations retained. The full two-variable DN
 component recurrence remains unproved; the new result supplies one
 of its middle-state comparisons, with the stated no-joint-selection
 hypothesis. Frozen sources and receipts are in `joint-shorts-20260929/`.
+
+## Full-layer DN recurrence for arbitrary source trees
+
+2026-09-29 continuation. The
+[tree-layer subtraction](COMPONENT_NN_REDISTRIBUTION.md#full-layer-recurrence-for-arbitrary-source-trees)
+works directly in an eligible DN source L. Its
+[full-layer identity](COMPONENT_DN_SOURCE_ADDITIONS.md#the-full-dn-layer-has-no-boundary-defect)
+has only one target layer: X(F_m(L))=X(F_m(R)), for X=K,E.
+
+Let C be the connected full-envelope tree component and set m=n-1.
+Every other source component in that layer is either disconnected,
+or a connected tree with proper envelope. In the first case reorder
+its weak blocks into the concatenation of the induced diagrams; in
+the second delete an absent maximal corner. The linked proof identifies
+each extra D with one whole smaller component B_D. Hence
+
+    X(C) = X(F_(n-1)(R)) - sum_(D != C) X(B_D).
+
+The sum is over the other whole components of F_(n-1)(L), each once.
+All correction diagrams have strictly smaller natural area. The actual
+DN target has the same area as L and decreases its area moment by z-x.
+Thus every final term decreases the original induction order; no
+enlarged NN source is used and no component expansion is assumed.
+
+This includes unsaturated source trees. Proper-envelope trees delete
+a corner directly, and disconnected forest components factor or use
+the block-reordering reduction. The general cyclic DN case is still
+open: a full layer may contain several connected cyclic components
+with full envelope, and this argument does not isolate one of them.
+
+The six DN fixtures in `--forest-layers` verify the full-layer indicator
+identity and every complete correction graph. Frozen sources and
+receipts are in `forest-layers-20260929/`.

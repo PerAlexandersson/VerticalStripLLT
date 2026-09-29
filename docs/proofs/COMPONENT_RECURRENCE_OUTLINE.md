@@ -64,6 +64,18 @@ whose endpoints have coefficients zero and one in an unsaturated example.
 The corresponding DN middle residual is nonnegative, but its remaining
 coefficients and whole-component collection still need repair.
 
+The [full-layer tree recurrence](COMPONENT_NN_REDISTRIBUTION.md#full-layer-recurrence-for-arbitrary-source-trees)
+now resolves these issues for arbitrary source tree components, including
+unsaturated ones. Complete the n-1-edge source layer and subtract every
+extra component: a connected extra is a tree with smaller envelope;
+a disconnected extra becomes one whole smaller component by reordering
+its induced weak blocks. This gives NN target layers n-1 and n-2,
+or just layer n-1 for DN, minus independently smaller corrections.
+The eleven-state raw-image boundary above has a complete recurrence
+by this construction. The remaining full-layer isolation problem is
+cyclic: several connected full-envelope components can have the same
+edge count. No general uniqueness or reduction of all extras is proved.
+
 The new [empty-corner reduction](COMPONENT_DN_JOINT_REPAIRS.md#dn-through-an-empty-corner-nn-diagram)
 shows that the uniform NN statement would also settle DN. Adding the
 missing corner EMPTY and unmarking its neighbor preserves the exact

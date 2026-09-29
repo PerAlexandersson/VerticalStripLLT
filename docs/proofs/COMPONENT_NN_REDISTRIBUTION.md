@@ -1802,3 +1802,120 @@ every complete target component, including the displayed failed
 boundary. These are graph and indicator calculations, not polynomial
 or basis calculations. Frozen sources and receipts are in the external
 `joint-shorts-20260929/` directory.
+
+## Full-layer recurrence for arbitrary source trees
+
+2026-09-29 continuation. We now resolve the preceding eleven-state
+example by a uniform whole-component recurrence for source trees.
+The source need not be saturated. This supplies a diagram recurrence;
+the forest-component expansion itself was already proved by
+[connected aggregate extraction](COMPONENT_CONNECTED_AGGREGATE.md).
+We do not use that expansion here.
+
+Write F_m(D) for all states of D with m selected edges, including its
+strict edges. It is always a union of whole components. The NN
+diamonds and endpoint identifications give, for X=K,E,
+
+    X(F_m(L)) = X(F_m(R)) + X(F_(m-1)(R)).             (TL1)
+
+Indeed, put b=|Q|, counting all exterior selected edges. The full-layer
+indicator has h00=[b+1=m], h10=h01=[b+2=m], and h11=[b+3=m].
+Its unmatched middle residual vanishes. The two target coefficients
+in (2) are exactly the indicators of target edge count m or m-1.
+This proves (TL1) directly from diagrams and already groups the output
+into whole components.
+
+### Reordering disconnected blocks gives a smaller whole component
+
+We use the following reduction also for cyclic correction components.
+Suppose the natural graph of L is connected, and D is a disconnected
+selected component. Its selected weak partition pi is fixed. Order the
+blocks by their least vertices, order the vertices increasingly inside
+each block, and concatenate the induced natural diagrams L|B.
+Call the resulting ordinary diagram L_pi.
+
+No selected edge crosses pi. Every actual flip has its three vertices
+in a single selected block, and its cover tests use only that block.
+Consequently the blockwise increasing relabeling identifies D, with
+its ENTIRE flip graph, with one whole component D_pi of L_pi.
+All original strict edges lie inside blocks, since they are selected;
+their restrictions remain maximal natural edges. The induced graphs
+are interval-closed in their induced orders, so L_pi is valid.
+
+The map preserves K by relabeling vertices, and preserves E because
+reachability and the order of reachable vertices inside each block
+are unchanged. Every HRV fiber lies inside a block. We therefore have
+
+    X(D)=X(D_pi),  X=K,E.                             (TL2)
+
+The natural edges of L_pi are exactly the original natural edges
+internal to blocks. Connectedness of the natural graph and the presence
+of more than one block imply that at least one natural edge was removed.
+Thus L_pi has the same vertex count and STRICTLY smaller natural area.
+This is a whole smaller component, not just an uncollected product.
+We do not assume an expansion for its factors, which may contain cycles.
+
+### Isolating the full-envelope tree component
+
+Let C be a connected source tree component whose selected envelope is
+the full natural graph of L, and put m=n-1. By
+[tree connectivity](COMPONENT_TREE_CONNECTIVITY.md#trees-with-a-fixed-envelope-are-connected),
+C consists of all connected trees with that envelope. No assumption
+that every maximal natural edge is marked strict is needed.
+
+Take every other component D in F_m(L), once each, and form a smaller
+component B_D as follows.
+
+* If D is disconnected, use D_pi in (TL2).
+* If D is connected, it is a tree, because it has n-1 edges. Its
+  envelope must be proper, by the tree-connectivity theorem. Choose
+  an absent maximal natural edge g of L. It is normal, and is absent
+  throughout D. Deleting g identifies D with one whole component
+  B_D in L-g. Selected relations and all actual flips are unchanged.
+
+Both constructions preserve K and E and strictly decrease natural
+area. Subtract these independent whole components from (TL1). We obtain
+
+    X(C) = X(F_(n-1)(R)) + X(F_(n-2)(R))
+           - sum_(D in F_(n-1)(L), D != C) X(B_D).    (TL3)
+
+Every term on the right is now a whole component or an explicitly
+specified union of whole components in a smaller ordinary diagram.
+The NN target decreases area by one, as usual. This is the desired
+signed component recurrence for this entire class. It uses the full
+source layer as a convenient completion, and proves why EVERY added
+component has an independent smaller-diagram reduction.
+
+If a connected source tree has proper envelope to begin with, delete
+an absent maximal natural edge directly. A disconnected forest already
+splits into its blockwise components, and (TL2) applies whenever the
+ambient natural graph is connected. Thus no new NN middle comparison
+is needed for forest components, including unsaturated source diagrams.
+
+### The eleven-state boundary example and the limit of the argument
+
+For area 01232 with strict 24, the source tree component seeded by
+{01,02,03,24} has full envelope. The layers F_4(R) and F_3(R) together
+give 20 whole target components with 35 states. The other source-layer
+components comprise four smaller-envelope tree components with 13 states
+and seven disconnected components with 11 states. Equation (TL3) gives
+the complete recurrence with state counts 11=35-13-11. Each of those
+eleven corrections is mapped to its own whole smaller component.
+This resolves the example's recurrence; it does not assert that the
+original unmodified zero-or-one image was whole or that all corrections
+lie in the main target R alone.
+
+For a connected cyclic C, the same layer can contain another connected
+cyclic component with the full envelope. Neither case in the subtraction
+argument then applies automatically. We have not proved a general
+uniqueness statement or reduced all such additional components. This
+remains the essential limitation of the full-layer method.
+
+Related Rust: graph-only `dn_joint_span --forest-layers` checks the
+full-layer coefficients, the unique full-envelope tree component,
+every smaller correction image and BOTH directions of its actual flip
+graph. It verifies validity and strict decorations of the reordered
+block diagrams and the strict decrease of every final diagram.
+Five NN and six DN fixtures are checked; the DN formula is recorded
+in the companion note. Frozen sources, commands and receipts are in
+the external `forest-layers-20260929/` directory.
