@@ -283,7 +283,7 @@ separate order or reduction for recurrences crossing the chosen cut.
 | Larger complete NN step | [NN left reassembly](COMPONENT_NN_LEFT_REASSEMBLY.md) | Saturated eligible connected unicyclic case; arbitrary cycle rank remains |
 | Middle-state transfer at exposure | [General exposure](COMPONENT_CORNER_EXPOSURE.md) | Both left/right exposing exits, with arbitrary exterior and cycle rank; intervening q-free paths remain |
 | Transfer between covering anchors | [Two-anchor transfer](COMPONENT_RIGHT_ARM_TRANSFER.md#arbitrary-exterior-transfer-with-two-covering-anchors) | Arbitrary exterior for covering arms and the stated outgoing-cut extension; a general shared-branch repair remains |
-| Incoming-arm transfer and left DN overlap | [Three covering anchors](COMPONENT_INCOMING_EDGE_TRANSFER.md#three-covering-anchors-arbitrary-exterior-and-cycle-rank) | Arbitrary exterior and cycle rank with the stated covers; gives t10/t00 constancy for that left-overlap class |
+| Incoming-arm transfer and left DN overlap | [Shared-branch repair](COMPONENT_INCOMING_EDGE_TRANSFER.md#closing-the-shared-covering-branch) | Arbitrary exterior with uw,td,ut covering and at least one outer anchor covering; both redundant outer anchors and other cover failures remain |
 | One-component DN split | [Direct DN overlaps](COMPONENT_DN_DIRECT_OVERLAPS.md) | General identity; two ordered five-vertex overlap types remain |
 | DN diamonds and minimal components | [Joint repairs](COMPONENT_DN_JOINT_REPAIRS.md) | Both minimal pictures completed; local propagation lemmas |
 | Additional whole source components | [Source additions](COMPONENT_DN_SOURCE_ADDITIONS.md) | Six-vertex example proved; general construction remains |
@@ -327,13 +327,19 @@ clears a DN incoming cut when its obstructing branches have no selected
 direct wv. A selected direct common branch remains outside that preparation.
 Keep this precise obstruction separate from the already-resolved exposing
 exit and from an assertion that all redundant-arm transfers are proved.
-The incoming-arm construction and its two further rows now settle classes
-of left retained-e-prime comparisons. They include e,f,r,td covering at
-the source when w,x do not both reach d; and a common direct branch with
-e,td,wd,xd covering, even when f,r are redundant. A saturated genuine
-first-drop DN diagram supplies td as a strict edge, but not its cover.
-For genuine DN, the remaining left repair must handle the other failures
-of these cover assumptions and common branches with redundant short arms.
+The left comparison now has a complete arbitrary-exterior repair when
+uw,td,ut cover and at least one outer anchor wz,xz covers (with the stated
+absent shorts and t not reaching x). First expose the other outer anchor.
+Transfer the nonshared proper w-arms to x; if a shared branch remains,
+expose its two covering arms, borrow tv along its suffix, and use the
+proved delayed restoration. A second outgoing cut permits that inverse
+with arbitrary competing x-branches. Both direct arms wd,xd may start
+redundant. The separate four-flip row also handles covering wd,xd with
+both outer anchors redundant. A saturated genuine first-drop DN diagram
+supplies td as a strict edge, but not its cover. The remaining cover
+failures, especially both redundant outer anchors and redundant td, need
+further repair or source additions; shared paths under the proved cover
+hypotheses are no longer an extra gap.
 For the DD intermediate, do not demand source paths across the boundary
 exchanging its unmarked upper corner: opposite corner statuses forbid them.
 Use the proved forced-addition equations there and establish compatibility

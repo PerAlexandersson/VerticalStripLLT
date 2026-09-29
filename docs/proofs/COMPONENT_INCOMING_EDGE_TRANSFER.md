@@ -418,3 +418,377 @@ Sources, logs and the preserved before-file are under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/incoming-anchor-20260929/`.
 Maintained Rust sources, Lean sources and manuscript sources are unchanged.
 No Lean/Lake build, new worker or consultant was used.
+
+## Clearing nonshared proper arms in the left DN comparison
+
+2026-09-29 continuation. We strengthen the one-sided class (14), allowing
+both w and x to reach d and allowing both direct arms wd,xd to be
+redundant initially. This gives actual source paths, hence loops among
+the corresponding equalities in the homogeneous DN completion theorem.
+It does not settle all generators of that completion.
+
+Keep u<t<w<x<d<z with x=w+1. Let A select
+
+    e=uw, f=wz, r=xz, g=td, ut,
+
+all as covers in A, and omit wx,tx. Assume t does not reach x. These
+are the earlier covering-anchor hypotheses for a left DN comparison.
+Define its proper outgoing cut at w by
+
+    I={v : x<v<d, wv selected in A, v reaches d in A}.
+
+**Proposition.** If xv is absent for every v in I, then
+
+    A ~ A-ut+tx,                                      (18)
+
+with every other selected edge restored. No condition is imposed on
+whether wd,xd are present or covering, or on whether x reaches d.
+The entire exterior remains in the cover and reachability tests.
+
+First note that t cannot reach w: with ut selected, such a path would
+bypass the covering e. The assumed absence of a t-to-x path and of wx
+will also persist through the preparations below.
+
+Process I in increasing order, transferring wv to xv by the proved
+[two-covering-anchor construction](COMPONENT_RIGHT_ARM_TRANSFER.md#arbitrary-exterior-transfer-with-two-covering-anchors),
+with roots w,x and common endpoint z. When v is processed, wv covers.
+A bypass would start with an earlier outgoing wh, h<v, with h reaching
+d; that h belonged to I and its edge wh has already been removed.
+The added xy edges cannot create a new path from w, since w,x are
+adjacent and wx is absent. The companion xv is still absent before its
+own transfer. Thus every use of the covering-arm lemma is justified.
+
+Each transfer keeps both outer anchors covering and restores all edges
+apart from wv,xv. During its internal path, new edges either end at z>d
+or are the final xv. The former cannot bypass g=td; the latter cannot
+bypass g because t does not reach x. Its other exchanges are deletions.
+All tested edges have tails at least w, so these operations cannot affect
+the covers of e or ut. No new edge ends at or below x, so they do not
+create a t-to-x path. Consequently e,f,r,g,ut retain the required covers
+throughout this first preparation.
+
+At its endpoint the only possible w-to-d path is the selected edge wd
+itself. If wd is selected but xd is absent, transfer wd to xd using the
+same two-covering-anchor construction. The arm wd now covers; the same
+argument preserves e,g,ut. After this optional transfer there are two cases.
+
+**No selected wd remains.** There is no w-to-d path. Exchange ut for tw
+while retaining e. The new tw cannot bypass g, since w does not reach d.
+The earlier incoming-arm theorem with the covers f,r,g,tw now replaces
+tw by tx. This gives (18) for the prepared background.
+
+**Both wd and xd remain selected.** The arm wd covers, but xd may still
+be redundant. List increasingly all selected xy with x<y<d and y reaching
+d. Exchange xy for yz while retaining r. The first-edge argument makes
+each processed xy a cover; the sweep exposes xd. It preserves f too:
+w cannot reach any such y<d, since every proper first edge of a w-to-d
+path has already been removed. All added edges end at z>d, so g remains
+a cover. The covers of e,ut,wd are unchanged. We can now use the proved
+four-flip row
+
+    xd -> tx [retain g],
+    ut -> tw [retain e],
+    tw -> wx [retain tx],
+    wx -> xd [retain wd].                            (19)
+
+It restores wd,xd and changes only ut to tx. The edge g may become
+redundant at the endpoint; it is not retained in a later preparation flip.
+
+Finally undo the x-sweep, if used, and then all w-arm transfers, in reverse
+order. Every tested interval in those preparations starts at or above w.
+The only endpoint changes are removal of ut and insertion of tx, whose
+tails u,t are below w. Neither edge can occur in a forward path testing
+one of those intervals. Thus every inverse flip remains actual, and all
+background edges are restored. This proves (18).
+
+The hypothesis includes the whole earlier one-sided class. If w does not
+reach d, I is empty. If x does not reach d, selecting any xv with v in I
+would contradict that condition. It also includes comparisons where both
+roots reach d, and the case of a shared direct pair wd,xd even when those
+arms initially have bypasses. The earlier four-flip theorem without cover
+assumptions on f,r retains its separate broader scope on those anchors.
+
+### The precise residual shared-branch configuration
+
+The same preparation narrows the remaining obstruction under the initial
+cover hypotheses. Suppose the proposition's condition fails, and let v be
+the smallest member of I for which xv is selected. Transfer all earlier
+proper w-arms reaching d from w to x, as above. The edge wv now covers.
+Then clear alternative x-to-v paths by processing selected xy, x<y<v,
+y reaching v, increasingly, with xy->yz [retain r].
+
+This sweep preserves f: a w-to-y path with y<v would begin at an earlier
+member of I, whose edge was removed. It preserves g,e,ut by the same
+interval argument. We obtain
+
+    wv and xv covering,       x<v<d,       v reaching d,
+
+while e,f,r,g,ut still cover. The v-to-d reachability is unchanged: each
+completed arm transfer changes only edges from w or x, and each x-sweep
+addition ends at z>d. The preparation is actual at both comparison
+endpoints, because their difference ut versus tx lies below every tested
+tail. Any exact repair of this prepared pair therefore lifts back by its
+inverse. The next section proves that repair.
+
+Thus, with the initial anchors covering, we no longer need a separate
+argument for arbitrary redundant proper arms: either the construction
+finishes, or it reaches a shared pair of COVERING arms to a vertex v<d
+which still reaches d. Other failures of the initial cover hypotheses,
+and the full source-addition reducibility statement, remain open. The next
+section supplies the missing shared-covering-branch repair and combines
+the two cases into the covering-anchor corollary.
+
+### Why the outer anchors cannot simply be omitted
+
+The weaker claim using only e,g,ut and common reachability of w,x to d is
+false. In area 012234, with strict corners 02,15, take
+
+    A={01,02,15,24,35,45},
+    B={02,13,15,24,35,45}.
+
+Here (u,t,w,x,d)=(0,1,2,3,5). The edges e=02,g=15,ut=01 cover in A;
+wx=23 and tx=13 are absent. Both w and x reach d, and t does not reach x.
+Nevertheless A and B belong to different actual components.
+
+Delete g from B. Its selected-edge envelope has maximal intervals
+02,13,24,35. Every state in the resulting whole component retains 13,35,
+so reinserting g makes it redundant through 1->3->5. An actual flip
+cannot retain g; every other retained long and both its shorts stay in
+that envelope. Thus the inserted family is closed under all source flips
+and g is redundant throughout B's source component. The state A, where
+g covers, lies outside it. This proves separation without using the
+component-count diagnostic.
+
+Adding vertex 6 and outer edges 26,36 gives the actual left DN configuration
+with strict 02,15,26. It now satisfies the proposition: its only proper
+w-arm reaching d is 24 and 34 is absent. The constructed path has eleven
+flips. The counterexample therefore explains the role of the outer anchors;
+it does not refute the left DN comparison with those anchors present.
+
+### Verification
+
+Related Rust: the external `first_join_tree_lifts.rs`, option
+`--left-exclusive-cut`, reuses `two_anchor_path`, `incoming_anchor_path`
+and the established cover/flip oracle. Three fixed states are checked:
+
+| Natural area | Selected source edges | Completed path |
+| --- | --- | ---: |
+| 0122344 | 01,02,15,26,36,24,35,45 | 11 flips |
+| 012234566 | 01,02,17,28,38,24,25,45,47,57,37 | 21 flips |
+| 012234566 | 01,02,17,28,38,24,25,45,47,57,27,37,36,67 | 22 flips |
+
+The last example starts with both wd=27 and xd=37 redundant. Its
+preparation transfers two proper arms and then clears three x-arms;
+the central repair is (19). Every actual flip, retained strict edge and
+exact restored endpoint is checked. No seven- or nine-vertex state space
+is enumerated. A separate fixed six-vertex probe finds the displayed
+two-anchor obstruction (and one further failure) among 17 qualifying
+states; the envelope argument above is its proof.
+Receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/left-common-cone-20260929/`.
+No Lean/Lake build, new reviewer, worker, consultant or maintained Rust edit
+was used. This continuation does not claim unrestricted left reassembly.
+
+## Closing the shared covering branch
+
+The residual configuration just isolated admits a repair. We must delay
+restoring xv until after restoring the borrowed v-to-d suffix. A second
+outgoing cut removes the competing x-branches during that restoration.
+This closes the preceding residual case with arbitrary exterior.
+
+**Shared-branch lemma.** Suppose
+
+    u<t<w<x<v<d<z,             x=w+1,
+
+and A selects uw,ut,td,xz,wv,xv as covers. Suppose wx,tx are absent,
+t does not reach x, and v reaches d. Then
+
+    A ~ A-ut+tx.                                      (20)
+
+Every other edge is restored. We do not require wz to cover, or even to
+be selected. All reachability and cover tests use the full selected graph.
+All new edges are contained in one of the selected natural intervals
+uw,td,xz,wv, so they are natural; no removed edge is a natural corner.
+
+### Borrowing tv
+
+Write g=td and r=xz. Let H consist of the selected incoming edges hd
+with v<=h<d and v reaching h in A. In decreasing order of h, exchange
+
+    hd -> th [retain g].
+
+Each hd is a cover at its turn: a bypass would end in a later incoming
+edge kd with h<k<d, and that edge has already been removed. The same
+argument says that h no longer reaches d after this exchange, so g stays
+covering. The new th was absent, since g covered before the exchange.
+The cut removes every v-to-d path. Its added edges start at t<x, so r,
+wv,xv remain covering; uw,ut are unchanged as covers as well.
+
+Let h be the smallest tail in H. The edge th now covers. Choose a path
+of covers from v to h. This path survives the cut because its heads are
+below d. Working backwards along it, exchange
+
+    ab -> ta [retain tb].
+
+At each step tb and ab cover. The new ta cannot already be present or
+have a bypass: before the preparation t did not reach a, since a reached
+d and g covered; the earlier added t-arms end to the right of a. Removing
+ab prevents a new bypass of tb. This produces a covering tv and preserves
+g,r,uw,ut,wv,xv as covers. Call the full borrowing path P.
+
+The path P deletes only edges whose tails are at least v and whose heads
+are at most d. It adds only edges ta, with v<=a<d and a reaching d in
+the original A. These interval facts will justify its inverse after the
+central exchanges.
+
+### The central exchanges and the second cut
+
+Apply the three actual flips
+
+    xv -> tx [retain tv],
+    ut -> tw [retain uw],
+    tw -> wx [retain tx].                            (21)
+
+The first is actual by the three displayed covers and t not reaching x.
+For the second, no newly added edge can affect uw or ut. For the third,
+tw covers because uw covered with ut present before that exchange, and
+tx still covers after inserting tw: without wx, adjacent w cannot reach x.
+At this point xv is absent and wx is selected. We have not restored xv.
+
+Using ORIGINAL reachability in A, define
+
+    J={a : x<a<=d, a!=v, xa selected in A, a reaches d in A}.
+
+In increasing order, exchange xa->az while retaining r. These are actual
+flips. The path P only deletes edges in the interval [x,d], and (21)
+adds no edge starting at or above x. If xa has a bypass, its first edge
+is an earlier xb leading to a and hence to d in A. It belongs to J and
+has already been removed; the exceptional xv is absent. Thus xa covers.
+The new az is absent because r covers. The exchange keeps r covering.
+Edges ending at z>d do not create a new bypass of a later xa.
+
+After this cut, x reaches none of the vertices a<=d that reached d in A.
+Indeed, every such path would start in J or in xv, and all those first
+edges have been removed. This remains true as we restore edges of A
+inside [v,d].
+
+### Restoring the background in the required order
+
+First undo P. Each tested edge in its inverse is contained in [t,d].
+Removing xv and the J-arms only destroys bypasses; the new az edges end
+above d. The new tx cannot bypass a tested edge ta, because x reaches no
+such a after the second cut. Nor can wx create a bypass: t did not reach
+w in A (otherwise ut would bypass uw), and all newly added t-arms end
+strictly above w. Every selected short and retained long used by the
+inverse of P is still present, since none is an x-arm or wx. Every
+inverse flip is therefore actual.
+
+Now undo the J-cut, in decreasing order, retaining r. To verify this
+without relying on the changed status of g, compare with
+
+    A - xv - ut + tx + wx.
+
+The edge r covers in this graph: both added edges start below x. The
+forward J-cut is actual there by the same first-edge argument. After
+undoing P we are exactly at its endpoint, so its inverse is actual.
+Restoring these x-arms may make g redundant, but we no longer test g.
+
+Finally exchange wx->xv while retaining wv. Originally xv covered, so
+there is no x-to-v path after removing xv. Hence adding wx did not
+bypass wv. The adjacent wx is a cover. This last flip is actual and
+leaves exactly A-ut+tx. This proves (20).
+
+If P has b flips and J has j edges, the construction has 2b+2j+4 flips.
+For the one-edge suffix v->d with no competing x-arms it is the six-flip row
+
+    vd -> tv [g],       xv -> tx [tv],
+    ut -> tw [uw],      tw -> wx [tx],
+    tv -> vd [g],       wx -> xv [wv].                (22)
+
+The order matters: restoring xv before undoing P would make tv redundant
+and invalidate the naive inverse.
+
+### Consequence for the left DN comparison
+
+Combine (20) with the preceding proper-arm preparation. We obtain:
+
+**Covering-anchor left repair.** For u<t<w<x<d<z with x=w+1, suppose
+uw,wz,xz,td,ut cover in A, wx,tx are absent, and t does not reach x.
+Then A~A-ut+tx, with all exterior restored, without any further restriction
+on w-to-d or x-to-d paths.
+
+If every proper w-arm reaching d has its companion x-arm absent, use
+(18). Otherwise the proved preparation exposes the first shared pair
+wv,xv with v<d and v reaching d. Apply (20) and undo the preparation;
+its flips are actual at both comparison endpoints by the earlier interval
+argument. This settles all cases under these initial cover hypotheses,
+including initially redundant direct arms wd,xd. The earlier direct
+four-flip result has separate scope when wz,xz fail to cover.
+
+The full left comparison still has cases where the initial anchors fail
+to cover. The DD boundary with opposite invariant upper-corner status
+requires the proved source-addition equations, not a path of this kind.
+Independent reduction of all extra members of the homogeneous source
+unions, and hence the requested general component recurrence, remains open.
+
+### Checks of the shared-branch construction
+
+Related Rust: external `first_join_tree_lifts.rs`, `left_shared_path`,
+option `--left-shared-path`. Three fixed states check all actual flips,
+strict-edge preservation and exact endpoints:
+
+| Natural area | Incoming cut | Backward path | Competing x-arms | Total flips |
+| --- | ---: | ---: | ---: | ---: |
+| 0122344 | 1 | 0 | 0 | 6 |
+| 0122345677 | 1 | 2 | 4 | 18 |
+| 0122345677 | 3 | 0 | 4 | 18 |
+
+The latter two have both a competing branch below v and redundant x-arms
+above it, including xd. They separately exercise a borrowed suffix of
+length three and an incoming cut with three edges. Exact edge lists and
+the consumer snapshot are in the receipt directory already cited above.
+The option `--left-shared-fork` also checks a three-flip normalization
+at both endpoints of one fixed nine-vertex configuration. A bounded
+search on the smallest seven-vertex example found (22), visiting 587
+states; the proof and the longer fixed checks use the explicit construction.
+No ten-vertex state space is enumerated. No Lean/Lake build or additional
+worker was used, and no independent review is claimed.
+
+### It suffices that one outer anchor covers
+
+We can weaken the last corollary further. Keep uw,td,ut covering and
+all its other hypotheses, but require only that wz,xz are selected and
+AT LEAST ONE of them covers.
+
+If r=xz covers and f=wz is redundant, list decreasingly every selected
+hz, x<h<z, with w reaching h. Exchange hz->xh while retaining r.
+Every bypass of the redundant f ends in this cut: the remaining possibility
+of ending in xz would require w to reach x, excluded by adjacency and
+the absence of wx. At each step hz covers by the last-edge argument;
+the exchange keeps r covering. The cut leaves f covering as well. Its
+new x-arms cannot create a path from w, which still cannot reach x.
+
+If f covers and r is redundant, reverse the roles of w,x: for every
+selected hz with x reaching h, exchange hz->wh, again in decreasing
+order. Now f remains covering and r becomes covering. Since x>w, the
+new w-arms cannot be reached from x.
+
+Both preparations preserve uw,ut,td as covers. Their added arms start
+at w or x; t reaches neither root (uw with ut excludes t-to-w, and
+t-to-x is assumed absent). They add no edge ending at or below x, so
+these nonreachability conditions persist. All their tested tails are at
+least w. Thus the same preparation is actual at A and at A-ut+tx, and
+its inverse lifts the covering-anchor repair back to the original pair.
+
+**One-outer-anchor left repair.** Under the remaining hypotheses of the
+covering-anchor corollary, one covering outer anchor is enough; the other
+may be redundant. No bound on exterior size or cycle rank is needed.
+The residual cover failures are therefore at uw,td,ut, or at BOTH outer
+anchors, subject to whichever covers are already forced by the target
+comparison. We do not assert that these failures occur independently.
+
+The external option `--left-one-outer` checks both directions on fixed
+area01223455 states. Each uses one incoming-cut flip, the six-flip shared
+repair, and the inverse cut: eight flips with all exterior restored.
+The composed nine-vertex normalization and shared repair also pass
+`--left-shared-fork`, with twelve flips. These are fixed path checks,
+not an enumeration of either state space.

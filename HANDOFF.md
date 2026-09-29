@@ -14,7 +14,17 @@ remain intact in the [component catalogue](docs/COMPONENT_NOTE_CATALOGUE.md).
 
 Active goal: prove the general non-circular component e-expansion for
 Motzkin/Dyck diagrams by the diagram-bijection/recurrence approach.
-Latest continuation proves [exact homogeneous DN completion](docs/proofs/COMPONENT_DN_SOURCE_ADDITIONS.md#completing-one-selected-edge-layer-of-the-direct-dn-image).
+Latest continuation proves a [shared-branch left DN repair](docs/proofs/COMPONENT_INCOMING_EDGE_TRANSFER.md#closing-the-shared-covering-branch).
+With uw,td,ut covering, t not reaching x, the stated absent shorts and
+at least one covering outer anchor wz,xz, the source states A and
+A-ut+tx are connected by actual flips, restoring all exterior. No bound
+on cycle rank or competing paths is needed. A proper-arm preparation
+and a delayed suffix restoration close the previous shared-branch gap;
+an incoming cut exposes the second outer anchor. Cases with both outer
+anchors redundant or with the other required covers failing remain open.
+The general component theorem is still incomplete.
+
+The preceding continuation proves [exact homogeneous DN completion](docs/proofs/COMPONENT_DN_SOURCE_ADDITIONS.md#completing-one-selected-edge-layer-of-the-direct-dn-image).
 At fixed total selected-edge count k, three explicit families of pairwise
 equalities determine the smallest source-component union U_k(C) whose
 unmodified direct DN image is constant on all output components. The
@@ -97,7 +107,11 @@ terms, not from the signs of intermediate recurrence coefficients.
   an incoming cut before suffix borrowing preserves both outer covers.
   In the left DN comparison, this applies after ut->tw [retain uw],
   provided the stated covers hold. A further outgoing cut treats e,f,r,td
-  covering initially when w,x do not both reach d. A four-flip row treats
+  covering initially when w,x do not both reach d. The new shared-branch
+  repair removes that reachability restriction and requires only one
+  outer anchor covering, with e,td,ut covering and t not reaching x.
+  Ordered cuts and delayed restoration handle arbitrary competing paths.
+  A four-flip row separately treats
   e,td,wd,xd covering even with BOTH f,r redundant. First-drop saturation
   supplies td but not its cover. Other failed cover cases remain.
 - The key missing lemma takes ONE component to a signed sum of WHOLE smaller
@@ -170,10 +184,13 @@ is evidence rather than the arbitrary-exterior proof. For left retained-e-prime,
 the incoming-arm theorem now resolves the three-anchor covering case.
 Do not infer that the containing strict edge remains a cover after the
 initial e-retained flip: a w-to-d path can make it redundant. The new
-one-sided cut handles this if x does not reach d; the direct common-branch
-row handles covering wd,xd even when the outer anchors are redundant.
-Common branches with redundant short arms, the other failed cover cases,
-and simultaneous full collection remain.
+one-sided cut handles this if x does not reach d. The new proper-arm
+preparation and shared-covering-branch repair settle the remaining paths
+when e,td,ut and one outer anchor cover. Delay restoring the shared x-arm
+until after undoing the borrowed suffix and the competing-x-arm cut.
+The direct common-branch row still handles covering wd,xd even when both
+outer anchors are redundant. Other failed cover cases, especially redundant
+td and both redundant outer anchors, and simultaneous full collection remain.
 First check the new crossing-cover path criterion. If it fails, a local
 repair must change some background edges; fixed-background searching cannot
 help. Do not assume a general wt-to-xt transfer, even with x not reaching t.
@@ -207,13 +224,14 @@ is authorized; no Lean/Lake builds are authorized. No manuscript proof or PDF
 change is currently needed. The combinatorics-paper-writing skill was used
 for the outline and note organization.
 
-This continuation owns an append-only source-addition section: an exact closure
-description for one fixed selected-edge count, using the existing direct DN
-formula and its already-proved flip lifts. It also owns the outline, both
-handoffs and external verification receipts. The direct-overlap, retained-edge,
-right-arm and incoming-edge notes are unchanged in this increment.
-Primary also owns the analogous append-only NN redistribution continuation
-and its fixed four-vertex check in the existing external consumer.
+The preceding continuation added exact homogeneous source-addition sections
+for DN and NN, together with their fixed checks and outline routing. Those
+proof notes are unchanged in the current increment.
+
+Current continuation owns an append-only incoming-edge transfer extension,
+its outline routing, both handoffs and the external diagnostic: proper-arm
+preparation, the shared-branch repair and exposure of one outer anchor. The NN/DN
+completion notes and the retained-edge note are unchanged in this increment.
 No previous independent review is asserted for new arguments.
 
 The reboot terminated the old workers/consultant. Its saved Claude output
@@ -225,8 +243,23 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Current proof increment: arbitrary-exterior left repair under the one-outer-
+anchor hypotheses, with exact restored endpoints. Fixed path checks:
+nonshared proper arms, 11/21/22 flips; shared branch, 6/18/18 flips at
+n=7,10,10; normalization followed by shared repair, 12 flips at n=9;
+one redundant outer anchor in either direction, 8 flips each at n=8.
+The external consumer checks every flip and strict edge. One bounded
+seven-vertex search (587 states) found the six-flip central row; the proof
+uses the explicit construction. The weaker claim without outer anchors
+is false, with a selected-envelope separation proof in the same note.
+The prior incoming-edge note remains a verbatim prefix; the retained-edge
+note is unchanged. All 50 local file links and `git diff --check` pass.
+No Lean/Lake build,
+new worker, consultant, maintained Rust edit or independent review occurred.
+Receipts are under `left-common-cone-20260929` in the request cache.
+
 Proof checkpoint: `eb29be7` (exact homogeneous NN/DN completion).
-Current increment: homogeneous DN and NN closure, minimality, unit output
+Preceding increment: homogeneous DN and NN closure, minimality, unit output
 coefficients and the exact criterion for completion using a specified
 collection of independently reduced source components. Existing Rust
 `dn_joint_span --component-closure --source-additions=active
@@ -330,7 +363,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/homogeneous-dn-closure-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/left-common-cone-20260929/`.
+Homogeneous-completion receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/homogeneous-dn-closure-20260929/`.
 DD-boundary receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/common-preparation-20260929/`.
 Crossing-cover receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/outgoing-no-path-20260929/`.
 Incoming-arm receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/incoming-anchor-20260929/`.
