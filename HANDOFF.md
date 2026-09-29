@@ -47,6 +47,7 @@ remains active. Previous proof-note contents are preserved as prefixes;
 128 local file links, frozen receipt hashes and `git diff --check` pass.
 Maintained Rust remains clean at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`. No launched process remains.
+Proof checkpoint `a529f82` is pushed to `origin/main`.
 
 ## Current continuation — fixed-short components reduce uniformly
 
