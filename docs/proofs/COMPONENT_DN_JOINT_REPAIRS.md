@@ -1281,3 +1281,57 @@ layers with additional absent edges; their general collection remains
 unproved. The six DN fixtures in `--dense-recurrences` verify the cut
 paths, every whole deletion image and the complete target layer.
 Frozen sources and receipts are in `dense-corner-layers-20260929/`.
+
+## DN at the maximum simultaneous-corner layer
+
+2026-09-29 continuation. The
+[simultaneous-corner theorem](COMPONENT_NN_REDISTRIBUTION.md#the-largest-layer-with-all-corners-covering-simultaneously)
+applies to every eligible ordinary DN source L, with arbitrary incoming
+and crossing exterior. Let M be all maximal natural edges. Pair ab
+with bc for each corner ac and intermediate vertex b; these short-edge
+pairs form disjoint directed paths of lengths l_j. Put
+
+    m* = |M| + sum_j ceil(l_j/2).
+
+This is the largest edge count with all M selected and covering.
+At equality the explicit rightmost-corner flip normalization proves
+that exactly one whole source component C* contains such a state.
+All its flips retain the strict incoming e=uw and f=wz, and every
+other original strict edge. The source need not be saturated.
+
+For each other component D in this layer, form B(D) exactly as in
+(JC3)--(JC4): delete one absent maximal corner if there is one;
+otherwise mark M strict and use alternating deletion of its nonempty
+subsets. Each image partitions into whole smaller components. The
+normalization theorem ensures that every such all-corners-selected D
+has a redundant corner in each state, which proves the alternating
+identity independently of any component expansion.
+
+The full DN layer identity now gives, for BOTH X=K,E,
+
+    X(C*) = X(F_(m*)(R))
+              - sum_(D in F_(m*)(L), D != C*) B_X(D).
+
+All correction diagrams have smaller natural area. The actual target
+R has the same area and smaller area moment by z-x. This is therefore
+a complete signed recurrence in whole smaller components. Components
+above m* already reduce by the same absent-corner or alternating
+construction. No enlarged NN source is used as an induction input.
+
+For example, area 012333333 with strict corners 03,14,25,47,58 has
+DN contact w=5,x=6,z=8 and incoming e=25. The unmarked corner 36 is
+allowed by the established DD-to-DN inheritance. The three auxiliary
+paths have length five, giving m*=15, compared with one-corner bound
+19. The component C* has 4998 states. The actual target layer has
+8008 states; 43 missing-corner components account for 3003, and seven
+all-corners-selected singleton components account for seven. Applying
+(JC3) to the latter yields 441 whole smaller terms. The alternating
+normal state consists of all corners and the three complete triangles
+on 012,345,678, so this example is connected and cyclic.
+
+The graph-only `--corner-capacity` receipt checks this example and eight
+other DN fixtures, together with five NN fixtures, including every
+whole deletion image and the strict decrease of every final diagram.
+Sources and logs are frozen in `joint-corner-capacity-20260929/`.
+The maximum-path hypothesis is essential to the proved normalization;
+general DN collection below m* remains open.

@@ -88,6 +88,21 @@ in NN. All components above the layer delete f as well. This includes
 complete-graph components of unbounded cycle rank. General lower cyclic
 layers, with additional missing edges, remain outside the cut proof.
 
+The [simultaneous-corner theorem](COMPONENT_NN_REDISTRIBUTION.md#the-largest-layer-with-all-corners-covering-simultaneously)
+now gives a sharper maximum layer using ALL maximal natural corners.
+The pairs ab,bc belonging to a corner ac form disjoint paths on the
+nonmaximal edges. If their lengths are l_j and the corners are M, put
+m*=|M|+sum ceil(l_j/2). This is the largest edge count with all M covering
+simultaneously. At equality, a rightmost-corner actual-flip normalization
+connects every such state to one alternating selection. Exactly one whole
+component survives; every other component either deletes an absent corner
+or reduces by alternating corner deletion. Full NN/DN layer identities
+therefore give complete signed recurrences at m*. Every higher layer
+also reduces. This handles arbitrary crossing exterior and unmarked
+corners, including the 77-state NN component at k=9 in 012333 and the
+2305-state component at k=12 in 0123434. Lower layers remain open: the
+priority argument requires maximum selections on the auxiliary paths.
+
 The new [empty-corner reduction](COMPONENT_DN_JOINT_REPAIRS.md#dn-through-an-empty-corner-nn-diagram)
 shows that the uniform NN statement would also settle DN. Adding the
 missing corner EMPTY and unmarking its neighbor preserves the exact
@@ -455,46 +470,34 @@ supporting NN tree/bridge arguments, further examples and previous approaches.
 They are available tools, rather than extra hypotheses imposed on the main
 component push-through lemma.
 
-## 8. Current proof work and account-switch pause
+## 8. Current proof work after the account switch
 
-The user clarified the priority: establish the recursion of WHOLE COMPONENTS;
-the coloring recursion should then follow from the same local identities.
-The work is paused for an account swap. Read the concise
-[current handoff](../../HANDOFF.md) before resuming. Previous next-step
-chronology is preserved in the [outline archive](../archive/component-recurrence-outline-before-account-switch-20260929.md).
+The replacement primary resumed the ordinary diagram argument from the
+pushed account-swap checkpoint. Read the concise
+[current handoff](../../HANDOFF.md) for ownership, verification and exact
+checkpoint status. Earlier chronology remains in the
+[outline archive](../archive/component-recurrence-outline-before-account-switch-20260929.md).
 
 The central open statement is still section 4: isolate one original C in
-an identity with whole smaller components. The homogeneous completions
-U_k(C), V_k(C) prove this for forced source unions. Every extra source
-component must have an independent reduction before it can be subtracted.
-A local vanishing condition on one orientation does not supply that reduction.
+an identity with whole smaller components. Both fixed-short cases, arbitrary
+source trees, the largest one-corner-active layer, and now the largest
+simultaneous-corner layer have complete recurrences. In the latter case,
+actual flips prove uniqueness of the component that survives alternating
+corner deletion. This supplies an independent reduction for EVERY extra
+component before full-layer subtraction.
 
-The next candidate is [extension under endpoint attachments](COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md).
-It would extend the existing five-vertex signed component recursion to
-arbitrary chosen components attached at the two ends. The component product
-statement is known; the endpoint-marked identity argument and the proposed
-16/32/16-state example are unfinished and untested. The extension would not
-handle exterior edges crossing into the middle block. Do not treat it as
-proved or as a replacement for the general reassembly lemma.
+The [endpoint-attachment theorem](COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md#endpoint-attachment-theorem-completed-audit)
+is proved for endpoint-preserving maps, including its stated two-end
+extensions. It does not by itself handle arbitrary crossing exterior.
+The new maximum-layer theorem does allow such exterior, but requires
+maximum nonadjacent selections on the auxiliary short-edge paths.
 
-A universal one-to-one DN correspondence is too restrictive: the five-vertex
-source and target have 14 and 15 components. Its known signed recurrence,
-including a whole corner-deletion component, is the model to generalize.
-The six-vertex profile match is finite evidence only.
-
-For any local comparison actually needed in that component construction,
-use the strongest available retained-edge results first:
-
-- Either f or r covering in Q+xs suffices, with arbitrary exterior.
-- With r,sz covering in Q, (58) handles covering wt without any suffix
-  restriction; (65) handles redundant wt when the incoming tail sets J=K.
-- The new (69) permits J not contained in K when t reaches z, every
-  J-tail lies above s, and J intersects the upper incoming-t set H trivially.
-  Interleaving the two incoming cuts preserves both anchors and matches
-  the prepared endpoints. The four paths checked have 21,33,35,29 flips.
-
-Common incoming forks ht,hz, lower incoming z-tails and background-cover
-failures remain outside that last construction. The general left comparison
-needs coefficient repairs: unrestricted source connectivity is false.
-Local paths settle particular coefficient comparisons; they do not by
-themselves provide the full component recursion.
+Continue with connected cyclic full-envelope components below that maximum,
+after applying weak-block, absent/inactive-corner and fixed-short reductions.
+The 125-state eight-edge NN component in area 012333 (m*=9) and the
+3381-state eight-edge component in area 0123434 (m*=12) remain useful
+explicit cases. Do not assume general active-component uniqueness or
+subtract unreduced extra source components. Direct RHS diamonds remain
+an alternative to full-layer completion. The available retained-edge
+lemmas and paired endpoint maps may be used for local comparisons, but
+their outputs still have to collect into whole components.

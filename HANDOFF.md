@@ -1,68 +1,73 @@
 # VerticalStripLLT handoff
 
-## Current continuation — the largest corner-active layer is proved
+## Current continuation — maximum simultaneous-corner layer proved
 
-Primary resumed from clean pushed `3151906`; the preceding turn made
-verified progress. The full goal remains active: prove the ordinary
-non-circular component expansion by the author's four diagram recurrences.
-The separate completed Lean word-functional theorem is NOT an input.
-The user explicitly excludes fundamental-basis calculations and wants
-whole-component tracking through diamonds and endpoint relabeling.
+Primary resumed from clean pushed `f27da0d`; this turn made verified
+progress. The full goal remains active: prove the ordinary non-circular
+component expansion by the author's four diagram recurrences. The separate
+completed Lean word-functional theorem is NOT an input. The user excludes
+fundamental-basis calculations and wants whole-component tracking through
+diamonds and endpoint relabeling.
 
-**New proved uniform cyclic case:**
-[dense-corner NN recurrence](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#the-largest-edge-layer-in-which-a-corner-can-cover)
-and its [DN version](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#the-largest-f-active-dn-layer).
-For strict maximal f=wz of length d=z-w in a natural graph with N edges,
-put k*=N-d+1. A covering f requires at least d-1 absent edges: one from
-each disjoint pair wi,iz. At equality every other natural edge is selected.
-The absent arms must form a cut, and the d cut states connect by actual
-flips retaining f. Hence there is exactly ONE f-active component C* at
-edge count k*. Every other component in that layer, and every component
-above it, deletes the everywhere redundant f to a whole smaller component.
+**New proved uniform cyclic case:** the
+[simultaneous-corner theorem](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#the-largest-layer-with-all-corners-covering-simultaneously)
+and its [DN recurrence](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#dn-at-the-maximum-simultaneous-corner-layer).
+Let M be ALL maximal natural edges. The short pairs ab->bc belonging
+to corners ac form disjoint directed paths of lengths l_j. The largest
+edge count with all corners selected and covering is
+m*=|M|+sum ceil(l_j/2). At equality every path has a maximum nonadjacent
+selection. Choose an available forward move at the largest corner head,
+then the smallest middle vertex. All later available moves have lower
+priority. If this move destroyed a cover, following its bypass would
+force a higher-priority available move, a contradiction. Thus it is an
+actual flip retaining every corner cover. Repeating reaches the last-node
+alternating selection, which itself always covers all corners.
 
-The complete source-layer identity now isolates C*: NN gives target
-layers k* and k*-1 minus those independent deletions; DN gives target
-layer k* minus the deletions. In NN the r-selected deletion images cancel
-whole target components exactly. All final terms are whole components in
-strictly smaller diagrams, with the same K/E coefficients. Both q and r
-vary on C*, so this treats a class of the remaining two-variable cases.
-For complete natural graphs on n vertices, its cycle rank is
-(n-2)(n-3)/2; the theorem is not bounded to small cycle rank.
+Hence exactly ONE whole component C* in that layer has a simultaneous
+cover state. Every other component deletes an absent corner or uses the
+proved alternating corner-deletion recurrence. These are independent
+whole smaller-component expressions, so full-layer subtraction gives
+complete NN and DN recurrences for C*. Every component above m* also
+reduces. Arbitrary crossing exterior and unmarked corners are allowed.
+This extends the preceding one-corner dense bound, whose proof remains
+in the notes at `b861fb7` and receipt `dense-corner-layers-20260929/`.
 
-**Verified:** graph-only `--dense-recurrences` checks all 13548 covering
-states in 11 NN/DN fixtures, including the exact 32 cut states. The
-recurrences have 296 source states, 91 positive components / 478 states
-and 77 negative components / 182 states, after 93 whole cancellations.
-All 170 same-layer deletion images and 110 higher-layer images are checked
-with BOTH directions of their actual flip graphs. Every final diagram
-strictly decreases the original induction order. Runs exited zero with
-empty stderr; no launched process remains.
+**Verified:** graph-only `--corner-capacity`, 14 NN/DN fixtures:
+7911 simultaneous-cover states, 63 maximum states connected by 110
+prescribed actual flips. The recurrences account for 7818 source states,
+364 actual-target components / 11787 states, 64 absent-corner corrections
+/ 3075 states, and 269 alternating corrections / 894 states. Every
+alternating image partitions into whole components (1733 terms), with
+4404 surviving-bypass checks. Every final diagram is strictly smaller.
+The separate `--corner-normalization-scan` checks 148 diagrams on 7--9
+vertices, 1,274,304 source states, 192715 simultaneous-cover states and
+1098 maximum states normalized by 2401 prescribed actual flips.
+Both runs exited zero with empty stderr. No Lean build was run.
 
 Frozen sources, commands, logs and checksums:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/dense-corner-layers-20260929/`.
-It also retains the separate activity scan: 148 saturated diagrams on
-7--9 vertices, without articulation and with at most 18 natural edges,
-covering 1,274,304 states. No duplicate connected active components at
-one edge count were found. The fixed articulation control reproduces
-two. This is finite evidence for the old refinement, NOT a general
-uniqueness theorem and NOT an input to the new dense-layer proof.
+`/lake-cache/ai-projects/requests/VerticalStripLLT/joint-corner-capacity-20260929/`.
+The external diagnostic edge cap is now 21 (component cap unchanged at
+20000), for the nine-vertex cube fixture with 21 natural edges, five
+strict corners and only 65536 legal source states. Maintained Rust is
+unchanged; this does not authorize larger or unbounded scans.
 
 ## Remaining proof obligation
 
-General NN/DN collection in LOWER cyclic layers remains unproved. The
-cut proof requires exactly d-1 missing edges. With additional missing
-edges it does not classify the covering states or show that all source
-additions independently reduce. Do not infer general active-component
-uniqueness from the scan or promote source unions to a recurrence for C.
+General NN/DN collection in LOWER cyclic layers k<m* remains unproved.
+Below maximum path occupancy, a forward move may create an available
+move to its RIGHT; the decreasing-priority proof fails. Do not infer
+arbitrary-layer uniqueness from the new theorem or previous scans.
+Every extra source component still needs its independent reduction.
 Direct RHS diamonds remain an allowed alternative to source completion.
 
 Continue with connected cyclic full-envelope components after the proved
-weak-block, absent/inactive-corner, fixed-short and tree reductions. Useful
-explicit candidates in the previous receipt include the 125-state,
-eight-edge NN component in area 012333 (k*=10), and the 3381-state,
-eight-edge component in area 0123434 (k*=14). They pass the connected,
-full-envelope, corner-activity and native mixed-acyclic filters; those
-filters alone neither prove irreducibility nor supply a recurrence.
+weak-block, absent/inactive-corner, fixed-short and tree reductions.
+The 125-state eight-edge NN component in area 012333 now has m*=9,
+and the 3381-state eight-edge component in area 0123434 has m*=12.
+Both remain open. The 77-state nine-edge component of the first diagram
+and the 2305-state twelve-edge component of the second are now solved.
+The connected 4998-state DN component at m*=15 in area 012333333 is
+also solved (the older one-corner bound was 19).
 
 ## Established reductions to retain
 
@@ -97,7 +102,7 @@ APPEND-ONLY continuations of the NN redistribution and DN joint-repair
 notes, the earlier authorized endpoint/source-addition continuations,
 and the existing external diagnostic consumers under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/diamond-exploration/hrv-bridge/`.
-This checkpoint also owns the new handoff archive linked below. Preserve
+The primary also owns the pre-dense handoff archive linked below. Preserve
 all other file ownership and all earlier proof-note text as prefixes.
 
 No Lean/Lake builds, extra worker/subagent/Claude consultation, manuscript
@@ -116,7 +121,8 @@ proof checkpoint, receipt and ownership record, is retained in the
 Only relative Markdown links were adjusted there. The older account-swap
 history and original notebook/Overleaf paths remain available through it.
 
-Verification preserves both previous proof-note prefixes and the complete
-archived handoff; 155 local file links, frozen receipt hashes and
+Verification preserves both proof-note prefixes at `f27da0d`.
+The outline now removes the stale account-pause and unfinished-attachment
+instructions and routes to the proved attachment theorem and current gap.
+Receipt hashes, all 122 local file links in the four edited files, and
 `git diff --check` pass. No background job needs monitoring or restarting.
-Proof checkpoint `b861fb7` is pushed to `origin/main`.

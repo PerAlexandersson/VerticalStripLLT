@@ -2031,3 +2031,189 @@ articulation control reproduces its two different active components.
 This is evidence for the older refinement, not its proof and not an
 input to (DL1)--(DL3). In particular we do not use it to subtract an
 unproved extra cyclic component in a lower layer.
+
+## The largest layer with all corners covering simultaneously
+
+2026-09-29 continuation. We sharpen the preceding one-corner bound by
+using all maximal natural edges together. We prove actual flip paths,
+then isolate one WHOLE component using the four diagram recurrences.
+No component-expansion theorem or basis calculation enters the argument.
+
+Let G be the natural edge set of an ordinary diagram L, and let M be
+its full set of maximal natural edges, including any unmarked corners.
+The original strict set is a subset of M. A selected corner cannot be
+exchanged as a short edge, so its selection is constant on a component.
+Marking an already selected maximal corner strict changes neither that
+component nor its state contributions.
+
+### Pair the two shorts of every corner
+
+For each ac in M and a<b<c, link the two nonmaximal natural edges
+
+    (ab) -> (bc).
+
+These links form disjoint directed paths on G\M, with isolated edges
+counted as one-node paths. Indeed, maximal intervals have distinct
+left endpoints and distinct right endpoints. Thus a node ab has at
+most one successor, from the corner starting at a, and at most one
+predecessor, from the corner ending at b. Both endpoints strictly
+increase along every link, so there is no directed cycle.
+
+Write l_1,...,l_t for the numbers of nodes in these paths, and put
+
+    m* = |M| + sum_j ceil(l_j/2).                       (JC1)
+
+If a state selects every corner and all those corners cover, it cannot
+select both shorts of any link. On each path its selected nodes are
+therefore nonadjacent. It has at most m* selected edges. At equality,
+each path has its maximum possible number of selected nodes.
+
+Choose the last node of each path, then every second node backwards,
+and add all corners M. Call the resulting state A*. Its edge count is
+m*, and it retains every original strict edge. All corners cover in A*.
+To prove the last assertion, suppose a corner uv has a selected bypass
+starting u->b. The entire bypass uses nonmaximal edges: no other
+maximal interval can lie inside uv. Since ub is selected, its successor
+bv is absent. In A* every absent node has a selected successor. Hence
+vt is selected for a corner bt with t>v. The remaining bypass b->...->v,
+followed by vt, bypasses that corner bt. Repeating strictly increases
+the corner head, an impossibility in the finite vertex order.
+
+### Connect the maximum states by actual flips
+
+**Theorem.** All m*-edge states selecting M with every corner covering
+are in one whole actual component C*. They connect to A* by flips
+retaining maximal corners and keeping every corner covering throughout.
+This holds with arbitrary exterior edges and with unmarked corners.
+
+We first describe the choices on one auxiliary path. On 2h+1 nodes
+there is just one maximum selection, the odd positions. On 2h nodes,
+every maximum selection has the form
+
+    {1,3,...,2j-1} union {2j+2,2j+4,...,2h},
+    0<=j<=h.
+
+The final alternating selection is j=0. For j>0 there is exactly one
+forward exchange preserving nonadjacency: move 2j-1 to 2j. Its next
+available exchange, if any, is strictly farther left on that path.
+Call such exchanges available before checking the actual cover tests.
+Every available exchange has the form
+
+    ab -> bc, retaining the maximal corner ac.        (JC2)
+
+Order these exchanges by larger c first and, for equal c, smaller b
+first. This tie-break is needed even for a single complete interval.
+Choose the first available exchange. After making it, every remaining
+available exchange is strictly later in this order. Other auxiliary
+paths are unchanged. On the changed path the next exchange moves left,
+and therefore has smaller corner head. A pair (c,b) determines at most
+one exchange, because at most one maximal corner ends at c.
+
+Let A be a state in the theorem and A' its proposed exchange. We show
+that every corner still covers in A'. If a corner uv loses its cover,
+its new bypass must use the inserted bc. In particular v>=c. If v=c,
+the corner is ac, and its bypass begins a->d with d<b: it reaches b
+before using bc, and ab has just been removed. Thus its first short
+pair would have priority ahead of (JC2). If v>c, every exchange at uv
+already has priority ahead of (JC2).
+
+Follow such a bypass from its first edge ud. The paired node dv is
+absent by nonadjacency. If dv has no selected successor, ud->dv is
+an available exchange. Otherwise that successor is vt for a maximal
+corner dt, and the suffix d->...->v->t bypasses dt with larger head.
+Repeat. The corner heads strictly increase, so this process must end
+at an available exchange. Its priority is ahead of (JC2), either by
+the initial same-head comparison d<b or by a larger head. This
+contradicts the preceding description of ALL available exchanges in
+A'. Therefore no corner loses its cover.
+
+The removed ab also covers in A. Otherwise its alternate a-to-b path
+would survive its removal, since it ends below c; with the inserted
+bc it would bypass ac in A'. We have just proved that ac covers there.
+Thus ac and ab are covers in A, so (JC2) is an actual permitted flip.
+Both shorts are nonmaximal and hence normal, regardless of the original
+strict decorations. No original strict edge moves.
+
+Repeat until all paths have their final alternating selection. The
+available priorities strictly decrease, and at most sum_j floor(l_j/2)
+flips are needed. The endpoint is A*. This proves the theorem, including
+existence and uniqueness of the WHOLE component containing such states.
+We do not claim that the all-cover states exhaust C*.
+
+### Reduce every other component, then apply NN
+
+We recall the proved
+[alternating corner-deletion recurrence](COMPONENT_CORNER_DIFFERENCES.md#a-signed-recurrence-in-whole-smaller-components).
+For a component D selecting M but having no state in which all M cover,
+mark M strict. For nonempty T contained in M, deleting T partitions
+D\T into whole components P_T(D) of the smaller diagram. Then, for
+both X=K,E with the SAME signs,
+
+    X(D) = sum_(nonempty T contained in M) (-1)^(|T|+1)
+                 sum_(B in P_T(D)) X(B).              (JC3)
+
+This does not assume the expansion. Deletion removes exactly the flips
+retaining deleted corners, so every image part is whole. In each state,
+a redundant corner has a bypass containing no other maximal corner.
+That bypass survives every other corner deletion, and pairing deletion
+subsets with and without this corner cancels the alternating state sum.
+The redundant corner may depend on the state.
+
+For EVERY other component D in the m*-edge source layer, choose its
+smaller expression B(D) as follows. If some corner is absent, delete
+that corner; D itself becomes one whole component of the smaller
+diagram. Otherwise use (JC3). The theorem guarantees its hypothesis:
+only C* contains a state in which all corners cover simultaneously.
+All resulting diagrams lose at least one natural edge. Exactly the
+same reductions apply to every component in every layer above m*.
+
+For an eligible NN source let R be its usual target. The full-layer
+identity (TL1), proved by the paired diamonds and endpoint maps, gives
+
+    X(C*) = X(F_(m*)(R)) + X(F_(m*-1)(R))
+              - sum_(D in F_(m*)(L), D != C*) B_X(D). (JC4)
+
+Here B_X(D) means the valuation of the explicit whole-component
+expression just constructed. After expanding (JC3), its sign in (JC4)
+is (-1)^|T|. Every term is a WHOLE component of a strictly smaller
+diagram. The main target loses one natural edge; the correction diagrams
+lose the chosen absent corner or the nonempty set T. This proves the
+complete signed NN recurrence at m*, with arbitrary crossing exterior.
+The companion DN note gives the same construction with one target layer.
+
+### New cases, verification and remaining limit
+
+For the source area 012333, the auxiliary paths have lengths 3,3,3,
+so m*=9. The 77-state NN component in that layer now has a complete
+recurrence: the two actual target layers contain 120 states; eleven
+missing-corner components account for 36 states and five alternating
+correction components account for seven. The latter yield 35 whole
+smaller terms. The earlier one-corner threshold was ten.
+
+For area 0123434, m*=12 instead of the earlier one-corner threshold
+fourteen. Its 2305-state NN component now has a complete recurrence.
+The remaining 220 source-layer components have 698 states and reduce
+by (JC3). These examples do not restrict the uniform theorem's size
+or exterior. The DN nine-vertex example in the companion note lies
+still farther below its old one-corner threshold.
+
+Related Rust: the external graph-only consumer `dn_joint_span` checks
+`corner_short_paths`, `normalize_max_corner_state` and every whole
+correction image in mode `--corner-capacity`. It tests 14 NN/DN diagrams,
+including empty unmarked corners and incoming attachments. The separate
+`--corner-normalization-scan` checks the explicit paths in 148 saturated
+diagrams on 7--9 vertices, with at most 18 natural edges. It enumerates
+all source states to check the bound and uses the actual flip oracle
+to verify each prescribed path; it does not search for the path.
+Frozen sources, logs and commands are in the external
+`joint-corner-capacity-20260929/` receipt. These are checks of the
+argument, not an appeal to finite evidence as a proof.
+
+Below m*, a path may have fewer than its maximum number of selected
+nodes. A forward exchange can then create a new available exchange
+to its RIGHT. The decreasing-priority assertion used above fails.
+Thus we have NOT proved the normalization or whole-component recurrence
+in those layers. In particular the 125-state eight-edge NN component
+in area 012333 and the 3381-state eight-edge NN component in area
+0123434 remain outside this result. General NN/DN collection in these
+lower cyclic layers is still unproved.
