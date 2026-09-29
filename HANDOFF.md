@@ -360,6 +360,7 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Proof checkpoint: `ccd1c2c` (covering interval below t).
 Current covering-interval increment: arbitrary prefix inside av with
 r,yz,av covering, a reaching y and v<t reaching t; wt may be redundant.
 Four fixed fork checks pass 7,7,7,9 flips, and two n12 interval checks
