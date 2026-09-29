@@ -292,6 +292,7 @@ separate order or reduction for recurrences crossing the chosen cut.
 | The corresponding NN completion | [Homogeneous NN completion](COMPONENT_NN_REDISTRIBUTION.md#exact-completion-within-one-selected-edge-layer) | Same minimal-union theorem; the five-state example adds one whole inactive two-state component |
 | DD boundary exchanging the upper corner | [Forced deletable additions](COMPONENT_DN_SOURCE_ADDITIONS.md#the-unmarked-upper-corner-forces-source-additions) | Exact arbitrary-exterior equations and all-sector reduction proved; compatibility between forced additions remains |
 | Retained-edge source paths | [Retained-edge repairs](COMPONENT_DN_RETAINED_EDGE.md) | Arbitrary-exterior conditions, selected suffixes and an incoming-cut preparation with multiple obstructions; unrestricted case remains |
+| Retained-edge auxiliary path to t | [Reachable covering anchor](COMPONENT_DN_RETAINED_EDGE.md#an-incoming-covering-anchor-with-a-path-to-t) | With r covering, a covering yz and y-to-t path suffice even for y<s; the largest bad incoming branch reaching t is resolved, including selected shared arms |
 | Moving only the distinguished short | [Crossing-cover paths](COMPONENT_DN_RETAINED_EDGE.md#sliding-the-moving-edge-along-crossing-covers) | An arbitrary-length alternating path proves the retained-edge comparison, allowing both anchors redundant; path existence remains a hypothesis |
 | DD/ND inheritance | [Corner-unmarking reductions](COMPONENT_DD_PACKETS.md) | DD reduces to DN, ND to NN, keeping the same whole component |
 | Recurrence choice and induction | [First-drop coverage](COMPONENT_RECURRENCE_COVERAGE.md) | Proved for every ordinary saturated diagram; NN/DN reassembly is the remaining induction input |
@@ -326,6 +327,15 @@ checks; the target and corner-deletion pieces must be repaired together.
 The two-anchor transfer now handles arbitrary-exterior covering arms and
 clears a DN incoming cut when its obstructing branches have no selected
 direct wv. A selected direct common branch remains outside that preparation.
+The new auxiliary-anchor argument treats the last bad incoming branch if
+it reaches t, regardless of whether its direct wv is selected. Stop the
+truncated cut at that branch, expose its covering yz, and move along a
+y-to-t path only as far as the predecessor of t. In the remaining r-cover
+cases, the last bad branch reaches s but not t and the absent-direct-arm
+condition fails. For this retained-edge comparison, a nonzero coefficient
+defect also forces f redundant at both endpoints, so their one-corner
+alternating valuations vanish. This local support does not collect whole
+components through zero states or settle the other mixed comparisons.
 Keep this precise obstruction separate from the already-resolved exposing
 exit and from an assertion that all redundant-arm transfers are proved.
 The left comparison now has a complete arbitrary-exterior repair when

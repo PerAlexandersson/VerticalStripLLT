@@ -14,7 +14,20 @@ remain intact in the [component catalogue](docs/COMPONENT_NOTE_CATALOGUE.md).
 
 Active goal: prove the general non-circular component e-expansion for
 Motzkin/Dyck diagrams by the diagram-bijection/recurrence approach.
-Latest continuation proves [left defect support on three-cover witnesses](docs/proofs/COMPONENT_DN_DIRECT_OVERLAPS.md#left-defects-vanish-on-three-cover-witnesses).
+Latest continuation proves a [reachable-anchor retained-edge repair](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#an-incoming-covering-anchor-with-a-path-to-t).
+With r covering, any covering yz with x<y<t and y reaching t supplies
+an actual source path, even if y<s and yt is absent. Stop the path sweep
+one edge before t, use the appropriate local repair, and undo the sweep.
+A truncated incoming cut also handles the largest obstructing branch
+when it reaches t, including selected shared wv and initially redundant vz.
+Outside the proved r-cover cases, the last obstructing branch must reach
+s but not t, and the absent-direct-arm condition must fail. Cases with both
+anchors redundant and general component reassembly remain open. A nonzero
+retained-edge defect requires f redundant at both source endpoints, so
+their one-corner alternating valuations vanish; this is statewise support,
+not an independent reduction of either whole component.
+
+The preceding continuation proves [left defect support on three-cover witnesses](docs/proofs/COMPONENT_DN_DIRECT_OVERLAPS.md#left-defects-vanish-on-three-cover-witnesses).
 The required covers can occur at EITHER source endpoint of an actual left
 comparison. At a genuine first-drop DN contact, if uw,td,wz cover at one
 endpoint, the source preimages are connected. A nonzero left defect
@@ -102,6 +115,9 @@ terms, not from the signs of intermediate recurrence coefficients.
   five conditions recovered at `c9c0e3a`, a 2m+4-flip selected-suffix
   construction, and reuse of a shorter covering pair of anchors. These
   settle the three displayed old uncovered paths in a general setting.
+  The new reachable-anchor repair allows a path to t from a covering yz
+  even with y<s. The largest obstructing incoming branch is also resolved
+  if it reaches t, without requiring its direct wv to be absent.
   The unrestricted retained-edge and left retained-e-prime repairs remain open.
 - A crossing-cover path now gives a direct retained-edge repair of arbitrary
   length, retaining every background edge. The same construction applies to
@@ -203,6 +219,12 @@ until after undoing the borrowed suffix and the competing-x-arm cut.
 The direct common-branch row still handles covering wd,xd even when both
 outer anchors are redundant. Other failed cover cases, especially redundant
 td and both redundant outer anchors, and simultaneous full collection remain.
+For the retained-edge r-cover case with t not reaching z, inspect the
+largest member of the obstructing incoming set B. If it reaches t, the
+new truncated-cut/reachable-anchor proof finishes. The remaining branch
+therefore reaches s but not t; at least one obstructing direct wv must
+also be selected, since otherwise (C1) finishes. Do not repeat the already
+settled t-reaching branch or require y>s in the path-to-t construction.
 The new reverse preparation supplies the same conclusion from covers at
 the tx endpoint: expose r first, then clear t-to-w paths using td. This
 can make f redundant, but r remains covering, which is sufficient. The
@@ -260,6 +282,11 @@ and direct-overlap notes, outline routing, both handoffs and the existing
 external consumer. It checks the reverse left comparison and the resulting
 support restriction on nonzero defects. Earlier proof text will be preserved.
 
+Current retained-edge continuation owns an append-only reachable-anchor
+extension and support corollary in the retained-edge note, the outline and
+both handoffs. The external consumer checks fixed paths only. Every prior
+retained-edge hunk will remain a verbatim prefix.
+
 The reboot terminated the old workers/consultant. Its saved Claude output
 was empty; do not relaunch it. The pre-crash dirty retained-edge note was
 preserved in full, extended and committed. The full previous handoff,
@@ -268,6 +295,18 @@ including its original dirty paragraph, is preserved in the
 Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
+
+Current retained-edge increment: a covering yz and any y-to-t path give
+the repair with arbitrary exterior; a truncated incoming cut handles the
+largest bad branch reaching t. Three fixed n10 paths (nine flips each)
+check last predecessors on both sides of s and an outgoing cut with
+absent/redundant hs. One fixed n11 path (eleven flips) has a selected
+shared arm and initially redundant auxiliary anchor. Every flip, strict
+edge and exact endpoint is checked; no state-space enumeration is used.
+The prior retained-edge text remains a verbatim prefix. No Lean/Lake
+build, worker, consultant, maintained Rust edit or independent review.
+All 52 local file links and `git diff --check` pass. The incoming-edge
+and direct-overlap proof notes are unchanged in this increment.
 
 Proof checkpoint: `e5fb7eb` (either-endpoint covers and left defect support).
 Current endpoint increment: reverse-endpoint left repair and the exact
@@ -404,7 +443,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/left-endpoint-covers-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-reachable-anchor-20260929/`.
+Either-endpoint receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/left-endpoint-covers-20260929/`.
 Shared-branch receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/left-common-cone-20260929/`.
 Homogeneous-completion receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/homogeneous-dn-closure-20260929/`.
 DD-boundary receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/common-preparation-20260929/`.

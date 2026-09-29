@@ -724,3 +724,139 @@ and simultaneous whole-component collection remain open. No new independent
 review is claimed. No Lean/Lake build, worker, consultant, manuscript build
 or maintained Rust change was used.
 Receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/outgoing-no-path-20260929/`.
+
+## An incoming covering anchor with a path to t
+
+2026-09-29 continuation. Keep the opening configuration S=Q+xs and
+T=Q+st, with w<x<s<t<z, x=w+1 and the three absent paths in (1).
+We extend the earlier path construction to an anchor whose tail may lie
+BEFORE s. Stopping the path preparation one edge before t is essential.
+
+**Proposition.** Suppose r=xz covers in S. If there is a selected
+covering yz with x<y<t and a selected path from y to t in Q, then
+S~T, with every other edge restored. We do not require f to cover,
+a direct edge yt, or a bound on exterior size or cycle rank.
+
+The cover of yz and the y-to-t path imply that t does not reach z.
+Choose a path of selected covers
+
+    y=v_0 < v_1 < ... < v_m=t.
+
+Such a path exists by refining any selected path. It lies in Q since
+its tails exceed x. Put h=v_(m-1). We have h!=s, because s does not
+reach t. For i=0,...,m-2, exchange
+
+    v_i v_(i+1) -> v_(i+1)z [retain v_i z].         (24)
+
+Every step is actual. The current long covers, and earlier changes
+cannot spoil a path-edge cover: their new edges end at z above t, while
+all other changes are deletions. Each newly introduced v_(i+1)z covers
+and supplies the next long. We stop with hz covering and ht still selected.
+The latter remains a cover as well.
+
+The preparation preserves r. In the original S, x cannot reach any path
+vertex: a path avoiding xs would contradict Q's absence of x-to-t, and
+a path using xs would contradict the absence of s-to-t. New edges ending
+at z do not change this reachability below z. The same observation preserves
+all three conditions in (1). No step removes f,r,wt or xs.
+
+If h<s, apply the opening two-covering-edge lemma with y=h. The edges
+hz,ht supply its auxiliary triangle; it replaces xs by st and restores
+the complete prepared background. Its outgoing cut handles all competing
+h-to-s paths, including a redundant selected hs.
+
+If h>s, use the already-proved five-flip row
+
+    ht -> tz [hz],       tz -> xt [r],
+    xs -> st [xt],       xt -> tz [r],
+    tz -> ht [hz].                                  (25)
+
+This is the one-edge case of the earlier right-of-s path construction.
+It too restores the prepared background while changing only xs to st.
+
+Finally undo (24). No t-to-z path has been created: all newly added
+edges ending at z have tails at most h<t. A new bypass of any retained
+v_i z using st would need the absent t-to-z suffix. The other tested
+intervals end at or before h<t, so they cannot use st at all. Removing
+xs only destroys bypasses. Hence every inverse is actual and the entire
+original exterior is restored. This proves the proposition.
+
+For h<s, if the opening lemma uses c outgoing-cut edges, the construction
+has 2(m-1)+2c+3 flips. For h>s it has 2(m-1)+5 flips. The older assumption
+y>s is sufficient but no longer necessary. Simply pushing the final ht
+all the way to tz when h<s would lose the inverse argument; the two-cover
+repair at h supplies the missing order of operations.
+
+### The last obstructing incoming branch reaches t
+
+This gives a further case of the earlier incoming-cut reduction, including
+selected direct common arms. Suppose r covers and t does not reach z,
+and use the original sets
+
+    I={v : x<v<z, vz selected in Q, w reaches v in Q},
+    B={v in I : v reaches s or t in Q}.
+
+**Proposition.** If B is nonempty and its largest member v reaches t,
+then S~T. No assumption is imposed on any selected direct wv arm.
+
+Process just the members h of I with h>v, in decreasing order, replacing
+hz by xh while retaining r. These are actual incoming-cut flips by the
+same last-edge argument as before. They expose vz: every bypass of vz
+would end in kz with k>v reachable from v, hence reachable from w and
+already processed. The edge r remains covering.
+
+By the maximality of v in B, none of these larger h reaches s or t.
+Their new xh edges therefore preserve the three conditions in (1).
+Reachability from v to t is unchanged, since all removed edges end at
+z and all new edges start below v. We have obtained the hypotheses of
+the preceding proposition with y=v. Apply it to replace xs by st.
+
+Undo the truncated incoming cut. The new st cannot bypass a tested edge
+ending at z, since t still does not reach z. It cannot bypass a tested
+xh either: after xs is removed, x does not reach s, and neither the
+preparation nor its inverse creates such a path. All shorts are still
+selected as required, so each inverse flip is actual. This restores Q.
+
+This treats cases excluded by (C1) because wv is already selected,
+including a redundant vz before the truncated cut. Combining the two
+propositions with the earlier cases sharpens the remaining r-cover
+obstruction: outside the proved repairs, the largest member of B must
+reach s and NOT t, and (C1)'s absent-direct-arm condition must fail.
+We have not repaired that remaining common branch in full generality.
+
+### Where a retained-edge coefficient defect can occur
+
+There is also a useful support consequence of the older covering-f
+proposition. If f covers at EITHER endpoint S or T, then S~T.
+To see the reverse direction, note that w cannot reach x, since they
+are adjacent and wx is absent. Adding xs therefore cannot create a
+bypass of f. If f covers in T, removing st preserves its cover and
+then adding xs still preserves it, so f covers in S as well.
+
+For any source-component function h, a nonzero difference h(S)-h(T)
+therefore forces f redundant at both endpoints. The one-corner alternating
+valuations partial_f X(S)=X(S)-X(S-f) and partial_f X(T) vanish, for X=K,E.
+In particular, this retained-edge defect cannot touch a mixed-acyclic
+source state when f is strict. This parallels the three-corner support
+restriction for the genuine-DN left comparison, but does not resolve a
+path through zero states or the other mixed-sector coefficient equations.
+It is not an assertion that the two whole source components are reducible.
+
+### Fixed checks
+
+Related Rust: external `first_join_tree_lifts.rs`, option
+`--retained-reachable-anchor`, using the existing exact cover/flip oracle.
+Three fixed ten-vertex states exercise a path of length three with its
+last predecessor on either side of s. The two left-side cases include an
+outgoing cut and respectively absent and redundant selected hs. All three
+paths use nine flips and restore every exterior edge.
+
+One fixed eleven-vertex state has I={3,9}, B={3}, s=7,t=8,z=10.
+Its direct common arm 13 is selected and anchor 3,10 initially redundant.
+The truncated cut removes 9,10, exposing the reachable anchor at 3;
+the full eleven-flip path restores every other edge. Every actual flip,
+strict edge and endpoint is checked. No state space is enumerated.
+Sources, exact edge lists and receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-reachable-anchor-20260929/`.
+The full previous note remains a verbatim prefix. No Lean/Lake build,
+new worker, consultant, maintained Rust edit or independent review was used.
