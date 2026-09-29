@@ -1541,3 +1541,121 @@ Sources, full edge lists and receipts:
 The entire prior retained-edge note is a verbatim prefix. No Lean/Lake
 build, worker, consultant, maintained Rust edit or independent review
 was used. The general component e-expansion remains open.
+
+## A lower bypass when both outer anchors are redundant
+
+2026-09-29 continuation. We now work beyond the general r-cover theorem.
+The following row allows r to remain redundant even after xs is deleted.
+It uses the wx sector temporarily and restores a selected lower branch xa.
+We also record the shorter-endpoint suffix observation used by the first
+fixed comparison in this continuation.
+
+### A shorter covering edge from x
+
+If t<v<=z, xv covers in S, and t reaches v, then S~T regardless of
+whether wv is selected. Apply the earlier covering-r/selected-suffix proof
+with v in place of z: borrow xt backwards along a saturated t-to-v path,
+exchange xs->st retaining xt, and undo the path preparation. This proof
+uses only the covering xv, the selected suffix and (1); it never retains
+wv or the original f. All tested intervals lie in [x,v], and all changed
+edges are normal inside the original natural corner wz. A suffix of
+length m gives 2m+1 flips. In particular, covering xv,tv give
+
+    tv -> xt [retain xv],
+    xs -> st [retain xt],
+    xt -> tv [retain xv].
+
+Both original outer anchors can be redundant throughout this row.
+
+### Seven flips through a lower branch
+
+**Proposition.** Keep the opening Q conditions, and suppose x<a<s with
+
+    ws, wt, xa, az, sz, tz cover in S=Q+xs.           (43)
+
+Suppose also that either w does not reach a, or wa is selected and
+covers. Then S~T in seven actual flips, restoring every other edge.
+The exterior and cycle rank are arbitrary.
+
+Here f and r are both redundant in S, through ws,sz and xs,sz.
+Moreover r remains redundant in S-xs through xa,az. Thus the proposition
+does not follow from the earlier rows that assume r covers after xs is
+deleted. By (1) and the selected xa, neither a-to-s nor a-to-t is a path
+in Q. In particular as and at are initially absent.
+
+First suppose w does not reach a. We use the four-flip preparation
+
+    xa -> as [retain xs],
+    xs -> wx [retain ws],
+    as -> wa [retain ws],
+    wx -> xa [retain wa].                            (44)
+
+The first flip is actual because xs covers by (1), and xa covers by
+(43). The new as cannot bypass ws, since w does not reach a. Thus the
+second flip is actual and supplies a covering wx. Its added edge starts
+below a and cannot affect the cover of as, while the flip preserves
+ws covering. The third flip is therefore actual and supplies a covering
+wa. The fourth uses this new covering long and the covering wx. It
+restores xa. The state after (44) is exactly Q+wa.
+
+The edge wt covers in Q+wa: removing xs only helps its original cover,
+and a new bypass through wa would require the forbidden a-to-t path.
+The new wa covers by (44). Exchange
+
+    wa -> at [retain wt].                            (45)
+
+We have reached Q+at, with at covering. Finish with
+
+    tz -> st [retain sz],
+    at -> tz [retain az].                            (46)
+
+The covers of sz and tz are unchanged before the first flip, since
+all preceding changes start below s or t respectively. This flip removes
+tz and creates st as a cover. Removing the covering tz leaves no t-to-z
+path; adding st cannot create one. Also a still does not reach s.
+Consequently neither the new at nor st can bypass az. Its original
+cover has returned, although at,tz made it redundant just before (46).
+The edge at still covers: a new bypass using st would require a-to-s.
+Thus the last flip is actual, restores tz, removes at and leaves Q+st.
+This proves the first case.
+
+If wa is already selected and covering, perform (45) FIRST. It is
+actual by the original covers of wa and wt. Removing the covering wa
+leaves w not reaching a; the new at cannot change this. The covers of
+ws,xs,xa are preserved, because the added head t exceeds s and a.
+We may therefore use all four flips (44) in this prepared relation.
+They restore the original wa and xa and remove xs. The resulting state
+is again Q+at, now with the originally selected wa present in Q.
+Use (46) exactly as before. Restoring wa may make wt redundant, but
+we do not retain wt after that restoration. This proves the second case.
+
+All exchanged edges are proper shorts of selected natural edges inside
+wz, hence normal. The proof neither assumes an isolated local diagram
+nor discards an exterior edge during a cover test.
+
+### Scope and fixed checks
+
+The condition on wa is substantive: a longer w-to-a path, or a selected
+redundant wa, does not automatically satisfy either case. We have not
+proved that such routes can always be prepared while preserving the
+needed covers. Redundant members of (43), and the general both-redundant
+comparison, also remain open. Whole-component reassembly is separate.
+
+Related Rust: external `first_join_tree_lifts.rs`, option
+`--retained-lower-bypass`. One fixed n7 and two fixed n11 states pass
+seven-flip paths. The n11 states have extra shared descendants and
+redundant normal edges; one also has the initial covering wa. All three
+verify both original anchors redundant and r still redundant after
+xs deletion. Every actual flip, strict edge and exact endpoint is checked.
+No n11 state space is enumerated.
+
+The discovery option `--retained-both-redundant-fixed` checks only two
+fixed n7 pairs. Its bounded paths visit 90 and 919 states and have three
+and seven flips, respectively. The first is the shorter-endpoint suffix
+row, and the second is (44)--(46). These finite checks prompted the
+arbitrary-exterior arguments above; they are not an exhaustive coverage
+claim. Sources, full edge lists and receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-both-redundant-20260929/`.
+The entire prior retained-edge note remains a verbatim prefix. No Lean/Lake
+build, worker, consultant, maintained Rust edit or independent review
+was used. The general component e-expansion remains open.

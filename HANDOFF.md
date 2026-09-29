@@ -14,18 +14,25 @@ remain intact in the [component catalogue](docs/COMPONENT_NOTE_CATALOGUE.md).
 
 Active goal: prove the general non-circular component e-expansion for
 Motzkin/Dyck diagrams by the diagram-bijection/recurrence approach.
-Latest continuation proves [every retained-edge comparison with r covering](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#every-comparison-with-r-covering),
-with arbitrary exterior. Local fork flips advance a common ancestor of
-y and t until a covering interval or a covering edge ending at t is
-available. All recorded fork intervals end below t, so their inverses
-survive the final replacement xs by st. The terminal prefix construction
-works from any appropriate a, using at instead of the original wt.
+The [general retained-edge r-cover theorem](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#every-comparison-with-r-covering)
+is proved with arbitrary exterior. Together with the earlier f-cover
+result, it settles every comparison where either outer anchor covers
+at Q+xs. Checkpoints `0cbefcc` and `dd844e9` are pushed to origin/main.
 
-Together with the earlier f-cover theorem, this settles every comparison
-with either outer anchor covering at Q+xs. A nonzero retained-edge defect
-must have both f,r redundant there; f is also redundant at Q+st, but we
-do not claim the same for r. The both-redundant case, unrestricted left
-comparison and general whole-component reassembly remain open.
+The latest continuation adds a [seven-flip lower-bypass repair](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#a-lower-bypass-when-both-outer-anchors-are-redundant).
+For x<a<s, assume ws,wt,xa,az,sz,tz cover, and either w does not reach
+a or wa itself covers. Four flips briefly use wx, moving xs to a new
+wa while restoring xa. Moving wa to at before or after these four flips,
+according to its initial status, and a two-flip closing row finish.
+Here both outer anchors are redundant, and r stays redundant even after
+xs deletion. A shorter covering xv with a t-to-v suffix also suffices
+without requiring selected wv.
+
+Longer w-to-a routes or redundant wa, failures of the displayed covers,
+the general both-redundant comparison, unrestricted left comparison and
+whole-component reassembly remain open. A nonzero retained-edge defect
+has both f,r redundant at Q+xs and f redundant at Q+st; we do not claim
+r redundant at Q+st. The full e-expansion proof is still unfinished.
 
 The [covering-interval construction](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#a-covering-interval-across-the-incoming-branch)
 is now a proved stopping case of this general procedure, not an additional
@@ -278,8 +285,15 @@ The remaining right-hand defect has f and r redundant at Q+xs, and f
 redundant at Q+st. We have not proved r redundant at the second endpoint.
 Remember that r and wt are generally normal source edges, so their
 redundancy alone does not permit whole-component corner deletion.
+The new seven-flip lower-bypass row handles ws,wt,xa,az,sz,tz covering
+with x<a<s and either w not reaching a or wa covering. Four flips retain
+xs and ws, temporarily introduce wx, and restore xa; move wa to at before
+this row when wa is initially selected, otherwise afterward. Remove tz
+before retaining az to restore it. This permits r redundant even after
+xs deletion. Longer w-to-a routes or redundant wa remain outside this row.
+A shorter covering xv with t reaching v needs no selected wv.
 The full constructions and earlier sufficient conditions remain in the
-retained-edge note; now focus on the both-redundant case and collection.
+retained-edge note; the general both-redundant case and collection remain.
 The new reverse preparation supplies the same conclusion from covers at
 the tx endpoint: expose r first, then clear t-to-w paths using td. This
 can make f redundant, but r remains covering, which is sufficient. The
@@ -346,6 +360,11 @@ Current shared-prefix continuation owns an append-only retained-edge branch
 lemma with arbitrary w-to-y paths, both handoffs, outline routing and fixed
 checks in the external consumer. It preserves the complete prior note.
 
+Current both-redundant continuation owns the append-only shorter-suffix
+and lower-bypass proofs, three fixed path checks and two bounded n7
+comparisons in the external consumer, outline routing and both handoffs.
+The complete prior retained-edge note remains a verbatim prefix.
+
 Current common-ancestor continuation owns the append-only terminal-prefix
 and common-ancestor lemmas and general r-cover theorem, three fixed
 external-consumer checks, reorganized outline routing and both handoffs.
@@ -371,6 +390,14 @@ including its original dirty paragraph, is preserved in the
 Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
+
+Current lower-bypass increment: seven-flip arbitrary-exterior rows with
+both outer anchors redundant and r redundant after xs deletion. Three
+fixed n7/n11 paths pass, including an initially covering wa and exterior
+shared descendants. Two fixed n7 discovery pairs visit 90/919 states,
+yielding 3/7 flips. Every displayed flip, strict edge and exact endpoint
+is checked; no n11 state enumeration. No Lean/Lake build, worker, consultant,
+maintained Rust edit or independent review. Prior proof text is preserved.
 
 Proof checkpoint: `0cbefcc` (general retained-edge r-cover theorem).
 Current common-ancestor increment closes every retained-edge comparison
@@ -569,7 +596,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-common-ancestor-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-both-redundant-20260929/`.
+General r-cover receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-common-ancestor-20260929/`.
 Covering-interval receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-covering-fork-20260929/`.
 Path-to-s receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-s-path-20260929/`.
 Multiple-route receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-incoming-s-20260929/`.

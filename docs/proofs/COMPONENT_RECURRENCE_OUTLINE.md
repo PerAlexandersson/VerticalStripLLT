@@ -293,6 +293,7 @@ separate order or reduction for recurrences crossing the chosen cut.
 | DD boundary exchanging the upper corner | [Forced deletable additions](COMPONENT_DN_SOURCE_ADDITIONS.md#the-unmarked-upper-corner-forces-source-additions) | Exact arbitrary-exterior equations and all-sector reduction proved; compatibility between forced additions remains |
 | Retained-edge source paths with a covering outer anchor | [General r-cover theorem](COMPONENT_DN_RETAINED_EDGE.md#every-comparison-with-r-covering) | Complete arbitrary-exterior repair when either f or r covers at Q+xs; the both-redundant case remains |
 | Constructing the needed covering interval | [Common-ancestor preparation](COMPONENT_DN_RETAINED_EDGE.md#advancing-a-common-ancestor-and-completing-the-r-cover-case) | Increasing common ancestor gives a covering interval below t or a terminal at; temporary-tz restoration handles arbitrary routes toward s |
+| A lower bypass with both anchors redundant | [Seven-flip rows](COMPONENT_DN_RETAINED_EDGE.md#a-lower-bypass-when-both-outer-anchors-are-redundant) | ws,wt,xa,az,sz,tz covering and either w not reaching a or wa covering suffice; r may remain redundant after xs deletion |
 | Moving only the distinguished short | [Crossing-cover paths](COMPONENT_DN_RETAINED_EDGE.md#sliding-the-moving-edge-along-crossing-covers) | An arbitrary-length alternating path proves the retained-edge comparison, allowing both anchors redundant; path existence remains a hypothesis |
 | DD/ND inheritance | [Corner-unmarking reductions](COMPONENT_DD_PACKETS.md) | DD reduces to DN, ND to NN, keeping the same whole component |
 | Recurrence choice and induction | [First-drop coverage](COMPONENT_RECURRENCE_COVERAGE.md) | Proved for every ordinary saturated diagram; NN/DN reassembly is the remaining induction input |
@@ -340,7 +341,12 @@ endpoint argument also forces f redundant at Q+st; we have not proved
 this for r at that endpoint. The one-corner alternating valuations vanish,
 but this does not collect whole components through zero states. The normal
 source edges r and wt do not admit automatic whole-component corner deletion.
-The both-redundant comparison and simultaneous collection remain open.
+A further seven-flip row handles a lower bypass xa,az when
+ws,wt,xa,az,sz,tz cover and either w does not reach a or wa covers.
+It briefly uses the wx sector and permits r redundant even after xs
+is deleted. Longer w-to-a routes, redundant wa and failed cover tests
+remain outside that construction. The general both-redundant comparison
+and simultaneous collection remain open.
 
 The left comparison now has a complete arbitrary-exterior repair when
 uw,td,ut cover and at least one outer anchor wz,xz covers (with the stated
