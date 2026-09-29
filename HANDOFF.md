@@ -1,5 +1,42 @@
 # VerticalStripLLT handoff
 
+## Current continuation — DN reduces to NN by an empty corner
+
+Primary resumed from clean pushed `060d2e6`. The previous turn made
+verified progress; the full goal remains active. Ownership is unchanged:
+primary owns this handoff/outline, append-only NN and DN continuations,
+and the existing external consumers. The user's diagram-only direction
+is retained. No basis calculation, Lean build, new worker or review.
+
+**New proved reduction:** [DN through an empty-corner NN diagram](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#dn-through-an-empty-corner-nn-diagram).
+Add missing natural corner e'=ux EMPTY and unmark selected e=uw. The
+same selected sets form exactly the SAME whole component in an eligible
+NN source. No new flip acts, since its new retained corner is absent.
+After any NN whole-component collection, the fixed statuses of exposed
+corners e',r send each whole output component by identity to the DN target
+or a smaller corner-deletion diagram. All final outputs decrease the
+original DN order (n,A,M). The initial NN split also recovers the exact
+existing DN split by inserting redundant e' and applying its diamond.
+
+**Precise remaining hypothesis:** uniform NN collection at eligible contacts
+with arbitrary exterior corner decorations, including this empty unmarked
+corner. The enlarged diagram is not saturated and its root may no longer
+be the first area drop. We do not invoke induction on this larger diagram,
+and the earlier saturated unicyclic NN theorem is insufficient. This is
+a proved reduction of the DN obligation, NOT an unconditional proof of
+DN or NN. It removes the need for a separate general DN repair if we
+finish this NN statement. Continue with the NN component brackets.
+
+**Verification:** `dn_joint_span --dn-via-empty-nn` checks whole source
+components and every source adjacency, all four whole-output strata,
+NN eligibility, ordinary areas and the final induction decrease in six
+fixed DN fixtures (4--8 vertices, including crossing and attached exteriors).
+All pass: 164 source components / 1860 source states. No polynomial
+calculation is used. Rust capability guide, metadata, graph/component APIs,
+runtime registry and `codex mcp list` were checked; maintained Rust remains
+unchanged. Frozen sources, command, logs and verification:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/empty-corner-dn-20260929/`.
+
 ## Current direction — follow the notebook diagrams
 
 The user's latest correction is explicit: stay away from basis calculations,

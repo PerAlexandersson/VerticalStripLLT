@@ -53,6 +53,15 @@ lets us follow the swap after a bypass is lost, but does not close the
 q-insertion and retained-corner boundaries. Keep the resulting signed
 terms together when finishing those component brackets.
 
+The new [empty-corner reduction](COMPONENT_DN_JOINT_REPAIRS.md#dn-through-an-empty-corner-nn-diagram)
+shows that the uniform NN statement would also settle DN. Adding the
+missing corner EMPTY and unmarking its neighbor preserves the exact
+source component and makes NN eligible. Whole NN outputs then split by
+identity into the DN target and smaller deletion diagrams. This is a
+proved conditional reduction, not completed NN/DN collection. The NN
+statement must allow the empty unmarked corner and the eligible contact;
+the enlarged source need not be saturated or have its first drop there.
+
 ## 1. The identity that gives positivity
 
 We work first with an ordinary decorated natural graph on ordered vertices

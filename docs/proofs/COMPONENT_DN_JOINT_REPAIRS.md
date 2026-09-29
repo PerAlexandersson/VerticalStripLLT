@@ -946,3 +946,132 @@ and the complete-piece identities, including the attached eight-vertex
 example where both DN channels have nontrivial internal flips. Frozen
 sources and receipts: `coupled-coefficients-20260929/` under the external
 request folder. The general NN/DN collection remains unfinished.
+
+## DN through an empty-corner NN diagram
+
+2026-09-29 continuation. We can reduce the DN component question to an
+NN component question by the notebook's identity-map argument. No new
+source components need to be added. The conclusion is conditional on NN
+collection, which is still open in the required generality.
+
+Keep u<w<x=w+1<z, e=uw, e'=ux, f=wz, q=wx and r=xz. Let S be the
+common strict corners. The DN source L has strict e,f and does not have
+e' as a natural edge. Form N by adjoining e' as an UNMARKED natural
+corner and unmarking e; f and S stay strict. We represent the original
+component by exactly the same selected relations, so e is selected and
+e' is absent throughout.
+
+| Diagram | Distinguished natural edges | Distinguished strict edges |
+| --- | --- | --- |
+| DN source L | e,f,q,r | e,f |
+| Enlarged NN source N | e,e',f,q,r | f |
+| NN corner-deletion target Y=N-f | e,e',q,r | none |
+| DN target R | e,e',q,r | e',r |
+
+Every row also retains the common natural edges and strict set S.
+If NN collection is carried out with r marked, its target is the
+selected-r sector of Y, and the same argument applies.
+
+### The source component is unchanged
+
+In area coordinates the DN hypotheses give a_x=a_w and u=w-a_w.
+Increasing a_x by one adjoins exactly e'=ux. The enlarged area is still
+ordinary: the bound from the preceding row becomes equality, and the
+bound on the following row is weakened. The new corner e' is maximal,
+since the original next boundary was at least u+1. It replaces e as a
+natural corner. All other strict corners remain valid.
+
+The new contact satisfies a_x=a_w+1. Both contact rows are now
+nonstrict, while f keeps its length and root gap. Thus N has an eligible
+NN move at f. We have not changed the selected relation at any vertex.
+
+**Claim.** Each complete component C of L is exactly one complete
+component of N, under this identity map.
+
+To see this, e' cannot be exchanged as a short because it is a maximal
+natural corner. Its absence therefore persists along every flip. Every
+new triangle has retained long e', so none of its flips can act. Unmarking
+e introduces no further flip: e was maximal in L, and its only new
+natural container is the absent e'. All old flip cover tests use the
+same selected relation. The available flips and their endpoints are
+therefore exactly the old ones. This proves both connectedness and
+completeness, not just a map into a larger component. Both K and E are
+unchanged because the selected sets themselves are unchanged.
+
+### Every collected NN output is already a whole required component
+
+Suppose we have collected this component by NN into whole components D
+of Y, using diamonds, redundant-edge changes and allowed relabelings.
+The edges e',r are maximal natural corners of Y. Their selected statuses
+are therefore constant on each D. Mark each of them when selected and
+delete it when absent. The resulting identity maps take D to a WHOLE
+component of the indicated diagram:
+
+| e' status | r status | Whole-component destination |
+| --- | --- | --- |
+| selected | selected | R, the DN target |
+| absent | selected | Y-e', with r marked |
+| selected | absent | Y-r, with e' marked |
+| absent | absent | Y-e'-r |
+
+The common strict set S remains in every row. If r was marked during
+NN collection, only the first two rows occur. In the e'-absent rows,
+e is again a natural corner, so we can further separate its absent and
+selected components by the same identity map, as in the notebook's
+II and III. This further separation is optional.
+
+All these final diagrams are smaller than the ORIGINAL DN source L.
+Write A for its number of natural edges and M=sum_j j*a_j. The target
+Y replaces f by e', hence
+
+    A(Y)=A,     M(Y)=M-(z-x)<M.
+
+The other rows delete at least one more natural edge. Marking selected
+corners changes neither measure. Thus every final component decreases
+(n,A,M), exactly as required for the component induction.
+
+We do not apply an induction hypothesis to N: it has A+1 natural edges.
+We only apply the proposed NN diagram identity to the same C represented
+in N. The induction hypothesis is used on the final whole components.
+Also, f need not remain the FIRST area drop after e' is adjoined. A proof
+of NN collection only for first-drop saturated sources would therefore
+not justify this reduction. We need NN collection at this eligible
+contact with the indicated empty unmarked corner, or the general
+arbitrary-decoration NN statement already under investigation.
+
+### The initial diagram calculation is exactly the DN calculation
+
+This reduction also agrees with the existing initial split. Write Q for
+the old common exterior, so source NN terms with nonzero multiplicity
+have exterior Q+e, with e' absent. If h_ij(Q) indicates membership in C,
+the NN split in Y reads
+
+    X(C) = sum_Q (h00+h01)(Q) [sigma Q+e'+r]
+                 +(h11+h01)(Q) [Q+e+q+r]
+                 +(h10-h01)(Q) [Q+e+q].             (D1)
+
+Here sigma interchanges w,x on the entire exterior. In the second term,
+e' is redundant through e,q, so we may insert it. The first two displayed
+states become R00(sigma Q) and R11(Q). Applying the target diamond to
+the h01 contribution gives exactly the direct DN split recorded at the
+start of this note, including its unmatched deletion term. Thus this
+is the same diagram calculation, with a simpler source representation.
+It does not silently assume the completed component expansion.
+
+**Conclusion.** Uniform NN collection into whole corner-deletion target
+components implies the required forward DN signed component recurrence.
+The source identity and all output component maps are proved above with
+arbitrary exterior. The remaining hypothesis is NN collection itself.
+DN is not independently declared solved. In particular the enlarged
+source is not saturated, so the earlier saturated unicyclic NN theorem
+cannot be invoked without its missing hypotheses.
+
+Related Rust: the existing external consumer option `--dn-via-empty-nn`
+checks only diagrams and actual flip components, without polynomial
+calculations. It verifies the exact source components, every source
+adjacency in both representations, every whole output component in the
+four strata, ordinary area validity, NN eligibility and strict decrease
+of the final diagram order in six fixed examples. Source component
+counts are 3,15,14,26,28,78 (four through eight vertices), with crossing
+and attached exterior examples included. Frozen sources, commands and
+receipts: `empty-corner-dn-20260929/` under the external request folder.

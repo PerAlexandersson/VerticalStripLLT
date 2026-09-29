@@ -910,3 +910,21 @@ attached eight-vertex DN example. It also checks the edge and reachability
 changes. These are checks of the stated diagram lemma, not evidence that
 the missing whole-component assembly has been proved. Frozen receipts:
 `coupled-coefficients-20260929/` under the external request folder.
+
+## The NN statement also suffices for DN
+
+2026-09-29 continuation. The new
+[empty-corner DN reduction](COMPONENT_DN_JOINT_REPAIRS.md#dn-through-an-empty-corner-nn-diagram)
+shows why a uniform NN collection theorem would settle both remaining
+cases. Add the missing DN corner empty and unmark the neighboring
+selected corner. This preserves the SAME whole source component and
+makes the contact NN. Once its image has been collected into whole NN
+target components, marking selected exposed corners and deleting absent
+ones sends each whole component to the DN target or a smaller deletion
+diagram. These are the notebook's identity maps.
+
+The qualification is that NN must allow this empty unmarked corner and
+need not be applied at the first area drop of the enlarged diagram.
+The existing saturated unicyclic theorem is insufficient for that
+hypothesis. We have proved the reduction, not the uniform NN collection
+it assumes. No polynomial basis enters the argument.
