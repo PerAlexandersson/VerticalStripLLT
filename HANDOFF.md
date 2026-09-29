@@ -100,6 +100,7 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Proof checkpoint: `1b4f794` (general exposure and DD/ND inheritance).
 Proof checkpoint: `e1ef5eb` (selected-suffix repair and notebook recurrence).
 Pushed: `c9c0e3a` (preserved and extended retained-edge proof), `c458c8e`
 (recovered notebook source map), `3eac539` (outline and note organization).
