@@ -691,3 +691,153 @@ The six-diagram collection check again passes all 210 source components
 with integral output coefficients. No general poset relabeling generators
 are used in that check. Frozen sources, commands, logs and checksums:
 `/lake-cache/ai-projects/requests/VerticalStripLLT/prepared-swaps-20260929/`.
+
+## Descending the prepared-swap boundary identities
+
+2026-09-29. We now give exact identities at both kinds of sector exit,
+with arbitrary exterior. They track the paired actual flips and give a
+strictly decreasing measure for the resulting state pairs. We have not
+yet proved that these replacements collect into whole target components.
+
+Extend the formula Phi(A)=sigma(A-r)+r to every target state with q
+absent, without requiring the two bypasses. The resulting selected set
+is still a valid R state. It need not have the same valuation as A.
+Write Z(A)=[A]-[Phi(A)] on this larger domain. On the prepared sector
+S of (P1), Z(A)=0.
+
+### A bypass-loss exit descends by one selected edge
+
+Suppose A in S has an actual flip to B, with q still absent. Let s be
+the removed short, t the inserted short, and ell the retained long. Put
+
+    E=A-s,          F=A+t.
+
+Thus the actual middle states are A=E+s and B=E+t; F contains both
+shorts. The following are actual flips and a valuation identity:
+
+    Phi(A) <-> Phi(B),
+    Z(B)=Z(E).                                        (B1)
+
+In particular, both states in the pair on the right have one fewer
+selected edge than their corresponding states on the left.
+
+**Proof.** The original flip cannot retain redundant r or exchange the
+strict corner r. Its triangle cannot contain both w,x, since q stays
+absent. Delete r and swap its triangle, preserving its vertex order.
+The swapped flip is still actual. Reinserting r, even when it is no
+longer redundant at the new endpoint, does not affect the cover tests:
+a path using a maximal natural corner cannot bypass a different natural
+edge. Thus Phi(A)<->Phi(B), with the same full exterior transformed.
+
+The two diamonds, with the respective retained longs, give
+
+    [A]+[B]=[E]+[F],
+    [Phi(A)]+[Phi(B)]=[Phi(E)]+[Phi(F)].
+
+Adding the other short cannot destroy either bypass, so F belongs to S.
+We have Z(A)=Z(F)=0. Subtraction proves (B1). This uses actual paired
+boundary flips; it does not assume equality of source component membership
+at the exposed endpoints.
+
+### A short-insertion exit descends or increases reachability
+
+Suppose instead that A in S has an actual flip to B which inserts q.
+Its triangle is one of the two types
+
+    h<w<x: ell=hx, s=hw;
+    w<x<h: ell=wh, s=xh.
+
+Here s is removed. In A both ell,s cover and sigma interchanges them.
+Both edges are present and cover in A'=Phi(A) as well. Hence the SAME
+exchange s->q, retaining ell, gives an actual flip A'->B'. For the
+reverse endpoint cover, a new bypass of ell would require a path replacing
+s before the exchange, contrary to its cover. The inserted q is adjacent.
+
+Put
+
+    E=A-s,       E'=A'-s,
+    C=A+q-ell,   C'=A'+q-ell.
+
+Two RHS diamonds, followed by deleting the redundant ell in each full
+term, give
+
+    [B]-[B'] = [E]-[E'] + [C]-[C'].                    (B2)
+
+The long ell is normal in the eligible NN target: on the right it lies
+properly inside the old f; on the left the contact row x has no strict
+incoming corner. Thus all four terms on the right remain valid R states,
+with every strict edge selected.
+
+The E pair has one fewer selected edge at each endpoint. The C pair has
+the same edge counts as B,B', but each has STRICTLY MORE reachability
+relations. Indeed, the deleted ell is recovered through the newly selected
+q,s. Every old comparison in B survives, and s adds a new one. A path
+replacing s could not be created by q: in the left case q ends above
+s's head; in the right case q starts below s's tail. The cover of s in
+A therefore excludes that path in B. The same argument applies to B'.
+
+For a pair (U,V), let N=binomial(n,2) and set
+
+    mu(U,V)=(|U|+|V|, 2N-|reach(U)|-|reach(V)|),       (B3)
+
+ordered lexicographically, with strict reachability counted off the
+diagonal. Every pair on the right of (B1) or (B2) has smaller mu than
+the left pair. These are finite, nonnegative measures.
+
+This proves descent for every permitted prepared-sector boundary step.
+It does NOT yet give an algorithm for all component coefficients: an E
+or C pair need not itself be another prepared-sector boundary pair, and
+we have not shown that every terminal remainder is a combination of whole
+components. Establishing that closure, or absorbing the remainders in
+other component corrections, is the remaining assembly obligation.
+
+### An exposed endpoint need not stay in the same source component
+
+The first-drop source 012333 has strict 03,14,25. Its ND contact at
+w=2,x=3,z=5 unmarks g=03 before NN. The actual NN target has area 012332,
+with strict 14,35. Consider its prepared state and its image
+
+    A ={03,14,24,34,35,45},
+    A'={02,14,24,34,35,45}.
+
+Both roots reach 5 through vertex 4 after 35 is deleted. The paired
+actual exits are
+
+    A  --34->13 [14]--> B ={03,13,14,24,35,45},
+    A' --24->12 [14]--> B'={02,12,14,34,35,45}.
+
+The needed shorts and 14 cover at both endpoints. In B the edge 35 is
+now a cover; in B' the virtual 25 would be a cover. Restoring 25 gives
+two source states interchanged by sigma. They lie in DIFFERENT whole
+source components: one selects the maximal natural corner 03 and the
+other omits it, and no actual flip can exchange a maximal natural corner.
+Thus exposure alone cannot justify setting their source indicators equal.
+This example occurs in the required first-drop induction, not only in an
+arbitrary unsaturated diagram.
+
+Identity (B1) gives the valid replacement
+
+    [B]-[B']=[03+14+24+35+45]-[02+14+34+35+45].        (B4)
+
+The two HRV values on either side are e_6 and e_(4,2), respectively;
+the difference is not zero. The proof retains it in the lower edge layer.
+A source component omitting 03 is independently corner-deletable, but
+turning that observation into a simultaneous whole-component repair is
+an additional step, not an indicator equality.
+
+Related Rust: the existing consumer option `--boundary-identities` checks
+every paired actual exit, both diamonds, the pruned terms, exact K/E and
+the strict reachability increase in (B2). The six earlier fixtures and
+the first-drop six-vertex fixture pass. The latter has sixteen bypass-loss
+and forty-five q-insertion exits. A separate exact source check confirms
+eight failures of the exposed-swap membership assertion among its sixteen
+bypass-loss endpoints. The broader source-swap probe passes 2087 exposed
+states in the complete six-vertex graph; that finite success does not
+remove the first-drop counterexample.
+
+Using the existing local relations and whole prepared-sector corrections,
+all 110 source components in 012333 have integral expressions in the 83
+whole target components. This is one further fixed collection check, not
+a proof that (B1)--(B3) form a closed general reduction. Frozen sources and
+receipts are in `prepared-boundaries-20260929/` under the external request
+folder. The DN continuation below treats the possible strict retained long.

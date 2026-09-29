@@ -34,6 +34,16 @@ five-vertex NN repairs need just one prepared contact-swap relation.
 The outstanding construction must cancel the remaining sector exits;
 induced-sector components are not automatically whole target components.
 
+The [boundary-descent identities](COMPONENT_NN_REDISTRIBUTION.md#descending-the-prepared-swap-boundary-identities)
+now cover both exit types for NN and both prepared DN channels. Paired actual
+flips and diamonds give successor pairs with fewer edges, or the same edge
+count and greater reachability. A strict retained e' is deleted in the smaller
+DN diagram R-e'. Every permitted step decreases an explicit measure, but
+successor pairs need not remain in the proved class. Coupled collection of
+those successors into whole components is still required. The first-drop
+012333 example also rules out cancelling exits by a universal exposed-source
+swap membership assertion.
+
 ## 1. The identity that gives positivity
 
 We work first with an ordinary decorated natural graph on ordered vertices

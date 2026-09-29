@@ -824,3 +824,84 @@ strict 57. It has thirty-two S_1 states and eight S_0 states. Both channels
 have nontrivial internal flips, so their graph-isomorphism check is not
 vacuous. This uses the same source/target maps, with the added attachment
 retained in every state.
+
+## Boundary descent for both prepared DN channels
+
+2026-09-29. The [NN boundary identities](COMPONENT_NN_REDISTRIBUTION.md#descending-the-prepared-swap-boundary-identities)
+also track the exits of both DN channels above. We give the decoration and
+edge-count details, including the exceptional strict-long case.
+
+Extend Phi_1 to every q-absent target state selecting e. Extend Phi_0
+to every q-absent target state omitting e, using the same set formulas
+(P2),(P3), whether or not the required bypasses hold. These formulas still
+produce valid target states. Phi_1 preserves the edge count; Phi_0 adds
+one edge. Equality of valuations is asserted only on their prepared domains.
+
+For a q-preserving exit A->B, let s,t be the old and new shorts and put
+E=A-s, F=A+t. Then, for either extended map Phi,
+
+    Phi(A)<->Phi(B),
+    [B]-[Phi(B)]=[E]-[Phi(E)].                        (B5)
+
+For Phi_1 the NN argument applies with the two selected edges e,e'
+interchanged. A q-preserving flip cannot exchange either of them. For
+Phi_0, a flip retaining e' becomes one retaining e. The extra e' inserted
+by Phi_0 is a maximal natural corner. Even when it ceases to be redundant
+at Phi_0(B), its insertion cannot affect the other tested covers. The same
+holds for r. No exchanged edge becomes a strict edge: e is absent in the
+source and cannot change along a q-preserving flip.
+
+The two paired diamonds therefore remain valid. The full state F contains
+A, preserves e's status, and retains all the required paths, including
+u-to-w in the Phi_0 channel. Hence [A]=[Phi(A)] and [F]=[Phi(F)]. Their
+cancellation proves (B5). Each state of the right pair has one fewer
+selected edge than its corresponding state on the left, including the
+one-edge offset between the two Phi_0 channels.
+
+For an exit inserting q, the two exchanged arms in the q-triangle are
+both selected at A and interchanged by sigma. Their covers survive the
+prepared map, so the same s->q exchange is actual at A'=Phi(A). Let B'
+be its endpoint. The two diamonds give, with all exterior retained,
+
+    [B]-[B']=[A-s]-[A'-s]+[A+q]-[A'+q].               (B6)
+
+In the Phi_0 channel the triangle cannot be u,w,x: that exchange would
+require the absent e to be selected. Thus both arms of its q-triangle
+belong to the common exterior, as needed for this pairing.
+
+If the retained long ell is normal, delete it from the two full terms
+in (B6). This gives precisely (B2), including the strict increase of
+reachability at unchanged edge count. The only possible strict ell is
+e'=ux, in the Phi_1 channel. Its exchanged normal shorts are e,q. In
+that case the full terms make e' redundant through e,q. Delete e' in
+BOTH terms, interpreting them in the ordinary smaller diagram
+
+    J=R-e', with r and all common strict edges retained strict.
+
+Deletion is valid because e' is a natural corner, and no other edge of
+the full terms is lost. The two empty terms stay in R. Thus even the
+strict-long case yields a signed identity of states in smaller ordinary
+diagrams, with the same coefficients for K,E. We do not keep a state
+omitting e' while calling it a state of R.
+
+With this interpretation, every resulting pair strictly decreases the
+measure (B3): the empty pair loses one edge at each endpoint, while the
+pruned full pair keeps the counts and strictly increases reachability.
+This is a proved local descent for every boundary type of the two
+prepared DN channels. Neither the R terms nor the J terms have yet been
+shown to collect uniformly into whole components. In particular, deleting
+a redundant strict edge in these individual full terms is not an appeal
+to the stronger whole-component inactive-corner lemma.
+
+Related Rust: `--boundary-identities` verifies the paired actual flips,
+exact K/E identities, both count changes, and strict inclusion of the
+reachability relations. When ell=e', it constructs J and checks that its
+natural edge set is exactly R minus e', and that both pruned relations
+are valid there. In the crossing six-vertex example the Phi_1 counts are
+four bypass-loss, ten normal-long q-insertion and five strict-long
+q-insertion boundaries; Phi_0 has one bypass-loss and three normal-long
+boundaries. The attached eight-vertex fixture checks the same identities
+with nontrivial exterior component flips. Frozen sources, commands and
+receipts: `prepared-boundaries-20260929/` under the external request folder.
+No Lean build, maintained Rust edit, extra worker or independent review
+is used. The remaining global closure obligation is stated after (B3).

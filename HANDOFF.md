@@ -1,5 +1,50 @@
 # VerticalStripLLT handoff
 
+## Active boundary continuation — local descent proved
+
+Primary resumed from clean pushed `b9bc4ae` with unchanged ownership. The
+preceding goal turn made verified progress; the full NN/DN tracking goal
+remains active and unfinished.
+
+**New proved increment:** every exit of either prepared NN/DN channel has
+an exact signed [boundary descent](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#descending-the-prepared-swap-boundary-identities).
+For a q-preserving bypass-loss exit, the paired actual flips and two diamonds
+move the valuation difference to a pair with one fewer selected edge at
+each endpoint. For q insertion, paired actual flips and two diamonds give
+a lower-edge pair plus a same-edge pair with strictly greater reachability.
+The lexicographic pair (total selected edges, missing reachability relations)
+strictly decreases on every resulting pair. The
+[DN strict-long exception](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#boundary-descent-for-both-prepared-dn-channels)
+deletes redundant e' in the full terms and places them in the valid smaller
+diagram R-e', retaining r strict. These are arbitrary-exterior proofs.
+
+**Important non-completion distinction:** successor pairs need not themselves
+be prepared-sector boundary pairs, or individually be sums of whole components.
+A decreasing measure for these permitted steps is NOT yet a closed recursion
+for the source component. Next track the lower-edge and q-selected successor
+terms together, using the source indicator, and prove whole-component closure.
+Do not infer that arbitrary orientation differences can be collected separately.
+
+**Refuted shortcut:** an exposed source anchor does not force adjacent-swap
+membership equality. In the required first-drop 012333 example (ND unmarking
+03, then NN at 25), a genuine prepared-sector exit gives swapped source
+states on opposite selected-03 strata. Both are active at the marked corners,
+but their whole components differ. The explicit paired exit and its nonzero
+lower-layer replacement are recorded after (B3). A universal source-path
+argument cannot dispose of these boundaries.
+
+**Checks:** exact paired flips, diamonds, pruning, reachability inclusion and
+strict decrease pass in the six earlier diagrams, the 012333 first-drop
+fixture, and the attached eight-vertex DN fixture. For 012333, all 110 source
+components also have integral expressions in its 83 whole target components
+using the existing local relations and prepared-sector corrections. This is
+finite evidence only. Frozen sources, logs and commands are in
+`/lake-cache/ai-projects/requests/VerticalStripLLT/prepared-boundaries-20260929/`.
+Previous proof notes remain verbatim prefixes. All diagnostic jobs have
+finished. Runtime discovery and `codex mcp list` were checked; existing Rust
+capabilities/consumer were reused. No Lean build, maintained Rust edit, extra
+worker, or independent review.
+
 ## Current continuation — prepared swaps
 
 Primary resumes from clean pushed `65cc9ac`; the preceding goal turn made
