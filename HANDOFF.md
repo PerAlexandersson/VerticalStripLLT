@@ -360,6 +360,7 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Proof checkpoint: `e6d530e` (all retained-edge comparisons with r and wt covering).
 Current s-path increment: a path y-to-s replaces the selected edge ys;
 all r/wt-cover comparisons now follow. Three fixed n10/n12 paths have
 15,19,19 flips, with suffix lengths 1,3,2. Every actual flip, strict edge
