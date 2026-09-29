@@ -59,6 +59,13 @@ endpoint note is preserved byte-for-byte as a prefix, 65 local file links and
 note at that checkpoint verbatim as a prefix. No new independent review is
 claimed for either increment.
 
+The full-layer/forced-union proof checkpoint `b316d41` is also pushed to
+`origin/main`. Both proof-note prefix checks, 78 local file links and
+`git diff --check` pass. All launched diagnostics have finished; no background
+job needs monitoring or restarting. The maintained Rust checkout is clean.
+No Lean source, manuscript or external Overleaf file changed. The mathematical
+results above have not been formalized in new Lean declarations.
+
 Runtime tools and `codex mcp list` were inspected. Lean MCP is rooted at
 RealRooted, not this project. No Lean build is currently needed; no additional
 worker or consultation is authorized or launched. The following account-switch
