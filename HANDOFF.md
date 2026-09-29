@@ -117,7 +117,7 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
-Current increment: two-anchor transfer and DN incoming-cut preparation.
+Proof checkpoint: `9a209a8` (two-anchor transfer and DN incoming-cut preparation).
 Proof checkpoint: `1b4f794` (general exposure and DD/ND inheritance).
 Proof checkpoint: `e1ef5eb` (selected-suffix repair and notebook recurrence).
 Pushed: `c9c0e3a` (preserved and extended retained-edge proof), `c458c8e`
