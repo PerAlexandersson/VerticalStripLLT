@@ -1,5 +1,56 @@
 # VerticalStripLLT handoff
 
+## Crash recovery — 2026-09-29
+
+Author steering during recovery: use the rough component bijections in the
+PDF of diagrams. Found and visually read the one-page photographed notebook
+`/home/paxinum/Dropbox/Apps/Overleaf/LLT flip/llt pics.pdf` (created Sept29
+01:07UTC). This source was missing from both handoffs. It shows cases I--III,
+an identity-map bracket and row/column swaps annotated as preserving the
+component. Reconstruct these exact maps before making further local case
+search a prerequisite. Do not confuse this notebook with our later two-page
+`dn-local-cases.pdf`. Exact cell labels and the top signed recurrence still
+need transcription; do not assert a pointwise middle-state bijection merely
+from the arrows. A rendered inspection copy is in the recovery receipts.
+
+New proof progress: five additional arbitrary-exterior sufficient conditions
+are appended to the retained-edge note: a covering triangle to the right,
+a two-row branch repair to the left of s, and three rows allowing both
+original anchors to be redundant. Every applicable row passed the existing
+exact Rust diagnostic on areas011234 and0112345, with every flip and endpoint
+checked. This closes all r-cover pairs in those fixtures and120 of310
+neither-cover pairs at n7;190 remain outside the current sufficient conditions.
+No unrestricted retained-edge theorem or component reassembly is claimed.
+The new arguments have primary self-checks only; no reviewer was relaunched.
+
+Primary resumes the existing academic Astra/high assignment at `b67aebe`
+on `main`. The two pre-crash dirty files, this handoff and
+`docs/proofs/COMPONENT_DN_RETAINED_EDGE.md`, are explicitly adopted and
+preserved in full; further proof text will be appended. Before-images are
+under external `dn-crash-recovery-20260929/`. Primary also owns the external
+remaining-path diagnostic and the Overleaf handoff update.
+
+The reboot ended the old reviewer/Claude processes: the live-handle paragraph
+below is historical. The saved Claude result and stderr are both empty;
+there is no consultation result to use. Do not relaunch it, a subagent, or
+another worker. No Lean/Lake builds are authorized. The existing model,
+profile, role and service tier are unchanged. Registry and `codex mcp list`
+were inspected; Lean MCP remains rooted at RealRooted and is unused.
+The preserved third proposition handles two additional r-cover subcases;
+uncovered retained-edge cases, the left retained-e-prime case, and component
+reassembly remain the proof targets. This section supersedes old live-status
+and NEXT entries below without removing their recovery history.
+
+Active continuation from `b67aebe`: primary owns the external
+`first_join_tree_lifts.rs` remaining-path diagnostic and proof notes.
+Existing reviewer is read-only on the r-cover/no-t-to-z case. The previous
+turn made progress. No new worker/account or Lean build is authorized here.
+Primary also owns one user-authorized, read-only Claude consultation, with
+tools disabled and a self-contained prompt, on the remaining r-cover case.
+Exec handle70133, normal1200-second timeout; logs/prompt/status are under
+external `dn-remaining-paths/claude/`. No account/model override was used.
+Primary monitors the child and retains all source/build ownership.
+
 ## New arbitrary-exterior retained-edge repairs
 
 2026-09-28--29, continuation from `66574a3`. The previous turn made progress;
