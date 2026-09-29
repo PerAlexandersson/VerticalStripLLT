@@ -2,6 +2,18 @@
 
 ## Crash recovery — 2026-09-29
 
+Recovered sketch and next step:
+[notebook component maps](docs/proofs/COMPONENT_NOTEBOOK_MAP.md) links the
+original photograph, proves the full-component identity map for corner
+marking/deletion with arbitrary exterior and no saturation, and identifies
+the two standard DN endpoint maps. The exact I/II/III cell transcription
+and sign before III still need checking; do not silently equate a pointwise
+poset map with a whole-component bijection. Follow the notebook component
+brackets before expanding the retained-edge case search further.
+Proof checkpoint `c9c0e3a` is committed and pushed to `origin/main`.
+Primary owns this new source map and its documentation links; no other worker
+is active in this lane. The full requested recurrence proof remains open.
+
 Author steering during recovery: use the rough component bijections in the
 PDF of diagrams. Found and visually read the one-page photographed notebook
 `/home/paxinum/Dropbox/Apps/Overleaf/LLT flip/llt pics.pdf` (created Sept29

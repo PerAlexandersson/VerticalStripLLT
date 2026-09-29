@@ -13,6 +13,9 @@ The component result is the finite strict/e identity on actual complete componen
 
 ## Proof sources
 
+- [Author's notebook component maps](proofs/COMPONENT_NOTEBOOK_MAP.md): the
+  recovered photographed sketch, its corner identity map on whole components,
+  and the endpoint maps that guide the continuing local recurrence proof.
 - [Ordinary component word proof](proofs/COMPONENT_ORDINARY_PROOF.md).
 - [Alternative diamond proof search](proofs/COMPONENT_AUXILIARY_DIAMONDS.md):
   proved auxiliary reductions; the general component step remains open.
