@@ -19,7 +19,19 @@ is proved with arbitrary exterior. Together with the earlier f-cover
 result, it settles every comparison where either outer anchor covers
 at Q+xs. Checkpoints `0cbefcc` and `dd844e9` are pushed to origin/main.
 
-The latest continuation proves [arbitrary lower-prefix repairs](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#preparing-an-arbitrary-lower-prefix-inside-ws).
+The latest continuation proves [transfer with covers only in the background](docs/proofs/COMPONENT_RIGHT_ARM_TRANSFER.md#covers-in-the-background-and-an-absent-direct-suffix).
+If uc,vc cover in Q, neither root reaches d, and dc is absent, then
+Q+ud~Q+vd even with arbitrary d-to-c paths. Different incoming cuts at
+the endpoints, followed by increasing covering-arm transfers, meet exactly.
+
+Its [retained-edge corollary](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#an-absent-tz-with-arbitrary-paths-from-t-to-z)
+settles absent tz whenever wt covers, w reaches s, and r,sz cover in Q.
+The short extension reaches Q+xt; the new transfer finishes at Q+st.
+Together with (51), only selected redundant tz remains under those
+other hypotheses. The general both-redundant comparison, the unrestricted
+left comparison and whole-component reassembly remain open.
+
+The preceding continuation proves [arbitrary lower-prefix repairs](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#preparing-an-arbitrary-lower-prefix-inside-ws).
 For x<a<s, assume ws,wt,xa,sz,tz cover, w reaches a, and r covers after
 xs and xa are deleted. Preparing wa entirely inside [w,s] allows its
 full restoration after xt becomes st. The edge wa may be absent or
@@ -375,6 +387,10 @@ Current shared-prefix continuation owns an append-only retained-edge branch
 lemma with arbitrary w-to-y paths, both handoffs, outline routing and fixed
 checks in the external consumer. It preserves the complete prior note.
 
+Current suffix-cover continuation owns append-only proofs in the retained-edge
+and right-arm-transfer notes, fixed external-consumer diagnostics, outline
+routing and both handoffs. It uses different incoming cuts at the endpoints.
+
 Current lower-prefix continuation owns append-only arbitrary-prefix and
 short-extension proofs, six fixed path checks and two bounded n8 discovery
 comparisons in the external consumer, outline routing and both handoffs.
@@ -410,6 +426,16 @@ including its original dirty paragraph, is preserved in the
 Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
+
+Current suffix increment: two fixed n9/n12 background transfers pass
+16/32 flips, including nonadjacent roots, multiple suffix paths and redundant
+incoming edges. Two fixed n12 retained repairs pass 26/22 flips, with absent
+or redundant ws and absent tz despite t reaching z. Every actual flip,
+strict edge and exact endpoint passes; no large state space is enumerated.
+The selected-dc five-vertex diagnostic has an eleven-flip path (71 states),
+but no general selected-redundant-dc theorem is claimed. Both prior proof
+notes remain verbatim prefixes. No Lean/Lake build, worker, consultant,
+maintained Rust edit or independent review. Proof checkpoint pending.
 
 Proof checkpoint: `abd4506` (arbitrary lower-prefix repairs).
 Current lower-prefix increment: four fixed n8/n12 paths under (47) pass
@@ -627,7 +653,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-lower-prefix-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-suffix-covers-20260929/`.
+Lower-prefix receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-lower-prefix-20260929/`.
 Lower-bypass receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-both-redundant-20260929/`.
 General r-cover receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-common-ancestor-20260929/`.
 Covering-interval receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-covering-fork-20260929/`.

@@ -1834,3 +1834,49 @@ left comparison and whole-component reassembly are still separate tasks.
 The entire prior retained-edge note remains a verbatim prefix. No Lean/Lake
 build, worker, consultant, maintained Rust edit or independent review
 was used. The general component e-expansion remains open.
+
+## An absent tz with arbitrary paths from t to z
+
+2026-09-29 continuation. We remove the suffix-cover condition from (51)
+when tz is absent, without assuming that t does not reach z.
+
+**Proposition.** Keep the opening Q conditions. Suppose
+
+    wt covers in S=Q+xs, and w reaches s;
+    r=xz and sz cover in Q;
+    tz is absent.                                   (52)
+
+Then S~Q+st with arbitrary exterior and every other edge restored.
+The edge ws may be absent or redundant, and t-to-z paths may have
+arbitrary competing branches and redundant incoming edges at z.
+
+First apply the short-extension lemma (50), reaching Q+xt and restoring
+the entire lower prefix. Now apply the [background-anchor proposition](COMPONENT_RIGHT_ARM_TRANSFER.md#covers-in-the-background-and-an-absent-direct-suffix)
+(A3) with
+
+    (u,v,d,c)=(x,s,t,z).
+
+Its two anchors cover in Q by (52), and Q has neither an x-to-t nor
+an s-to-t path by the opening conditions. The direct suffix tz is
+absent. Thus Q+xt~Q+st, proving the proposition. The intermediate r
+may be redundant through xt and a t-to-z path; (A3) specifically allows
+this. We do not use the earlier theorem requiring r to cover in S.
+
+Combining (52) with (51), the same hypotheses on wt, w-to-s reachability
+and the background covers r,sz now settle every suffix case except a
+SELECTED REDUNDANT tz. These hypotheses do not assert the unrestricted
+both-redundant retained-edge theorem. Other failures of the displayed
+covers and the left comparison remain separate from this corollary.
+
+Related Rust: external `first_join_tree_lifts.rs`, option
+`--retained-absent-tz`, checks two fixed n12 states with absent/redundant
+ws, several t-to-z paths, absent tz and an initially redundant incoming
+edge at z. The short extensions take 10 and 6 flips; the subsequent
+background-anchor transfer takes 16 in each. The complete repairs take
+26 and 22 flips. Every actual flip, strict edge and exact endpoint is
+checked; no state space is enumerated. Sources and receipts are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-suffix-covers-20260929/`.
+The complete prior note remains a verbatim prefix. No Lean/Lake build,
+worker, consultant, maintained Rust edit or independent review was used.
+The whole-component reassembly needed for the general e-expansion is
+still open.

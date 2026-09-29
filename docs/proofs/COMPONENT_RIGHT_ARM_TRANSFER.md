@@ -398,3 +398,100 @@ In contrast, all 576 applicable retained-edge comparisons in that same
 fixed diagram lie in one component pairwise. This is finite evidence for
 the latter statement, not its arbitrary-exterior proof.
 Receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/outgoing-no-path-20260929/`.
+
+## Covers in the background and an absent direct suffix
+
+2026-09-29 continuation. We can allow an anchor to become redundant after
+adding the moving arm, provided both anchors cover before the arm is added.
+The direct suffix must be absent; arbitrary longer suffix paths are allowed.
+
+**Proposition.** Let u,v be distinct vertices with u,v<d<c. Let Q contain
+covering uc,vc, have no u-to-d or v-to-d path, and omit dc. Then
+
+    Q+ud ~ Q+vd.                                     (A3)
+
+We include the full exterior in every cover test. Every edge except the
+moving arm is restored, and all strict edges remain selected. In particular,
+we do not assume that uc covers in Q+ud or vc covers in Q+vd.
+
+The roots do not reach each other in Q: either such path would bypass
+one of uc,vc. Adding an edge ending at d cannot change this fact. Put
+
+    I={h : d<h<c, hc is selected in Q, d reaches h in Q},
+    Q0=Q minus {hc : h in I}.
+
+We prepare the two endpoints differently. From S=Q+ud, process h in I
+in decreasing order, exchanging
+
+    hc -> vh [retain vc].                            (A4)
+
+The anchor vc covers in S, since v cannot reach u. The edge hc covers
+at its turn: a bypass has final edge kc with k>h and d reaching k, so
+that edge has already been removed. New edges start at v<d<h and cannot
+be used by a path starting at h. The target vh was absent in Q, since
+otherwise vc would not have covered. It has not been added at an earlier
+step. Removing hc clears every h-to-c path, so adding vh preserves vc
+covering. Each flip is actual.
+
+Because dc is absent, the cut removes the last edge of EVERY d-to-c
+path. It leaves the exact state
+
+    S_v=Q0+ud+{vh : h in I}.                          (A5)
+
+Both uc and vc cover there. The added ud has no d-to-c suffix, and u
+cannot use the new vh since it does not reach v. Conversely, starting
+at T=Q+vd, the symmetric cut hc->uh [retain uc] is actual and ends at
+
+    T_u=Q0+vd+{uh : h in I},                          (A6)
+
+again with both anchors covering. We retain the full second cut for
+later reversal; it is not the same preparation as (A4).
+
+Starting at S_v, process I in INCREASING order. For each h transfer vh
+to uh by the covering-arm lemma (A1), with roots v,u and arm endpoint h.
+At the start of this transfer, vh covers. Indeed, Q has no v-to-h path:
+such a path followed by the original hc would bypass vc. Previously
+transferred arms start at u, which v cannot reach. The remaining added
+arms vk have k>=h; none with k>h can begin a bypass to h. The selected
+ud starts at the inaccessible root u. These facts exclude every bypass
+of vh. The target uh was absent in Q by the original cover of uc and
+has not yet been inserted; h>d keeps it distinct from ud.
+
+The lemma permits u already to reach h, for example through ud. It
+clears the interfering outgoing paths as part of its construction and
+restores all other edges. In particular, both anchors cover at the end
+of each transfer. Thus we can apply it successively as stated.
+
+We now have Q0+ud+{uh : h in I}. The edge ud still covers: Q has no
+u-to-d path, and every added uh ends above d. Also vd is absent. Apply
+(A1) once more, transferring ud to vd. The resulting state is EXACTLY
+T_u. Reverse the recorded cut from T to T_u. Each inverse is actual
+because we start at its exact endpoint, with every other edge restored.
+We finish at T, proving (A3).
+
+All exchanged shorts lie properly inside one of the natural longs uc,vc,
+including those in the applications of (A1). They are therefore normal;
+no original strict edge is exchanged. The proof allows arbitrary exterior,
+nonadjacent roots and arbitrary cycle rank.
+
+### Why the direct suffix is still a separate case
+
+If dc is selected, extending I to include d makes both prepared endpoints
+contain ud AND vd. A remaining vh can then be redundant through vd and
+a d-to-h path. The increasing-order argument above no longer exposes the
+moved arm. We have not proved (A3) with a selected redundant dc. A selected
+covering dc is easier: dc->vd [retain vc], ud->dc [retain uc] is an actual
+two-flip row, since removing that covering dc clears all d-to-c paths.
+
+Related Rust: the external `first_join_tree_lifts.rs`, helper
+`background_anchor_path` and option `--two-anchor-background-transfer`,
+checks (A4), both prepared states, each use of (A1), and the exact reversal.
+Two fixed n9/n12 states pass 16 and 32 flips. The latter has nonadjacent
+roots; both have multiple suffix paths, initially redundant incoming
+edges and shared exterior descendants outside those suffixes. No state
+space is enumerated. A separate fixed selected-dc example on five vertices
+has an eleven-flip path (71 states visited); this is evidence only for
+that example. Sources and receipts are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-suffix-covers-20260929/`.
+No Lean/Lake build, worker, consultant, maintained Rust edit or independent
+review was used. Earlier text in this note remains a verbatim prefix.
