@@ -19,7 +19,23 @@ is proved with arbitrary exterior. Together with the earlier f-cover
 result, it settles every comparison where either outer anchor covers
 at Q+xs. Checkpoints `0cbefcc` and `dd844e9` are pushed to origin/main.
 
-The latest continuation proves the [three-cover retained-edge theorem](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#the-lower-reachability-hypothesis-is-no-longer-needed):
+The latest continuation handles a [redundant containing wt](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#a-redundant-containing-edge-when-every-outer-bypass-passes-through-t).
+Assume r,sz cover in Q, t reaches z, every w-to-z path in Q-f passes
+through t, and every proper selected incoming ht reached from w has
+h>s. Then Q+xs~Q+st even with arbitrary competing bypasses of wt.
+Borrow st from the suffix, move xs to ws, and cut the interfering
+incoming edges at t. Keep that cut while reversing the borrowed suffix;
+only then use the exposed wt and restore the incoming cut. The direct
+tz may be absent or redundant, and the incoming ht may be redundant.
+
+The standalone prefix-push lemma cannot simply drop its wt-cover
+hypothesis: a four-vertex closed two-state component gives a structural
+counterexample. The new retained-edge repair uses its extra outer anchors
+and the stated path conditions. Other wt bypasses, background-cover
+failures, left comparisons and whole-component reassembly remain open.
+The general recurrence proof is still incomplete.
+
+The preceding continuation proves the [three-cover retained-edge theorem](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#the-lower-reachability-hypothesis-is-no-longer-needed):
 wt covering in Q+xs and r=xz,sz covering in Q imply Q+xs~Q+st,
 with NO hypothesis on w-to-s reachability, ws, tz or other suffix edges.
 The new w-not-reaching-s case uses opposite incoming cuts, a lower
@@ -406,6 +422,11 @@ actual source components forced by the three pair families.
 
 ## Ownership and restrictions
 
+Current containing-bypass continuation owns append-only retained-edge
+arguments, fixed external-consumer diagnostics, outline routing and both
+handoffs. It investigates a redundant wt while keeping the two background
+anchors covering, preserving all prior proof text.
+
 Current no-lower-path continuation owns an append-only retained-edge proof,
 fixed external-consumer path checks, outline routing and both handoffs.
 It uses different incoming cuts at the endpoints and a prefix push after
@@ -493,6 +514,16 @@ including its original dirty paragraph, is preserved in the
 Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
+
+Current containing-bypass increment: four constructed paths pass 7,15,15,17
+flips at n7/n12. They include absent/redundant tz, three competing incoming
+edges at t (some redundant), and a three-edge borrowed suffix. Every
+actual flip, strict edge and exact endpoint passes; no n12 state space
+is enumerated. The four-vertex failed prefix-push extension is checked
+by its exact two-state closure. One fixed n7 discovery pair visited 587
+states and found the seven-flip row. Prior retained-edge text remains
+a verbatim prefix; no Lean/Lake, worker, consultant, maintained Rust edit
+or independent review. Proof checkpoint pending.
 
 Current no-lower-path increment: four fixed n12 comparisons pass
 21,29,25,33 flips with w not reaching s, absent/redundant tz and
@@ -755,7 +786,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-no-lower-path-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-containing-bypass-20260929/`.
+No-lower-path receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-no-lower-path-20260929/`.
 General-suffix receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-comparable-suffix-20260929/`.
 Incomparable-suffix receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-selected-suffix-20260929/`.
 Absent-suffix receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-suffix-covers-20260929/`.

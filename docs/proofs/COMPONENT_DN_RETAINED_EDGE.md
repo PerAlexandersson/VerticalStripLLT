@@ -2146,3 +2146,189 @@ All prior proof text remains a verbatim prefix. No Lean/Lake build,
 worker, consultant, maintained Rust edit or independent review was used.
 The requested general recurrence proof of component e-expansion remains
 incomplete until the remaining component comparisons and reassembly are proved.
+
+## Why the prefix push still needs its containing cover
+
+2026-09-29 continuation. We cannot remove the cover assumption on wt
+from the standalone prefix-push lemma (55), even though the retained-edge
+problem has additional outer anchors that may repair a redundant wt.
+
+On the complete natural diagram with vertices 0,1,2,3 and strict corner
+03, set R={03,02,23}, w=y=0, s=1 and t=3. The background has no
+w-to-s or s-to-t path, but wt=03 is redundant. The source R+01 lies
+in the closed two-state component
+
+    {03,02,23,01},       {03,02,23,12}.
+
+The only actual flip exchanges 01 and 12 while retaining 02. The edge
+03 is always redundant through 02,23; all other selected edges besides
+02 are adjacent. Thus no other actual flip leaves these two states.
+The target R+13 lies outside them. This proves separation without a
+state-space enumeration. It rules out dropping that hypothesis from
+(55), not the retained-edge comparison with its additional anchors.
+
+## A redundant containing edge when every outer bypass passes through t
+
+We can nevertheless allow wt to be redundant in the retained-edge
+comparison. The following construction handles arbitrary competing
+bypasses across s and arbitrary t-to-z suffixes, including absent or
+redundant tz. Its restoration order is essential.
+
+**Proposition.** Keep the opening Q conditions and assume
+
+    r=xz and sz cover in Q, and t reaches z;
+    every w-to-z path in Q-f passes through t;
+    if w<h<t, ht is selected and w reaches h, then h>s.   (59)
+
+Then Q+xs~Q+st, with every other edge restored. The edge wt need only
+be selected; it may have arbitrarily many competing bypasses. The last
+condition says that every proper final edge of such a bypass has its
+tail above s. It imposes no cover condition on those final edges.
+
+The path condition in Q-f implies w does not reach s: otherwise the
+path to s followed by the selected sz would avoid t. Also w does not
+reach x, by adjacency and the absence of wx. We will first borrow a
+covering st from the t-to-z suffix, then clear the interfering incoming
+edges at t, and retain that cut until the borrowed suffix is restored.
+
+### Borrow st and expose f
+
+Let
+
+    K={a : t<=a<z, az selected in Q, t reaches a}.
+
+Starting at Q+xs, process K decreasingly, exchanging az->sa while
+retaining sz. Each az covers when used by the last-edge argument. Each
+new sa is absent because sz covers, and the cut preserves that cover.
+It removes every t-to-z path. The set K is nonempty; let a be its
+smallest tail. The last new sa covers. Choose a saturated t-to-a path
+and work backwards along it, exchanging
+
+    bc -> sb [retain sc].
+
+Each new short supplies the next covering long, ending with st. The
+path survives the incoming cut, whose deletions all end at z. No new
+s-arm to a vertex b could already have been present: b originally led
+to z, while sz covered. Previously added s-arms end to the right of
+b. Every step is actual and sz remains covering, since each new arm
+ends at an originally t-reachable vertex whose paths to z were cleared.
+Denote this whole borrowing path by P.
+
+The path P deletes only edges starting at or above t. It adds only
+s-arms sb with t<=b<z, where b originally lay on a t-to-z path. Its
+only added edge with head at most t is st. It leaves t not reaching z.
+
+The edge f now covers. Its original bypasses all passed through t,
+and the borrowing cut removed every remaining t-to-z path. The new
+s-arms cannot be used from w, since w does not reach s. The selected
+xs cannot be used from w either. Consequently no new bypass of f
+has been introduced.
+
+Now exchange
+
+    sz -> ws [retain f],
+    xs -> sz [retain r].                             (60)
+
+The first flip uses the just-exposed f and the preserved cover of sz.
+Removing sz leaves s not reaching z. Thus xs no longer bypasses r;
+the new ws starts below x and cannot do so either. The second flip
+is actual and restores sz. We have replaced xs by ws, while retaining
+the borrowed covering st. The edge wt may still be redundant.
+
+### Keep an incoming cut at t during suffix restoration
+
+Using the ORIGINAL Q, set
+
+    H={h : s<h<t, ht selected, w reaches h}.
+
+Process H in decreasing order by ht->sh, retaining st. The last-edge
+argument again makes every ht a cover when processed, even if it was
+redundant originally. A bypass ends in a later kt with w reaching k,
+whose edge was already removed. The addition sh was absent because st
+covered, and the exchange preserves its cover. For every h in H, the
+completed cut leaves no h-to-t path.
+
+We can now reverse all of P, keeping this H-cut in place and keeping
+ws in place of xs. Here is the required exterior check.
+
+Every h in H is below t and reachable from w. If b>=t lies on one
+of the original t-to-z suffixes, any h-to-b path in Q must pass through
+t. Otherwise a w-to-h prefix (entirely below t), that path, and the
+b-to-z suffix would give a w-to-z path avoiding t, contrary to (59).
+The same assertion holds for b=z.
+
+Since the H-cut removes every h-to-t path, its added sh cannot bypass
+ANY tested long sb or sz in the inverse of P. During that inverse,
+paths starting at h use only edges of Q-H: the other temporary s-arms
+start below h, and restoring original suffix edges above t does not
+restore an incoming edge of H. Thus the preceding exclusion holds at
+every inverse step, not only at the final state.
+
+The other tested edges of P start at or above t, so they cannot use
+an added sh with h<t or the changed ws,xs, whose tails are below s.
+No deleted ht is an edge used by P. Removing those edges only helps
+covers. Every inverse flip is therefore actual. We restore the entire
+original t-to-z suffix, including the original status of tz, and remove
+the temporary st. The exact resulting state is
+
+    Q-H+{sh : h in H}+ws.
+
+At this point wt covers. By the last condition in (59), every proper
+original w-to-t path ended in H, and those edges are absent. A new
+path through ws cannot reach t: Q had no s-to-t path, and each added
+sh ends at a vertex h whose paths to t have been cut. Also ws covers,
+since Q had no w-to-s path and the other additions start at s. Hence
+we can exchange ws->st while retaining wt.
+
+Finally undo the H-cut. Every edge it tests lies in [s,t]. The only
+change that P made in this interval was the temporary st, and that
+edge has just been reinserted. Restoring the other suffix edges above
+t does not affect these tests. Removing ws, whose tail is below s,
+also cannot affect them. Thus the relation on each tested interval is
+exactly the corresponding forward relation, and every inverse is actual.
+We finish at Q+st, proving the proposition.
+
+If P has b moves and H has k edges, the construction uses 2b+2k+3
+flips. When tz covers, P is just tz->st [sz]. With one upper bypass
+at, s<a<t, the construction becomes the seven-flip row
+
+    tz -> st [sz],    sz -> ws [f],    xs -> sz [r],
+    at -> sa [st],    st -> tz [sz],   ws -> st [wt],
+    sa -> at [st].
+
+The general proof does not require at or tz to cover initially, or
+either to be the only edge on the corresponding routes. All exchanged
+edges are normal shorts inside selected natural intervals, so strict
+corners and the full exterior are preserved.
+
+The assumptions (59) are a separate sufficient class beyond (58), not
+a removal of the wt-cover hypothesis without replacement. They include
+states with wt redundant and both original outer anchors redundant at
+Q+xs. Other bypasses, including a proper final edge into t from below
+s or a w-to-z bypass avoiding t, remain outside this construction.
+No whole-component reducibility conclusion follows merely from this
+local source path.
+
+### Fixed checks and the remaining scope
+
+Related Rust: external `first_join_tree_lifts.rs`, helper
+`retained_dominated_suffix`, option `--retained-dominated-suffix`. The
+four-vertex prefix-push obstruction is checked by its exact two-state
+closure (two directed flips), with the target outside that set.
+Four fixed retained-edge paths pass: the seven-vertex example uses
+seven flips; two n12 states use fifteen flips with absent or redundant
+tz; a third n12 state uses seventeen flips and borrows st backwards
+along a three-edge suffix. The n12 states have three proper incoming
+edges at t, including redundant ones, and competing wt bypasses.
+Every actual flip, strict edge, restored suffix and final endpoint
+passes. No n12 state space is enumerated.
+
+The discovery option `--retained-containing-bypass-fixed` visited 587
+states in one fixed seven-vertex comparison and found the seven-flip
+row. The arbitrary-exterior argument above, rather than that finite
+search, proves the stated class. Sources and receipts are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-containing-bypass-20260929/`.
+The entire prior note remains a verbatim prefix. No Lean/Lake build,
+worker, consultant, maintained Rust edit or independent review was used.
+The general retained-edge and left comparisons and whole-component
+reassembly remain open; the requested recurrence proof is unfinished.
