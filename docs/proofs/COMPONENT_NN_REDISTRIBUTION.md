@@ -841,3 +841,72 @@ whole target components. This is one further fixed collection check, not
 a proof that (B1)--(B3) form a closed general reduction. Frozen sources and
 receipts are in `prepared-boundaries-20260929/` under the external request
 folder. The DN continuation below treats the possible strict retained long.
+
+
+## Following the swap through a further flip
+
+2026-09-29 continuation, following the notebook's component brackets.
+We keep every exterior edge and use only selected diagrams, diamonds
+and vertex relabeling. The user explicitly asks us to keep this proof
+in that language; basis calculations are not part of the argument.
+
+The adjacent-swap formula
+
+    A' = sigma(A-r)+r
+
+defines a valid target state whenever q is absent, even after a required
+bypass disappears. It need not preserve the value of that individual
+state. Nevertheless it still transports every q-preserving actual flip
+whose retained long is not r. The converse holds too.
+
+Indeed r is a maximal natural corner. Removing or inserting r cannot
+change a cover test for any other natural edge: a replacement path using
+r would put that other edge strictly around r. The triangle of a
+q-preserving flip cannot contain both w,x. Thus sigma preserves its
+vertex order, transports its shorts and retained long, and preserves
+both cover tests. The common strict corners remain selected. Applying
+the same swap again proves the converse.
+
+Suppose A<->B is such a flip and A'<->B' its transported flip. Write
+E,E' for the two diagrams with neither short selected. Write F,F' for
+the diagrams with both shorts selected and the redundant long deleted.
+The two diamonds say simply
+
+    [A]+[B]=[E]+[F],
+    [A']+[B']=[E']+[F'].
+
+Consequently, if we have already matched A with A', the next missing
+pair can be dealt with by
+
+    [B]-[B'] = -([A]-[A']) + ([E]-[E']) + ([F]-[F']). (C1)
+
+This is valid whether or not A still satisfies the bypass conditions.
+The empty diagrams have one fewer edge each. The pruned full diagrams
+have the same number of edges as A,B, but strictly more reachability:
+the new short was not implied before the flip, and the removed long
+is recovered through the two shorts. A deleted strict long is a natural
+corner; its pruned diagram is the smaller diagram with that corner
+removed. We keep all other strict edges.
+
+We may apply (C1) successively along a spanning tree of a complete piece
+of the target flip graph with q-insertion and r-retaining flips removed.
+If the piece contains a prepared state, its initial matched difference
+is zero. Repeated substitution expresses the difference of the two
+complete pieces as an integer sum of the empty and pruned-full pairs.
+This includes the bypass-loss flips inside that piece. No division is
+used: starting with coefficient 1 at each vertex, eliminate a leaf by
+(C1), subtract its coefficient from its parent, and continue.
+
+The remaining comparisons are precisely the omitted q-insertion and
+r-retaining flips. Pieces without a prepared starting state are not
+settled by this argument. Nor have we shown that the new signed terms
+assemble into whole target components. We must keep the terms from the
+original source component together and finish those comparisons.
+
+Related Rust: the existing consumer's `--extended-packets` option checks
+the paired flips in both directions and the complete-piece identities
+in the six earlier diagrams, the first-drop six-vertex example and the
+attached eight-vertex DN example. It also checks the edge and reachability
+changes. These are checks of the stated diagram lemma, not evidence that
+the missing whole-component assembly has been proved. Frozen receipts:
+`coupled-coefficients-20260929/` under the external request folder.

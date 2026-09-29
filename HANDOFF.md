@@ -1,5 +1,38 @@
 # VerticalStripLLT handoff
 
+## Current direction — follow the notebook diagrams
+
+The user's latest correction is explicit: stay away from basis calculations,
+keep the proof simple, and follow how the author and Robin reasoned. We
+reread the original one-page notebook PDF and its source map. Continue with
+ONE source component, the identity sectors II/III, paired middle diamonds,
+endpoint relabeling, and the missing members of whole RHS components.
+Do not make quotient calculations or arbitrary-pair collection the argument.
+
+Primary resumed from clean pushed `a43bb75`; ownership is unchanged:
+this handoff/outline, append-only NN redistribution and DN joint-repair
+notes, and the existing external consumers. Prior proof text remains intact.
+No Lean build, maintained Rust edit, additional worker or independent review.
+
+**Proved increment:** the [NN adjacent map](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#following-the-swap-through-a-further-flip)
+still transports every q-preserving flip not retaining r after a bypass
+is lost. The [two DN maps](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#following-the-two-dn-swaps-through-further-flips)
+do likewise with the stated retained-corner exclusions. Two diamonds give
+an exact rule for the next unmatched pair. Following a spanning tree gives
+an integral identity for complete pieces of those restricted graphs.
+These pieces are NOT whole RHS components. Closing the excluded flips
+and collecting the coupled signed terms remains open for both NN and DN.
+
+**Checks:** full paired-flip correspondences and complete-piece identities
+pass in the six earlier fixtures, the first-drop six-vertex case and the
+attached eight-vertex DN case. Frozen consumer sources, commands and logs:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/coupled-coefficients-20260929/`.
+Side coefficient experiments are retained there as exploratory receipts,
+not used in the diagram proof or its proposed next step. An initial
+basis-mismatched diagnostic failed; its corrected rerun passed. This did
+not affect previous diagram identities. No general collection result is
+claimed from these computations. The full goal remains active.
+
 ## Active boundary continuation — local descent proved
 
 Primary resumed from clean pushed `b9bc4ae` with unchanged ownership. The

@@ -905,3 +905,44 @@ with nontrivial exterior component flips. Frozen sources, commands and
 receipts: `prepared-boundaries-20260929/` under the external request folder.
 No Lean build, maintained Rust edit, extra worker or independent review
 is used. The remaining global closure obligation is stated after (B3).
+
+
+## Following the two DN swaps through further flips
+
+2026-09-29 continuation. We use the same diagram argument as
+[the NN continuation](COMPONENT_NN_REDISTRIBUTION.md#following-the-swap-through-a-further-flip).
+No change of basis or component-expansion theorem enters it.
+
+The formula Phi_1(A)=sigma(A-r)+r works on every q-absent state with
+e selected. It transports actual flips in both directions once we omit
+flips retaining r. The formula Phi_0(A)=sigma(A-r)+e'+r works on every
+q-absent state with e absent, with inverse sigma(B-e'-r)+r. Here we
+omit r-retaining flips on both sides and e'-retaining flips on the image
+side. A domain flip retaining e' becomes one retaining e and is allowed.
+The extra inserted e' is a maximal natural corner, so it cannot alter
+the other cover tests. A q-preserving flip cannot exchange e. These
+facts prove the correspondence even when a bypass has disappeared.
+They do not imply equality of the individual diagram values.
+
+For every matched flip, the two diamonds give exactly (C1). If a retained
+long is strict on one side, interpret its pruned full term in the smaller
+diagram deleting that corner on that side. The other strict edges stay
+selected. This includes the case where e' swaps to normal e. The two
+endpoints may therefore belong to different smaller decorated diagrams.
+
+Starting from a prepared matched pair, we can now follow every flip
+inside either of these restricted graphs, using (C1) at each step.
+Eliminating leaves of a spanning tree gives the same integral identity
+for complete pieces as in NN. The one-edge difference between A and
+Phi_0(A) is harmless: each empty term loses an edge on its own side.
+
+What remains is to close the excluded flips and assemble all signed
+terms from the original source component into whole components. The
+restricted pieces themselves are not whole RHS components. We do not
+replace this last check by a general statement about arbitrary pairs.
+
+Related Rust: `--extended-packets` verifies both flip correspondences
+and the complete-piece identities, including the attached eight-vertex
+example where both DN channels have nontrivial internal flips. Frozen
+sources and receipts: `coupled-coefficients-20260929/` under the external
+request folder. The general NN/DN collection remains unfinished.

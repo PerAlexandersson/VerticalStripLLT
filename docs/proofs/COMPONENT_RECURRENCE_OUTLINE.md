@@ -44,6 +44,15 @@ those successors into whole components is still required. The first-drop
 012333 example also rules out cancelling exits by a universal exposed-source
 swap membership assertion.
 
+The user has explicitly redirected us to the notebook's diagram reasoning:
+keep one source component, pair the middle configurations in the diamond,
+use the endpoint maps, and supply the missing members of whole RHS
+components. Basis calculations are not part of this proof. The latest
+[paired-flip lemma](COMPONENT_NN_REDISTRIBUTION.md#following-the-swap-through-a-further-flip)
+lets us follow the swap after a bypass is lost, but does not close the
+q-insertion and retained-corner boundaries. Keep the resulting signed
+terms together when finishing those component brackets.
+
 ## 1. The identity that gives positivity
 
 We work first with an ordinary decorated natural graph on ordered vertices
