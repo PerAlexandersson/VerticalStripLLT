@@ -36,7 +36,9 @@ internal flips, valuations and boundary classification in the six fixtures,
 a seven-vertex crossing extension, and an eight-vertex attached example
 with nontrivial internal flips in both DN channels. Frozen consumer sources,
 commands and receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/prepared-swaps-20260929/`.
-Previous proof text is preserved verbatim as prefixes. No Lean build,
+Proof checkpoint `975ca08` is pushed to `origin/main`. Previous proof text
+is preserved verbatim as prefixes; 98 local file links and `git diff --check`
+pass. No Lean build,
 maintained Rust edit, additional worker, or independent review. All launched
 checks have finished. Runtime registry and `codex mcp list` were checked;
 Lean MCP remains rooted at RealRooted and unused. The Rust capability check
