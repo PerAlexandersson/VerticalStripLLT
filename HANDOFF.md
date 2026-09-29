@@ -435,7 +435,8 @@ strict edge and exact endpoint passes; no large state space is enumerated.
 The selected-dc five-vertex diagnostic has an eleven-flip path (71 states),
 but no general selected-redundant-dc theorem is claimed. Both prior proof
 notes remain verbatim prefixes. No Lean/Lake build, worker, consultant,
-maintained Rust edit or independent review. Proof checkpoint pending.
+maintained Rust edit or independent review. Proof checkpoint: `d6e777a`.
+All 71 local file links and git diff --check pass.
 
 Proof checkpoint: `abd4506` (arbitrary lower-prefix repairs).
 Current lower-prefix increment: four fixed n8/n12 paths under (47) pass
