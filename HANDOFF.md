@@ -60,6 +60,7 @@ assert that no other known reduction applies or prove their recurrence.
 Previous proof-note contents are preserved as verbatim prefixes; 143
 local file links, frozen receipt hashes and `git diff --check` pass.
 Maintained Rust is clean at `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
+Proof checkpoint `b00ed34` is pushed to `origin/main`.
 
 ## Current continuation — middle pairing without joint short selection
 
