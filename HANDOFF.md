@@ -225,6 +225,7 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Proof checkpoint: `eb29be7` (exact homogeneous NN/DN completion).
 Current increment: homogeneous DN and NN closure, minimality, unit output
 coefficients and the exact criterion for completion using a specified
 collection of independently reduced source components. Existing Rust
@@ -242,6 +243,8 @@ option on K4: 32 states, 15 source components, eight target comparisons,
 one pair edge and 14 classes. It verifies complete outputs and exact K/E
 for every class, including the five-/two-state example. Its small external
 Rust build passed; no Lean/Lake build or maintained Rust edit occurred.
+Both old proof-note prefixes, 65 local file links and `git diff --check`
+pass. No new independent review is claimed.
 
 Proof checkpoint: `96c0bb0` (left-sector reduction and forced DD source additions).
 Preceding increment: arbitrary-exterior R01-to-R10 left-flip lifting and exact
