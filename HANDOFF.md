@@ -19,7 +19,21 @@ is proved with arbitrary exterior. Together with the earlier f-cover
 result, it settles every comparison where either outer anchor covers
 at Q+xs. Checkpoints `0cbefcc` and `dd844e9` are pushed to origin/main.
 
-The latest continuation proves [background-anchor transfer with an arbitrary suffix](docs/proofs/COMPONENT_RIGHT_ARM_TRANSFER.md#background-anchor-transfer-with-an-arbitrary-suffix):
+The latest continuation proves the [three-cover retained-edge theorem](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#the-lower-reachability-hypothesis-is-no-longer-needed):
+wt covering in Q+xs and r=xz,sz covering in Q imply Q+xs~Q+st,
+with NO hypothesis on w-to-s reachability, ws, tz or other suffix edges.
+The new w-not-reaching-s case uses opposite incoming cuts, a lower
+covering anchor, transfers of the prepared arms, and a prefix push.
+It matches the complete target preparation before reversing that cut.
+
+Together with the earlier either-outer-cover theorem, any still possible
+retained-edge defect must also fail at least one of these three covers.
+This is a pointwise support restriction, not independent reducibility
+of a whole source component. Other cover failures, the left comparison
+and whole-component reassembly remain open. The general recurrence
+proof is still incomplete.
+
+The preceding continuation proves [background-anchor transfer with an arbitrary suffix](docs/proofs/COMPONENT_RIGHT_ARM_TRANSFER.md#background-anchor-transfer-with-an-arbitrary-suffix):
 if uc,vc cover in Q and neither root reaches d, then Q+ud~Q+vd,
 with NO assumption on dc or any other suffix edge. For selected dc,
 we transfer the proper incoming arms in increasing order. An obstructing
@@ -392,6 +406,11 @@ actual source components forced by the three pair families.
 
 ## Ownership and restrictions
 
+Current no-lower-path continuation owns an append-only retained-edge proof,
+fixed external-consumer path checks, outline routing and both handoffs.
+It uses different incoming cuts at the endpoints and a prefix push after
+transferring the prepared arms. All previous proof text is preserved.
+
 Current comparable-suffix continuation owns append-only one-sided shared-arm
 and unrestricted background-anchor proofs, their retained-edge corollary,
 fixed external-consumer checks, outline routing and both handoffs. Earlier
@@ -474,6 +493,17 @@ including its original dirty paragraph, is preserved in the
 Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
+
+Current no-lower-path increment: four fixed n12 comparisons pass
+21,29,25,33 flips with w not reaching s, absent/redundant tz and
+comparable incoming tails. They include a tail between s,t and either
+y=w or a lower covering anchor reached along competing prefix paths.
+The selected-tz cases create st in the source preparation and xt in
+the target preparation. Every actual flip, strict edge, exact prepared
+state and final endpoint passes; no state space is enumerated.
+The prior retained-edge note remains a verbatim prefix; the right-arm
+note is unchanged. No Lean/Lake build, worker, consultant, maintained
+Rust edit or independent review. Proof checkpoint pending.
 
 Current comparable-suffix increment: two fixed n12 one-sided shared-arm
 paths pass 22 flips each, with both root orders, a clearing below h,
@@ -724,7 +754,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-comparable-suffix-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-no-lower-path-20260929/`.
+General-suffix receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-comparable-suffix-20260929/`.
 Incomparable-suffix receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-selected-suffix-20260929/`.
 Absent-suffix receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-suffix-covers-20260929/`.
 Lower-prefix receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-lower-prefix-20260929/`.

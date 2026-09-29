@@ -1970,3 +1970,179 @@ worker, consultant, maintained Rust edit or independent review was used.
 The requested general recurrence proof of component e-expansion remains
 incomplete until the remaining source comparisons and whole-component
 reassembly are established.
+
+## Pushing a short along a prefix that does not already reach s
+
+2026-09-29 continuation. The following elementary construction will handle
+the alternative to w-to-s reachability in (54). It uses only the containing
+interval and the displayed path conditions.
+
+**Prefix-push lemma.** Let w<=y<s<t. Suppose a selected background R has
+wt covering, w reaching y, no w-to-s path and no s-to-t path. Then
+
+    R+ys ~ R+st,                                    (55)
+
+with every other edge restored. Both added edges are absent in R.
+
+Adding ys preserves the cover of wt, because s does not reach t.
+Choose a saturated w-to-y path. Starting with the covering long wt,
+carry its endpoint forwards along that path: for each consecutive pair
+a,b, exchange ab->bt while retaining at. Each path short covers when
+used, since the earlier additions end at t>y. Each new bt supplies the
+next covering long. Call this prefix preparation P; it ends with yt
+covering. If y=w, P is empty.
+
+The edge ys still covers. It was the only y-to-s path, since otherwise
+w would already reach s in R, and P adds no edge ending below t>s.
+We can exchange ys->st while retaining yt.
+
+Undo P. The new st cannot bypass a tested path short, whose head is at
+most y<s. It cannot bypass a tested long at either: after removing ys,
+no prefix vertex a reaches s. Such a path in R would give w-to-s
+reachability; P only deletes edges below s and adds edges ending at t.
+Removing ys affects no selected edge used by P. Thus every inverse is
+actual. We finish at R+st, proving (55) in 2|P|+1 flips. Earlier prefix
+longs need not remain covering throughout the forward construction; the
+comparison with each corresponding forward state justifies the inverses.
+
+## The complementary case where w does not reach s
+
+**Proposition.** Keep the opening Q conditions. Suppose
+
+    wt covers in Q+xs;
+    r=xz and sz cover in Q;
+    w does not reach s in Q.                         (56)
+
+Then Q+xs~Q+st, with arbitrary exterior and every other edge restored.
+No cover or selection condition is imposed on tz or the other suffix edges.
+
+The adjacent vertices w,x with wx absent give w not reaching x. Thus
+adding xs does not change any path from w, and wt already covers in Q.
+Define the upper incoming set
+
+    I={h : s<h<z, hz selected in Q, w reaches h in Q}.
+
+Let y be the largest h with w<h<s, hz selected and w reaching h, if
+one exists; otherwise put y=w. We have y!=x, since w cannot reach x.
+The edge yz is selected, and y does not reach s. Write
+
+    Q0=Q minus {hz : h in I},
+    Q^s=Q0+{sh : h in I},
+    Q^x=Q0+{xh : h in I}.
+
+### Different incoming cuts at the endpoints
+
+Starting at S=Q+xs, process I in decreasing order by hz->sh, retaining
+sz. This is an actual incoming cut. The anchor sz covers; a bypass of
+hz ends with a later kz for which w also reaches k, so that edge has
+already been removed. The new sh is absent because sz covers, and the
+exchange preserves its cover. Every added edge starts below the tested
+incoming tails. We reach exactly Q^s+xs.
+
+Independently start at T=Q+st and process I in decreasing order by
+hz->xh, retaining r. The edge r covers in T: Q has no x-to-s path,
+so adding st cannot bypass r. The same last-edge argument proves every
+flip actual. We reach exactly Q^x+st and record this path for reversal.
+Both cuts allow h=t. In the first cut that step creates st; in the
+second it creates xt. We do not assume the same preparation works at
+both endpoints.
+
+In the source preparation, yz now covers. Any bypass ends in a selected
+kz with k>y and w reaching k. A tail k<s contradicts the maximality
+of y; k=s contradicts w not reaching s; every k>s belongs to I and
+was removed. The added sh cannot create a bypass because y does not
+reach s. The selected xs cannot be used from y: either y=w and w
+cannot reach x, or y>x. If y=w, this proves directly that f covers.
+
+The edge r covers in the background Q^s: adding sh creates no new
+x-to-z path since Q has no x-to-s path. It may be redundant when xs
+is present, which is why we first remove sz below.
+
+### Move the distinguished short and transfer the prepared arms
+
+Use the two actual flips
+
+    sz -> ys [retain yz],
+    xs -> sz [retain r].                             (57)
+
+The first uses the just-exposed yz and the preserved cover of sz. It
+creates a covering ys. Removing sz leaves no s-to-z path. Also x does
+not reach y: this is automatic for y=w<x, and otherwise follows from
+the covering r and selected yz in Q^s. Thus the new ys cannot bypass
+r. The second flip is actual and restores sz. We now have exactly
+Q^s+ys, with r and sz covering. The anchor yz may be redundant now;
+we will not retain it again.
+
+For h in I in INCREASING order, transfer sh to xh by the
+[two-covering-anchor lemma](COMPONENT_RIGHT_ARM_TRANSFER.md#arbitrary-exterior-transfer-with-two-covering-anchors)
+(A1), with roots s,x and common endpoint z. The arm sh covers when
+used. Originally Q had no s-to-h path, since sz covered and hz was
+selected. Previously transferred arms start at x<s, and ys starts below
+s; neither can be used by a path starting at s. The remaining added sk
+have k>=h, so none starts a bypass of sh. The target xh was absent
+in Q because r covered with hz selected, and it has not yet been
+inserted. Thus each transfer is actual and preserves both anchors.
+
+We arrive at Q^x+ys. Put R=Q^x. The original w-to-y path survives,
+since it ends below s whereas every removed incoming edge ends at z.
+The new xh edges are inaccessible from w because w,x are adjacent and
+wx is absent. Consequently R still has wt covering and no w-to-s path.
+It also has no s-to-t path: each added xh starts below s. The hypotheses
+of the prefix-push lemma (55) therefore hold. Apply it to replace ys
+by st, restoring its entire prefix.
+
+This reaches EXACTLY Q^x+st, the endpoint of the recorded target cut.
+Reverse that cut to finish at Q+st. Every inverse is actual because the
+whole prepared state matches, not merely its displayed local edges.
+All exterior edges are restored. If the arm transfers use a total of a
+flips and the final w-to-y prefix has m edges, the construction has
+
+    2|I| + a + 2m + 3
+
+flips. The containing wt may become redundant temporarily after (57),
+when the first cut has inserted st. We do not retain wt until ALL
+prepared s-arms have been transferred away and its cover is restored.
+All exchanged edges are proper shorts of selected natural intervals;
+no strict corner is changed.
+
+## The lower-reachability hypothesis is no longer needed
+
+Combining (54) and (56) gives the following stronger statement.
+
+**Theorem.** Under the opening Q conditions, if
+
+    wt covers in Q+xs, and r=xz, sz cover in Q,        (58)
+
+then Q+xs~Q+st, with arbitrary exterior and every other edge restored.
+If w reaches s, use short extension and the background-anchor theorem
+as in (54). If w does not reach s, use the opposite endpoint preparations
+and prefix push above. These two cases exhaust the possibilities.
+
+Thus no reachability assumption on w-to-s, no selection or cover
+assumption on ws, and no suffix assumption remain under the three
+cover hypotheses (58). In a retained-edge defect outside the already
+proved one-outer-cover cases, at least one of these three covers must
+also fail. This is a restriction on possible defects, not a proof that
+the whole corresponding source components are independently reducible.
+The unrestricted retained-edge comparison, left comparisons and
+whole-component reassembly still require further work.
+
+### Fixed checks
+
+Related Rust: external `first_join_tree_lifts.rs`, helper
+`retained_no_lower_path`, option `--retained-no-lower-path`. Four fixed
+n12 states have w not reaching s and both original outer anchors
+redundant at Q+xs. They test absent/redundant tz, comparable redundant
+incoming edges, an incoming tail strictly between s,t, and both choices
+of the final anchor: y=w or y=5 along a competing two-edge lower prefix.
+The paths have 21,29,25,33 flips. The selected-tz cases create st in the
+source cut and xt in the target cut. Every actual flip, strict edge,
+prepared-state equality and exact final selected set is checked.
+No state space is enumerated.
+
+Sources and receipts are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-no-lower-path-20260929/`.
+All prior proof text remains a verbatim prefix. No Lean/Lake build,
+worker, consultant, maintained Rust edit or independent review was used.
+The requested general recurrence proof of component e-expansion remains
+incomplete until the remaining component comparisons and reassembly are proved.

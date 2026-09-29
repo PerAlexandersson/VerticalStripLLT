@@ -302,6 +302,8 @@ separate order or reduction for recurrences crossing the chosen cut.
 | Redundant tz with covering proper incoming edges | [Selected-suffix corollary](COMPONENT_DN_RETAINED_EDGE.md#a-redundant-tz-with-covering-proper-incoming-suffix-edges) | Under the previous wt, reachability and background-anchor assumptions, redundant tz is allowed when the other incoming edges reached from t cover; superseded on suffix scope by (54) |
 | Arbitrary suffix behind two background covers | [General background-anchor transfer](COMPONENT_RIGHT_ARM_TRANSFER.md#background-anchor-transfer-with-an-arbitrary-suffix) | Q+ud~Q+vd whenever uc,vc cover in Q and neither root reaches d; no suffix restriction, including selected redundant dc and comparable incoming tails |
 | Retained repair after short extension, all suffix cases | [Corollary (54)](COMPONENT_DN_RETAINED_EDGE.md#removing-every-suffix-restriction-after-short-extension) | wt covering in Q+xs, w reaching s and r,sz covering in Q suffice; earlier suffix gaps are closed, while failures of these remaining assumptions are open |
+| Retained repair with three covers only | [Theorem (58)](COMPONENT_DN_RETAINED_EDGE.md#the-lower-reachability-hypothesis-is-no-longer-needed) | wt covering in Q+xs and r,sz covering in Q suffice, with no w-to-s or suffix assumption; any remaining defect fails at least one of these covers |
+| Push through a prefix after removing its short | [Prefix-push lemma](COMPONENT_DN_RETAINED_EDGE.md#pushing-a-short-along-a-prefix-that-does-not-already-reach-s) | R+ys~R+st when wt covers, w reaches y<s, w does not reach s and s does not reach t; all prefix edges are restored |
 | Moving only the distinguished short | [Crossing-cover paths](COMPONENT_DN_RETAINED_EDGE.md#sliding-the-moving-edge-along-crossing-covers) | An arbitrary-length alternating path proves the retained-edge comparison, allowing both anchors redundant; path existence remains a hypothesis |
 | DD/ND inheritance | [Corner-unmarking reductions](COMPONENT_DD_PACKETS.md) | DD reduces to DN, ND to NN, keeping the same whole component |
 | Recurrence choice and induction | [First-drop coverage](COMPONENT_RECURRENCE_COVERAGE.md) | Proved for every ordinary saturated diagram; NN/DN reassembly is the remaining induction input |
@@ -312,6 +314,14 @@ They are available tools, rather than extra hypotheses imposed on the main
 component push-through lemma.
 
 ## 8. Next proof work
+
+The current retained-edge result is (58): covering wt at Q+xs and
+covering r,sz in Q suffice without ANY lower-reachability or suffix
+restriction. Use that theorem and the earlier either-outer-cover theorem
+before examining a remaining comparison. The unresolved retained-edge
+cases must fail one of those covers; the older suffix gaps listed in
+historical constructions are closed. This pointwise result still does
+not prove whole-component reducibility or the general collection lemma.
 
 The notebook's I/II/III cells and positive signs have been reconstructed,
 and its two identity sectors are resolved at the component level. The
