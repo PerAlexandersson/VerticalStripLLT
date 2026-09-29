@@ -1253,3 +1253,130 @@ Sources, full edge lists and receipts:
 The complete prior retained-edge text is preserved as a verbatim prefix.
 No Lean/Lake build, worker, consultant, maintained Rust edit or independent
 review was used. The general component e-expansion remains open.
+
+## A covering interval across the incoming branch
+
+2026-09-29 continuation. We treat further cases with redundant wt.
+A different covering interval can carry a prefix to a vertex below t
+that already reaches t. Its inverse tests end strictly below t, so
+this preparation can be restored directly after the comparison.
+
+**Proposition.** Keep the opening configuration S=Q+xs, T=Q+st.
+Suppose there are vertices a,y,v such that
+
+    w<=a<y<v<t<z,       x<y,
+    r=xz, yz, av cover in S,
+    a reaches y,       v reaches t.                 (38)
+
+Then S~T with every other edge restored, with arbitrary exterior and
+cycle rank. Neither wt nor a selected direct ay needs to cover; ay
+may be absent. There is no condition on ys or on whether v reaches s
+or z. The cover assumptions already exclude y=s and a=x.
+
+If t reaches z, the earlier r-cover suffix theorem applies. If y
+already reaches t, the earlier reachable-anchor theorem applies.
+We may therefore assume neither of these paths exists initially.
+
+### Remove the paths from v to z
+
+Using the original S, list
+
+    C={h : v<=h<z, hz selected, v reaches h},
+
+where reachability from v to itself is allowed. Process C in decreasing
+order, exchanging hz->yh while retaining yz. Each hz covers at its
+turn: a bypass would end at a larger selected kz reachable from v,
+already removed. The current cover of yz makes the flip actual and
+is preserved. All new edges start at y<v, so reachability from v below
+z is unchanged. At the end v does not reach z.
+
+The cover of r persists. Initially x cannot reach y, because r covers
+and yz is selected. New edges start at y and cannot create such a path,
+so none of the new yh can bypass r. Likewise s cannot reach y: that
+path, preceded by the selected xs and followed by yz, would bypass r.
+Thus the new edges preserve all three conditions (1), after omitting xs.
+Reachability from v to t and from a to y is unchanged. No cut step
+creates a path from t to z, since its new tails lie below t.
+
+If the cut creates a y-to-t path, apply the reachable-anchor theorem
+immediately; r and yz still cover. The inverse cut is justified below.
+Otherwise every new yh has h>v. Indeed, processing h=v would add yv
+and hence a y-to-t path. All added heads therefore exceed v, and the
+cover of av is preserved. We now have (38) together with v not reaching z.
+
+### Move a prefix inside av
+
+Choose a saturated selected path
+
+    a=b_0 < b_1 < ... < b_m=y.
+
+Successively exchange
+
+    b_i b_(i+1) -> b_(i+1)v [retain b_i v],
+    i=0,...,m-1.                                    (39)
+
+The first retained long is the covering av. Each flip supplies the
+next covering long, while earlier added edges end above y and cannot
+spoil a prefix-short cover. At the end yv covers and y reaches t.
+Earlier temporary longs need not remain covering between their uses.
+
+The edge yz remains covering because the only new edges end at v,
+which does not reach z. The edge r also remains covering. No original
+prefix vertex b_i is reachable from x or s: its suffix to y and the
+selected yz would contradict the cover of r, using xs in the latter
+case. New edges end above every prefix vertex, so this remains true.
+Consequently (39) preserves r and all the conditions (1).
+
+Apply the earlier reachable-anchor theorem with the covering yz and
+the newly selected y-to-v-to-t path. It replaces xs by st and restores
+the entire prepared exterior. Now undo (39). Every tested interval is
+contained in [a,v], with v<t; the new st cannot occur on any such path.
+Removing xs can only help covers, and xs is not a tested edge, since
+a prefix through x would contradict the cover of r with yz selected.
+Every inverse is actual, restoring the full prefix.
+
+Finally undo the incoming cut in reverse order, in either branch of
+the proof. Compared with its recorded states, xs is removed and st
+added. A bypass of yz or hz using st would require a t-to-z suffix,
+which is still absent. A bypass of a tested yh would require t to
+reach h. But hz was originally selected, so an original t-to-h path
+would contradict t not reaching z. The cut only adds edges starting
+at y<t, and hence never changes reachability from t below z. Thus
+these bypasses are also impossible. All inverse flips are actual.
+This proves the proposition, restoring every edge other than xs.
+
+All exchanges are normal: the incoming cut lies inside yz and the
+prefix moves lie inside av. Both are selected natural edges. The
+full exterior is retained in every cover and reachability argument.
+
+For a one-edge prefix, (39) is the single fork flip ay->yv [av].
+This is the smallest instance of the proposition. The argument also
+explains why we do not need to move ys first. Doing so can make yz
+redundant after the fork flip when v reaches s; (39) avoids that step.
+
+### Scope and fixed checks
+
+The proposition supplies further repairs when wt is redundant, including
+arbitrary prefixes and redundant ys. Outside this criterion, the remaining
+r-cover cases still need another preparation or a coefficient correction.
+We have not shown that every selected path from w to t provides an
+interval av with a reaching the desired y. General whole-component
+reassembly and the unrestricted left comparison remain open.
+
+Related Rust: external `first_join_tree_lifts.rs`, options
+`--retained-covering-fork` and `--retained-covering-interval`.
+Four fixed n8/n10 fork paths have 7,7,7,9 flips, including a branch v
+that reaches s and a two-edge v-to-t path with vt absent. Two fixed n12
+states have redundant wt, redundant direct wy and redundant ys. One
+uses an incoming cut followed by a three-edge prefix (13 flips); in
+the other, the cut itself creates y-to-t and makes av redundant, so
+the direct reachable-anchor branch applies (9 flips).
+
+Every actual flip, strict edge and exact endpoint passes. No state
+space is enumerated. The receipt also retains a failed earlier test
+of unnecessary ys parking; that construction is not used here.
+Sources, full edge lists and receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-covering-fork-20260929/`.
+The complete prior retained-edge note remains a verbatim prefix. No
+Lean/Lake build, worker, consultant, maintained Rust edit or independent
+review was used. The general component e-expansion remains open.

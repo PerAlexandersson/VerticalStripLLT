@@ -14,15 +14,21 @@ remain intact in the [component catalogue](docs/COMPONENT_NOTE_CATALOGUE.md).
 
 Active goal: prove the general non-circular component e-expansion for
 Motzkin/Dyck diagrams by the diagram-bijection/recurrence approach.
-Latest continuation proves the [retained-edge comparison whenever r and wt cover](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#all-comparisons-with-r-and-wt-covering),
-with arbitrary exterior. The new path-to-s lemma removes the selected-ys
-hypothesis: an outgoing cut clears y-to-s paths, and a remaining suffix
-supplies a temporary sz. Moving st to tz then permits the full prefix
-to be restored. Every other edge is restored. Combined with the earlier
-t-reaching branch and the empty-B case, this settles every r/wt-cover
-comparison. The r-cover cases left outside these repairs have redundant
-wt. Cases with both outer anchors redundant and general component
-reassembly are still open.
+Latest continuation proves a [covering-interval retained-edge repair](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#a-covering-interval-across-the-incoming-branch),
+including cases with redundant wt. Suppose r,yz,av cover, x<y<v<t,
+a<y, a reaches y and v reaches t. A y-retained incoming cut removes
+v-to-z paths; either it immediately creates y-to-t, or the covering
+av moves an arbitrary a-to-y prefix to v. The earlier reachable-anchor
+theorem finishes, and all preparation is restored. No direct ay or ys,
+covering wt, or absence of v-to-s/v-to-z paths is required.
+
+The preceding [r/wt-cover corollary](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#all-comparisons-with-r-and-wt-covering)
+settles every retained-edge comparison with r and wt covering, using
+the path-to-s and temporary-tz constructions. Checkpoints `e6d530e`
+and `01092e6` are pushed to origin/main. The remaining r-cover cases
+have redundant wt and need a repair beyond the available covering-interval
+criterion. Both-redundant outer anchors, the unrestricted left comparison
+and general whole-component reassembly remain open.
 
 The preceding [multiple-route repair](docs/proofs/COMPONENT_DN_RETAINED_EDGE.md#several-routes-entering-s)
 handles selected, possibly redundant ys with arbitrary competing routes
@@ -253,30 +259,20 @@ until after undoing the borrowed suffix and the competing-x-arm cut.
 The direct common-branch row still handles covering wd,xd even when both
 outer anchors are redundant. Other failed cover cases, especially redundant
 td and both redundant outer anchors, and simultaneous full collection remain.
-For the retained-edge r-cover case with t not reaching z, inspect the
-largest member of the obstructing incoming set B. If it reaches t, the
-new truncated-cut/reachable-anchor proof finishes. The remaining branch
-therefore reaches s but not t; at least one obstructing direct wv must
-also be selected, since otherwise (C1) finishes. Do not repeat the already
-settled t-reaching branch or require y>s in the path-to-t construction.
-For the s-reaching branch, if wt covers and all w-to-s paths use a
-selected ys, the new prefix repair handles arbitrary w-to-y paths and
-redundant direct wy. Removing ys before reversing the prefix is essential.
-Several routes without a common selected final edge, or redundant wt,
-remain outside that construction.
-The new incoming-s proof handles arbitrary competing routes when ys is
-selected. Expose ys by an outgoing yz-retained cut, prepare yt along
-a saturated prefix, then use xs->sz[r], ys->st[yt], st->tz[sz]. Undo
-the prefix while both added edges end at z>t, then tz->st[sz] and
-sz->ys[yz], and undo the cut. Do not impose a least incoming tail.
-The path-to-s extension removes missing ys from the remaining cases.
-After its outgoing cut, use the last new vz and a saturated v-to-s path
-to supply sz; park st at tz, undo the prefix, restore st, then undo the
-suffix and outgoing cut. Together with the t-reaching and empty-B cases,
-this settles all comparisons with r and wt covering. Do not reimpose a
-selected ys, a common final edge or a least incoming tail. The remaining
-r-cover cases have redundant wt; this normal edge cannot simply be
-passed through the whole-component corner-deletion theorem.
+For the right retained-edge comparison, all r/wt-cover cases are proved.
+The r-cover cases still requiring repair have redundant wt. First inspect
+the largest bad incoming branch: reaching t is already resolved; otherwise
+it reaches s but not t and (C1)'s absent-direct-arm condition fails.
+After exposing its yz, look for a covering av with a reaching y and
+v<t reaching t. The new covering-interval theorem handles this even
+with redundant or absent ay, redundant ys, and paths v-to-s or v-to-z.
+The y-retained incoming cut either creates y-to-t directly or preserves
+av and permits a prefix inside [a,v]. Undoing that prefix is safe because
+v<t. Do not unnecessarily move ys: its temporary sz can obstruct yz.
+We have not shown that an arbitrary w-to-t path always supplies such
+an interval. Do not infer deletion of the non-corner wt from its redundancy,
+or reimpose a selected/common ys or a least incoming tail in the proved
+r/wt-cover case. The complete proof history remains in the retained note.
 The new reverse preparation supplies the same conclusion from covers at
 the tx endpoint: expose r first, then clear t-to-w paths using td. This
 can make f redundant, but r remains covering, which is sufficient. The
@@ -343,6 +339,10 @@ Current shared-prefix continuation owns an append-only retained-edge branch
 lemma with arbitrary w-to-y paths, both handoffs, outline routing and fixed
 checks in the external consumer. It preserves the complete prior note.
 
+Current covering-interval continuation owns the append-only retained-edge
+lemma, six fixed external-consumer checks, reorganized outline routing
+and both handoffs. It preserves the complete prior retained-edge note.
+
 Current s-path continuation owns the append-only retained-edge path lemma
 and r/wt-cover corollary, both handoffs, outline routing and fixed external
 consumer checks. The full prior proof text remains a verbatim prefix.
@@ -359,6 +359,15 @@ including its original dirty paragraph, is preserved in the
 Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
+
+Current covering-interval increment: arbitrary prefix inside av with
+r,yz,av covering, a reaching y and v<t reaching t; wt may be redundant.
+Four fixed fork checks pass 7,7,7,9 flips, and two n12 interval checks
+pass 13,9 flips. The latter include redundant wt,wy,ys and both branches
+of the incoming-cut proof. One earlier ys-parking trial fails when v
+reaches s; its receipt is retained and the final proof omits that step.
+No state enumeration, Lean/Lake build, worker, consultant, maintained
+Rust edit or independent review. Prior proof text remains verbatim.
 
 Proof checkpoint: `e6d530e` (all retained-edge comparisons with r and wt covering).
 Current s-path increment: a path y-to-s replaces the selected edge ys;
@@ -538,7 +547,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-s-path-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-covering-fork-20260929/`.
+Path-to-s receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-s-path-20260929/`.
 Multiple-route receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-incoming-s-20260929/`.
 Shared-prefix receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-shared-prefix-20260929/`.
 Reachable-anchor receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/retained-reachable-anchor-20260929/`.
