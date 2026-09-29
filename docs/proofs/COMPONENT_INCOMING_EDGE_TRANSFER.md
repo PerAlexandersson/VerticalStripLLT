@@ -792,3 +792,95 @@ repair, and the inverse cut: eight flips with all exterior restored.
 The composed nine-vertex normalization and shared repair also pass
 `--left-shared-fork`, with twelve flips. These are fixed path checks,
 not an enumeration of either state space.
+
+## Covers at the other endpoint of a left comparison
+
+2026-09-29 continuation. The preceding repair was stated with covers at
+the ut endpoint. We now allow the covers to occur at the tx endpoint.
+This is useful because the corner-difference reduction supplies witnesses
+with all strict corners covering, without prescribing the endpoint.
+
+Let A,B be the two source preimages of an actual left R10 flip:
+
+    u<t<w<x<d<z,       x=w+1,
+    A=Q+uw+wz+xz+ut,   B=Q+uw+wz+xz+tx,
+
+with wx absent and a selected g=td. The actual target flip retaining ux
+implies that ut covers in A, tx covers in B, and t does not reach x
+in A. Changes between target and source cannot affect these intervals:
+the new f=wz ends above x, while the removed ux starts below t.
+
+**Reverse-endpoint lemma.** Suppose uw and g cover in B, and at least
+one of wz,xz covers in B. Then A and B are connected by actual source
+flips, restoring all other edges. We impose no cycle-rank bound or
+condition on exterior paths.
+
+Since tx is selected and g covers in B, x does not reach d. This is the
+additional nonreachability that lets us prepare both endpoints.
+
+First arrange that r=xz covers. If it already covers, do nothing. Otherwise
+f=wz covers. In decreasing order, replace hz by wh while retaining f,
+for every selected hz with x<h<z and x reaching h. The usual incoming
+cut exposes r and preserves f. It also preserves g in B, even though
+t may reach w: every new head h was reachable from x and therefore
+did not reach d. These h-to-d paths cannot be created by the preparation,
+whose added edges start at w<h. Thus no new path through wh bypasses g.
+The cover of uw is unchanged, since every added head lies above x>w.
+All tested intervals start at w or later, so this preparation is actual
+at both A and B. It preserves their difference ut versus tx.
+
+Now clear the t-to-w paths. In the prepared B, list increasingly every
+selected th with t<h<=w and h reaching w. Exchange
+
+    th -> hd [retain g].                            (23)
+
+Each th covers at its turn, by the first-edge argument. Its companion
+hd is absent since g covers. The flips preserve g and eliminate every
+t-to-w path. The case h=w, which can insert wd and make f redundant,
+is INCLUDED. This is why we exposed r first: all newly inserted edges
+start at or below w<x, so they do not affect r or the fact that x does
+not reach d. We need only r covering after this sweep.
+
+The same sweep is actual at A. The edge ut starts below every tested
+tail, and the extra tx in B cannot affect a th cover since h<=w<x.
+It cannot affect g either, because x still does not reach d. The cover
+of uw in B persists: all added hd end above w. Call the endpoints
+A*,B*. The state A* now has uw covering as well. Its only additional
+edge relative to B* is ut; a new bypass of uw using ut would require
+the t-to-w path we have just removed. The original ut remains a cover,
+as all preparations occur above its head t.
+
+Thus A* satisfies the proved one-outer-anchor left repair: uw,td,ut,r
+cover, wx,tx are absent, and t does not reach x. It follows that
+A*~B*. Undo (23) and then the initial incoming cut along their recorded
+actual paths at B. This gives A~B and restores every other edge.
+In particular, we do not try to retain the possibly redundant f in
+the middle stage. This proves the reverse-endpoint lemma.
+
+**Either-endpoint corollary.** For an actual left comparison as above,
+it suffices that uw,td and at least one of wz,xz cover at EITHER source
+endpoint. The short-edge cover conditions are supplied by the actual
+target flip. The forward endpoint uses the preceding theorem; the reverse
+endpoint uses (23).
+
+### Verification of the reverse preparation
+
+Related Rust: external `first_join_tree_lifts.rs`, option
+`--left-reverse-covers`. Two fixed states start with uw redundant in A,
+while uw,td,wz cover in B. The area0122344 example uses eight flips.
+The area01223445 example also starts with r redundant and uses ten flips,
+including the preliminary incoming cut. In both, the t-to-w sweep inserts
+wd and makes f redundant, so a proof requiring both outer anchors to remain
+covering at that point would fail. The diagnostic checks each actual flip,
+strict-edge preservation and the exact restored endpoint.
+
+One fixed six-vertex source, area012233, has sixteen actual left R10
+comparisons. Six have uw,td,wz covering at A; two additional comparisons
+have those covers only at B. These eight pairs lie in the same actual
+source component, as proved. Of all sixteen comparisons, only one pairs
+different source components, and both its endpoints fail the three-cover
+condition. These finite counts are not used as the uniform proof.
+Sources and receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/left-endpoint-covers-20260929/`.
+No maintained Rust or Lean source changed; no Lean/Lake build, worker,
+consultant or independent review was used.

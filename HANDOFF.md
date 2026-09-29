@@ -14,7 +14,19 @@ remain intact in the [component catalogue](docs/COMPONENT_NOTE_CATALOGUE.md).
 
 Active goal: prove the general non-circular component e-expansion for
 Motzkin/Dyck diagrams by the diagram-bijection/recurrence approach.
-Latest continuation proves a [shared-branch left DN repair](docs/proofs/COMPONENT_INCOMING_EDGE_TRANSFER.md#closing-the-shared-covering-branch).
+Latest continuation proves [left defect support on three-cover witnesses](docs/proofs/COMPONENT_DN_DIRECT_OVERLAPS.md#left-defects-vanish-on-three-cover-witnesses).
+The required covers can occur at EITHER source endpoint of an actual left
+comparison. At a genuine first-drop DN contact, if uw,td,wz cover at one
+endpoint, the source preimages are connected. A nonzero left defect
+therefore forces a redundant member of these three strict corners at EACH
+endpoint; both three-corner alternating valuations vanish. In particular,
+no such defect touches a mixed-acyclic source state. This does not imply
+that the entire source components are mixed-cyclic or reducible. The
+genuine six-vertex example already has a left boundary between distinct
+source components, so coefficient repair remains essential outside this
+scope. The full recurrence theorem is still incomplete.
+
+The preceding continuation proves a [shared-branch left DN repair](docs/proofs/COMPONENT_INCOMING_EDGE_TRANSFER.md#closing-the-shared-covering-branch).
 With uw,td,ut covering, t not reaching x, the stated absent shorts and
 at least one covering outer anchor wz,xz, the source states A and
 A-ut+tx are connected by actual flips, restoring all exterior. No bound
@@ -191,6 +203,15 @@ until after undoing the borrowed suffix and the competing-x-arm cut.
 The direct common-branch row still handles covering wd,xd even when both
 outer anchors are redundant. Other failed cover cases, especially redundant
 td and both redundant outer anchors, and simultaneous full collection remain.
+The new reverse preparation supplies the same conclusion from covers at
+the tx endpoint: expose r first, then clear t-to-w paths using td. This
+can make f redundant, but r remains covering, which is sufficient. The
+remaining genuine-DN left defect is supported only on states with a
+redundant member of {uw,td,wz} at both endpoints. Their alternating values
+vanish, but a path through zero states can still connect nonzero states
+with different coefficients. Do not infer whole-component constancy from
+this statewise support restriction. Likewise do not seek a universal left
+source path: the old genuine-DN six-vertex I_3/C boundary refutes it.
 First check the new crossing-cover path criterion. If it fails, a local
 repair must change some background edges; fixed-background searching cannot
 help. Do not assume a general wt-to-xt transfer, even with x not reaching t.
@@ -234,6 +255,11 @@ preparation, the shared-branch repair and exposure of one outer anchor. The NN/D
 completion notes and the retained-edge note are unchanged in this increment.
 No previous independent review is asserted for new arguments.
 
+Current endpoint continuation owns append-only sections of the incoming-edge
+and direct-overlap notes, outline routing, both handoffs and the existing
+external consumer. It checks the reverse left comparison and the resulting
+support restriction on nonzero defects. Earlier proof text will be preserved.
+
 The reboot terminated the old workers/consultant. Its saved Claude output
 was empty; do not relaunch it. The pre-crash dirty retained-edge note was
 preserved in full, extended and committed. The full previous handoff,
@@ -242,6 +268,19 @@ including its original dirty paragraph, is preserved in the
 Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
+
+Current endpoint increment: reverse-endpoint left repair and the exact
+three-corner support restriction on nonzero genuine-DN left defects.
+The external consumer verifies fixed eight-/ten-flip paths with e redundant
+at A but covering at B; the latter also starts with r redundant. The t-to-w
+sweep makes f redundant in both, testing the need to expose r first.
+In fixed area012233, all sixteen actual left comparisons are checked:
+six meet the three-cover condition at A, two additional pairs only at B,
+and the sole distinct-component pair fails it at both endpoints. Proofs
+are uniform and do not use the finite check as a substitute. No Lean/Lake
+build, maintained Rust edit, additional worker or independent review.
+Both previous proof notes remain verbatim prefixes; the retained-edge note
+is unchanged. All 58 local file links and `git diff --check` pass.
 
 Proof checkpoint: `e765523` (shared-branch left DN repair).
 Current increment proves the arbitrary-exterior left repair with one outer
@@ -364,7 +403,8 @@ Maintained Rust is unchanged at
 `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
-Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/left-common-cone-20260929/`.
+Current receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/left-endpoint-covers-20260929/`.
+Shared-branch receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/left-common-cone-20260929/`.
 Homogeneous-completion receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/homogeneous-dn-closure-20260929/`.
 DD-boundary receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/common-preparation-20260929/`.
 Crossing-cover receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/outgoing-no-path-20260929/`.

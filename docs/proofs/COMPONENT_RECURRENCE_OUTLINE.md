@@ -284,6 +284,7 @@ separate order or reduction for recurrences crossing the chosen cut.
 | Middle-state transfer at exposure | [General exposure](COMPONENT_CORNER_EXPOSURE.md) | Both left/right exposing exits, with arbitrary exterior and cycle rank; intervening q-free paths remain |
 | Transfer between covering anchors | [Two-anchor transfer](COMPONENT_RIGHT_ARM_TRANSFER.md#arbitrary-exterior-transfer-with-two-covering-anchors) | Arbitrary exterior for covering arms and the stated outgoing-cut extension; a general shared-branch repair remains |
 | Incoming-arm transfer and left DN overlap | [Shared-branch repair](COMPONENT_INCOMING_EDGE_TRANSFER.md#closing-the-shared-covering-branch) | Arbitrary exterior with uw,td,ut covering and at least one outer anchor covering; both redundant outer anchors and other cover failures remain |
+| Covers at either left endpoint | [Three-cover defect support](COMPONENT_DN_DIRECT_OVERLAPS.md#left-defects-vanish-on-three-cover-witnesses) | At a genuine first-drop DN contact, a nonzero left defect forces a redundant member of uw,td,wz at each source endpoint; the three-corner alternating valuations vanish there |
 | One-component DN split | [Direct DN overlaps](COMPONENT_DN_DIRECT_OVERLAPS.md) | General identity; two ordered five-vertex overlap types remain |
 | DN diamonds and minimal components | [Joint repairs](COMPONENT_DN_JOINT_REPAIRS.md) | Both minimal pictures completed; local propagation lemmas |
 | Additional whole source components | [Source additions](COMPONENT_DN_SOURCE_ADDITIONS.md) | Six-vertex example proved; general construction remains |
@@ -340,6 +341,16 @@ supplies td as a strict edge, but not its cover. The remaining cover
 failures, especially both redundant outer anchors and redundant td, need
 further repair or source additions; shared paths under the proved cover
 hypotheses are no longer an extra gap.
+The reverse-endpoint preparation now permits the required covers at either
+source endpoint. Consequently, for genuine first-drop DN, every left
+comparison touching a state with uw,td,wz covering has zero defect. Any
+nonzero left defect joins states with a redundant member of these three
+strict corners, so their three-corner alternating valuations vanish.
+This includes every mixed-acyclic witness in the zero-defect region.
+It does not collect whole components through intervening zero states.
+The genuine six-vertex source-addition example already has a left target
+flip joining distinct source components; unrestricted source connectivity
+would be false there too. The remaining work must allow coefficient repair.
 For the DD intermediate, do not demand source paths across the boundary
 exchanging its unmarked upper corner: opposite corner statuses forbid them.
 Use the proved forced-addition equations there and establish compatibility

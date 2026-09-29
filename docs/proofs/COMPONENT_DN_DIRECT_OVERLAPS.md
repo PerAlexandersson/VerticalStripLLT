@@ -263,3 +263,85 @@ for the boundary which exchanges that corner. Those comparisons must be
 repaired as coefficients, rather than by demanding a nonexistent source
 path. The earlier covering-anchor path lemmas remain valid within their
 stated hypotheses.
+
+## Left defects vanish on three-cover witnesses
+
+2026-09-29 continuation. We apply the
+[either-endpoint repair](COMPONENT_INCOMING_EDGE_TRANSFER.md#covers-at-the-other-endpoint-of-a-left-comparison)
+to a SATURATED GENUINE first-drop DN contact. For an actual left R10
+flip retaining ux and exchanging ut,tx, the coverage theorem supplies
+the strict corner g=td with x<d<z. Write its source preimages as
+
+    A=L01(Q+ut),       B=L01(Q+tx),
+
+and let h be any integer function constant on whole source components.
+
+**Proposition.** If any one of A,B has all three strict corners
+e=uw, g=td, f=wz covering, then h(A)=h(B).
+
+Indeed, f supplies a covering outer anchor and r=xz is selected at both
+endpoints. The actual target flip supplies the short covers and the
+required absent paths. The either-endpoint lemma therefore gives A~B.
+It does not require r to cover, or both endpoints to have common covers.
+
+Consequently, if the left coefficient defect h(A)-h(B) is nonzero, EACH
+endpoint has a redundant member of F0={e,g,f}. For either valuation X=K,E,
+the proved corner-difference cancellation gives
+
+    (h(A)-h(B)) * partial_F0 X(A) = 0,
+    (h(A)-h(B)) * partial_F0 X(B) = 0,                (6)
+
+where partial_F0 X(S)=sum_(T subset F0) (-1)^|T| X(S-T).
+This uses the same three strict corners at both endpoints. Their being
+natural corners ensures that a bypass of a redundant member survives
+deletion of all the others; the alternating cancellation applies exactly.
+
+In particular, every left comparison with a mixed-acyclic source endpoint
+has zero coefficient defect: reversing all strict corners in such a state
+forces every strict corner to cover. A nonzero defect therefore occurs
+only between two mixed-cyclic source states. This is a restriction on
+the STATES at a boundary, not a claim that their whole components are
+mixed-cyclic or independently reducible.
+
+### A genuine DN boundary still requiring coefficients
+
+The already-proved six-vertex source-addition example shows why we cannot
+replace (6) by unrestricted source connectivity, even without the DD
+intermediate. In area012233, with strict 02,14,25, take
+
+    A={01,02,12,14,24,25,34,35,45},
+    B={02,12,13,14,24,25,34,35,45}.
+
+In the target area012332, replacing 25 by 03 gives an actual flip
+01<->13 retaining 03. The edge 03 covers: after deleting it, no path
+from 0 reaches 3 at the A endpoint, and the new endpoint has removed 01.
+Both exchanged shorts cover. However, A lies in the complete three-state
+component I_3 and B in the complete eighteen-state component C of the
+[source-addition proof](COMPONENT_DN_SOURCE_ADDITIONS.md#the-six-vertex-example).
+Their separation follows from the written completeness proofs there.
+Both displayed states have 14,25 redundant; A also has 02 redundant.
+Thus both fail the three-cover condition, as predicted by (6).
+The recurrence is repaired by adding the deletable I_3 and I_4 there,
+rather than by an actual source path across this boundary.
+
+The DD boundary is separate: it may exchange the unmarked upper corner,
+and the strict g in the interval x<d<z need not be available for that t.
+Its opposite corner statuses and forced additions remain as described
+above. Do not apply the present genuine-DN proposition to that boundary.
+
+### What the support restriction does and does not collect
+
+Equation (6) connects the local repair directly to the alternating
+corner-deletion induction. It eliminates left defects at all common-cover
+witnesses and localizes the residual equations to zero alternating states.
+It does not establish constancy on a whole target component: a path can
+enter such zero states and emerge at another nonzero state. Nor does a
+redundant corner at one boundary state imply that it is redundant
+throughout its source component. Thus full signed reassembly, including
+the independent reduction of extra members of U_k(C), is still required.
+
+The existing fixed area012233 check verifies all sixteen actual left
+comparisons, including the one displayed separation. Its two reverse-only
+common-cover pairs exercise the new part of the theorem. Receipts are in
+`/lake-cache/ai-projects/requests/VerticalStripLLT/left-endpoint-covers-20260929/`.
+No independent review or general component theorem is used as input.
