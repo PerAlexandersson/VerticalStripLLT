@@ -319,6 +319,7 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Proof checkpoint: `9a164b3` (shared retained-edge branch with arbitrary prefix).
 Current shared-prefix increment: arbitrary w-to-y paths in the stated
 shared-branch case, with redundant wy and competing prefix paths allowed.
 Two fixed n10 examples pass nine-flip paths, including temporarily
