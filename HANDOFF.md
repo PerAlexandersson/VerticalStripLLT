@@ -12,10 +12,13 @@ split, local diamond repair, collection into whole smaller components, and
 the resulting positive elementary expression. The detailed supporting notes
 remain intact in the [component catalogue](docs/COMPONENT_NOTE_CATALOGUE.md).
 
-Latest continuation reconstructs the notebook top row and proves its two
-whole-component identity sectors, plus an exact reverse-DN initial split.
-The retained-edge note now also proves a repair along a selected suffix of
-arbitrary length. The full recurrence proof is still incomplete.
+Active goal: prove the general non-circular component e-expansion for
+Motzkin/Dyck diagrams by the diagram-bijection/recurrence approach.
+Latest continuation proves a uniform middle-state transfer whenever an
+actual short-edge exit exposes the retained long. It handles both exit
+sides, arbitrary exterior, and arbitrary cycle rank. See
+[general exposure](docs/proofs/COMPONENT_CORNER_EXPOSURE.md).
+The full recurrence proof is still incomplete; the goal remains active.
 
 The proof target is K(C)=sum_(A in C) e_(lambda(A)). Carry the SAME signed
 component recurrence for the coloring sum K and the HRV expression E.
@@ -30,6 +33,10 @@ terms, not from the signs of intermediate recurrence coefficients.
 - The direct NN and DN initial splits, endpoint maps and local diamonds are
   proved. Complete constructions exist for the worked examples; NN reassembly
   is complete in the stated connected unicyclic setting.
+- Both left/right local exposure transitions are now proved without a
+  unicyclic hypothesis, by a descending incoming cut and its inverse.
+  This also settles any middle state with a q-preserving route to exposure.
+  It does not control a q-free detour while the corner stays redundant.
 - DN has several arbitrary-exterior retained-edge repairs, including the
   five conditions recovered at `c9c0e3a`, a 2m+4-flip selected-suffix
   construction, and reuse of a shorter covering pair of anchors. These
@@ -41,9 +48,11 @@ terms, not from the signs of intermediate recurrence coefficients.
   smaller diagram. No balance, isolation or cycle-rank prerequisite is imposed.
 - The ordinary order (n, number of natural edges, sum_j j*a_j) handles the
   proved NN/DN/DD/deletion targets and subsequent envelope normalization.
-  Complete recurrence coverage and the componentwise ND step remain to be
-  integrated. NN/DN/DD alone miss area012333. Unmarking intermediates are not
-  automatically smaller induction inputs.
+  DD now reduces to one-component DN, and ND to one-component NN, by
+  unmarking the obstructing corner and keeping the same complete component.
+  This requires the general NN/DN steps with unmarked exterior corners.
+  Complete recurrence coverage remains; NN/DN/DD alone miss area012333.
+  The equal-measure unmarking intermediate is never an induction input.
 - That moment order is for FORWARD DN. The notebook uses reverse DN after
   marking a corner: its neutral move increases the moment. Its unmarked
   top row lowers doubled area, but that marking decrease cannot be counted
@@ -67,6 +76,11 @@ is false; the paired diamond gives the complete four-vertex proof.
 Next collect one exact DN image into complete output components, keeping
 the chosen direction and its induction order consistent. Do not count the
 reconstructed aggregate top row as a proof of that collection.
+For the unmatched middle coefficient, first discard all routes settled by
+the new exposure lemma. A possible nonzero coefficient must lose q before
+f becomes a cover. The remaining task is to transport through that q-free
+excursion, not to redo the final left/right exposing flip or impose a
+cycle-rank classification. Left retained-e-prime and full collection remain.
 
 ## Ownership and restrictions
 
@@ -89,12 +103,17 @@ Only archive-relative link targets were adjusted; all prose was retained.
 Proof checkpoint: `e1ef5eb` (selected-suffix repair and notebook recurrence).
 Pushed: `c9c0e3a` (preserved and extended retained-edge proof), `c458c8e`
 (recovered notebook source map), `3eac539` (outline and note organization).
-This continuation modifies the two proof notes, outline and handoffs, and
-the existing external Rust consumer. The suffix row passes all instances
+The preceding continuation's suffix row passes all instances
 in the fixed n6/n7 fixtures (47 pairs, 196 actual flips) and one explicit
 n11 fixture (five-edge suffix, 14 flips, no state-space enumeration).
-The recovered retained-edge note is preserved byte-for-byte as a prefix;
-all 27 links in the touched notes resolve and `git diff --check` passes.
+Its recovered retained-edge note was preserved byte-for-byte as a prefix.
+The current general exposure path passes all 801 applicable exits at three
+fixed positions (4179 actual flips), plus a nonmaximal-long example and
+a fixed ten-vertex state with six simultaneous bypasses (5 and 15 flips).
+No larger state space is enumerated. The full proof treats arbitrary exterior.
+Current ownership: exposure note, route links in the two old NN notes and
+direct DN note, DD/ND inheritance in the DD note, outline, both handoffs,
+and the existing external consumer.
 No Lean/Lake or manuscript build was run; no new worker or consultant.
 Runtime registry and `codex mcp list` were inspected; Lean MCP is rooted at
 RealRooted and unused. No model, account, worker or service-tier change.
@@ -110,6 +129,7 @@ Maintained Rust is unchanged at
 Recovery receipts: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-crash-recovery-20260929/`.
 Outline/archival checks: `/lake-cache/ai-projects/requests/VerticalStripLLT/component-recurrence-outline-20260929/`.
 Current source snapshots/checks: `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-notebook-continuation-20260929/`.
+Exposure continuation: `/lake-cache/ai-projects/requests/VerticalStripLLT/corner-exposure-20260929/`.
 The archive also retains all prior build counts, axiom checks, source hashes,
 review boundaries and the established push command. The current task does
 not reopen the completed formalization or its builds.

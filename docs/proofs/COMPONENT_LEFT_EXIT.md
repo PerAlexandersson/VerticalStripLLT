@@ -1,5 +1,11 @@
 # The leftward transition in the unicyclic NN step
 
+Continuation: the [general exposure lemma](COMPONENT_CORNER_EXPOSURE.md)
+now proves the initial left-exit statement with arbitrary cycle rank,
+by an incoming-cut sweep. We retain the original proof below. Its later
+forced-path and middle-connectivity applications remain under their
+stated tree/unicyclic hypotheses.
+
 2026-09-28. We prove the leftward counterpart of the
 [rightward transition](COMPONENT_NN_INACTIVE_CORRECTIONS.md).
 The argument uses tree connectivity and actual flips. It is a local

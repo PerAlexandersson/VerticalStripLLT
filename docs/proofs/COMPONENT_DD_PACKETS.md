@@ -110,6 +110,11 @@ prove that every unresolved diagram admits one of the eligible reductions.
 
 ## Checks and the remaining isolation question
 
+The later one-component inheritance argument below also treats ND. It
+does not use a packet-isolation assertion: it reduces the desired DD
+and ND component steps to the general DN and NN reassembly statements,
+respectively, allowing unmarked exterior corners.
+
 For each packet P, remove from P_1 the already-solved disconnected components,
 trees, and components with no state acyclic after reversing all strict
 corners of D. The DD isolation question asks whether at most one component
@@ -144,3 +149,95 @@ Related Lean: `Circular/DDResolvedRows.lean`,
 `DDLocalData.resolved_area_sum` and `resolved_doubledArea`. These provide the
 existing geometric identities, not a formalization of the new component
 packet argument.
+
+## Direct one-component inheritance for DD and ND
+
+2026-09-29. We can avoid a separate component-isolation problem for each
+of these two types once the NN/DN steps are proved with arbitrary corner
+decorations. This is a reduction of the remaining proof obligations,
+not a claim that general NN/DN reassembly is already complete.
+
+Let g be any strict natural corner of an ordinary diagram D, and let
+N be the same natural diagram with g unmarked. A complete component C
+of D is exactly a complete component C_N in the selected-g sector of N.
+Indeed, g cannot be exchanged as a short, since no natural interval
+properly contains it. Unmarking g changes neither selected relations
+nor any actual adjacency on that sector. Both K and E are unchanged.
+
+In the order (n,A,M) above, D and N have the SAME measure: unmarking
+changes no natural edge or area entry. Suppose a direct recurrence at
+N transports this particular component C_N into whole components T_i
+in smaller diagrams N_i, with the same coefficients for both valuations:
+
+    X_N(C_N)=sum_i m_i X_(N_i)(T_i),        X=K,E.
+
+Then the identical equation holds for X_D(C). Every N_i is also smaller
+than D. We invoke induction only for these final output components;
+we do not invoke the unknown component identity in the equal-measure
+intermediate N. Source additions are allowed exactly as in the main
+outline, provided their final identifications also have smaller measure.
+
+### DD uses DN
+
+For DD, take the same obstructing corner h and unmarked diagram N as
+in the first section of this note. The direct DN split applies to the
+single C_N. Its main target replaces the natural edge cz by a(c+1),
+so A is unchanged and M decreases by z-(c+1). Its common deletion
+diagram removes cz and therefore decreases A. The whole-component
+collection problem is exactly general DN with h as an exterior normal
+corner. Once that problem is solved, the preceding inheritance gives
+the DD recurrence for C itself.
+
+This also explains the earlier packet formula: packet isolation was
+needed there because only packet-level DN was available. A general
+one-component DN theorem already supplies the required individual step.
+
+### ND uses NN
+
+Use the ND geometry from [the local ND note](CIRCULAR_DIRECT_ND.md),
+restricted to ordinary diagrams. Write
+
+    f=xt,       y=x+1,       g=ay,
+    b(x)=b(y)=a,             x<y<t.
+
+The root f is strict and has the required terminal gap. Row x is
+nonstrict and row y is strict, with strict incoming edge g. Unmark g
+to obtain N. The two contact rows are now nonstrict and still have
+equal boundary values, so N has an eligible NN step at (x,y,t).
+This is the same N used by the established local ND geometry; no area
+entry changes during unmarking.
+
+Apply the exact [one-component NN split](COMPONENT_NN_REDISTRIBUTION.md)
+to C_N, retaining g among its exterior normal edges. It gives the SAME
+K/E identity for C in the corner-deletion diagram
+
+    D0=N-f.
+
+The identity is valid for one component immediately, before reassembly.
+It retains the entire exterior and the membership indicator of C_N;
+in particular, source orientations omitting g have coefficient zero.
+The split's bottom interchange is allowed to move the selected g to
+another normal edge. We do not require all output pieces to select g.
+
+Every orientation of D0 lies in a diagram with A(D0)=A(D)-1. Hence
+once the general NN reassembly collects these pieces into whole smaller
+components, the ND component recurrence follows with the same induction
+order. Further envelope normalization only decreases A or leaves (A,M)
+unchanged. The intermediate N needs no induction hypothesis.
+
+This is an unweighted component argument. If ascent weights are restored,
+C_N has one more selected normal edge than C, namely g. Working first
+with K=E avoids any division by the shift parameter.
+
+## Remaining general inputs after inheritance
+
+DD and ND require no additional one-component reassembly theorem beyond
+DN and NN WITH arbitrary exterior corner decorations. A theorem restricted
+to saturated NN/DN sources would not suffice, because N has an unmarked
+corner. This distinction is part of the required theorem's hypotheses.
+The exact direct NN/DN initial splits already allow these decorations;
+their general collection into complete components is still open.
+
+Recurrence coverage also remains separate: the present argument assumes
+an eligible DD or ND geometry and does not show that every nonterminal
+ordinary diagram admits one of the four eligible local moves.

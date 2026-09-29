@@ -71,6 +71,13 @@ and applying the target diamond
 
 gives precisely (1)--(2).
 
+The [general exposure lemma](COMPONENT_CORNER_EXPOSURE.md) gives a further
+restriction on the unmatched coefficient delta. It vanishes whenever the
+source 10 state has an actual neighbor exposing f, or has a path to such
+an exposure which keeps q selected until the final step. This holds with
+arbitrary exterior and without a cycle-rank assumption. It does not yet
+handle paths that first leave q while f remains redundant.
+
 These are the existing DN endpoint identities and ordinary diamonds, with
 the unmatched term deleted directly. In particular, we need not enlarge C
 to a balanced union of components. The older two-term deletion residual

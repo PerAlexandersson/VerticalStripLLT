@@ -1,5 +1,11 @@
 # Inactive corrections for every unicyclic NN step
 
+Continuation: the [general exposure lemma](COMPONENT_CORNER_EXPOSURE.md)
+now replaces the unicyclic restriction in the local right q-exit argument
+below. It also treats the left q-exit, with arbitrary exterior and any
+cycle rank. The whole inactive-component and redundant-middle-image
+connectivity theorems in this note still have their stated unicyclic scope.
+
 2026-09-28. We close the inactive-corner part of NN component
 redistribution at arbitrary adjacent vertices a,b. This extends the
 corresponding part of the

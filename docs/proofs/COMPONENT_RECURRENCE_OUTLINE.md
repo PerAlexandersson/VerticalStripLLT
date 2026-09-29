@@ -215,9 +215,14 @@ so (1) is immediate by multiplication, including isolated vertices.
 
 We still need a complete choice-of-recurrence argument compatible with (5)
 and the reassembly lemma. The recorded saturated coverage analysis uses
-NN, DN, DD and ND; NN/DN/DD alone miss the diagram of area 012333. The
-componentwise ND step and its decreasing final targets must be included
-explicitly. Aggregate recurrence coverage alone does not finish this step.
+NN, DN, DD and ND; NN/DN/DD alone miss the diagram of area 012333.
+The [one-component inheritance argument](COMPONENT_DD_PACKETS.md#direct-one-component-inheritance-for-dd-and-nd)
+reduces DD to DN and ND to NN by unmarking the obstructing corner.
+The selected-corner sector is exactly the same whole component, and the
+final NN/DN outputs decrease (5). Thus general NN/DN reassembly with
+arbitrary exterior decorations suffices for all four eligible types.
+No component theorem is assumed in the equal-measure unmarked intermediate.
+Aggregate recurrence coverage alone does not finish the choice argument.
 This outline concerns ordinary components. A circular extension requires a
 separate order or reduction for recurrences crossing the chosen cut.
 
@@ -229,11 +234,12 @@ separate order or reduction for recurrences crossing the chosen cut.
 | Whole-component normalization | [Corner branching and envelopes](FLIP_COMPONENT_INDUCTION.md) | Proved; read the reduction sections, not the later optional matrix formalism |
 | One-component NN split and repair | [NN redistribution](COMPONENT_NN_REDISTRIBUTION.md) | General initial split; full worked example |
 | Larger complete NN step | [NN left reassembly](COMPONENT_NN_LEFT_REASSEMBLY.md) | Saturated eligible connected unicyclic case; arbitrary cycle rank remains |
+| Middle-state transfer at exposure | [General exposure](COMPONENT_CORNER_EXPOSURE.md) | Both left/right exposing exits, with arbitrary exterior and cycle rank; intervening q-free paths remain |
 | One-component DN split | [Direct DN overlaps](COMPONENT_DN_DIRECT_OVERLAPS.md) | General identity; two ordered five-vertex overlap types remain |
 | DN diamonds and minimal components | [Joint repairs](COMPONENT_DN_JOINT_REPAIRS.md) | Both minimal pictures completed; local propagation lemmas |
 | Additional whole source components | [Source additions](COMPONENT_DN_SOURCE_ADDITIONS.md) | Six-vertex example proved; general construction remains |
 | Retained-edge source paths | [Retained-edge repairs](COMPONENT_DN_RETAINED_EDGE.md) | Arbitrary-exterior conditions, including a selected suffix of any length and shorter anchors; unrestricted case remains |
-| DD and induction order | [DD packets](COMPONENT_DD_PACKETS.md) | Corner split, packet transport and measure proved; one-component reassembly remains |
+| DD/ND inheritance and induction order | [Corner-unmarking reductions](COMPONENT_DD_PACKETS.md) | DD reduces to general DN, ND to general NN; final targets decrease (5); coverage remains |
 
 The older [detailed catalogue](../COMPONENT_NOTE_CATALOGUE.md) retains the
 supporting NN tree/bridge arguments, further examples and previous approaches.
@@ -254,9 +260,17 @@ Fix the recurrence direction before invoking the induction order; switching
 between the forward note and reverse notebook move is not a decrease.
 
 For DN the direct-overlap analysis already locates the unsettled comparisons.
+The general exposure lemma now removes cycle-rank assumptions from the
+left/right exits which make the retained corner cover. Consequently a
+nonzero unmatched middle coefficient cannot reach exposure while keeping
+the adjacent short selected until the last step. The next middle-state
+problem is an intervening path on which that short is absent and the corner
+remains redundant. This is separate from the left retained-e-prime overlap.
 The retained-deleted-edge and left retained-e-prime cases are the next local
 checks; the target and corner-deletion pieces must be repaired together.
 After those repairs, prove closure of the complete collected components,
-then incorporate the corresponding NN/DD/ND steps into the induction order.
+then supply general NN reassembly and a compatible choice-of-recurrence
+argument. The DD/ND inheritance already supplies their one-component steps
+conditional on the required NN/DN theorems with unmarked exterior corners.
 The outline is complete as a logical plan; these general transport and
 coverage assertions remain mathematical proof obligations.
