@@ -45,6 +45,11 @@ and the required empty corners is unproved. A universal assertion that
 forced additions are always inactive is unavailable. The new example shows
 how an independent recurrence can replace deletion; it does not prove that
 such a replacement is always available. Direct RHS diamonds remain allowed.
+Proof checkpoint `4d8a4ad` is pushed to `origin/main`. Both old proof
+notes remain verbatim prefixes; 119 local file links and
+`git diff --check` pass. Maintained Rust is clean at
+`d53fb193af3c69adedbd9ec8592f87235d809ffa`. All diagnostic runs finished
+successfully; no build process remains from this turn.
 
 ## Current NN continuation — whole-component certificate and right attachment
 
