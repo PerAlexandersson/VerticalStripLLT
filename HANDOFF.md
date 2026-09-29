@@ -40,8 +40,9 @@ components also have integral expressions in its 83 whole target components
 using the existing local relations and prepared-sector corrections. This is
 finite evidence only. Frozen sources, logs and commands are in
 `/lake-cache/ai-projects/requests/VerticalStripLLT/prepared-boundaries-20260929/`.
-Previous proof notes remain verbatim prefixes. All diagnostic jobs have
-finished. Runtime discovery and `codex mcp list` were checked; existing Rust
+Proof checkpoint `0735f63` is pushed to `origin/main`. Previous proof notes
+remain verbatim prefixes; 102 local file links and `git diff --check` pass.
+All diagnostic jobs have finished. Runtime discovery and `codex mcp list` were checked; existing Rust
 capabilities/consumer were reused. No Lean build, maintained Rust edit, extra
 worker, or independent review.
 
