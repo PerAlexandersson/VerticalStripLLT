@@ -158,6 +158,8 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Proof checkpoint: `8f359bd` (crossing-cover lemma and the structural obstruction to
+unrestricted outgoing-arm transfer).
 Current increment: crossing-cover lemma and the structural obstruction to
 unrestricted outgoing-arm transfer. The new construction applies to 56 of
 576 retained-edge comparisons in a fixed complete six-vertex diagram,
@@ -167,7 +169,9 @@ path; no ten-vertex state space is enumerated. The same six-vertex fixture
 has 60 failures of the stronger no-path arm-transfer claim, but zero
 failures of the original 576 retained-edge comparisons. The five-vertex
 separation proof uses a closed smaller-envelope family, independently of
-these component counts. The unrestricted proof remains incomplete.
+these component counts. Its 15-state closed family and six explicit exposure
+flips pass exact checks. Both old note prefixes, 42 local links and
+`git diff --check` pass. The unrestricted proof remains incomplete.
 
 Proof checkpoint: `b34b9a7` (arbitrary-exterior incoming-arm transfer and
 left DN coefficient repairs). All 142 qualifying states at four fixed
