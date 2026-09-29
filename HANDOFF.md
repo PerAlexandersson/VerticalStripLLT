@@ -36,6 +36,11 @@ calculation is used. Rust capability guide, metadata, graph/component APIs,
 runtime registry and `codex mcp list` were checked; maintained Rust remains
 unchanged. Frozen sources, command, logs and verification:
 `/lake-cache/ai-projects/requests/VerticalStripLLT/empty-corner-dn-20260929/`.
+Proof checkpoint `5d4e6d5` is pushed to `origin/main`. Prior proof-note
+contents remain verbatim prefixes; 109 local file links and
+`git diff --check` pass. Maintained Rust is clean at
+`d53fb193af3c69adedbd9ec8592f87235d809ffa`. The sole diagnostic job
+finished successfully; no running build is left behind.
 
 ## Current direction — follow the notebook diagrams
 
