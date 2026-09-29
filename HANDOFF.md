@@ -296,6 +296,7 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
+Proof checkpoint: `08259c0` (retained-edge reachable-anchor repair).
 Current retained-edge increment: a covering yz and any y-to-t path give
 the repair with arbitrary exterior; a truncated incoming cut handles the
 largest bad branch reaching t. Three fixed n10 paths (nine flips each)
