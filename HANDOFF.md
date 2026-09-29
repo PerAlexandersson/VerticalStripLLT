@@ -140,8 +140,8 @@ Only archive-relative link targets were adjusted; all prose was retained.
 
 ## Checkpoints and verification
 
-Current increment: arbitrary-exterior incoming-arm transfer and its left
-DN coefficient consequence. All 142 qualifying states at four fixed
+Proof checkpoint: `b34b9a7` (arbitrary-exterior incoming-arm transfer and
+left DN coefficient repairs). All 142 qualifying states at four fixed
 six-vertex positions pass (684 actual flips). Two fixed n=10 states check
 multiple suffixes and multiple arm bypasses (10 and 8 flips); no n=10
 state space is enumerated. Four one-sided left-DN comparisons pass (22
