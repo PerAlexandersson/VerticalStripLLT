@@ -3,7 +3,9 @@
 Working proof outline, 2026-09-29. We follow the author's construction:
 push one complete component through a recurrence, repair the resulting
 pieces by local diamonds, and collect whole components in smaller diagrams.
-The general reassembly lemma remains to be proved. The component theorem
+The user prioritizes the recursion of whole components; the coloring identity
+then follows from the same local maps. The general reassembly lemma remains
+to be proved. The component theorem
 itself is already known by the separate word proof; that theorem is not an
 input to this proposed recurrence proof.
 
@@ -308,6 +310,7 @@ separate order or reduction for recurrences crossing the chosen cut.
 | Arbitrary containing bypasses through t | [Theorem (61)](COMPONENT_DN_RETAINED_EDGE.md#allowing-incoming-bypasses-below-s-as-well) | r,sz covering in Q and every w-to-z bypass passing through t suffice; no wt cover, incoming-tail or suffix restriction remains |
 | Lower bypasses rejoining after t | [Theorem (64)](COMPONENT_DN_RETAINED_EDGE.md#allowing-lower-branches-to-rejoin-the-suffix-after-t) | With r,sz covering, every w-reachable proper incoming z-tail also t-reachable, and only the upper incoming t-tails required to reach z through t, outer bypasses avoiding t are allowed |
 | Matched preparations with arbitrary upper bypasses | [Theorem (65)](COMPONENT_DN_RETAINED_EDGE.md#matching-two-suffix-preparations-removes-the-upper-tail-restriction) | r,sz covering and equality J=K of the incoming z-tails reached from w and t suffice; transfer all prepared s-arms to x and reverse the exactly matched target preparation; no upper-tail guard remains |
+| Interleaving incoming t/z cuts | [Theorem (69)](COMPONENT_DN_RETAINED_EDGE.md#interleaving-the-two-incoming-cuts) | With r,sz covering, t reaching z, all J tails above s and J disjoint from H, incoming tails not reached from t are allowed; common forks and lower z-tails remain |
 | Moving only the distinguished short | [Crossing-cover paths](COMPONENT_DN_RETAINED_EDGE.md#sliding-the-moving-edge-along-crossing-covers) | An arbitrary-length alternating path proves the retained-edge comparison, allowing both anchors redundant; path existence remains a hypothesis |
 | DD/ND inheritance | [Corner-unmarking reductions](COMPONENT_DD_PACKETS.md) | DD reduces to DN, ND to NN, keeping the same whole component |
 | Recurrence choice and induction | [First-drop coverage](COMPONENT_RECURRENCE_COVERAGE.md) | Proved for every ordinary saturated diagram; NN/DN reassembly is the remaining induction input |
@@ -317,145 +320,46 @@ supporting NN tree/bridge arguments, further examples and previous approaches.
 They are available tools, rather than extra hypotheses imposed on the main
 component push-through lemma.
 
-## 8. Next proof work
+## 8. Current proof work and account-switch pause
 
-Use the following current retained-edge results before resolving a new
-comparison. The longer table above also preserves superseded intermediate
-hypotheses and their constructions.
+The user clarified the priority: establish the recursion of WHOLE COMPONENTS;
+the coloring recursion should then follow from the same local identities.
+The work is paused for an account swap. Read the concise
+[current handoff](../../HANDOFF.md) before resuming. Previous next-step
+chronology is preserved in the [outline archive](../archive/component-recurrence-outline-before-account-switch-20260929.md).
+
+The central open statement is still section 4: isolate one original C in
+an identity with whole smaller components. The homogeneous completions
+U_k(C), V_k(C) prove this for forced source unions. Every extra source
+component must have an independent reduction before it can be subtracted.
+A local vanishing condition on one orientation does not supply that reduction.
+
+The next candidate is [extension under endpoint attachments](COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md).
+It would extend the existing five-vertex signed component recursion to
+arbitrary chosen components attached at the two ends. The component product
+statement is known; the endpoint-marked identity argument and the proposed
+16/32/16-state example are unfinished and untested. The extension would not
+handle exterior edges crossing into the middle block. Do not treat it as
+proved or as a replacement for the general reassembly lemma.
+
+A universal one-to-one DN correspondence is too restrictive: the five-vertex
+source and target have 14 and 15 components. Its known signed recurrence,
+including a whole corner-deletion component, is the model to generalize.
+The six-vertex profile match is finite evidence only.
+
+For any local comparison actually needed in that component construction,
+use the strongest available retained-edge results first:
 
 - Either f or r covering in Q+xs suffices, with arbitrary exterior.
-- With r,sz covering in Q, (58) permits all suffixes when wt covers
-  in Q+xs, and (65) permits redundant wt when J=K. Here J,K are the
-  proper incoming z-tails reached from w,t respectively.
-- Thus, under those background covers, an unresolved defect needs both
-  redundant wt and a tail in J not reached from t. Upper-tail bypasses
-  avoiding t are no longer a separate gap: the matched preparations
-  transfer all new s-arms to x before reversing the target path.
+- With r,sz covering in Q, (58) handles covering wt without any suffix
+  restriction; (65) handles redundant wt when the incoming tail sets J=K.
+- The new (69) permits J not contained in K when t reaches z, every
+  J-tail lies above s, and J intersects the upper incoming-t set H trivially.
+  Interleaving the two incoming cuts preserves both anchors and matches
+  the prepared endpoints. The four paths checked have 21,33,35,29 flips.
 
-The local conclusions identify source components for the stated comparisons.
-They do not reduce every extra component in U_k(C) or V_k(C). That separate
-whole-component assertion, the remaining retained cases and the left
-coefficient repairs still require proof.
-
-The preceding constructions and their historical remaining cases follow.
-
-
-The broad three-cover retained-edge result is (58): covering wt at Q+xs and
-covering r,sz in Q suffice without ANY lower-reachability or suffix
-restriction. Use that theorem and the earlier either-outer-cover theorem
-before examining a remaining comparison. The unresolved retained-edge
-cases must fail one of those covers; the older suffix gaps listed in
-historical constructions are closed. This pointwise result still does
-not prove whole-component reducibility or the general collection lemma.
-The new outer-bypass theorem (61) also handles redundant wt whenever
-every w-to-z bypass passes through t; its incoming tails may now lie on
-either side of s. Under r,sz covering, a remaining defect needs redundant
-wt AND an outer bypass avoiding t.
-Theorem (64) weakens the outer-path hypothesis further: it permits a
-bypass avoiding t provided its final incoming z-tail is reached from t,
-and the upper incoming tails cleared at t have no route to z avoiding t.
-The same prepared path works. Failures of these two conditions and of
-the background covers remain outside this construction.
-The prefix-push lemma without a covering containing edge is false; do not
-use that shortcut to assert the general remaining case.
-
-The notebook's I/II/III cells and positive signs have been reconstructed,
-and its two identity sectors are resolved at the component level. The
-middle states must be paired by a diamond: the proposed individual poset
-map fails already on four vertices. The smallest component calculation
-is now written out completely in the notebook note.
-
-For arbitrary exterior, follow one of the exact initial DN splits to the
-first flip crossing a red component bracket and give the matching repair.
-Fix the recurrence direction before invoking the induction order; switching
-between the forward note and reverse notebook move is not a decrease.
-
-For DN the direct-overlap analysis already locates the unsettled comparisons.
-The general exposure lemma now removes cycle-rank assumptions from the
-left/right exits which make the retained corner cover. Consequently a
-nonzero unmatched middle coefficient cannot reach exposure while keeping
-the adjacent short selected until the last step. The next middle-state
-problem is an intervening path on which that short is absent and the corner
-remains redundant. This is separate from the left retained-e-prime overlap.
-The retained-deleted-edge and left retained-e-prime cases are the next local
-checks; the target and corner-deletion pieces must be repaired together.
-For the right retained-edge comparison, every r-cover case is now proved.
-After exposing the last bad incoming anchor yz, advance a common ancestor
-of y and t by local fork flips. Its vertex increases until a covering
-interval av with y<v<t appears, or a covering at is available. The first
-uses the reachable-anchor theorem; the second uses the temporary-tz
-construction with an arbitrary starting vertex a. All preliminary fork
-intervals end at or below y<t, so they can be restored after xs becomes st.
-This permits arbitrary exterior, redundant wt and missing or redundant ys.
-The needed covering interval is produced, not assumed in the original state.
-
-Together with the earlier f-cover theorem, the remaining retained-edge
-defect is supported where BOTH f and r are redundant at Q+xs. The older
-endpoint argument also forces f redundant at Q+st; we have not proved
-this for r at that endpoint. The one-corner alternating valuations vanish,
-but this does not collect whole components through zero states. The normal
-source edges r and wt do not admit automatic whole-component corner deletion.
-A further seven-flip row handles a lower bypass xa,az when
-ws,wt,xa,az,sz,tz cover and either w does not reach a or wa covers.
-It briefly uses the wx sector and permits r redundant even after xs
-is deleted. A complementary preparation inside [w,s] handles arbitrary
-w-to-a routes and redundant wa when deleting xs,xa exposes r; it needs
-no az cover. Separately, wt covering and w reaching s imply Q+xs~Q+xt,
-with ws absent or redundant; when r covers in Q and sz,tz cover, the
-two-flip closing row yields Q+st. Arbitrary failures of the post-deletion
-and suffix cover tests, the general both-redundant comparison and
-simultaneous collection remain open.
-
-The left comparison now has a complete arbitrary-exterior repair when
-uw,td,ut cover and at least one outer anchor wz,xz covers (with the stated
-absent shorts and t not reaching x). First expose the other outer anchor.
-Transfer the nonshared proper w-arms to x; if a shared branch remains,
-expose its two covering arms, borrow tv along its suffix, and use the
-proved delayed restoration. A second outgoing cut permits that inverse
-with arbitrary competing x-branches. Both direct arms wd,xd may start
-redundant. The separate four-flip row also handles covering wd,xd with
-both outer anchors redundant. A saturated genuine first-drop DN diagram
-supplies td as a strict edge, but not its cover. The remaining cover
-failures, especially both redundant outer anchors and redundant td, need
-further repair or source additions; shared paths under the proved cover
-hypotheses are no longer an extra gap.
-The reverse-endpoint preparation now permits the required covers at either
-source endpoint. Consequently, for genuine first-drop DN, every left
-comparison touching a state with uw,td,wz covering has zero defect. Any
-nonzero left defect joins states with a redundant member of these three
-strict corners, so their three-corner alternating valuations vanish.
-This includes every mixed-acyclic witness in the zero-defect region.
-It does not collect whole components through intervening zero states.
-The genuine six-vertex source-addition example already has a left target
-flip joining distinct source components; unrestricted source connectivity
-would be false there too. The remaining work must allow coefficient repair.
-For the DD intermediate, do not demand source paths across the boundary
-exchanging its unmarked upper corner: opposite corner statuses forbid them.
-Use the proved forced-addition equations there and establish compatibility
-with the other left comparisons, q-changing flips and deletion terms.
-For the unmodified direct DN split at fixed selected-edge count, closure
-is now exact for the forced union U_k(C). Use the local paths to identify
-its paired representatives within actual source components, and the known
-corner maps to reduce genuinely added components. The outstanding global
-claim is that every extra component so forced can be independently
-reduced; no such general claim is yet proved. Joint diamond corrections
-may be needed if this source-addition construction cannot isolate C.
-The NN companion gives the same conclusion for V_k(C), with the same
-unproved independent-reduction requirement for its extra members.
-The first-drop theorem now gives a
-compatible choice for every ordinary diagram, and DD/ND inheritance supplies
-their component steps from NN/DN. It is enough to settle transport at those
-first-drop contacts and the stated selected-corner intermediates. The
-remaining obligations are the general transport and collection statements;
-coverage is no longer an additional gap.
-
-The latest crossing-cover lemma supplies a direct retained-edge repair when
-the moving short can slide along selected covers crossing its middle vertex.
-It also identifies exactly when a path is possible while every background
-edge stays fixed. If it fails, use a preparation that changes background
-edges or a joint diamond correction. Do not replace this task by a general
-single-arm transfer: the [five-vertex obstruction](COMPONENT_RIGHT_ARM_TRANSFER.md#why-absence-of-a-target-path-does-not-replace-the-anchor-covers)
-proves that transfer false, even with no path from the receiving root to
-the arm endpoint and even when the starting component is active at its
-strict corner. The original retained-edge comparison has extra data and
-has not been refuted by that example.
+Common incoming forks ht,hz, lower incoming z-tails and background-cover
+failures remain outside that last construction. The general left comparison
+needs coefficient repairs: unrestricted source connectivity is false.
+Local paths settle particular coefficient comparisons; they do not by
+themselves provide the full component recursion.

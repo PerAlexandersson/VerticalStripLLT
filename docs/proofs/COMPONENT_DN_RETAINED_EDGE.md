@@ -2770,3 +2770,81 @@ review was used. All previous proof text remains a verbatim prefix.
 The last-edge equality J=K and the two background covers remain hypotheses;
 failures of these conditions, the left comparison and whole-component
 reassembly are still open. This is not the full recurrence proof.
+
+## Interleaving the two incoming cuts
+
+2026-09-29 continuation. We can permit J not contained in K in (65).
+We record this checked local increment before returning to the user's
+priority: recursion of whole components rather than more local cases.
+
+Keep the opening hypotheses and assume r,sz cover in Q and t reaches z.
+Define J,K,H as above. Suppose
+
+    every a in J satisfies a>s, and J intersects H trivially.    (69)
+
+Then Q+xs~Q+st, with all exterior restored. In particular, a tail in
+J-K may lie below t and reach t, or lie above t and not be reached from t.
+The condition forbids a w-reachable h in (s,t) with both ht and hz
+selected. It also excludes lower incoming z-tails at or below s.
+
+Begin with the same two suffix preparations P_s,P_x as in (65), cutting
+K and borrowing st,xt. These preserve the two covering anchors at each
+endpoint, but need not yet expose f. Now combine the lists
+
+    ht, h in H;       az, a in J-K,
+
+and process their tails in strictly decreasing order. At the source
+exchange ht->sh [st] or az->sa [sz]; at the target use ht->xh [xt]
+or az->xa [r]. The hypothesis J intersect H empty prevents duplicate
+new arms. None of the extra J-K tails is a borrowed-path vertex, because
+all those vertices are reached from t.
+
+Here is the cover check, which is the new point. Before processing ht,
+any proper bypass ends with kt for k>h, and k belongs to H and has
+already been processed. Any h-to-z path ends at an incoming z-tail
+at least h. Larger tails have been cut; equality would put h in J
+intersect H. Thus h cannot reach z, and adding sh preserves sz as well
+as st. At the target the same argument preserves r and xt.
+
+Before processing az, any proper bypass ends with bz for b>a; that tail
+belongs to J and has already been cut, either in K or in this combined
+list. Also a cannot reach t. This is automatic if a>t. If a<t, the last
+edge of an a-to-t path would be ht with h>=a; equality is excluded by
+J intersect H empty, and every larger such tail has already been cut.
+Consequently adding sa preserves st as well as sz. Again the target
+argument is identical. New arms always start below the processed tails,
+so they create no exceptions to these last-edge arguments. Original
+s-to-tail and x-to-tail paths are excluded by the background covers:
+every processed tail reaches z in Q.
+
+At the end, all J edges into z and all H edges into t have been removed.
+Since J has no tail at s, w does not reach s. Hence the new source arms
+are inaccessible from w and f now covers. The two prepared states have
+the same deleted original edges, with corresponding s-arms and x-arms.
+The maximal lower incoming t-tail y and the rest of the proof of (65)
+apply unchanged: borrow yz, move xs to ys while restoring the prefix,
+transfer the new arms increasingly, use ys->st [yt], and reverse the
+exactly matched target preparation. Every new arm head reaches z in Q,
+so the covering-arm checks are the same as before.
+
+For example, take (w,x,s,t,z)=(1,2,3,6,8) and
+
+    Q={01,18,28,16,38,14,45,15,56,48,67,78}.
+
+Here J={4,7}, K={7}, H={5}. The extra incoming tail 4 reaches t
+through 45,56, but is not reached from t. Borrowing st first removes
+78 and 67. We must next cut 56 before 48: cutting 48 first would add
+34 and spoil the cover of the borrowed 36 through 34,45,56.
+The combined decreasing order gives a complete 21-flip path.
+
+Related Rust: `retained_interleaved_incoming` in the existing external
+`first_join_tree_lifts.rs`, mode `--retained-interleaved-incoming`, checks
+the displayed n9 path and three n12 paths of 33,35,29 flips. It checks
+both retained covers after every combined-cut step, both full preparations,
+all actual flips and strict edges, the exact match and final endpoint.
+Fixtures include absent/redundant tz, absent direct wy, and extra incoming
+tails on both sides of t. No state space is enumerated. Receipts:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/retained-interleaved-incoming-20260929/`.
+No Lean/Lake build, worker, consultant or maintained Rust edit was used.
+The common incoming fork and lower incoming z-tails remain outside this
+construction. This result alone does not reassemble a whole component.

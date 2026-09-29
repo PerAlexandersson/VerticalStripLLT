@@ -42,11 +42,16 @@ The component result is the finite strict/e identity on actual complete componen
   the retained-edge case locally; a covering outer corner lets us move
   obstructing edges aside and restore them after a flip. Exact matching succeeds for
   376 components of six selected diagrams; general compatibility remains open.
-- [Retained-edge DN flips](proofs/COMPONENT_DN_RETAINED_EDGE.md): with arbitrary
-  exterior, two sweeps prove the repair when f covers. Borrowing xt along a
-  selected t-to-z path proves another case when r covers. Further local rows
-  move a branch or use a different covering triangle, and give three sufficient
-  conditions with both original anchors redundant. The unrestricted case remains open.
+- [Retained-edge DN flips](proofs/COMPONENT_DN_RETAINED_EDGE.md): general
+  either-outer-cover repair; three-cover theorem (58); paired suffix theorem
+  (65); and interleaved incoming-cut theorem (69). These restore arbitrary
+  exterior under their stated hypotheses. They do not prove whole-component
+  reassembly; older sections retain the development and superseded scopes.
+- [Endpoint-attachment continuation](proofs/COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md):
+  unfinished candidate to extend a whole-component DN recurrence under
+  arbitrary endpoint attachments; its audit and fixed checks are pending.
+  Also records the bounded 14-versus-15-component obstruction to a universal
+  one-to-one DN correspondence and the six-vertex HRV-profile match.
 - [DN source additions](proofs/COMPONENT_DN_SOURCE_ADDITIONS.md): a proved
   six-vertex recurrence adds two deletable components and matches the terms
   by removing three isolated orientations from a fixed-size layer. Exact
