@@ -167,3 +167,6 @@ remains an unchanged prefix. All diagnostic jobs are complete.
 
 Both proof-note prefixes, the relocated archive, all 159 local file links,
 receipt hashes and `git diff --check` pass before checkpointing.
+
+Proof checkpoint `c18115d` is pushed to `origin/main`. All four diagnostic
+jobs are complete; no process needs monitoring or restarting.
