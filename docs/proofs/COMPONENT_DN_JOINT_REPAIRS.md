@@ -1353,3 +1353,40 @@ the DN image. In particular the already-normalized anchors still need
 comparison. The nine DN fixtures in `--joint-chain-normalization` verify
 the paths and restored block invariants. General lower DN collection
 remains open; see `lower-corner-normalization-20260929/` for the receipt.
+
+## All DN layers for cubes of paths on 3h vertices
+
+2026-09-30 continuation. The
+[cube-family theorem](COMPONENT_NN_REDISTRIBUTION.md#complete-component-recurrences-for-cubes-of-paths-on-3h-vertices)
+proves complete DN component recurrences in every edge layer for the
+natural graph with edges ij of lengths one, two or three, on n=3h
+vertices. Its three maximal-corner chains are the residue classes.
+After corner-chain normalization, all selected normals lie in disjoint
+consecutive triangles. Explicit six-vertex moves join any two anchors
+with the same edge count and weak-component partition, for arbitrary h.
+
+For each n-1<=k<=2n-3 there is consequently one connected whole
+component C_k selecting all maximal corners with a simultaneous-cover
+witness. Every other source-layer component independently reduces by
+an absent-corner deletion, weak-block reordering, or alternating corner
+deletions. Thus for both X=K,E the complete DN recurrence is
+
+    X(C_k) = X(F_k(R)) - sum_(D != C_k) B_X(D),
+
+with B(D) the explicitly proved smaller whole-component expression in
+(CP3). Disconnected components and components outside this range also
+reduce by those constructions. All terms strictly decrease the original
+induction order; no component-expansion theorem is used.
+
+For n>=9 choose u=n-7,w=n-4,x=n-3,z=n-1 and unmark the selected
+upper corner (n-6)(n-3). This preserves the original full-envelope
+component and supplies an eligible DN source by DD inheritance. The
+actual DN target keeps natural area and lowers area moment by two.
+The n=6 native source instead uses the NN recurrence described there.
+
+The graph-only `--cube-layer-recurrences` check verifies all eight layers
+k=8,...,15 for n=9, including whole disconnected correction images and
+all alternating deletion parts. The arbitrary-length proof is the local
+move and row-transfer argument, not this finite check. The source and
+logs are retained in `cube-component-recurrences-20260930/`.
+General lower-layer DN collection outside this cube family remains open.

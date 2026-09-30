@@ -1,106 +1,84 @@
 # VerticalStripLLT handoff
 
-## Current continuation — maximum simultaneous-corner layer proved
+## Current continuation — all layers in the cube family
 
-Primary resumed from clean pushed `f27da0d`; this turn made verified
-progress. The full goal remains active: prove the ordinary non-circular
-component expansion by the author's four diagram recurrences. The separate
-completed Lean word-functional theorem is NOT an input. The user excludes
-fundamental-basis calculations and wants whole-component tracking through
-diamonds and endpoint relabeling.
+Primary resumed from clean pushed `21e9814`. The previous goal turn and
+this continuation made verified progress; the FULL goal remains active:
+prove the ordinary non-circular component expansion by the author's four
+diagram recurrences. The completed Lean word-functional theorem is NOT
+an input. The user excludes fundamental-basis calculations. Keep whole
+components, diamonds and actual flips central.
 
-**New proved uniform cyclic case:** the
-[simultaneous-corner theorem](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#the-largest-layer-with-all-corners-covering-simultaneously)
-and its [DN recurrence](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#dn-at-the-maximum-simultaneous-corner-layer).
-Let M be ALL maximal natural edges. The short pairs ab->bc belonging
-to corners ac form disjoint directed paths of lengths l_j. The largest
-edge count with all corners selected and covering is
-m*=|M|+sum ceil(l_j/2). At equality every path has a maximum nonadjacent
-selection. Choose an available forward move at the largest corner head,
-then the smallest middle vertex. All later available moves have lower
-priority. If this move destroyed a cover, following its bypass would
-force a higher-priority available move, a contradiction. Thus it is an
-actual flip retaining every corner cover. Repeating reaches the last-node
-alternating selection, which itself always covers all corners.
+**New proved uniform family:**
+[complete cube-family recurrences](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#complete-component-recurrences-for-cubes-of-paths-on-3h-vertices)
+and their [DN version](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#all-dn-layers-for-cubes-of-paths-on-3h-vertices).
+For the natural graph G_n with edges of lengths 1,2,3 on n=3h>=6
+vertices, the maximal corners are the three residue-class chains.
+Every simultaneous-cover state normalizes to an anchor whose normals
+lie in h disjoint triangles. The proof now connects ALL anchors with
+the same edge count and weak-component partition, for arbitrary h.
 
-Hence exactly ONE whole component C* in that layer has a simultaneous
-cover state. Every other component deletes an absent corner or uses the
-proved alternating corner-deletion recurrence. These are independent
-whole smaller-component expressions, so full-layer subtraction gives
-complete NN and DN recurrences for C*. Every component above m* also
-reduces. Arbitrary crossing exterior and unmarked corners are allowed.
-This extends the preceding one-corner dense bound, whose proof remains
-in the notes at `b861fb7` and receipt `dense-corner-layers-20260929/`.
+The local proof uses only two adjacent triangles. All three edge types
+can be moved between the triangles; the nonconsecutive type uses the
+six-flip path with temporary redundant corners. A four-flip path
+{01,12}->{01,02}, retaining 03,13,03,03, together with the normal-long
+triangle flip and order reflection, changes any two-edge triangle to
+any other. Row rearrangements and these exchanges connect the three
+row-count vectors. The same local moves connect arbitrary numbers of
+triangle blocks; outside vertices cannot affect their interval cover tests.
 
-**Verified:** graph-only `--corner-capacity`, 14 NN/DN fixtures:
-7911 simultaneous-cover states, 63 maximum states connected by 110
-prescribed actual flips. The recurrences account for 7818 source states,
-364 actual-target components / 11787 states, 64 absent-corner corrections
-/ 3075 states, and 269 alternating corrections / 894 states. Every
-alternating image partitions into whole components (1733 terms), with
-4404 surviving-bypass checks. Every final diagram is strictly smaller.
-The separate `--corner-normalization-scan` checks 148 diagrams on 7--9
-vertices, 1,274,304 source states, 192715 simultaneous-cover states and
-1098 maximum states normalized by 2401 prescribed actual flips.
-Both runs exited zero with empty stderr. No Lean build was run.
+Hence at EVERY k=n-1,...,2n-3 there is one connected component C_k
+selecting all maximal corners with a simultaneous-cover witness.
+Every other component independently reduces by absent-corner deletion,
+weak-block reordering, or alternating corner deletion. Full-layer
+subtraction now gives complete NN/DN component recurrences in all these
+layers. Components outside this range reduce too. This is an induction
+step in whole smaller diagrams, not an appeal to their known expansion.
 
-Frozen sources, commands, logs and checksums:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/joint-corner-capacity-20260929/`.
-The external diagnostic edge cap is now 21 (component cap unchanged at
-20000), for the nine-vertex cube fixture with 21 natural edges, five
-strict corners and only 65536 legal source states. Maintained Rust is
-unchanged; this does not authorize larger or unbounded scans.
+The formerly open 125-state eight-edge NN example in area 012333 is
+solved. Its two target layers contain 23 components / 210 states;
+13 absent-corner corrections account for 84 states and one alternating
+singleton accounts for one: 125=210-84-1. For n>=9 the native DN contact
+is u=n-7,w=n-4,x=n-3,z=n-1, with upper corner (n-6)(n-3) unmarked.
+For n=6 use NN at w=2,x=3,z=5 with 03 unmarked.
 
-## Remaining proof obligation
+**Verified, graph-only:** 80 explicit local template instances / 236
+actual flips; 822 ordered pairs in the six-vertex local path table.
+The global row algorithm passes ALL anchors for h=2,3,4 (4672 states)
+and 582 bounded samples for h=5,6, replaying 143893 actual flips in
+full graphs on up to 18 vertices. Local BFS supplies a fixed six-vertex
+lookup table; there is no global path search. The written proof uses
+the explicit local templates, not enumeration as an unbounded argument.
+All 13 connected-support layers for n=6 and n=9 have verified complete
+corrections: 28158 survivor states, 181 absent-corner corrections /
+31162 states, 18 whole reordered-block corrections / 90 states, and
+14 alternating corrections / 16 states (546 whole deletion terms).
+Every final diagram decreases the original order. The two principal
+runs and the final one-hole/max-layer regression checks exited zero with
+empty stderr; no Lean build was run.
 
-General NN/DN collection in LOWER cyclic layers k<m* remains unproved.
-Below maximum path occupancy, a forward move may create an available
-move to its RIGHT; the decreasing-priority proof fails. Do not infer
-arbitrary-layer uniqueness from the new theorem or previous scans.
-Every extra source component still needs its independent reduction.
-Direct RHS diamonds remain an allowed alternative to source completion.
+Frozen source, commands and logs:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/cube-component-recurrences-20260930/`.
+The general 21-edge enumeration guard and 20000-component cap are
+unchanged. Larger n=12,15,18 checks replay bounded prescribed paths only;
+they DO NOT enumerate those global state spaces.
 
-Continue with connected cyclic full-envelope components after the proved
-weak-block, absent/inactive-corner, fixed-short and tree reductions.
-The 125-state eight-edge NN component in area 012333 now has m*=9,
-and the 3381-state eight-edge component in area 0123434 has m*=12.
-Both remain open. The 77-state nine-edge component of the first diagram
-and the 2305-state twelve-edge component of the second are now solved.
-The connected 4998-state DN component at m*=15 in area 012333333 is
-also solved (the older one-corner bound was 19).
+## Remaining general obligation
 
-## Lower-layer continuation — temporary redundancy is necessary
+General NN/DN whole-component collection remains unproved outside the
+established families. The cube theorem uses three equal corner chains
+and disjoint triangle blocks. Arbitrary diagrams have different chain
+lengths and more interacting chains; the two-block proof has not been
+extended to that geometry. Do not claim that all simultaneous-cover
+states at one edge count always lie in one component.
 
-The [six-vertex obstruction and chain normalization](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#lower-layers-require-temporary-redundant-corners)
-are now proved. In area 012333, write M={03,14,25}. The states
-A=M+{01,02,12,34,45} and B=M+{01,12,34,35,45} cover every corner,
-but A has NO actual neighbor doing so. Its four possible flips each
-make another corner redundant. Nevertheless six corner-retaining flips
-join A to B, with 14 redundant at all five intermediate states. Both
-states are already chain-normalized anchors. This is an exact obstacle
-to requiring simultaneous covers along a lower-layer path, not a
-counterexample to connectivity or the component recurrence.
-
-A uniform preparation theorem now allows this temporary redundancy:
-process entire corner chains in decreasing maximum order; repeatedly
-flip their smallest-head exit into an incoming edge. The current
-chain's corners remain covers. At completion the processed union is
-absorbing, so all other corners recover their covers. The explicit
-endpoint keeps increasing-chain-max normals and replaces each inversion
-vy by yh, with h the strict successor of v. Thus EVERY simultaneous-cover
-state reaches a mixed-acyclic anchor by actual flips, even if initially
-mixed-cyclic. Endpoint constancy and lower-layer collection are NOT proved.
-Use this diagram path theorem only; do not reintroduce basis calculations.
-
-Graph-only `--joint-chain-normalization` passes all 7911 states in the
-14 fixtures, including 328 initially mixed-cyclic states: 10877 actual
-flips and 593 intermediate redundant states, with every block invariant
-and explicit endpoint checked. `--corner-occupancy` verifies the six-flip
-obstruction. Its 1017 same-occupancy groups have 1022 all-cover pieces;
-allowing temporary redundancy merges the pieces in every tested group.
-This last observation is finite evidence, NOT a general connectivity
-lemma. Both runs exited zero with empty stderr. Frozen sources and logs:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/lower-corner-normalization-20260929/`.
+The 3381-state eight-edge component in area 0123434 remains outside
+this family. Its corners 04,26 give two length-two chains and three
+singletons. The new general anchor observation reduces its witnesses
+to subsets of the fixed alternating state, but does not yet connect or
+collect them. Continue with the local flip templates and their cover
+conditions in this more general geometry. Keep direct RHS repairs
+available; source completion is only one sufficient method.
 
 ## Established reductions to retain
 
@@ -128,36 +106,40 @@ lemma. Both runs exited zero with empty stderr. Frozen sources and logs:
   a general eligible NN collection theorem, allowing empty unmarked corners,
   would settle DN. Do not induct on the larger auxiliary NN source itself.
 
+- [Maximum simultaneous-corner layer](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#the-largest-layer-with-all-corners-covering-simultaneously):
+  proved for arbitrary diagrams, using short-edge paths and the rightmost
+  priority. The one-corner dense-layer theorem also remains valid.
+- [General corner-chain preparation](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#lower-layers-require-temporary-redundant-corners):
+  every simultaneous-cover state reaches an explicit mixed-acyclic anchor,
+  allowing temporarily redundant other corners. The endpoint is not constant
+  on a whole component. The six-vertex obstruction to all-cover paths remains
+  valid, although its whole component recurrence is now solved above.
+
 ## Ownership, restrictions and recovery
 
 The replacement primary owns this handoff, the recurrence outline,
 APPEND-ONLY continuations of the NN redistribution and DN joint-repair
-notes, the earlier authorized endpoint/source-addition continuations,
-and the existing external diagnostic consumers under
+notes, earlier authorized endpoint/source-addition continuations, handoff
+archives, and the existing external diagnostic consumers under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/diamond-exploration/hrv-bridge/`.
-The primary also owns the pre-dense handoff archive linked below. Preserve
-all other file ownership and all earlier proof-note text as prefixes.
+Preserve all other file ownership and both proof-note prefixes at `21e9814`.
 
 No Lean/Lake builds, extra worker/subagent/Claude consultation, manuscript
 TeX/PDF/Overleaf edit, or maintained Rust edit is authorized in this lane.
-Keep any later authorized Lean work serialized under the primary build
-owner. No worker/account/profile/model change has been made or requested.
-Runtime registry, `codex mcp list`, Rust guide, Cargo metadata and existing
-Graph/Poset/cover-flip APIs were checked. Lean MCP is rooted at RealRooted
-and unused. Maintained Rust remains clean at
-`d53fb193af3c69adedbd9ec8592f87235d809ffa`.
+Any later authorized Lean work remains serialized under the primary owner.
+No worker/account/profile/model assignment changed. Runtime registry,
+`codex mcp list`, Rust guide, Cargo metadata and existing Graph/Poset/flip
+APIs were checked this turn. Lean MCP is rooted at RealRooted and unused.
+Maintained Rust remains clean at `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 
-The user-requested replacement began at pushed account-swap checkpoint
-`2511182`. The complete prior handoff at `3151906`, with every intermediate
-proof checkpoint, receipt and ownership record, is retained in the
-[pre-dense-layer archive](docs/archive/component-handoff-before-dense-layer-20260929.md).
-Only relative Markdown links were adjusted there. The older account-swap
-history and original notebook/Overleaf paths remain available through it.
+The user-requested replacement began at pushed account-swap `2511182`.
+The complete handoff at `21e9814`, including prior results, exact proof
+checkpoints, receipts and ownership, is preserved in the
+[pre-cube archive](docs/archive/component-handoff-before-cube-family-20260930.md).
+Only relative Markdown links were adjusted. It links the older account-swap
+and pre-dense archives. Earlier proved/unfinished distinctions are retained;
+the new appendices explicitly supersede only the cube-family open cases.
 
-Both proof checkpoints are pushed to `origin/main`: `c2c5a0d` for the
-maximum-layer recurrences and `0ff8024` for lower-layer chain normalization.
-The latter preserves both proof-note prefixes at `c2c5a0d`.
-The outline now removes the stale account-pause and unfinished-attachment
-instructions and routes to the proved attachment theorem and current gap.
-Both frozen receipt hash lists, all 126 local file links in the four edited
-files, and `git diff --check` pass. No background job needs monitoring or restarting.
+Both proof-note prefixes, the complete archived handoff, all 140 local file
+links in the five edited/new files, receipt hashes and `git diff --check` pass. The worktree
+was clean and HEAD/origin/main agreed at the start. No job needs restarting.

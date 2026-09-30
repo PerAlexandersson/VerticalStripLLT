@@ -113,6 +113,19 @@ the explicit chain-max anchor even from an initially mixed-cyclic state.
 It does not connect all anchors in a component or collect their recurrence.
 The two states of the obstruction are already anchors.
 
+The [cube-family theorem](COMPONENT_NN_REDISTRIBUTION.md#complete-component-recurrences-for-cubes-of-paths-on-3h-vertices)
+now completes NN/DN component recurrences in EVERY edge layer for the
+natural cube of a path on 3h vertices. After corner-chain normalization,
+anchors are subsets of h disjoint triangles. Explicit six-vertex moves
+rearrange each edge type and change two-edge triangle selections; the
+resulting row/count argument connects all anchors with the same edge
+count and weak-component partition for arbitrary h. Thus every connected
+source layer has one simultaneous-cover component; all extras independently
+reduce by missing corners, weak blocks or alternating corner deletion.
+This solves the former 125-state case in area 012333. The general
+3381-state example in area 0123434 has different chain geometry and remains
+open. No arbitrary-diagram anchor-connectivity theorem is asserted.
+
 The new [empty-corner reduction](COMPONENT_DN_JOINT_REPAIRS.md#dn-through-an-empty-corner-nn-diagram)
 shows that the uniform NN statement would also settle DN. Adding the
 missing corner EMPTY and unmarking its neighbor preserves the exact
@@ -504,9 +517,9 @@ maximum nonadjacent selections on the auxiliary short-edge paths.
 
 Continue with connected cyclic full-envelope components below that maximum,
 after applying weak-block, absent/inactive-corner and fixed-short reductions.
-The 125-state eight-edge NN component in area 012333 (m*=9) and the
-3381-state eight-edge component in area 0123434 (m*=12) remain useful
-explicit cases. Do not assume general active-component uniqueness or
+The 125-state eight-edge NN component in area 012333 is now solved by
+the cube-family theorem. The 3381-state eight-edge component in area
+0123434 (m*=12) remains a useful explicit case outside its chain geometry. Do not assume general active-component uniqueness or
 subtract unreduced extra source components. Direct RHS diamonds remain
 an alternative to full-layer completion. The available retained-edge
 lemmas and paired endpoint maps may be used for local comparisons, but

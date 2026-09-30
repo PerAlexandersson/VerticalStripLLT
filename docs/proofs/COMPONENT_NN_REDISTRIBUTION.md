@@ -2329,3 +2329,237 @@ temporary redundancy, pass in all 14 fixtures; this is NOT a general
 same-occupancy connectivity theorem. Frozen sources and receipts are in
 `lower-corner-normalization-20260929/`. General lower-layer whole-component
 collection remains unproved.
+
+## Complete component recurrences for cubes of paths on 3h vertices
+
+2026-09-30 continuation. We now settle every edge layer in an unbounded
+family, rather than only its maximum simultaneous-cover layer. The proof
+uses explicit local flips, the ordered corner-chain preparation, and
+independent smaller-component corrections. It does not use a basis
+calculation or the separate component-expansion theorem.
+
+### Anchors are subsets of one fixed diagram
+
+First let G be arbitrary and M its full set of maximal natural corners.
+The final alternating state A* from (JC1) is exactly M together with
+EVERY normal edge whose endpoints have increasing corner-chain maxima.
+Indeed, along a short-edge path ab->bc the endpoints a,c belong to the
+same corner chain, so the comparison of the two chain maxima reverses.
+At the last node ab, a has no strict successor: such a successor would
+supply the next link. Thus r(a)=a<b<=r(b), and the last node is good.
+Good nodes therefore alternate backwards from the last node of each path.
+
+It follows that the anchors in an edge layer k are exactly the k-edge
+subsets of A* containing M. Every state with all M covering reaches one
+of these anchors by the preceding chain-normalization theorem. In
+particular, at k=m*-1 the only anchors are A* with one normal edge
+deleted. This is a reduction of the connectivity question, not a claim
+that all such subsets belong to one component in an arbitrary diagram.
+
+### The cube family and its three chains
+
+Let n=3h with h>=2, and let G_n have the natural edges ij with
+1<=j-i<=3. Its maximal corners are
+
+    M={i(i+3) : 0<=i<n-3}.
+
+Their three chains are the three residue classes modulo 3. Their maxima
+are n-3,n-2,n-1, in that order. Divide the vertices into h consecutive
+blocks of three. The increasing-chain-max normal edges are precisely
+the three edges WITHIN each block. Thus an anchor consists of M and
+an arbitrary subset of these h disjoint triangles.
+
+Name the three edge types 01,02,12 according to their residues. We call
+these types colors only for the following bookkeeping; they are not
+colorings of the diagram. An anchor is a three-row binary array with
+h columns, one column per triangle. Each row has at most h selected
+edges. The weak components of the full selected graph are determined
+by which of the three edge types occur: no types leave three chains;
+one type joins its two chains; any two types join all three chains.
+
+**Anchor connectivity theorem.** For this family, any two anchors
+with the same selected-edge count and the same partition of the
+vertices into weak components lie in the same actual flip component.
+We prove this with moves on two adjacent blocks only.
+
+### The six-vertex local moves
+
+On two adjacent blocks use local labels 0,...,5 and keep the corners
+03,14,25 selected. Write
+
+    a=01, b=02, c=12, A=34, B=35, C=45.
+
+These are the six possible anchor normals. A path below returns to
+an anchor and leaves every unspecified anchor edge unchanged.
+
+First, we may move a selected edge between the two positions of ANY
+one type, provided the other position is empty. For a<->A the path
+is 01->13->34, retaining 03 then 14. For c<->C it is
+12->24->45, retaining 14 then 25. These are the proved slides between
+consecutive corner chains and allow arbitrary anchor exterior.
+
+For b->B, if either the a/A row or the c/C row is empty, the direct
+path 02->23->35 is actual: neither 02 nor 35 has its two-edge normal
+bypass. Otherwise use the preceding row moves to arrange a and C
+selected. Now use
+
+    01->13 [03], 45->24 [25], 02->23 [03],
+    23->35 [25], 13->01 [03], 24->45 [25].             (CP1)
+
+The edges A,c can independently be present or absent. With both present,
+the six normal sets are exactly the six-vertex path recorded above;
+all its retained edges and exchanged shorts cover. Deleting either
+of the two unused edges preserves these cover tests. Finally undo
+the preparatory row moves, restoring the whole exterior. Reversing
+this path handles B->b. Thus each row can be rearranged independently.
+
+Second, any two-edge selection in ONE triangle can be changed to either
+other two-edge selection, with arbitrary selection in the other triangle.
+The normal-long flip {a,b}<->{b,c} is immediate. For the other exchange,
+with b absent initially, we have
+
+    {a,c} -> {13,c} -> {13,23} -> {a,23} -> {a,b},   (CP2)
+
+retaining, respectively, 03,13,03,03. The temporary edges 13,23 are
+absent in an anchor. Each cover test is inside [0,3]; the selected
+corners 14,25 and all other-triangle edges cannot affect it. This
+proves {a,c}<->{a,b}, and composition gives the third comparison.
+Reverse the six-vertex order to obtain the same moves in the upper
+triangle. These paths may temporarily make another corner redundant.
+
+We can now classify ALL two-block anchors, without assuming an
+unproved table. Their row counts are (p_0,p_1,p_2), each between zero
+and two. With at most one nonzero row, the partition fixes the row,
+and row moves connect every arrangement with that count. With at least
+two nonzero rows, all three chains are connected. Row moves and the
+triangle exchanges connect every count vector with the same total:
+
+* If the third row is nonempty, arrange a donor and a third-row edge
+  in one triangle, with the receiving type absent there. Apply (CP2)
+  or its two-edge companions, retaining the third-row edge.
+* If only donor and receiving rows are nonempty, a transfer preserving
+  connectivity has counts (2,1,0) on these rows. Arrange the receiving
+  edge beside one donor. Exchange that donor for the third type; move
+  the new third-type edge to the other triangle; there exchange it for
+  the receiving type, retaining the remaining donor. The result has
+  counts (1,2,0).
+
+Each operation changes one donor into one receiving type, respects the
+capacity two, and retains at least two nonzero rows. These transfers
+connect the count vectors: move an entry above its desired value to
+one below it. If doing so would leave only one nonzero row, first use
+a deficient third row instead. The desired vector itself has at least
+two nonzero rows, so such a choice exists. The sum of coordinate
+errors decreases at every transfer. Row moves then give the specified
+positions. This proves the local classification.
+
+### Move through arbitrarily many blocks
+
+Every local path lifts to two adjacent blocks in G_n. Its edges have
+both endpoints in that six-vertex interval. An increasing alternate
+path testing their covers cannot leave the interval and return.
+All other selected edges, including strict corners entering or leaving
+the interval, therefore leave the local cover tests unchanged. The
+path restores the six-vertex anchor configuration before the next move.
+
+Adjacent-block row moves rearrange each of the three rows arbitrarily.
+Now suppose at least two rows are nonempty and we want to transfer one
+edge from row U to row V without exceeding capacity h or losing
+connectivity. If the third row W is nonempty, independently rearrange
+rows so that the first column contains U,W but not V. The two-block
+classification changes U to V there, fixing the remaining local edges.
+
+If W is empty, U has at least two edges, V at least one and V has an
+empty position. Arrange U in each of the first two columns and V only
+in the second of them. In that second column change U to W, retaining
+V. Move W to the first column, and there change W to V, retaining U.
+Every use of the two-block classification has all three chains locally
+connected at both endpoints. The final row counts are the desired
+single transfer U->V, with W empty again.
+
+The same decreasing coordinate-error argument connects any two feasible
+count vectors with at least two nonzero rows. Finish by rearranging rows
+to their desired positions. For the one-row and empty cases row moves
+already suffice. This proves the anchor connectivity theorem for every
+h>=2. The proof gives a terminating construction; it is not induction
+from a finite list of globally enumerated components.
+
+### Isolate the connected component in every layer
+
+Let k=n-3+m. For every 2<=m<=3h there is exactly ONE connected whole
+component C_k selecting all M and containing a simultaneous-cover state.
+Existence follows by choosing an anchor with m normals and at least two
+nonempty rows. For uniqueness, normalize any such state to its anchor;
+normalization preserves its edge count, weak partition and actual
+component. The anchor theorem connects all the resulting anchors.
+
+For an eligible NN or DN source L with natural graph G_n, form B(D)
+for every other whole source component D in layer k as follows:
+
+1. If a maximal corner is absent, delete it. This is one whole smaller
+   component, exactly as before.
+2. Otherwise, if D is disconnected, concatenate its induced weak-block
+   diagrams, preserving order inside each block. The proved block
+   reordering lemma gives one whole smaller component, with the same
+   K and E. Natural area decreases because G_n is connected and some
+   natural edge joins different selected weak blocks.
+3. Otherwise D is connected and selects all M. By uniqueness it has
+   no simultaneous-cover state. Mark M strict and apply the alternating
+   corner-deletion formula (JC3). Every image is a union of whole
+   components of smaller diagrams, independently of any expansion.
+
+Let epsilon=1 for NN and epsilon=0 for DN. The full-layer identities
+now give the complete signed component recurrence, for BOTH X=K,E,
+
+    X(C_k) = X(F_k(R)) + epsilon X(F_(k-1)(R))
+               - sum_(D in F_k(L), D != C_k) B_X(D).  (CP3)
+
+Every final diagram decreases the original induction order. Every other
+component in this layer already has the independent smaller expression
+just specified. Above k=2n-3, simultaneous corner covers are impossible,
+so connected components reduce by (JC3) as well. Below k=n-1 no selected
+graph is connected. Missing corners and disconnected components always
+use items 1 and 2. Thus this gives component recurrences for EVERY layer
+of the cube family, including all its lower cyclic layers.
+
+No saturation assumption on the eligible source is needed. To choose a
+native recurrence for a full-envelope component, marking/unmarking its
+selected maximal corners preserves that whole component. For n=6 use
+NN at w=2,x=3,z=5, with 03 unmarked. For n>=9 use DN at
+u=n-7,w=n-4,x=n-3,z=n-1 and unmark the upper corner (n-6)(n-3),
+keeping the other maximal corners strict. These are the established
+ND/DD inheritance steps. The NN target lowers natural area by one;
+the DN target keeps area and lowers area moment by two.
+
+### The former 125-state case and verification
+
+For area 012333 and strict 14,25, the formerly open eight-edge component
+has m=5. Its anchors are the six deletions of one normal edge from
+M plus the two full triangles. The theorem now connects them and gives
+its full recurrence. The two actual NN target layers contain 23 whole
+components with 210 states. The other source components comprise 13
+missing-03 components with 84 states and one all-corners-selected
+singleton. Alternating deletion of that singleton gives seven whole
+smaller terms. Thus the checked recurrence accounts for 125=210-84-1.
+The singleton's corners are everywhere redundant, so a single inactive
+corner deletion can replace its alternating expression if desired.
+
+Related Rust: graph-only `--cube-anchor-paths` checks 80 instances of
+(CP1), (CP2), the consecutive slides and reflected triangle moves, with 236
+actual flips. The local path table has 822 ordered
+anchor pairs in 12 classes. The global row/count construction is checked
+on ALL anchors for h=2,3,4 and bounded samples for h=5,6, always replaying
+its local paths in the full global graph. Local BFS supplies a fixed
+six-vertex path table; no global component search supplies these paths.
+`--cube-layer-recurrences` checks every correction image and every final
+diagram in all five connected-support NN layers for n=6 and all eight
+DN layers for n=9. Sources and logs are frozen in the external
+`cube-component-recurrences-20260930/` receipt.
+
+This completes the NN/DN component step for G_(3h), not for arbitrary
+ordinary diagrams. Its special input is the three-row triangle-block
+anchor geometry. An arbitrary graph can have different corner-chain
+lengths and more interacting chains. Neither the two-block classification
+nor the row-transfer argument has been proved in that generality. The
+3381-state eight-edge component in area 0123434 remains outside this
+family, and the general Motzkin/Dyck recurrence goal remains open.
