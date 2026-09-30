@@ -82,9 +82,19 @@ CC3 interval opening/closing and actual local lifting are now verified.
 path, and closes with all exterior edges restored. Its opened restriction
 is a connected state with the smaller extreme corner covering. The generic
 cover-based flip lift is extracted from `CoreExtension`, retaining its old
-convex interface. Restricted count transport and chord-position bookkeeping
-remain, as do chord rearrangement, column sweep, the four explicit five-vertex
-paths and reachability forcing. P5--P10 remain open. The independent component
+convex interface (`64205a9`).
+
+Restricted selected-count transport and the chord-position construction are
+now verified. `IntervalCounts` applies the explicitly assumed smaller
+connectivity theorem after opening. `ChordExchange` realizes an exchange
+inside either `[1,n-1]` or `[2,n]`, restoring every other edge. Their chord
+positions cover all except `1n` and overlap at `24` for `n >= 5`.
+`ChordRearrangement.complete_chain_reachable_of_fixed_outer` therefore
+connects equal-count chain states with the same outer-chord membership,
+conditional on strictly smaller complete-diagram connectivity. Local paths
+need not preserve that membership at intermediate flips. Changing the outer
+chord, column sweep, the four explicit five-vertex paths and reachability
+forcing remain. P5--P10 remain open. The independent component
 theorem is not yet formalized. See `HANDOFF.md` and `DiagramProofVerification.lean`
 for ownership and exact verification.
 

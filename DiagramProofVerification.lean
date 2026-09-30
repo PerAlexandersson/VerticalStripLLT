@@ -24,6 +24,8 @@ import VerticalStripLLT.Components.DiagramProof.CompleteChain
 import VerticalStripLLT.Components.DiagramProof.IntervalPaths
 import VerticalStripLLT.Components.DiagramProof.ChainConnected
 
+import VerticalStripLLT.Components.DiagramProof.ChordRearrangement
+
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
 
 #print axioms VerticalStripLLT.Circular.DiagramProof.fullSelection_injective
@@ -239,3 +241,32 @@ import VerticalStripLLT.Components.DiagramProof.ChainConnected
 
 #print axioms
   VerticalStripLLT.Circular.DiagramProof.openCompleteChain_interval_connected_cover
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChainState_fullSelection
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChainEdges_disjoint_chords
+#print axioms VerticalStripLLT.Circular.DiagramProof.selectedCompleteChords_chainState
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChainState_totalSelected
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChainState_row
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChainState_chain
+#print axioms VerticalStripLLT.Circular.DiagramProof.eq_completeChainState_of_chain
+#print axioms VerticalStripLLT.Circular.DiagramProof.totalSelected_eq_chain_add_chords
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeEdgeEmbed_injective
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeEdgeEmbed_image_fullSelection
+#print axioms VerticalStripLLT.Circular.DiagramProof.fullSelection_filter_not_completeEdgeInImage_eq
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeRestrictAlong_totalSelected_eq
+#print axioms
+  VerticalStripLLT.Circular.DiagramProof.completeChordPositions_mem_left_or_right_of_ne_outer
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChordPositions_common_mem
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChordLeft_exists_interval_endpoints
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChordRight_exists_interval_endpoints
+#print axioms VerticalStripLLT.Circular.DiagramProof.eq_completeOuterChord_iff
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeOuterChord_not_mem_left
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeOuterChord_not_mem_right
+#print axioms VerticalStripLLT.Circular.DiagramProof.openCompleteChain_interval_totalSelected_eq
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_interval_chain_path_of_equal_count
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChainState_outside_of_chords
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChainState_exchange_in_interval
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChainState_exchange_in_two_intervals
+#print axioms VerticalStripLLT.Circular.DiagramProof.fixed_card_connectivity_fixing_position
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChainState_reachable_of_fixed_outer
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_chain_reachable_of_fixed_outer

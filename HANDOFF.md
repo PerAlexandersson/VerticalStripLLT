@@ -2,18 +2,19 @@
 
 ## Active implementation — P0/P2/P3 complete, P1/P4 partial
 
-Current continuation started clean at pushed `1c22d95`; the previous turn
-made verified progress by completing the recursive chain construction CC1.
-The current increment proves interval opening, local path lifting on
-`{0,a,...,b}`, and closing with the exterior restored (CC3).
+Current continuation began at pushed `64205a9`. The current increment proves
+selected-count transport through CC3 and chord rearrangement between chain
+states with equal chord counts and the same `1n` membership, assuming the
+smaller complete-diagram connectivity theorem.
 
 Primary owns all `DiagramProof/` files, `DiagramProofVerification.lean`,
 this handoff and the formalization plan, and retains the sole serialized
-build slot. Luna returned `ChainOpening.lean`; Terra returned
-`PathRestriction.lean` and `ChainConnected.lean`, then reviewed the interval
-integration read-only. Primary repaired and verified all returned sources.
-Both agents are finished. No other source ownership was adopted, and
-historical proof notes remain unchanged.
+build slot. Terra returned `SubdiagramCounts.lean`; Luna returned
+`ChordIntervals.lean` and `FixedPositionPaths.lean`. Primary repaired,
+integrated and verified them with four additional modules. Terra audited
+both the count/exchange bridge and the final rearrangement read-only.
+Both agents are finished; all current source is primary-owned. Historical
+proof notes and unrelated source ownership remain unchanged.
 
 The independent component theorem is unfinished. The active goal also
 requires a new illustrated draft combining the circular e-expansion and the
@@ -28,7 +29,39 @@ terms or state the condition itself, follow Robin and the author's diagram
 reasoning, and keep implementation/audit details out of the manuscript.
 No fundamental-basis or old word/scan argument is used.
 
-### Current P4 increment — interval paths
+### Current P4 increment — chord rearrangement
+
+- `CompleteChords` constructs chain states in the actual orientation type,
+  recovers every state satisfying the root-row and consecutive-chain
+  conditions, and splits its total selected count into chain and chord counts.
+- `SubdiagramCounts` embeds actual edges along the vertex embedding. Equal
+  global selected counts and equal full exterior selections imply equal
+  restricted selected counts, including cross-boundary exterior edges.
+- `IntervalCounts` applies this after opening, then invokes the explicitly
+  assumed smaller active-layer theorem to obtain the local CC3 path.
+- `ChordIntervals` covers every chord except `1n` by `[1,n-1]` and `[2,n]`.
+  For `n >= 5`, their overlap contains `24`. It supplies actual embedded
+  endpoint witnesses and identifies the excluded outer chord.
+- `ChordExchange` realizes each exchange within either interval by actual
+  flips. Its endpoint is exactly `S-e+f`, with every other edge restored;
+  the invoked complete diagram has strictly fewer vertices.
+- `FixedPositionPaths` combines exchanges through overlapping position sets,
+  using the existing occupancy-aware finite-subset path lemma. Local paths
+  may leave the endpoint subtype; their reflexive-transitive closures are
+  composed and flattened, without assuming invariants at intermediate steps.
+- `ChordRearrangement.complete_chain_reachable_of_fixed_outer` connects actual
+  chain states with equal total selected counts and the same `1n` membership,
+  assuming connectivity on smaller complete diagrams. This is an endpoint
+  reachability theorem: it does NOT assert that `1n` membership is preserved
+  at every flip on the resulting path.
+
+Terra's independent audits found no gap in the count cancellation, exact
+exterior restoration, strict size decrease or occupancy-aware exchanges.
+The smaller connectivity statement remains an explicit induction hypothesis.
+Changing the outer chord, the small bases and complete-layer connectivity
+are still unfinished.
+
+### Earlier P4 increment — interval paths (`64205a9`)
 
 - `CoreExtension.liftDirected_of_cover_iff` extracts the actual flip-lifting
   proof with explicit inside relation, unchanged exterior, and exact cover
@@ -58,10 +91,10 @@ No fundamental-basis or old word/scan argument is used.
   active-corner hypotheses needed for the smaller complete-diagram theorem.
 
 Terra independently audited CC3 and found no exterior-restoration or cover
-restriction gap. The local path is still an explicit input; this is NOT yet
-chord rearrangement or complete-layer connectivity. Count transport to the
-restricted chord/selected sets and chord-position bookkeeping remain before
-invoking the cardinality-indexed induction.
+restriction gap. At that checkpoint the local path was an explicit input, and chord
+rearrangement and complete-layer connectivity remained open. The present
+increment supplies count transport and uses that path with an explicit
+smaller-connectivity hypothesis, as recorded above.
 
 ### Earlier P4 construction — CC1 and CC2
 
@@ -149,33 +182,34 @@ strict edges; specialize to `allCorners D` for the proof note's multigraph H.
 
 P1 remains partial: other induced-core geometry and order reversal remain;
 the specific nonconvex complete-interval lift is now proved. P4 remains
-partial: chord rearrangement, column sweep, four five-vertex paths and
+partial: changing the outer chord, column sweep, four five-vertex paths and
 reachability forcing remain. P5--P10 remain open. General component
 recurrences, endpoint attachment and the final independent theorem are NOT
 yet Lean-proved by this route. The mathematical diagram proof is complete.
 
 ### Verification and next step
 
-Focused builds of `IntervalPaths`, `ChainConnected`, and the existing
-`CompleteChain` consumer pass without source warnings. All 195 queries in
-`DiagramProofVerification.lean` pass using only `propext`, `Classical.choice`,
-`Quot.sound` (or none). The independent import closure contains 131 project
-files and excludes the old word/scan/expansion routes. Source guards,
-100-column and whitespace checks pass. Logs are `p4-interval-final-build.log`,
-`p4-interval-axioms.log` and `p4-interval-imports.txt` in the directory below.
-No compiler or agent job remains running.
+Focused builds of `ChordRearrangement` and its new dependencies pass without
+source warnings. All 222 queries in `DiagramProofVerification.lean` pass
+using only `propext`, `Classical.choice`, `Quot.sound` (or none). The independent
+import closure contains 138 project files including the verification file,
+and excludes the old word/scan/expansion routes. Source guards, 100-column
+and whitespace checks pass. Logs are `p4-rearrangement-final-build.log`,
+`p4-rearrangement-axioms.log` and `p4-rearrangement-imports.txt` in the directory
+below. No compiler or agent job remains running.
 
 No broad build, dependency update, remote proof search or mathematical
 computation ran. Only primary invokes `lake-workspace`. Lean MCP remains
 rooted at RealRooted, so local compiler diagnostics are used. The wrapper's
 existing package-path manifest warning remains unchanged.
 
-Next: derive restricted selected/chord-count equality from equal global
-counts and equal exterior, encode ambient chord positions and their two
-intervals, then apply the smaller complete-diagram theorem through the
-verified CC3 path. Package outside selected-relation agreement for chain
-states, including root, chain and cross-boundary pairs. Follow with the
-column sweep. The four explicit five-vertex paths around line 3628 of
+Next: change the outer-chord membership using the column sweep (CC4--CC6),
+then complete the cardinality-indexed induction. The existing incoming sweep
+with `(b,c,d) = (0,1,n)` already moves all positive incoming edges `in`,
+`2 <= i < n`, to `0i`. The outgoing restoration API currently requires a
+strict cutoff below its top endpoint; either finish its last edge separately
+or prove the needed weak-cutoff variant while retaining the old interface.
+The four explicit five-vertex paths around line 3628 of
 `COMPONENT_NN_REDISTRIBUTION.md` still need actual Lean flip witnesses.
 Arbitrary component enumeration is not an assumption.
 The optional later consolidation of the prefix/general restriction APIs is
@@ -187,7 +221,8 @@ implementation. Earlier verification logs remain under
 `p3-packing-*` records 107 axiom checks/106 project files;
 `p4-helpers-*` records 120 axiom checks/111 project files;
 `p4-prefix-*` records 148 axiom checks/121 project files;
-`p4-chain-*` records 164 axiom checks/124 project files.
+`p4-chain-*` records 164 axiom checks/124 project files;
+`p4-interval-*` records 195 axiom checks/131 project files.
 
 ## Detailed formalization plan — completed before implementation
 
