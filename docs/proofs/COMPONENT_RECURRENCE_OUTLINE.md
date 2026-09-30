@@ -638,3 +638,15 @@ overlapping cliques, so their proved paths lift and give uniqueness.
 The full-layer corrections then give whole-component DN recurrences,
 including either allowed marking of 1c when c>a+1. The earlier larger-middle
 open status is superseded. General NN/DN collection remains unfinished.
+
+
+The [last-clique inheritance theorem](COMPONENT_NN_REDISTRIBUTION.md#extending-the-last-clique-from-a-connected-core)
+now reduces an arbitrary last clique, with consecutive maximal corners
+bc,ae and b<a<c<e, to the induced core {0,...,c,e}, PROVIDED the core's
+common-cover uniqueness is known. We make the selected core connected,
+isolate and rearrange it, reach a fixed tree, and redistribute extras
+through the shared good position ba. The exterior is restored exactly.
+This proves all eligible recurrences for three corners 0a,bc,ae with
+0<b<a<c<e. For b>1 the left contact is NN; the former direct DN contact
+would add a nonordinary edge. Other three-corner geometries and general
+higher-clique collection remain unfinished.

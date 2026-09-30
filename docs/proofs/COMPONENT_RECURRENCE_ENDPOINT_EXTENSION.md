@@ -508,3 +508,10 @@ allows every middle head c with a<c<e. Its full-layer recurrence still
 has the same marked corrections, so arbitrary right attachments apply
 to this larger family too. Pendant deletion proves uniqueness; it is
 not used as a marked valuation identity for a whole source component.
+
+
+The [full middle-position family](COMPONENT_DN_JOINT_REPAIRS.md#all-positions-of-the-middle-corner-in-0abcae)
+also has the same full-layer marked corrections. Thus its eligible
+NN/DN recurrences retain the right-marked identities and arbitrary right
+attachments of (RE2)--(RE3). The last-clique inheritance proof is a path
+construction; it introduces no component-value identity under deletion.

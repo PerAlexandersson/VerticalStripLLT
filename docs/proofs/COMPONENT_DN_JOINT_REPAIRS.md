@@ -1823,3 +1823,106 @@ Frozen sources, commands, logs and hashes are retained in
 `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-pendant-recurrences-20260930/`.
 The size-guard exit is recorded separately from the successful replays.
 No coloring enumeration, basis calculation or Lean build was used.
+
+
+## All positions of the middle corner in 0a,bc,ae
+
+The [last-clique inheritance theorem](COMPONENT_NN_REDISTRIBUTION.md#extending-the-last-clique-from-a-connected-core)
+now removes the remaining b=1 restriction on this natural family. For
+
+    M={0a,bc,ae},       0<b<a<c<e,                     (DG5)
+
+all connected common-cover states of a fixed size belong to one actual
+component retaining M. Every eligible NN/DN contact therefore gives the
+same signed recurrence for K and E in whole smaller components, including
+the right-marked version and arbitrary right attachments.
+
+To prove the assertion, use the induced core V={0,...,c} union {e}.
+After order compression its last two maximal heads are consecutive.
+The corner chain ending at e starts at 0. The order-dual pendant lemma
+therefore reduces common-cover uniqueness in the core to the diagram
+on 0,...,c with corners 0a,bc. This is the proved two-overlapping-clique
+family. The last-clique inheritance theorem gives uniqueness in (DG5),
+using actual paths and exact restoration of the removed exterior.
+
+For clarity, one possible fixed tree in this application is
+
+    T=M union {va : 1<=v<a, v!=b}
+        union {ve : a<v<e}.                            (DG6)
+
+Its corner-chain quotient is a star at the chain {0,a,e}. The extra
+shared position is ba; the other copy ce belongs to T. Rearrangements
+in the core and the last clique exchange all extra edges through ba.
+No claim that pendant deletion maps whole components is needed.
+
+Eligibility must still be checked in the ORIGINAL diagram. If b=1,
+the earlier direct DN contact (0,a,a+1,e) is available with the stated
+middle-mark restriction. If b>1, adding 0(a+1) alone would not give an
+ordinary diagram: 1(a+1) is absent. We do NOT call that an eligible DN
+contact. The left NN contact deleting 0a and marking 1a is available;
+the other maximal corners and their allowed marks remain. The theorem
+supplies this NN recurrence and any other genuinely eligible contact.
+
+For each feasible k, uniqueness isolates C_k in the full source layer.
+Every other component reduces independently by an absent maximal corner,
+weak-block reordering, or alternating corner deletion. Subtract those
+smaller expressions from the applicable full-layer NN/DN identity.
+All outputs are whole by those reduction theorems. Lower disconnected
+layers and layers above the common-cover maximum reduce directly.
+This proves the full component recurrence for the natural family (DG5),
+not merely paths for its dense layers or a fixed selection of markings.
+
+Other three-corner geometries, with last tail different from a, and
+general higher-clique NN/DN collection remain unfinished. The new general
+inheritance lemma can be used whenever its core uniqueness hypothesis is
+proved; it cannot supply that hypothesis for an arbitrary core.
+
+
+### Verification of the tail construction
+
+Related Rust: the existing external `dn_joint_span.rs` consumer has
+`--three-corner-tail-star`. It constructs 3279 paths in 45 diagrams on
+5..10 vertices, with c<=5: all connected anchors through seven vertices,
+and 128 deterministic subset samples per larger diagram. Every actual
+flip is replayed with all original corners retained. There are 387658
+flips, a maximum path length of 725, and up to 34 natural edges.
+The audit checks 63 overlap-joining paths, 10024 lifted core flips and
+128764 flips in the final right-clique normalization. Every endpoint
+contains (DG6), is an anchor and preserves the total count.
+
+Only the compressed core uses bounded component-path lookup: at most
+seven vertices, sixteen natural edges and 8192 states (three maximal
+corners stay selected). There is no full source component search in this
+mode. The core theorem itself is proved by the earlier order-dual
+pendant and two-clique theorems. The final arbitrary rearrangement of
+extra positions uses the proved core and terminal-clique constructions
+as in (LC3); the star-mode counts do not purport to enumerate all those
+extra-edge paths in the larger fixtures.
+
+`--three-corner-tail-layers --right-marked-layers` checks the eligible NN
+contact in three formerly uncovered interior-middle fixtures:
+(n,a,b,c)=(7,3,2,4),(8,3,2,4),(8,4,3,5), with every maximal corner marked.
+All 16 feasible layers pass: 16165 survivor states, 1206 whole targets
+with 29678 states, 535 block corrections with 7182 states, and 314
+alternating source components with 6331 states. The latter give 7490
+whole deletion terms. There are 4794 positive terms, 4437 negative terms
+and 44317 redundancy witnesses. The signed right-marked fibre identities,
+whole-output checks and strict induction-order checks all pass. These
+finite fixtures do not replace the general path proof or its independent
+absent-corner corrections for unmarked corners.
+
+Two supplementary modes also pass. `--dn-general-bridge` introduces ba
+or ce when both are absent in 2386 connected anchors from 126 diagrams
+on 5..10 vertices, using 132032 actual flips (maximum path length 644).
+It must normalize the selected right blocks first: sweeping incoming
+edges at c alone does NOT make c pendant, since outgoing cv can remain.
+`--dn-core-isolation` checks the smaller core {0,...,a,c,e} in 51 diagrams
+on 5..10 vertices, with a<=3. It gives 3306 paths and 23105 flips,
+including 5345 lifted core flips and 1734 changed core endpoints, with
+exact exterior restoration. These supplementary algorithms are not
+needed as hypotheses of the last-clique inheritance theorem.
+
+Frozen sources, commands, successful logs and hashes are retained in
+`/lake-cache/ai-projects/requests/VerticalStripLLT/three-corner-tail-recurrences-20260930/`.
+The existing whole-component limit was unchanged. No coloring enumeration,
+fundamental-basis calculation, maintained Rust edit or Lean build ran.

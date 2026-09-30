@@ -4293,3 +4293,162 @@ The [longer-middle DN application](COMPONENT_DN_JOINT_REPAIRS.md#all-middle-leng
 uses the proved two-clique theorem as the smaller-graph input. It removes
 the middle-length restriction from the preceding DN family without
 constructing new cross-edge transfers.
+
+
+## Extending the last clique from a connected core
+
+2026-09-30 continuation from `28bc4b9`. We prove an inheritance theorem
+for actual component paths. Let G be a connected ordinary natural graph
+whose last two maximal corners are bc and ae, where
+
+    b<a<c<e,       e is the last vertex.                (LC1)
+
+Earlier maximal corners are arbitrary. Put V={0,...,c} union {e}, and
+let G_V be the induced natural diagram, with its order compressed.
+Its maximal corners are exactly those of G; no corner is introduced by
+removing c+1,...,e-1. All removed vertices are singleton corner chains.
+Thus the good-edge condition on V is the restriction of the original
+one, with the same ordering of chain terminals.
+
+**Inheritance theorem.** If connected common-cover states of each size
+in G_V belong to one actual component retaining its maximal corners,
+then the same assertion holds in G. Consequently every eligible NN/DN
+contact in G has the established signed recurrence in smaller whole
+components. The proof concerns paths and then full-layer subtraction;
+it does not identify the value of a component with a core value.
+
+### Make the selected core connected
+
+Prepare a connected source state to an anchor. In the last clique [a,e],
+a has only its selected edge ae: its chain terminal is e, whereas every
+vertex strictly between a and e is a terminal with smaller label.
+Let B be the selected weak block of this clique containing a,e.
+By the complete-cover theorem, retaining ae, replace B by the star at
+e, with a pendant and with enough additional edges among B minus {a}
+to preserve the count. The count permits this: the original anchor had
+a pendant, so it had at most 1+binom(|B|-1,2) edges. The endpoint is
+again a global anchor. In particular B intersect V is connected inside V.
+
+Every other selected right-clique block meets S=[a+1,c]. Otherwise its
+vertices lie above c, have no natural neighbors outside the last clique,
+and would be a separate global weak block. For such a block, let u be its
+least vertex in S. For each other v in its intersection with S, use the
+proved reachability construction within the block to make u reach v.
+All its vertices are chain terminals, so every new edge is good.
+The hull-removing moves above c remove no edge internal to S; once the
+hull lies in S, flips preserve the selected weak blocks in S. Previously
+made connections in S therefore survive. At the end the block's whole
+intersection with S is connected in S.
+
+We have not changed the vertex sets of these right-clique blocks. Each
+now meets V in a connected selected subgraph. All natural edges outside
+the last clique already have their endpoints in V. Since the original
+selected graph is connected, its restriction to V is now connected.
+The resulting full state is an anchor.
+
+### Lift a core rearrangement and restore every exterior edge
+
+Suppose an anchor has connected restriction to V. Sweep every selected
+ve with c<v<e to av across ae, in decreasing v. These are actual incoming
+sweeps. They leave all core edges unchanged, and other maximal corners
+have heads at most c, so their covers persist during this sweep.
+Afterwards no omitted vertex has an edge into e. A forward path which
+leaves V cannot return. All cover tests for internal edges therefore
+agree with their tests in G_V.
+
+By hypothesis, any other connected core anchor with the same count can
+be reached by an actual core path. Lift that path with the swept exterior
+fixed. At its endpoint a has no outgoing core edge except ae. Restore
+the recorded ve in increasing v, using av->ve across ae. The remaining
+swept a-neighbors are larger than v, and the already restored incoming
+e-tails are smaller than v. Hence av and ae cover, and ve is absent.
+Every restoration is actual. We recover the exact original exterior.
+
+Thus any fixed-size connected core anchor can replace the restriction,
+with arbitrary exterior restored, not merely with the exterior removed.
+Intermediate core states may have redundant retained corners.
+
+### Reach a fixed spanning tree
+
+Choose a good spanning tree T_V containing all maximal corners and
+all edges ve with a<v<=c. Such a tree exists. Contract the corner chains
+in the good core diagram: the displayed edges form a star, joining the
+chain of e to the distinct terminal chains a+1,...,c. Extend this forest
+to a spanning tree of the connected quotient and expand the chains.
+The good edge ba is not in T_V: it is parallel in the quotient to ce,
+which is already in the star.
+
+After making the core connected, use the core replacement just proved
+to select T_V, with arbitrary extra good core edges preserving its count.
+There are enough positions since the original restriction was an anchor.
+The whole right restriction [a,e] is now connected. Every former block
+other than B meets S, and all S vertices now join e by T_V. Every vertex
+of B above c retains its star edge to e. Changes of edges internal to V
+cannot detach an exterior piece from all its original boundary vertices.
+
+Apply the complete-cover theorem in [a,e], retaining ae, to select the
+full terminal star at e, again with extras among the terminal vertices.
+This restores an anchor and gives the fixed full spanning tree
+
+    T = T_V union {ve : c<v<e}.                         (LC2)
+
+The portion of T_V outside the right clique stays selected throughout
+this last local path; its portion inside is exactly the star we choose.
+
+### Rearrange all extra edges
+
+Let P be the good positions outside T. Let P_C be those inside V.
+Let P_R consist of the extra good positions inside [a,e], together with
+ba. Every good position outside V lies in the last clique, and
+
+    P=P_C union P_R,       ba in P_C intersect P_R.     (LC3)
+
+The core replacement realizes every fixed-count rearrangement in P_C,
+fixing all exterior positions and keeping T at the endpoints.
+
+For P_R, use the proved terminal-clique transfer argument on the complete
+quotient whose vertices have terminals a+1,...,e. Its only doubled class
+is the pair with terminals c,e, represented by ba and ce; the other
+classes have one copy in the terminal clique. Copies from the same pair
+elsewhere in G are held fixed and are not counted in this local capacity.
+The unrestricted crossing slide across bc,ae exchanges ba and ce and
+restores every other edge, in arbitrary anchor exterior. Thus every
+packing operation required by the terminal-clique proof is available.
+Its local complete-cover paths lie in [a,e]. Its connected-support unit
+transfers, including the temporary-class repair, realize every prescribed
+fixed-count rearrangement in P_R with T at the endpoints. Other core
+positions are restored exactly. The other retained corners may be
+redundant during local paths, as the earlier transfer proof permits.
+
+The shared position ba connects the two sorts of rearrangement. To
+exchange a selected unwanted position in one set with an absent wanted
+position in the other, route the exchange through ba. If ba is absent,
+move the unwanted position to ba and then to the wanted position. If ba
+is selected, first move it to the wanted position and then move the
+unwanted position to ba. Its original status is restored in either case.
+Thus every fixed-size subset of P is connected to every other one.
+
+All connected anchors of a given total size reach T plus extras, and
+all such extras rearrange as above. Preparation and its reverse give
+common-cover uniqueness for G. Independent absent-corner, disconnected-
+block and alternating-corner corrections then give the original diagram's
+full NN/DN component recurrence. This proves the inheritance theorem.
+Order reversal gives the analogous first-clique inheritance for paths;
+it does not assert reversal invariance of K or E.
+
+### Why merely deleting the first pendant vertex is insufficient
+
+For corners 0a,bc,ae with 1<b<a<c<e, deleting the prepared pendant 0
+introduces the maximal corner 1a. Let A* be the full good anchor. The
+maximum common-cover size in the deleted diagram is
+
+    |A*|-1-(a-2).                                      (LC4)
+
+Indeed the chain of 1, formerly a singleton, now ends at e. The a-2
+good edges 1v with 2<=v<a become bad; 1a becomes a corner and all other
+good positions are unchanged. The general maximum common-cover bound
+therefore gives (LC4). The deleted full anchor has |A*|-1 edges, so no
+count-preserving path can make all its new maximal corners cover.
+For 03,24,36 the source full anchor has nine edges; after deletion there
+are eight edges, whereas the new common-cover maximum is seven.
+The connected-core construction above avoids this failed activation step.
