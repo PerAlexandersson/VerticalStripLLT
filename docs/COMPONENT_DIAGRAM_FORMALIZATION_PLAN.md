@@ -6,18 +6,19 @@ plan, not a report of new Lean proofs. The mathematical inputs are the
 [cleanup audit](proofs/COMPONENT_DIAGRAM_AUDIT.md). Historical proof notes
 remain the sources for the individual path constructions.
 
-Implementation status: P0 and the two semantic import extractions are now
-verified in pushed checkpoint `9d8c4bc`. P1 now has the finite/lifted cover
-bridge, weak-block invariance, exact corner-marking component transport and
-an actual flip derived from two source covers (structural checkpoint
-`3bbb1e4`). Convex path/cover restriction and a fixed-exterior actual
-core-path lift are also verified. Specific induced-core geometry, swept
+Implementation status: P0 and P2 are verified; P1 is partial. P0 and the
+semantic import extractions are in `9d8c4bc`. P1 includes finite/lifted covers,
+weak-block invariance, exact corner marking, source-only short flips
+(`3bbb1e4`), convex path/cover restriction and an injective fixed-exterior
+actual core-path lift (`bb86b82`). Specific induced-core geometry, swept
 nonconvex transport and order reversal remain open.
-P2 checkpoint `15ec74b` has the state/component marked semantic bridge, both marked diamond
-identities with arbitrary exterior, closure invariance and marked K
-relabeling. Its right-marked E signature and E relabeling remain open.
-P3--P10 remain open.
-See `HANDOFF.md` and `DiagramProofVerification.lean` for the exact checkpoint.
+
+P2 includes the state/component marked semantic bridge and both marked
+diamonds with arbitrary exterior (`15ec74b`), closure invariance between
+diagrams, the right-marked E signature by nonempty fibre sizes, and marked
+K/E transport under sink-order-preserving relabelings. P3--P10 remain open;
+the independent component theorem is not yet formalized. See `HANDOFF.md`
+and `DiagramProofVerification.lean` for ownership and exact verification.
 
 ## Deliverable and scope
 

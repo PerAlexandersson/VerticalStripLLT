@@ -199,17 +199,43 @@ theorem markedE_diamond (hforward : Forward D) (θ₀ θab θbc θabc : Orientat
       add_comm (markedE θabc v m β) (markedE θ₀ v m β)
 
 /-- Closure-preserving changes preserve the entire forward HRV map. -/
-theorem hrv_eq_of_reachable_eq (hforward : Forward D) (θ η : Orientation D)
+theorem hrv_eq_of_reachable_eq {E : Diagram n} (hD : Forward D) (hE : Forward E)
+    (θ : Orientation D) (η : Orientation E)
     (hclosure : Relation.ReflTransGen (D.edgeData.selected θ.val) =
-      Relation.ReflTransGen (D.edgeData.selected η.val)) : θ.hrv = η.hrv := by
+      Relation.ReflTransGen (E.edgeData.selected η.val)) : θ.hrv = η.hrv := by
   funext u
   apply le_antisymm
-  · apply η.reachable_le_hrv_of_forward hforward
+  · apply η.reachable_le_hrv_of_forward hE
     rw [← hclosure]
     exact θ.hrv_reachable u
-  · apply θ.reachable_le_hrv_of_forward hforward
+  · apply θ.reachable_le_hrv_of_forward hD
     rw [hclosure]
     exact η.hrv_reachable u
+
+theorem markedK_eq_of_transGen_eq {E : Diagram n} (θ : Orientation D) (η : Orientation E)
+    (hclosure : Relation.TransGen (D.edgeData.selected θ.val) =
+      Relation.TransGen (E.edgeData.selected η.val)) (v : Fin n) (m : ℕ) (β : Fin m) :
+    markedK θ v m β = markedK η v m β :=
+  markedRelationValue_eq_of_transGen_eq _ _ hclosure v m β
+
+theorem markedE_eq_of_reachable_eq {E : Diagram n} (hD : Forward D) (hE : Forward E)
+    (θ : Orientation D) (η : Orientation E)
+    (hclosure : Relation.ReflTransGen (D.edgeData.selected θ.val) =
+      Relation.ReflTransGen (E.edgeData.selected η.val)) (v : Fin n) (m : ℕ) (β : Fin m) :
+    markedE θ v m β = markedE η v m β := by
+  unfold markedE
+  rw [hrv_eq_of_reachable_eq hD hE θ η hclosure]
+
+theorem markedValues_eq_of_transGen_eq {E : Diagram n} (hD : Forward D) (hE : Forward E)
+    (θ : Orientation D) (η : Orientation E)
+    (hclosure : Relation.TransGen (D.edgeData.selected θ.val) =
+      Relation.TransGen (E.edgeData.selected η.val)) (v : Fin n) (m : ℕ) (β : Fin m) :
+    markedK θ v m β = markedK η v m β ∧ markedE θ v m β = markedE η v m β := by
+  refine ⟨markedK_eq_of_transGen_eq θ η hclosure v m β, ?_⟩
+  apply markedE_eq_of_reachable_eq hD hE θ η ?_ v m β
+  funext u w
+  apply propext
+  simp only [Relation.reflTransGen_iff_eq_or_transGen, hclosure]
 
 /-- Reindex actual colors, carrying the marked endpoint along the vertex bijection. -/
 theorem markedRelationValue_relabel (R S : Fin n → Fin n → Prop) (σ : Fin n ≃ Fin n)

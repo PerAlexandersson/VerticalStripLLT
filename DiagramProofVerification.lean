@@ -4,6 +4,7 @@ import VerticalStripLLT.Components.DiagramProof.CornerTransport
 import VerticalStripLLT.Components.DiagramProof.ShortFlip
 import VerticalStripLLT.Components.DiagramProof.LocalIdentities
 import VerticalStripLLT.Components.DiagramProof.CoreExtension
+import VerticalStripLLT.Components.DiagramProof.SinkRelabel
 import VerticalStripLLT.Components.SelectedColoringTransport
 
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
@@ -49,6 +50,15 @@ import VerticalStripLLT.Components.SelectedColoringTransport
 #print axioms VerticalStripLLT.Circular.DiagramProof.markedE_diamond
 #print axioms VerticalStripLLT.Circular.DiagramProof.hrv_eq_of_reachable_eq
 #print axioms VerticalStripLLT.Circular.DiagramProof.markedRelationValue_relabel
+#print axioms VerticalStripLLT.Circular.DiagramProof.markedValues_eq_of_transGen_eq
+#print axioms VerticalStripLLT.Circular.DiagramProof.hrv_eq_last
+#print axioms VerticalStripLLT.Circular.DiagramProof.fibreVertexEquiv_fix_last
+#print axioms VerticalStripLLT.Circular.DiagramProof.markedFibreValue_eq_of_matching_sizes
+#print axioms VerticalStripLLT.Circular.DiagramProof.markedE_eq_of_signature
+#print axioms VerticalStripLLT.Circular.DiagramProof.markedE_eq_of_nonempty_fibre_sizes
+#print axioms VerticalStripLLT.Circular.DiagramProof.hrv_relabel_of_sinkOrder
+#print axioms VerticalStripLLT.Circular.DiagramProof.markedK_relabel
+#print axioms VerticalStripLLT.Circular.DiagramProof.markedE_relabel_of_sinkOrder
 #print axioms VerticalStripLLT.Circular.Orientation.liftedHRV_eq_coe_hrv_of_forward
 #print axioms VerticalStripLLT.Circular.EdgeData.strictOrderEnumerator_eq_selected_sum
 #print axioms VerticalStripLLT.Components.strictOrderEnumerator_selected_relabel

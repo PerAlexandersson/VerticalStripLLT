@@ -1,67 +1,65 @@
 # VerticalStripLLT handoff
 
-## Active implementation — P0 complete, P1/P2 partial
+## Active implementation — P0/P2 complete, P1 partial
 
-The user authorized implementation of the detailed plan. Starting HEAD is
+The user authorized implementation of the detailed plan. Starting HEAD was
 `9890254`, with a clean checkout. Primary owns
 `VerticalStripLLT/Components/DiagramProof/`, `DiagramProofVerification.lean`,
-this handoff and implementation-status updates in the plan. Primary holds
-the sole Lean build slot; the preflight process check found no active
-Lean/Lake compiler. Builds remain focused and serialized through
-`lake-workspace`. Lean MCP is rooted at RealRooted and will not be used
-for project diagnostics/builds; use focused local compiler diagnostics.
+this handoff and implementation-status updates in the plan. Primary retains
+the sole Lean build slot. No compiler or verification job remains running.
+Builds were focused and serialized through `lake-workspace`; no broad build
+or dependency update ran. Lean MCP remains rooted at RealRooted, so diagnostics
+came from the local project compiler.
 
 The bounded Luna extraction worker finished and released its five files
 (`ComponentScalars`, `SelectedColoringTransport`, `ForwardHRV`,
 `SelectedColoringSum`, `ForwardHRVBasic`). Primary verified and integrated
-its changes in pushed checkpoint `9d8c4bc`. No other worker has active edits
-or the build slot. Historical proof-note ownership is unchanged. The prior
+these in pushed checkpoint `9d8c4bc`. No other worker has active edits or
+the build slot. Historical proof-note ownership is unchanged. The prior
 independent Astra review approved the architecture.
 
-P0 and the structural part of P1 compile: full selections and exact layer
-counts, finite/lifted cover equivalence, weak-block invariance, exact corner
-marking of whole components, and a short-edge flip derived from only the two
-source covers. `RelationPaths.lean` proves interval path mapping and the
-source-to-target cover argument; `ShortFlip.lean` constructs an actual
-`DirectedFlipWitness` and proves membership in the whole component.
-`CornerTransport.lean` includes both directions and surjectivity, plus HRV
-and strict-coloring preservation. The corner/source-cover increment is pushed as `3bbb1e4`.
-`ConvexPaths.lean` now proves restriction of forward paths and full cover
-tests to a convex image. `CoreExtension.lean` lifts actual directed flips
-and paths through an actual orientation extension with fixed exterior.
-It also proves the extension injective. This is a one-way path lift, not
-a whole-component equivalence. The source-cover constructor now derives
-the existence and normality of both shorts from the retained natural long.
+Verified implementation checkpoints:
+
+- `9d8c4bc`: independent imports, full selections/layers, finite/lifted cover
+  equivalence and weak-block invariance; changed old consumers also compile.
+- `3bbb1e4`: source-cover short flips and exact corner marking of whole
+  components, including both directions, surjectivity, HRV and coloring values.
+- `15ec74b`: state/component marked semantic bridges and both marked diamonds.
+- `bb86b82`: convex path/cover restriction and fixed-exterior actual core flip
+  and path lifting. The lift is injective, but is NOT asserted to be a whole
+  component equivalence. Source covers now supply both natural normal shorts.
+- Current semantic increment: `FibreSignature.lean` and `SinkRelabel.lean`.
+  Right-marked E depends only on the endpoint fibre's size and the multiset
+  of other nonempty fibre sizes. The proof constructs increasing fibre
+  bijections fixing the greatest vertex. Sink-order-preserving vertex
+  relabelings preserve the full HRV map up to conjugacy and both marked
+  valuations. Closure invariance also works between different diagrams.
+
+P2 is complete at its planned semantic interface: K uses actual selected
+colorings; E uses the increasing relation on each actual HRV fibre, without
+pretending that relation is a natural diagram. Summing the endpoint mark
+recovers existing state and complete-component semantics for every finite
+alphabet, including the empty one. Diamonds allow arbitrary exterior and
+preserve the unordered pair of full HRV maps. No old word/scan proof or
+fundamental-basis argument is used.
+
 P1 remains partial: specific induced-core constructions and their strict
-corner geometry, swept nonconvex cores, and order reversal remain.
+corner geometry, swept nonconvex cores, and order reversal remain. P3--P10
+are not implemented. Next: finish the required core/path geometry and start
+the ordered preparation/restored crossing slide. The general component
+recurrences, endpoint attachment and final independent theorem are NOT yet
+Lean-proved by this route. The mathematical diagram proof remains complete.
 
-Pushed semantic checkpoint `15ec74b` adds `MarkedValues.lean`, defining K with a fixed endpoint color and E using
-the increasing order inside each actual HRV fibre. Summing the mark recovers
-the existing state and whole-component coloring/elementary semantics, for
-every finite alphabet, including the empty alphabet. `LocalIdentities.lean`
-proves the marked K diamond pointwise in colors and the marked E diamond
-by preservation of the unordered pair of entire HRV maps. Both allow
-arbitrary selected exterior. Closure-preserving changes and marked coloring
-relabeling are also proved. P2 remains partial: the right-marked E signature
-and sink-order relabeling for E remain. P3--P10 are not implemented.
-
-The changed old consumers compiled in the first checkpoint. Focused builds
-of all new modules pass. `DiagramProofVerification.lean` now passes 44 axiom
-queries using only `propext`, `Classical.choice`, `Quot.sound` (or none).
-Its independent closure contains 78 project files, including the verification
-entry, and excludes the old word/scan/component-expansion route. Source guards,
-100-column checks and whitespace checks pass. Logs/import inventories are in
-`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`:
-`p1-relations-build.log`, `p1-short-flip-build.log`, `p1-axioms.log` and
-`p1-imports.txt`; the semantic increment adds `p2-local-identities-build.log`,
-`p2-axioms.log`, `p2-imports.txt`. The convex-core increment is checked by
-`p1-p2-focused-build.log`, `p1-core-axioms.log`, `p1-core-imports.txt`.
-Corner compilation succeeded in `p1-corner-relations-build.log`
-before the relation-module correction. Only focused builds ran. The wrapper's
-known temporary-package-path warning persists; no manifest update was performed.
-Next: the remaining core/path interfaces and restored crossing slide;
-complete the right-marked E signature before endpoint relabeling/attachment.
-No general recurrence or attachment formalization is claimed yet.
+Focused builds pass. `DiagramProofVerification.lean` passes 53 axiom queries
+using only `propext`, `Classical.choice`, `Quot.sound` (or none). Its independent
+closure contains 80 project files including the verification entry, excluding
+the old word/scan/component-expansion route. Source guards, 100-column checks
+and whitespace checks pass. Logs/import inventories are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`.
+Latest checks: `p1-p2-focused-build.log`, `p2-complete-build.log`,
+`p2-complete-axioms.log`, `p2-complete-imports.txt`; earlier focused checks are
+retained there. The wrapper's known temporary-package-path manifest warning
+persists; no manifest update was performed.
 
 ## Detailed formalization plan — completed before implementation
 
