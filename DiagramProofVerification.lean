@@ -1,5 +1,9 @@
 import VerticalStripLLT.Components.DiagramProof.LastCliqueDiagram
 import VerticalStripLLT.Components.DiagramProof.LastCliqueCoreConnectivity
+import VerticalStripLLT.Components.DiagramProof.CliqueLowerConnectivity
+import VerticalStripLLT.Components.DiagramProof.CliqueStar
+import VerticalStripLLT.Components.DiagramProof.CliqueBlockEmbedding
+import VerticalStripLLT.Components.DiagramProof.LastCliqueBlockPaths
 import VerticalStripLLT.Components.DiagramProof.InducedCounts
 import VerticalStripLLT.Components.DiagramProof.LastCliqueAnchorReplacement
 import VerticalStripLLT.Components.DiagramProof.InducedDiagram
@@ -576,5 +580,27 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms selected_in_last_clique_or_core
 #print axioms lastClique_block_meets_core
 #print axioms selectedConnected_inducedRestrict_of_lastClique_blocks
+#print axioms weakReach_inducedRestrict_of_lower
+
+#print axioms lower_weakReach_of_reachable
+#print axioms exists_lower_connections_finset
+#print axioms exists_connected_lower_part
+#print axioms eqvGen_iff_of_block_replacement
+#print axioms cliqueBlockRelation
+#print axioms cliqueBlock_weakReach_iff
+#print axioms clique_exists_connected_lower_part
+#print axioms CornerFamily.goodEdge_of_last_tail_lt
+#print axioms CornerFamily.anchor_of_rows_le_last_tail
+#print axioms CornerFamily.anchor_of_last_clique_block_replacement
+#print axioms completeStarEdges
+#print axioms completeStarEdges_card
+#print axioms complete_cover_of_row
+#print axioms exists_complete_star
+#print axioms CornerFamily.exists_last_clique_block_star
+#print axioms exists_orderEmbedding_of_nonempty_finset
+#print axioms exists_initial_segment_of_orderEmbedding
+#print axioms exists_clique_block_embedding
+#print axioms CornerFamily.exists_last_clique_block_star_path
+#print axioms CornerFamily.exists_last_clique_block_lower_path
 
 end VerticalStripLLT.Circular.DiagramProof

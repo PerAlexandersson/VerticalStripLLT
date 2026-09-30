@@ -1,4 +1,5 @@
 import VerticalStripLLT.Components.DiagramProof.CoreConnectivity
+import VerticalStripLLT.Components.DiagramProof.BlockPaths
 import VerticalStripLLT.Components.DiagramProof.InducedDecorations
 import VerticalStripLLT.Components.DiagramProof.InducedRestriction
 import VerticalStripLLT.Components.DiagramProof.LastCliqueEdges
@@ -13,6 +14,30 @@ open Classical
 noncomputable section
 
 variable {k n : ℕ} {D : Diagram n}
+
+/-- Lower weak connections restrict whenever every vertex below the cutoff is retained. -/
+theorem weakReach_inducedRestrict_of_lower
+    (hD : Forward D) (ι : Fin (k + 1) ↪o Fin n) (c : Fin n)
+    (hretain : ∀ z, z ≤ c → ∃ i, ι i = z) (θ : Orientation D)
+    (u v : Fin (k + 1))
+    (h : Relation.EqvGen
+      (fun a b => a ≤ c ∧ b ≤ c ∧ D.edgeData.selected θ.val a b) (ι u) (ι v)) :
+    WeakReach (inducedRestrict (inducedDiagram_forward hD ι) ι
+      (inducedDiagram_naturalEdge_iff hD ι)
+      (inducedDiagram_strictEndpoint_iff hD ι) θ) u v := by
+  let α := inducedRestrict (inducedDiagram_forward hD ι) ι
+    (inducedDiagram_naturalEdge_iff hD ι) (inducedDiagram_strictEndpoint_iff hD ι) θ
+  have hclosed : ∀ x y, (x ≤ c ∧ y ≤ c ∧ D.edgeData.selected θ.val x y) →
+      ((∃ a, ι a = x) ↔ ∃ b, ι b = y) := by
+    intro x y hxy
+    exact ⟨fun _ => hretain y hxy.2.1, fun _ => hretain x hxy.1⟩
+  have hrel : ∀ a b,
+      (ι a ≤ c ∧ ι b ≤ c ∧ (inducedDiagram hD ι).edgeData.selected α.val a b) ↔
+        (ι a ≤ c ∧ ι b ≤ c ∧ D.edgeData.selected θ.val (ι a) (ι b)) := by
+    intro a b
+    simp only [α, inducedRestrict_selected]
+  have hp := (eqvGen_iff_of_image_closed ι.toEmbedding hclosed hrel u v).mp h
+  exact Relation.EqvGen.mono (fun _ _ hab => hab.2.2) u v hp
 
 /-- Every selected edge lies in the last clique or has both endpoints in the core. -/
 theorem selected_in_last_clique_or_core

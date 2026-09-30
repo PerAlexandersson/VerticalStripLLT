@@ -478,10 +478,25 @@ count into core and exterior counts. `LastCliqueEdges` puts every natural
 edge either in the core or in the last clique. `CoreConnectivity` and
 `LastCliqueCoreConnectivity` prove that every last-clique selected block meets
 the core, and that connected intersections of these blocks with the core
-imply connectedness of the full core. The latter is a criterion; construction
-of local rearrangements achieving its hypothesis remains open.
+imply connectedness of the full core.
 
-Remaining: make the selected core connected by the local block paths; reach
+The individual local rearrangements are now implemented. `LowerConnectivity`
+iterates reachability forcing over a finite set, preserving all earlier lower
+weak connections. `CliqueLowerConnectivity` lifts this to a selected clique
+block with exact exterior. `CompleteStar` constructs a same-size star with
+extras and a pendant least vertex; `CliqueStar` reaches it by actual flips
+and preserves the ambient anchor. `BlockReplacement` and
+`CliqueBlockReplacement` prove that both local operations preserve the entire
+selected block partition inside the clique. `SubsetEmbedding` and
+`CliqueBlockEmbedding` enumerate actual blocks and their lower retained parts.
+`CliqueAnchorReplacement` isolates the simple invariant: rows up to the last
+corner tail stay fixed, and every natural edge starting after that tail is good.
+`LastCliqueBlockPaths` exposes both actual paths directly for a source selected
+block, including exact exterior, ambient anchor and unchanged clique block
+partition. The lower-block operation preserves every previous lower weak path.
+`weakReach_inducedRestrict_of_lower` transports those paths into the actual core.
+
+Remaining: compose the local block paths to make the selected core connected; reach
 the fixed spanning tree; rearrange extra positions using the shared edge.
 The last operation counts only its specified pool of copies and fixes the
 other copies of the same classes. Tree edges in the terminal clique may move

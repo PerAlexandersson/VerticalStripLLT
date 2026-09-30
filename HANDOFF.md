@@ -2,11 +2,13 @@
 
 ## Active implementation — P0/P2/P3/P4 complete, P1/P5 partial
 
-Continuation from clean pushed `b9f746e` made verified progress: corner-chain
-terminals, good edges and anchors transport to the induced core, core counts
-split exactly from exterior counts, and core replacement restores an ambient
-anchor. The last-clique block criterion for core connectivity is verified.
-Constructing the block rearrangements satisfying that criterion remains open.
+Continuation from clean pushed `d549b15` made verified progress: both local
+last-clique block operations are now actual Lean-verified flip paths. The block
+containing the last corner can be replaced by a star with extras and a pendant
+least vertex. Every other block can have its retained lower part connected
+while preserving all lower connections already made. The endpoints are anchors,
+the exact exterior is restored, and the clique's block partition is unchanged.
+The finite iteration over all blocks is not yet assembled.
 P0/P2/P3/P4 are complete; P1/P5 remain partial; P6--P10 remain open. The
 independent diagram formalization and illustrated circular/ordinary draft are
 unfinished. The full goal is unchanged.
@@ -14,16 +16,56 @@ unfinished. The full goal is unchanged.
 Primary owns all `DiagramProof/` sources, `DiagramProofVerification.lean`, this
 handoff, the formalization plan, the restriction-consolidation suggestion, and
 `docs/proofs/COMPONENT_LAST_CLIQUE_RESTORATION.md`, and retains the sole serialized
-build slot. All subagent ownership has returned. This increment: Terra supplied
-`InducedTerminals` and `LastCliqueEdges`; Luna supplied `InducedCounts`;
-`semantic_extract` supplied `CoreConnectivity` and independently audited the
-checkpoint. Primary integrated and verified the candidates and wrote
-`InducedCornerFamily`, `InducedAnchors`, `LastCliqueCoreConnectivity`, and the
-restored-anchor specialization of `LastCliqueAnchorReplacement`. No compiler,
-remote task or subagent remains active. Historical proof-note prefixes and
-unrelated ownership remain unchanged.
+build slot. All implementation ownership has returned. Terra supplied
+`CompleteStar` and `LastCliqueBlockPaths`; Luna supplied `BlockReplacement`,
+`SubsetEmbedding` and `CliqueBlockEmbedding`; `semantic_extract` supplied
+`CliqueBlockReplacement` and completed a read-only audit. Primary integrated
+and verified all candidates and wrote `LowerConnectivity`,
+`CliqueLowerConnectivity`, `CliqueAnchorReplacement`, `CliqueStar`, and the
+lower-path restriction lemma in `LastCliqueCoreConnectivity`. No compiler,
+remote task or subagent remains active. Historical proof-note prefixes and unrelated
+ownership remain unchanged.
 
-### Current P1/P5 increment — anchors and core connectivity
+### Current P5 increment — actual local block rearrangements
+
+- `exists_connected_lower_part` iterates the previously verified reachability
+  forcing over a finite set. It preserves every lower weak connection present
+  at the source; it does not assert simultaneous directed reachability after
+  later moves.
+- `clique_exists_connected_lower_part` lifts this path to a selected clique
+  block, restoring exact exterior and preserving every ambient lower weak
+  connection. `CliqueBlockReplacement` proves equality of the entire selected
+  block partition inside the clique, not merely global connectedness.
+- `CompleteStar` constructs a same-size endpoint between the terminal star
+  and the allowed edge pool with the least vertex pendant. The count bounds
+  come from source connectedness and source pool membership; no binomial
+  formula or unproved capacity assumption is needed.
+- `CornerFamily.exists_last_clique_block_star` combines that endpoint with
+  complete-diagram connectivity and the actual block lift. The endpoint is an
+  ambient anchor and every exterior edge is restored. Its star contains every
+  vertex of this selected block, including vertices above the core cutoff.
+- `CliqueAnchorReplacement` proves that preserving rows at or before the last
+  corner tail preserves the anchor property. Every natural edge starting
+  strictly after that tail is good. Thus an arbitrary internal replacement of
+  a block disjoint from that tail preserves the anchor.
+- `SubsetEmbedding` and `CliqueBlockEmbedding` enumerate a nonempty actual
+  block and identify its retained initial segment. `LastCliqueBlockPaths`
+  removes embedding inputs from both local path theorems. The star wrapper
+  needs the last corner retained. The lower wrapper needs a block vertex
+  below the cutoff and separation from the last-corner block. Both return
+  actual paths, anchors, exact source-block exterior and block equivalence;
+  the lower wrapper also preserves all previous lower weak paths.
+- `weakReach_inducedRestrict_of_lower` transports each such lower weak path
+  into the actual induced core when all lower vertices are retained.
+- Independent review approved the local contracts and count bounds. For the
+  remaining iteration, processing every retained vertex is sufficient; repeated
+  visits to a block are harmless because earlier lower connections persist.
+  There is no need to construct a quotient of distinct blocks. Global selected
+  connectivity is preserved by the actual flip path. The natural-edge split
+  permits crossings between the clique and core when both endpoints survive;
+  do not replace it with a claim excluding all crossings.
+
+### Previous P1/P5 increment — anchors and core connectivity (`d549b15`)
 
 - `InducedCornerFamily` restricts any retained corner family. If every retained
   corner has both endpoints in the image, its corner steps are closed there.
@@ -82,9 +124,8 @@ unrelated ownership remain unchanged.
   is imposed.
 - `exists_lastClique_anchor_replacement` derives these row/cover conditions
   from actual source and target core anchors, using a globally last corner.
-  It still takes the actual smaller-core path as input. The resulting ambient
-  endpoint is not yet asserted to be an anchor: that needs terminal/good-edge
-  transport when all ambient corners survive.
+  It still takes the actual smaller-core path as input. The stronger wrapper
+  above now also proves the ambient anchor property when all corners survive.
 
 The [short restoration proof](docs/proofs/COMPONENT_LAST_CLIQUE_RESTORATION.md)
 records the simplification for the draft. Use the existing outgoing sweep with
@@ -339,15 +380,18 @@ this route. The mathematical diagram proof is complete.
 ### Verification and next step
 
 Focused builds of all new modules and the verification import targets pass
-without source warnings. All 484 queries in `DiagramProofVerification.lean`
+without source warnings. All 505 queries in `DiagramProofVerification.lean`
 use only `propext`, `Classical.choice`, `Quot.sound` (or none). The independent
-import closure contains 219 project files including verification and excludes
+import closure contains 229 project files including verification and excludes
 the old word/scan/expansion routes. Source guards (including no `native_decide`),
 100-column and whitespace checks pass. Current logs are
-`p5-core-anchor-build.log`, `p5-core-anchor-axioms.log` and
-`p5-core-anchor-imports.txt`; focused new-module logs are
-`p1-induced-family-build.log`, `p5-anchor-transport-build.log`,
-`p5-core-connectivity-build.log` and `p5-last-clique-blocks-build.log`. The
+`p5-local-paths-build.log`, `p5-local-paths-axioms.log` and
+`p5-local-paths-imports.txt`; final focused checks are
+`p5-clique-lower-build.log`, `p5-clique-star-build.log`,
+`p5-block-embedding-build.log`, `p5-block-paths-build.log` and
+`p5-lower-restriction-build.log`. Earlier repair logs may contain superseded
+errors; all final targets pass. The anchor-transport checkpoint had
+484 queries/219 project files (`p5-core-anchor-*`). The
 preceding restored-core checkpoint had 461 queries/212 project files
 (`p5-restored-core-*`). The preceding core-interface checkpoint had
 438 queries/203 project files (`p5-last-core-*`). The terminal-clique checkpoint had
@@ -366,12 +410,15 @@ Only primary invokes `lake-workspace`. Lean MCP remains
 rooted at RealRooted, so local compiler diagnostics are used. The wrapper's
 existing package-path manifest warning remains unchanged.
 
-Next: construct the local right-clique block rearrangements yielding the
-`hblock` hypothesis of `selectedConnected_inducedRestrict_of_lastClique_blocks`.
-For the block containing the retained last corner, use the star endpoint with
-the last tail pendant; for other blocks, use repeated lower-connection
-preservation. Then reach the fixed spanning tree and rearrange extra positions
-through the shared edge. Actual core
+Next: compose `exists_last_clique_block_star_path` with finitely many
+`exists_last_clique_block_lower_path` operations. Keep the clique partition
+fixed, preserve previous lower weak connections, and retain the special block's
+star using each other block's exact exterior. Then discharge `hblock` in
+`selectedConnected_inducedRestrict_of_lastClique_blocks` using
+`weakReach_inducedRestrict_of_lower` for the ordinary blocks and retained
+star edges for the special block. Vertices outside the last clique give only
+reflexive clique paths. That will complete the first inheritance step; reaching
+the fixed spanning tree and rearranging extras through the shared edge remain. Actual core
 replacement with exact exterior restoration is proved under the smaller-core
 path hypothesis. The written proof starts near line 4298 of
 `COMPONENT_NN_REDISTRIBUTION.md`. Its final rearrangement uses the restricted
