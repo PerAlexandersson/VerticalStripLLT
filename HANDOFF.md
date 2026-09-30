@@ -169,3 +169,8 @@ All diagnostic jobs are complete. Proof-note prefixes, the relocated
 archive, local file links, receipt hashes and `git diff --check` pass
 before checkpointing. No process needs monitoring or restarting.
 The full general goal is not complete.
+
+Proof checkpoint `0884521` is pushed to `origin/main`. The checkout was
+clean at that checkpoint. This turn made verified progress, with no
+external blocker. Preserve the proof-note prefixes at `0884521` in the
+next continuation. The full general NN/DN goal remains active.
