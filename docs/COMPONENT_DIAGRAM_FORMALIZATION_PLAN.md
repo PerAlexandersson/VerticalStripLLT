@@ -60,9 +60,17 @@ feasibility equation `t + 1 + S.card = s`, assuming `r < m` or an empty
 sector universe. All are actual finite path or existence theorems; none
 assume the sought component expansion.
 
-The complete-clique construction, interval opening/closing, column sweep,
-four explicit five-vertex paths, local lifting and reachability forcing
-remain in P4. P5--P10 remain open. The independent component theorem is
+P4 also includes the complete diagram's concrete edges and unique extreme
+corner (`CompleteDiagram`), cover-path decomposition, outgoing-fork
+elimination preserving the least-vertex row, and the exact four-flip child
+merge of CC2. The merge preserves uniqueness of outgoing covers; repeating
+it decreases the number of selected edges into the greatest vertex.
+`CompletePrefix.exists_connected_prefix_of_single_corner` combines these
+with preparation to reach a connected prefix with its extreme edge covering.
+This is the entry state for the complete-diagram induction, not the full
+chain theorem. The smaller-diagram restriction and local flip lift, recursive
+chain construction, interval opening/closing, column sweep, four explicit
+five-vertex paths and reachability forcing remain in P4. P5--P10 remain open. The independent component theorem is
 not yet formalized. See `HANDOFF.md` and `DiagramProofVerification.lean`
 for ownership and exact verification.
 

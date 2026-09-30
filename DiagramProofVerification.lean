@@ -17,6 +17,9 @@ import VerticalStripLLT.Components.DiagramProof.OverlappingPositions
 
 import VerticalStripLLT.Components.DiagramProof.SectorPaths
 
+import VerticalStripLLT.Components.DiagramProof.CompleteDiagram
+import VerticalStripLLT.Components.DiagramProof.CompletePrefix
+
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
 
 #print axioms VerticalStripLLT.Circular.DiagramProof.fullSelection_injective
@@ -148,3 +151,35 @@ import VerticalStripLLT.Components.DiagramProof.SectorPaths
 #print axioms VerticalStripLLT.Circular.DiagramProof.subsetBand_connected_top
 #print axioms VerticalStripLLT.Circular.DiagramProof.subsetBand_connected
 #print axioms VerticalStripLLT.Circular.DiagramProof.feasibleSector_connected
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_forward
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_naturalEdge_iff
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeEdge_eq_of_endpoints
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeCornerEdge_isCorner
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_isCorner_iff
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_maximalCorners
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeCornerDiagram_strict
+#print axioms VerticalStripLLT.Circular.DiagramProof.relationCover_reachable_iff
+#print axioms VerticalStripLLT.Circular.DiagramProof.relationCover_reachable_total
+#print axioms VerticalStripLLT.Circular.DiagramProof.terminal_eq_of_reachable_of_reachable_sink
+#print axioms VerticalStripLLT.Circular.DiagramProof.reachable_eq_of_sink
+#print axioms VerticalStripLLT.Circular.DiagramProof.selectedTailSum_lt_of_directedFlip
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_rightUnique_covers_directed
+#print axioms VerticalStripLLT.Circular.DiagramProof.selected_minimal_row_iff_of_directedReachable
+#print axioms
+  VerticalStripLLT.Circular.DiagramProof.exists_rightUnique_covers_preserving_minimal_row
+#print axioms VerticalStripLLT.Circular.DiagramProof.hrv_eq_of_weakReach_of_rightUnique_covers
+#print axioms
+  VerticalStripLLT.Circular.DiagramProof.reachable_top_of_connected_of_rightUnique_covers
+#print axioms VerticalStripLLT.Circular.DiagramProof.selected_target_eq_of_cover_to_sink
+#print axioms VerticalStripLLT.Circular.DiagramProof.selected_iff_eq_top_of_cover
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_childMerge
+#print axioms VerticalStripLLT.Circular.DiagramProof.relationCover_rightUnique_after_child_merge
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_merge_other_children
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_move_last_child
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.terminal_eq_self_of_singleton
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.terminal_eq_head_of_singleton
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.anchor_selected_iff_of_singleton
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_preparation_of_singleton
+#print axioms
+  VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_connected_prefix_of_single_corner

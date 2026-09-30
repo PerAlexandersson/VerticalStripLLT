@@ -2,82 +2,62 @@
 
 ## Active implementation — P0/P2/P3 complete, P1/P4 partial
 
-Pushed checkpoint `03c05c4`, based on clean `da01755`, completes P3:
-auxiliary short-edge paths, ordered good copies, and unrestricted parallel
-rearrangement. `CornerFamily.anchors_connected_of_occupancy` connects any
-two anchors with the same per-pair counts by actual flips. Each elementary
-exchange has exact endpoint selection `A - e + f`; all other edges are
-restored. The full independent component theorem remains unfinished. The active goal
-also requires a new illustrated draft after formalization, combining the
-circular e-expansion and the ordinary diagram-based component proof in the
-authors' style; that writing stage has not started.
+Continuation from clean pushed `8fbbe84`, after P3 checkpoint `03c05c4`.
+The new increment proves the complete diagram's edge/corner geometry,
+the four-flip child merge, and the connected-prefix state needed for the
+complete-diagram induction. The full independent component theorem remains
+unfinished. The active goal also requires a new illustrated draft combining
+the circular e-expansion and the ordinary diagram-based component proof in
+the authors' style; that writing stage has not started.
 
-Primary owns all `VerticalStripLLT/Components/DiagramProof/` files,
-`DiagramProofVerification.lean`, this handoff and plan-status updates.
-Primary alone runs Lean builds. Historical proof notes are untouched.
-The user explicitly authorized several Luna/Terra agents; all have now
-completed and released their lanes. No compiler or consultant is left running
-at the checkpoint.
+Primary owns `DiagramProof/`, `DiagramProofVerification.lean`, this handoff
+and the formalization plan, and retains the sole serialized build slot.
+Luna `complete_diagram` and Terra `finite_cover_paths` returned all assigned
+files; their implementation and read-only review tasks are finished. No
+other source lane was adopted. Historical proof notes remain unchanged.
 
-- Luna `two_chain_base` supplied `TwoChainBase.lean`. Primary checked the
-  proof after one repair round and removed deprecated syntax. Its later
-  read-only complete-clique API audit informs the next-step notes below.
-- Terra `copy_audit` found no issue in the copy/packing contracts, then supplied
-  `SubsetBands.lean`. Primary checked it after two textual correction rounds.
-- Earlier Luna `subset_paths` supplied `FiniteSubsetPaths.lean`. Primary
-  adopted its draft, fixed it and completed fixed-label connectivity.
+The user explicitly invoked the
+[combinatorics paper-writing skill](/home/dev/.codex/skills/combinatorics-paper-writing/SKILL.md).
+Primary read it and its notation/author-style references. The user also
+asked us not to invent terminology without strong motivation. Use established
+terms or state the condition itself, follow Robin and the author's diagram
+reasoning, and keep implementation/audit details out of the manuscript.
+No fundamental-basis or old word/scan argument is used.
 
-Current P4 verified increment, based on pushed `03c05c4`:
+### Current P4 increment
 
-- `TwoChainBase.commonCover_connected_of_two_terminals`: common-cover states
-  with the same total selected count connect if the corner terminal map has
-  at most two values. Equal terminal values are allowed; connectedness of
-  the selected graph is not an extra hypothesis. Uses preparation and the
-  single-label anchor theorem; no component-valued formula is inferred.
-- `ForestExtension`: extend any required forest in a finite connected graph
-  to every feasible connected spanning edge count. If a nonrequired edge
-  can be deleted without disconnecting the graph, all sizes up to one less
-  than the full edge count have such an extension omitting it. Reuses
-  Mathlib's spanning-tree extension, with additive cardinality bounds.
-- `OverlappingPositions`: exact exchanges on any connected position relation
-  give fixed-size state connectivity; two overlapping covering position sets
-  provide that relation. This is an abstract finite path helper, not yet
-  the diagram-specific interval opening/closing construction.
-- `SubsetBands`: single-element insertion/deletion paths inside a cardinality
-  interval of positive width, plus the empty/full singleton extremes. No
-  assertion of connectivity for an interior one-level band.
-- `SectorPaths.feasibleSector_connected`: the sector formulation with
-  `∃ t, r ≤ t ∧ t ≤ m ∧ t + 1 + S.card = s`. It follows from the band theorem
-  when `r < m` or the sector universe is empty. Natural subtraction is
-  confined to a proved equivalence; the public interface stays additive.
+- `CompleteDiagram`: the complete forward diagram on `Fin (n+1)`, concrete
+  edges by endpoints, and its unique maximal corner `0n` when `0<n`.
+  The area sequence is defined directly; the one-vertex diagram also exists.
+- `FiniteCoverPaths`: finite forward reachability decomposes into cover
+  paths. Unique outgoing covers give comparable reachable vertices and
+  consistent terminal sinks.
+- `ForkNormalization`: actual directed flips eliminate outgoing cover forks
+  by increasing the bounded sum of selected-edge tails. A least-vertex row
+  with at most one selected neighbor is preserved exactly.
+- `CoverReachability`: with unique outgoing covers, a connected selected
+  graph reaches the greatest vertex from every vertex. A cover to that
+  greatest vertex is the only selected outgoing edge of its source.
+- `ChildMerge`: the four actual flips of CC2 replace exactly `it` by `ij`,
+  restoring every other selected edge. `ChildMergeCovers` proves that this
+  replacement preserves uniqueness of outgoing covers.
+- `TerminalChildren`: repeating CC2 decreases the number of all selected
+  edges entering the greatest vertex. Eventually its only cover predecessors
+  are the least vertex and the greatest vertex below it. Moving the latter
+  edge to the prefix leaves every prefix vertex able to reach its top.
+  Non-cover incoming chords are allowed and are not claimed absent.
+- `SingleCorner`: the exact terminal map and prepared least-vertex row for
+  one extreme corner. `CompletePrefix.exists_connected_prefix_of_single_corner`
+  combines preparation, fork elimination and child merging into an actual
+  flip path to the connected-prefix state, with both extreme edges covering.
+  Its strict three-vertex inequalities exclude the small bases.
 
-P3 source and exact contracts:
+Terra's independent read-only audit found no defect in these CC1/CC2
+contracts. This is the entry state for induction, NOT yet the full chain
+normalization theorem. The concrete smaller complete-diagram restriction,
+its local flip lift/restoration, induction, and final reverse move remain.
 
-- `CopyGeometry`: maximal-corner boundary geometry, unique edge with given
-  tail and head-chain, and separated increasing endpoints for parallel copies.
-- `CopyPaths`: unique short-link predecessor/successor, increasing tails,
-  next good copy, path through all good copies of an ordered terminal pair,
-  and the last copy starting at the smaller terminal.
-- `ShortPathClasses`: two non-retained natural edges are in the same auxiliary
-  short-link component iff their unordered terminal pairs agree.
-- `ParallelMoves`: both neighboring-copy directions are actual restored slides.
-- `FiniteSubsetPaths`: exact subset exchange along an auxiliary path, then
-  connectivity from fixed label cardinalities, by decreasing set difference.
-- `ParallelPacking`: arbitrary parallel-copy exchange and anchor connectivity
-  with a fixed occupancy vector. Ordered terminal pairs label full selections;
-  diagonal entries count fixed retained corners and are never exchanged.
-
-The sorted `chainPair` labels ALL non-retained auxiliary-path positions,
-including terminal-decreasing ones. The ordered `copyLabel` labels actual
-anchor copies; its movable positions strictly increase terminal labels.
-Do not conflate these notions. Theorems allow arbitrary retained maximal
-corner families containing the original strict edges; specialize to
-`allCorners D` when identifying the proof note's all-corner multigraph H.
-No canonical highest-position packing or capacity formula is claimed.
-Occupancy is NOT asserted invariant on a whole component; equal occupancies
-are a sufficient connectivity condition for anchors.
-
-Verified implementation checkpoints:
+### Earlier verified interfaces
 
 - `9d8c4bc`: independent imports, full selections/layers, finite/lifted covers
   and weak-block invariance; affected old consumers compile.
@@ -89,63 +69,62 @@ Verified implementation checkpoints:
 - `98f226c`: marked-E fibre signature by nonempty sizes, increasing fibre
   bijections, sink-order relabelings and closure invariance. P0/P2 complete.
 - `0871d38`: restored crossing slide for `a<b<c<d`, replacing exactly `ab`
-  by `cd` with only `ac,bd` covering initially. Right restoration precedes
-  left restoration; both reuse the same exact exchange/replay interface.
-- `da01755`: full ordered corner-chain preparation. Every actual common-cover
-  state reaches an anchor by actual flips, retaining already-good edges,
-  component, total selected count and weak blocks. Temporary redundant
-  corners are recovered after each chain sweep. No canonical-anchor claim.
+  by `cd` with only `ac,bd` covering initially. User-authorized Claude audit
+  led to right-before-left restoration through the shared replay interface.
+- `da01755`: ordered corner-chain preparation by actual flips, retaining
+  already-good edges, component, total selected count and weak blocks.
+- `03c05c4`: P3 complete. Auxiliary short-edge/copy geometry, neighboring and
+  arbitrary parallel exchanges, and anchor connectivity at equal occupancies.
+  Exact endpoint selection is `A-e+f`; every other edge is restored.
+- `8fbbe84`: two-terminal-chain connectivity, forest extension to all feasible
+  sizes, removable-edge avoidance, connected-position subset exchanges,
+  subset bands and additive feasible-sector connectivity.
+
+The sorted `chainPair` labels all non-retained auxiliary-path positions;
+ordered `copyLabel` labels actual anchor copies. Do not conflate them.
+Occupancy is NOT asserted invariant on a whole component. Equal occupancies
+are a sufficient connectivity condition for anchors. No canonical highest
+packing is claimed. Families may retain any maximal corners containing the
+strict edges; specialize to `allCorners D` for the proof note's multigraph H.
 
 P1 remains partial: specific induced-core geometry, swept nonconvex transport
-and order reversal remain. P3 is complete at the plan's required interface.
-P4 is partial: the two-chain base and some finite helpers are checked;
-complete-clique paths, their local lift and reachability forcing remain.
-P5--P10 remain open. General component recurrences, endpoint
-attachment and the final independent theorem are NOT yet Lean-proved by
-this route. The mathematical diagram proof remains complete. No old
-word/scan proof or fundamental-basis argument is used.
+and order reversal remain. P4 remains partial: finish the complete-diagram
+induction, interval opening/closing, column sweep, four five-vertex paths,
+local lifting and reachability forcing. P5--P10 remain open. General component
+recurrences, endpoint attachment and the final independent theorem are NOT
+yet Lean-proved by this route. The mathematical diagram proof is complete.
 
-Verification of the current P4 increment:
+### Verification and next step
 
-- Focused builds of `TwoChainBase`, `ForestExtension`, `OverlappingPositions`
-  and `SectorPaths` (including `SubsetBands`) pass without source warnings.
-  `DiagramProofVerification.lean` passes all 120 axiom queries, using only
-  `propext`, `Classical.choice`, `Quot.sound` (or none).
-- Independent import closure: 111 project files including verification;
-  no old Word/Mountain/Scan/Cauchy, component-coefficient, old expansion,
-  BlockExtractor or BlockCancellation route. Source guards, 100-column
-  and whitespace checks pass.
-- All builds were focused and serialized with `lake-workspace`. No broad
-  build, dependency update, remote proof search or mathematical computation.
-  Lean MCP remains rooted at RealRooted; local compiler diagnostics used.
-  The wrapper's known package-path manifest warning remains unchanged.
-- Logs under
-  `/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`:
-  `p4-helpers-build.log`, `p4-forest-build.log`, `p4-overlap-build.log`,
-  `p4-sector-build.log`, `p4-helpers-axioms.log`, `p4-helpers-imports.txt`.
-  P3 `p3-packing-*` logs retain 107 axiom checks and its 106-file closure.
+All nine new source modules pass focused local builds, and the final
+`CompleteDiagram`/`CompletePrefix` target build passes without source warnings.
+`DiagramProofVerification.lean` passes all 148 axiom queries, using only
+`propext`, `Classical.choice`, `Quot.sound` (or none). The independent closure
+contains 121 project files; no old word/scan/expansion route is imported.
+Source guards, 100-column and whitespace checks pass. Logs are
+`p4-prefix-final-build.log`, `p4-prefix-axioms.log` and `p4-prefix-imports.txt`
+in the directory below. No compiler or agent job remains running.
 
-Next concrete implementation: use `Diagram.ofIntervalRelation` with `<`
-for a complete diagram, and expose canonical edges by endpoints. A designated
-extreme corner requires at least two vertices; handle the one-vertex case
-separately. Then formalize complete-chain normalization (CC1--CC2), interval
-opening/closing (CC3), and chord rearrangement using `OverlappingPositions`.
-Existing source-cover outgoing/incoming swaps, weak-block invariance,
-forward HRV sink lemmas and `CoreExtension.lift_reachable` are available.
-Do not assume the swept nonconvex core automatically satisfies the convex
-lift contract. The selected-orientation/SimpleGraph bridge is also absent;
-keep normalization in the forward relation unless that bridge is needed.
-The four five-vertex paths in `COMPONENT_NN_REDISTRIBUTION.md` around 3628
-are explicit paper certificates, still awaiting Lean actual-flip witnesses.
-No arbitrary finite component enumeration is an assumption of the plan.
+No broad build, dependency update, remote proof search or mathematical
+computation ran. Only primary invokes `lake-workspace`. Lean MCP remains
+rooted at RealRooted, so local compiler diagnostics are used. The wrapper's
+existing package-path manifest warning remains unchanged.
 
-The user-authorized Claude refactor sweep was completed at `0871d38`.
-Primary integrated its strongest suggestion: right-before-left restoration,
-removing a special exterior transform and extra reference sweep. Trace-based
-sweeps share replay proofs. Its uncompiled suggestions were not verification
-evidence. The required independent Astra architecture review was completed
-previously. Terra's current audit independently checked the new geometry and
-packing contracts; primary's local Lean check remains authoritative.
+Next: construct the smaller complete-diagram core, prove its selected
+relation and covering corner, instantiate the fixed-exterior flip lift,
+then finish the recursive chain argument and reverse the final move.
+Do not infer whole-component equivalence from an injective lift, or assume
+a swept nonconvex core satisfies the convex lift contract. Keep the proof
+in forward relations unless a selected-orientation/SimpleGraph bridge is
+actually needed. The four explicit five-vertex paths in
+`docs/proofs/COMPONENT_NN_REDISTRIBUTION.md` around line 3628 still need Lean
+actual-flip witnesses; arbitrary component enumeration is not an assumption.
+
+The required independent Astra architecture review was completed before
+implementation. Earlier verification logs remain under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`.
+`p3-packing-*` records 107 axiom checks/106 project files;
+`p4-helpers-*` records 120 axiom checks/111 project files.
 
 ## Detailed formalization plan — completed before implementation
 
