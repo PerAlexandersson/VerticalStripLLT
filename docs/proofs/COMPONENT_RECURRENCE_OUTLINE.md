@@ -144,7 +144,8 @@ copies give an interval multigraph. Connected anchors exist in every layer
 n-1 through m*. The [parallel-copy theorem](COMPONENT_NN_REDISTRIBUTION.md#rearranging-parallel-copies-of-a-quotient-cover)
 lifts all rearrangements within a selected quotient cover to actual two-flip
 slides with arbitrary exterior. A selected route through intervening chains
-is the remaining obstruction to this particular lift. The subsequent
+was the obstruction to this restricted lift; the sweep below removes it.
+The subsequent
 [quotient-fork normalization](COMPONENT_NN_REDISTRIBUTION.md#lifting-a-quotient-fork-and-obtaining-one-sink-in-each-block)
 lifts a class of transfers between different pairs. Iterating these actual
 moves gives, in every component with a common-cover witness, an anchor
@@ -152,6 +153,22 @@ with all corners covering and one sink per weak block. Its endpoint is
 not proved unique; general component collection still needs comparison
 of these representatives or direct RHS repair. The quotient organizes
 actual paths and is not a replacement for the original K/E sums.
+
+The [sweep-and-restore transport](COMPONENT_NN_REDISTRIBUTION.md#sweep-aside-the-obstructions-and-restore-them-after-the-slide)
+now removes the quotient-cover restriction from parallel-copy rearrangement.
+It clears both obstructions, slides between crossing retained covers, and
+restores all exterior edges. Thus every occupancy vector has a canonical
+packed anchor in its original component, even when other corners become
+redundant temporarily. The remaining general path issue is changing those
+occupancy vectors, not the positions of their copies.
+
+This gives [complete three-chain recurrences](COMPONENT_NN_REDISTRIBUTION.md#complete-recurrences-for-three-corner-chains-without-articulation)
+for every connected natural graph with three corner chains and no articulation.
+A four-, five-, or six-vertex exchange window plus unrestricted packing
+connects all connected common-cover anchors in each layer. Full-layer
+subtraction has only independently smaller whole-component corrections.
+The family includes cubes of every length and square-path tails. More
+corner chains remain outside this window proof; the full goal remains open.
 
 The new [empty-corner reduction](COMPONENT_DN_JOINT_REPAIRS.md#dn-through-an-empty-corner-nn-diagram)
 shows that the uniform NN statement would also settle DN. Adding the

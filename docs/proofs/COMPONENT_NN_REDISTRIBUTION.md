@@ -3121,3 +3121,342 @@ transfers between chain pairs, or a direct whole-component repair in
 the recurrence target. The strict increase of tau proves termination
 of this normalization only; it does not prove confluence or general
 NN/DN collection.
+
+## Sweep aside the obstructions and restore them after the slide
+
+2026-09-30 continuation. We now remove the quotient-cover restriction
+from the parallel-copy theorem. The missing move is exactly a controlled
+excursion through redundant-corner states. We first prove it for arbitrary
+selected ordinary exterior, without an anchor assumption.
+
+Let a<b<c<d. Suppose A selects ac,bd,ab, omits cd, and ac,bd cover in A.
+The two retained edges need not be maximal or strict. Put
+
+    B=A-ab+cd.
+
+**Crossing-cover transport.** There is an explicit actual-flip path from
+A to B, keeping all other selected edges at its endpoints and every
+original strict edge throughout. We do NOT require ab to cover initially
+or cd to cover finally.
+
+Let L consist of the v with a<v<b and av selected, and let R consist of
+the v with c<v<d and vd selected. Perform the following operations:
+
+1. For v in L in increasing order, flip av->vc retaining ac.
+2. For v in R in decreasing order, flip vd->bv retaining bd.
+3. Flip ab->bc retaining ac, then bc->cd retaining bd.
+4. Undo step 1 in reverse order, then undo step 2 in reverse order.
+
+Every displayed edge is natural, being inside one of ac,bd. Every exchanged
+edge is normal for the same reason. The path has exactly
+
+    2+2|L|+2|R| <= 2(n-3)                             (CS1)
+
+flips. All its intermediate cover tests are justified as follows.
+
+In step 1, av covers when it is moved: any alternate a-to-v path would
+start with a selected edge to a smaller vertex, and all such outgoing
+edges have already been removed. The retained ac starts as a cover and
+stays one after each actual flip. These changes start below b and thus
+affect no path inside [b,d]; in particular bd still covers.
+
+In step 2, vd covers when it is moved: an alternate v-to-d path would
+end with a selected edge from a larger vertex, and all those incoming
+edges have already been removed. The retained bd stays a cover. These
+changes have their other endpoint above c and affect no path inside
+[a,c]. The edge ac therefore remains a cover too.
+
+We have removed all selected edges from a into (a,b), so ab now covers.
+Also bc is absent: its presence with ab would have bypassed ac initially,
+and neither sweep inserts bc. The first core flip is actual. After it,
+bd still covers. A new bypass of bd would have to start with the newly
+inserted bc, but no c-to-d path remains: cd is absent, and all incoming
+edges to d from (c,d) have been removed. Thus the second core flip is
+actual and produces B with the temporary sweep changes still present.
+
+It remains to justify RESTORATION; preparing only the forward slide is
+not enough. For v in L, the net core change ab->cd affects no path inside
+[v,c]: ab starts below v, and cd ends above c. Step 2 affects none of
+those paths either. Therefore the required cover of vc is exactly the
+one in the valid reversal of step 1 without the core change. The retained
+ac covers after the core: the second core flip removes bc and inserts
+an edge leaving c, so cannot destroy its cover. Undoing step 1 is actual
+throughout. Its changes start below b and leave the cover of bd intact.
+
+For v in R, the net core change likewise affects no path inside [b,v]:
+ab starts below b and cd ends above v. Step 1 has now been restored.
+Hence every required cover of bv is exactly the one in the valid reversal
+of step 2. The retained bd covers after the core and was unaffected by
+the first restoration. We can undo step 2 completely. The endpoint is
+exactly B, proving the theorem with all exterior edges restored.
+
+For the old six-vertex cube obstruction, take a=0,b=2,c=3,d=5.
+Then L={1}, R={4}, and this construction is precisely
+
+    01->13 [03], 45->24 [25], 02->23 [03],
+    23->35 [25], 13->01 [03], 24->45 [25].             (CS2)
+
+The same mechanism now works for arbitrary numbers of intervening edges
+and arbitrary ordinary exterior. Other corners may be redundant during
+the sweeps; they need not be covers to remain selected.
+
+## Pack every parallel class, including noncovers
+
+For an arbitrary anchor, consecutive good positions on any auxiliary
+short-edge path have the form ab,cd with maximal corners ac,bd, as in
+(PC1). Both retained corners cover automatically. Thus (CS1) moves a
+selected copy from either position to the other whenever that other
+position is vacant. Its inverse supplies the reverse move.
+
+**Packing theorem.** Fix the number m_e of selected copies in each
+parallel class e of the corner-chain multigraph H. ALL anchors with
+these occupancy counts lie in one original whole component. They have
+an explicit path to the single packed anchor P(m): select the last m_e
+copies in every class, along with M.
+
+The proof is the neighboring occupied/vacant exchange argument from
+(PC2), now using (CS1) in EVERY class. Each exchange restores all other
+edges, and ends at another anchor. The inversion count of the binary
+copy list decreases, so packing terminates. The endpoint depends only
+on the occupancy counts. This proves uniqueness of the representative
+WITHIN one occupancy vector, not uniqueness for a whole edge layer.
+Distinct vectors can belong to the same whole component.
+
+In particular, the earlier restriction to selected quotient covers is
+superseded for parallel-copy rearrangement. The other class of missing
+moves is still real: changing the counts between different chain pairs.
+The proved quotient forks supply some such changes but not all of them.
+
+The packed representative also realizes quotient reachability exactly.
+For every selected pair r->s its last copy is selected. By (QF1), this
+edge starts at the terminal vertex r and enters the chain ending at s;
+the fixed corners continue the path to s. Conversely any path in the
+original anchor projects to a nondecreasing path of chain labels.
+Therefore, writing h_H for the greatest reachable chain label in the
+selected quotient support,
+
+    h_(P(m))(v)=h_H(r(v)).                             (CS3)
+
+Every original reachable vertex can itself continue to its chain terminal,
+so there is no larger reachable vertex missing from this formula.
+This identifies the HRV map of P(m); it does NOT identify the value of
+an entire component with the value of its packed representative.
+Combining packing with the preceding fork procedure gives a packed
+one-sink representative in every component having a common-cover witness.
+We have not proved uniqueness of these representatives across vectors.
+
+Related Rust: `--crossing-cover-slides` replays (CS1) for all eligible
+states and retained crossing covers in the 14 fixed NN/DN fixtures,
+including normal retained longs and non-anchor states. It checks every
+flip, exact restoration, both final retained covers, and preservation
+of the original strict edges. `--anchor-packet-packing` packs every
+anchor in the fixtures, including noncover classes, and independently
+checks (CS3) with the maintained Poset API. Neither mode searches
+complete source components. Frozen sources, commands, logs and hashes
+are in `crossing-slides-three-chains-20260930/` under the request folder.
+
+## Complete recurrences for three corner chains without articulation
+
+2026-09-30 continuation. The unrestricted packing theorem gives complete
+NN/DN component recurrences for another uniform class: EVERY connected
+ordinary natural graph with three maximal-corner chains and no articulation.
+It includes cubes of paths of every length n>=4, not only n=3h, and the
+square-path tails described below. Diagrams with more chains remain open.
+
+### The exact shape of this class
+
+Let n be the number of vertices. Since the corners form three chains,
+there are n-3 maximal natural corners. A maximal natural clique projects
+to distinct chains except for its two corner endpoints, as proved above.
+It therefore has at most four vertices. No maximal corner has length one:
+such an edge would be the only edge crossing its cut, contradicting the
+no-articulation hypothesis. All maximal corners have lengths two or three.
+
+There are n-2 possible tails 0,...,n-3 and n-2 possible heads 2,...,n-1.
+The corners use all but one of each. Their tails and heads increase
+strictly together. Comparing these ordered lists shows that the length-three
+corners occur in one consecutive nonempty range p,...,q, where
+
+    0<=p<=q<=n-4.
+
+Indeed a gap in the head list before a gap in the tail list produces
+that range. The opposite order would produce a length-one corner;
+coincident gap positions would give consecutive maximal cliques meeting
+at only one vertex. More explicitly, if j is the missing tail and h is
+the missing head, corner number l has endpoints
+l+1_(l>=j) and l+2+1_(l>=h-2). We must have h-2<j; put
+p=h-2 and q=j-1. Thus the natural edges are exactly
+
+    ij with j-i<=2,
+    and i(i+3) for p<=i<=q.                           (TC1)
+
+Conversely (TC1) has no articulation and exactly three corner chains:
+its corners of length two before and after the displayed length-three
+range, together with that range, number n-3. Thus (TC1) is an exact
+classification, not an extra assumption on the theorem.
+
+### A fixed exchange window sees all three parallel classes
+
+Let L=q-p+1. If L=1 use the four-vertex interval [p,p+3]; if L=2 use
+[p,p+4]; if L>=3 use [q-2,q+3]. The induced natural graph is the cube
+of a path on respectively four, five or six vertices. Its maximal
+corners are maximal in the original diagram as well, and its three
+local corner chains belong to the three distinct global chains.
+
+The window contains at least ONE good anchor copy from EACH of the
+three global parallel classes. For a six-vertex window, each local
+short-edge path has three nodes; either global parity leaves at least
+one copy. For a five-vertex window, the middle vertex p+2 is the missing
+corner tail and is terminal in its global chain. The two paths involving
+it have two nodes, hence one good copy each; the remaining path has
+three nodes. For a four-vertex window, p+1 is the missing corner tail
+and terminal in its global chain. The normal between the two interior
+vertices is therefore good, and one of each pair of shorts of the
+retained corner is good. Again all three classes occur.
+
+All flips confined to this interval remain actual in arbitrary exterior:
+a forward path testing an edge inside the interval cannot leave it and
+return. Such a flip exchanges no global strict edge outside the window.
+
+### The three small window statements
+
+In each window, any two connected states selecting the local maximal
+corners, with all these corners covering and the same edge count, lie
+in one actual local component. For four vertices this is the proved
+tree layer and maximum-corner layer. For six vertices it is the already
+proved cube-family result at h=2, including normalization of non-anchor
+common-cover states.
+
+For five vertices the tree and maximum layers are again known. Only
+the middle layer, with five selected edges, needs an additional argument.
+Write M={03,14}. Its four local anchors are
+
+    A=M+{01,23,34},    B=M+{01,24,34},
+    C=M+{23,24,34},    D=M+{01,23,24}.
+
+They are connected by the following actual paths:
+
+    B -> A:
+      34->13 [14], 24->12 [14],
+      12->23 [13], 13->34 [14];
+    A -> C:
+      23->02 [03], 01->12 [02],
+      12->24 [14], 02->23 [03];
+    D -> C:
+      01->13 [03], 13->34 [14].                        (TC2)
+
+All strict corners remain selected. These ten flips connect all four
+anchors, and the general corner-chain preparation connects every
+common-cover state to one of them. This proves the five-vertex statement.
+Its use is local; no arbitrary five-vertex exterior cover assertion is
+being inferred from a small example.
+
+### Transfer occupancies using one selected buffer class
+
+The quotient has three vertices and all three pairs, by the exchange
+window. Let their capacities be c_0,c_1,c_2, all positive. An anchor
+with occupancy vector m is connected exactly when at least two of its
+entries are positive. Let us transfer one selected copy from class i
+to class j, where m_i>0 and m_j<c_j. Suppose first that the third class
+l has m_l>0.
+
+By unrestricted packing and its inverse, rearrange copies so that the
+window contains a selected copy of i, a VACANT copy of j, and a selected
+copy of l. This can always be done. If a class has b window slots, the
+possible local occupancies range from max(0,m-(c-b)) to min(m,b).
+The assumptions give a local occupancy at least one for i,l and at most
+b-1 for j. The choices are independent between the three classes.
+
+Remove the chosen i copy and insert the chosen j copy inside the window,
+leaving every exterior edge fixed. Before and after, the selected window
+is connected: class l joins the third local chain, together with i or j.
+Both endpoints are restrictions of global anchors, hence have all local
+corners covering. Their edge counts agree. The proved window statement
+supplies an actual path between them. It lifts to the original diagram,
+so this realizes the desired transfer inside ONE whole source component.
+
+If m_l=0, connectedness forces m_j>0. A transfer which preserves
+connectedness must have m_i>=2. Perform instead the three transfers
+
+    i->l, i->j, l->i.                                 (TC3)
+
+Each has a positive third buffer class; the capacity and nonnegativity
+conditions hold throughout. Their net effect is the desired i->j.
+
+Finally, all vectors in the capacity box with a fixed total m>=2 and
+at least two positive entries are connected by such unit transfers.
+Move from a surplus entry toward a deficit entry. The only forbidden
+step would leave one positive entry. In that situation the desired
+vector, being connected, has a deficit in the third entry; transfer
+toward that entry instead. Each step decreases the distance to the
+desired vector. Combining this with (TC3) and the window paths proves
+that ALL connected anchors in one edge layer lie in one actual component.
+
+### Isolate the whole component and apply NN or DN
+
+For each k=n-1,...,m*, connected common-cover anchors exist by (CQ3),
+and the preceding argument connects all of them. Every common-cover
+state reaches an anchor by the proved preparation. Thus there is exactly
+one connected source component C_k selecting every maximal corner and
+having a simultaneous-cover witness. This is uniform in n,p,q.
+
+Every other source component D has an independently smaller expression:
+if it omits a maximal corner, delete that corner; if it is disconnected,
+reorder its weak blocks; otherwise it has no simultaneous-cover witness
+and uses alternating corner deletion. These are the previously proved
+whole-component reductions, denoted B_X(D), with X=K,E and identical
+integer coefficients. No other unresolved source component is subtracted.
+
+For ANY eligible NN contact in this source, the complete layer identity
+therefore gives
+
+    X(C_k)=X(F_k(R))+X(F_(k-1)(R))
+                 - sum_(D != C_k) B_X(D).             (TC4)
+
+For an eligible DN contact, it gives
+
+    X(C_k)=X(F_k(R))-sum_(D != C_k) B_X(D).            (TC5)
+
+All sums on the right collect whole components, and all final diagrams
+are smaller in the established induction order. The other source
+components reduce directly. Below n-1 every source component is
+disconnected; above m* none has a simultaneous-cover witness. Hence
+these are complete component recurrences in EVERY layer for (TC1),
+including unmarked maximal corners and arbitrary strict decorations
+permitted by the chosen recurrence.
+
+With only TWO corner chains, there is just one parallel class. The
+packing theorem already gives one connected common-cover component
+in each feasible layer, so the same full-layer argument applies without
+the exchange window. No no-articulation assumption is needed for that
+simpler case.
+
+This is an induction step expressed in smaller diagrams. Those diagrams
+need not themselves have three chains, so we do not use this family
+statement as a substitute for the remaining general theorem.
+
+### Verification and scope
+
+Related Rust: `--three-chain-window` verifies (TC2) and constructs actual
+paths between occupancy vectors for all 165 graphs (TC1) on 4..12 vertices.
+It replays preparation, local transfer and packing in the full graph.
+Only the fixed four-, five- and six-vertex windows use local path lookup;
+there is no search through a large source component. Connectedness of
+each occupancy layer is checked after every transfer edge has its actual
+path certificate. This supplements the unbounded argument above.
+
+The family audit covers 4913 occupancy packets and 1030 layers, checking
+12996 transfers by 240283 actual flips; the longest path has 63 flips.
+The separate `--three-chain-layer-recurrences` mode checks all smaller
+whole corrections in 15 layers of fixed NN and DN examples outside the earlier n=3h
+cube family, using the established block/deletion verifier. Sources,
+commands, complete logs and hashes are retained with (CS1) in
+`crossing-slides-three-chains-20260930/`.
+
+General NN/DN collection for arbitrary diagrams remains UNPROVED. The
+new parallel-copy theorem is unrestricted, but the window argument here
+uses exactly three global chains and the resulting interval of corners
+of length three. With more chains, other chain vertices can occur inside
+a proposed window; we cannot assume its local flips are unaffected.
+The remaining general problem is transfer between different occupancy
+vectors, or direct repair and collection of the actual RHS coefficients.

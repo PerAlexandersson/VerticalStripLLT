@@ -1441,3 +1441,37 @@ the remaining quotient covers, every weak block has one sink and all
 maximal corners cover simultaneously. This supplies a representative
 inside each component with a common-cover witness, not a collected DN
 recurrence or a uniqueness statement for those representatives.
+
+## Unrestricted parallel slides and three-chain DN recurrences
+
+2026-09-30 continuation. The new
+[crossing-cover transport](COMPONENT_NN_REDISTRIBUTION.md#sweep-aside-the-obstructions-and-restore-them-after-the-slide)
+clears the two short-edge obstructions by sweeps, performs the slide,
+and restores every exterior edge. It needs only the two retained crossing
+longs to cover initially. This applies to arbitrary DN exterior and now
+permits packing EVERY parallel class of corner chains, including noncovers
+in the quotient support. Temporarily redundant other corners are allowed.
+
+The resulting [three-chain theorem](COMPONENT_NN_REDISTRIBUTION.md#complete-recurrences-for-three-corner-chains-without-articulation)
+completes every eligible DN component recurrence in a connected natural
+graph with three corner chains and no articulation. Such graphs are
+exactly squares of paths with a nonempty consecutive interval of
+length-three edges. One four-, five- or six-vertex window, together with
+unrestricted parallel packing, transfers occupancies between all three
+pairs. All connected common-cover states in one layer therefore lie in
+one whole component C_k. Completing its source layer and subtracting the
+independently reduced missing-corner, weak-block and alternating-deletion
+components gives
+
+    X(C_k)=X(F_k(R))-sum_(D != C_k) B_X(D),    X=K,E.
+
+Every output is a whole component of a smaller diagram in the established
+order. Other layers and components reduce directly as in the NN note.
+The source may have unmarked maximal corners; their absent sectors have
+their own smaller deletion expressions. The fixed verification includes
+DN cubes on seven and eight vertices, whose chain lengths are unequal.
+
+The sweep theorem is uniform in arbitrary diagrams; this last component
+recurrence is uniform only in the stated three-chain class. General DN
+collection with more corner chains remains open. No expansion theorem
+for the correction components has been assumed in deriving the recurrence.
