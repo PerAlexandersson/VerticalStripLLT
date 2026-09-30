@@ -1,115 +1,106 @@
 # VerticalStripLLT handoff
 
-## Active implementation — P0/P2 complete, P1/P3 partial
+## Active implementation — P0/P2/P3 complete, P1 partial
 
-Current increment, based on clean pushed `0871d38`, formalizes the full
-ordered corner-chain preparation. `CornerFamily.exists_preparation` takes
-any actual common-cover state to an anchor by actual flips, retaining every
-already-good selected edge. `exists_anchor_in_component` also records the
-same whole component, total selected count and every weak block. The theorem
-allows temporary redundant corners and proves their recovery at the end of
-each chain sweep. It does not assert that preparation is constant on a
-component or that all anchors of one size are connected.
+Current verified increment, based on clean pushed `da01755`, completes P3:
+auxiliary short-edge paths, ordered good copies, and unrestricted parallel
+rearrangement. `CornerFamily.anchors_connected_of_occupancy` connects any
+two anchors with the same per-pair counts by actual flips. Each elementary
+exchange has exact endpoint selection `A - e + f`; all other edges are
+restored. The full independent component theorem remains unfinished.
 
-The new primary-owned files are `CornerChains`, `GoodEdges`,
-`AbsorbingPaths`, `PreparationStep`, `ChainPreparation` and `Preparation`.
-Corner families may be arbitrary retained maximal corners containing the
-original strict edges; `allCorners` gives the full family. Chain terminals
-reuse HRV on the existing empty-normal orientation marked by that family.
-The proof establishes unique predecessor/successor, ordered terminal fibres,
-nonoverlapping chain-corner intervals and the strict-successor position of
-an inversion edge. Every subset of good edges containing the corners is an
-actual anchor, and every anchor has all retained corners covering.
+Primary owns `VerticalStripLLT/Components/DiagramProof/` except the active
+Luna lane below, `DiagramProofVerification.lean`, this handoff and plan-status
+updates. Primary alone runs Lean builds. Historical proof notes are untouched.
+The user explicitly authorized several Luna/Terra agents. Current delegation:
 
-The inner induction removes the least exit head and decreases the finite
-exit count. The outer induction processes terminal labels in decreasing
-order. An absorbing processed union rules out paths that enter it and return;
-this supplies the cover tests without assuming all other corners cover at
-intermediate states. The previous goal turn made verified progress; this
-increment adds further verified progress, and the general theorem stays open.
+- Luna `two_chain_base` owns ONLY new `DiagramProof/TwoChainBase.lean` for the
+  at-most-two-chain base. It is unverified work in progress and must not build.
+- Terra `copy_audit` finished a read-only mathematical/API audit, including
+  the packing integration; no issue found, no files owned, no builds.
+- The earlier Luna `subset_paths` worker released `FiniteSubsetPaths.lean`.
+  Primary adopted its path-exchange draft, fixed it, removed the commented
+  unfinished API draft, and proved the fixed-label connectivity theorem.
 
-Checkpoint `0871d38`, based on clean pushed `98f226c`, proves the full restored
-crossing slide in `DiagramProof/CrossingSlide.lean`. For `a<b<c<d`, selected
-`ab`, absent `cd`, and covers `ac,bd`, `exists_crossingSlide` constructs an
-actual flip path replacing exactly `ab` by `cd`, restoring all other selected
-edges, and retaining both long covers at the endpoint. Other corners need
-not cover. `crossingSlide_mem_component` records membership in the same
-whole component; no whole-component bijection is claimed.
+P3 source and exact contracts:
 
-Primary owns `VerticalStripLLT/Components/DiagramProof/`,
-`DiagramProofVerification.lean`, this handoff and implementation-status
-updates in `docs/COMPONENT_DIAGRAM_FORMALIZATION_PLAN.md`. Historical proof
-notes are untouched. Primary is the sole project build owner. No project
-build, verification or consultant job remains running. The earlier external
-Lean batch (parent PID 473036) finished before any local compiler was
-started. Its jobs were not interrupted. All local builds were focused and
-serialized through `lake-workspace`; no broad build or dependency update ran.
+- `CopyGeometry`: maximal-corner boundary geometry, unique edge with given
+  tail and head-chain, and separated increasing endpoints for parallel copies.
+- `CopyPaths`: unique short-link predecessor/successor, increasing tails,
+  next good copy, path through all good copies of an ordered terminal pair,
+  and the last copy starting at the smaller terminal.
+- `ShortPathClasses`: two non-retained natural edges are in the same auxiliary
+  short-link component iff their unordered terminal pairs agree.
+- `ParallelMoves`: both neighboring-copy directions are actual restored slides.
+- `FiniteSubsetPaths`: exact subset exchange along an auxiliary path, then
+  connectivity from fixed label cardinalities, by decreasing set difference.
+- `ParallelPacking`: arbitrary parallel-copy exchange and anchor connectivity
+  with a fixed occupancy vector. Ordered terminal pairs label full selections;
+  diagonal entries count fixed retained corners and are never exchanged.
 
-The user authorized a Claude refactor sweep. The read-only consultant owned
-no files and ran no builds. Primary integrated its strongest simplification:
-restore the right sweep before the left, so both use the same exchange
-formula. This removes the special exterior transform and extra reference
-sweep. Non-trace sweeps now derive from their trace versions; incoming order
-reversal has one explicit unfolding lemma; outgoing target covers use the
-finite cover lemma directly. The review found no mathematical error in the
-inspected lemmas. Its uncompiled suggestions are not verification evidence.
-The required independent Astra architecture review was completed previously.
+The sorted `chainPair` labels ALL non-retained auxiliary-path positions,
+including terminal-decreasing ones. The ordered `copyLabel` labels actual
+anchor copies; its movable positions strictly increase terminal labels.
+Do not conflate these notions. Theorems allow arbitrary retained maximal
+corner families containing the original strict edges; specialize to
+`allCorners D` when identifying the proof note's all-corner multigraph H.
+No canonical highest-position packing or capacity formula is claimed.
+Occupancy is NOT asserted invariant on a whole component; equal occupancies
+are a sufficient connectivity condition for anchors.
 
 Verified implementation checkpoints:
 
-- `9d8c4bc`: independent imports, full selections/layers, finite/lifted cover
-  equivalence and weak-block invariance; changed old consumers also compile.
-  The bounded Luna extraction worker finished and released its five files.
+- `9d8c4bc`: independent imports, full selections/layers, finite/lifted covers
+  and weak-block invariance; affected old consumers compile.
 - `3bbb1e4`: source-cover short flips and exact corner marking of whole
   components, both directions/surjectivity, HRV and coloring values.
-- `15ec74b`: state/component marked semantic bridges and both marked diamonds.
-- `bb86b82`: convex path/cover restriction and fixed-exterior actual core flip
-  and path lifting. The lift is injective, not a whole-component equivalence.
+- `15ec74b`: actual state/component marked K/E bridges and both marked diamonds.
+- `bb86b82`: convex restriction and fixed-exterior actual core path lifting.
+  The lift is injective, NOT a whole-component equivalence.
 - `98f226c`: marked-E fibre signature by nonempty sizes, increasing fibre
-  bijections fixing the greatest vertex, sink-order relabelings preserving
-  full HRV maps and marked values, and closure invariance between diagrams.
-- `0871d38` crossing increment: `SweepCovers`, `IncomingFlip`, `OrderedSweep`,
-  `RelationExchange`, `SweepRestoration`, `OrientationRestoration`,
-  `CrossingCore`, `CrossingTransforms`, `CrossingSlide`, plus the short-edge
-  existence extraction in `ShortFlip`. Sweep induction decreases the number
-  of remaining neighbors and retains actual flip traces for reverse replay.
+  bijections, sink-order relabelings and closure invariance. P0/P2 complete.
+- `0871d38`: restored crossing slide for `a<b<c<d`, replacing exactly `ab`
+  by `cd` with only `ac,bd` covering initially. Right restoration precedes
+  left restoration; both reuse the same exact exchange/replay interface.
+- `da01755`: full ordered corner-chain preparation. Every actual common-cover
+  state reaches an anchor by actual flips, retaining already-good edges,
+  component, total selected count and weak blocks. Temporary redundant
+  corners are recovered after each chain sweep. No canonical-anchor claim.
 
-P2 is complete at its semantic interface: K uses actual selected colorings;
-E uses increasing relations on actual HRV fibres. Summing the endpoint mark
-recovers complete-component semantics for every finite alphabet. Diamonds
-allow arbitrary exterior and preserve the unordered pair of full HRV maps.
-No old word/scan proof or fundamental-basis argument is used.
+P1 remains partial: specific induced-core geometry, swept nonconvex transport
+and order reversal remain. P3 is complete at the plan's required interface.
+P4--P10 remain open; next is the two-chain base, then complete-clique paths
+and the finite connectivity helpers. General component recurrences, endpoint
+attachment and the final independent theorem are NOT yet Lean-proved by
+this route. The mathematical diagram proof remains complete. No old
+word/scan proof or fundamental-basis argument is used.
 
-P1 remains partial: specific induced-core constructions and strict corner
-geometry, swept nonconvex cores and order reversal remain. P3 now has the
-restored crossing slide, corner-chain terminals, anchor cover characterization
-and full ordered anchor preparation. Auxiliary short-path/copy ordering and
-fixed-count parallel rearrangement remain. P4--P10 are open. Next: formalize
-auxiliary short-edge paths and parallel-copy rearrangement, then the complete
-and two-chain path-induction bases. The general component recurrences,
-endpoint attachment and final independent theorem are NOT yet Lean-proved
-by this route. The mathematical diagram proof remains complete.
+Verification of this P3 completion:
 
-Verification of the current preparation increment:
+- Focused builds of `DiagramProof.ParallelPacking` and `ShortPathClasses`
+  pass without source warnings. `DiagramProofVerification.lean` passes all
+  107 axiom queries, using only `propext`, `Classical.choice`, `Quot.sound`
+  (or none). The new subset helper is locally checked after primary edits.
+- Independent import closure: 106 project files including verification;
+  no old Word/Mountain/Scan/Cauchy, component-coefficient, old expansion,
+  BlockExtractor or BlockCancellation route. Source guards, 100-column
+  and whitespace checks pass.
+- All builds were focused and serialized with `lake-workspace`. No broad
+  build, dependency update, remote proof search or mathematical computation.
+  Lean MCP remains rooted at RealRooted; local compiler diagnostics used.
+  The wrapper's known package-path manifest warning remains unchanged.
+- Logs: `p3-packing-build.log`, `p3-packing-axioms.log`,
+  `p3-packing-imports.txt` under
+  `/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`.
+  Earlier module logs and consultant reports remain there.
 
-- Focused local build of `DiagramProof.Preparation` passes without source
-  warnings. `DiagramProofVerification.lean` passes all 87 axiom queries,
-  using only `propext`, `Classical.choice`, `Quot.sound` (or none).
-- The independent import closure has 100 project files, including verification;
-  no old Word/Mountain/Scan/Cauchy, component-coefficient or old expansion
-  route is imported. Source guards, 100-column and whitespace checks pass.
-- No remote proof search, mathematical computation or new consultant was used
-  for preparation. The earlier crossing checkpoint used AXLE auxiliarily
-  while another project's compiler ran; its final local build included every
-  accepted refactor. No broad build or dependency update ran in either turn.
-
-Logs, source bundles and the previous Claude report are under
-`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`.
-Current checks: `p3-preparation-build.log`, `p3-preparation-axioms.log`,
-`p3-preparation-imports.txt`; focused intermediate module logs and all earlier
-checkpoint logs remain. The wrapper's known temporary-package-path manifest
-warning persists; no manifest update was performed. Lean MCP remains rooted
-at RealRooted, so local diagnostics came from the project compiler.
+The user-authorized Claude refactor sweep was completed at `0871d38`.
+Primary integrated its strongest suggestion: right-before-left restoration,
+removing a special exterior transform and extra reference sweep. Trace-based
+sweeps share replay proofs. Its uncompiled suggestions were not verification
+evidence. The required independent Astra architecture review was completed
+previously. Terra's current audit independently checked the new geometry and
+packing contracts; primary's local Lean check remains authoritative.
 
 ## Detailed formalization plan — completed before implementation
 

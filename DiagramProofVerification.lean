@@ -7,6 +7,8 @@ import VerticalStripLLT.Components.DiagramProof.CoreExtension
 import VerticalStripLLT.Components.DiagramProof.SinkRelabel
 import VerticalStripLLT.Components.DiagramProof.CrossingSlide
 import VerticalStripLLT.Components.DiagramProof.Preparation
+import VerticalStripLLT.Components.DiagramProof.ParallelPacking
+import VerticalStripLLT.Components.DiagramProof.ShortPathClasses
 import VerticalStripLLT.Components.SelectedColoringTransport
 
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
@@ -100,3 +102,26 @@ import VerticalStripLLT.Components.SelectedColoringTransport
 #print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_prepareChain
 #print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_preparation
 #print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_anchor_in_component
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.boundary_eq_tail
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.corner_tail_le_of_head_le
+#print axioms
+  VerticalStripLLT.Circular.DiagramProof.CornerFamily.edge_eq_of_tail_and_head_terminal_eq
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.parallel_endpoints_ordered
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.shortLink_rightUnique
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.shortLink_leftUnique
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_shortSuccessor
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_copySuccessor
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.copy_reachable_of_tail_le
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_lastCopy
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.copy_reachable_undirected
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.shortConnected_iff_chainPair_eq
+#print axioms VerticalStripLLT.Circular.DiagramProof.fullSelection_eq_of_exchange
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_forwardCopyExchange
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_backwardCopyExchange
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_adjacentCopyExchange
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.reflTransGen_exchange
+#print axioms VerticalStripLLT.Circular.DiagramProof.fixed_label_connectivity
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_parallelCopyExchange
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.anchors_connected_of_occupancy

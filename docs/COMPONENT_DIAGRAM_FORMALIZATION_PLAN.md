@@ -6,7 +6,7 @@ plan, not a report of new Lean proofs. The mathematical inputs are the
 [cleanup audit](proofs/COMPONENT_DIAGRAM_AUDIT.md). Historical proof notes
 remain the sources for the individual path constructions.
 
-Implementation status: P0 and P2 are verified; P1 and P3 are partial. P0 and the
+Implementation status: P0, P2 and P3 are verified; P1 is partial. P0 and the
 semantic import extractions are in `9d8c4bc`. P1 includes finite/lifted covers,
 weak-block invariance, exact corner marking, source-only short flips
 (`3bbb1e4`), convex path/cover restriction and an injective fixed-exterior
@@ -26,16 +26,32 @@ Claude reviewed the sweep interfaces read-only. Primary integrated the
 simpler right-before-left restoration, eliminating a special exterior
 transform, and checked it locally (`0871d38`).
 
-The current P3 increment adds corner families and their terminal chains,
-the characterization of anchors by good-edge subsets, and the full ordered
-preparation theorem in
+P3 preparation is verified in `da01755`: corner families and their terminal
+chains, the characterization of anchors by good-edge subsets, and the full
+ordered preparation theorem in
 [Preparation.lean](../VerticalStripLLT/Components/DiagramProof/Preparation.lean).
 `CornerFamily.exists_anchor_in_component` supplies an actual path endpoint
-in the same component, with total selected count, all weak blocks and all
-already-good edges preserved. The proof permits temporary redundant corners
-and proves recovery after each completed chain sweep. Auxiliary short-path
-and copy ordering, and fixed-count parallel rearrangement remain in P3;
-P4--P10 remain open. The independent component theorem is not yet formalized. See `HANDOFF.md`
+in the same component, preserving total selected count, weak blocks and all
+already-good edges. Temporary redundant corners are recovered after each
+completed chain sweep.
+
+P3 is now complete. `CopyGeometry`, `CopyPaths` and `ShortPathClasses` prove
+the unique auxiliary short-edge path for each unordered terminal pair and
+the increasing order of good copies. `ParallelMoves` lifts both directions
+of neighboring-copy exchange to actual flips with exact restored exterior.
+`FiniteSubsetPaths` supplies abstract exact exchanges along a path and
+fixed-label-cardinality connectivity. Their integration in
+[ParallelPacking.lean](../VerticalStripLLT/Components/DiagramProof/ParallelPacking.lean)
+proves `exists_parallelCopyExchange` and `anchors_connected_of_occupancy`.
+Occupancy uses ordered terminal pairs; fixed diagonal corner counts are
+included explicitly. This proves unrestricted fixed-count rearrangement,
+without asserting that an occupancy vector is invariant on a whole component.
+A distinguished highest-position representative and capacity formulas are
+not needed for this interface and have not been formalized.
+
+P4--P10 remain open. Luna is preparing the two-chain base in its separately
+owned `TwoChainBase.lean`; primary will verify it before changing P4 status.
+The independent component theorem is not yet formalized. See `HANDOFF.md`
 and `DiagramProofVerification.lean` for ownership and exact verification.
 
 ## Deliverable and scope
