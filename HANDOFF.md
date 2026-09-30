@@ -118,8 +118,7 @@ recurrence outline, APPEND-ONLY continuations of NN redistribution and DN
 joint-repair notes, the authorized endpoint/source-addition continuations,
 handoff archives and existing external consumers under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/diamond-exploration/hrv-bridge/`.
-Preserve other ownership and the proof-note prefixes at `49cb610` until the
-completion checkpoint is recorded below.
+Preserve other ownership and the proof-note prefixes at `a3d076b`.
 
 No extra worker/subagent/Claude consultation, manuscript TeX/PDF/Overleaf
 edit, maintained Rust edit or Lean build was used. No account/profile/model
@@ -137,5 +136,10 @@ The new proof discharges the coverage theorem's explicit NN/DN hypothesis.
 
 The replacement began at account-swap `2511182`. Recent proof checkpoints
 were `cf5451e` (pendant inheritance) and `d7da9ab` (last-clique inheritance),
-followed by metadata `49cb610`. The completion checkpoint is ready for final
-prefix/link/hash/whitespace checks, commit and push; record its hash below.
+followed by metadata `49cb610`. Completion proof checkpoint `a3d076b` is
+committed and pushed to `origin/main`. All four frozen replays, receipt
+hashes, preserved prefixes, historical outline body, relocated archive,
+new file/heading links, ownership and whitespace checks pass. No verification
+jobs remain running. The completion audit verifies the full ordinary scope,
+whole smaller outputs, both valuations, well-founded induction and shifted
+elementary positivity; no required work remains on this mathematical goal.
