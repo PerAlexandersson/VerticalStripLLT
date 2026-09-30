@@ -416,6 +416,19 @@ short edges and deletion of a chain with no consecutive vertices.
 `RemovableGoodEdges` discharges the deletion-connectedness hypothesis when
 the natural graph has no articulation and at least three corner chains.
 See the [short separator proof](proofs/COMPONENT_CHAIN_SEPARATOR_LEMMA.md).
+The next increment proves `TerminalClique` (terminal-copy geometry and the
+exact selected shape of the last clique), `LabelPacking` and
+`RepresentativePacking` (finite capacity-respecting representative selection),
+and `TerminalPacking.exists_terminal_packing` (the actual anchor endpoint and
+flip path with preserved occupancies and the receiver absent). `ConnectedExchange`
+supplies a receiver reconnecting a deleted bridge from a connected target;
+`OccupancyTransfers` supplies finite deficit descent once actual local unit
+transfers are available.
+
+The direct transfer still needs interval-block connectivity and restricted-count
+adapters. Pack once and explicitly swap the donor and receiver terminal copies;
+do not pack both endpoints independently, since their exteriors must agree.
+The temporary-edge repair is with Aristotle and is not yet locally verified.
 The terminal-transfer and inheritance obligations below remain unfinished.
 
 Use P3's auxiliary short-edge paths to prove that good copies retain exactly

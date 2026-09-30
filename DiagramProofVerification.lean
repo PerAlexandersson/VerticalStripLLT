@@ -1,4 +1,7 @@
 import VerticalStripLLT.Components.DiagramProof.PathTransport
+import VerticalStripLLT.Components.DiagramProof.TerminalPacking
+import VerticalStripLLT.Components.DiagramProof.ConnectedExchange
+import VerticalStripLLT.Components.DiagramProof.OccupancyTransfers
 import VerticalStripLLT.Components.DiagramProof.WeakBlocks
 import VerticalStripLLT.Components.DiagramProof.CornerTransport
 import VerticalStripLLT.Components.DiagramProof.ShortFlip
@@ -433,5 +436,20 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms CornerFamily.goodEdgeGraph_delete_connected_of_no_articulation
 #print axioms CornerFamily.exists_third_terminal
 #print axioms CornerFamily.exists_connected_anchor_card_avoiding_of_no_articulation
+
+#print axioms exists_subset_with_label_counts
+#print axioms exists_representative_packing
+#print axioms CornerFamily.mem_terminalEdges
+#print axioms CornerFamily.terminalEdge_good_not_corner
+#print axioms CornerFamily.terminalEdges_label_injective
+#print axioms CornerFamily.corner_label_ne_terminalEdge
+#print axioms CornerFamily.terminal_eq_of_last_corner
+#print axioms CornerFamily.goodEdge_eq_last_corner_of_tail
+#print axioms CornerFamily.exists_terminalEdge_of_last_clique
+#print axioms CornerFamily.selected_last_clique_iff
+#print axioms CornerFamily.exists_terminal_packing
+#print axioms SimpleGraph.exists_reconnecting_edge
+#print axioms SimpleGraph.exists_connected_edge_exchange
+#print axioms reflTransGen_of_occupancy_descent
 
 end VerticalStripLLT.Circular.DiagramProof

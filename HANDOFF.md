@@ -2,23 +2,64 @@
 
 ## Active implementation — P0/P2/P3/P4 complete, P1/P5 partial
 
-Continuation began clean at pushed `e45e107` and made verified progress.
-P5's separator and removable-edge obligations are now proved. Terminal-clique
-occupancy transfers and the inheritance arguments remain open, as do P1's
-remaining geometry/order reversal and P6--P10. The full goal is unchanged.
+This continuation started clean at pushed `049e5a6` and made verified progress
+on terminal-clique packing. P0/P2/P3/P4 are complete; P1/P5 remain partial;
+P6--P10 remain open. The independent diagram formalization and the illustrated
+circular/ordinary draft are unfinished. The full goal is unchanged.
 
 Primary owns all `DiagramProof/` sources, `DiagramProofVerification.lean`,
-this handoff, the formalization plan, the new separator proof note, the
-path-history archive and existing restriction-consolidation suggestion.
-Primary retains the sole build slot. Luna returned `IntervalDeletion` and
-`QuotientSeparators`; Terra returned `NaturalSeparators`. Primary integrated
-and verified them, wrote `ChainSeparators` and `RemovableGoodEdges`, and
-added the erase/deletion bridge to `EdgeSetGraph`. Terra's independent
-read-only review approved the proof and its exact contracts. Both agents
-are finished; all source ownership has returned to primary. Historical
-proof-note prefixes and unrelated ownership remain unchanged.
+this handoff, the formalization plan and Aristotle ledger, and retains the
+sole local build slot. The user requested Aristotle and subagents. Luna
+returned `OccupancyTransfers`; Terra returned `ConnectedExchange` and a
+read-only direct-transfer audit; the reused `semantic_extract` agent returned
+`LabelPacking` and `RepresentativePacking`. Primary integrated their candidates,
+wrote `TerminalClique` and `TerminalPacking`, and checked all six locally.
+All source ownership has returned to primary. Subagents remain build-free;
+`semantic_extract` has a read-only contract review in progress.
+Historical proof-note prefixes and unrelated ownership remain unchanged.
 
-### Current P5 increment — separators and removable edges
+Aristotle project `515b9f61-1e1a-43bf-99b7-9e05cbff2124`, task
+`84ef24e0-68a0-41fa-becb-c58e46b183d6`, is **COMPLETE** and returned a proof
+candidate for the exact one-temporary-edge repair lemma, without extra
+hypotheses. Terra now owns ONLY the new `TerminalRepair.lean` to port this
+candidate build-free; primary retains all builds. The reused `semantic_extract`
+agent will audit the returned mathematical contract read-only.
+[The ledger](docs/ARISTOTLE.md) records the exact target and external directory.
+Any returned candidate needs local Lean 4.34.0 checking and import/axiom guards.
+
+### Current P5 increment — terminal copies and packing
+
+- `LabelPacking` constructs subsets with prescribed per-label counts between
+  a required subset and an allowed pool. `RepresentativePacking` specializes
+  it to one representative per occupied class, omitting a specified receiver
+  whose class has a vacancy. All capacity bounds are derived internally.
+- `TerminalClique` proves terminal copies are good non-corner edges, unique
+  in their classes, and have labels distinct from retained corners. When
+  all chain terminals lie in the last clique, its selected edges are exactly
+  the last corner and selected terminal copies.
+- `TerminalPacking.exists_terminal_packing` returns an actual anchor and an
+  actual flip path with unchanged occupancies. Exactly the occupied terminal
+  copies other than the receiver are selected at the endpoint.
+- `ConnectedExchange.exists_reconnecting_edge` finds a receiver in a connected
+  target across a deleted bridge. The receiver is absent from the source.
+  `exists_connected_edge_exchange` handles equal-size connected graphs too.
+- `OccupancyTransfers.reflTransGen_of_occupancy_descent` proves termination of
+  exact surplus-to-deficit unit transfers, deriving sum preservation and strict
+  decrease of the total deficit. Its local transfer hypothesis is still to be
+  supplied by the diagram construction; it does not assume arbitrary transfers
+  preserve connectivity.
+
+Next implement the direct terminal transfer. Terra's audit requires ONE packed
+source, followed by the explicit `insert f (S.erase e)` swap. Packing source
+and target independently would lose exterior equality. Use the full last-clique
+interval with `Finset.orderEmbOfFin`, then `clique_reachable_of_block`.
+The remaining adapters are terminal-support connectivity to the whole interval
+block, and preservation of the restricted selected count under the explicit
+swap. Covers follow from `commonCover_of_anchor`; the explicit swap supplies
+exterior equality. Then integrate the temporary repair and the occupancy
+support descent. Last-/first-clique inheritance is still open.
+
+### Earlier P5 increment — separators and removable edges
 
 The [short separator proof](docs/proofs/COMPONENT_CHAIN_SEPARATOR_LEMMA.md)
 records a simplification for the later draft. In a connected ordinary

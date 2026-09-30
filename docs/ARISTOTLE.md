@@ -11,6 +11,25 @@ ordinary/circular candidates. The entries below give current final outcomes
 for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
 [the proof map](FLIP_COMPONENT_STATUS.md) owns the mathematical overview.
 
+## Terminal-clique transfer repair — active candidate request
+
+- User explicitly requested Aristotle and subagents during the diagram
+  formalization. Project `515b9f61-1e1a-43bf-99b7-9e05cbff2124`, task
+  `84ef24e0-68a0-41fa-becb-c58e46b183d6`, last confirmed **IN_PROGRESS**.
+- External directory:
+  `/lake-cache/ai-projects/requests/VerticalStripLLT/terminal-transfer-repair/`.
+  `TARGET.md` SHA-256:
+  `d80bdec1409e50462ffbc1f3b4bca770afcc20fcca76244320af35ebe7803f3e`.
+- Scope: the exact one-temporary-edge repair from the terminal-clique proof.
+  Input is a connected simple graph, donor/receiver edges, and the Boolean
+  telling whether a donor copy remains. Output is either the direct pair
+  of connectivity conditions or an absent temporary edge satisfying both
+  successive pairs. The request supplies the written bridge-cut proof.
+- No scans or alternative LLT proof routes are requested. The remote may use
+  its cached toolchain; returned source must be ported to local Lean 4.34.0
+  and pass the serialized focused build, source/import and axiom guards.
+  No result from this request is yet integrated or claimed proved in Lean.
+
 ## Circular finite coefficient identity: accepted mathematical proof
 
 - Project `729ff94c-1911-422b-88a7-f1af1cef93d0`, task
