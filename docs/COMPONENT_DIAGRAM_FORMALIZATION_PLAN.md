@@ -129,8 +129,20 @@ vertex reach its weak block. `IntervalReachability` combines these facts
 with exact convex restriction of paths and covers: an induced weak path
 already inside `[u,v]` can be made directed by flips confined to `[u,v]`.
 It also proves that refining selected edges to covers preserves induced
-weak blocks. This does not yet bring an arbitrary weak path into `[u,v]`.
-P4 still needs the local selected-block version and Hasse-path hull shortening;
+weak blocks (`7b9f5de`).
+
+Hasse-path hull shortening and general reachability forcing are now verified.
+`PathSplit` splits a simple Hasse path around an internal vertex;
+`PathShortening` applies the incoming or outgoing cover flip at its extreme
+vertex and retains the other path fragments. `HullReduction` repeats these
+steps with a strictly decreasing integer bound, refining selected edges to
+covers in each smaller convex interval. `ReachabilityForcing` concludes that
+any ordered pair in one selected weak block can be made reachable by actual
+flips. Its adjacent-edge corollary and the least-vertex version preserving
+all existing weak connections in a retained lower interval are also proved.
+The latter preservation is a forward implication, not an assertion that
+the induced weak blocks were unchanged during hull shrinking.
+P4 still needs the local complete theorem for one selected weak block;
 P5--P10 remain open. The independent component
 theorem is not yet formalized. See `HANDOFF.md` and `DiagramProofVerification.lean`
 for ownership and exact verification.

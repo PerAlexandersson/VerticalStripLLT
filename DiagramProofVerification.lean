@@ -30,6 +30,7 @@ import VerticalStripLLT.Components.DiagramProof.ChordConnectivityStep
 import VerticalStripLLT.Components.DiagramProof.CompleteSmall
 import VerticalStripLLT.Components.DiagramProof.CompleteConnectivity
 import VerticalStripLLT.Components.DiagramProof.IntervalReachability
+import VerticalStripLLT.Components.DiagramProof.ReachabilityForcing
 
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
 
@@ -340,3 +341,21 @@ import VerticalStripLLT.Components.DiagramProof.IntervalReachability
 #print axioms VerticalStripLLT.Circular.DiagramProof.weakReach_covers_within_iff
 #print axioms VerticalStripLLT.Circular.DiagramProof.exists_reachable_within_of_minimal
 #print axioms VerticalStripLLT.Circular.DiagramProof.exists_reachable_within_interval
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.eqvGen_of_walk
+#print axioms VerticalStripLLT.Circular.DiagramProof.eqvGen_iff_fromRel_reachable
+#print axioms VerticalStripLLT.Circular.DiagramProof.eqvGen_within_of_class_subset
+#print axioms VerticalStripLLT.Circular.DiagramProof.coverGraphWithin_adj_iff
+#print axioms VerticalStripLLT.Circular.DiagramProof.mem_of_coverGraphWithin_support
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_coverPath_within
+#print axioms VerticalStripLLT.Circular.DiagramProof.weakReach_of_coverWalk
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_path_split_at_internal_vertex
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_weakReach_below
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_weakReach_above
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_weakReach_with_smaller_upper_bound
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_weakReach_with_larger_lower_bound
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_weakReach_within_endpoints
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_reachable_of_weakReach
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_selected_adjacent_of_weakReach
+#print axioms VerticalStripLLT.Circular.DiagramProof.not_weakReach_of_adjacent_absent
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_reachable_preserving_lower_weakReach
