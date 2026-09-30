@@ -1554,3 +1554,182 @@ Gluing then produces the same signed sum of whole product components,
 without assuming an expansion for the attached component. This includes
 all previously proved terminal-clique DN cases. General DN collection
 with crossing exterior edges is still unfinished.
+
+## A uniform three-corner DN component recurrence
+
+2026-09-30 continuation from `0ada933`. We prove the component recurrence
+for every source with maximal natural corners
+
+    f=0a,  g=1c,  h=ae,       c=a+1,  2<=a,  a+2<=e.   (DG1)
+
+Thus the natural cliques are [0,a], [1,a+1], [a,e]. For the direct DN
+contact u=0,w=a,x=c,z=e, f and h are strict and g is unmarked. The target
+adds 0c, deletes ae, and marks 0c,ce. It is the actual DN target, including
+all unchanged natural edges. Only when e=a+2 is it a pair of cliques
+meeting at c; for larger e, the edges av with c<v<e remain.
+
+We show that all connected simultaneous-cover states of a fixed size
+belong to one actual component retaining f,g,h. The general full-layer
+subtraction then isolates every source component. This is a uniform DN
+family, not a proof for all three-clique diagrams or all DN sources.
+
+### Two complete graphs in an anchor
+
+Prepare a common-cover state by (P). The nonsingleton corner chains are
+F={0,a,e} and G={1,c}. The other vertices are singletons. Their quotient
+is the union of two complete graphs: the left one on F,G,2,...,a-1,
+and the right one on F,G,c+1,...,e-1. They meet only at F,G.
+Each has its own FG edge copy. There are no other parallel classes.
+
+The left complete graph has p=a vertices. Represent it on the ordered
+list 2,...,a,c: every pair uses its ordinary edge except ac, which uses
+1a instead. The right complete graph has q=e-a vertices and uses the
+ordinary edges on c,...,e. Its FG edge is ce. These are exactly all
+good normal positions of A*. The three fixed corners connect the
+occurrences of F and G; contraction preserves weak components.
+
+We have two kinds of actual paths, with all three corners retained.
+
+1. **Rearrange a connected side at fixed size.** On the right, attach
+   the pendant corner ae to the connected selected graph on c,...,e
+   and apply the complete-cover theorem inside [a,e]. On the left,
+   if 1a is selected, first flip it to ac across 1c. This is actual:
+   1 has only the selected outgoing edges 1a and 1c, while ac is absent.
+   The selected graph on 2,...,a,c is now the connected left graph;
+   0a and 1c are pendant corners. Apply the complete-cover theorem
+   inside [1,c], retaining 1c, and reverse the preparation if the desired
+   endpoint uses 1a. In that inverse step ac covers because c=a+1.
+   The corners outside the chosen interval stay selected; an internal
+   cover test cannot leave the interval and return. The intermediate
+   corner ae may be redundant, which is allowed. At each endpoint we
+   again have an anchor.
+2. **Transfer the FG copy between sides.** If one of 1a,ce is selected
+   and the other absent, crossing transport across 1c,ae gives
+   A-1a+ce or its inverse. It restores every other edge. Its hypotheses
+   hold at an anchor. This is the proved arbitrary-exterior crossing
+   path, so no extra cover assumption on the moving short is required.
+
+Neither assertion equates individual states' K/E values. They give
+actual paths within one component.
+
+### Making both sides connected
+
+Let l,r be the two numbers of selected normal edges. Global connectedness
+has a simple consequence. Each selected side has either one component,
+or two components with F and G separated. A component containing neither
+F nor G would be disconnected from the entire graph. Both sides cannot
+be disconnected: then there is no F-to-G path anywhere. At least one
+side is therefore connected.
+
+We first consider cyclic states, so with n=e+1=p+q+1 vertices,
+
+    l+r >= p+q-2.                                      (DG2)
+
+If both sides are connected, nothing is needed. Otherwise let D be the
+connected side and B the disconnected side. The FG edge in B is absent.
+Rearrange D to contain its FG edge. If D has a cycle, we can arrange for
+FG not to be a bridge: take a spanning star centered at a third vertex,
+add FG, and fill the remaining positions as needed. Transfer FG to B.
+The two components of B join, and D stays connected.
+
+If D is a tree, choose a tree containing FG and transfer it to B. Now
+B is connected and D has two components. By (DG2), B has at least as
+many edges as vertices after the transfer, hence contains a cycle.
+Rearrange B so that FG is selected and not a bridge, and transfer it
+back. Both sides are now connected. Thus at most two preparatory
+transfers suffice. All rearrangements here are the actual paths above.
+
+### Changing the allocation of extra edges
+
+For a connected complete graph on s vertices, every size from s-1 to
+binom(s,2) is possible. If the size is greater than s-1, we may require
+FG selected and not a bridge. If the size is less than binom(s,2), we
+may require FG absent while keeping the graph connected: for s>=3 use
+a spanning star at a third vertex, then fill other edges. For s=2 there
+is no connected size strictly below the maximum, so that case never
+arises as a receiver.
+
+Consequently, whenever both sides are connected, one selected edge can
+be transferred from a side above its tree bound to a side below its
+capacity. Rearrange the donor with FG on a cycle and the receiver with
+FG absent, then use crossing transport. Both sides remain connected.
+The feasible allocations with fixed l+r form an integer interval, so
+these transfers connect all of them. At a fixed allocation, the two
+independent complete-cover rearrangements connect all endpoint states.
+This proves uniqueness for every connected cyclic anchor layer.
+
+The tree layer is already covered by the proved fixed-envelope tree
+connectivity theorem: every connected tree containing all three maximal
+corners has full envelope. Preparation (P) brings every common-cover
+state to an anchor, preserving its size and component. We have therefore
+proved the required common-cover component uniqueness in every feasible
+layer, not merely for the cyclic states used in (DG2).
+
+### The complete recurrence
+
+Write C_k for the unique component containing connected common-cover
+states of size k. In the whole source layer, every other component D
+has an independent reduction: delete an absent maximal corner, reorder
+its disconnected weak blocks, or use alternating corner deletion if it
+contains all corners but never has them simultaneously covering. Each
+output is a whole component in a smaller diagram, with the previously
+proved signs and multiplicities. Let B(D) denote that signed collection.
+
+The full DN layer identity gives, for both X=K and X=E,
+
+    X(C_k) = sum_(T a target component of size k) X(T)
+              - sum_(D != C_k, source size k) X(B(D)).  (DG3)
+
+Below n-1, all selected graphs are disconnected. Above |A*|, no state
+has all corners covering. Those layers reduce directly by the same
+operations, so (DG3) and the direct reductions cover EVERY component
+of the source (DG1). We do not assume an expansion for a correction
+component. The DN target has the same natural area and smaller head
+sum, while all correction diagrams have smaller area. This is the
+established induction order.
+
+The right-marked version and arbitrary right-hand attachments follow
+from the proved endpoint theorem: the contact swap exchanges a,c and
+fixes e; put the e-block last in disconnected corrections.
+
+Related Rust: the existing `dn_joint_span.rs` consumer now has a
+`--dn-three-corner-paths` mode. It constructs the two side rearrangements,
+the one- or two-transfer preparation, and a canonical allocation, then
+replays every flip globally and checks retention of all three corners.
+Across all 36 parameter choices on five through twelve vertices, it
+checks 4548 connected cyclic anchors: exhaustive through eight vertices,
+and 64 deterministic bit samples per larger graph. All endpoints agree
+with the prescribed canonical state of their layer. There are 1291461
+actual flips, maximum path length 9728, 1886 first preparatory transfers,
+140 second preparatory transfers, and 839 allocation transfers. No global
+component search is used; the complete-cover constructor retains its
+previous fixed five-vertex base search.
+
+The earlier six-fixture `--three-clique-gluing` probe is separate finite
+evidence. Packing and connected two-clique-region replacements alone
+miss some anchors, including cyclic ones in a nine-vertex fixture.
+Adding the proved connected-clique-piece replacements connects every
+layer in those six fixtures. This is not a general generation theorem.
+The proof of (DG3) uses the explicit construction above instead.
+
+The condition c=a+1 in (DG1) is essential to the proof just given. With
+a middle corner 1c and c>a+1, additional good cross edges occur between
+left singleton vertices and a+1,...,c-1. The two side graphs no longer
+account for all edges. General DN collection, including that larger
+middle-clique family, remains open.
+
+The separate `--dn-three-corner-layers --right-marked-layers` mode checks
+all 22 feasible layers for all six parameter choices on five through
+seven vertices, with g correctly UNMARKED. It verifies 7590 survivor
+states and 1448 whole target components with 19480 states. The independent
+corrections comprise 138 disconnected components with 1047 states,
+943 missing-g components with 10337 states, and 71 alternating source
+components with 506 states. The latter yield 1017 whole deletion terms.
+There are 1921 positive and 1625 negative terms and 3542 redundancy
+witnesses. All right-marked fibre identities, whole-output checks and
+smaller-diagram assertions pass.
+
+Frozen sources, commands, logs and hashes for both proof audits and the
+two exploratory generator modes are retained in
+`/lake-cache/ai-projects/requests/VerticalStripLLT/dn-three-corner-recurrences-20260930/`.
+No coloring enumeration, basis calculation or Lean build was used.

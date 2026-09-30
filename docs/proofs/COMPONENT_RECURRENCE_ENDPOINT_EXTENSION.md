@@ -497,3 +497,8 @@ The subsequently completed
 uses exactly these full-layer corrections, so it also has the right-marked
 version and arbitrary right attachments. This supplies the new left-block
 family that was still unfinished when (RE2) was first recorded above.
+
+The [three-corner DN recurrence](COMPONENT_DN_JOINT_REPAIRS.md#a-uniform-three-corner-dn-component-recurrence)
+also uses the same corrections and fixes its right endpoint under the
+contact swap. It therefore inherits (RE2)--(RE3), including arbitrary
+right-hand attachments without an expansion assumption on the attachment.

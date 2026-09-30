@@ -621,3 +621,12 @@ This proves uniqueness and hence full component NN recurrences for arbitrary
 two overlapping natural cliques. The earlier candidate status above is
 superseded for that family. General NN/DN collection remains open for
 more complicated overlaps; the two-clique theorem is not a direct DN theorem.
+
+The [three-corner DN theorem](COMPONENT_DN_JOINT_REPAIRS.md#a-uniform-three-corner-dn-component-recurrence)
+now covers every source with maximal corners 0a,1(a+1),ae (a>=2,
+e>=a+2), where 0a,ae are strict and the middle corner is unmarked.
+The same complete-cover and crossing paths connect the cyclic anchor
+layers; the tree layer is already known. Independent corrections and
+full-layer subtraction give the whole-component recurrence. Its 22
+small-layer audits include the missing-middle-corner components. This
+is a uniform DN family; general NN/DN collection remains unfinished.

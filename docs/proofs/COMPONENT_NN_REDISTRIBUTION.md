@@ -4221,3 +4221,18 @@ These checks include the whole components, not only their anchors.
 Frozen sources, commands, logs and hashes for these two modes are in
 `/lake-cache/ai-projects/requests/VerticalStripLLT/two-clique-recurrences-20260930/`.
 No Lean build, coloring enumeration or basis calculation was used.
+
+## A three-corner family with a complete DN recurrence
+
+The [DN continuation](COMPONENT_DN_JOINT_REPAIRS.md#a-uniform-three-corner-dn-component-recurrence)
+proves common-cover component uniqueness and a full DN recurrence for
+maximal corners 0a,1(a+1),ae, with a>=2 and e>=a+2. Its anchors are two
+complete quotient graphs meeting at two vertices, with one copy of the
+shared edge in each graph. Complete-cover paths rearrange a connected
+side; crossing transport moves the shared edge between sides. At most
+two preparatory transfers make both sides connected in a cyclic layer,
+and subsequent transfers connect all allocations. The fixed-envelope
+tree theorem handles the tree layer. This supplies the whole-component
+subtraction, not merely a conditional local path. A middle corner 1c
+with c>a+1 introduces additional cross edges and remains outside this
+new theorem.
