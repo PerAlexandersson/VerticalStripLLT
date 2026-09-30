@@ -1414,3 +1414,30 @@ result does not by itself settle general DN. The general empty-corner
 reduction is still conditional on the appropriate uniform NN statement.
 Keep this distinction when using the shared path lemmas. Sources, logs
 and the certificate are in `unequal-chain-anchor-recurrences-20260930/`.
+
+## The corner-chain quotient and DN exterior
+
+2026-09-30 continuation. The
+[interval quotient and parallel-copy theorem](COMPONENT_NN_REDISTRIBUTION.md#the-interval-graph-of-corner-chains)
+use all maximal natural corners and apply equally to eligible DN sources.
+Each unordered pair of corner chains has at most one short-edge path;
+its alternating positions are the copies of one edge in an interval
+multigraph. A selected quotient cover permits arbitrary rearrangement of
+those copies by the explicit two-corner slides (PC2), with arbitrary
+selected exterior and every strict edge retained.
+
+This proves actual component membership for those rearrangements. It
+supplies no valuation identity on contracted graphs and does not yet
+collect the general DN image. Selected routes through intervening chains remain unresolved; the next
+paragraph supplies one class of transfers between different chain pairs.
+The graph-only 14-fixture audits include all nine DN sources and search
+no complete source components. The shared receipt is
+`corner-chain-quotient-20260930/`.
+
+The subsequent [quotient-fork normalization](COMPONENT_NN_REDISTRIBUTION.md#lifting-a-quotient-fork-and-obtaining-one-sink-in-each-block)
+also applies to DN without changes to its incoming exterior. Its one-
+or two-flip fork transfer preserves every strict edge; after preparing
+the remaining quotient covers, every weak block has one sink and all
+maximal corners cover simultaneously. This supplies a representative
+inside each component with a common-cover witness, not a collected DN
+recurrence or a uniqueness statement for those representatives.

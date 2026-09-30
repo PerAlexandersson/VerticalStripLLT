@@ -137,6 +137,22 @@ whole smaller block/deletion expression. This is a finite certificate
 for that diagram. The local generators still have gaps in other diagrams;
 they are not a proved general description of component connectivity.
 
+The [corner-chain quotient](COMPONENT_NN_REDISTRIBUTION.md#the-interval-graph-of-corner-chains)
+now identifies the full anchor geometry for arbitrary ordinary diagrams:
+each pair of chains has one auxiliary short-edge path, and its alternating
+copies give an interval multigraph. Connected anchors exist in every layer
+n-1 through m*. The [parallel-copy theorem](COMPONENT_NN_REDISTRIBUTION.md#rearranging-parallel-copies-of-a-quotient-cover)
+lifts all rearrangements within a selected quotient cover to actual two-flip
+slides with arbitrary exterior. A selected route through intervening chains
+is the remaining obstruction to this particular lift. The subsequent
+[quotient-fork normalization](COMPONENT_NN_REDISTRIBUTION.md#lifting-a-quotient-fork-and-obtaining-one-sink-in-each-block)
+lifts a class of transfers between different pairs. Iterating these actual
+moves gives, in every component with a common-cover witness, an anchor
+with all corners covering and one sink per weak block. Its endpoint is
+not proved unique; general component collection still needs comparison
+of these representatives or direct RHS repair. The quotient organizes
+actual paths and is not a replacement for the original K/E sums.
+
 The new [empty-corner reduction](COMPONENT_DN_JOINT_REPAIRS.md#dn-through-an-empty-corner-nn-diagram)
 shows that the uniform NN statement would also settle DN. Adding the
 missing corner EMPTY and unmarking its neighbor preserves the exact

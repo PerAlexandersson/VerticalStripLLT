@@ -2754,3 +2754,370 @@ has genuine cover hypotheses. General paths may cross other redundant
 states not accounted for by these constructions. Completing that argument,
 or directly repairing the RHS coefficients, remains necessary for the
 general Motzkin/Dyck NN and DN recurrence theorem.
+
+## The interval graph of corner chains
+
+2026-09-30 continuation. We give a global description of the anchor
+geometry for an ARBITRARY ordinary diagram, then lift one class of its
+edge rearrangements to actual flips. This is not yet the general component
+recurrence. In particular, contracting a chain below is a device for
+organizing paths, not a coloring or HRV identity.
+
+Let M be all maximal natural corners, marked strict after the envelope
+reduction. Its directed components are chains. Write r(v) for the last
+vertex of the chain containing v, and let t be the number of chains.
+The proved preparation theorem sends any simultaneous-cover state, by
+actual flips, to an anchor: M together with selected normal edges uv for
+which r(u)<r(v). All anchors are subsets of the fixed A* in (UC1)'s general
+construction, with M retained.
+
+Contract each corner chain to one vertex, labeled by its last vertex.
+Keep a separate edge copy for every normal edge of A*. Call the resulting
+multigraph H. An anchor A gives the spanning edge subset H(A), including
+vertices of degree zero. Direct its edges by increasing chain labels.
+
+### One short-edge path for each pair of chains
+
+No normal natural edge has both endpoints in one corner chain. Indeed,
+an interval between nonconsecutive vertices of the same chain properly
+contains a maximal corner, and a consecutive pair is itself a corner.
+
+A short-edge link uv->vh, retaining uh in M, exchanges the two chain
+labels. Thus an entire auxiliary short-edge path stays within ONE unordered
+pair of chains. In fact each pair has AT MOST ONE such path.
+
+To see uniqueness, a normal edge uv has a predecessor on its short-edge
+path exactly when v has a corner predecessor p. In that case p<u: the
+alternative u<=p would make uv equal to or properly contain the corner
+pv. The predecessor is the natural normal edge pu. Consequently the
+first node of any short-edge path must end at the first vertex of one
+of its two corner chains. Its tail lies in the chain which starts earlier.
+There can be at most one such tail before the later chain's first vertex:
+if u<u'<v were two, the natural interval uv would properly contain the
+corner from u to its chain successor, which is at most u'.
+
+It follows that H has one parallel class for each nonempty short-edge
+path. If that path has l nodes, the class has exactly ceil(l/2) copies:
+we retain its last node and alternate backwards. Its retained nodes are
+ordered along the path, and both their ordinary endpoints strictly
+increase. This last order will supply the actual two-flip slides below.
+
+### An explicit interval representation
+
+For an original vertex v, let R(v) be its greatest natural neighbor to
+the right, or v when it has none. The ordinary natural graph is the
+intersection graph of
+
+    I_v=[v,R(v)].                                      (CQ1)
+
+Indeed, for u<v, the intervals intersect exactly when v<=R(u), which
+is exactly the natural-edge condition. The right endpoints R(v) are
+nondecreasing, by closure under subintervals.
+
+For a corner chain B, the intervals I_v, v in B, form a connected union:
+consecutive chain vertices u,h share the corner uh, so I_u and I_h
+intersect. Their union is exactly
+
+    J_B=[min(B),R(max(B))].                            (CQ2)
+
+Two such unions intersect if and only if some natural edge joins the
+chains. Every such edge lies on their unique short-edge path, whose last
+node belongs to A*. Conversely every edge of A* is natural. Therefore
+(CQ2) is an interval representation of the SIMPLE graph underlying H.
+In particular, keeping only the alternating copies does not remove any
+adjacency between distinct chains.
+
+Every clique of this simple graph has a natural-clique witness in the
+original diagram. Pairwise intersecting closed intervals J_B have a
+common point: the largest left endpoint is at most the smallest right
+endpoint. For each B choose v in B with that point in I_v. These vertices
+form a natural clique by (CQ1). Thus each maximal clique of H is the
+projection of some maximal natural clique. This supplies the geometric
+triangles needed for a possible lifting argument; it does not establish
+the cover tests of any selected-state flip.
+
+There is also a useful restriction on separators. A maximal natural
+clique [a,b], with corner ab, contains two vertices of the same corner
+chain only for the pair a,b. Otherwise a different maximal corner would
+lie properly inside [a,b]. Its projection therefore has b-a distinct
+vertices. The intersection of TWO different maximal natural cliques has
+no chain identifications at all, for the same reason.
+
+Consequently, if a connected natural graph on at least three vertices
+has no articulation, its projected simple graph has at least two vertices
+and no articulation either. For completeness, order the maximal natural
+cliques by their left endpoints. Both endpoint sequences strictly increase.
+Connectedness makes consecutive cliques intersect, and a one-vertex
+intersection would separate everything to its left from everything to
+its right. Thus consecutive intersections have at least two vertices.
+Every clique has at least three vertices, and its projection has at least
+two. Consecutive projected cliques still share at least two DISTINCT
+vertices. After deleting any one projected vertex, their remaining
+nonempty cliques still meet consecutively. Their union is connected.
+
+### Connected anchors exist in every feasible layer
+
+Contraction of the fixed forest M preserves weak components. Hence A
+is connected exactly when H(A) is connected. With k=|A|, the multigraph
+H(A) has k-|M| edges and t=n-|M| vertices. Its cycle rank is exactly that
+of A, also when A is disconnected.
+
+If the original natural graph is connected, H is connected by (CQ2).
+Choose one edge copy for each edge of a spanning tree of its simple graph,
+then insert further unused copies in any order. Lifting these selections
+back to A* gives connected simultaneous-cover anchors of EVERY size
+
+    n-1 <= k <= m*.                                   (CQ3)
+
+Every lifted state is a subset of A* containing M, so all corners cover.
+There are none below n-1 by connectedness, or above m* by the proved
+corner-capacity bound. This proves existence throughout the interval,
+not uniqueness of the whole component containing such a state.
+
+## Rearranging parallel copies of a quotient cover
+
+Continue with an arbitrary anchor A. Suppose a selected pair of chains
+B,D, with r(B)<r(D), is a COVER in the directed simple support of H(A):
+there is no directed route from B to D through another chain. This holds
+in particular when their labels are consecutive among all chain labels.
+We prove that the selected copies in this parallel class can be moved to
+any other positions with the same cardinality, by actual flips in the
+original diagram, retaining every other anchor edge at the endpoints.
+
+First EVERY selected normal edge uv from B to D covers in A. Any bypass
+would give a directed walk of nondecreasing chain labels. The assumed
+quotient cover excludes an intermediate chain. The walk must therefore
+use a single other normal edge u'v' from B to D, with corner-chain paths
+before and after it. It would require u<=u' and v'<=v. But the different
+copies of this parallel class have both endpoints increasing together,
+as just proved. These inequalities are impossible for another copy.
+The same argument applies to any proposed anchor with the same quotient
+support, including after rearranging copies.
+
+Consider consecutive positions of this parallel class. On its auxiliary
+short-edge path they have the form
+
+    ab -> bc -> cd,      a<b<c<d,
+    ac,bd in M.                                       (PC1)
+
+Suppose ab is selected and cd is absent. The desired replacement is
+
+    A' = A-ab+cd.
+
+Both A and A' are anchors and have the same directed quotient support.
+The two flips are
+
+    ab -> bc [ac],       bc -> cd [bd].                (PC2)
+
+For the first flip, ac covers because A is an anchor, and ab covers by
+the preceding quotient-cover argument. The inserted bc is normal and
+absent; it has the opposite chain-label order from every anchor edge.
+The first flip is actual and makes bc a cover.
+
+The retained bd covers after this first flip. Otherwise its new bypass
+must use the inserted bc, since bd covered initially. Its remaining
+c-to-d path uses only edges of A-ab, and survives in A'. It would bypass
+cd in A', contradicting the same quotient-cover argument there. Thus
+both required covers hold for the second flip, which is actual and has
+endpoint A'. The inverse path gives the reverse exchange. Every exchanged
+edge is normal, being properly inside ac or bd; all original strict
+edges remain selected. Other selected edges of the diagram are arbitrary.
+
+Any two subsets of an ordered list of copies with the same size are
+connected by neighboring occupied/vacant exchanges. Applying (PC2)
+therefore proves the stated full rearrangement, not merely one local move.
+For example, repeatedly move a selected copy into the next vacant position
+until the last m positions are selected. The number of inversions of this
+binary list strictly decreases. The quotient support stays fixed, so the
+cover hypothesis remains true at every step. We may normalize all quotient
+cover classes in a fixed order by this finite procedure. It gives an actual
+path within the SAME original whole component and changes no occupancy
+count or quotient support.
+
+### Verification and the remaining component obligation
+
+Related Rust: graph-only `--anchor-quotient-scan` checks all 2055 ordinary
+area sequences on one through eight vertices. It independently contracts
+M with the maintained `Graph::contract_edge` API, checks (CQ1)--(CQ2),
+the one-path-per-pair and multiplicity statements, clique projections,
+and all 3232 quotient-triangle witnesses. It constructs 2790 connected
+anchors spanning every feasible layer in the 626 connected diagrams,
+checking all original corner covers. The no-articulation conclusion is
+checked on all 196 applicable diagrams. No source-component search occurs.
+
+The separate `--anchor-parallel-slides` mode checks all anchors in the
+14 existing NN/DN fixtures. It checks every quotient cover against original
+covers, replays neighboring-copy exchanges in both directions, and performs
+the terminating normalization with fixed quotient support: 1806 anchors,
+5311 selected quotient covers, 6316 original cover tests, 1704
+neighboring swaps and 2320 normalization flips. It too uses no
+source-component enumeration. Exact counts, frozen consumer, commands
+and logs are in `corner-chain-quotient-20260930/` under the external request
+folder. These finite checks supplement the uniform proofs above.
+
+The general NN/DN recurrence is STILL UNPROVED. We have not shown that
+arbitrary connected selections of this interval multigraph lift to paths
+between their anchors. In particular, a pair joined by a selected route
+through other chains is outside (PC2)'s proved rearrangement theorem.
+Ordinary graph exchanges at such a pair can fail the original cover tests.
+The earlier cube-family detour is one proved way past that obstruction,
+but there is no general detour or whole-component collection theorem yet.
+The six-vertex cube obstruction makes this restriction concrete. With
+M={03,14,25} and normals {01,02,12,34,45}, the chain labels are 3,4,5.
+The pair 3,5 has selected route 3->4->5. Its copy 02 is redundant through
+01,12, so the direct slide 02->23 [03] cannot start. The earlier six-flip
+path nevertheless replaces 02 by 35 in the same whole component; all
+five intermediate states have corner 14 redundant. This is a needed
+extension of (PC2), not a new unsolved finite recurrence.
+
+The next section lifts one class of transfers between different chain
+pairs. General transfers remain open. Neither the interval representation,
+the clique witnesses,
+nor the existence of an anchor in every layer supplies that lift.
+
+Thus the quotient gives a precise global setting for the missing paths,
+and (PC2) removes the cover pairs from their parallel-copy problem. A
+successful use in the recurrence must still identify the whole surviving
+component, or repair the actual RHS coefficients directly, before applying
+the existing smaller-component corrections. We do not sum K or E over
+quotient subsets in place of the original whole components.
+
+## Lifting a quotient fork and obtaining one sink in each block
+
+2026-09-30 continuation. We now lift one class of transfers BETWEEN
+chain pairs, and iterate it to a global normal form. This extends the
+preceding parallel-copy theorem. The endpoint need not be unique, and
+we do not assert that its component has been isolated by a recurrence.
+
+### Put the two selected copies at a common tail
+
+The LAST copy in any nonempty parallel class B,D, with r(B)<r(D), has
+the form
+
+    r(B) -> v,       v in D.                           (QF1)
+
+Indeed the last node uv of its short-edge path has no successor. Thus
+u has no corner successor and equals its chain's last vertex. Since
+u<v<=r(v), this is the chain with smaller label. Also v is the first
+vertex of D above u: an intervening predecessor would give a maximal
+corner properly inside uv.
+
+Suppose the selected quotient support has TWO outgoing covers
+
+    r->s, r->t,       r<s<t.                           (QF2)
+
+There is no selected directed route from s to t, since it would make
+r->t redundant. By (PC2), move selected copies in both classes to their
+last positions, preserving all occupancy counts and quotient support.
+In particular we select
+
+    rb, rc,          r(b)=s, r(c)=t,
+
+with common ordinary tail r and r<b,c. Both edges cover in the original
+anchor. Since rb and rc are natural, so is the edge between b,c.
+There is no selected edge between the chains s,t: that would already
+be a selected s-to-t route.
+
+If b<c, the single actual flip
+
+    rb -> bc [rc]                                     (QF3)
+
+retains a covering long and exchanges a covering short. Its endpoint
+is an anchor: the inserted edge has chain labels s<t. It transfers
+one copy from r,s to s,t, retaining the chosen r,t copy.
+
+If c<b, first perform the actual flip
+
+    rc -> cb [rb].
+
+The inserted cb has chain labels t>s. Let h be the corner successor
+of c. It exists and lies above b: c<t and b<=s<t, while a successor
+at or below b would make the natural edge cb contain a maximal corner.
+The desired second flip is
+
+    cb -> bh [ch].                                    (QF4)
+
+We check its retained corner without imposing any exterior restriction.
+Immediately after the first flip, every corner still covers. Otherwise
+its new bypass would use cb. Contracting chains in that bypass gives
+a directed closed walk using the new step t->s and otherwise only
+increasing chain labels. Removing that step leaves a selected s-to-t
+route from the old quotient support, which (QF2) excludes. A bypass
+without cb would already have existed in the original anchor.
+Thus ch covers. The short cb covers because it was just created by an
+actual flip. The second flip is actual and inserts the normal edge bh,
+with chain labels s<t. Its endpoint is an anchor, transferring one copy
+from r,t to s,t while retaining the chosen r,s copy.
+
+All displayed triangles are natural, all exchanged edges are normal,
+and every original strict edge stays selected. These moves allow
+arbitrary exterior and arbitrary additional selected copies. The
+preparation by (PC2) may change the positions of other copies in the
+two prepared classes; it changes neither their counts nor the quotient
+support. No other class is changed before (QF3) or (QF4).
+
+### A terminating normalization for every anchor
+
+Assign to an anchor A the integer
+
+    tau(A) = sum_(uv normal in A) r(u).                (QF5)
+
+The preparation slides leave tau unchanged. Each fork move strictly
+increases tau: it removes one normal with tail-chain label r and inserts
+one with tail-chain label s>r. The number of selected normals is fixed,
+and tau is bounded above by that number times n-1. Therefore repeatedly
+choose two outgoing quotient covers and apply (QF3) or (QF4). This
+procedure terminates, using only actual flips, at an anchor whose
+quotient support has at most one outgoing cover at every vertex.
+
+Such a finite directed support has a unique sink in each weak component.
+To see this, follow its unique outgoing cover when one exists. Every
+edge decomposes into a path of covers, so its two endpoints have the
+same eventual sink. Weak connectedness then makes that sink common
+to the entire block. It is the block's greatest chain label.
+
+Finally apply (PC2) to each remaining quotient cover so its last copy
+is selected. By (QF1), the terminal vertex of its tail chain reaches
+the terminal vertex of its head chain: follow the selected last copy,
+then the fixed corner chain. All original vertices first reach their
+own chain terminal along M. Following the quotient covers now shows
+that every original vertex reaches the greatest vertex of its weak
+block. The original selected relation therefore has exactly one sink
+in each weak block, and ALL maximal corners still cover.
+
+**Conclusion.** Every whole ordinary component having a simultaneous
+cover witness contains a state with simultaneous corner covers and one
+sink in each weak block. The path is constructive: first use the proved
+ordered corner-chain preparation, then the fork procedure and final
+parallel-copy normalization. It preserves the selected-edge count,
+the weak partition, and every strict edge throughout. In the connected
+case, the final state's HRV partition is (n).
+
+This is stronger than merely activating one reachability while letting
+other corners lose their covers permanently. It does not claim that
+all these one-sink states lie in one component or that they have a
+unique normal form. It also does not replace any component sum by
+this single representative.
+
+### Verification and next missing step
+
+Related Rust: graph-only `--anchor-fork-normalization` starts from every
+anchor in the same 14 NN/DN fixtures. It replays every preparation and
+fork flip, verifies all final corner covers and strict-edge retention,
+and checks that tau increases at every fork. The maintained `Graph`
+and `Poset` APIs independently check preservation of weak blocks and
+reachability of the greatest vertex from every member of each block.
+The explicit bound on fork steps is the number of normal slots times n.
+There is no source-component search. Source, command and logs are frozen
+with the other modes in `corner-chain-quotient-20260930/`. Across 1806
+anchors, the check uses 967 forks (891 direct and 76 reversed), 3367
+actual flips including preparation, and 2383 verified weak blocks.
+The longest path has 11 flips; 1133 starting anchors change.
+
+The remaining component argument can now start at this more constrained
+representative. We still need paths comparing such representatives,
+including rearrangement of noncover parallel classes and further
+transfers between chain pairs, or a direct whole-component repair in
+the recurrence target. The strict increase of tau proves termination
+of this normalization only; it does not prove confluence or general
+NN/DN collection.
