@@ -122,9 +122,20 @@ resulting row/count argument connects all anchors with the same edge
 count and weak-component partition for arbitrary h. Thus every connected
 source layer has one simultaneous-cover component; all extras independently
 reduce by missing corners, weak blocks or alternating corner deletion.
-This solves the former 125-state case in area 012333. The general
-3381-state example in area 0123434 has different chain geometry and remains
-open. No arbitrary-diagram anchor-connectivity theorem is asserted.
+This solves the former 125-state case in area 012333. The different chain
+geometry of area 0123434 is now covered by the finite certificate below.
+No arbitrary-diagram anchor-connectivity theorem is asserted.
+
+The [outer-cover triangle exchange](COMPONENT_NN_REDISTRIBUTION.md#triangle-exchange-with-a-covering-outer-edge)
+has an exact three-cover criterion with arbitrary ordinary exterior; its
+retained outer edge may be normal. The companion
+[unequal-chain certificate](COMPONENT_NN_REDISTRIBUTION.md#a-checked-whole-component-recurrence-with-unequal-chains)
+now completes every NN layer of area 0123434 with 04,26 strict, including
+its 3381-state component. Independently replayed trees connect all 674 connected anchors
+in the seven relevant layers, and every other source component has a
+whole smaller block/deletion expression. This is a finite certificate
+for that diagram. The local generators still have gaps in other diagrams;
+they are not a proved general description of component connectivity.
 
 The new [empty-corner reduction](COMPONENT_DN_JOINT_REPAIRS.md#dn-through-an-empty-corner-nn-diagram)
 shows that the uniform NN statement would also settle DN. Adding the
@@ -517,10 +528,11 @@ maximum nonadjacent selections on the auxiliary short-edge paths.
 
 Continue with connected cyclic full-envelope components below that maximum,
 after applying weak-block, absent/inactive-corner and fixed-short reductions.
-The 125-state eight-edge NN component in area 012333 is now solved by
-the cube-family theorem. The 3381-state eight-edge component in area
-0123434 (m*=12) remains a useful explicit case outside its chain geometry. Do not assume general active-component uniqueness or
-subtract unreduced extra source components. Direct RHS diamonds remain
+The 125-state case in area 012333 is solved by the cube-family theorem;
+the 3381-state case in area 0123434 is solved by its independent anchor
+certificate. General paths through redundant-corner states still need
+repair or replacement by direct RHS redistribution. Do not assume general
+active-component uniqueness or subtract unreduced extra source components. Direct RHS diamonds remain
 an alternative to full-layer completion. The available retained-edge
 lemmas and paired endpoint maps may be used for local comparisons, but
 their outputs still have to collect into whole components.

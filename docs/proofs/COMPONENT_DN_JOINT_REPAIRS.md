@@ -1390,3 +1390,27 @@ all alternating deletion parts. The arbitrary-length proof is the local
 move and row-transfer argument, not this finite check. The source and
 logs are retained in `cube-component-recurrences-20260930/`.
 General lower-layer DN collection outside this cube family remains open.
+
+## Outer-cover exchanges with arbitrary DN exterior
+
+2026-09-30 continuation. The
+[outer-cover triangle theorem](COMPONENT_NN_REDISTRIBUTION.md#triangle-exchange-with-a-covering-outer-edge)
+is a statement about actual ordinary flips and applies unchanged with
+DN's incoming strict corner and arbitrary exterior. For a<b<c<h,
+A selecting ah,ab,bc and omitting ac connects to A-bc+ac by four flips
+exactly when ah,ab cover at the initial endpoint and ac covers at the
+final endpoint. The dual uses an outer dc with d<a<b<c and retains bc.
+The outer edge may be normal; all exchanged edges lie properly inside
+it and therefore cannot remove a strict corner.
+
+This gives a uniform additional path for component comparisons. It is
+not a pointwise K/E identity and does not alone collect a DN recurrence.
+The 14-fixture `--outer-cover-pivots` audit includes nine DN sources and
+checks the exact endpoint-cover criterion, including failed guards.
+
+The new independent anchor certificate in the NN note completes the
+seven-vertex area 0123434 example and its other layers. That finite NN
+result does not by itself settle general DN. The general empty-corner
+reduction is still conditional on the appropriate uniform NN statement.
+Keep this distinction when using the shared path lemmas. Sources, logs
+and the certificate are in `unequal-chain-anchor-recurrences-20260930/`.

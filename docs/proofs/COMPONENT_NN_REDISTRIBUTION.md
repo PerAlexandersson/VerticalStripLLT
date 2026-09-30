@@ -2563,3 +2563,194 @@ lengths and more interacting chains. Neither the two-block classification
 nor the row-transfer argument has been proved in that generality. The
 3381-state eight-edge component in area 0123434 remains outside this
 family, and the general Motzkin/Dyck recurrence goal remains open.
+
+## Triangle exchange with a covering outer edge
+
+2026-09-30 continuation. We extend the four-flip move (CP2) to arbitrary
+ordinary exterior. The retained outer edge need not be strict or maximal,
+and the states need not be anchors. We give an exact endpoint criterion.
+
+Let a<b<c<h and suppose A selects ah,ab,bc and omits ac. Put
+
+    B=A-bc+ac.
+
+**Theorem.** The following four-flip path from A to B is actual if and
+only if ah and ab cover in A and ac covers in B:
+
+    ab->bh [ah], bc->ch [bh],
+    bh->ab [ah], ch->ac [ah].                          (OC1)
+
+All new edges are natural, being inside ah. Every exchanged edge is
+normal, since it lies properly inside the natural edge ah. Thus all
+strict decorations of the original diagram are retained. This is a
+component-membership theorem; it does NOT assert X(A)=X(B) pointwise.
+
+Necessity follows from the first and last flips. For sufficiency, first
+observe that bc covers in A. Otherwise its bypass survives in B and,
+preceded by ab, bypasses the assumed cover ac. Also bh and ch are absent
+in A, since either would bypass ah using ab or ab,bc. The first flip
+is therefore actual and produces a covering bh. The cover test for bc
+is unchanged: removing ab and inserting bh cannot affect a path from
+b to c. Hence the second flip is actual too.
+
+After these two steps, ah still covers. Any new bypass would have to
+use bh or ch. In the first case its prefix is an a-to-b bypass of ab
+in A; in the second its prefix is an a-to-c path in A-bc, hence a
+bypass of ac in B. Both are impossible. The retained bh covers by the
+second flip, so bh->ab retaining ah is actual. This third move cannot
+destroy the cover of ch: its changed edges start below c and cannot
+occur on an increasing c-to-h path. The final flip is therefore actual,
+and its endpoint is exactly B. This proves the criterion with no
+assumption on other selected edges or their cover status.
+
+Order reversal gives the dual. For d<a<b<c, if A selects dc,ab,bc and
+omits ac, put B=A-ab+ac. The path
+
+    bc->db [dc], ab->da [db],
+    db->bc [dc], da->ac [dc]                           (OC2)
+
+is actual exactly when dc and bc cover in A and ac covers in B.
+Again the retained outer edge dc may be normal. Order reversal here
+establishes an actual path, not a valuation-preserving relabeling claim.
+
+For anchors, a selected strict successor ah or predecessor dc supplies
+the outer cover automatically. Thus only the retained short at the
+initial endpoint and the new ac at the final endpoint need checking.
+Intervening normal paths may violate these hypotheses: the unguarded
+cube-family exchange must not be applied to arbitrary anchor exterior.
+
+Related Rust: graph-only `--outer-cover-pivots` checks the exact
+three-cover criterion in both directions on all eligible configurations
+in 14 fixed NN/DN diagrams, including states that are not simultaneous
+corner covers. It checks 157728 configurations and 33498 valid four-flip
+paths; 4128 of these use a nonmaximal, hence normal, outer edge. The
+proof above is uniform; these finite checks are supplementary. Frozen
+sources and logs are in `unequal-chain-anchor-recurrences-20260930/`.
+
+## A checked whole-component recurrence with unequal chains
+
+2026-09-30 continuation. We now resolve the previously open seven-vertex
+area 0123434 example, in every edge layer. This is a FINITE constructive
+certificate for that diagram, separate from the preceding uniform lemma
+and from the uniform cube-family theorem.
+
+The maximal corners are M={04,26}. Their chains are {0,4}, {2,6},
+and the singletons {1}, {3}, {5}. The full alternating anchor is
+
+    A*=M+{02,12,13,14,34,35,36,45,46,56}.               (UC1)
+
+Every simultaneous-cover state reaches a subset of (UC1) containing M,
+by the proved ordered chain normalization P. We use anchors only to
+locate whole components; we do not replace the sum over a component
+by its much smaller anchor sum.
+
+### Actual paths between anchors
+
+We use four kinds of verified connections, retaining arbitrary exterior:
+
+* A single actual flip whose endpoints are both anchors.
+* A two-corner slide whose two actual flips both pass their cover tests.
+* The four-flip paths (OC1), (OC2), with their stated cover hypotheses.
+* If U,V are actual flip neighbors and all M cover at BOTH endpoints,
+  concatenate the reversed normalization of U, the flip U->V, and the
+  normalization of V. This gives the actual path P(U)->U->V->P(V).
+
+The last construction uses the general preparation theorem and may
+pass through temporary redundant corners. It is not a claim that
+normalization carries a single flip to a single flip. Every stored
+connection includes its full actual-flip trace.
+
+The following spanning trees connect ALL connected anchors in each
+possible layer. States and paths are given explicitly in the external
+`anchor-certificate.txt`, with its edge-mask convention fixed by the
+lexicographically ordered natural edges of area 0123434.
+
+| Selected edges k | Connected anchors | Tree edges | Replayed actual flips |
+| --- | ---: | ---: | ---: |
+| 6 | 105 | 104 | 279 |
+| 7 | 200 | 199 | 632 |
+| 8 | 195 | 194 | 687 |
+| 9 | 118 | 117 | 451 |
+| 10 | 45 | 44 | 213 |
+| 11 | 10 | 9 | 44 |
+| 12 | 1 | 0 | 0 |
+
+The independent replay constructs all 2^10 subsets of the normal part
+of (UC1), tests their weak connectivity, and derives the expected anchor
+set in every layer. It then checks every stored flip and every endpoint,
+and verifies that each tree reaches EXACTLY the expected set. It uses
+no enumeration or search of whole source flip components. Thus the
+certificate checks 674 anchor states, 667 tree edges and 2306 actual
+flips, rather than assuming a component profile obtained elsewhere.
+
+It follows that each k=6,...,12 has exactly one connected component C_k
+selecting M with a simultaneous-cover state. Every such state reaches
+one of the checked anchors in its own whole component, and the tree
+connects all of them. Existence is supplied by any root anchor. The
+known maximum simultaneous-cover bound excludes higher k, and a
+connected graph on seven vertices requires k>=6.
+
+### The complete NN recurrence
+
+Use the eligible NN contact w=2,x=3,z=6, with 04,26 strict. The target
+R deletes 26 and marks 36 strict; its area is 0123433. In each layer,
+every other source component D independently reduces as follows:
+
+* A disconnected D becomes one whole component of the smaller diagram
+  obtained by concatenating its induced weak blocks.
+* A connected D other than C_k has no simultaneous-cover witness.
+  Alternating deletion of M, as in (JC3), expresses it in whole
+  components of smaller diagrams.
+
+Both corners are strict in this source, so there is no missing-corner
+sector. With B(D) denoting the indicated smaller expression, we obtain
+for BOTH X=K,E, with identical integer coefficients,
+
+    X(C_k) = X(F_k(R)) + X(F_(k-1)(R))
+                - sum_(D != C_k) B_X(D).              (UC2)
+
+Every correction has independently proved whole-component status and
+smaller natural area. The target also has smaller natural area. The
+same corrections reduce the other source components directly. Above
+the common-cover maximum all connected components use alternating
+deletion; below the connected minimum all components are disconnected.
+This completes the NN component recurrence for this fixed decorated graph.
+
+In particular, C_8 is the formerly open 3381-state component. Its root
+anchor is {02,04,12,13,14,26,34,35}. The actual target layers contain
+162 whole components with 5005 states. The other source components
+comprise 74 disconnected components with 1039 states and 16 connected
+no-common-cover components with 585 states. Their alternating images
+give 180 whole deletion terms. Thus the complete recurrence accounts
+for 3381=5005-1039-585, with 244 positive and 172 negative whole terms
+before cancellation. These counts check the explicit recurrence;
+the existence of (UC2) rests on the paths and independent reductions,
+not on equality of state counts alone.
+
+### Verification and precise remaining gap
+
+Related Rust: `--anchor-generator-graph` constructs the local witnesses,
+normalization traces and seven spanning trees, then verifies every
+whole correction component. The separate `--verify-anchor-certificate`
+mode replays the saved trees without a source-component search. Across
+the seven recurrences it checks 21577 survivor states, 415 reordered
+block corrections with 4236 states, and 553 alternating source corrections
+with 4438 states, yielding 2167 whole deletion terms. Both directions
+of every reordered-block flip graph are checked. The receipt includes
+source, exact commands, the full certificate, logs and hashes.
+
+The same generator audit also records its limitations. Its anchor graph
+still splits the 84-state complete-graph component, a 16-state empty-corner
+NN component and a 121-state DN component in the fixed fixtures. These
+are limitations of THIS generator set, not failures of their component
+recurrences. The 84-state component already has its independent completed
+signed recurrence. In particular, a failed generator connection must not
+be promoted to a newly open component-expansion case.
+
+We have not proved that these moves generate all component connections
+in arbitrary diagrams. The projected-flip construction requires both
+raw endpoints to have all corners covering, and the outer-cover lemma
+has genuine cover hypotheses. General paths may cross other redundant
+states not accounted for by these constructions. Completing that argument,
+or directly repairing the RHS coefficients, remains necessary for the
+general Motzkin/Dyck NN and DN recurrence theorem.
