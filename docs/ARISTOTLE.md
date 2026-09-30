@@ -11,6 +11,41 @@ ordinary/circular candidates. The entries below give current final outcomes
 for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
 [the proof map](FLIP_COMPONENT_STATUS.md) owns the mathematical overview.
 
+## Auxiliary Claude last-clique tree review — completed
+
+- User explicitly requested additional Claude help. Primary launched a tool-free,
+  read-only consultation using the CLI default model, reported as
+  `claude-opus-5-5`, with a monitored 20-minute timeout. Native session `76378`
+  exited 0 after about 284 seconds; response session
+  `4fd05c5d-8437-4f2f-a0db-9a8a9a9f287c` reports success. No child remains active.
+- External directory: `claude-last-clique-tree/` under the requests root.
+  `PROMPT.md` SHA-256:
+  `2ac6faf80f6213057bba791481d0fff7c2f72e0f0fe474d87ce417bb02b8e4b7`.
+  `response.json` SHA-256:
+  `fec8afc79d05390bf7c95b3bac74fc0e7f63cf8dba794252ac43858a15ed08c4`.
+  Stderr is empty. No tools, source edits or builds were delegated.
+- Scope: the next fixed-spanning-tree step in the written diagram proof,
+  while primary and subagents completed connected-core preparation. The review
+  independently identifies the same forest simplification primary had already
+  sent to Luna: corner chains plus the displayed terminal star have at most
+  one outgoing edge per vertex. This verifies the same chains-and-star picture;
+  it does not replace the diagram proof. Primary locally verified the returned
+  Luna candidate in `CornerStarForest.lean`, using order duality rather than
+  copying the existing acyclicity proof.
+- Useful review obligations: the forced tree omits ba via the path b-c-e-a;
+  its portion inside the right clique is exactly the prescribed star. After
+  core replacement, retained star edges and unchanged exterior must still
+  connect the full right clique before its final star normalization. These
+  obligations remain to be implemented.
+- Corrections/limits: Claude's proposed `reach_core_tree` signature omits the
+  smaller-core uniqueness assumption needed to obtain the actual core path,
+  and must retain the corners in the target tree to construct the core anchor.
+  Existing exact-restoration and anchor-transport theorems were not supplied
+  in full to this consultation. Its proposed code is uncompiled advice,
+  not an additional verified inheritance theorem. Primary keeps the paper's
+  diagram moves as the source and records their Lean correspondence in the
+  formalization plan.
+
 ## Terminal-clique transfer repair — locally verified
 
 - User explicitly requested Aristotle and subagents during the diagram

@@ -6,6 +6,28 @@ plan, not a report of new Lean proofs. The mathematical inputs are the
 [cleanup audit](proofs/COMPONENT_DIAGRAM_AUDIT.md). Historical proof notes
 remain the sources for the individual path constructions.
 
+The user reaffirmed that the paper's diagram proof must be the proof we
+formalize. We keep its order of constructions and its actual local moves.
+Graph and finite-set lemmas justify the edges displayed in those diagrams;
+they do not replace the diagram argument with a different component proof.
+We retain the following correspondence when drafting and illustrating P5:
+
+| Step in the written diagram proof | Lean declaration | Status |
+| --- | --- | --- |
+| Replace the last-corner block by a star, keeping its least vertex pendant | `exists_last_clique_block_star_path` | Verified |
+| Connect the lower retained vertices of each other block, preserving earlier connections | `exists_last_clique_block_lower_path` | Verified |
+| Perform those moves successively and obtain connected core | `exists_last_clique_preparation`, `exists_reachable_connected_lastClique_core` | Verified |
+| Sweep omitted edges, lift a core path, and restore the original exterior | `exists_lastClique_anchor_replacement_preserving_anchor` | Verified, given the core path |
+| Extend the displayed corner chains and terminal star to a fixed tree | `corners_union_last_star_isAcyclic`, `exists_tree_containing_corners_and_last_star` | General construction verified; core specialization open |
+| Reach that tree, normalize the full last clique, then move the extra edges through the shared position | Final inheritance construction | Open |
+
+Source: [last-clique inheritance](proofs/COMPONENT_NN_REDISTRIBUTION.md#extending-the-last-clique-from-a-connected-core).
+The observation that the displayed chains and star have at most one outgoing
+edge at each vertex is a finite acyclicity check for this same diagram. The
+paper retains the chains-and-star explanation. The draft must link each move
+to its corresponding verified declaration and must distinguish assumed
+smaller-core uniqueness from conclusions proved without it.
+
 Implementation status: P0, P2, P3 and P4 are verified; P1 remains partial. P0 and the
 semantic import extractions are in `9d8c4bc`. P1 includes finite/lifted covers,
 weak-block invariance, exact corner marking, source-only short flips
@@ -496,8 +518,16 @@ block, including exact exterior, ambient anchor and unchanged clique block
 partition. The lower-block operation preserves every previous lower weak path.
 `weakReach_inducedRestrict_of_lower` transports those paths into the actual core.
 
-Remaining: compose the local block paths to make the selected core connected; reach
-the fixed spanning tree; rearrange extra positions using the shared edge.
+`LastCliquePreparation` now composes the local paths by finite iteration,
+preserving the special star and every earlier lower connection.
+`CornerFamily.exists_reachable_connected_lastClique_core` in `LastCliqueConnectedCore` completes
+the first inheritance step: a connected anchor reaches an anchor with connected
+actual retained core. This step requires no smaller-core uniqueness assumption.
+`CornerStarForest` proves the displayed corner chains and terminal star form a
+forest of good edges, and extends it inside the connected good-edge graph.
+The actual core specialization and forced tree omissions are still needed.
+
+Remaining: reach the fixed spanning tree; rearrange extra positions using the shared edge.
 The last operation counts only its specified pool of copies and fixes the
 other copies of the same classes. Tree edges in the terminal clique may move
 during packing; the fixed tree is required only at endpoints. Obtain

@@ -2,31 +2,76 @@
 
 ## Active implementation — P0/P2/P3/P4 complete, P1/P5 partial
 
-Continuation from clean pushed `d549b15` made verified progress: both local
-last-clique block operations are now actual Lean-verified flip paths. The block
-containing the last corner can be replaced by a star with extras and a pendant
-least vertex. Every other block can have its retained lower part connected
-while preserving all lower connections already made. The endpoints are anchors,
-the exact exterior is restored, and the clique's block partition is unchanged.
-The finite iteration over all blocks is not yet assembled.
+Continuation from clean pushed `baa56e2` made verified progress: the first
+last-clique inheritance step is now an actual Lean-verified path. Every
+connected anchor reaches an anchor with connected retained core. Finite
+iteration preserves the special block's star and all earlier lower weak
+connections. The final core-connectivity argument handles every clique block,
+including reflexive paths at isolated vertices. The fixed-tree and extra-edge
+rearrangement steps remain open.
 P0/P2/P3/P4 are complete; P1/P5 remain partial; P6--P10 remain open. The
 independent diagram formalization and illustrated circular/ordinary draft are
 unfinished. The full goal is unchanged.
 
+User reaffirmed that the paper must retain the diagram-style proof and that
+this same proof must be formalized. Preserve the written move sequence; graph
+lemmas only justify its displayed edge configurations. The formalization plan
+now records the correspondence for the last-clique diagrams. Do not substitute
+another abstract component argument when writing the draft.
+
 Primary owns all `DiagramProof/` sources, `DiagramProofVerification.lean`, this
 handoff, the formalization plan, the restriction-consolidation suggestion, and
 `docs/proofs/COMPONENT_LAST_CLIQUE_RESTORATION.md`, and retains the sole serialized
-build slot. All implementation ownership has returned. Terra supplied
+build slot. Ownership for the active continuation is recorded below. Previously Terra supplied
 `CompleteStar` and `LastCliqueBlockPaths`; Luna supplied `BlockReplacement`,
 `SubsetEmbedding` and `CliqueBlockEmbedding`; `semantic_extract` supplied
 `CliqueBlockReplacement` and completed a read-only audit. Primary integrated
 and verified all candidates and wrote `LowerConnectivity`,
 `CliqueLowerConnectivity`, `CliqueAnchorReplacement`, `CliqueStar`, and the
-lower-path restriction lemma in `LastCliqueCoreConnectivity`. No compiler,
-remote task or subagent remains active. Historical proof-note prefixes and unrelated
-ownership remain unchanged.
+lower-path restriction lemma in `LastCliqueCoreConnectivity`. Historical proof-note prefixes and unrelated ownership remain unchanged.
 
-### Current P5 increment — actual local block rearrangements
+### Ownership and independent review
+
+The preceding goal turn made verified progress and was pushed cleanly. Primary
+owns all new sources, including the returned Terra/Luna candidates, and retains
+the sole serialized build slot. Terra supplied `LastCliquePreparation`; Luna
+supplied `CliqueBlockBounds` and `CornerStarForest`; primary supplied
+`LastCliqueConnectedCore`, integrated the candidates and verified the exact
+contracts. `semantic_extract` independently approved connected-core preparation.
+All subagent source ownership has returned; no subagent or compiler is active.
+
+The user's additional Claude consultation completed successfully, native
+session `76378`, after about 284 seconds under its 20-minute timeout. Claude
+Opus 5.5 independently reviewed the NEXT fixed-tree step without tools, edits
+or builds. It identified the same chains-and-star forest justification and
+useful remaining tree/exterior obligations. Its proposed code is unverified;
+the ledger records the missing hypotheses in its core-tree path sketch.
+See `docs/ARISTOTLE.md`, section "Auxiliary Claude last-clique tree review".
+No Claude child or remote task remains active.
+
+### Verified P5 increment — connected retained core
+
+- `exists_last_clique_preparation` composes the special-block star path with
+  a finite sweep over all vertices. Eligible vertices lie below the cutoff
+  and in a different clique block from the last corner. Repeated visits to a
+  block are harmless. The exact exterior protects the special star, while
+  each lower path preserves all previously established lower connections.
+- `selectedConnected_inducedRestrict_of_prepared_lastClique` joins retained
+  vertices in the special block through the last vertex; the other blocks
+  use their preserved lower paths. `CliqueBlockBounds` handles trivial paths
+  at vertices outside the clique and relates the two restricted-edge formulas.
+- `exists_reachable_connected_lastClique_core` combines the actual preparation
+  path and the endpoint argument. It returns an ambient anchor, connected
+  actual core restriction, the selected special-block star and unchanged
+  clique partition. No smaller-core uniqueness hypothesis is used here.
+- `CornerStarForest` verifies the next displayed edge configuration: retained
+  corner chains plus any of the specified terminal-star edges form a forest
+  of good edges. The forest extends to a tree inside a connected good-edge
+  graph. The verification uses uniqueness of outgoing edges, which is exactly
+  the chains-and-star structure of the diagram. Specializing to the fixed core
+  tree, its forced omissions, and actual tree-reaching paths remains open.
+
+### Previous P5 increment — actual local block rearrangements (`baa56e2`)
 
 - `exists_connected_lower_part` iterates the previously verified reachability
   forcing over a finite set. It preserves every lower weak connection present
@@ -380,17 +425,17 @@ this route. The mathematical diagram proof is complete.
 ### Verification and next step
 
 Focused builds of all new modules and the verification import targets pass
-without source warnings. All 505 queries in `DiagramProofVerification.lean`
+without source warnings. All 514 queries in `DiagramProofVerification.lean`
 use only `propext`, `Classical.choice`, `Quot.sound` (or none). The independent
-import closure contains 229 project files including verification and excludes
+import closure contains 233 project files including verification and excludes
 the old word/scan/expansion routes. Source guards (including no `native_decide`),
 100-column and whitespace checks pass. Current logs are
-`p5-local-paths-build.log`, `p5-local-paths-axioms.log` and
-`p5-local-paths-imports.txt`; final focused checks are
-`p5-clique-lower-build.log`, `p5-clique-star-build.log`,
-`p5-block-embedding-build.log`, `p5-block-paths-build.log` and
-`p5-lower-restriction-build.log`. Earlier repair logs may contain superseded
-errors; all final targets pass. The anchor-transport checkpoint had
+`p5-connected-core-axioms.log` and `p5-connected-core-imports.txt`;
+final focused builds are `p5-clique-preparation-build.log`,
+`p5-prepared-core-build.log` and `p5-corner-star-forest-build.log`.
+The focused verification import targets also pass. Earlier repair logs may
+contain superseded errors. The preceding local-path checkpoint had
+505 queries/229 project files (`p5-local-paths-*`). The anchor-transport checkpoint had
 484 queries/219 project files (`p5-core-anchor-*`). The
 preceding restored-core checkpoint had 461 queries/212 project files
 (`p5-restored-core-*`). The preceding core-interface checkpoint had
@@ -410,15 +455,14 @@ Only primary invokes `lake-workspace`. Lean MCP remains
 rooted at RealRooted, so local compiler diagnostics are used. The wrapper's
 existing package-path manifest warning remains unchanged.
 
-Next: compose `exists_last_clique_block_star_path` with finitely many
-`exists_last_clique_block_lower_path` operations. Keep the clique partition
-fixed, preserve previous lower weak connections, and retain the special block's
-star using each other block's exact exterior. Then discharge `hblock` in
-`selectedConnected_inducedRestrict_of_lastClique_blocks` using
-`weakReach_inducedRestrict_of_lower` for the ordinary blocks and retained
-star edges for the special block. Vertices outside the last clique give only
-reflexive clique paths. That will complete the first inheritance step; reaching
-the fixed spanning tree and rearranging extras through the shared edge remain. Actual core
+Next: choose a fixed good core spanning tree containing the retained corners
+and every core edge from strictly after the last-corner tail to its head.
+The first inheritance step (connected-core preparation) is now proved.
+The required-forest and tree-extension lemmas now exist. Specialize them to
+the actual core and prove that the shared edge ba is omitted. Then
+use smaller-core uniqueness and the exact core replacement to select that
+fixed tree with extras, connect the full last clique, and perform its final
+star normalization. Rearranging all extras through the shared edge remains. Actual core
 replacement with exact exterior restoration is proved under the smaller-core
 path hypothesis. The written proof starts near line 4298 of
 `COMPONENT_NN_REDISTRIBUTION.md`. Its final rearrangement uses the restricted

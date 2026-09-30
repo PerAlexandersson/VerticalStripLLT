@@ -4,6 +4,8 @@ import VerticalStripLLT.Components.DiagramProof.CliqueLowerConnectivity
 import VerticalStripLLT.Components.DiagramProof.CliqueStar
 import VerticalStripLLT.Components.DiagramProof.CliqueBlockEmbedding
 import VerticalStripLLT.Components.DiagramProof.LastCliqueBlockPaths
+import VerticalStripLLT.Components.DiagramProof.LastCliqueConnectedCore
+import VerticalStripLLT.Components.DiagramProof.CornerStarForest
 import VerticalStripLLT.Components.DiagramProof.InducedCounts
 import VerticalStripLLT.Components.DiagramProof.LastCliqueAnchorReplacement
 import VerticalStripLLT.Components.DiagramProof.InducedDiagram
@@ -602,5 +604,14 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms exists_clique_block_embedding
 #print axioms CornerFamily.exists_last_clique_block_star_path
 #print axioms CornerFamily.exists_last_clique_block_lower_path
+#print axioms eqvGen_cliqueBlockRelation_eq_or_bounds
+#print axioms cliqueBlockRelation_iff_of_forward
+#print axioms CornerFamily.exists_last_clique_preparation
+#print axioms selectedConnected_inducedRestrict_of_prepared_lastClique
+#print axioms CornerFamily.exists_reachable_connected_lastClique_core
+#print axioms isAcyclic_fromRel_of_forward_of_rightUnique
+#print axioms CornerFamily.corners_union_last_star_isAcyclic
+#print axioms CornerFamily.corners_union_last_star_subset_goodEdges
+#print axioms CornerFamily.exists_tree_containing_corners_and_last_star
 
 end VerticalStripLLT.Circular.DiagramProof
