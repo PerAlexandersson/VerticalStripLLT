@@ -19,6 +19,7 @@ import VerticalStripLLT.Components.DiagramProof.SectorPaths
 
 import VerticalStripLLT.Components.DiagramProof.CompleteDiagram
 import VerticalStripLLT.Components.DiagramProof.CompletePrefix
+import VerticalStripLLT.Components.DiagramProof.CompleteChain
 
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
 
@@ -183,3 +184,21 @@ import VerticalStripLLT.Components.DiagramProof.CompletePrefix
 #print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_preparation_of_singleton
 #print axioms
   VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_connected_prefix_of_single_corner
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.selected_ofSelectedRelation
+#print axioms VerticalStripLLT.Circular.DiagramProof.ofSelectedRelation_selected
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeRestrict_selected
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeExtend_selected
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeExtend_inside
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeExtend_top
+#print axioms VerticalStripLLT.Circular.DiagramProof.convex_castSucc
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeExtend_restrict
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeRestrict_cover_iff
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeRestrict_reachable_iff
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeRestrict_connected
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_lift_reachable
+#print axioms VerticalStripLLT.Circular.DiagramProof.relationCover_of_other_sinks
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_complete_chain
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.selected_markCorner_iff
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_complete_chain_marked

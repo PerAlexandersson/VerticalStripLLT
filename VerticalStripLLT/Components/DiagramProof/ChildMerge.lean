@@ -8,7 +8,8 @@ namespace VerticalStripLLT.Circular.DiagramProof
 
 variable {n : ℕ} {D : Diagram n}
 
-private theorem relationCover_of_other_sinks {V : Type*} [LinearOrder V]
+/-- A selected edge covers when every other outgoing target is a sink. -/
+theorem relationCover_of_other_sinks {V : Type*} [LinearOrder V]
     {R : V → V → Prop} (hforward : ∀ ⦃u v⦄, R u v → u < v)
     {a t : V} (hat : R a t)
     (hother : ∀ w, R a w → w ≠ t → ∀ x, ¬ R w x) : RelationCover R a t := by

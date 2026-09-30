@@ -67,10 +67,14 @@ merge of CC2. The merge preserves uniqueness of outgoing covers; repeating
 it decreases the number of selected edges into the greatest vertex.
 `CompletePrefix.exists_connected_prefix_of_single_corner` combines these
 with preparation to reach a connected prefix with its extreme edge covering.
-This is the entry state for the complete-diagram induction, not the full
-chain theorem. The smaller-diagram restriction and local flip lift, recursive
-chain construction, interval opening/closing, column sweep, four explicit
-five-vertex paths and reachability forcing remain in P4. P5--P10 remain open. The independent component theorem is
+`CompleteRestriction` now constructs the actual smaller diagram, preserves
+the exterior exactly and lifts every local flip path through the existing
+convex-core interface. `CompleteChain.exists_complete_chain` completes CC1
+by induction: the endpoint contains the internal consecutive chain and has
+only the extreme edge out of 0. It proves the final cover tests afresh after
+the lifted path before reversing the last move. Interval opening/closing,
+chord rearrangement, column sweep, four explicit five-vertex paths and
+reachability forcing remain in P4. P5--P10 remain open. The independent component theorem is
 not yet formalized. See `HANDOFF.md` and `DiagramProofVerification.lean`
 for ownership and exact verification.
 

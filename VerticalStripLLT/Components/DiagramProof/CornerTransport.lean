@@ -72,6 +72,16 @@ theorem fullSelection_markCorner (hforward : Forward D) (θ : Orientation D)
   fullSelection_ofFullSelection (D := D.strictify e he) hforward _ _
 
 @[simp]
+theorem selected_markCorner_iff (hforward : Forward D) (θ : Orientation D)
+    (e : Edge D.area) (he : IsCorner e) (hs : e ∈ fullSelection θ) (u v : Fin n) :
+    (D.strictify e he).edgeData.selected (markCorner hforward θ e he hs).val u v ↔
+      D.edgeData.selected θ.val u v := by
+  change (∃ f ∈ fullSelection (markCorner hforward θ e he hs),
+    f.tail = u ∧ f.head = v) ↔ ∃ f ∈ fullSelection θ, f.tail = u ∧ f.head = v
+  rw [fullSelection_markCorner]
+  rfl
+
+@[simp]
 theorem markCorner_toUndecorated (hforward : Forward D) (θ : Orientation D)
     (e : Edge D.area) (he : IsCorner e) (hs : e ∈ fullSelection θ) :
     (markCorner hforward θ e he hs).toUndecorated = θ.toUndecorated := by

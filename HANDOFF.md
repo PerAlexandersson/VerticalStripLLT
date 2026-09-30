@@ -3,14 +3,22 @@
 ## Active implementation — P0/P2/P3 complete, P1/P4 partial
 
 Continuation from clean pushed `8fbbe84`, after P3 checkpoint `03c05c4`.
-The new increment proves the complete diagram's edge/corner geometry,
-the four-flip child merge, and the connected-prefix state needed for the
-complete-diagram induction. The full independent component theorem remains
+Checkpoint `65f74df` proves complete-diagram geometry, the four-flip child
+merge and connected-prefix preparation. The current increment completes the
+recursive chain construction CC1 on every nontrivial complete diagram. The full independent component theorem remains
 unfinished. The active goal also requires a new illustrated draft combining
 the circular e-expansion and the ordinary diagram-based component proof in
 the authors' style; that writing stage has not started.
 
-Primary owns `DiagramProof/`, `DiagramProofVerification.lean`, this handoff
+Current continuation started clean at pushed `65f74df`; the preceding turn
+made verified progress. Luna returned `SelectedRelation.lean`; primary now owns its repairs and
+verification along with `CompleteRestriction.lean`, `CompleteChain.lean` and
+the public cover lemma extracted from `ChildMerge.lean`. Terra completed read-only reviews of
+the CC1 induction and strict-corner transport. Both agents are finished;
+only primary builds.
+
+Primary owns `DiagramProof/`,
+`DiagramProofVerification.lean`, this handoff
 and the formalization plan, and retains the sole serialized build slot.
 Luna `complete_diagram` and Terra `finite_cover_paths` returned all assigned
 files; their implementation and read-only review tasks are finished. No
@@ -52,10 +60,31 @@ No fundamental-basis or old word/scan argument is used.
   flip path to the connected-prefix state, with both extreme edges covering.
   Its strict three-vertex inequalities exclude the small bases.
 
-Terra's independent read-only audit found no defect in these CC1/CC2
-contracts. This is the entry state for induction, NOT yet the full chain
-normalization theorem. The concrete smaller complete-diagram restriction,
-its local flip lift/restoration, induction, and final reverse move remain.
+Terra's independent read-only audit found no defect in the CC1/CC2
+contracts. The current continuation now completes the following next step:
+
+- `SelectedRelation`: build an actual orientation from a relation whose
+  edges are natural and which contains the strict edges; exact selected
+  relation and reconstruction of an existing state.
+- `CompleteRestriction`: remove the last vertex, extend an arbitrary prefix
+  state with the unchanged top edges, and prove exact restriction/extension,
+  cover and path restriction, connectedness, and actual flip-path lifting.
+  This instantiates `CoreExtension`; no whole-component equivalence is inferred.
+- `CompleteChain.exists_complete_chain`: every connected state covering the
+  extreme corner in `completeDiagram (n+1)` reaches a state containing
+  `0(n+1),12,...,n(n+1)` and no other edge out of 0. Induction starts at two
+  vertices. After the prefix path the penultimate vertex is a sink because
+  its top edge is still absent; this re-establishes both covers for the final
+  reverse move. The top corner need not cover during the lifted local path.
+- Extracted `relationCover_of_other_sinks` from `ChildMerge` as a public lemma
+  and reused it for these final cover tests. No new state predicate is needed.
+
+Terra independently reviewed the unmarked induction and its endpoint
+requirements. The chain theorem uses actual unmarked orientations with an
+explicit active-corner hypothesis. `exists_complete_chain_marked` also compiles, keeping the extreme corner
+strict at every intermediate state via the existing marking equivalence.
+`selected_markCorner_iff` records the unchanged selected relation. No change
+of component semantics is made.
 
 ### Earlier verified interfaces
 
@@ -88,43 +117,43 @@ packing is claimed. Families may retain any maximal corners containing the
 strict edges; specialize to `allCorners D` for the proof note's multigraph H.
 
 P1 remains partial: specific induced-core geometry, swept nonconvex transport
-and order reversal remain. P4 remains partial: finish the complete-diagram
-induction, interval opening/closing, column sweep, four five-vertex paths,
+and order reversal remain. P4 remains partial: interval opening/closing, chord rearrangement, column
+sweep, four five-vertex paths,
 local lifting and reachability forcing. P5--P10 remain open. General component
 recurrences, endpoint attachment and the final independent theorem are NOT
 yet Lean-proved by this route. The mathematical diagram proof is complete.
 
 ### Verification and next step
 
-All nine new source modules pass focused local builds, and the final
-`CompleteDiagram`/`CompletePrefix` target build passes without source warnings.
-`DiagramProofVerification.lean` passes all 148 axiom queries, using only
-`propext`, `Classical.choice`, `Quot.sound` (or none). The independent closure
-contains 121 project files; no old word/scan/expansion route is imported.
+The focused `CompleteChain` build passes without source warnings, including
+its new `SelectedRelation`/`CompleteRestriction` dependencies and marked
+wrapper. `DiagramProofVerification.lean` passes all 164 axiom queries, using
+only `propext`, `Classical.choice`, `Quot.sound` (or none). The independent
+closure contains 124 project files, with no old word/scan/expansion route.
 Source guards, 100-column and whitespace checks pass. Logs are
-`p4-prefix-final-build.log`, `p4-prefix-axioms.log` and `p4-prefix-imports.txt`
-in the directory below. No compiler or agent job remains running.
+`p4-chain-build.log`, `p4-chain-axioms.log` and `p4-chain-imports.txt` in the
+directory below. No compiler or agent job remains running.
 
 No broad build, dependency update, remote proof search or mathematical
 computation ran. Only primary invokes `lake-workspace`. Lean MCP remains
 rooted at RealRooted, so local compiler diagnostics are used. The wrapper's
 existing package-path manifest warning remains unchanged.
 
-Next: construct the smaller complete-diagram core, prove its selected
-relation and covering corner, instantiate the fixed-exterior flip lift,
-then finish the recursive chain argument and reverse the final move.
-Do not infer whole-component equivalence from an injective lift, or assume
-a swept nonconvex core satisfies the convex lift contract. Keep the proof
-in forward relations unless a selected-orientation/SimpleGraph bridge is
-actually needed. The four explicit five-vertex paths in
-`docs/proofs/COMPONENT_NN_REDISTRIBUTION.md` around line 3628 still need Lean
-actual-flip witnesses; arbitrary component enumeration is not an assumption.
+Next: interval opening/closing (CC3) and chain-to-chain path lifting on
+`{0,a,...,b}`, then chord rearrangement and the column sweep. That selected
+core need not be order-convex: paths starting at 0 stay in it because the
+opened root row has no heads below a and outside heads lie above b. Prove
+that specific path/cover restriction instead of assuming the convex contract.
+The four explicit five-vertex paths in `COMPONENT_NN_REDISTRIBUTION.md`
+around line 3628 still need actual Lean flip witnesses. Arbitrary component
+enumeration is not an assumption.
 
 The required independent Astra architecture review was completed before
 implementation. Earlier verification logs remain under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`.
 `p3-packing-*` records 107 axiom checks/106 project files;
-`p4-helpers-*` records 120 axiom checks/111 project files.
+`p4-helpers-*` records 120 axiom checks/111 project files;
+`p4-prefix-*` records 148 axiom checks/121 project files.
 
 ## Detailed formalization plan — completed before implementation
 
