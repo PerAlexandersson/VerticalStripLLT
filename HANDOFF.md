@@ -2,8 +2,8 @@
 
 ## Active implementation — P0/P2/P3/P4 complete, P1/P5 partial
 
-This continuation started clean at pushed `049e5a6` and made verified progress
-on terminal-clique packing. P0/P2/P3/P4 are complete; P1/P5 remain partial;
+This continuation started clean at pushed `049e5a6`; terminal-clique packing
+is verified and pushed in `6f16377`. P0/P2/P3/P4 are complete; P1/P5 remain partial;
 P6--P10 remain open. The independent diagram formalization and the illustrated
 circular/ordinary draft are unfinished. The full goal is unchanged.
 
@@ -15,17 +15,22 @@ read-only direct-transfer audit; the reused `semantic_extract` agent returned
 `LabelPacking` and `RepresentativePacking`. Primary integrated their candidates,
 wrote `TerminalClique` and `TerminalPacking`, and checked all six locally.
 All source ownership has returned to primary. Subagents remain build-free;
-`semantic_extract` has a read-only contract review in progress.
+`semantic_extract` completed both the six-module contract review and the
+separate Aristotle review without semantic issues. All agents have returned;
+primary owns `TerminalRepair.lean` too. No build or remote job is active.
 Historical proof-note prefixes and unrelated ownership remain unchanged.
 
 Aristotle project `515b9f61-1e1a-43bf-99b7-9e05cbff2124`, task
 `84ef24e0-68a0-41fa-becb-c58e46b183d6`, is **COMPLETE** and returned a proof
 candidate for the exact one-temporary-edge repair lemma, without extra
-hypotheses. Terra now owns ONLY the new `TerminalRepair.lean` to port this
-candidate build-free; primary retains all builds. The reused `semantic_extract`
-agent will audit the returned mathematical contract read-only.
+hypotheses. Terra ported `TerminalRepair.lean` build-free, primary verified it
+under local Lean 4.34.0 with the narrow graph import, and `semantic_extract`
+independently approved its contract and proof. The exact requested theorem is
+now locally proved. It does not require finiteness or a separate three-vertex
+hypothesis. The caller still supplies positive capacity for every terminal pair
+using `exists_terminalEdge_of_last_clique`.
 [The ledger](docs/ARISTOTLE.md) records the exact target and external directory.
-Any returned candidate needs local Lean 4.34.0 checking and import/axiom guards.
+The final theorem passes the local axiom and independent-import guards.
 
 ### Current P5 increment — terminal copies and packing
 
@@ -48,6 +53,10 @@ Any returned candidate needs local Lean 4.34.0 checking and import/axiom guards.
   decrease of the total deficit. Its local transfer hypothesis is still to be
   supplied by the diagram construction; it does not assume arbitrary transfers
   preserve connectivity.
+- `TerminalRepair.one_temporary_edge_repair`, from the Aristotle candidate,
+  realizes the exact graph statement: either both direct-transfer tests hold,
+  or an absent third pair makes them hold for both consecutive transfers.
+  The Boolean distinguishes whether the donor retains another copy.
 
 Next implement the direct terminal transfer. Terra's audit requires ONE packed
 source, followed by the explicit `insert f (S.erase e)` swap. Packing source
@@ -56,7 +65,7 @@ interval with `Finset.orderEmbOfFin`, then `clique_reachable_of_block`.
 The remaining adapters are terminal-support connectivity to the whole interval
 block, and preservation of the restricted selected count under the explicit
 swap. Covers follow from `commonCover_of_anchor`; the explicit swap supplies
-exterior equality. Then integrate the temporary repair and the occupancy
+exterior equality. Then apply the verified temporary repair and the occupancy
 support descent. Last-/first-clique inheritance is still open.
 
 ### Earlier P5 increment — separators and removable edges
@@ -211,20 +220,22 @@ this route. The mathematical diagram proof is complete.
 ### Verification and next step
 
 Focused builds of all new modules and the verification import targets pass
-without source warnings. All 359 queries in `DiagramProofVerification.lean`
+without source warnings. All 374 queries in `DiagramProofVerification.lean`
 use only `propext`, `Classical.choice`, `Quot.sound` (or none). The independent
-import closure contains 176 project files including verification and excludes
+import closure contains 183 project files including verification and excludes
 the old word/scan/expansion routes. Source guards (including no `native_decide`),
 100-column and whitespace checks pass. Current logs are
-`p5-separator-closure-build.log`, `p5-separator-axioms.log` and
-`p5-separator-imports.txt`; the focused checks are `p5-removable-build.log`
-and `p5-quotient-separators-build.log`. Prior P5 checkpoints have
+`p5-terminal-repair-build.log`, `p5-repair-axioms.log` and
+`p5-repair-imports.txt`. The preceding packing checkpoint had 373 queries/182
+project files (`p5-terminal-*`). The separator checkpoint had 359 queries/176
+project files (`p5-separator-*`). Prior P5 checkpoints have
 323 queries/168 project files (`p5-connectivity-*`) and
-340 queries/171 project files (`p5-sizes-*`). No compiler or agent job
-remains running.
+340 queries/171 project files (`p5-sizes-*`). No compiler, remote task or
+subagent remains running.
 
-No broad build, dependency update, remote proof search or mathematical
-computation ran. Only primary invokes `lake-workspace`. Lean MCP remains
+No broad build, dependency update or mathematical computation ran. Aristotle
+was used for the exact graph repair lemma, as requested.
+Only primary invokes `lake-workspace`. Lean MCP remains
 rooted at RealRooted, so local compiler diagnostics are used. The wrapper's
 existing package-path manifest warning remains unchanged.
 

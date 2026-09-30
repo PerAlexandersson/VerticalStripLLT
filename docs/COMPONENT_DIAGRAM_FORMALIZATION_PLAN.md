@@ -428,7 +428,11 @@ transfers are available.
 The direct transfer still needs interval-block connectivity and restricted-count
 adapters. Pack once and explicitly swap the donor and receiver terminal copies;
 do not pack both endpoints independently, since their exteriors must agree.
-The temporary-edge repair is with Aristotle and is not yet locally verified.
+`TerminalRepair.one_temporary_edge_repair`, returned by Aristotle and
+independently reviewed, now passes the local Lean 4.34.0 build and axiom guards.
+It proves the exact graph repair for both donor-copy cases without extra
+hypotheses. Applying it to actual capacity-bounded diagram transfers still
+requires the direct transfer and terminal-pair capacity bridge.
 The terminal-transfer and inheritance obligations below remain unfinished.
 
 Use P3's auxiliary short-edge paths to prove that good copies retain exactly

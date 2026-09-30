@@ -11,11 +11,11 @@ ordinary/circular candidates. The entries below give current final outcomes
 for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
 [the proof map](FLIP_COMPONENT_STATUS.md) owns the mathematical overview.
 
-## Terminal-clique transfer repair — active candidate request
+## Terminal-clique transfer repair — locally verified
 
 - User explicitly requested Aristotle and subagents during the diagram
   formalization. Project `515b9f61-1e1a-43bf-99b7-9e05cbff2124`, task
-  `84ef24e0-68a0-41fa-becb-c58e46b183d6`, last confirmed **IN_PROGRESS**.
+  `84ef24e0-68a0-41fa-becb-c58e46b183d6`, terminal status **COMPLETE**.
 - External directory:
   `/lake-cache/ai-projects/requests/VerticalStripLLT/terminal-transfer-repair/`.
   `TARGET.md` SHA-256:
@@ -25,10 +25,23 @@ for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
   telling whether a donor copy remains. Output is either the direct pair
   of connectivity conditions or an absent temporary edge satisfying both
   successive pairs. The request supplies the written bridge-cut proof.
+- Returned `RequestProject/Repair.lean` proves the exact disjunction and even
+  omits finiteness, with no extra hypotheses. The downloaded archive is
+  `result.tar.gz`; extracted source and `ARISTOTLE_SUMMARY.md` remain in
+  `terminal-transfer-repair_aristotle/` under the external directory.
+  Terra ported it build-free to `DiagramProof/TerminalRepair.lean`; primary
+  verified the focused build under local Lean 4.34.0. An independent
+  read-only review approved the exact contract and both donor-copy cases.
 - No scans or alternative LLT proof routes are requested. The remote may use
   its cached toolchain; returned source must be ported to local Lean 4.34.0
   and pass the serialized focused build, source/import and axiom guards.
-  No result from this request is yet integrated or claimed proved in Lean.
+  `TerminalRepair.one_temporary_edge_repair` is now locally proved, with
+  only `propext`, `Classical.choice` and `Quot.sound`. The source uses the
+  narrow connectivity import and no old LLT proof route. Verification logs:
+  `diagram-formalization/p5-terminal-repair-build.log`, `p5-repair-axioms.log`
+  and `p5-repair-imports.txt`. The direct diagram transfer and its application
+  to capacities remain separate obligations; the graph lemma assumes no
+  capacity model and needs no finiteness hypothesis.
 
 ## Circular finite coefficient identity: accepted mathematical proof
 

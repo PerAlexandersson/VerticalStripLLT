@@ -1,5 +1,6 @@
 import VerticalStripLLT.Components.DiagramProof.PathTransport
 import VerticalStripLLT.Components.DiagramProof.TerminalPacking
+import VerticalStripLLT.Components.DiagramProof.TerminalRepair
 import VerticalStripLLT.Components.DiagramProof.ConnectedExchange
 import VerticalStripLLT.Components.DiagramProof.OccupancyTransfers
 import VerticalStripLLT.Components.DiagramProof.WeakBlocks
@@ -451,5 +452,6 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms SimpleGraph.exists_reconnecting_edge
 #print axioms SimpleGraph.exists_connected_edge_exchange
 #print axioms reflTransGen_of_occupancy_descent
+#print axioms TerminalRepair.one_temporary_edge_repair
 
 end VerticalStripLLT.Circular.DiagramProof
