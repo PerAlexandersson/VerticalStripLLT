@@ -3460,3 +3460,240 @@ of length three. With more chains, other chain vertices can occur inside
 a proposed window; we cannot assume its local flips are unaffected.
 The remaining general problem is transfer between different occupancy
 vectors, or direct repair and collection of the actual RHS coefficients.
+
+## Complete diagrams: every connected active layer is one component
+
+2026-09-30 continuation from `1498536`. We settle the complete natural
+graph on vertices 0,...,n, n>=2, with its single maximal corner f=0n. This is
+a uniform theorem, not another finite check of the five-vertex example.
+We use only actual diagram flips and induction on the number of vertices.
+
+**Theorem.** For each k with n<=k<=1+binom(n,2), all connected k-edge
+states in which f covers belong to one actual component C_k. Equivalently,
+C_k is the unique connected k-edge component active at f. Consequently
+every source component in the complete diagram has a whole-component NN
+recurrence in smaller diagrams, by the layer subtraction below.
+
+The proof has two steps: produce a chain, then rearrange its extra chords.
+We do not claim that a representative has the same valuation as its whole
+component. The strict corner remains selected throughout, but may be
+redundant at intermediate states.
+
+### Put a chain inside the selected graph
+
+The earlier corner preparation sends a connected state with f covering
+to an anchor f+H, where H is a connected graph on 1,...,n. We first show
+that actual flips send this anchor to one containing
+
+    P_n={0n,12,23,...,(n-1)n}.                         (CC1)
+
+Remove outgoing cover forks in H: for two covers ab,ac with a<b<c,
+flip ab->bc [ac]. The edge bc is absent, and these are actual flips by
+the proved fork lemma. The sum of the tails of the selected H-edges
+strictly increases, so the process terminates. The cover graph then
+has at most one outgoing edge at each vertex. Since it is connected
+and increasing, it is a tree directed to its unique sink n. Every
+additional selected edge joins a vertex to an ancestor in this tree.
+
+If i<j are children of n, they each have just one outgoing selected
+edge, to n. The following four actual flips merge these children:
+
+    in -> 0i [0n],   jn -> 0j [0n],
+    0i -> ij [0j],   0j -> jn [0n].                  (CC2)
+
+For the first two flips, removing the child's only outgoing edge leaves
+no bypass of 0n. For the third, i has no outgoing edge, so both the
+retained 0j and the exchanged shorts cover. The last flip restores
+the sole outgoing edge of j. Incoming edges to the children cannot
+alter these tests. The endpoint changes only in to ij, and all old
+shortcut edges still join ancestors. In particular the rooted-tree
+description persists.
+
+The greatest child is n-1. Apply (CC2) until it is the only child.
+Then H restricted to 1,...,n-1 is connected. Flip
+
+    (n-1)n -> 0(n-1) [0n].
+
+Inside the smaller complete diagram on 0,...,n-1, we now have an
+anchor at 0(n-1). Inductively put its internal chain in place. These
+local flips remain actual globally: a forward path testing an edge
+inside this interval cannot go out to n and return. At the local
+endpoint, the only internal edge from 0 is 0(n-1), while (n-1)n is
+absent. Thus 0n covers again, and we reverse the displayed flip.
+This proves (CC1), starting with the trivial cases n<=2.
+
+### Use a smaller corner interval without changing the exterior
+
+Call an edge ij with 1<=i<i+1<j<=n a chord. A chain state consists of
+P_n and a set of chords. Consider an interval [a,b] of internal vertices.
+Open the chain to b by doing, in decreasing j=n-1,...,b,
+
+    j(j+1) -> 0j [0(j+1)].                           (CC3)
+
+Each short is adjacent and covers. Before its flip, the only selected
+edges from 0 have heads at least j+1. Afterwards the only new possible
+bypass of 0(j+1) would use j(j+1), which was removed. Thus every flip
+is actual, irrespective of the chords.
+
+On the ordered subset {0,a,a+1,...,b}, the induced state is a smaller
+chain state with corner 0b. Any actual path there lifts globally while
+fixing all other edges. For edges whose endpoints lie in [a,b], the
+forward-path interval test is immediate. For an edge from 0, no path
+can enter a vertex below a: there is no selected edge from 0 to such
+a vertex. Edges from 0 outside the subset have heads above b and
+cannot return. This remains true throughout the local path.
+
+At another local chain endpoint, undo (CC3) in increasing j. Its cover
+tests depend only on edges at or above b, which the local chord changes
+did not alter. We have therefore lifted any smaller complete-diagram
+chain-to-chain path while restoring the entire exterior.
+
+### Rearrange every chord except 1n
+
+We induct on n. For n>=5, apply the preceding construction to [1,n-1]
+and [2,n]. By the induction hypothesis we may rearrange the chords
+inside either interval arbitrarily, preserving their number.
+
+Their chord positions together are precisely all positions except 1n.
+Their intersection contains 24 when n>=5. Hence the graph on these
+positions, joining two positions that lie in one of the two intervals,
+is connected. At a fixed number of selected positions, selected/vacant
+exchanges along its edges connect all subsets.
+
+For completeness, an exchange between any selected donor and vacant
+receiver can be made along a path of positions: perform adjacent
+transpositions along the path forwards, then backwards omitting its
+last edge. This transposes the two endpoints and fixes the intermediate
+positions. Omit any transposition of two equal occupancy bits. Each
+remaining exchange is supplied by a smaller interval path. Thus all
+chord sets with the same cardinality and the same 1n bit connect.
+
+### Move the remaining bit by a column sweep
+
+Suppose a chain state A omits 1n and selects both 13 and 2n. We give
+an actual path to
+
+    A - 13 + 1n.                                     (CC4)
+
+First sweep every selected edge in, i<n, across f in DECREASING i:
+
+    in -> 0i [0n].                                   (CC5)
+
+When we reach i, all larger incoming edges to n have been removed.
+Consequently in covers. The existing edges from 0 have heads larger
+than i; they cannot reach an unswept incoming tail. This proves that
+0n covers before and after the flip and that its new short 0i covers.
+
+Now 01 is absent and 02 is selected. Do 12->01 [02]. Both shorts are
+adjacent to the bottom vertex or its successor, and 02 covers: before
+the flip no selected edge from 0 has head below 2; afterwards 12 is
+absent, so the new 01 cannot give a bypass. Reverse the column sweep,
+now including the new 01, in INCREASING i. At each step 0i is the
+least remaining edge from 0 and every restored incoming tail is smaller
+than i, so both required covers persist. The exact endpoint is
+
+    A - 12 + 1n.                                     (CC6)
+
+Restore the missing chain edge using the selected 13. Open the chain
+by (CC3) down to 3. The local graph on 0,1,2,3 has edges 03,13,23
+and no 12. Apply (CC2) to its two children 1,2:
+
+    13 -> 01 [03],   23 -> 02 [03],
+    01 -> 12 [02],   02 -> 23 [03].
+
+Close (CC3). This restores 12, removes 13, and fixes every other edge,
+proving (CC4). Extra chords, including all those to n, are allowed.
+The shorter-interval lifting argument verifies their harmlessness during
+the four-flip repair.
+
+At chord count c>=2, the preceding rearrangements let us choose an
+outer-absent state containing 13 and 2n, provided such a state exists.
+If Q=binom(n-1,2) is the number of chord positions, this just requires
+2<=c<=Q-1. Formula (CC4) connects the outer-absent and outer-present
+families. In the latter, the remaining c-1 chords can again be
+rearranged arbitrarily by smaller interval paths.
+
+When c=1, connect the single-chord states 13 and 1n directly. Starting
+from P_n+13, open (CC3) down to 2, then do
+
+    13 -> 01 [03],   01 -> 1n [0n],
+
+and close (CC3). With only this one chord, all retained edges in these
+two flips cover: the opened chain leaves every vertex 2,...,n with no
+internal outgoing edge, so 13 covers and there is no bypass from a spoke
+to 3 or n. Removing 13 then leaves 1 with only its edge to 2 until the
+new chord is inserted. The path has 2(n-2)+2 flips. At c=0 or c=Q
+there is only one chord set. This completes the induction step.
+
+### The fixed five-vertex base
+
+For n<=3 there is at most one chord position. For n=4, the positions
+are 13,14,24. We give all the nontrivial connections, so the induction
+has no finite-search hypothesis. Start each row at P_4 plus the left
+chord set. An entry abc means the actual flip exchanging ab and bc
+while retaining ac; its direction is determined by the current state.
+
+| Chord sets | Successive triples |
+| --- | --- |
+| {13} -> {14} | 034, 023, 013, 014, 023, 034 |
+| {14} -> {24} | 034, 124, 014, 023, 012, 023, 034 |
+| {13,24} -> {14,24} | 034, 024, 012, 014, 024, 013, 023, 012, 023, 034 |
+| {14,24} -> {13,14} | 034, 023, 012, 013, 023, 124, 034 |
+
+The successive graphs check both short and long covers directly; every
+row restores P_4 and changes just its stated chord set. Counts zero
+and three each have a single state. Together with chain normalization,
+this proves the theorem for every n and k in its stated range.
+
+### Collect the whole NN component
+
+Let L be this complete source with strict f=0n, and R its NN target:
+delete natural edge 0n and mark 1n strict. Let F_j(R) denote the whole
+j-edge layer, itself a union of whole components. For n<=k<=1+binom(n,2),
+complete the source layer containing C_k and apply the full NN identity.
+Every other component D in that layer already has a smaller expression
+B_X(D): disconnected components use the proved weak-block reordering;
+connected ones are inactive at f by the theorem and use redundant-corner
+deletion. Thus, for X=K,E with IDENTICAL integer coefficients,
+
+    X(C_k)=X(F_k(R))+X(F_(k-1)(R))
+                       - sum_(D != C_k) B_X(D).       (CC7)
+
+Every final term is a whole component of a smaller diagram. No unresolved
+extra source component is subtracted. Below n edges a state cannot be
+connected. Above 1+binom(n,2) the corner cannot cover, by the previous
+maximum-layer bound. Those layers reduce directly, so we have complete
+component NN recurrences in every layer of every complete source.
+
+This is an induction step, not the full general expansion theorem:
+the smaller correction diagrams need not be complete. A complete natural
+graph has just one maximal corner, so we do not label (CC7) a general DN
+recurrence. DN with overlapping maximal corners remains open outside
+the families already proved.
+
+### Verification and remaining scope
+
+Related Rust: the external consumer `dn_joint_span.rs`, modes
+`--complete-chain-induction` and `--complete-corner-layers`, reuses the
+existing actual-flip model and maintained Graph API. The first constructs
+normalization and inductive chord paths and checks every flip in the full
+ambient graph. All anchors and all chord subsets are exhausted through
+seven vertices; deterministic bounded samples and every chord density
+are checked on eight through ten vertices. Only the fixed base with at
+most five vertices uses component search, bounded by 512 states. The
+induction itself searches only the graph of chord positions, not source
+components. The separate layer audit uses the established whole-component
+deletion/block verifier on complete sources of three through six vertices.
+
+Sources, exact commands, logs and hashes are retained at
+`/lake-cache/ai-projects/requests/VerticalStripLLT/complete-corner-induction-20260930/`.
+No Lean build or basis computation is involved. The theorem above is
+proved by the written arbitrary-n construction, not extrapolated from
+the finite audit.
+
+General NN/DN collection is STILL UNPROVED. We have now settled transfers
+between different occupancy vectors for this further unbounded family.
+In an arbitrary diagram, a maximal-corner interval is a clique, but its
+selected restriction need not be connected. We cannot apply the new local
+theorem without its connectedness and corner-cover hypotheses, nor assume
+that independently chosen clique paths collect the general RHS image.

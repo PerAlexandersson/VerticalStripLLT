@@ -1475,3 +1475,32 @@ The sweep theorem is uniform in arbitrary diagrams; this last component
 recurrence is uniform only in the stated three-chain class. General DN
 collection with more corner chains remains open. No expansion theorem
 for the correction components has been assumed in deriving the recurrence.
+
+## What the complete-diagram induction supplies for DN
+
+2026-09-30 continuation from `1498536`. The new
+[complete-diagram theorem](COMPONENT_NN_REDISTRIBUTION.md#complete-diagrams-every-connected-active-layer-is-one-component)
+proves that every connected active edge layer of an arbitrary complete
+natural graph is one component. Its paths use chain normalization,
+smaller corner intervals and an explicit column sweep, with no basis
+calculation. This completes NN component recurrences for that family.
+
+A complete natural graph has only one maximal corner. It is therefore
+not a general DN source, and we do not claim that this new NN family
+closes the conditional empty-corner reduction for arbitrary DN.
+
+The theorem does supply local paths usable in either recurrence. In a
+contiguous maximal-corner interval, a connected selected restriction
+with its corner covering can be changed to any other such restriction
+of equal size, while fixing the exterior. No other strict edge lies
+properly inside that maximal interval, and a forward cover test inside
+it cannot leave and return. Intermediate redundant other corners are
+allowed; all strict edges stay selected.
+
+The missing general step is arranging and comparing such local changes
+when the selected restrictions are disconnected or several corners
+overlap. Neither natural completeness of an interval nor global
+connectedness guarantees the local connectedness hypothesis. The full
+NN/DN whole-component collection remains open beyond the established
+families. The existing endpoint theorem still applies only where the
+particular recurrence and its relabelings preserve the required endpoint.

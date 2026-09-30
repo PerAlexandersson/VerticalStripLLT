@@ -1,115 +1,98 @@
 # VerticalStripLLT handoff
 
-## Current continuation — unrestricted slides and three-chain recurrences
+## Current continuation — complete-diagram component induction
 
-Primary resumed from clean pushed `c2078e6`. The previous goal turn made
-verified progress; this continuation proves a new uniform transport and
-complete component recurrences for an unbounded class. The FULL goal is
-still active: finish the author's general NN/DN whole-component argument
-for ordinary non-circular paths. Do NOT substitute the completed Lean
-word-functional proof or fundamental-basis calculations.
+Primary resumed from clean pushed `1498536`. This continuation made verified
+progress: it proves all complete-diagram NN component recurrences, uniformly
+in the number of vertices and the selected edge count. The FULL goal remains
+active and UNFINISHED: general ordinary NN/DN whole-component collection.
+Use the author/Robin diagram method. Do not substitute the separate completed
+Lean word proof, a fundamental basis, or a representative's point valuation.
 
-**New unrestricted path theorem:**
-[sweep and restore](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#sweep-aside-the-obstructions-and-restore-them-after-the-slide).
-For a<b<c<d, suppose A selects ac,bd,ab, omits cd, and ac,bd cover.
-The retained longs may be normal. Move every selected av with a<v<b
-across ac, in increasing v; move every selected vd with c<v<d across
-bd, in decreasing v. Then ab->bc [ac], bc->cd [bd]. Undo the first
-sweep in reverse order and then the second. Every flip is actual and
-the exact endpoint is A-ab+cd. The net core change lies outside the
-intervals testing the shorts during restoration. Path length is
-2+2|L|+2|R|. Every original strict edge stays selected.
+**New theorem:** [complete-diagram induction](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#complete-diagrams-every-connected-active-layer-is-one-component).
+On vertices 0,...,n, with complete natural graph and outer corner f=0n,
+all connected k-edge states where f covers lie in one actual component C_k,
+for n<=k<=1+binom(n,2). Every connected component active at f is one of these.
 
-This finally removes the old short-cover/quotient-cover restriction.
-Other corners may become redundant temporarily. The six-flip cube
-obstruction is exactly the L={1},R={4} instance, not a new open case.
+The proof is entirely by actual flips:
 
-**New canonical packing:**
-[every parallel class](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#pack-every-parallel-class-including-noncovers).
-Adjacent occupied/vacant copies now exchange in ANY chain pair. All
-anchors with fixed occupancy counts m_e belong to one original component
-and reach the single packed anchor selecting the last m_e copies in
-each class. Its terminal reachability is exactly the quotient's, and
-its HRV map is h(v)=h_H(r(v)). This is a representative statement,
-NOT a replacement of a whole component sum by one state's valuation.
-The remaining general comparison is between DIFFERENT occupancy vectors.
+1. Previous preparation gives an anchor f+H on internal vertices 1,...,n.
+   Remove outgoing cover forks to obtain an ancestor tree. Merge children
+   i<j of n by in->0i [0n], jn->0j [0n], 0i->ij [0j], 0j->jn [0n].
+   Make n-1 the sole child, open (n-1)n to 0(n-1), induct below it, then
+   close. This gives the entire internal chain 12,23,...,(n-1)n.
+2. Open that chain right to left to expose 0b. Smaller complete-diagram
+   paths on {0,a,...,b} lift and the opening can be reversed, with every
+   exterior edge restored. This includes nonconsecutive ordered subsets:
+   no edge from 0 goes below a, so those omitted vertices cannot interfere.
+3. For n>=5, the chord-position sets in [1,n-1] and [2,n] overlap (at 24)
+   and together contain every chord except 1n. Induction therefore connects
+   every chord set with fixed cardinality and fixed 1n bit.
+4. The remaining bit has an explicit bridge. When 1n is absent and 13,2n
+   are selected, sweep all incoming edges in to 0i across 0n in decreasing
+   i. Flip 12->01 [02], then undo the column sweep in increasing i,
+   including new 01. Exact result: A-12+1n. Open the chain down to 3,
+   use the four child-merging flips to replace 13 by 12, and close it.
+   Exact result: A-13+1n, with arbitrary other chords retained.
+5. A lone chord uses a shorter bridge: open down to 2, do 13->01 [03],
+   01->1n [0n], then close. Counts zero/full are trivial. Four explicit
+   five-vertex paths in the proof give the induction base.
 
-**New complete whole-component recurrences:**
-[three chains without articulation](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#complete-recurrences-for-three-corner-chains-without-articulation).
-Every connected natural graph with three corner chains and no articulation
-is exactly the square of a path plus the edges i(i+3) for one nonempty
-consecutive interval p<=i<=q. A 4-, 5-, or 6-vertex cube window contains
-a good copy of every chain pair. The only new small window lemma uses
-ten written actual flips connecting four anchors in cube P5's middle
-layer. The other local layers use proved tree, maximum and cube P6 paths.
-
-Unrestricted packing brings a selected donor, vacant receiver and selected
-third buffer class into that window. The local connected common-cover
-path transfers one unit between classes. If the third class is absent,
-use i->l, i->j, l->i. All connected occupancy vectors of a given total
-therefore connect, for arbitrary capacities. Thus each feasible layer
-has exactly ONE connected component with a common-cover witness.
-Every other source component independently reduces by missing corners,
-weak blocks or alternating deletion. Full NN/DN layer subtraction gives
-complete signed recurrences in smaller WHOLE components. This proves
-all layers, including unmarked maximal-corner sectors, uniformly in n,p,q.
-It includes cubes of every length, not only n=3h, and square-path tails.
-Two corner chains need only packing, so the same isolation works there
-without a no-articulation assumption.
+Thus the whole NN recurrence for C_k is the full target layers k and k-1,
+minus independently smaller expressions for all other source components.
+Those extras are disconnected (weak-block reordering) or inactive at f
+(corner deletion). Higher/lower layers reduce directly. Every final term is
+WHOLE and smaller. Correction diagrams need not themselves be complete:
+this is an induction step, not a proof of the full general expansion.
 
 ## Verification and receipt
 
-All four final graph-only modes exited zero with empty stderr:
+Both graph-only modes passed with exit zero and empty stderr:
 
-- `--crossing-cover-slides`: 89252 explicit paths / 228604 actual flips
-  in 14 fixtures; 57374 paths have a nonmaximal retained long. Of 6766
-  paths with all-cover endpoints, 1943 pass through a redundant corner.
-- `--anchor-packet-packing`: 1806 anchors, 1017 occupancy packets,
-  1527 slides / 3970 flips, including 367 noncover-class slides and
-  231 redundant excursions. Maintained Poset checks exact HRV maps.
-- `--three-chain-window`: all 165 parameter choices on 4..12 vertices;
-  4913 occupancy packets, 12996 transfers / 240283 actual flips,
-  1030 connected layers. Maximum path length 63. Only the fixed local
-  windows use state lookup, on at most six vertices / 512 states.
-- `--three-chain-layer-recurrences`: 15 complete source layers for NN
-  area 0122322 and DN cubes on seven and eight vertices. Totals:
-  7378 survivor states; 237 target components / 16448 states;
-  23 reordered-block corrections / 89 states; 161 absent-corner
-  corrections / 8966 states; 5 alternating source corrections /
-  15 states, yielding 139 whole deletion terms. Both directions of
-  block-image flip graphs and all smaller-diagram conditions pass.
+- `--complete-chain-induction`: 28192 connected-anchor normalizations /
+  722498 actual flips; 1617 chord-comparison paths / 1057322 actual flips.
+  Maximum path lengths 95 and 8363. All anchors and chord subsets are
+  exhausted through seven vertices; deterministic bounded samples and every
+  chord density are tested through ten vertices. Only the fixed base on at
+  most five vertices searches components (at most 512 states). The general
+  construction searches the chord-position graph, not source components.
+- `--complete-corner-layers`: 14 complete NN source layers on three through
+  six vertices. 10432 survivor states; 1442 whole target components / 15886
+  states; 406 block corrections / 1688 states; 860 inactive-corner
+  corrections / 3766 states. These give 1442 positive and 1266 negative
+  whole terms; all smaller-diagram and both-direction block checks pass.
 
-Frozen source, commands, logs and hashes:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/crossing-slides-three-chains-20260930/`.
-No Lean build, worker, maintained Rust edit, basis calculation or coloring
-calculation was run. The 21-edge enumeration guard and 20000-component
-cap remain. The n<=12 source-path audit may inspect 30 natural edges but
-NEVER searches their global state space; only local window search is used.
-The separate fixed whole-layer checks stay within 18 natural edges.
+Frozen sources, exact commands, logs, verification and hashes:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/complete-corner-induction-20260930/`.
+The existing external consumer and maintained Graph/Poset APIs are reused;
+no maintained Rust or Lean source was edited. No Lean build, worker, basis
+calculation or coloring calculation ran. Existing full-enumeration guards
+(21 natural edges and 20000-state components) remain unchanged. Larger
+complete graphs, through 45 natural edges, use only explicit paths.
 
 ## Remaining general obligation
 
-General NN/DN whole-component collection is STILL UNPROVED. Packing
-within each occupancy vector is now complete, even for noncover pairs.
-Do not reopen that obstruction. The new family theorem isolates all
-connected common-cover states only for two chains, or for three chains
-without articulation. More general transfers between different occupancy
-vectors still need actual paths or a direct RHS component repair.
-Multi-block three-chain cases also require their own reductions unless
-already covered by a proved endpoint-preserving recurrence.
+General NN/DN whole-component collection remains UNPROVED. A complete
+natural graph has only one maximal corner; the new NN result does not
+settle arbitrary DN through the conditional empty-corner construction.
+The [DN continuation](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#what-the-complete-diagram-induction-supplies-for-dn)
+records the exact usable local consequence and the missing hypothesis.
 
-A useful next core is an arbitrary complete natural graph with its one
-maximal corner: its anchor classes each have capacity one, so packing
-alone cannot address the remaining transfers. The fixed K5/84-state
-recurrence is already solved; seek a uniform argument, not another audit
-of that example. More generally, a window containing additional chain
-vertices does not inherit the three-chain cover tests automatically.
+Every maximal-corner interval in an arbitrary ordinary diagram is a clique.
+If its selected restriction is connected and that corner covers, the new
+paths compare all such restrictions of fixed edge count, fixing all exterior
+edges and original strict corners. Forward cover tests cannot leave that
+contiguous interval and return. This is a possible next approach to general
+occupancy transfers. But global connectedness does NOT ensure connectedness
+of each selected interval restriction. Establish the needed preparation or
+handle the disconnected local blocks; do not assume it automatically.
 
-The family theorem is an induction step in smaller diagrams; these need
-not stay in the family. Do not equate it with the full e-expansion proof,
-assume general active-component uniqueness, or subtract an unresolved
-extra source component. Direct RHS diamonds and endpoint maps remain
-allowed alternatives to source-component isolation.
+Canonical packing WITHIN every occupancy vector is already proved, including
+noncover classes. Transfers BETWEEN vectors are now settled for two chains,
+three chains without articulation, and complete natural graphs. Do not
+reopen these solved cases. Arbitrary overlapping corners and multi-block
+cases outside proved endpoint-preserving extensions still need work.
+Direct RHS diamond repairs and valid endpoint maps remain alternatives.
 
 ## Established results to retain
 
@@ -117,56 +100,49 @@ allowed alternatives to source-component isolation.
   [notebook map](docs/proofs/COMPONENT_NOTEBOOK_MAP.md): DD/ND inheritance,
   first-drop induction, paired diamonds and exact endpoint maps are proved.
 - [Fixed-short reductions](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#removing-the-least-vertex-restriction):
-  all fixed-q and fixed-r components reduce, including incoming DN exterior.
+  all fixed-q/fixed-r components reduce, including incoming DN exterior.
 - [Endpoint attachments](docs/proofs/COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md#endpoint-attachment-theorem-completed-audit):
-  completed for endpoint-preserving recurrences. The 84-state and coupled
-  69/126-state examples retain their proved attachment extensions.
-- [DN through empty-corner NN](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#dn-through-an-empty-corner-nn-diagram):
-  a uniform eligible NN collection theorem would settle DN; do not induct
-  on the larger auxiliary source itself.
-- [Tree layers](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#full-layer-recurrence-for-arbitrary-source-trees)
-  and [maximum common-cover layers](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#the-largest-layer-with-all-corners-covering-simultaneously):
-  complete whole-component recurrences with arbitrary exterior.
-- [Corner-chain preparation](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#lower-layers-require-temporary-redundant-corners)
-  and [fork normalization](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#lifting-a-quotient-fork-and-obtaining-one-sink-in-each-block):
-  actual paths from common-cover states to anchors, then to all-cover states
-  with one sink per weak block. Packing now gives canonical representatives
-  per occupancy vector; distinct vectors can still lie in one component.
-- [Interval quotient](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#the-interval-graph-of-corner-chains):
-  one short-edge path per chain pair, exact interval and clique geometry;
-  proof checkpoint `70d106e`, recorded at `c2078e6`.
-- The cube-family theorem (`89f3e6e`) and unequal-chain finite certificate
-  (`4c76d99`) remain proved. The 125-state area 012333 and 3381-state
-  area 0123434 examples are NOT open. The latter has more than three
-  chains and is not subsumed by the new unbounded family.
+  completed for endpoint-preserving recurrences only. Do not automatically
+  attach arbitrary full-layer corrections which relabel an endpoint.
+- [Unrestricted crossing slides](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#sweep-aside-the-obstructions-and-restore-them-after-the-slide)
+  and [canonical packing](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#pack-every-parallel-class-including-noncovers):
+  fixed occupancy vectors are fully connected, with explicit actual paths.
+- [Three-chain recurrences](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#complete-recurrences-for-three-corner-chains-without-articulation):
+  all eligible NN/DN layers for the square of a path plus a nonempty interval
+  of length-three edges. This is exactly the connected three-corner-chain
+  family without articulation. Two chains need packing alone.
+- Arbitrary tree recurrences, maximum common-cover layers, corner-chain
+  preparation, interval quotient and fork normalization remain proved.
+- The 84-state K5, coupled 69/126 examples, 125-state area 012333,
+  3381-state area 0123434 and cube families are solved. The new theorem
+  subsumes complete-source NN layers, not the distinct DN exterior cases.
 
-## Ownership, restrictions and recovery
+## Ownership and recovery
 
 The replacement primary owns this handoff, the recurrence outline,
 APPEND-ONLY continuations of the NN redistribution and DN joint-repair
 notes, earlier authorized endpoint/source-addition continuations, handoff
 archives, and the existing external diagnostic consumers under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/diamond-exploration/hrv-bridge/`.
-Preserve other ownership and both proof-note prefixes at `c2078e6`.
+Preserve other ownership and both proof-note prefixes at `1498536`.
 
 No Lean/Lake builds, extra worker/subagent/Claude consultation, manuscript
 TeX/PDF/Overleaf edit, or maintained Rust edit is authorized in this lane.
 Any later authorized Lean work stays serialized under the primary owner.
-Runtime registry, `codex mcp list`, current Cargo metadata and existing
-Graph/Poset/flip APIs were checked. The Rust guide was already read in
-this continuation chain. Lean MCP is rooted at RealRooted and unused.
-Maintained Rust stays clean at `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
+Runtime registry and `codex mcp list` were checked; current Cargo metadata
+and existing Graph/Poset/actual-flip APIs were inspected. The Rust guide was
+already read in this continuation chain. Lean MCP is rooted at RealRooted
+and unused. Maintained Rust stays clean at
+`d53fb193af3c69adedbd9ec8592f87235d809ffa`.
 No worker/account/profile/model assignment changed.
 
 The replacement originally began at pushed account-swap `2511182`.
-The complete handoff at `c2078e6`, including earlier receipts and ownership,
-is preserved in the
-[pre-unrestricted-slide archive](docs/archive/component-handoff-before-unrestricted-slides-20260930.md).
-Only relative Markdown links were relocated. Earlier proof-note text
-remains an unchanged prefix. All diagnostic jobs are complete.
+The full handoff at `1498536` is preserved in the
+[pre-complete-corner archive](docs/archive/component-handoff-before-complete-corner-20260930.md),
+with only relative Markdown links relocated. It retains the prior proof
+checkpoint `c18115d`, verification receipts and links to earlier ownership.
+Both proof-note prefixes remain unchanged. All diagnostic jobs are complete;
+there is no running process or blocked external dependency.
 
-Both proof-note prefixes, the relocated archive, all 159 local file links,
-receipt hashes and `git diff --check` pass before checkpointing.
-
-Proof checkpoint `c18115d` is pushed to `origin/main`. All four diagnostic
-jobs are complete; no process needs monitoring or restarting.
+Both proof-note prefixes, the exact relocated archive, 155 local file links,
+final frozen-source replays, receipt hashes and `git diff --check` pass.

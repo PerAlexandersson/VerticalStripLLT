@@ -170,6 +170,20 @@ subtraction has only independently smaller whole-component corrections.
 The family includes cubes of every length and square-path tails. More
 corner chains remain outside this window proof; the full goal remains open.
 
+The [complete-diagram induction](COMPONENT_NN_REDISTRIBUTION.md#complete-diagrams-every-connected-active-layer-is-one-component)
+now settles another unbounded family, including arbitrarily many corner
+chains. For a complete natural graph with outer corner 0n, actual flips
+put a Hamiltonian chain inside every connected common-cover component.
+Induction in the two smaller intervals [1,n-1] and [2,n] rearranges all
+chords except 1n. A column sweep, one bottom flip, and a four-flip chain
+repair exchange 13 with 1n whenever 2n is selected; a separate two-flip
+middle passage handles a lone chord. Four explicit five-vertex paths
+supply the base. Thus each feasible edge layer has one connected active
+component, and full-layer subtraction yields complete NN recurrences.
+The general overlapping-corner NN/DN argument is still open. In particular,
+the clique theorem requires a connected selected restriction; a maximal
+natural corner alone does not guarantee that hypothesis locally.
+
 The new [empty-corner reduction](COMPONENT_DN_JOINT_REPAIRS.md#dn-through-an-empty-corner-nn-diagram)
 shows that the uniform NN statement would also settle DN. Adding the
 missing corner EMPTY and unmarking its neighbor preserves the exact
