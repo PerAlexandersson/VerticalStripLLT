@@ -165,3 +165,7 @@ All diagnostic jobs are complete; no process needs monitoring or restarting.
 
 Both proof-note prefixes, the exact relocated archive, 155 local file links,
 final frozen-source replays and receipt hashes pass before checkpointing.
+
+Proof checkpoint `c2fc099` is pushed to `origin/main`; `git diff --check`
+also passes. All five diagnostic jobs are complete. The full general NN/DN
+goal remains active, with no external blocker or running process.
