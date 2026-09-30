@@ -365,3 +365,129 @@ product component. This applies to the five-vertex construction and to
 the [uniform square-of-a-path recurrence](COMPONENT_DN_SOURCE_ADDITIONS.md#a-uniform-square-of-a-path-recurrence).
 It leaves unchanged the open source-isolation problem for a middle block
 with crossing exterior edges.
+
+## Full-layer recurrences preserve the right endpoint
+
+2026-09-30 continuation from `3dec58f`. The full-layer constructions now
+give a uniform one-end extension. This includes the complete-diagram,
+terminal-clique and order-dual families, the three-chain families, and
+the earlier tree and maximum-layer constructions. We retain only the
+RIGHT endpoint mark; an NN contact is allowed to move the left endpoint.
+
+Let c be the largest vertex. For a fixed color beta, sum (EA1) over the
+left mark and write X_A[beta], X=K,E. If the HRV fibre of c has size p,
+the marked E expression is
+
+    x_beta e_(p-1)(X_<beta) prod_(other fibres F) e_|F|.   (RE1)
+
+Thus it is determined by p and the multiset of the other fibre sizes.
+No polynomial basis calculation or independence assertion is needed.
+
+Every local identity in the full NN/DN layer calculation holds with
+this mark. Diamonds preserve the full HRV-map multiset by (EA2) and
+hold for every fixed coloring by (EA3). Redundant-edge changes preserve
+closure; absent-edge and identity maps change no selected relation.
+The contact swap exchanges w,x with x<z<=c, so it fixes c. Its usual
+nonsink condition preserves the sink order, and hence the size of the
+fibre of c and all other fibre sizes. Relabeling colors also fixes beta.
+This proves the right-marked full-layer identity for both K and E.
+
+There is one choice to make in reducing a disconnected source correction.
+Instead of ordering ALL selected weak blocks by their least vertices,
+put the block containing c LAST. Order the other blocks by their least
+vertices and order each block internally increasingly. The resulting
+blockwise relabeling fixes c exactly.
+
+The whole-component argument for this reordering is unchanged. Every
+selected edge and every actual flip stays inside a weak block; the map
+and its inverse preserve all cover tests. The induced natural graphs
+become consecutive blocks of one ordinary diagram. At least one natural
+edge between selected blocks is lost because the source natural graph
+is connected. Thus natural area strictly decreases, regardless of the
+chosen block order.
+
+The right-marked identities also survive. Color relabeling fixes c, and
+all reachability comparisons inside each block are preserved. In particular
+the HRV fibre of c keeps its size and c remains its greatest vertex.
+All remaining fibres keep their sizes. Equation (RE1) therefore gives
+the marked E identity for the reordered whole component, state by state.
+
+The other correction operations require no reordering: absent-corner
+deletion is the identity on relations, and alternating selected-corner
+deletion cancels in pairs at a redundant corner with equal closures.
+They preserve (RE1), even before summing the states into whole smaller
+components. Component isolation and collection are purely statements
+about the actual flip graph, so their proofs do not change with the mark.
+
+**Right-marked full-layer theorem.** Every proved full-layer component
+recurrence whose corrections use missing corners, weak-block reordering
+and redundant/alternating corner deletion has a version
+
+    X_C[beta]=sum_i m_i X_(C_i)[beta],    X=K,E,           (RE2)
+
+with the same integer coefficients for K and E. Each C_i is a whole
+component of a smaller diagram on the same vertex set. Use the block
+order above for its disconnected corrections. The unmarked output
+diagram may differ by that explicit block permutation from the earlier
+least-vertex ordering; this is a choice of equivalent whole output,
+not a claim that the old permutation already fixed c.
+
+### Arbitrary right-hand attachments
+
+Attach any ordinary diagram on [c,d] with no natural edge crossing the
+two interiors, and fix any whole component T of it. Replace each term
+of (RE2) by C_i*T, gluing at c. Then
+
+    X_(C*T)=sum_i m_i X_(C_i*T),    X=K,E.               (RE3)
+
+Every output is whole: its flip graph is the Cartesian product, by the
+same internal-cover argument as in the two-end theorem. For K, multiply
+the beta-marked identity by the attachment's strict-coloring sum with
+color beta at c, omitting its weight x_beta, and sum beta. For E do the
+same with the canonical chain forests. Exactly the base fibre ending
+at c and the attachment fibre beginning at c merge. This is precisely
+the HRV gluing rule already proved above. No expansion identity for T
+is assumed. The outer color at d may also be retained throughout.
+
+Adding the fixed attachment contributes the same vertices and natural
+area to each term. The right attachment has the same shift in every
+diagram because the base vertex count is fixed. Consequently every
+output in (RE3) remains smaller in the established induction order.
+
+In particular, every component recurrence in a complete left block
+extends across an arbitrary diagram attached at its right endpoint.
+The same is true for each of the other full-layer families listed above.
+This includes the two-complete-block articulation example: its several
+global components in one edge layer are handled separately as products;
+we do not assert false global active-component uniqueness.
+
+This does not give an arbitrary two-end attachment theorem for these
+recurrences. If the two endpoints belong to the same selected weak block,
+a contiguous block reordering may be unable to fix both. Nor does it
+prove a recurrence for a new left block with overlapping natural cliques.
+The original two-end theorem still applies exactly under its stated
+endpoint-preservation hypothesis.
+
+### Exact marked and attached checks
+
+Related Rust: the external `dn_joint_span.rs` consumer has a
+`--right-marked-layers` flag. It places the maximal-vertex block last,
+checks every reordered state against (RE1), verifies both directions
+of the whole flip graph map, and compares the exact signed multisets
+of right-endpoint fibre data for each final recurrence. This is stronger
+than comparing only unmarked HRV partitions.
+
+The checks cover all 14 complete-source NN layers on three through six
+vertices and all 19 terminal-clique NN/DN layers in the previous receipt.
+With `--right-marked-attachments`, the complete-source checks also attach
+the two-state triangle component at the right of EVERY source and final
+output term. All 2722 proposed products are whole by actual-flip BFS,
+with 63544 state visits. For an original endpoint fibre of size p, the
+two triangle states replace it respectively by fibre sizes {p+1,1} and
+{p+2}; every individual product state is checked against this formula.
+The repeated visits are verification counts, not distinct global states.
+
+These checks use the maintained ordinary HRV API and the existing flip
+model. No coloring enumeration, basis calculation, Lean build or component
+expansion theorem is used. Frozen sources, commands and logs are retained
+in `right-marked-attachments-20260930/` under the external request directory.

@@ -598,3 +598,17 @@ active-component uniqueness or subtract unreduced extra source components. Direc
 an alternative to full-layer completion. The available retained-edge
 lemmas and paired endpoint maps may be used for local comparisons, but
 their outputs still have to collect into whole components.
+
+The [right-marked full-layer extension](COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md#full-layer-recurrences-preserve-the-right-endpoint)
+removes the right-endpoint restriction for the proved full-layer families:
+put the endpoint's weak block last when reducing disconnected corrections.
+Thus every such NN/DN recurrence carries an arbitrary right attachment.
+This is a theorem about whole product components, without using an expansion
+for the attached component. Arbitrary two-end attachments still require
+both marks to be preserved.
+
+For overlapping rather than endpoint-touching cliques, the
+[two-clique continuation](COMPONENT_NN_REDISTRIBUTION.md#two-overlapping-cliques-two-proved-path-lemmas)
+proves introduction of the shared chain class and isolation/restoration
+of a connected core. The proposed star normalization and complete
+component recurrence remain unfinished.

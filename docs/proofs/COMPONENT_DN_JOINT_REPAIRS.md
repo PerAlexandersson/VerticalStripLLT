@@ -1541,3 +1541,16 @@ occur before the final clique and the order-dual initial-clique condition
 also fails. The dual transports actual flip paths, not K/E valuations.
 The new connected-piece lemma still permits
 local paths there, but compatible collection has not been proved.
+
+## Right attachments of the proved full-layer recurrences
+
+The [right-marked theorem](COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md#full-layer-recurrences-preserve-the-right-endpoint)
+now extends every proved full-layer NN/DN recurrence across an arbitrary
+right-hand attachment. In disconnected corrections, put the weak block
+containing the right endpoint last; the resulting block permutation fixes
+that endpoint and still strictly reduces natural area. Diamonds, the
+contact swap and all deletion corrections preserve its marked identity.
+Gluing then produces the same signed sum of whole product components,
+without assuming an expansion for the attached component. This includes
+all previously proved terminal-clique DN cases. General DN collection
+with crossing exterior edges is still unfinished.

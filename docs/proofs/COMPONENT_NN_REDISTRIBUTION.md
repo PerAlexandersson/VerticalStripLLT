@@ -3931,3 +3931,127 @@ This finite generator evidence is not a general connectivity theorem.
 The final sources, commands, logs and hashes for these checks and (TL3)
 are in
 `/lake-cache/ai-projects/requests/VerticalStripLLT/terminal-clique-recurrences-20260930/`.
+
+## Two overlapping cliques: two proved path lemmas
+
+2026-09-30 continuation from `3dec58f`. We consider the natural graph
+which is the union of the complete intervals [0,b] and [c,d], where
+0<c<b<d. Its maximal corners are f=0b and g=cd. We call a common-cover
+state prepared by (P) an anchor. Its two nonsingleton corner chains are
+F={0,b} and G={c,d}. In the quotient, the two cliques have common vertices
+F,G and the singleton vertices c+1,...,b-1. Only the class FG has capacity
+two, with good copies 0c and bd; every other class has capacity one.
+
+The following two path lemmas are proved. We have NOT yet deduced a full
+component recurrence for arbitrary two-clique sources from them.
+
+### Introducing the common class
+
+Every connected anchor has an actual path, retaining f and g, to an
+anchor containing at least one of 0c,bd. If one is already present,
+there is nothing to do. Otherwise 0 is pendant, joined only to b.
+
+We first sweep every selected vd with c<v<d, in decreasing v, to cv
+across g. The usual incoming sweep is actual because g covers. After
+it, d is pendant, joined only to c. Deleting the two pendant vertices
+0,d leaves a connected selected graph on 1,...,d-1. Apply the proved
+reachability construction there to make c reach b. Both f and g remain
+covers: their pendant endpoints lie outside every constructed triple.
+
+Let I consist of the v with c<=v<b such that vb is selected and c
+reaches v. It is nonempty. In decreasing order of I, replace vb by 0v
+across f. To check vb covering, any bypass must end in a larger reachable
+incoming tail, which has already been swept. After removing vb, v no
+longer reaches b for the same reason. Thus each newly introduced 0v
+leaves f covering. At the end, c no longer reaches b.
+
+Put p=min I. Then 0p covers. If p>c, take a covering edge tp on a
+cover path from c to p, and replace tp by 0t across 0p. No other current
+0-neighbor is below p, so 0p covers; t is reachable from c, hence cannot
+reach b. Thus f remains a cover. Repeat with p=t. The index strictly
+decreases, and the process ends with selected 0c. Throughout, g covers
+because it is still the only edge into d.
+
+Finally apply preparation (P). It keeps every already-good edge,
+including 0c, and returns to an anchor. This proves the assertion with
+no component enumeration or assumption about its size.
+
+Related Rust: `dn_joint_span.rs --two-clique-bridge` checks all 84
+parameter choices on four through ten vertices, exhaustively over
+anchors through six vertices and with 128 deterministic bit samples per
+larger graph. The 1870 connected sampled anchors missing both copies
+produce 14534 checked actual flips, with maximum path length 24 and up
+to 44 natural edges. Every path retains both corners, preserves its edge
+count, and ends in a good anchor containing 0c. These are finite checks
+of the explicit construction, not evidence substituted for its proof.
+
+### Isolating a core and restoring its exterior
+
+Let U={0,...,b} union {d}. Suppose the selected restriction of an anchor
+to U is connected. We may replace that restriction by ANY connected
+anchor of the same edge count on U, leaving every exterior selected
+edge exactly as before, along an actual path retaining f and g.
+
+After order compression, the induced natural graph on U has corners
+0b,cd whose heads are its last two vertices. Order reversal puts it in
+the proved terminal-clique family. Thus any two connected common-cover
+anchors of the same size on U have a local actual path retaining the
+corners. Reversal is used only for this path statement, not for K or E.
+
+To lift this path, first sweep selected vd with b<v<d to cv across g,
+in decreasing v. No omitted vertex now has an edge into d. A forward
+path that leaves U cannot return: its only possible return vertex is d.
+Therefore all internal cover tests are unchanged by the exterior, and
+the entire local path lifts.
+
+At its endpoint, the new restriction is an anchor, so c has no internal
+outgoing edge except cd. Undo the sweep in increasing v, replacing cv
+by vd across cd. At each undo, remaining c-neighbors from the sweep are
+larger than v, and already restored incoming d-tails are smaller than v.
+Hence cv and cd cover, and vd is absent. The flip is actual. All swept
+edges return to their original positions. This proves the local
+replacement assertion, including exact restoration of the exterior.
+
+This proof uses the terminal-clique path theorem; this turn's Rust mode
+checks the first lemma only. Neither lemma identifies individual states'
+K/E values: they assert membership in the same actual component.
+
+### Remaining two-clique argument, not yet proved
+
+A possible completion is to reach an anchor containing the quotient
+star centered at F. Once this is done, the free positions are the
+nonstar classes in the two cliques and the second FG copy. The two sets
+of free positions overlap in that extra FG position. Fixed-count
+rearrangements within each set would connect all global fixed-count
+choices. The core lemma supplies the left rearrangements. The terminal
+clique construction suggests the right ones, with packing used to place
+the FG copies. The complete assembly has not been checked or promoted
+to a theorem.
+
+For recovery, the proposed star construction is as follows. First use
+the proved introduction lemma and crossing slide to select bd. In the
+right-hand component containing cd, use the complete-cover theorem to
+make the terminal vertices a star at b, with arbitrary extra edges to
+preserve the count and with c pendant. In each other right-hand
+component, make its intersection with [c+1,b] connected inside that
+interval. One suggested construction applies the reachability lemma
+from the least intersection vertex to the others. Its hull-removing
+moves above b do not remove internal intersection edges, and subsequent
+moves inside the interval preserve its weak blocks. These assertions
+need to be checked in the complete construction.
+
+If 0c is absent, move bd to 0c by the crossing slide. Then every right
+component should meet only one selected left component. Global
+connectedness would force the whole left restriction connected. Apply
+the complete-cover theorem in [0,b], with f retained, to obtain 0c and
+all ib for 1<=i<b, i!=c, with extra good edges preserving the count.
+Move 0c to bd if needed. The right restriction should now be connected;
+normalize it with retained cd to a star at b on its terminal vertices.
+At that point the quotient star is selected.
+
+Still verify every intermediate cover, retained corner, connectivity
+assertion and endpoint anchor condition, then the free-position
+rearrangements. Do not use this plan to assert common-cover uniqueness
+or subtract extra source components yet. The articulation case c=b
+has separate product components and is instead covered by the
+[right-marked attachment theorem](COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md#full-layer-recurrences-preserve-the-right-endpoint).

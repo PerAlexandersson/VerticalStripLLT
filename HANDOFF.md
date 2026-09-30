@@ -1,171 +1,140 @@
 # VerticalStripLLT handoff
 
-## Current continuation — terminal-clique NN/DN recurrences
+## Current continuation — right attachments and two overlapping cliques
 
-Primary resumed from clean pushed `56a1931`. This turn made verified progress:
-a uniform component recurrence for every eligible NN/DN contact when the last
-natural clique contains the terminal of every corner chain, and the order-dual
-first-clique family. This includes EVERY ordinary path power, for any width
-and vertex count. The full general NN/DN goal remains ACTIVE and UNFINISHED.
-Continue the author/Robin diagram method; no fundamental basis or substitution
-of the separate completed Lean proof.
+Primary resumed from clean pushed `3dec58f`. The full general NN/DN goal
+remains ACTIVE and UNFINISHED. Continue the author/Robin diagram method:
+whole components, diamonds and justified relabeling. No fundamental basis
+or substitution of the separate completed Lean proof.
 
-**New proof:** [terminal-clique recurrence](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#complete-recurrences-when-the-last-clique-contains-every-chain-terminal).
-On N vertices the maximal corners are exactly
-M={0h_0,1h_1,...,ah_a}, with strictly increasing heads and h_a=N-1.
-The d=N-a-1 terminals T={a+1,...,N-1} form the last clique minus its first
-vertex. This is equivalent to all terminals lying in that clique.
+**Proved this continuation:** every proved full-layer NN/DN recurrence
+has a right-endpoint-marked version and therefore carries an arbitrary
+right-hand attachment. Two path lemmas for overlapping cliques are also
+proved; their full component recurrence is NOT yet proved.
 
-Every chain pair has one good copy joining its terminal vertices. Hence
-its quotient is K_d with positive capacities c_e. The following abstract
-occupancy argument is proved for arbitrary capacities, not only equal ones:
+### Right attachments
 
-1. For connected simple support H and a unit transfer e->f, packing puts
-   precisely H-f into the terminal clique, with the receiver absent. A
-   direct actual path exists when H-f and (H-e)+f are both connected.
-   Use the complete-diagram theorem with its attached corner a(N-1), then
-   restore packing. Every original strict edge stays selected.
-2. Any transfer preserving global connectedness needs at most one absent
-   temporary class g. Failure of the first condition means f is a bridge;
-   failure of the second means e is a bridge not reconnected by f, and
-   m_e>=2. Choose g across the required bridge cut, or across both cuts
-   by joining the outer two of the three pieces after deleting two bridges.
-   Then e->g and g->f each satisfy the direct conditions. No capacity is
-   exceeded and the temporary class returns to zero.
-3. All connected fixed-total occupancy vectors connect. Move a surplus to
-   a deficit; if the surplus is a single-copy bridge, choose a deficit
-   crossing its cut, which exists because the target support is connected.
-   The sum of absolute occupancy differences decreases by two each time.
+The [right-marked theorem](docs/proofs/COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md#full-layer-recurrences-preserve-the-right-endpoint)
+keeps the largest vertex c at a fixed color. Its HRV expression depends
+only on the size of c's fibre and the other fibre sizes. Diamonds,
+contact swaps, missing-corner and redundant/alternating deletions preserve
+this mark. For a disconnected correction, put c's weak block LAST and
+order each block increasingly. This fixes c, gives the same whole-component
+isomorphism, and still strictly decreases natural area.
 
-Thus each feasible source layer has one connected common-cover component.
-Every other component independently reduces by an absent corner, weak blocks,
-or alternating corner deletion. Full-layer subtraction gives NN target
-layers k and k-1, or DN layer k, minus those smaller WHOLE corrections.
-Lower/higher layers reduce directly. Correction diagrams need not be in this
-family; this is the required induction step, not the full expansion theorem.
+Consequently all proved full-layer families (complete, terminal-clique
+and order-dual, three-chain, tree and maximum-layer) have the marked
+recurrence. Gluing any whole component at c gives the same signed
+recurrence of whole product components; no expansion for the attachment
+is assumed. An outer right mark may be retained. Arbitrary two-end
+attachments still require both endpoint marks to be preserved.
 
-Taking h_i=i+d proves every ordinary path-power source, without a divisibility
-condition. The order-dual result follows by reversing FLIP PATHS; it does not
-assert an order-reversal identity for K/E. The original diagram's own recurrence
-is used after transporting the component-uniqueness statement.
+### Two overlapping cliques
 
-**New local lemma:** [connected pieces](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#connected-pieces-inside-a-corner-interval).
-For ANY selected natural cover ab, use the weak component B containing a,b
-inside [a,b]. Any connected replacement on B of equal size with ab covering
-is in the same actual component. Order-compress B and use the complete-graph
-proof. Other local components and all exterior edges stay fixed. Directed
-cover tests cannot leave the interval or enter another local block. The
-retainer may be normal; the entire interval need not be connected.
+For natural cliques [0,b] and [c,d], 0<c<b<d, the maximal corners are
+f=0b and g=cd. The corner chains F={0,b}, G={c,d} give two quotient
+cliques sharing F,G and the overlap singletons. Only FG has two good
+copies, 0c and bd. See the [detailed continuation](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#two-overlapping-cliques-two-proved-path-lemmas).
+
+Two path lemmas are proved:
+
+- Every connected anchor reaches an anchor containing the shared FG class.
+  If both copies are absent, sweep incoming d-edges across g to make d
+  pendant (0 already is). Force c to reach b in the remaining connected
+  graph. Sweep its reachable incoming b-tails across f in decreasing order,
+  then walk the new 0-edge backwards along a c-to-tail cover path to 0c.
+  Preparation (P) retains this already-good edge.
+- A connected restriction to U={0,...,b} union {d} can be replaced by any
+  connected anchor of equal size on U, restoring all exterior edges.
+  Sweep vd to cv for b<v<d in decreasing order. No exterior path can
+  return to U. The core is order-dual terminal-clique, so its proved
+  local path lifts. At the endpoint c has only cd internally; undo the
+  sweep in increasing order. This is a path lemma, not a K/E state identity.
+
+**Unfinished next step:** reach the quotient star centered at F, then
+rearrange the remaining selected positions in the two quotient cliques.
+Their free-position sets share the extra FG copy. A detailed candidate
+construction is preserved at the end of the NN note. Its proposed
+connectivity assertions and restoration steps still need verification.
+Do not infer full-layer uniqueness or a new recurrence from this plan.
+The articulation case c=b has distinct product components; use the
+right-attachment theorem instead of asserting layer uniqueness.
 
 ## Verification and receipt
 
-All five final frozen-source modes exited zero with empty stderr:
+All three final frozen-source replays passed serially, with empty stderr.
+Receipt:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/right-marked-attachments-20260930/`.
+The final checks give:
 
-- `--terminal-clique-transfers`: all 120 qualifying graphs on 3..8 vertices,
-  four larger path powers and one further irregular graph. 2127 occupancy
-  paths; 3892 direct transfers and 165 repaired transfers; 4222 local clique
-  paths / 313063 actual flips. Maximum path length 6672, up to 52 natural
-  edges. Only the previous fixed five-vertex base searches components.
-- `--terminal-clique-layers`: 19 whole NN/DN source layers, 52776 survivor
-  states; 1193 whole target components / 88880 states; 216 block corrections /
-  3364 states; 587 missing-corner corrections / 30251 states; 276 alternating
-  source corrections / 2489 states, yielding 4888 whole deletion terms.
-  Totals: 3499 positive and 3385 negative terms, 32247 redundancy witnesses.
-  Both block flip directions and every smaller-diagram condition pass.
-- `--complete-swap-audit`: checks all middle states through six vertices and
-  prints an exact five-vertex counterexample to unrestricted active membership.
-- `--local-clique-anchor-generators`: nine fixtures, with every chosen local
-  path replayed globally. Packing plus all selected-cover clique moves connects
-  each connected occupancy layer in the eight non-articulation fixtures. This
-  is finite evidence, not a new general generation theorem.
-- Same generator mode with `--maximal-cliques-only`: misses one tree anchor in
-  area 0123434 (104+1 instead of 105). Normal retained covers recover it. The
-  two-K4 articulation control retains its known two middle-layer components.
+- 14 complete-source NN layers: exact signed right-marked fibre data.
+- 19 terminal-clique NN/DN layers: the same marked identity, all whole
+  target and correction checks, and the endpoint-fixed block permutation.
+- Attach a two-state triangle at the right of every source and final
+  output in the complete checks: 2722 whole products, 63544 state visits.
+  Every state has the predicted merged HRV fibres. Products are checked
+  with actual-flip BFS, including closure.
+- `--two-clique-bridge`: all 84 two-clique parameter choices on 4..10
+  vertices; exhaustive anchors through six, 128 deterministic samples
+  per larger graph. 1870 applicable anchors, 14534 actual flips, maximum
+  path length 24, up to 44 natural edges. This checks introduction of FG;
+  core isolation is proved on paper, not exercised by this mode.
 
-Receipt, frozen sources, commands, logs and hashes:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/terminal-clique-recurrences-20260930/`.
-Only the existing external `dn_joint_span.rs` consumer changed. Graph and Poset
-APIs and the actual-flip model are reused. No Lean build, worker, maintained
-Rust edit, coloring or basis calculation ran. The 21-edge full-enumeration and
-20000-state component guards remain. Larger graphs use explicit paths only.
+Only the existing external `dn_joint_span.rs` consumer changed. It reuses
+the maintained ordinary HRV, Graph and Poset APIs and the existing actual
+flip model. No new polynomial generator, coloring enumeration, basis
+calculation, Lean build or maintained Rust edit ran. Python was used only
+for file bookkeeping and serialized command orchestration. The 21-edge
+full-enumeration and 20000-state component guards remain.
 
-For the DN fixture with heads [3,4,5,7], 14 is UNMARKED: the contact (0,3,4,7)
-introduces strict 04, which would contain it. The final audit uses eligible
-strict edges 03,25,37 and includes the missing-14 source sector. The earlier
-trial marking all four corners was invalid and was corrected, not accepted.
+## Established results and open boundary
 
-## What remains open
+The [previous handoff](docs/archive/component-handoff-before-right-marked-20260930.md)
+retains the complete terminal-clique proof and its receipt. In particular:
 
-General NN/DN collection remains unproved outside the terminal-clique and
-order-dual conditions and the previously established families. In general
-there need not be one natural clique containing a good copy of every chain
-pair. A promising next problem is to coordinate the local connected-piece
-moves across overlapping cliques, together with unrestricted packing. This
-requires a proof of generation, not extrapolation from the nine fixtures.
-Direct RHS repairs and justified relabelings remain permitted alternatives.
+- Every terminal-clique family M={0h_0,...,ah_a}, strictly increasing heads
+  and h_a=N-1, has complete eligible NN/DN recurrences. The order-dual
+  family also does. This includes every ordinary path power with no
+  divisibility or chain-count restriction.
+- DD/ND inheritance, first-drop induction, all fixed-short reductions,
+  arbitrary trees, maximum common-cover layers, three-chain families,
+  complete diagrams, the stated cubes and earlier fixed examples remain
+  proved. Preparation (P), arbitrary crossing slides and packing remain
+  available with their exact hypotheses.
+- The connected-piece lemma works inside ANY selected natural cover's
+  interval, on its local connected block; the retained edge may be normal.
+- Unrestricted adjacent-swap active membership is FALSE already in K5
+  with strict 04. Its exact counterexample is in the NN note. The complete
+  recurrence reduces that inactive output independently; do not reopen
+  the false shortcut as an unsolved recurrence.
 
-Do NOT use an unrestricted adjacent-swap membership assertion, even at a
-leftmost NN contact. The exact [counterexample](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#why-the-adjacent-swap-still-needs-a-repair)
-has strict 04 and A={02,03,04,12,14,23,24}. Six written flips make 04 cover,
-but swapping 0,1 sends A to a closed nine-state component where 04 is always
-redundant. The complete-diagram recurrence already handles it by independent
-inactive-corner reduction. The failed shortcut is not an unresolved recurrence.
-
-The local lemma is a component-membership assertion, NOT equality of a state's
-K/E value before and after a flip. Likewise canonical anchors cannot replace
-whole component sums. Endpoint extensions still require the actual recurrence
-and all its relabelings to preserve the attachment endpoint.
-
-## Established results to retain
-
-- [Recurrence outline](docs/proofs/COMPONENT_RECURRENCE_OUTLINE.md) and
-  [notebook map](docs/proofs/COMPONENT_NOTEBOOK_MAP.md): DD/ND inheritance,
-  first-drop induction, paired diamonds and exact endpoint maps are proved.
-- [Fixed-short reductions](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#removing-the-least-vertex-restriction):
-  all fixed-q/fixed-r components reduce, including incoming DN exterior.
-- [Endpoint attachments](docs/proofs/COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md#endpoint-attachment-theorem-completed-audit):
-  completed for endpoint-preserving recurrences only. Do not automatically
-  attach arbitrary full-layer corrections which relabel an endpoint.
-- [Unrestricted crossing slides](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#sweep-aside-the-obstructions-and-restore-them-after-the-slide)
-  and [canonical packing](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#pack-every-parallel-class-including-noncovers):
-  fixed occupancy vectors are fully connected, with explicit actual paths.
-- [Three-chain recurrences](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#complete-recurrences-for-three-corner-chains-without-articulation):
-  all eligible NN/DN layers for the square of a path plus a nonempty interval
-  of length-three edges. This is exactly the connected three-corner-chain
-  family without articulation. Two chains need packing alone.
-- Arbitrary tree recurrences, maximum common-cover layers, corner-chain
-  preparation, interval quotient and fork normalization remain proved.
-- The 84-state K5, coupled 69/126 examples, 125-state area 012333,
-  3381-state area 0123434 and cube families are solved. The new theorem
-  subsumes complete-source NN layers, not the distinct DN exterior cases.
+General NN/DN collection remains unproved beyond the established families
+and their valid attachments. Local path lemmas establish membership;
+canonical anchors cannot replace sums over whole components. The aim is
+to isolate one source component in a signed sum of whole smaller outputs.
 
 ## Ownership and recovery
 
 Primary owns this handoff, the recurrence outline, APPEND-ONLY continuations
 of the NN redistribution and DN joint-repair notes, earlier authorized
 endpoint/source-addition continuations, handoff archives and existing external
-diagnostic consumers under
+consumers under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/diamond-exploration/hrv-bridge/`.
-Preserve other ownership and both proof-note prefixes at `56a1931`.
+Preserve other ownership and proof-note prefixes at `3dec58f`.
 
 No Lean/Lake build, extra worker/subagent/Claude consultation, manuscript
 TeX/PDF/Overleaf edit or maintained Rust edit is authorized in this lane.
-Runtime registry, `codex mcp list`, current Cargo metadata and relevant
-Graph/Poset/actual-flip APIs have been checked. The Rust guide was already
-read in this continuation chain. Lean MCP is rooted at RealRooted and unused.
-Maintained Rust remains clean at `d53fb193af3c69adedbd9ec8592f87235d809ffa`.
-No worker/account/profile/model assignment changed.
+Runtime registry, `codex mcp list`, Cargo metadata and relevant APIs have
+been checked. The Rust guide was read in this continuation chain. Lean MCP
+is rooted at RealRooted and unused. Maintained Rust remains clean at
+`d53fb193af3c69adedbd9ec8592f87235d809ffa`. No worker/account/profile/model
+assignment changed. No external blocker is present.
 
-The replacement originally began at pushed account-swap `2511182`. The full
-handoff at `56a1931` is preserved in the
-[pre-terminal-clique archive](docs/archive/component-handoff-before-terminal-clique-20260930.md),
-with only relative Markdown links relocated. It retains the complete-diagram
-proof checkpoint `4ca99c3`, receipts and earlier recovery links.
-All diagnostic jobs are complete; no process needs monitoring or restarting.
+The replacement originally began at pushed account-swap `2511182`.
+Previous proof checkpoint `c2fc099` and metadata checkpoint `3dec58f` are
+pushed to origin/main. The new archive preserves the complete handoff at
+`3dec58f`, with only relative Markdown links relocated.
 
-Both proof-note prefixes, the exact relocated archive, 155 local file links,
-final frozen-source replays and receipt hashes pass before checkpointing.
-
-Proof checkpoint `c2fc099` is pushed to `origin/main`; `git diff --check`
-also passes. All five diagnostic jobs are complete. The full general NN/DN
-goal remains active, with no external blocker or running process.
+All diagnostic jobs are complete. Proof-note prefixes, relocated archive,
+local file links, receipt hashes and `git diff --check` pass before the
+checkpoint. No process needs monitoring or restarting.
