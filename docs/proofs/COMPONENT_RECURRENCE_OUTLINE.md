@@ -184,6 +184,21 @@ The general overlapping-corner NN/DN argument is still open. In particular,
 the clique theorem requires a connected selected restriction; a maximal
 natural corner alone does not guarantee that hypothesis locally.
 
+The [connected-piece extension](COMPONENT_NN_REDISTRIBUTION.md#connected-pieces-inside-a-corner-interval)
+works inside the selected weak component of ANY retained cover, fixing the
+other local components as well as the exterior. Its
+[terminal-clique application](COMPONENT_NN_REDISTRIBUTION.md#complete-recurrences-when-the-last-clique-contains-every-chain-terminal)
+now completes every eligible NN/DN recurrence when all corner-chain terminals
+lie in the last maximal natural clique. This includes every ordinary path
+power, with no bound on the number of chains or divisibility condition.
+Packing puts the required support in that clique; an absent edge across
+one or two bridge cuts repairs each obstructed unit transfer. Fixed-size
+connected occupancy layers are therefore single common-cover components.
+Reversing flip paths gives the order-dual first-clique family as well.
+General overlapping cliques outside these conditions remain open.
+An unrestricted adjacent swap is not an alternative: the new exact
+five-vertex certificate sends an active source to an inactive component.
+
 The new [empty-corner reduction](COMPONENT_DN_JOINT_REPAIRS.md#dn-through-an-empty-corner-nn-diagram)
 shows that the uniform NN statement would also settle DN. Adding the
 missing corner EMPTY and unmarking its neighbor preserves the exact

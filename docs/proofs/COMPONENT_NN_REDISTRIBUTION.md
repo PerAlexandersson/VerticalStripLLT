@@ -3697,3 +3697,237 @@ In an arbitrary diagram, a maximal-corner interval is a clique, but its
 selected restriction need not be connected. We cannot apply the new local
 theorem without its connectedness and corner-cover hypotheses, nor assume
 that independently chosen clique paths collect the general RHS image.
+
+## Connected pieces inside a corner interval
+
+2026-09-30 continuation from `56a1931`. The complete-diagram theorem has
+a local form that does not require the entire selected interval to be
+connected. Let ab be ANY selected natural cover, and let B be the weak
+component containing a,b in the restriction of A to [a,b]. Replace the
+selected graph on B by any connected graph with the same number of edges
+in which ab remains selected and covering. Then the two full states
+belong to the same actual component, with every exterior edge restored.
+
+Indeed, B has least vertex a and greatest vertex b, and every pair of
+its vertices is natural. Apply the complete-diagram theorem on the
+order-compressed set B. A path testing one of its edges cannot leave
+[a,b] and return. Inside that interval there are no selected edges
+between B and another weak component, and the local path creates none.
+Thus every local cover test remains valid globally. No original strict
+corner other than ab can lie inside the natural interval ab. All strict
+edges are therefore retained. This proves the assertion, even when ab
+is normal and other parts of the selected interval are disconnected.
+
+This is a component-membership statement, not a pointwise K/E identity.
+It allows arbitrary changes of the connected piece, not just one flip.
+
+## Complete recurrences when the last clique contains every chain terminal
+
+We now prove NN/DN component recurrences for a further unbounded family,
+including all powers of ordinary paths. Let the natural graph have N
+vertices and maximal corners
+
+    M={0h_0,1h_1,...,ah_a},
+    1<=h_0<h_1<...<h_a=N-1.                           (TL1)
+
+Thus every vertex 0,...,a is a corner tail, and no larger vertex is.
+Put d=N-a-1. The d corner chains have terminal vertices
+
+    T={a+1,...,N-1}.
+
+They all lie in the last natural clique [a,N-1]. Conversely, if that
+clique contains the terminal vertex of every corner chain, all smaller
+vertices must be nonterminal, so (TL1) holds. We assume d>=2 below;
+for d=1 the natural graph is a path and the full-envelope tree is unique.
+
+**Theorem.** In (TL1), for every N-1<=k<=m*, all connected k-edge
+states with a simultaneous-cover witness for M lie in one component C_k.
+Every eligible NN or DN contact therefore gives a complete signed
+recurrence for each source component in smaller whole components.
+Unmarked maximal corners are allowed, with their absent sectors reduced
+separately as before.
+
+### Put the required edges into one clique
+
+After corner preparation, an anchor selects M and good normal edges.
+Every unordered pair e of corner chains has a good edge joining its two
+terminal vertices in T. This is the last copy in that pair's short-edge
+path. Consequently the quotient is the complete graph on d vertices,
+with positive capacities c_e, and an anchor has occupancies
+
+    0<=m_e<=c_e.
+
+It is connected exactly when its simple support H={e:m_e>0} is connected.
+All anchors with fixed m already connect by unrestricted packing.
+
+Suppose we want to transfer one unit from e to f, with m_e>0 and
+m_f<c_f. There is a direct construction whenever
+
+    H-f is connected,   and   (H-e)+f is connected.   (TL2)
+
+Deleting an absent edge has no effect in this notation. Pack exactly one
+copy of each edge of H-f into T, and no copy of f there. This is feasible:
+each positive class supplies one copy, all remaining copies fit outside T,
+and the receiver has a vacancy. The selected graph on [a,N-1] is then
+the corner a(N-1) plus H-f on T. It is connected and its corner is a leaf
+edge. Replacing the terminal copy of e by that of f gives the same
+properties by (TL2). The complete-diagram theorem gives actual flips
+between these local states. They lift globally since [a,N-1] is an
+interval, and it contains no other maximal corner. Pack again afterwards.
+
+This realizes the desired unit transfer between canonical anchors and
+retains every original strict edge. The local path may temporarily make
+other maximal corners redundant; no step requires those other covers.
+
+### At most one temporary edge removes the two obstructions
+
+We claim that ANY unit transfer e->f whose final occupancy support is
+connected is a composite of at most two transfers satisfying (TL2).
+If (TL2) already holds there is nothing to prove. Its first condition
+fails precisely when f is a bridge of H. Its second can fail only when
+e is a bridge and f does not cross the cut of e. In that second case
+m_e>=2, since otherwise the required final support would be disconnected.
+
+Choose an absent edge g crossing each bridge cut responsible for these
+failures. Such a g exists in the complete quotient. For one cut, d>=3
+gives a crossing pair other than the unique selected bridge. (With d=2
+there are no distinct donor and receiver classes.) For two cuts, removing
+the two bridges gives three connected pieces arranged in a path. Join a
+vertex of its first piece to a vertex of its last. This pair crosses
+both cuts and was absent. In either case g is different from e,f and
+has available capacity.
+
+Perform e->g and then g->f. The first satisfies (TL2): g was absent,
+and either H-e is connected or g reconnects the cut of e. If e was a
+bridge, m_e>=2, so it remains in the intermediate support. If its last
+copy was removed instead, H-e was connected.
+
+For the second transfer, removing f from the intermediate support leaves
+a connected graph. This is automatic if f was not a bridge; when f was
+a bridge, the new g crosses its cut. If the first transfer removed the
+last e, deleting that nonbridge did not disconnect either side of the
+f-cut, since H-e was connected. Removing g and adding f also leaves a
+connected graph: it restores H, or H-e when the last e was removed.
+These are exactly the two conditions (TL2) for g->f. The temporary class
+returns to zero and all other occupancies are unchanged.
+
+### Connect the entire fixed-size occupancy layer
+
+Let m and m' have connected support, the same total and the same capacity
+bounds. Choose a surplus class e. If removing one unit leaves connected
+support, transfer it to any deficit class. Otherwise e is a single-copy
+bridge and m'_e=0. Since m' is connected, it contains some edge f crossing
+the cut of e. Every such f other than e is absent from the current support,
+so it is a deficit class and e->f preserves connectedness.
+
+Each transfer decreases the sum of the absolute occupancy differences
+by two. Thus this finite procedure reaches m'. Realize each transfer by
+the direct construction or its two-step repair above. Together with
+preparation and packing, this proves the theorem's component assertion.
+
+### Collect both recurrences
+
+All other components D in the k-edge source layer have independently
+smaller expressions B_X(D): delete a missing maximal corner, reorder weak
+blocks if disconnected, or use alternating corner deletion when there is
+no simultaneous-cover witness. Therefore the full-layer identities give,
+with the same integer coefficients for X=K,E,
+
+    NN: X(C_k)=X(F_k(R))+X(F_(k-1)(R))
+                            - sum_(D!=C_k) B_X(D);
+    DN: X(C_k)=X(F_k(R))     - sum_(D!=C_k) B_X(D).   (TL3)
+
+All final terms are whole components in smaller diagrams. Below N-1 edges
+every component is disconnected; above m* no simultaneous-cover witness
+exists. Hence the recurrence covers every layer, not only a dense sector.
+The correction diagrams need not satisfy (TL1): this remains an induction
+step toward the full theorem, not a replacement for that theorem.
+
+In particular take h_i=i+d, 0<=i<N-d. This is the natural graph with
+exactly the edges of lengths at most d, for ANY N>d>=2. Its anchors are
+unions of cliques in consecutive blocks of size d, aligned from the right,
+with an initial shorter block if needed. The proof permits the resulting
+unequal pair capacities. It therefore settles every eligible component
+NN/DN recurrence for every ordinary path power, with no divisibility
+restriction and with arbitrarily many corner chains.
+
+There is also the order-dual family: the first natural clique contains
+the initial vertex of every corner chain. Reverse the order only to
+transport the constructed FLIP PATHS, sending a triple (i,j,k) to
+(N-1-k,N-1-j,N-1-i). Directed bypasses correspond by path reversal,
+so covers and actual flips are preserved. This proves the same uniqueness
+assertion in the original diagram, where we then apply its own full-layer
+NN/DN identity. We do not assert that order reversal preserves K or E.
+
+### Verification and limits
+
+Related Rust: `dn_joint_span.rs --terminal-clique-transfers` constructs the
+paths above on all 120 graphs (TL1) with d>=2 on three through eight vertices,
+four larger path powers and one further irregular graph. It checks 2127
+occupancy paths: 3892 direct unit transfers and 165 repaired by a temporary
+class, giving 4222 local clique paths and 313063 actual flips. Maximum
+path length is 6672; graphs have up to 52 natural edges. No global source
+component search is used. The only component search is the earlier fixed
+five-vertex base of the complete-diagram path constructor.
+
+The separate `--terminal-clique-layers` mode checks complete smaller outputs
+for NN on the fourth power of a seven-vertex path and DN with corner heads
+[2,4,6] on seven vertices and [3,4,5,7] on eight. In the last DN source,
+14 MUST be unmarked: its head is the contact's next vertex, and the new
+strict 04 would contain it. The final check includes that absent-corner
+sector. Marking 14 strict here is not an eligible recurrence and is not
+part of the theorem or final audit.
+
+The general NN/DN problem remains open outside these two families, when
+some corner chains terminate before the last clique and some start after
+the first clique. The local connected-piece lemma above still
+applies, but there need not be one clique containing a good copy of every
+chain pair. We have not proved a compatible sequence of local exchanges
+for arbitrary overlapping cliques. Nor may we replace such exchanges by
+an unrestricted adjacent swap: active membership under that swap fails
+already in a complete five-vertex diagram.
+
+### Why the adjacent swap still needs a repair
+
+The last warning has a small exact certificate. In the complete diagram
+on 0,...,4 with strict 04, take
+
+    A={02,03,04,12,14,23,24},   sigma=(0 1).
+
+Both 04 and 14 are selected and 01 is absent. The actual flip triples
+
+    012,234,013,234,124,014
+
+send A to {01,02,03,04,12,13,23}, where 04 covers. Thus A is active
+at 04. But sigma A lies in an inactive nine-state component. Each of
+its states omits 03 and two further edges from the following list:
+
+    {24,34}, {23,34}, {12,34}, {01,34}, {12,23},
+    {01,23}, {12,13}, {01,13}, {01,12}.
+
+All other edges of the complete graph are selected. Checking the ten
+possible triples in each state gives exactly a connected, closed flip
+graph on these nine states. In every one, 04 has the bypass 01,14 if
+01 is selected, and otherwise the bypass 02,24. This proves inactivity
+and rules out the proposed membership identification even at a leftmost
+NN contact and even with just one maximal corner. It does not contradict
+the complete-diagram recurrence, which independently reduces the inactive
+component instead of identifying it with the active one.
+
+Related Rust: `--complete-swap-audit` checks every such middle state on
+three through six vertices and prints this entire certificate. There are
+four active-to-inactive failures on five vertices and 110 on six. These
+are verified failures of the shortcut, not failures of the recurrence.
+
+The exploratory `--local-clique-anchor-generators` mode checks the positive
+connected-piece lemma with actual paths in nine fixed diagrams. Together
+with parallel packing, these generators connect every connected occupancy
+layer in the eight non-articulation fixtures. The two-K4 articulation
+control still has two distinct middle-layer pieces. Restricting retained
+edges to maximal corners alone misses even one tree anchor in area 0123434;
+normal retained covers (or the separate tree theorem) supply its connection.
+This finite generator evidence is not a general connectivity theorem.
+
+The final sources, commands, logs and hashes for these checks and (TL3)
+are in
+`/lake-cache/ai-projects/requests/VerticalStripLLT/terminal-clique-recurrences-20260930/`.

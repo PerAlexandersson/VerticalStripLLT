@@ -1504,3 +1504,40 @@ connectedness guarantees the local connectedness hypothesis. The full
 NN/DN whole-component collection remains open beyond the established
 families. The existing endpoint theorem still applies only where the
 particular recurrence and its relabelings preserve the required endpoint.
+
+## DN recurrences with all terminals in the last clique
+
+2026-09-30 continuation from `56a1931`. The
+[terminal-clique theorem](COMPONENT_NN_REDISTRIBUTION.md#complete-recurrences-when-the-last-clique-contains-every-chain-terminal)
+now proves the component recurrence for every eligible DN contact when
+the maximal natural corners are 0h_0,1h_1,...,ah_a with strictly increasing
+heads and h_a=N-1. Equivalently, all corner-chain terminal vertices lie
+in the last maximal natural clique. In particular this includes EVERY
+ordinary path power, with arbitrarily many chains and any number of vertices.
+
+Pack a connected support into its terminal clique, omitting the receiver
+class. When removal of the donor and insertion of the receiver leave that
+local graph connected, the complete-diagram theorem realizes the transfer.
+The two possible failures concern bridge cuts. One absent temporary edge
+crossing the necessary cut or cuts changes the transfer into two permitted
+ones. A surplus/deficit argument connects all connected occupancy vectors
+of the same total, including unequal capacities.
+
+Thus each feasible layer has one connected component C_k with a common-cover
+witness, and
+
+    X(C_k)=X(F_k(R))-sum_(D!=C_k) B_X(D),   X=K,E,
+
+with identical coefficients and only independently smaller WHOLE corrections.
+Other components and layers reduce by the previously proved missing-corner,
+weak-block and alternating-deletion arguments. No arbitrary general component
+theorem is assumed for these corrections; this is the required induction step.
+
+The exact whole-output audit includes DN with corner heads [2,4,6] and
+[3,4,5,7]. In the latter, corner 14 is unmarked because the DN contact
+(0,3,4,7) introduces strict 04. Its absent source sector is checked as a
+separate smaller correction. General DN remains open when chain terminals
+occur before the final clique and the order-dual initial-clique condition
+also fails. The dual transports actual flip paths, not K/E valuations.
+The new connected-piece lemma still permits
+local paths there, but compatible collection has not been proved.
