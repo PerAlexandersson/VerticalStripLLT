@@ -1,21 +1,21 @@
 # VerticalStripLLT handoff
 
-## Active implementation — P0/P2/P3 complete, P1/P4 partial
+## Active implementation — P0/P2/P3/P4 complete, P1 partial
 
-Continuation began clean at pushed `7b9f5de`; the preceding turn made
-verified progress. The current increment completes Hasse-path hull shortening
-and general reachability forcing, including the adjacent-edge consequence
-and lower-interval preservation needed for inheritance. P4's local
-complete-block interface remains unfinished.
+Continuation began clean at pushed `7d76087`; the preceding turn made
+verified progress. The current increment completes the local complete-block
+interface and its actual endpoint lifting. P0/P2/P3/P4 are verified;
+P1 remains partial, and P5--P10 remain unfinished.
 
 Primary owns all `DiagramProof/` files, `DiagramProofVerification.lean`, this
-handoff and the formalization plan, and retains the sole serialized build
-slot. Terra returned `PathSplit`; primary repaired and verified it. Primary
-wrote `HassePaths`, `PathShortening`, `HullReduction` and
-`ReachabilityForcing`. Terra independently reviewed the entire chain and
-then its lower-interval preservation extension. Terra is finished; all
-current source is primary-owned. Historical proof notes and unrelated
-ownership remain unchanged.
+handoff, the formalization plan, the path-history archive and the existing
+restriction-consolidation suggestion, and retains
+the sole serialized build slot. Terra returned `BlockPaths`; Luna returned
+`CliqueEdges`. Primary integrated and verified both and wrote
+`CliqueRestriction`, `CompleteBlock` and `CliquePaths`. Terra independently
+reviewed the local theorem and final endpoint interfaces. Both agents are
+finished; all current source is primary-owned. Historical proof notes and
+unrelated ownership remain unchanged.
 
 The independent component theorem is unfinished. The active goal also
 requires a new illustrated draft combining the circular e-expansion and the
@@ -30,110 +30,45 @@ terms or state the condition itself, follow Robin and the author's diagram
 reasoning, and keep implementation/audit details out of the manuscript.
 No fundamental-basis or old word/scan argument is used.
 
-### Current P4 increment — general reachability forcing
+### Current P4 increment — local complete blocks
 
-- `HassePaths` converts induced selected weak connections into simple
-  Hasse paths within the same convex set. Graph paths are only auxiliary;
-  the semantic weak relation remains `WeakReach` / `Relation.EqvGen`.
-  `eqvGen_within_of_class_subset` also restricts a whole selected weak
-  block to a containing set.
-- `PathSplit` removes an internal vertex from a simple path and supplies
-  its two distinct neighbors and remaining fragments. The fragments stay
-  in the original support and avoid the removed vertex.
-- `PathShortening.exists_weakReach_below` and `exists_weakReach_above`
-  apply the prescribed incoming/outgoing cover flip at the upper/lower
-  extreme. The remaining Hasse edges and the new short edge form a selected
-  weak path in the strictly smaller interval. At most one actual flip is
-  needed. All old selected edges with head below the removed maximum,
-  respectively tail above the removed minimum, survive.
-- `HullReduction` repeats upper and lower removal by strong induction,
-  refining selected connections to Hasse paths at each step. Both the
-  smaller interval and the relevant selected-edge preservation are proved.
-- `ReachabilityForcing.exists_reachable_of_weakReach` combines hull
-  shortening with the previously checked incoming normalization: for every
-  forward ordinary diagram and every `u <= v` in one selected weak block,
-  an actual-flip endpoint has a directed selected path from `u` to `v`.
-  All strict edges remain selected by the actual orientation interface.
-- `exists_selected_adjacent_of_weakReach` and
-  `not_weakReach_of_adjacent_absent` give the stated adjacent-edge consequence.
-- `exists_reachable_preserving_lower_weakReach` starts from the least vertex
-  `u` of its selected weak block, with `v <= t`. It forces `u` to reach `v`
-  and preserves every existing induced weak connection on `{x | x <= t}`.
-  Upper-hull removal preserves the old selected edges there; subsequent
-  normalization inside `[u,t]` preserves its induced weak blocks. The
-  conclusion is only a forward implication for initial lower weak
-  connections; equality of lower weak-block partitions is not claimed.
+- `CliqueEdges` proves that every ordered pair of vertices inside a natural
+  edge is itself natural, including pairs touching either endpoint.
+- `BlockPaths` proves path closure for updated relations with fixed exterior
+  and weak-reachability restriction for an image closed under both ends of
+  the source relation. No order-convexity of the selected block is assumed.
+- `CliqueRestriction` builds the actual complete restriction and the exact
+  ambient extension. Core paths lift in `D.undecorated`; existing exact
+  marking transport recovers actual orientations and flips in `D`.
+  `clique_lift_core_reachable` supplies the actual endpoint with exact
+  inside and outside selections, including the original strict markings.
+- `CompleteBlock.clique_reachable_of_block` connects two configurations of
+  one selected weak block inside a natural clique. The source image is
+  exactly one induced weak block; the target core is connected; both
+  extreme edges cover; the local selected counts agree; and all exterior
+  selected edges agree. Every ambient cover test is derived from source
+  block closure, not assumed as an extra unresolved interface.
+- `CliquePaths.clique_lift_core_of_block` lifts any actual complete-core
+  endpoint. `clique_exists_reachable_of_block` forces reachability between
+  an ordered pair in the chosen block, returning exact endpoint exterior.
+  These are path and endpoint statements, not whole-component equalities
+  or claims that the extreme edge covers at all intermediate states.
 
-Terra's two independent read-only audits found no gap in path splitting,
-source-cover geometry, exact edge retention, induction measures, ordinary
-endpoint semantics or the lower-interval preservation claim. The full
-reachability-forcing lemma is now verified. Its localization to a specified
-clique/weak block with fixed exterior still belongs to the next interface.
+Terra independently audited the geometry, path restriction, local theorem
+and final endpoint interfaces. All reviews passed. P4 is complete under
+its plan's contracts. P5's star/anchor constructions must still supply the
+explicit target connectedness, extreme covers, local count and exterior
+conditions; those constructions are not claimed here.
 
-### Verified at `7b9f5de` — reachability inside an interval
-
-- `IncomingFlip.exists_reverseFlip_of_sourceCovers` supplies the incoming
-  exchange as a reverse directed witness, with exact short-edge endpoints.
-- `RestrictedFlips.DirectedFlipWithin` records that all three vertices of
-  an actual directed flip lie in a specified set. Reverse paths of these
-  flips are actual ambient flip paths. They fix every selected edge outside
-  that induced set and preserve induced weak blocks in every containing set.
-- `IncomingNormalization.exists_leftUnique_covers_within` repeatedly removes
-  incoming cover forks inside the specified set. Each reverse flip strictly
-  decreases `selectedTailSum`. Strict edges are retained by the actual
-  orientation/flip interface. The global version is also proved.
-- `UniqueIncomingPaths` proves that a left-unique relation gives common
-  ancestors to weakly related vertices. Cover factorization then proves
-  that a least vertex of a weak block reaches the whole block when incoming
-  covers are unique. `eqvGen_relationCover_iff` extracts the reusable fact
-  that replacing selected edges by cover paths preserves weak blocks.
-- `IntervalReachability` proves exact convex restriction of paths and
-  covers, including induced weak-block preservation under cover refinement.
-  `exists_reachable_within_of_minimal` handles a least vertex of an induced
-  weak block in any convex set. `exists_reachable_within_interval` specializes
-  to a weak path already inside `[u,v]`, producing a state where `u` reaches
-  `v` by actual flips confined to that interval.
-
-Terra's independent audit found no gap in flip direction, termination,
-preservation, minimality transport or interval semantics. These results
-finish the normalization stage of the written reachability argument. The
-current increment above supplies the formerly missing hull shortening.
-
-### Verified at `c1e2e8e` — complete-diagram connectivity
-
-- `CoverCut.relationCover_of_cut` gives a sufficient cover test: the selected
-  edge is the only edge allowed to cross a separating set. Its proof uses
-  forward path intervals and applies to arbitrary linearly ordered vertices.
-- `FiveVertexPaths` interprets the four written triple lists as actual flip
-  paths. Every intermediate state is built from its full selected endpoint
-  set. Each step checks the two source covers through finite separating-set
-  conditions, then uses the proved incoming/outgoing flip constructor.
-  All finite conditions and exact final pair sets are kernel-checked with
-  `decide`; no native proof axiom or component enumeration is used.
-- `FiveVertexBase` identifies the three possible chords `13,14,24`, proves
-  exact endpoint equality with the actual chain states, and combines the
-  four paths. `ThreePositionPaths` supplies the abstract eight-subset and
-  cardinality case split. Normalization yields `complete_reachable_five`.
-- `CompleteConnectivity.complete_reachable` proves, for every `n`, that two
-  selected-connected states in `completeDiagram n`, each covering `0n` and
-  having the same total selected-edge count, connect by actual flips.
-  Strong induction combines `n <= 3`, the explicit `n = 4` base, and the
-  interval/chord step for `n >= 5`. There is no remaining smaller-diagram
-  assumption in this theorem.
-- `complete_reachable_marked` proves the corresponding path in
-  `completeCornerDiagram n hn`. The corner `0n` is strict at every state.
-  The endpoint active-cover hypotheses are retained; coverhood at every
-  intermediate state is not claimed.
-
-Terra independently audited the separating-set interpretation, full endpoint
-identities, four finite paths, three-position assembly, strong induction and
-marked transport. No gap was found. This completes the complete-clique
-connectivity part of P4, not the general ordinary component expansion.
-
-The [implementation history](docs/archive/diagram-complete-clique-implementation.md)
-preserves the earlier CC1--CC6, interval and chord checkpoints, including the
-corrected intermediate-state issue. Its former unfinished statuses are
-superseded here. No earlier mathematical proof-note prefix was changed.
+P4's earlier checked obligations are: `ForestExtension` (feasible connected
+sizes and removable-edge avoidance), `SubsetBands` / `OverlappingPositions`
+(subset and sector connectivity), `TwoChainBase.commonCover_connected_of_two_terminals`,
+`CompleteConnectivity.complete_reachable` and its strict-corner version,
+and `ReachabilityForcing` with adjacent-edge and lower-interval consequences.
+The [path implementation history](docs/archive/diagram-reachability-implementation.md)
+preserves the detailed `c1e2e8e`, `7b9f5de`, `7d76087` records; the
+[earlier complete-diagram history](docs/archive/diagram-complete-clique-implementation.md)
+retains CC1--CC6 and interval/chord checkpoints.
 
 ### Earlier verified interfaces
 
@@ -165,24 +100,22 @@ are a sufficient connectivity condition for anchors. No canonical highest
 packing is claimed. Families may retain any maximal corners containing the
 strict edges; specialize to `allCorners D` for the proof note's multigraph H.
 
-P1 remains partial: other induced-core geometry and order reversal remain;
-the specific nonconvex complete-interval lift is now proved. P4 remains
-partial: localizing the complete theorem to a selected weak block remains.
-General reachability forcing and its lower-interval preservation are now
-verified. P5--P10 remain open. General component
-recurrences, endpoint attachment and the final independent theorem are NOT
-yet Lean-proved by this route. The mathematical diagram proof is complete.
+P1 remains partial: other induced-core geometry and order reversal remain.
+The complete-interval and selected-clique-block path lifts are verified.
+P4 is complete. P5--P10 remain open. General component recurrences, endpoint
+attachment and the final independent theorem are NOT yet Lean-proved by
+this route. The mathematical diagram proof is complete.
 
 ### Verification and next step
 
-Focused builds of `ReachabilityForcing` and all verification imports pass
-without source warnings. All 297 queries in `DiagramProofVerification.lean`
-pass using only `propext`, `Classical.choice`, `Quot.sound` (or none).
-The independent import closure contains 161 project files including
-verification and excludes the old word/scan/expansion routes. Source guards
-(including no `native_decide`), 100-column and whitespace checks pass. Logs
-are `p4-forcing-build.log`, `p4-forcing-closure-build.log`,
-`p4-forcing-axioms.log` and `p4-forcing-imports.txt` in the directory below.
+Focused builds of `CliquePaths` and all verification imports pass without
+source warnings. All 315 queries in `DiagramProofVerification.lean` pass
+using only `propext`, `Classical.choice`, `Quot.sound` (or none). The
+independent import closure contains 166 project files including verification
+and excludes the old word/scan/expansion routes. Source guards (including
+no `native_decide`), 100-column and whitespace checks pass. Logs are
+`p4-clique-paths-build.log`, `p4-block-closure-build.log`,
+`p4-block-axioms.log` and `p4-block-imports.txt` in the directory below.
 No compiler or agent job remains running.
 
 No broad build, dependency update, remote proof search or mathematical
@@ -190,24 +123,23 @@ computation ran. Only primary invokes `lake-workspace`. Lean MCP remains
 rooted at RealRooted, so local compiler diagnostics are used. The wrapper's
 existing package-path manifest warning remains unchanged.
 
-Next: finish P4's local complete-block interface, then continue P1/P5.
-The complete theorem must act on one selected weak block inside a corner
-interval, retain its marked extreme corner and lift its path with fixed
-exterior. Inspect `CompleteSubdiagram.completeRestrictAlong`,
-`completeExtendAlong`, `complete_liftAlong_reachable`, the general
-`CoreExtension.lift_reachable_of_cover_iff`, and
-`PathRestriction.relationCover_iff_of_pathImage`. A block's increasing
-vertex image need not be order-convex, but no selected path can leave the
-block and return; establish exact cover restriction for the extended states.
-Natural and strict geometry must still be checked for an ambient corner
-interval. Do not infer whole-component equivalence from an injective lift.
+Next: implement P5's chain quotient and last-clique inheritance, with P1's
+order reversal needed before obtaining first-clique inheritance. Start with
+P3's `CornerFamily`, `chainPair`, `copyLabel` and good-edge geometry: show
+that good copies induce exactly the natural adjacencies of chain classes,
+prove connectedness/feasible sizes and the no-articulation/no-bridge
+consequence. Then build terminal-clique occupancy transfers and the four
+last-clique steps listed in the formalization plan. Avoid a general
+interval-graph library. The new local clique theorem applies to actual
+states once each star/anchor target and its exact edge count are constructed.
 
-The written reachability proof is in `COMPONENT_NN_REDISTRIBUTION.md`
-around lines 1557--1595; its lower-interval use occurs around 4081--4089
-and 4334--4342. The corresponding general and preserving theorems are now
-in `ReachabilityForcing`. Preserve the one-way lower-connection guarantee;
-do not claim arbitrary exterior stays fixed during hull shrinking. P1's
-order-reversal/induced-core interfaces and P5--P10 remain unfinished.
+For clique reachability, use `clique_lift_core_of_block` to transport the
+actual core endpoint and its selected relation. The general lower-interval
+preservation theorem remains `ReachabilityForcing.exists_reachable_preserving_lower_weakReach`;
+transport its one-way connection guarantee through the concrete core image
+when needed. Do not claim equality of induced blocks during hull shrinking.
+The written uses are in `COMPONENT_NN_REDISTRIBUTION.md` around 4081--4089
+and 4334--4342. P1's remaining induced-core interfaces and P5--P10 are open.
 The optional later consolidation of the prefix/general restriction APIs is
 recorded in `suggestions/complete-subdiagram-consolidation.md`.
 
@@ -223,7 +155,8 @@ implementation. Earlier verification logs remain under
 `p4-outer-*` records 234 axiom checks/141 project files;
 `p4-chord-step-*` records 244 axiom checks/147 project files;
 `p4-complete-*` records 262 axiom checks/152 project files;
-`p4-interval-reach-*` records 280 axiom checks/156 project files.
+`p4-interval-reach-*` records 280 axiom checks/156 project files;
+`p4-forcing-*` records 297 axiom checks/161 project files.
 
 ## Detailed formalization plan — completed before implementation
 

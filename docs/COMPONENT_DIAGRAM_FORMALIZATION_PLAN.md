@@ -6,12 +6,13 @@ plan, not a report of new Lean proofs. The mathematical inputs are the
 [cleanup audit](proofs/COMPONENT_DIAGRAM_AUDIT.md). Historical proof notes
 remain the sources for the individual path constructions.
 
-Implementation status: P0, P2 and P3 are verified; P1 and P4 are partial. P0 and the
+Implementation status: P0, P2, P3 and P4 are verified; P1 remains partial. P0 and the
 semantic import extractions are in `9d8c4bc`. P1 includes finite/lifted covers,
 weak-block invariance, exact corner marking, source-only short flips
 (`3bbb1e4`), convex path/cover restriction and an injective fixed-exterior
-actual core-path lift (`bb86b82`). Specific induced-core geometry, swept
-nonconvex transport and order reversal remain open.
+actual core-path lift (`bb86b82`). Path-closed nonconvex lifts now cover the
+complete interval and a selected clique block. Other induced-core geometry
+and order reversal remain open.
 
 P2 includes the state/component marked semantic bridge and both marked
 diamonds with arbitrary exterior (`15ec74b`), closure invariance between
@@ -142,7 +143,19 @@ flips. Its adjacent-edge corollary and the least-vertex version preserving
 all existing weak connections in a retained lower interval are also proved.
 The latter preservation is a forward implication, not an assertion that
 the induced weak blocks were unchanged during hull shrinking.
-P4 still needs the local complete theorem for one selected weak block;
+The local complete theorem is now proved in `CompleteBlock`:
+`clique_reachable_of_block` applies the complete-diagram theorem to a whole
+selected weak block inside a natural clique. Its hypotheses state the exact
+block vertex set, target connectedness, equal local selected-edge counts,
+both extreme covers and equality of exterior selections. `CliqueEdges`
+derives all core natural edges, and `BlockPaths` derives the required
+path closure without assuming the block's vertex image is order-convex.
+`CliqueRestriction` lifts the core path in the undecorated ambient diagram
+and restores every strict marking through the previously proved exact
+component transport. `CliquePaths` also lifts arbitrary core endpoints
+with exact inside/outside selections and localizes reachability forcing.
+No whole-component equality or intermediate cover preservation is asserted
+by these local path-lifting interfaces. P4 is complete;
 P5--P10 remain open. The independent component
 theorem is not yet formalized. See `HANDOFF.md` and `DiagramProofVerification.lean`
 for ownership and exact verification.

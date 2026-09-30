@@ -31,6 +31,7 @@ import VerticalStripLLT.Components.DiagramProof.CompleteSmall
 import VerticalStripLLT.Components.DiagramProof.CompleteConnectivity
 import VerticalStripLLT.Components.DiagramProof.IntervalReachability
 import VerticalStripLLT.Components.DiagramProof.ReachabilityForcing
+import VerticalStripLLT.Components.DiagramProof.CliquePaths
 
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
 
@@ -359,3 +360,22 @@ import VerticalStripLLT.Components.DiagramProof.ReachabilityForcing
 #print axioms VerticalStripLLT.Circular.DiagramProof.exists_selected_adjacent_of_weakReach
 #print axioms VerticalStripLLT.Circular.DiagramProof.not_weakReach_of_adjacent_absent
 #print axioms VerticalStripLLT.Circular.DiagramProof.exists_reachable_preserving_lower_weakReach
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_edge_of_naturalLift_of_le
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_edge_of_orderEmbedding_mem_interval
+#print axioms VerticalStripLLT.Circular.DiagramProof.pathImage_closed_of_forward_update
+#print axioms VerticalStripLLT.Circular.DiagramProof.eqvGen_iff_of_image_closed
+#print axioms VerticalStripLLT.Circular.DiagramProof.cliqueRestrict_selected
+#print axioms VerticalStripLLT.Circular.DiagramProof.cliqueExtend_selected
+#print axioms VerticalStripLLT.Circular.DiagramProof.cliqueExtend_inside
+#print axioms VerticalStripLLT.Circular.DiagramProof.cliqueExtend_outside
+#print axioms VerticalStripLLT.Circular.DiagramProof.cliqueExtend_restrict
+#print axioms VerticalStripLLT.Circular.DiagramProof.cliqueExtend_eq_of_outside
+#print axioms VerticalStripLLT.Circular.DiagramProof.clique_lift_core_reachable
+#print axioms VerticalStripLLT.Circular.DiagramProof.clique_lift_reachable
+#print axioms VerticalStripLLT.Circular.DiagramProof.cliqueExtend_cover_iff_of_closed
+#print axioms VerticalStripLLT.Circular.DiagramProof.cliqueRestrict_connected_of_block
+#print axioms VerticalStripLLT.Circular.DiagramProof.selected_image_closed_of_block
+#print axioms VerticalStripLLT.Circular.DiagramProof.clique_reachable_of_block
+#print axioms VerticalStripLLT.Circular.DiagramProof.clique_lift_core_of_block
+#print axioms VerticalStripLLT.Circular.DiagramProof.clique_exists_reachable_of_block
