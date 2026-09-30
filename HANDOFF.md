@@ -1,50 +1,50 @@
 # VerticalStripLLT handoff
 
-## Active implementation — P0/P2/P3/P4 complete, P1 partial
+## Active implementation — P0/P2/P3/P4 complete, P1/P5 partial
 
-Current continuation starts clean at pushed `46107c6`. Primary is implementing
-P5's chain contraction in `ChainQuotient.lean` and owns integration,
-verification and this handoff, with the sole build slot. Luna is assigned
-only the new `GoodEdgeConnectivity.lean`: replace natural edges by weak
-paths of good edges using the existing short-link geometry. Terra is
-assigned a read-only audit of the feasible-size bridge to `ForestExtension`.
-Both delegates are build-free. P5 remains unfinished.
+Continuation began clean at pushed `46107c6` and made verified progress.
+The chain-contraction checkpoint is pushed as `584d931`. The current
+increment completes feasible connected anchor sizes and the conditional
+removable-edge construction. P5 remains partial; P6--P10 remain open.
 
-The first P5 increment is verified: `ChainQuotient` identifies the simple
-quotient on actual chain terminals, proves that good edges retain exactly
-all natural quotient adjacencies, and preserves every selected weak block
-when the retained corners are present. `GoodEdgeConnectivity` replaces a
-natural edge by a good-edge weak path and proves equality of all natural
-and good-edge weak connections. The contraction statements include isolated
-chains; they do not assert any coloring or HRV contraction identity.
-Focused builds and all 323 axiom queries pass (only the three standard
-axioms, or none). Logs: `p5-connectivity-build.log` and
-`p5-connectivity-axioms.log` in the verification directory below.
-Feasible-size conversion and the no-articulation/no-bridge consequence are
-still open, as are terminal transfers and inheritance.
+Primary owns all `DiagramProof/` sources, `DiagramProofVerification.lean`,
+this handoff, the formalization plan, the path-history archive and the
+restriction-consolidation suggestion, and retains the sole build slot.
+Luna returned `GoodEdgeConnectivity` and `CornerForest`; Terra returned
+`EdgeSetGraph` after auditing the feasible-size bridge. Primary integrated
+and locally checked both, wrote `ChainQuotient` and `AnchorSizes`, and
+owns all resulting sources. Terra's independent final read-only review
+approved the mathematical contracts. Both agents are finished. Historical
+proof-note and unrelated ownership remain unchanged.
 
-Luna returned `GoodEdgeConnectivity.lean`; primary now owns its integration.
-Terra's read-only feasible-size audit identified the exact missing bridges.
-Luna is next assigned only `CornerForest.lean` (retained-corner acyclicity).
-Terra is next assigned only `EdgeSetGraph.lean` (finite selected-edge/simple
-graph and cardinality conversions). Both remain build-free; primary owns
-`AnchorSizes.lean` and all builds. These assignments do not change historical
-proof-note ownership.
+### Current P5 increment — contraction and feasible anchor sizes
 
-Continuation began clean at pushed `7d76087`; the preceding turn made
-verified progress. The current increment completes the local complete-block
-interface and its actual endpoint lifting. P0/P2/P3/P4 are verified;
-P1 remains partial, and P5--P10 remain unfinished.
+- `ChainQuotient` uses the subtype of actual chain terminals, retaining
+  isolated chains. Good copies induce exactly all natural quotient
+  adjacencies. Contraction preserves every weak block for edge selections
+  containing the retained corners, including actual orientations.
+- `GoodEdgeConnectivity` replaces each natural edge by a weak path of good
+  edges. The full good-edge and natural graphs have the same weak blocks.
+- `CornerForest` proves retained-corner acyclicity. Its small general lemma
+  needs only forwardness and unique predecessors: rotate a hypothetical
+  cycle to its greatest vertex and compare its two incoming neighbors.
+- `EdgeSetGraph` identifies a finite set of natural edges with its simple
+  graph, preserves edge counts exactly, and reconstructs any spanning
+  subgraph by filtering the original edge set.
+- `AnchorSizes.exists_connected_anchor_card_iff` gives actual connected
+  anchors of exactly the feasible sizes `n ≤ k+1` and `k ≤ |A*|` when
+  `n>0` and the natural graph is connected. Every such anchor retains the
+  corner family and therefore has all its corners covering.
+- `exists_connected_anchor_card_avoiding` also omits a specified good
+  non-corner edge, assuming its deletion leaves the full good-edge graph
+  connected and `k+1 ≤ |A*|`. This supplies an actual orientation with
+  exact count and absence. The deletion-connectedness hypothesis is still
+  to be proved in the later separator argument.
 
-Primary owns all `DiagramProof/` files, `DiagramProofVerification.lean`, this
-handoff, the formalization plan, the path-history archive and the existing
-restriction-consolidation suggestion, and retains
-the sole serialized build slot. Terra returned `BlockPaths`; Luna returned
-`CliqueEdges`. Primary integrated and verified both and wrote
-`CliqueRestriction`, `CompleteBlock` and `CliquePaths`. Terra independently
-reviewed the local theorem and final endpoint interfaces. Both agents are
-finished; all current source is primary-owned. Historical proof notes and
-unrelated ownership remain unchanged.
+These results hold for any retained corner family containing the strict
+edges. The quotient is for connectivity; no coloring or HRV contraction
+identity is asserted. No-articulation/no-bridge geometry, terminal-clique
+transfers, and last-/first-clique inheritance remain unfinished.
 
 The independent component theorem is unfinished. The active goal also
 requires a new illustrated draft combining the circular e-expansion and the
@@ -59,7 +59,7 @@ terms or state the condition itself, follow Robin and the author's diagram
 reasoning, and keep implementation/audit details out of the manuscript.
 No fundamental-basis or old word/scan argument is used.
 
-### Current P4 increment — local complete blocks
+### Verified P4 checkpoint `46107c6` — local complete blocks
 
 - `CliqueEdges` proves that every ordered pair of vertices inside a natural
   edge is itself natural, including pairs touching either endpoint.
@@ -131,36 +131,37 @@ strict edges; specialize to `allCorners D` for the proof note's multigraph H.
 
 P1 remains partial: other induced-core geometry and order reversal remain.
 The complete-interval and selected-clique-block path lifts are verified.
-P4 is complete. P5--P10 remain open. General component recurrences, endpoint
+P4 is complete. P5 is partial; P6--P10 remain open. General component recurrences, endpoint
 attachment and the final independent theorem are NOT yet Lean-proved by
 this route. The mathematical diagram proof is complete.
 
 ### Verification and next step
 
-Focused builds of `CliquePaths` and all verification imports pass without
-source warnings. All 315 queries in `DiagramProofVerification.lean` pass
-using only `propext`, `Classical.choice`, `Quot.sound` (or none). The
-independent import closure contains 166 project files including verification
-and excludes the old word/scan/expansion routes. Source guards (including
-no `native_decide`), 100-column and whitespace checks pass. Logs are
-`p4-clique-paths-build.log`, `p4-block-closure-build.log`,
-`p4-block-axioms.log` and `p4-block-imports.txt` in the directory below.
-No compiler or agent job remains running.
+Focused builds of all new modules and the verification import targets pass
+without source warnings. All 340 queries in `DiagramProofVerification.lean`
+use only `propext`, `Classical.choice`, `Quot.sound` (or none). The independent
+import closure contains 171 project files including verification and excludes
+the old word/scan/expansion routes. Source guards (including no `native_decide`),
+100-column and whitespace checks pass. Current logs are
+`p5-sizes-closure-build.log`, `p5-sizes-axioms.log` and `p5-sizes-imports.txt`;
+`p5-anchor-sizes-build.log` records the focused main-module check. The prior
+contraction checkpoint has 323 axiom checks/168 project imports and
+`p5-connectivity-*` logs. No compiler or agent job remains running.
 
 No broad build, dependency update, remote proof search or mathematical
 computation ran. Only primary invokes `lake-workspace`. Lean MCP remains
 rooted at RealRooted, so local compiler diagnostics are used. The wrapper's
 existing package-path manifest warning remains unchanged.
 
-Next: implement P5's chain quotient and last-clique inheritance, with P1's
-order reversal needed before obtaining first-clique inheritance. Start with
-P3's `CornerFamily`, `chainPair`, `copyLabel` and good-edge geometry: show
-that good copies induce exactly the natural adjacencies of chain classes,
-prove connectedness/feasible sizes and the no-articulation/no-bridge
-consequence. Then build terminal-clique occupancy transfers and the four
-last-clique steps listed in the formalization plan. Avoid a general
-interval-graph library. The new local clique theorem applies to actual
-states once each star/anchor target and its exact edge count are constructed.
+Next: continue P5 with the quotient no-articulation/no-bridge consequence
+and terminal-clique occupancy transfers, then the four last-clique steps in
+the plan. Connectivity of A* and feasible anchor sizes are now proved;
+do not repeat them. The separator argument in the written proof specializes
+to all maximal corners and must supply the explicit deletion-connectedness
+hypothesis of `exists_connected_anchor_card_avoiding`. P1's order reversal
+is needed before first-clique inheritance. Avoid a general interval-graph
+library. Local clique applications still need concrete target connectedness,
+extreme-cover, exact local count and exterior conditions.
 
 For clique reachability, use `clique_lift_core_of_block` to transport the
 actual core endpoint and its selected relation. The general lower-interval
@@ -185,7 +186,8 @@ implementation. Earlier verification logs remain under
 `p4-chord-step-*` records 244 axiom checks/147 project files;
 `p4-complete-*` records 262 axiom checks/152 project files;
 `p4-interval-reach-*` records 280 axiom checks/156 project files;
-`p4-forcing-*` records 297 axiom checks/161 project files.
+`p4-forcing-*` records 297 axiom checks/161 project files;
+`p4-block-*` records 315 axiom checks/166 project files.
 
 ## Detailed formalization plan — completed before implementation
 

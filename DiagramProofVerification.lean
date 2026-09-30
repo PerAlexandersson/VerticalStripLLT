@@ -34,6 +34,7 @@ import VerticalStripLLT.Components.DiagramProof.ReachabilityForcing
 import VerticalStripLLT.Components.DiagramProof.CliquePaths
 import VerticalStripLLT.Components.DiagramProof.ChainQuotient
 import VerticalStripLLT.Components.DiagramProof.GoodEdgeConnectivity
+import VerticalStripLLT.Components.DiagramProof.AnchorSizes
 
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
 
@@ -392,5 +393,23 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms CornerFamily.chainQuotient_preconnected_iff_selectedConnected
 #print axioms CornerFamily.eqvGen_goodEdgeRelation_of_natural_edge
 #print axioms CornerFamily.eqvGen_goodEdgeRelation_iff_eqvGen_naturalEdgeRelation
+
+#print axioms edgeSym2Embedding
+#print axioms edgeSetGraph_mono
+#print axioms edgeSetGraph_adj_iff_mem
+#print axioms edgeSetGraph_edgeFinset
+#print axioms edgeSetGraph_card
+#print axioms edgeSetGraphSub_subset
+#print axioms edgeSetGraphSub_eq_of_le
+#print axioms isAcyclic_fromRel_of_forward_of_leftUnique
+#print axioms CornerFamily.stepGraph_isAcyclic
+#print axioms edgeSetGraph_fullSelection_preconnected_iff
+#print axioms CornerFamily.corners_subset_goodEdges
+#print axioms CornerFamily.edgeSetGraph_corners_isAcyclic
+#print axioms CornerFamily.goodEdgeGraph_preconnected_iff
+#print axioms CornerFamily.exists_anchor_of_graph
+#print axioms CornerFamily.exists_connected_anchor_card
+#print axioms CornerFamily.exists_connected_anchor_card_avoiding
+#print axioms CornerFamily.exists_connected_anchor_card_iff
 
 end VerticalStripLLT.Circular.DiagramProof

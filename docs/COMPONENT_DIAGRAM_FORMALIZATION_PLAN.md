@@ -406,7 +406,11 @@ Implemented first increment: `ChainQuotient` proves that good copies retain
 exactly the natural quotient adjacencies and that contraction preserves every
 weak block for selections containing the corner family, including isolated
 chains. `GoodEdgeConnectivity` proves that the full good-edge and natural
-relations have the same weak components. The feasible-size, separator,
+relations have the same weak components. `CornerForest` and `EdgeSetGraph`
+supply the forest and exact finite graph conversions. `AnchorSizes` proves
+existence of actual connected anchors exactly throughout the feasible size
+interval, and constructs anchors omitting a specified non-corner edge when
+its deletion leaves the full good-edge graph connected. The separator,
 terminal-transfer and inheritance obligations below remain unfinished.
 
 Use P3's auxiliary short-edge paths to prove that good copies retain exactly
