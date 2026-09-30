@@ -176,3 +176,6 @@ is an unchanged prefix. No background job needs monitoring or restarting.
 
 Both proof-note prefixes, the relocated archive, all 154 local file links,
 receipt hashes and `git diff --check` pass before checkpointing.
+
+Proof checkpoint `70d106e` is pushed to `origin/main`. All three diagnostic
+jobs are complete; no process needs monitoring or restarting.
