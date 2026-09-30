@@ -5,6 +5,7 @@ import VerticalStripLLT.Components.DiagramProof.ShortFlip
 import VerticalStripLLT.Components.DiagramProof.LocalIdentities
 import VerticalStripLLT.Components.DiagramProof.CoreExtension
 import VerticalStripLLT.Components.DiagramProof.SinkRelabel
+import VerticalStripLLT.Components.DiagramProof.CrossingSlide
 import VerticalStripLLT.Components.SelectedColoringTransport
 
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
@@ -62,3 +63,21 @@ import VerticalStripLLT.Components.SelectedColoringTransport
 #print axioms VerticalStripLLT.Circular.Orientation.liftedHRV_eq_coe_hrv_of_forward
 #print axioms VerticalStripLLT.Circular.EdgeData.strictOrderEnumerator_eq_selected_sum
 #print axioms VerticalStripLLT.Components.strictOrderEnumerator_selected_relabel
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_normalShortEdges_of_selected
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_outgoingSwap_of_covers
+#print axioms VerticalStripLLT.Circular.DiagramProof.relationCover_incoming_swap
+#print axioms VerticalStripLLT.Circular.DiagramProof.relationCover_congr_on_interval
+#print axioms VerticalStripLLT.Circular.DiagramProof.reverseFlipOfSourceCovers
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_incomingSwap_of_covers
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_orderedOutgoingSweep_trace
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_outgoingSweep_trace
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_incomingSweep_trace
+#print axioms VerticalStripLLT.Circular.DiagramProof.exchangeRelation_inverse
+#print axioms VerticalStripLLT.Circular.DiagramProof.exchangeRelation_commute
+#print axioms VerticalStripLLT.Circular.DiagramProof.restore_outgoingSweep
+#print axioms VerticalStripLLT.Circular.DiagramProof.restore_orientationOutgoingSweep
+#print axioms VerticalStripLLT.Circular.DiagramProof.restore_orientationIncomingSweep
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_preparedCrossing
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_crossingSlide
+#print axioms VerticalStripLLT.Circular.DiagramProof.crossingSlide_mem_component

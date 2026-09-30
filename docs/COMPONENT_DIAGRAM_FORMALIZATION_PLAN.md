@@ -6,7 +6,7 @@ plan, not a report of new Lean proofs. The mathematical inputs are the
 [cleanup audit](proofs/COMPONENT_DIAGRAM_AUDIT.md). Historical proof notes
 remain the sources for the individual path constructions.
 
-Implementation status: P0 and P2 are verified; P1 is partial. P0 and the
+Implementation status: P0 and P2 are verified; P1 and P3 are partial. P0 and the
 semantic import extractions are in `9d8c4bc`. P1 includes finite/lifted covers,
 weak-block invariance, exact corner marking, source-only short flips
 (`3bbb1e4`), convex path/cover restriction and an injective fixed-exterior
@@ -16,8 +16,17 @@ nonconvex transport and order reversal remain open.
 P2 includes the state/component marked semantic bridge and both marked
 diamonds with arbitrary exterior (`15ec74b`), closure invariance between
 diagrams, the right-marked E signature by nonempty fibre sizes, and marked
-K/E transport under sink-order-preserving relabelings. P3--P10 remain open;
-the independent component theorem is not yet formalized. See `HANDOFF.md`
+K/E transport under sink-order-preserving relabelings (`98f226c`). P3 now
+includes the full restored crossing slide: `exists_crossingSlide` in
+[CrossingSlide.lean](../VerticalStripLLT/Components/DiagramProof/CrossingSlide.lean).
+It constructs an actual flip path with exact endpoint selection. Both ordered
+sweeps retain traces; one reverse-replay lemma handles restoration, with its
+order-dual adapter handling the other direction. At the user's request,
+Claude reviewed the sweep interfaces read-only. Primary integrated the
+simpler right-before-left restoration, eliminating a special exterior
+transform, and checked it locally. Corner chains, anchor preparation and
+parallel-copy rearrangement remain in P3; P4--P10 remain open. The independent
+component theorem is not yet formalized. See `HANDOFF.md`
 and `DiagramProofVerification.lean` for ownership and exact verification.
 
 ## Deliverable and scope

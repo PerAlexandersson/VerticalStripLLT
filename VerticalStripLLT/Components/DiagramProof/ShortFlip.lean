@@ -60,19 +60,20 @@ theorem swapShort_mem_flipComponent (hforward : Forward D) (θ : Orientation D)
   exact Relation.ReflTransGen.single (Or.inl ⟨directedFlipOfSourceCovers
     hforward θ eab ebc habnormal hbcnormal htail hsab hsac⟩)
 
-/-- The long cover supplies both natural normal shorts; no edge data need be assumed. -/
-theorem exists_directedFlip_of_sourceCovers (hforward : Forward D) (θ : Orientation D)
-    (a b c : Fin n) (hsab : Cover θ a b) (hsac : Cover θ a c) (hbc : b < c) :
-    ∃ η : Orientation D, ∃ w : DirectedFlipWitness D θ η,
-      w.eab.tail = a ∧ w.eab.head = b ∧ w.ebc.tail = b ∧ w.ebc.head = c := by
-  obtain ⟨e, _, het, heh⟩ := selected_of_cover hforward hsac
+/-- Any selected natural long supplies its two proper normal shorts. -/
+theorem exists_normalShortEdges_of_selected (hforward : Forward D) (θ : Orientation D)
+    (a b c : Fin n) (hsac : D.edgeData.selected θ.val a c) (hab : a < b) (hbc : b < c) :
+    ∃ eab ebc : Edge D.area,
+      eab ∈ D.edgeData.normalEdges ∧ ebc ∈ D.edgeData.normalEdges ∧
+        eab.tail = a ∧ eab.head = b ∧ ebc.tail = b ∧ ebc.head = c := by
+  obtain ⟨e, _, het, heh⟩ := hsac
   change e.tail = a at het
   change e.head = c at heh
   have hlong : D.naturalLift e (a.val : ℤ) (c.val : ℤ) := by
     simpa only [het, heh] using D.naturalLift_of_tail_lt_head e (hforward e)
   obtain ⟨eab, ebc, habnormal, hbcnormal, hablift, hbclift⟩ :=
     D.normalShortEdges_of_naturalLift (b := (b.val : ℤ)) hlong
-      (by exact_mod_cast hsab.1) (by exact_mod_cast hbc)
+      (by exact_mod_cast hab) (by exact_mod_cast hbc)
   have endpoints {f : Edge D.area} {u v : Fin n}
       (hf : D.naturalLift f (u.val : ℤ) (v.val : ℤ)) : f.tail = u ∧ f.head = v := by
     constructor
@@ -85,10 +86,39 @@ theorem exists_directedFlip_of_sourceCovers (hforward : Forward D) (θ : Orienta
       exact_mod_cast heq
   obtain ⟨habtail, habhead⟩ := endpoints hablift
   obtain ⟨hbctail, hbchead⟩ := endpoints hbclift
+  exact ⟨eab, ebc, habnormal, hbcnormal, habtail, habhead, hbctail, hbchead⟩
+
+/-- The long cover supplies both natural normal shorts; no edge data need be assumed. -/
+theorem exists_directedFlip_of_sourceCovers (hforward : Forward D) (θ : Orientation D)
+    (a b c : Fin n) (hsab : Cover θ a b) (hsac : Cover θ a c) (hbc : b < c) :
+    ∃ η : Orientation D, ∃ w : DirectedFlipWitness D θ η,
+      w.eab.tail = a ∧ w.eab.head = b ∧ w.ebc.tail = b ∧ w.ebc.head = c := by
+  obtain ⟨eab, ebc, habnormal, hbcnormal, habtail, habhead, hbctail, hbchead⟩ :=
+    exists_normalShortEdges_of_selected hforward θ a b c
+      (selected_of_cover hforward hsac) hsab.1 hbc
   have hsourceab : Cover θ eab.tail eab.head := by simpa only [habtail, habhead] using hsab
   have hsourceac : Cover θ eab.tail ebc.head := by simpa only [habtail, hbchead] using hsac
   exact ⟨_, directedFlipOfSourceCovers hforward θ eab ebc habnormal hbcnormal
     (hbctail.trans habhead.symm) hsourceab hsourceac, habtail, habhead, hbctail, hbchead⟩
+
+/-- Source-cover flips with an exact selected-relation endpoint, ready for sweep induction. -/
+theorem exists_outgoingSwap_of_covers (hforward : Forward D) (θ : Orientation D)
+    (a b c : Fin n) (hsab : Cover θ a b) (hsac : Cover θ a c) (hbc : b < c) :
+    ∃ η : Orientation D, Flip D θ η ∧ Cover η a c ∧ Cover η b c ∧
+      (∀ u v, D.edgeData.selected η.val u v ↔
+        (u = b ∧ v = c) ∨
+          (D.edgeData.selected θ.val u v ∧ ¬ (u = a ∧ v = b))) := by
+  obtain ⟨η, w, hat, hah, hbt, hbh⟩ :=
+    exists_directedFlip_of_sourceCovers hforward θ a b c hsab hsac hbc
+  have hswap : ∀ u v, D.edgeData.selected η.val u v ↔
+      (u = b ∧ v = c) ∨ (D.edgeData.selected θ.val u v ∧ ¬ (u = a ∧ v = b)) := by
+    intro u v
+    rw [w.target_eq_source_swap]
+    exact D.selected_short_swap_iff θ.val w.eab w.ebc w.eab_normal
+      (Prod.ext hat hah) (Prod.ext hbt hbh) u v
+  have ht := relationCover_short_swap
+    (fun {_ _} hs => θ.selected_lt_of_forward hforward hs) hbc hsab hsac hswap
+  exact ⟨η, Or.inl ⟨w⟩, ht.1, ht.2.1, hswap⟩
 
 end
 

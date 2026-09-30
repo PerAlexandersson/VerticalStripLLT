@@ -1,65 +1,89 @@
 # VerticalStripLLT handoff
 
-## Active implementation — P0/P2 complete, P1 partial
+## Active implementation — P0/P2 complete, P1/P3 partial
 
-The user authorized implementation of the detailed plan. Starting HEAD was
-`9890254`, with a clean checkout. Primary owns
-`VerticalStripLLT/Components/DiagramProof/`, `DiagramProofVerification.lean`,
-this handoff and implementation-status updates in the plan. Primary retains
-the sole Lean build slot. No compiler or verification job remains running.
-Builds were focused and serialized through `lake-workspace`; no broad build
-or dependency update ran. Lean MCP remains rooted at RealRooted, so diagnostics
-came from the local project compiler.
+Current increment, based on clean pushed `98f226c`, proves the full restored
+crossing slide in `DiagramProof/CrossingSlide.lean`. For `a<b<c<d`, selected
+`ab`, absent `cd`, and covers `ac,bd`, `exists_crossingSlide` constructs an
+actual flip path replacing exactly `ab` by `cd`, restoring all other selected
+edges, and retaining both long covers at the endpoint. Other corners need
+not cover. `crossingSlide_mem_component` records membership in the same
+whole component; no whole-component bijection is claimed.
 
-The bounded Luna extraction worker finished and released its five files
-(`ComponentScalars`, `SelectedColoringTransport`, `ForwardHRV`,
-`SelectedColoringSum`, `ForwardHRVBasic`). Primary verified and integrated
-these in pushed checkpoint `9d8c4bc`. No other worker has active edits or
-the build slot. Historical proof-note ownership is unchanged. The prior
-independent Astra review approved the architecture.
+Primary owns `VerticalStripLLT/Components/DiagramProof/`,
+`DiagramProofVerification.lean`, this handoff and implementation-status
+updates in `docs/COMPONENT_DIAGRAM_FORMALIZATION_PLAN.md`. Historical proof
+notes are untouched. Primary is the sole project build owner. No project
+build, verification or consultant job remains running. The earlier external
+Lean batch (parent PID 473036) finished before any local compiler was
+started. Its jobs were not interrupted. All local builds were focused and
+serialized through `lake-workspace`; no broad build or dependency update ran.
+
+The user authorized a Claude refactor sweep. The read-only consultant owned
+no files and ran no builds. Primary integrated its strongest simplification:
+restore the right sweep before the left, so both use the same exchange
+formula. This removes the special exterior transform and extra reference
+sweep. Non-trace sweeps now derive from their trace versions; incoming order
+reversal has one explicit unfolding lemma; outgoing target covers use the
+finite cover lemma directly. The review found no mathematical error in the
+inspected lemmas. Its uncompiled suggestions are not verification evidence.
+The required independent Astra architecture review was completed previously.
 
 Verified implementation checkpoints:
 
 - `9d8c4bc`: independent imports, full selections/layers, finite/lifted cover
   equivalence and weak-block invariance; changed old consumers also compile.
+  The bounded Luna extraction worker finished and released its five files.
 - `3bbb1e4`: source-cover short flips and exact corner marking of whole
-  components, including both directions, surjectivity, HRV and coloring values.
+  components, both directions/surjectivity, HRV and coloring values.
 - `15ec74b`: state/component marked semantic bridges and both marked diamonds.
 - `bb86b82`: convex path/cover restriction and fixed-exterior actual core flip
-  and path lifting. The lift is injective, but is NOT asserted to be a whole
-  component equivalence. Source covers now supply both natural normal shorts.
-- Current semantic increment: `FibreSignature.lean` and `SinkRelabel.lean`.
-  Right-marked E depends only on the endpoint fibre's size and the multiset
-  of other nonempty fibre sizes. The proof constructs increasing fibre
-  bijections fixing the greatest vertex. Sink-order-preserving vertex
-  relabelings preserve the full HRV map up to conjugacy and both marked
-  valuations. Closure invariance also works between different diagrams.
+  and path lifting. The lift is injective, not a whole-component equivalence.
+- `98f226c`: marked-E fibre signature by nonempty sizes, increasing fibre
+  bijections fixing the greatest vertex, sink-order relabelings preserving
+  full HRV maps and marked values, and closure invariance between diagrams.
+- Current crossing increment: `SweepCovers`, `IncomingFlip`, `OrderedSweep`,
+  `RelationExchange`, `SweepRestoration`, `OrientationRestoration`,
+  `CrossingCore`, `CrossingTransforms`, `CrossingSlide`, plus the short-edge
+  existence extraction in `ShortFlip`. Sweep induction decreases the number
+  of remaining neighbors and retains actual flip traces for reverse replay.
 
-P2 is complete at its planned semantic interface: K uses actual selected
-colorings; E uses the increasing relation on each actual HRV fibre, without
-pretending that relation is a natural diagram. Summing the endpoint mark
-recovers existing state and complete-component semantics for every finite
-alphabet, including the empty one. Diamonds allow arbitrary exterior and
-preserve the unordered pair of full HRV maps. No old word/scan proof or
-fundamental-basis argument is used.
+P2 is complete at its semantic interface: K uses actual selected colorings;
+E uses increasing relations on actual HRV fibres. Summing the endpoint mark
+recovers complete-component semantics for every finite alphabet. Diamonds
+allow arbitrary exterior and preserve the unordered pair of full HRV maps.
+No old word/scan proof or fundamental-basis argument is used.
 
-P1 remains partial: specific induced-core constructions and their strict
-corner geometry, swept nonconvex cores, and order reversal remain. P3--P10
-are not implemented. Next: finish the required core/path geometry and start
-the ordered preparation/restored crossing slide. The general component
-recurrences, endpoint attachment and final independent theorem are NOT yet
-Lean-proved by this route. The mathematical diagram proof remains complete.
+P1 remains partial: specific induced-core constructions and strict corner
+geometry, swept nonconvex cores and order reversal remain. P3 now has the
+restored crossing slide, but corner-chain terminals, full anchor preparation,
+auxiliary short-path/copy ordering and fixed-count parallel rearrangement
+remain. P4--P10 are open. Next: formalize corner chains and ordered anchor
+preparation, then the path-induction bases. The general component recurrences,
+endpoint attachment and final independent theorem are NOT yet Lean-proved
+by this route. The mathematical diagram proof remains complete.
 
-Focused builds pass. `DiagramProofVerification.lean` passes 53 axiom queries
-using only `propext`, `Classical.choice`, `Quot.sound` (or none). Its independent
-closure contains 80 project files including the verification entry, excluding
-the old word/scan/component-expansion route. Source guards, 100-column checks
-and whitespace checks pass. Logs/import inventories are under
-`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`.
-Latest checks: `p1-p2-focused-build.log`, `p2-complete-build.log`,
-`p2-complete-axioms.log`, `p2-complete-imports.txt`; earlier focused checks are
-retained there. The wrapper's known temporary-package-path manifest warning
-persists; no manifest update was performed.
+Verification of the current crossing increment:
+
+- Focused local build of `DiagramProof.CrossingSlide` passes without source
+  warnings. `DiagramProofVerification.lean` passes all 70 axiom queries,
+  using only `propext`, `Classical.choice`, `Quot.sound` (or none).
+- The independent import closure has 89 project files, including verification;
+  no old Word/Mountain/Scan/Cauchy, component-coefficient or old expansion
+  route is imported. Source guards, 100-column and whitespace checks pass.
+- While the local slot was occupied, AXLE checked generic lemmas and then a
+  concatenated source closure in explicit environment `lean-4.34.0`.
+  This auxiliary check did not replace the local build. Local checking caught
+  and fixed a missing direct `OrderDual` import and fragile normalization
+  simplification. The final local build includes all accepted refactors.
+
+Logs, AXLE receipts, source bundles and the Claude report are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`:
+`p3-crossing-build.log`, `p3-crossing-axioms.log`, `p3-crossing-imports.txt`,
+`p3-crossing-axle.json`, `claude-refactor-report.txt`. Earlier checkpoint
+logs remain. The wrapper's known temporary-package-path manifest warning
+persists; no manifest update was performed. Lean MCP remains rooted at
+RealRooted, so local diagnostics came from the project compiler.
 
 ## Detailed formalization plan — completed before implementation
 
