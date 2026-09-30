@@ -502,3 +502,9 @@ The [three-corner DN recurrence](COMPONENT_DN_JOINT_REPAIRS.md#a-uniform-three-c
 also uses the same corrections and fixes its right endpoint under the
 contact swap. It therefore inherits (RE2)--(RE3), including arbitrary
 right-hand attachments without an expansion assumption on the attachment.
+
+The [extended three-corner theorem](COMPONENT_DN_JOINT_REPAIRS.md#all-middle-lengths-in-the-three-corner-dn-family)
+allows every middle head c with a<c<e. Its full-layer recurrence still
+has the same marked corrections, so arbitrary right attachments apply
+to this larger family too. Pendant deletion proves uniqueness; it is
+not used as a marked valuation identity for a whole source component.

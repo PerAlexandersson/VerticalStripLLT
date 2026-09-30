@@ -1733,3 +1733,93 @@ Frozen sources, commands, logs and hashes for both proof audits and the
 two exploratory generator modes are retained in
 `/lake-cache/ai-projects/requests/VerticalStripLLT/dn-three-corner-recurrences-20260930/`.
 No coloring enumeration, basis calculation or Lean build was used.
+
+## All middle lengths in the three-corner DN family
+
+The condition c=a+1 in (DG1) can now be removed. We prove the same
+whole-component recurrence for
+
+    M={0a,1c,ae},       2<=a<c<e.                       (DG4)
+
+This supersedes the unfinished larger-middle status recorded immediately
+above. We use the proved two-overlapping-clique theorem and the
+[pendant-inheritance lemma](COMPONENT_NN_REDISTRIBUTION.md#pendant-inheritance-of-common-cover-uniqueness).
+
+The corner chain beginning at 0 is {0,a,e}, so its terminal is the largest
+vertex. After preparation (P), the only edge at 0 is 0a. Delete 0. The
+remaining natural graph is EXACTLY the union of the cliques [1,c] and
+[a,e], with maximal corners 1c and ae. Their overlap has at least two
+vertices because a<c. The restricted selected graph is connected, has
+both corners covering, and has one fewer edge.
+
+All such restrictions of the same size lie in one actual component by
+the two-clique theorem. Its paths lift with 0a fixed; no internal cover
+test can involve the pendant vertex 0. Reversing the preparations proves
+common-cover component uniqueness for (DG4) in every feasible layer.
+This deals with all the extra cross edges from the larger middle clique:
+they are simply ordinary edges of the two-clique restriction.
+
+For the direct DN contact u=0,w=a,x=a+1,z=e, mark 0a and ae strict.
+If c=a+1, the middle corner 1c must be unmarked, as before. If c>a+1,
+it may be marked or unmarked. The usual target adds 0(a+1), deletes ae,
+and marks 0(a+1),(a+1)e, retaining the middle mark when present. All
+unchanged natural edges remain. These are valid ordinary diagrams.
+
+Every source component other than C_k has the same independent smaller
+reduction used in (DG3): an absent corner, disconnected weak blocks, or
+alternating corner deletion. Full-layer subtraction therefore gives
+(DG3) for every feasible layer of (DG4), with every target and correction
+a whole component. Lower and higher layers reduce directly. The same
+signed identity holds for K and E. The right-marked version and arbitrary
+right attachments follow as before.
+
+The argument also supplies common-cover uniqueness for the order-dual
+family: three corners 0a,bc,ae with 0<b<a<c<e and c=e-1. Reverse the
+paths and use the original diagram's eligible recurrence. This statement
+is about path transport and does not reverse K/E values.
+
+We stress the role of deletion: it constructs paths between prepared
+witnesses. The lifted core component may have outgoing flips involving
+0, and is not asserted to be a whole source component. Wholeness of the
+recurrence outputs follows from the established full-layer correction
+arguments, not from pendant deletion alone.
+
+### Exact checks of the pendant reduction
+
+Related Rust: `dn_joint_span.rs --dn-pendant-lift` checks all ten choices
+of (n,a,c) on five through seven vertices. It enumerates prepared connected
+anchors, verifies the exact induced two-clique graph, and checks that their
+restrictions in each size have one core component. For EVERY state in each
+visited core component, it compares every core flip with the lifted flip
+having all three labels increased by one, and checks the fixed corner 0a.
+This includes redundant-corner states along core paths. It does not assert
+that the fixed-leaf image is closed under flips involving 0.
+
+These checks cover 495 anchors, 7176 core states and 23836 directed actual
+flip incidences. The separate `--eight` fixture (n,a,c)=(8,3,5) adds 674
+anchors, 21577 core states and 89252 incidences. Core enumeration retains
+the existing 20000-state bound per component; the state totals range over
+several components and layers.
+
+The full `--dn-pendant-layers --right-marked-layers` check covers all ten
+small diagrams with every allowed marking of the middle corner: fourteen
+marking choices and 58 feasible layers. It checks 33786 survivor states,
+3066 whole target components with 66236 states, 466 block corrections with
+3709 states, 2105 missing-corner corrections with 27459 states, and 213
+alternating source corrections with 1282 states. The latter give 2467
+whole deletion terms. There are 4193 positive and 3911 negative terms,
+and 8974 redundancy witnesses. All signed marked fibre identities and
+whole-output/induction checks pass. These counts include the earlier
+minimum-middle controls, not 58 disjoint new cases beyond them.
+
+An attempted full-layer check of the eight-vertex fixture exceeded the
+existing 20000-state component guard during enumeration. It supplies no
+whole-layer verification for that fixture, and the guard was not raised.
+Its successful pendant/core-flip check is separate. The general theorem
+above uses the proved two-clique path theorem, not extrapolation from
+either finite enumeration.
+
+Frozen sources, commands, logs and hashes are retained in
+`/lake-cache/ai-projects/requests/VerticalStripLLT/dn-pendant-recurrences-20260930/`.
+The size-guard exit is recorded separately from the successful replays.
+No coloring enumeration, basis calculation or Lean build was used.

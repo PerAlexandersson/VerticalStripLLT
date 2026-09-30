@@ -4236,3 +4236,60 @@ tree theorem handles the tree layer. This supplies the whole-component
 subtraction, not merely a conditional local path. A middle corner 1c
 with c>a+1 introduces additional cross edges and remains outside this
 new theorem.
+
+## Pendant inheritance of common-cover uniqueness
+
+2026-09-30 continuation from `b7c4863`. The following reduction concerns
+ACTUAL PATHS and common-cover component uniqueness. It is not a deletion
+identity for the value of a whole component.
+
+Let the first two maximal natural corners of a connected ordinary graph
+be 0a and 1b, with a<b. Write r(v) for the terminal vertex of the corner
+chain containing v. Assume
+
+    r(v) < r(0) for every 0<v<a.                        (PI1)
+
+In particular, (PI1) holds if the corner chain beginning at 0 ends at
+the last vertex. Delete vertex 0, keeping the induced order, and call
+the resulting natural graph G'. If all connected common-cover states
+of each size in G' belong to one actual component retaining its maximal
+corners, then the same assertion holds in G.
+
+To prove this, prepare any connected common-cover state by (P). The
+normal edges 0v with v<a have the wrong chain-label order by (PI1), so
+none occurs in the prepared anchor. Its only edge at 0 is 0a. Deleting
+this pendant vertex leaves a connected selected relation of one fewer
+edge. Moreover, the maximal corners of G' are exactly the old ones
+other than 0a: every remaining edge of the first natural clique is
+contained in the next clique [1,b]. No new maximal corner is introduced.
+The remaining corners still cover. Their chain terminals are unchanged.
+
+Prepare two source states of equal size. Their restrictions to G' have
+equal size and lie in the same component by hypothesis. Lift an actual
+path between them by keeping 0a selected and all other 0-edges absent.
+A directed cover test with endpoints at least 1 cannot visit 0. Hence
+every local flip lifts, and 0a stays selected and covering. Concatenate
+with the preparation paths and the reverse preparation of the second
+state. This proves the asserted uniqueness in the original graph.
+
+There is an order-dual version. Reverse the diagram, use the preceding
+argument, and reverse only the constructed paths back. In particular,
+if the last two maximal heads are consecutive and the corner chain
+ending at the last vertex starts at 0, the last vertex can be peeled
+in a reversed preparation. This does not assert order-reversal invariance
+of K or E. Once uniqueness is obtained, use the original diagram's own
+full-layer NN/DN identity and its smaller whole-component corrections.
+
+The fixed-leaf image need not itself be a whole source component. For
+example, with maximal corners 02,13,24, the anchor {02,13,24,12} has 0
+pendant. The actual 012 flip sends it to {02,13,24,01}, which does not.
+Thus we do not identify a whole source component with its pendant
+restriction or multiply a smaller component value by a leaf factor.
+The deduction of a recurrence still uses common-cover uniqueness and
+full-layer subtraction, after independently reducing every extra source
+component.
+
+The [longer-middle DN application](COMPONENT_DN_JOINT_REPAIRS.md#all-middle-lengths-in-the-three-corner-dn-family)
+uses the proved two-clique theorem as the smaller-graph input. It removes
+the middle-length restriction from the preceding DN family without
+constructing new cross-edge transfers.

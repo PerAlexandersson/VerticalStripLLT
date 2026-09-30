@@ -1,148 +1,134 @@
 # VerticalStripLLT handoff
 
-## Current continuation — a uniform three-corner DN recurrence
+## Current continuation — all middle lengths in the three-corner DN family
 
-Primary resumed from clean pushed `0ada933`. The previous and current turns
-made verified progress. The full general NN/DN goal remains ACTIVE and
-UNFINISHED. Continue the author/Robin diagram method: whole components,
-diamonds and justified relabeling. No fundamental basis or substitution
-of the separate completed Lean proof.
+Primary resumed from clean pushed `b7c4863`. The previous turn and this
+continuation made verified progress. The full general NN/DN goal remains
+ACTIVE and UNFINISHED. Continue the author/Robin diagram method: whole
+components, diamonds and justified relabeling. No fundamental basis or
+substitution of the separate completed Lean proof.
 
-**New theorem:** the [three-corner DN recurrence](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#a-uniform-three-corner-dn-component-recurrence)
-is proved for all maximal-corner sets
+**New theorem:** [all middle lengths](docs/proofs/COMPONENT_DN_JOINT_REPAIRS.md#all-middle-lengths-in-the-three-corner-dn-family)
+are proved for the DN sources with maximal corners
 
-    {0a, 1(a+1), ae},       a>=2, e>=a+2.
+    {0a,1c,ae},       2<=a<c<e.
 
-For its direct DN contact, 0a and ae are strict; the middle corner is
-UNMARKED. We prove uniqueness of the connected common-cover component
-in every feasible edge layer, then independently reduce every other
-source component and subtract from the full DN layer. Every output is
-whole and smaller. The same signed recurrence holds for K and E, and
-its right-marked version admits arbitrary right attachments.
+This removes the c=a+1 restriction of proof checkpoint `0884521`.
+The source marks 0a and ae. If c=a+1, 1c must be unmarked; if c>a+1,
+it may be marked or unmarked. Every source component has the same
+signed recurrence for K and E, with whole smaller outputs. Right-marked
+identities and arbitrary right attachments remain valid.
 
-### The proof
+### The short proof
 
-Prepare common-cover states into anchors. Their corner chains are
-F={0,a,e}, G={1,a+1}, and singleton vertices. The quotient consists of
-K_p and K_q meeting only at F,G, with p=a, q=e-a. Each has one copy of
-FG: 1a on the left and (a+1)e on the right. All other classes have one
-copy; there are no extra cross edges.
+The corner chain beginning at 0 is {0,a,e}, with terminal e. After
+preparation (P), every normal edge at 0 is absent: its chain label would
+point downwards. Thus 0 is pendant on 0a. Delete it. The remaining natural
+graph is exactly the two overlapping cliques [1,c] and [a,e], with
+maximal corners 1c,ae. The prepared restriction is connected, has both
+corners covering, and has one fewer edge.
 
-A connected side can be reconfigured at fixed size by complete-cover
-paths. On the right use [a,e] with retained ae. On the left, replace 1a
-by a(a+1) across 1(a+1) if selected, use the complete graph on [1,a+1]
-with retained 1(a+1), then reverse that preparation for the target.
-The corner ae may temporarily be redundant, but all three original
-corners stay selected. Both endpoints are anchors. Crossing transport
-moves 1a to (a+1)e or back, restoring all other edges.
+The two-clique theorem connects all such restrictions of equal size.
+Its paths lift with the pendant edge fixed, because a directed internal
+cover test cannot visit 0. Reverse the preparations to connect the
+original states. This proves common-cover component uniqueness. Then
+independently reduce every extra source component by an absent corner,
+weak blocks, or alternating corner deletion, and subtract from the full
+DN layer identity. The outputs are whole by those correction theorems.
 
-Every selected side is connected or has two components separating F,G.
-Both cannot be disconnected if the whole anchor is connected. In a
-cyclic layer, at most two shared-edge transfers make BOTH connected:
-move a selected nonbridge FG from a connected side if it has a cycle;
-if it is a tree, first transfer FG to the other side, which then has
-a cycle by the edge count, and transfer back after reconfiguration.
+Pendant deletion alone is NOT a whole-component map. For instance,
+{02,13,24,12} has 0 pendant, but its 012 flip gives {02,13,24,01}.
+The lifted core subset has exits involving 0. We use it only to prove
+paths/uniqueness, never as a value identity or a leaf-factor formula.
 
-With both sides connected, transfer an edge from a side above its tree
-bound to a side below capacity. Put FG on a cycle in the donor and
-make it absent in the receiver before sliding. These transfers connect
-all feasible allocations, and local complete-cover paths connect all
-states within an allocation. The fixed-envelope tree theorem supplies
-the remaining tree layer. Preparation (P) extends this to all common-cover
-states. Missing corners, weak blocks and alternating corner deletion
-reduce every extra component, giving the full recurrence (DG3).
+### General pendant inheritance
 
-The actual DN target adds 0(a+1) and removes ae, leaving all other natural
-edges. It is a pair of cliques meeting at a+1 ONLY when e=a+2. For larger
-e, the edges av with a+1<v<e remain; the proof and audits use that full
-target. An initial commentary description overstated the split-target
-picture and was corrected before checkpointing.
+The [new path lemma](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#pendant-inheritance-of-common-cover-uniqueness)
+applies when the first maximal corners are 0a,1b and every 0<v<a has
+corner-chain terminal r(v)<r(0). Deleting 0 introduces no new maximal
+corner; common-cover uniqueness in the smaller diagram implies it in
+the original. The hypothesis holds if 0's chain ends at the last vertex.
 
-## Verification and receipts
+Reverse only paths for the order-dual version. In particular, consecutive
+last maximal heads and a last-vertex chain starting at 0 permit right
+peeling in reversed preparation. This also proves the corresponding
+three-corner family 0a,bc,ae with b<a<c=e-1. It does not assert order-
+reversal invariance of K or E; use the original diagram's own recurrence.
 
-All four final frozen-source replays passed serially at
-`/lake-cache/ai-projects/requests/VerticalStripLLT/dn-three-corner-recurrences-20260930/`.
-All exited zero with empty stderr:
+## Verification and receipt
 
-- `--dn-three-corner-paths`: all 36 parameter choices on 5..12 vertices,
-  exhaustive cyclic connected anchors through eight, 64 deterministic
-  samples per larger graph. 4548 paths / 1291461 globally checked actual
-  flips; maximum length 9728. 1886 first preparatory transfers, 140 second
-  transfers, 839 allocation transfers. Every endpoint is the prescribed
-  canonical anchor for its edge layer. All three corners remain selected.
-  No global component search; only the previous fixed K5 base search.
-- `--dn-three-corner-layers --right-marked-layers`: all 22 feasible layers
-  for all six parameter choices on 5..7 vertices. The middle corner is
-  unmarked. 7590 survivor states; 1448 whole targets / 19480 states;
-  138 block corrections / 1047 states; 943 missing-corner corrections /
-  10337 states; 71 alternating sources / 506 states, yielding 1017 whole
-  deletion terms. 1921 positive and 1625 negative terms, 3542 redundancy
-  witnesses. Signed marked fibre data, whole outputs and induction order pass.
+All three final frozen-source replays passed with exit 0 and empty stderr at
+`/lake-cache/ai-projects/requests/VerticalStripLLT/dn-pendant-recurrences-20260930/`.
+Verified checks:
 
-Two separate exploratory modes use the six three-clique fixtures in
-`three_clique_gluing_audit`. Packing and connected two-clique-region moves
-alone miss several anchors, including cyclic ones in the nine-vertex
-fixture. Adding the already-proved connected-clique-piece moves connects
-every layer in those fixtures. These are finite generator graphs, with
-each generator justified by an existing path theorem; these modes do not
-replay all paths or prove general generation. They are not the proof of
-(DG3). The explicit DN path mode above provides its construction.
+- `--dn-pendant-lift`: all ten (n,a,c) choices on 5..7 vertices; 495
+  connected anchors, 7176 visited core states, 23836 directed flip
+  incidences. Every prepared restriction of a given size has one core
+  component. Every core flip, including ones through redundant-corner
+  states, is compared exactly with its source lift.
+- The same mode with `--eight`, (n,a,c)=(8,3,5): 674 anchors, 21577 core
+  states and 89252 incidences. Totals span several components and layers;
+  the existing 20000-state limit per component remains unchanged.
+- `--dn-pendant-layers --right-marked-layers`: all ten small diagrams,
+  fourteen allowed marking choices, 58 feasible layers. 33786 survivor
+  states, 3066 whole targets / 66236 states; 466 block corrections / 3709
+  states; 2105 missing-corner corrections / 27459 states; 213 alternating
+  sources / 1282 states, yielding 2467 whole deletion terms. 4193 positive
+  and 3911 negative terms, 8974 redundancy witnesses. All signed marked
+  fibre, whole-output and induction-order checks pass. The counts include
+  the earlier minimum-middle controls.
 
-Only the existing external `dn_joint_span.rs` consumer changed. It reuses
-maintained Graph/Poset/HRV APIs and the established actual-flip model.
-Python was used only for file bookkeeping and command orchestration.
-No new polynomial generator, coloring enumeration, basis calculation,
-Lean build or maintained Rust edit ran. Existing enumeration/component
-size guards remain. The early Rust type/cast errors were corrected before
-the successful runs; they were not mathematical failures.
+A separate full-layer `--eight` attempt exited at the pre-existing
+20000-state component guard during enumeration. It gives NO whole-layer
+verification for that fixture. The guard was not increased, and that
+attempt was not repeated. Its logs are retained separately; the successful
+eight-vertex core-flip audit above is distinct. The general proof relies
+on the two-clique theorem, not extrapolation from these bounded checks.
+
+Only the existing external `dn_joint_span.rs` consumer changed, reusing
+the established actual-flip and Graph APIs. Python is file/command
+orchestration only. No new polynomial generator, coloring enumeration,
+basis calculation, Lean build or maintained Rust edit ran.
 
 ## Remaining problem
 
-General NN/DN component collection is still unproved outside the established
-families and their valid attachments. For example, sources with corners
-0a,1c,ae and c>a+1 can have the same DN contact but introduce good cross
-edges between left singleton vertices and a+1,...,c-1. The two complete
-side graphs used in (DG1) no longer account for every edge. Do not extend
-the theorem to that family without handling these cross edges.
+General NN/DN component collection remains unproved beyond the established
+families and their valid attachments. The larger-middle family previously
+listed as open is now solved; do not keep it on the open list.
 
-The broader three-clique probe suggests that local connected-clique-piece
-moves are needed to bring an arbitrary anchor into a state where the two
-larger local regions are connected. Their finite generation success is
-not a general proof. The two-sided preparation above handles only its
-stated quotient geometry. General direct RHS diamond redistribution
-remains an alternative to global common-cover uniqueness.
+Pendant preparation is not enough if deleting the extreme vertex introduces
+a new maximal corner that need not be selected or covering. For example,
+with three corners 0a,bc,ae and b>1, deleting 0 introduces 1a. When also
+c<e-1, the stated right-peeling criterion does not resolve this geometry
+either. Other three-clique NN geometries and general higher-clique sources
+still need a proof. Do not infer uniqueness simply from connectedness or
+from finite generator checks.
 
-For orientation, the larger-middle geometry already occurs in the old
-area-0123343 fixture with corners 03,15,36. It has prior fixed recurrence
-checks and counterexamples to stronger completion-class shortcuts; read
-[the reduction note](docs/proofs/COMPONENT_RECURRENCE_REDUCTION.md#why-dn-isolation-needs-the-other-reductions)
-and [the fixed checks](docs/proofs/COMPONENT_CLOSURE_REPAIR_TESTS.md).
-Do not call those already-checked fixed identities newly unsolved. The
-missing result is the uniform diagram proof across the larger family.
+The earlier six-fixture three-clique generator audit remains useful:
+packing and connected two-clique-region replacements alone miss some
+anchors; adding connected-clique-piece moves connects its finite layers.
+This is not a general generation theorem. Direct RHS diamond redistribution
+remains an alternative to proving global common-cover uniqueness.
 
-## Established results to retain
+## Established results and history
 
-The [previous handoff](docs/archive/component-handoff-before-three-corner-dn-20260930.md)
-preserves the full state at `0ada933`, with only relative links relocated.
-It includes exact receipts and proofs for:
+The [previous handoff](docs/archive/component-handoff-before-pendant-dn-20260930.md)
+preserves the full state at `b7c4863`, with only relative links relocated.
+It retains the explicit two-side DN proof for c=a+1 and its 4548 checked
+paths. The pendant argument is a shorter extension; those earlier results
+remain valid.
 
-- Right-marked full-layer recurrences and arbitrary right attachments;
-  arbitrary two-end attachments still require both endpoint marks fixed.
-- All two-overlapping-clique NN sources, by star normalization, core
-  isolation/restoration, and extra-edge rearrangement. This did not by
-  itself give a direct DN theorem.
-- Terminal-clique and order-dual families, including every ordinary path
-  power without divisibility or chain-count restrictions.
-- DD/ND inheritance, first-drop induction, fixed-short reductions,
-  arbitrary trees, maximum common-cover layers, three-chain families,
-  complete diagrams, the stated cubes and earlier fixed examples.
-- Preparation (P), arbitrary crossing slides, canonical parallel packing
-  and connected pieces inside ANY selected natural cover interval.
+Also retain right-marked attachment recurrences, two-overlapping-clique NN
+recurrences, terminal-clique and order-dual families (all ordinary path
+powers), three-chain families, DD/ND inheritance, first-drop induction,
+fixed-short reductions, arbitrary trees, maximum common-cover layers,
+complete diagrams, the stated cubes and prior fixed examples.
+Preparation (P), arbitrary crossing slides, canonical packing and connected
+pieces in selected-cover intervals remain available with their hypotheses.
 
-Unrestricted adjacent-swap active membership is FALSE already in K5
-with strict 04; retain its exact counterexample. A local path establishes
-membership, not a state's K/E equality. Canonical anchors cannot replace
-whole component sums.
+Unrestricted adjacent-swap active membership is false already in K5 with
+strict 04. Keep its counterexample. A local path establishes membership,
+not a state's K/E equality; canonical anchors cannot replace whole sums.
 
 ## Ownership and recovery
 
@@ -151,26 +137,20 @@ of the NN redistribution and DN joint-repair notes, earlier authorized
 endpoint/source-addition continuations, handoff archives and existing external
 consumers under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/diamond-exploration/hrv-bridge/`.
-Preserve other ownership and proof-note prefixes at `0ada933`.
+Preserve other ownership and proof-note prefixes at `b7c4863`.
 
 No Lean/Lake build, extra worker/subagent/Claude consultation, manuscript
 TeX/PDF/Overleaf edit or maintained Rust edit is authorized in this lane.
-Runtime registry, `codex mcp list`, Cargo metadata, the Rust library guide
-and relevant Graph APIs were checked. Lean MCP is rooted at RealRooted
-and unused. Maintained Rust was clean at
-`24559ad73d209077a58eef08278c425301468cdc` before these new replays; the
-receipt records revisions before and after them. No worker/account/profile/
-model assignment changed. No external blocker is present.
+The runtime registry, `codex mcp list`, Cargo metadata, Rust library guide
+and relevant existing consumer/API code were checked. Lean MCP is rooted
+at RealRooted and unused. Maintained Rust is clean at
+`24559ad73d209077a58eef08278c425301468cdc`; the receipt checks the revision
+before and after its replays. No worker/account/profile/model assignment
+changed. No external blocker is present.
 
-The replacement originally began at pushed account-swap `2511182`.
-Recent pushed proof checkpoints are `4beccde` (right attachments) and
-`8149366` (two overlapping cliques), followed by metadata `0ada933`.
-All diagnostic jobs are complete. Proof-note prefixes, the relocated
-archive, local file links, receipt hashes and `git diff --check` pass
-before checkpointing. No process needs monitoring or restarting.
-The full general goal is not complete.
-
-Proof checkpoint `0884521` is pushed to `origin/main`. The checkout was
-clean at that checkpoint. This turn made verified progress, with no
-external blocker. Preserve the proof-note prefixes at `0884521` in the
-next continuation. The full general NN/DN goal remains active.
+The replacement began at pushed account-swap `2511182`. Recent pushed
+proof checkpoints are `4beccde` (right attachments), `8149366` (two cliques)
+and `0884521` (minimum-middle DN), followed by metadata `b7c4863`.
+Frozen receipt hashes, preserved proof-note prefixes, archive relocation,
+relative file links and whitespace checks pass. No verification jobs remain
+running. The full general goal is not complete.

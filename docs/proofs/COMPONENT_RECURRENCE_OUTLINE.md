@@ -630,3 +630,11 @@ layers; the tree layer is already known. Independent corrections and
 full-layer subtraction give the whole-component recurrence. Its 22
 small-layer audits include the missing-middle-corner components. This
 is a uniform DN family; general NN/DN collection remains unfinished.
+
+The [pendant argument](COMPONENT_DN_JOINT_REPAIRS.md#all-middle-lengths-in-the-three-corner-dn-family)
+extends that DN theorem to every middle length: maximal corners 0a,1c,ae
+with 2<=a<c<e. In a prepared state, 0 has only 0a. Deleting it leaves two
+overlapping cliques, so their proved paths lift and give uniqueness.
+The full-layer corrections then give whole-component DN recurrences,
+including either allowed marking of 1c when c>a+1. The earlier larger-middle
+open status is superseded. General NN/DN collection remains unfinished.
