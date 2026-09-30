@@ -196,3 +196,9 @@ Right-attachment checkpoint `4beccde` is pushed. Both new frozen-source
 replays, proof-note prefixes, local file links, receipt hashes and
 `git diff --check` pass. All diagnostic jobs are complete; no process
 needs monitoring or restarting. The general NN/DN goal remains active.
+
+Two-clique proof checkpoint `8149366` is pushed to `origin/main`, following
+right-attachment checkpoint `4beccde`. The checkout was clean at this
+checkpoint. This continuation made verified progress; it is not a blocked
+turn and the full general NN/DN goal is not complete. Preserve proof-note
+prefixes at `8149366` in the next continuation.
