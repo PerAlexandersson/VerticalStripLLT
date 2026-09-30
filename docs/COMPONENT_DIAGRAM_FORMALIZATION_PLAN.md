@@ -110,9 +110,18 @@ needed. `ChordConnectivityStep` combines these moves with fixed-outer
 rearrangement, then normalizes actual connected active states and transports
 their total selected counts. Its smaller-diagram premise remains explicit.
 `CompleteSmall` proves the `n <= 3` cases from the unique possible chord
-position. The four explicit five-vertex paths (`n = 4`), final strong-induction
-assembly and reachability forcing remain. Intermediate states of those paths
-must use their full selected sets, since chain edges are temporarily removed. P5--P10 remain open. The independent component
+position (`eb3fa06`).
+
+The four five-vertex paths are now verified using full selected endpoint sets
+and kernel-checked separating-set conditions for each source cover.
+`FiveVertexBase` identifies their endpoints with the chain states and proves
+the full `n = 4` active-layer theorem. `CompleteConnectivity.complete_reachable`
+then completes strong induction for every `n`, with no smaller-diagram
+hypothesis left. `complete_reachable_marked` supplies the path with `0n`
+strict throughout. These theorems retain connectedness, endpoint coverhood
+of `0n`, and equality of total selected-edge counts as hypotheses.
+P4 still needs the local selected-block version and reachability forcing;
+P5--P10 remain open. The independent component
 theorem is not yet formalized. See `HANDOFF.md` and `DiagramProofVerification.lean`
 for ownership and exact verification.
 

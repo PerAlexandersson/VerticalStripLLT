@@ -28,6 +28,7 @@ import VerticalStripLLT.Components.DiagramProof.ChordRearrangement
 import VerticalStripLLT.Components.DiagramProof.OuterChordMove
 import VerticalStripLLT.Components.DiagramProof.ChordConnectivityStep
 import VerticalStripLLT.Components.DiagramProof.CompleteSmall
+import VerticalStripLLT.Components.DiagramProof.CompleteConnectivity
 
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
 
@@ -297,3 +298,22 @@ import VerticalStripLLT.Components.DiagramProof.CompleteSmall
 #print axioms VerticalStripLLT.Circular.DiagramProof.complete_reachable_of_smaller
 #print axioms VerticalStripLLT.Circular.DiagramProof.complete_chord_sets_eq_of_le_three
 #print axioms VerticalStripLLT.Circular.DiagramProof.complete_reachable_of_le_three
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.relationCover_of_cut
+#print axioms VerticalStripLLT.Circular.DiagramProof.fixed_card_connectivity_on_three_positions
+#print axioms VerticalStripLLT.Circular.DiagramProof.FiveVertex.cut_cover
+#print axioms VerticalStripLLT.Circular.DiagramProof.FiveVertex.trace_path
+#print axioms VerticalStripLLT.Circular.DiagramProof.FiveVertex.path13_14
+#print axioms VerticalStripLLT.Circular.DiagramProof.FiveVertex.path14_24
+#print axioms VerticalStripLLT.Circular.DiagramProof.FiveVertex.path13_24_to14_24
+#print axioms VerticalStripLLT.Circular.DiagramProof.FiveVertex.path14_24_to13_14
+#print axioms VerticalStripLLT.Circular.DiagramProof.FiveVertex.chord_positions
+#print axioms VerticalStripLLT.Circular.DiagramProof.FiveVertex.state_pairsFor
+#print axioms VerticalStripLLT.Circular.DiagramProof.FiveVertex.chain_path13_14
+#print axioms VerticalStripLLT.Circular.DiagramProof.FiveVertex.chain_path14_24
+#print axioms VerticalStripLLT.Circular.DiagramProof.FiveVertex.chain_path13_24_to14_24
+#print axioms VerticalStripLLT.Circular.DiagramProof.FiveVertex.chain_path14_24_to13_14
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChainState_reachable_five
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_reachable_five
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_reachable
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_reachable_marked
