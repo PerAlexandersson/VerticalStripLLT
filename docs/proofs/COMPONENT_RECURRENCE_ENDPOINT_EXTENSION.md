@@ -491,3 +491,9 @@ These checks use the maintained ordinary HRV API and the existing flip
 model. No coloring enumeration, basis calculation, Lean build or component
 expansion theorem is used. Frozen sources, commands and logs are retained
 in `right-marked-attachments-20260930/` under the external request directory.
+
+The subsequently completed
+[two-overlapping-clique recurrence](COMPONENT_NN_REDISTRIBUTION.md#complete-component-recurrences-for-two-overlapping-cliques)
+uses exactly these full-layer corrections, so it also has the right-marked
+version and arbitrary right attachments. This supplies the new left-block
+family that was still unfinished when (RE2) was first recorded above.

@@ -612,3 +612,12 @@ For overlapping rather than endpoint-touching cliques, the
 proves introduction of the shared chain class and isolation/restoration
 of a connected core. The proposed star normalization and complete
 component recurrence remain unfinished.
+
+The next continuation [completes the two-clique argument](COMPONENT_NN_REDISTRIBUTION.md#complete-component-recurrences-for-two-overlapping-cliques).
+Every connected common-cover state reaches the same star form up to extra
+edges. Core isolation and terminal-clique transfers rearrange those extras;
+the extra shared-class position connects the two sets of allowed moves.
+This proves uniqueness and hence full component NN recurrences for arbitrary
+two overlapping natural cliques. The earlier candidate status above is
+superseded for that family. General NN/DN collection remains open for
+more complicated overlaps; the two-clique theorem is not a direct DN theorem.

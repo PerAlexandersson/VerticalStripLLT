@@ -4055,3 +4055,169 @@ rearrangements. Do not use this plan to assert common-cover uniqueness
 or subtract extra source components yet. The articulation case c=b
 has separate product components and is instead covered by the
 [right-marked attachment theorem](COMPONENT_RECURRENCE_ENDPOINT_EXTENSION.md#full-layer-recurrences-preserve-the-right-endpoint).
+
+## Complete component recurrences for two overlapping cliques
+
+The candidate in the preceding section can now be completed. We keep
+0<c<b<d and M={0b,cd}. We prove that all connected common-cover states
+of a fixed size lie in one actual component retaining M. As before,
+this implies the whole-component recurrence by full-layer subtraction.
+The articulation case c=b is excluded.
+
+### Reaching a star
+
+We first apply (P) and the common-class introduction lemma. By crossing
+transport we may assume bd selected. Consider the restriction to the
+right clique [c,d]. Its connected block B containing cd also contains b.
+Use the complete-cover theorem on B, retaining cd, to select every edge
+joining b to B minus {b,c}. Choose the remaining edges among pairs of
+vertices in B minus {c}, preserving the local count. This is possible:
+the original anchor had c joined only to d, so its count is at most one
+plus the number of those pairs; connectedness gives the required lower
+bound. The endpoint is again an anchor, with c pendant in B.
+
+Every other right block meets S=[c+1,b]. Otherwise it has no selected
+edge to the left clique and contradicts global connectedness. Let a be
+its least vertex in S. For each other v in its intersection with S, use
+the reachability construction inside that block to make a reach v.
+These paths can be chosen without destroying the connections in S that
+have already been made. Indeed a is also the least vertex of the block,
+since every vertex outside S is greater than b. The hull-removing steps
+above b remove only edges incident with a vertex above b, and thus no
+edge internal to S. Once the hull is inside S, all flips preserve the
+weak blocks of the restriction to S. The final normalization on [a,v]
+has the same property. Therefore the entire intersection with S becomes
+connected inside S. All these vertices are corner-chain terminals, so
+all introduced edges are good; we remain at an anchor.
+
+If 0c is absent, use reverse crossing transport to replace bd by 0c.
+Now the left restriction [0,b] is connected. To see this, the former
+right block B has its intersection with [0,b] connected in the left
+restriction: its terminal intersection is joined to b by the selected
+star, and c is joined to b by 0c,0b. Every other right block has its
+intersection connected by the preceding construction. Removing bd may
+split B, but every resulting piece meets this same left component.
+All other right blocks also meet just one left component. If there
+were two left components, the right restriction could not join them,
+contradicting global connectedness.
+
+Use the complete-cover theorem in [0,b], retaining 0b, to reach the
+spanning tree consisting of 0b,0c and all ib with 1<=i<b, i!=c, together
+with enough extra good edges to preserve the count. There are enough
+good positions because the starting restriction was an anchor. The
+required tree lies among these positions. The endpoint is an anchor.
+If bd is absent, replace 0c by bd using crossing transport.
+
+The right restriction is now connected. Each former block other than B
+meets S, all vertices of S are joined to b by the newly selected edges,
+and cd,bd join c,d to b. The former B's remaining terminal vertices are
+also connected to b by its star. No other right-block edge was changed
+by the left-clique path. Apply the complete-cover theorem to the whole
+right clique, retaining cd, and select its terminal star centered at b,
+with extra good edges to preserve the count. The left-exclusive star
+edges stay fixed.
+
+We have reached an anchor containing the fixed tree
+
+    T = {0b,cd} union {bv : 1<=v<=d, v not in {b,c}},     (TC1)
+
+where bv denotes the increasingly ordered pair. Every indicated pair
+is natural and good. In the corner-chain quotient this is the star at
+F, with the FG edge represented by bd. Every path used above retains
+both original corners, even when another corner temporarily ceases
+to cover. Its endpoints have all corners covering.
+
+### Rearranging the extra edges
+
+Let P be the good positions outside T. They are the nonstar quotient
+edges, each of capacity one, together with the extra FG position 0c.
+Write P_L for those supported on U={0,...,b} union {d}, and P_R for
+those in the right terminal clique [c+1,d], together with 0c. Then
+
+    P = P_L union P_R,       0c in P_L intersection P_R. (TC2)
+
+The quotient is the union of two complete cliques, so these are all
+positions. We can perform any fixed-count rearrangement within either
+set, fixing the other positions and keeping T at the endpoints.
+
+For P_L use the proved core-isolation lemma. Both core restrictions
+are connected because they contain T restricted to U; they are anchors
+of the same size. Every exterior edge is restored exactly.
+
+For P_R use the terminal-clique transfer construction on its quotient
+clique, whose terminals are c+1,...,d. The FG class has capacity two
+and every other class capacity one. Each class has a good copy joining
+its terminals; the only copy outside the clique is 0c. Packing that
+class uses crossing transport across 0b,cd and restores all other
+edges. The connected-support transfer argument from (TL1)--(TL3)
+therefore applies verbatim: pack the support minus the receiver into
+the terminal clique, use its complete-cover path with attached cd,
+then restore packing. When the direct connectedness conditions fail,
+use the absent temporary class across the required bridge cuts. These
+are the already-proved arbitrary-capacity conditions, not a new
+assumption about this graph. All local paths lie in [c,d], so they
+cannot change 0b or any left-exclusive edge. The shared corners stay
+selected during the packing paths as well. At the requested endpoints
+T is selected; the intermediate support need only stay connected.
+
+For completeness, (TC2) makes these moves sufficient for any prescribed
+fixed-size subset of P. Swap a selected unwanted position with a missing
+wanted one. If both belong to one of P_L,P_R, use its rearrangement.
+Otherwise use h=0c as the intermediary. If h is absent, move the unwanted
+position to h and then h to the wanted position. If h is present, move
+h to the wanted position and then the unwanted position to h. In either
+case h returns to its original status, and both steps take place within
+one of P_L,P_R. Thus all anchors containing T with a given edge count
+are in one actual component. Together with the star construction, this
+proves the common-cover uniqueness assertion for all sizes.
+
+### Whole-component consequence and checks
+
+Every connected common-cover state first reaches an anchor by (P), so
+there is exactly one component C_k containing such states in each
+feasible layer n-1<=k<=|A*|. This assertion concerns the actual component,
+including its states where a corner is redundant. Every other source
+component reduces independently by an absent corner, a disconnected
+weak-block correction, or alternating corner deletion. Below n-1
+all states are disconnected; above |A*| none has all corners covering.
+
+For any eligible NN contact on this two-clique source, the ordinary
+full-layer identity therefore gives X_(C_k) as the sum of whole target
+components in layers k and k-1, minus the proved smaller whole-source
+corrections. The identical signed formula holds for K and E. All output
+diagrams are smaller in the established induction order. The right-marked
+version and arbitrary right attachments follow from (RE2)--(RE3).
+
+This settles every component for a two-overlapping-clique source. Such a
+source has two crossing maximal corners with different endpoints; it is
+not an arbitrary direct DN source with two touching strict corners.
+General NN/DN collection for more complicated clique overlaps remains
+unfinished. The separate articulation case is handled as products, and
+is not included in the uniqueness assertion.
+
+Related Rust: `dn_joint_span.rs --two-clique-star` checks the complete
+star construction on all 84 parameter choices on four through ten
+vertices, exhaustively over connected anchors through six and with 128
+deterministic samples per larger graph. All 8129 applicable paths pass:
+3382342 actual flips, maximum length 3190, up to 44 natural edges.
+Every flip is checked globally, every corner remains selected, and every
+endpoint is a good anchor containing (TC1). There is no global component
+search in this mode; the complete-cover constructor retains its fixed
+five-vertex base search. The abstract final rearrangement proof above
+uses the already-verified terminal-clique construction and the proved
+core-isolation lemma; this mode does not claim to execute that final
+rearrangement.
+
+The separate `--two-clique-layers --right-marked-layers` mode checks the
+full recurrence at the first corner for (d+1,b,c)=(6,3,2),(7,4,2),(7,4,3).
+All 17 feasible source layers pass: 25804 survivor states, 1773 whole
+target components with 38107 states, 676 disconnected corrections with
+6003 states, and 783 alternating source corrections with 6300 states.
+The latter produce 3353 whole deletion terms. There are 3058 positive
+and 2744 negative terms, and 18900 checked redundancy witnesses. Every
+signed right-marked fibre identity and smaller-diagram assertion passes.
+These checks include the whole components, not only their anchors.
+
+Frozen sources, commands, logs and hashes for these two modes are in
+`/lake-cache/ai-projects/requests/VerticalStripLLT/two-clique-recurrences-20260930/`.
+No Lean build, coloring enumeration or basis calculation was used.
