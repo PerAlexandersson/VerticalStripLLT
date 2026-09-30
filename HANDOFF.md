@@ -154,3 +154,6 @@ Both proof-note prefixes, the archived handoff, all 145 local file links,
 receipt hashes and `git diff --check` pass. The frozen-source certificate
 replay also exited zero and reproduced all 2306 checked flips. The checkout was
 clean and HEAD/origin/main agreed at the start. No job needs restarting.
+
+Proof checkpoint `4c76d99` is pushed to `origin/main`. All diagnostic jobs
+are complete; no background process needs monitoring or restarting.
