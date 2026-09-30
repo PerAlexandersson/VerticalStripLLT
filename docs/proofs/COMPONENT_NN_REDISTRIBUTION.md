@@ -4452,3 +4452,189 @@ count-preserving path can make all its new maximal corners cover.
 For 03,24,36 the source full anchor has nine edges; after deletion there
 are eight edges, whereas the new common-cover maximum is seven.
 The connected-core construction above avoids this failed activation step.
+
+
+## Initial-vertex inheritance through extra-edge sectors
+
+2026-09-30 continuation from `49cb610`. This closes the remaining
+common-cover path induction for ordinary graphs without articulation.
+We first give the precise inheritance statement, independently of that
+induction or any component expansion.
+
+Let G have first two maximal corners 0a,1b, with 1<a<b. Let G' be the
+induced diagram on vertices 1,...,n-1, and let M,M' be their maximal
+corners. We have M'=M minus {0a}: after deleting 0, the first clique
+[1,a] is contained in [1,b]. No new corner appears. Removing the first
+vertex of its corner chain leaves the terminal of every remaining
+vertex unchanged. Thus the full good diagrams satisfy
+
+    A*(G) = {0a} union A*(G') union {0v:v in J},        (IV1)
+    J = {v:0<v<a and r(v)>r(a)}.
+
+All sets in (IV1) are disjoint. Each v in J has a corner successor h_v>a.
+Indeed v<r(a)<r(v), so v is not terminal; a corner ending at or before a
+would be properly contained in 0a. The corresponding core edge
+
+    d_v = a h_v                                       (IV2)
+
+is natural, normal, and good. Different v in J belong to different
+corner chains, since no maximal corner can lie properly inside [0,a].
+The actual crossing slide across 0a,v h_v exchanges 0v and d_v, whenever
+exactly one is selected, restoring every other edge. It applies in
+arbitrary anchor exterior, including other extra edges at 0.
+
+Assume connected common-cover states of each size in G' lie in one
+actual component retaining M'. Assume also
+
+    A*(G') minus {d_v} is connected for every v in J.  (IV3)
+
+Then all connected common-cover states of each size in G lie in one
+actual component retaining M. If J is empty, (IV3) is vacuous.
+
+### First make the selected core connected
+
+Prepare a source state to an anchor A. Its core restriction is an anchor,
+but may be disconnected. Let B be the core weak block containing a.
+If another core block exists, global connectedness supplies a selected
+0v with v outside B. The fixed corner chain of v also puts h_v outside
+B, so d_v is absent. Exchange 0v with d_v by the crossing slide. This
+joins two core blocks and removes one external extra edge. The endpoint
+is an anchor, the total edge count is unchanged, and every corner in M
+is retained throughout the path. Repeat until the core is connected.
+There are at most |J| such joins.
+
+We have used deletion only to describe a restriction. The whole source
+component is not asserted to map to a whole core component.
+
+### Each fixed extra-edge sector is connected
+
+Fix a subset S of J and a total selected-edge count k. The anchors with
+selected extras exactly {0v:v in S} and connected core have core count
+
+    t=k-1-|S|.
+
+Any two such cores are connected by the hypothesis on G'. Every core
+flip lifts with 0a and these extra edges fixed: a directed path testing
+an edge whose endpoints are at least 1 cannot visit 0. The old corner
+0a stays selected; it is allowed to be redundant at intermediate states.
+At the final core anchor all source normals are again good, so all source
+corners recover their covers. Hence each nonempty sector is contained
+in one actual source component.
+
+Put r=n-2, the size of a core spanning tree, and m=|A*(G')|. Connected
+core anchors exist in every size r,...,m. Thus the nonempty sectors are
+exactly the subsets satisfying
+
+    max(0,k-1-m) <= |S| <= min(|J|,k-1-r).             (IV4)
+
+### Join adjacent sectors by one crossing slide
+
+Suppose v is in S and both S and S minus {v} satisfy (IV4). Their core
+counts are t and t+1, where r<=t<=m-1. By (IV3), choose a connected core
+anchor of size t omitting d_v: start with a spanning tree containing M'
+in A*(G') minus {d_v}, then add good edges to reach t. Lift it with the
+fixed extras S and 0a. The crossing slide 0v->d_v connects this witness
+to an anchor in the sector S minus {v}. Every other exterior edge is
+restored. The fixed-sector paths then connect the entire two sectors.
+
+If J is nonempty, (IV3) implies m>=r+1. A nonempty band of subsets (IV4)
+is therefore connected under insertion/deletion of one element. To check
+this last elementary assertion, an intermediate single allowed size
+would force m=r; the only possible single-size bands are the singleton
+sets {empty} and {J}. Otherwise any exchange of an unwanted element for
+a wanted one can pass through an allowed neighboring size: remove first
+when above the lower bound, and add first when at the lower bound.
+Adjust cardinalities within the band and then use these exchanges.
+For J empty there is just one sector.
+
+Combining sector connectivity, the crossing slides, and the initial core
+joins connects all prepared source anchors with the same total count.
+Preparation and its reverse connect the original common-cover states.
+This proves the inheritance statement, using only actual diagram paths.
+
+## Common-cover uniqueness without articulation
+
+**Theorem.** In every connected ordinary natural graph G with no
+articulation, all connected common-cover states of a fixed size belong
+to one actual component retaining all maximal corners.
+
+We prove this by strong induction on the number of vertices. The cases
+with at most two vertices are immediate. The one-clique case is the
+proved complete-diagram theorem. Graphs with at
+most two corner chains are covered by the proved parallel-copy theorem:
+there is at most one normal class, and its copies rearrange at fixed count.
+These bases also cover the small endpoint cases.
+
+Suppose there are at least two maximal cliques and at least three corner
+chains. Write the first two corners as 0a,bc. Their clique intersection
+has at least two vertices because G has no articulation. Hence
+
+    0<b<a<c.
+
+If b>1, the order-dual last-clique inheritance theorem reduces to the
+induced core on {0} union {b,...,n-1}. It has fewer vertices. Its first
+clique still overlaps the next in at least two vertices, and every later
+clique intersection is unchanged; it has no articulation. Induction
+proves its common-cover uniqueness. The proved inheritance theorem
+therefore gives the assertion in G.
+
+It remains to consider b=1. Delete vertex 0. The resulting G' has fewer
+vertices, loses exactly the corner 0a, and has no articulation: the old
+first clique without 0 is contained in the next clique, and the later
+clique intersections are unchanged. Its number of corner chains equals
+that of G, hence is at least three. Induction gives core uniqueness.
+
+We verify (IV3), rather than assuming it. The proved corner-chain
+quotient lemma says that the simple graph of good core classes has no
+articulation. It has at least three vertices. Therefore it has no bridge:
+a bridge in a connected graph on at least three vertices would make
+one of its endpoints an articulation. Removing any one good edge copy
+from A*(G') consequently leaves the graph connected. In particular this
+holds for every d_v in (IV2). Initial-vertex inheritance applies and
+completes the induction.
+
+No general uniqueness assertion was used on an equally large graph.
+Both structural reductions strictly decrease the vertex count; the
+complete-clique, parallel-copy, last-clique and crossing-slide inputs
+were proved independently of this induction. Arbitrary earlier or later
+corners are permitted. The theorem includes all three-corner geometries
+and all higher-clique diagrams without articulation, not just the
+previously established families.
+Only the path assertions of those inputs enter this induction; no
+component expansion is used to prove the path theorem.
+
+### Initial path prefixes
+
+The same common-cover uniqueness holds after adjoining an arbitrary
+initial path at the least vertex of such a graph. Each initial natural
+edge is a forced bridge and a maximal corner. Delete the first pendant
+vertex; all core flips lift, and its edge is the only natural edge at
+that vertex. Repeat along the initial path. This is a path argument,
+not a component-value identity under contraction.
+
+Thus a connected natural diagram consisting of an initial path and one
+nontrivial block without articulation has one common-cover component
+in every feasible layer. This is the precise extra case needed to glue
+an arbitrary right-hand attachment in the general recurrence proof.
+
+
+### General recurrence completion and checks
+
+The [assembled diagram proof](COMPONENT_DIAGRAM_COMPLETION.md) now uses this
+uniqueness theorem on the initial path and first nontrivial natural block.
+The right-marked full-layer recurrence attaches the arbitrary remaining
+right component. Thus the required general first-drop NN/DN collection,
+including the earlier DD/ND inheritance, is complete. The former general
+unfinished status in this chronological note is superseded.
+
+Related Rust: `dn_joint_span.rs --initial-ear-audit` checks all 37 applicable
+diagrams through seven vertices and one eight-vertex three-extra fixture.
+It verifies 13474 connected anchors, 1427 core joins, all 200 sector bands,
+214 crossing links, 344211 lifted core states and 1420896 directed actual
+flip incidences. `--ear-induction-structure` checks all 6916 connected
+ordinary diagrams on 3..10 vertices, the decreasing no-articulation
+branches, all non-path prefix/first-drop choices, and 1308 actual slides.
+The completion note records the whole-component and attachment checks,
+precise finite ranges and frozen receipt. No Lean build or basis calculation
+is used, and no uniqueness assertion is made for arbitrary articulation
+graphs at a fixed total count.

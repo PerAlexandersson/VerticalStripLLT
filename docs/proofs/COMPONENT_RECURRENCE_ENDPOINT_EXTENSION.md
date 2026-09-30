@@ -515,3 +515,22 @@ also has the same full-layer marked corrections. Thus its eligible
 NN/DN recurrences retain the right-marked identities and arbitrary right
 attachments of (RE2)--(RE3). The last-clique inheritance proof is a path
 construction; it introduces no component-value identity under deletion.
+
+
+## The right-attachment theorem now completes the general recursion
+
+The new [common-cover uniqueness theorem](COMPONENT_NN_REDISTRIBUTION.md#common-cover-uniqueness-without-articulation)
+applies to every natural graph without articulation, and also after adding
+an initial path. Consequently, in any connected non-path natural graph,
+the prefix consisting of the initial path and first nontrivial block has
+a right-marked full-layer component recurrence. Attach the arbitrary whole
+component to its right by (RE3). Every resulting term is whole and smaller.
+
+This resolves the earlier endpoint issue without assuming that a recurrence
+inside a middle block preserves both endpoints. The initial path belongs
+to the prefix being reduced. At its right cut c, the prefix ends with area
+at least 2 and the attachment starts with incoming area 1; therefore the
+first-drop contact of the full source is the same as the prefix's contact.
+See the [assembled proof](COMPONENT_DIAGRAM_COMPLETION.md#articulations-use-the-first-nontrivial-block).
+The original general two-end hypothesis has not been weakened or silently
+used outside its proved scope.

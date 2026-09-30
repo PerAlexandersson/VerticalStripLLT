@@ -1926,3 +1926,21 @@ Frozen sources, commands, successful logs and hashes are retained in
 `/lake-cache/ai-projects/requests/VerticalStripLLT/three-corner-tail-recurrences-20260930/`.
 The existing whole-component limit was unchanged. No coloring enumeration,
 fundamental-basis calculation, maintained Rust edit or Lean build ran.
+
+
+## General first-drop NN and DN collection is complete
+
+The [initial-vertex sector argument](COMPONENT_NN_REDISTRIBUTION.md#initial-vertex-inheritance-through-extra-edge-sectors)
+and last-clique inheritance now prove common-cover uniqueness for every
+ordinary natural graph without articulation, by decreasing vertex count.
+Initial path prefixes have the same uniqueness. In a general connected
+source, take the initial path and first nontrivial block, apply its
+right-marked full-layer recurrence, and attach the remaining right component.
+The original first-drop contact lies in this prefix. All outputs are whole
+and strictly smaller, with the same integer coefficients for K and E.
+
+The [complete proof](COMPONENT_DIAGRAM_COMPLETION.md) discharges the former
+general NN/DN gap and derives the ordinary component e-expansion. The
+higher-clique and other three-corner cases listed above as unfinished are
+therefore superseded. This is a mathematical diagram proof, not a new Lean
+formalization or an invocation of the separate word-functional theorem.

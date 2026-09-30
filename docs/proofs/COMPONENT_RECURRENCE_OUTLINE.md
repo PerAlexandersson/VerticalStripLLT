@@ -1,5 +1,18 @@
 # Component e-positivity by recurrence
 
+
+**Completion, 2026-09-30:** the required general first-drop NN/DN
+whole-component recurrences and the ordinary component e-expansion are now
+proved by diagrams. Read [the assembled proof](COMPONENT_DIAGRAM_COMPLETION.md).
+Initial-vertex sectors close the no-articulation path induction; initial
+path prefixes and right-marked attachments handle all other connected
+diagrams. DD/ND inherit the same whole component as before. No fundamental
+basis or separate word-functional component theorem is used.
+
+The dated development below is retained as history. Its earlier statements
+that general collection remains unfinished are superseded by this completion;
+its counterexamples and qualifications on individual local maps remain valid.
+
 Working proof outline, 2026-09-29. We follow the author's construction:
 push one complete component through a recurrence, repair the resulting
 pieces by local diamonds, and collect whole components in smaller diagrams.
