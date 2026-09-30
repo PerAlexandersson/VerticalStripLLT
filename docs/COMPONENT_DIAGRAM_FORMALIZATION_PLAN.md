@@ -410,8 +410,13 @@ relations have the same weak components. `CornerForest` and `EdgeSetGraph`
 supply the forest and exact finite graph conversions. `AnchorSizes` proves
 existence of actual connected anchors exactly throughout the feasible size
 interval, and constructs anchors omitting a specified non-corner edge when
-its deletion leaves the full good-edge graph connected. The separator,
-terminal-transfer and inheritance obligations below remain unfinished.
+its deletion leaves the full good-edge graph connected. `NaturalSeparators`,
+`ChainSeparators` and `QuotientSeparators` prove the separator assertion via
+short edges and deletion of a chain with no consecutive vertices.
+`RemovableGoodEdges` discharges the deletion-connectedness hypothesis when
+the natural graph has no articulation and at least three corner chains.
+See the [short separator proof](proofs/COMPONENT_CHAIN_SEPARATOR_LEMMA.md).
+The terminal-transfer and inheritance obligations below remain unfinished.
 
 Use P3's auxiliary short-edge paths to prove that good copies retain exactly
 the natural adjacencies between chain

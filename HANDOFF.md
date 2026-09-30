@@ -2,22 +2,53 @@
 
 ## Active implementation — P0/P2/P3/P4 complete, P1/P5 partial
 
-Continuation began clean at pushed `46107c6` and made verified progress.
-The chain-contraction checkpoint is pushed as `584d931`. The current
-increment completes feasible connected anchor sizes and the conditional
-removable-edge construction. P5 remains partial; P6--P10 remain open.
+Continuation began clean at pushed `e45e107` and made verified progress.
+P5's separator and removable-edge obligations are now proved. Terminal-clique
+occupancy transfers and the inheritance arguments remain open, as do P1's
+remaining geometry/order reversal and P6--P10. The full goal is unchanged.
 
 Primary owns all `DiagramProof/` sources, `DiagramProofVerification.lean`,
-this handoff, the formalization plan, the path-history archive and the
-restriction-consolidation suggestion, and retains the sole build slot.
-Luna returned `GoodEdgeConnectivity` and `CornerForest`; Terra returned
-`EdgeSetGraph` after auditing the feasible-size bridge. Primary integrated
-and locally checked both, wrote `ChainQuotient` and `AnchorSizes`, and
-owns all resulting sources. Terra's independent final read-only review
-approved the mathematical contracts. Both agents are finished. Historical
-proof-note and unrelated ownership remain unchanged.
+this handoff, the formalization plan, the new separator proof note, the
+path-history archive and existing restriction-consolidation suggestion.
+Primary retains the sole build slot. Luna returned `IntervalDeletion` and
+`QuotientSeparators`; Terra returned `NaturalSeparators`. Primary integrated
+and verified them, wrote `ChainSeparators` and `RemovableGoodEdges`, and
+added the erase/deletion bridge to `EdgeSetGraph`. Terra's independent
+read-only review approved the proof and its exact contracts. Both agents
+are finished; all source ownership has returned to primary. Historical
+proof-note prefixes and unrelated ownership remain unchanged.
 
-### Current P5 increment — contraction and feasible anchor sizes
+### Current P5 increment — separators and removable edges
+
+The [short separator proof](docs/proofs/COMPONENT_CHAIN_SEPARATOR_LEMMA.md)
+records a simplification for the later draft. In a connected ordinary
+natural graph with no articulation, every edge of length one or two is
+natural. For `n≥3`, no corner chain contains consecutive vertices. Deleting
+one chain leaves paths with gaps of at most two. Replacing natural edges
+by good paths preserves avoidance of that chain.
+
+- `NaturalSeparators` proves the short-edge consequence of connectedness
+  after each vertex deletion, and the converse connectivity statements.
+- `IntervalDeletion` supplies the finite path after deleting a set with
+  no consecutive vertices; `ChainSeparators` specializes it to retained
+  corner chains, for any `CornerFamily` containing the strict edges.
+- `QuotientSeparators` proves the induced chain quotient remains connected
+  after deletion of any terminal, including the required nonemptiness.
+- `RemovableGoodEdges` connects the endpoints of a good non-corner edge
+  around that edge through a third chain. It proves actual graph deletion
+  preserves connectedness. `exists_third_terminal` gets the third chain
+  from the hypothesis that the terminal subtype has cardinality at least 3.
+- `exists_connected_anchor_card_avoiding_of_no_articulation` constructs an
+  actual connected anchor omitting that edge at every size `n≤k+1` and
+  `k+1≤|A*|`. This discharges the previously explicit deletion-connectedness
+  hypothesis in the no-articulation case with at least three chains.
+
+The `n≥3` and third-chain qualifications are retained. The two-chain base
+is separate. These are graph paths and actual anchor-existence results;
+terminal-clique transfers and component inheritance are still unfinished.
+No coloring or HRV contraction identity is asserted.
+
+### Verified P5 checkpoints `584d931` / `e45e107` — contraction and sizes
 
 - `ChainQuotient` uses the subtype of actual chain terminals, retaining
   isolated chains. Good copies induce exactly all natural quotient
@@ -38,13 +69,14 @@ proof-note and unrelated ownership remain unchanged.
 - `exists_connected_anchor_card_avoiding` also omits a specified good
   non-corner edge, assuming its deletion leaves the full good-edge graph
   connected and `k+1 ≤ |A*|`. This supplies an actual orientation with
-  exact count and absence. The deletion-connectedness hypothesis is still
-  to be proved in the later separator argument.
+  exact count and absence. The separator result above supplies its deletion
+  hypothesis when the natural graph has no articulation and has at least
+  three retained corner chains.
 
 These results hold for any retained corner family containing the strict
 edges. The quotient is for connectivity; no coloring or HRV contraction
-identity is asserted. No-articulation/no-bridge geometry, terminal-clique
-transfers, and last-/first-clique inheritance remain unfinished.
+identity is asserted. Terminal-clique transfers and last-/first-clique
+inheritance remain unfinished.
 
 The independent component theorem is unfinished. The active goal also
 requires a new illustrated draft combining the circular e-expansion and the
@@ -138,30 +170,35 @@ this route. The mathematical diagram proof is complete.
 ### Verification and next step
 
 Focused builds of all new modules and the verification import targets pass
-without source warnings. All 340 queries in `DiagramProofVerification.lean`
+without source warnings. All 359 queries in `DiagramProofVerification.lean`
 use only `propext`, `Classical.choice`, `Quot.sound` (or none). The independent
-import closure contains 171 project files including verification and excludes
+import closure contains 176 project files including verification and excludes
 the old word/scan/expansion routes. Source guards (including no `native_decide`),
 100-column and whitespace checks pass. Current logs are
-`p5-sizes-closure-build.log`, `p5-sizes-axioms.log` and `p5-sizes-imports.txt`;
-`p5-anchor-sizes-build.log` records the focused main-module check. The prior
-contraction checkpoint has 323 axiom checks/168 project imports and
-`p5-connectivity-*` logs. No compiler or agent job remains running.
+`p5-separator-closure-build.log`, `p5-separator-axioms.log` and
+`p5-separator-imports.txt`; the focused checks are `p5-removable-build.log`
+and `p5-quotient-separators-build.log`. Prior P5 checkpoints have
+323 queries/168 project files (`p5-connectivity-*`) and
+340 queries/171 project files (`p5-sizes-*`). No compiler or agent job
+remains running.
 
 No broad build, dependency update, remote proof search or mathematical
 computation ran. Only primary invokes `lake-workspace`. Lean MCP remains
 rooted at RealRooted, so local compiler diagnostics are used. The wrapper's
 existing package-path manifest warning remains unchanged.
 
-Next: continue P5 with the quotient no-articulation/no-bridge consequence
-and terminal-clique occupancy transfers, then the four last-clique steps in
-the plan. Connectivity of A* and feasible anchor sizes are now proved;
-do not repeat them. The separator argument in the written proof specializes
-to all maximal corners and must supply the explicit deletion-connectedness
-hypothesis of `exists_connected_anchor_card_avoiding`. P1's order reversal
-is needed before first-clique inheritance. Avoid a general interval-graph
-library. Local clique applications still need concrete target connectedness,
-extreme-cover, exact local count and exterior conditions.
+Next: implement P5's terminal-clique occupancy transfers, then its four
+last-clique steps. The full good-edge graph connectivity, feasible sizes,
+chain-quotient separators and the no-articulation removable-edge consequence
+are now proved; do not repeat them. The written terminal-clique proof starts
+near line 3724 of `COMPONENT_NN_REDISTRIBUTION.md`. It packs selected copies
+into the terminal clique, performs a local complete-diagram path satisfying
+both connectivity tests, and repairs a blocked transfer through at most one
+absent class. Connect fixed-size capacity-bounded occupancies by decreasing
+the discrepancy. P1's order reversal is needed before first-clique inheritance.
+Local clique applications still need concrete target connectedness,
+extreme-cover, exact local count and exterior conditions. No general
+interval-graph library was introduced.
 
 For clique reachability, use `clique_lift_core_of_block` to transport the
 actual core endpoint and its selected relation. The general lower-interval

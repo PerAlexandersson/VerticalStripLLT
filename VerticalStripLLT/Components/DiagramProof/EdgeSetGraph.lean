@@ -81,6 +81,18 @@ theorem edgeSetGraph_card (hforward : Forward D) (A : Finset (Edge D.area)) :
   rw [Nat.card_eq_fintype_card, ← SimpleGraph.edgeFinset_card,
     edgeSetGraph_edgeFinset hforward, Finset.card_map]
 
+/-- Erasing one forward diagram edge is exactly deletion of its undirected edge. -/
+theorem edgeSetGraph_erase (hforward : Forward D) (A : Finset (Edge D.area))
+    (d : Edge D.area) :
+    edgeSetGraph (A.erase d) = (edgeSetGraph A).deleteEdges {s(d.tail, d.head)} := by
+  apply SimpleGraph.edgeSet_injective
+  ext x
+  rw [SimpleGraph.edgeSet_deleteEdges, Set.mem_sdiff, Set.mem_singleton_iff]
+  rw [← SimpleGraph.mem_edgeFinset, ← SimpleGraph.mem_edgeFinset]
+  rw [edgeSetGraph_edgeFinset hforward, edgeSetGraph_edgeFinset hforward,
+    Finset.map_erase, Finset.mem_erase]
+  exact and_comm
+
 /-- The edges of `A` retained by a subgraph of `edgeSetGraph A`. -/
 def edgeSetGraphSub (A : Finset (Edge D.area)) (H : SimpleGraph (Fin n)) :
     Finset (Edge D.area) :=

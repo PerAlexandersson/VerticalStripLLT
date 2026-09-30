@@ -35,6 +35,8 @@ import VerticalStripLLT.Components.DiagramProof.CliquePaths
 import VerticalStripLLT.Components.DiagramProof.ChainQuotient
 import VerticalStripLLT.Components.DiagramProof.GoodEdgeConnectivity
 import VerticalStripLLT.Components.DiagramProof.AnchorSizes
+import VerticalStripLLT.Components.DiagramProof.QuotientSeparators
+import VerticalStripLLT.Components.DiagramProof.RemovableGoodEdges
 
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
 
@@ -411,5 +413,25 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms CornerFamily.exists_connected_anchor_card
 #print axioms CornerFamily.exists_connected_anchor_card_avoiding
 #print axioms CornerFamily.exists_connected_anchor_card_iff
+
+#print axioms edgeSetGraph_erase
+#print axioms eqvGen_of_short_edges_of_no_consecutive_omissions
+#print axioms CornerFamily.naturalEdgeRelation_forward
+#print axioms CornerFamily.naturalEdgeRelation_of_le_of_le
+#print axioms CornerFamily.naturalEdgeRelation_of_eqvGen_of_side
+#print axioms CornerFamily.naturalEdgeRelation_short_of_connected_of_delete
+#print axioms CornerFamily.naturalEdgeRelation_connected_of_short
+#print axioms CornerFamily.naturalEdgeRelation_delete_of_short
+#print axioms CornerFamily.goodEdge_weakReach_within_terminals_iff
+#print axioms CornerFamily.terminal_ne_of_consecutive
+#print axioms CornerFamily.goodEdge_weakReach_avoiding_terminal
+#print axioms CornerFamily.chainQuotient_induce_preconnected_avoiding_terminal
+#print axioms CornerFamily.chainQuotient_induce_connected_avoiding_terminal
+#print axioms CornerFamily.weakReach_erase_of_avoiding_terminal
+#print axioms CornerFamily.weakReach_erase_good_edge
+#print axioms CornerFamily.goodEdgeGraph_delete_connected
+#print axioms CornerFamily.goodEdgeGraph_delete_connected_of_no_articulation
+#print axioms CornerFamily.exists_third_terminal
+#print axioms CornerFamily.exists_connected_anchor_card_avoiding_of_no_articulation
 
 end VerticalStripLLT.Circular.DiagramProof
