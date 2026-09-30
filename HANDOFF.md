@@ -143,3 +143,6 @@ the new appendices explicitly supersede only the cube-family open cases.
 Both proof-note prefixes, the complete archived handoff, all 140 local file
 links in the five edited/new files, receipt hashes and `git diff --check` pass. The worktree
 was clean and HEAD/origin/main agreed at the start. No job needs restarting.
+
+Proof checkpoint `89f3e6e` is pushed to `origin/main`. All diagnostic jobs
+are complete; no background process needs monitoring or restarting.
