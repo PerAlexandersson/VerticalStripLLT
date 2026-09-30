@@ -146,3 +146,7 @@ there is no running process or blocked external dependency.
 
 Both proof-note prefixes, the exact relocated archive, 155 local file links,
 final frozen-source replays, receipt hashes and `git diff --check` pass.
+
+Proof checkpoint `4ca99c3` is pushed to `origin/main`. Both diagnostic jobs
+are complete; the full general NN/DN goal remains active, with no external
+blocker or running process.
