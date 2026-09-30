@@ -17,3 +17,8 @@ through `D.undecorated` and restoring strict markings. Include it in a later
 consolidation review: retain the existing declaration shapes, specialize the
 general construction for complete ambient diagrams, and check the selected
 relations and count interfaces before replacing their older implementations.
+
+`CliqueCounts` now gives the general ambient-edge filter formula and exact
+inside-swap count preservation. Use these in the eventual consolidation
+instead of maintaining separate cardinality arguments for each restriction.
+The immediate direct terminal transfer already uses the general formula.

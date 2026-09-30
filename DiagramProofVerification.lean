@@ -1,6 +1,7 @@
 import VerticalStripLLT.Components.DiagramProof.PathTransport
 import VerticalStripLLT.Components.DiagramProof.TerminalPacking
 import VerticalStripLLT.Components.DiagramProof.TerminalRepair
+import VerticalStripLLT.Components.DiagramProof.TerminalTransfer
 import VerticalStripLLT.Components.DiagramProof.ConnectedExchange
 import VerticalStripLLT.Components.DiagramProof.OccupancyTransfers
 import VerticalStripLLT.Components.DiagramProof.WeakBlocks
@@ -453,5 +454,24 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms SimpleGraph.exists_connected_edge_exchange
 #print axioms reflTransGen_of_occupancy_descent
 #print axioms TerminalRepair.one_temporary_edge_repair
+#print axioms exists_interval_orderEmbedding
+#print axioms cliqueEdgeEmbed
+#print axioms cliqueEdgeEmbed_tail
+#print axioms cliqueEdgeEmbed_head
+#print axioms cliqueEdgeEmbed_image_fullSelection
+#print axioms cliqueRestrict_totalSelected_eq_filter
+#print axioms cliqueRestrict_totalSelected_swap
+#print axioms card_filter_insert_erase_label
+#print axioms CornerFamily.occupancy_of_fullSelection_exchange
+#print axioms CornerFamily.chainQuotient_adj_iff_occupancy
+#print axioms CornerFamily.chainQuotient_terminalEdges_adj_iff
+#print axioms CornerFamily.terminal_pair_eq_iff
+#print axioms CornerFamily.chainQuotient_terminal_insert_erase
+#print axioms deleteEdges_deleteEdges_sup_edge
+#print axioms CornerFamily.graph_eq_of_terminal_copies
+#print axioms CornerFamily.packed_terminal_graph_eq
+#print axioms CornerFamily.last_clique_block_of_terminal_connected
+#print axioms CornerFamily.exists_terminal_exchange
+#print axioms CornerFamily.exists_direct_terminal_transfer
 
 end VerticalStripLLT.Circular.DiagramProof

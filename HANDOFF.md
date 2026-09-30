@@ -2,23 +2,63 @@
 
 ## Active implementation — P0/P2/P3/P4 complete, P1/P5 partial
 
-This continuation started clean at pushed `049e5a6`; terminal-clique packing
-is verified and pushed in `6f16377`. P0/P2/P3/P4 are complete; P1/P5 remain partial;
-P6--P10 remain open. The independent diagram formalization and the illustrated
+This continuation began clean at pushed `ea5d895` and made verified progress:
+the direct terminal-clique transfer is now proved as an actual flip path with
+exact occupancy changes. P0/P2/P3/P4 are complete; P1/P5 remain partial;
+P6--P10 remain open. The independent diagram formalization and illustrated
 circular/ordinary draft are unfinished. The full goal is unchanged.
 
 Primary owns all `DiagramProof/` sources, `DiagramProofVerification.lean`,
-this handoff, the formalization plan and Aristotle ledger, and retains the
-sole local build slot. The user requested Aristotle and subagents. Luna
-returned `OccupancyTransfers`; Terra returned `ConnectedExchange` and a
-read-only direct-transfer audit; the reused `semantic_extract` agent returned
-`LabelPacking` and `RepresentativePacking`. Primary integrated their candidates,
-wrote `TerminalClique` and `TerminalPacking`, and checked all six locally.
-All source ownership has returned to primary. Subagents remain build-free;
-`semantic_extract` completed both the six-module contract review and the
-separate Aristotle review without semantic issues. All agents have returned;
-primary owns `TerminalRepair.lean` too. No build or remote job is active.
-Historical proof-note prefixes and unrelated ownership remain unchanged.
+this handoff, the formalization plan and the restriction-consolidation suggestion,
+and retains the sole build slot. All subagent source ownership has returned.
+Terra returned `CliqueCounts`, `QuotientOccupancy` and `TerminalGraph`; Luna
+returned `CliqueInterval` and a graph-deletion proof snippet; the reused
+`semantic_extract` agent returned `OccupancyExchange`. Primary integrated and
+verified all candidates and wrote `PackedTerminalGraph` and `TerminalTransfer`.
+The independent review approved `exists_terminal_exchange`, the exact packed
+support identity and the final TL2 wrapper. Subagents remain build-free. No compiler or
+remote job is active. Historical proof-note prefixes and unrelated ownership
+remain unchanged.
+
+### Current P5 increment — actual direct terminal transfer
+
+- `CliqueInterval.exists_interval_orderEmbedding` enumerates the full natural
+  interval with exact endpoints. `CliqueCounts` identifies the local selected
+  set with the selected ambient edges having both endpoints in that interval;
+  a selected-to-vacant inside swap preserves its cardinality.
+- `QuotientOccupancy` reads increasing quotient adjacency as positive occupancy.
+  `TerminalGraph` proves terminal-pair injectivity and exact graph deletion/
+  insertion. `PackedTerminalGraph.packed_terminal_graph_eq` proves the selected
+  terminal graph of the packed anchor is exactly the original support minus
+  the receiver pair, with isolated chains retained.
+- `TerminalTransfer.last_clique_block_of_terminal_connected` supplies the whole
+  interval block from connected selected terminal copies plus the retained last
+  corner. `exists_terminal_exchange` invokes the complete-clique theorem with
+  proved endpoint covers, equal local count and exact exterior. Its actual
+  target full selection is `insert f (S.erase e)`.
+- `exists_direct_terminal_transfer` now takes exactly TL2, a positive donor,
+  a receiver vacancy and distinct terminal copies. It packs once, performs
+  the actual local flip path, and returns an actual anchor with exactly one
+  unit removed from the donor occupancy and added to the receiver occupancy.
+  All original strict edges are retained. No intermediate cover invariance
+  or occupancy invariance of a whole component is asserted.
+
+Next combine `TerminalRepair.one_temporary_edge_repair` with the direct
+transfer. The outstanding adapter is the exact support after an occupancy
+update: the donor remains iff its original count exceeds one. Realize the
+returned absent pair by `exists_terminalEdge_of_last_clique`, whose good
+terminal copy proves positive capacity; apply two direct transfers and cancel
+the temporary occupancy. Then prove connected fixed-size occupancy descent
+using `ConnectedExchange.exists_reconnecting_edge` in the bridge case.
+`OccupancyTransfers` currently uses injectivity of the count map; for actual
+anchors replace this with the already-proved equal-occupancy path when closing
+the induction, or work on realized occupancy vectors. Do not assume occupancy
+is injective on anchors. Last-/first-clique inheritance is still open.
+
+### Earlier P5 checkpoints — packing and graph repair
+
+Packing and descent helpers were pushed in `6f16377`; the Aristotle graph
+repair was locally verified and pushed in `ea5d895`.
 
 Aristotle project `515b9f61-1e1a-43bf-99b7-9e05cbff2124`, task
 `84ef24e0-68a0-41fa-becb-c58e46b183d6`, is **COMPLETE** and returned a proof
@@ -57,16 +97,6 @@ The final theorem passes the local axiom and independent-import guards.
   realizes the exact graph statement: either both direct-transfer tests hold,
   or an absent third pair makes them hold for both consecutive transfers.
   The Boolean distinguishes whether the donor retains another copy.
-
-Next implement the direct terminal transfer. Terra's audit requires ONE packed
-source, followed by the explicit `insert f (S.erase e)` swap. Packing source
-and target independently would lose exterior equality. Use the full last-clique
-interval with `Finset.orderEmbOfFin`, then `clique_reachable_of_block`.
-The remaining adapters are terminal-support connectivity to the whole interval
-block, and preservation of the restricted selected count under the explicit
-swap. Covers follow from `commonCover_of_anchor`; the explicit swap supplies
-exterior equality. Then apply the verified temporary repair and the occupancy
-support descent. Last-/first-clique inheritance is still open.
 
 ### Earlier P5 increment — separators and removable edges
 
@@ -207,8 +237,8 @@ retains CC1--CC6 and interval/chord checkpoints.
 The sorted `chainPair` labels all non-retained auxiliary-path positions;
 ordered `copyLabel` labels actual anchor copies. Do not conflate them.
 Occupancy is NOT asserted invariant on a whole component. Equal occupancies
-are a sufficient connectivity condition for anchors. No canonical highest
-packing is claimed. Families may retain any maximal corners containing the
+are a sufficient connectivity condition for anchors. The terminal packing result supplies the last-clique representatives
+when the receiver class has a vacancy. Families may retain any maximal corners containing the
 strict edges; specialize to `allCorners D` for the proof note's multigraph H.
 
 P1 remains partial: other induced-core geometry and order reversal remain.
@@ -220,13 +250,14 @@ this route. The mathematical diagram proof is complete.
 ### Verification and next step
 
 Focused builds of all new modules and the verification import targets pass
-without source warnings. All 374 queries in `DiagramProofVerification.lean`
+without source warnings. All 393 queries in `DiagramProofVerification.lean`
 use only `propext`, `Classical.choice`, `Quot.sound` (or none). The independent
-import closure contains 183 project files including verification and excludes
+import closure contains 190 project files including verification and excludes
 the old word/scan/expansion routes. Source guards (including no `native_decide`),
 100-column and whitespace checks pass. Current logs are
-`p5-terminal-repair-build.log`, `p5-repair-axioms.log` and
-`p5-repair-imports.txt`. The preceding packing checkpoint had 373 queries/182
+`p5-direct-closure-build.log`, `p5-direct-axioms.log` and
+`p5-direct-imports.txt`. The repair checkpoint had 374 queries/183 project
+files (`p5-repair-*`). The preceding packing checkpoint had 373 queries/182
 project files (`p5-terminal-*`). The separator checkpoint had 359 queries/176
 project files (`p5-separator-*`). Prior P5 checkpoints have
 323 queries/168 project files (`p5-connectivity-*`) and

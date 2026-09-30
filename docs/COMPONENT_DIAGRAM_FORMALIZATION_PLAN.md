@@ -425,15 +425,21 @@ supplies a receiver reconnecting a deleted bridge from a connected target;
 `OccupancyTransfers` supplies finite deficit descent once actual local unit
 transfers are available.
 
-The direct transfer still needs interval-block connectivity and restricted-count
-adapters. Pack once and explicitly swap the donor and receiver terminal copies;
-do not pack both endpoints independently, since their exteriors must agree.
+`TerminalTransfer.exists_direct_terminal_transfer` now proves the actual
+TL2 transfer with exact occupancy changes. It packs once, exchanges the two
+terminal copies inside the full last-clique interval, and lifts the local
+complete-diagram path with exact exterior. `CliqueInterval`, `CliqueCounts`,
+`QuotientOccupancy`, `TerminalGraph` and `PackedTerminalGraph` discharge the
+interval, count and support-identification obligations. Both endpoint covers
+come from the retained corner; intermediate covers are not assumed.
+
 `TerminalRepair.one_temporary_edge_repair`, returned by Aristotle and
-independently reviewed, now passes the local Lean 4.34.0 build and axiom guards.
+independently reviewed, passes the local Lean 4.34.0 build and axiom guards.
 It proves the exact graph repair for both donor-copy cases without extra
-hypotheses. Applying it to actual capacity-bounded diagram transfers still
-requires the direct transfer and terminal-pair capacity bridge.
-The terminal-transfer and inheritance obligations below remain unfinished.
+hypotheses. The remaining terminal-transfer obligations are: identify the
+support after an exact occupancy update, realize the absent repair pair as a
+positive-capacity terminal class, compose the two actual transfers, and close
+the finite connected-support occupancy descent. Inheritance remains open.
 
 Use P3's auxiliary short-edge paths to prove that good copies retain exactly
 the natural adjacencies between chain
