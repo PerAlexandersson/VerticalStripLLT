@@ -1,5 +1,49 @@
 # VerticalStripLLT handoff
 
+## Active implementation — P0 complete, P1 in progress
+
+The user authorized implementation of the detailed plan. Starting HEAD is
+`9890254`, with a clean checkout. Primary owns
+`VerticalStripLLT/Components/DiagramProof/`, `DiagramProofVerification.lean`,
+this handoff and implementation-status updates in the plan. Primary holds
+the sole Lean build slot; the preflight process check found no active
+Lean/Lake compiler. Builds remain focused and serialized through
+`lake-workspace`. Lean MCP is rooted at RealRooted and will not be used
+for project diagnostics/builds; use focused local compiler diagnostics.
+
+A bounded Luna extraction worker owns only existing `ComponentScalars.lean`,
+`SelectedColoringTransport.lean`, `ForwardHRV.lean` and new
+`SelectedColoringSum.lean`, `ForwardHRVBasic.lean` in
+`VerticalStripLLT/Components/`. It will move the already proved structural
+declarations to smaller import modules, preserving public names, and return
+notes without invoking Lean or editing other files. Primary will verify
+and integrate its changes. Historical proof-note ownership is unchanged.
+The prior independent Astra review already approved this architecture.
+The extraction worker has finished and released its five files to primary
+for integration. Initial focused compilation identified only two extraction
+import issues (an unused namespace opening and the missing direct HRV type
+import), which primary corrected. No worker builds ran.
+
+The first verified source increment implements `DiagramProof/Basic.lean`,
+`PathTransport.lean` and `WeakBlocks.lean`: full selections and exact layer
+counts, inverse full-selection construction, whole-component layer closure,
+finite/lifted reachability and cover equivalence, an actual directed-flip
+constructor from finite cover data, and invariance of every weak block
+under actual flip paths. P1 is still partial: source-only flip construction,
+corner marking and induced-core transport remain. P2--P10 are not complete.
+
+Both low-level extractions compile, with existing names preserved. Focused
+builds also verify the changed `ComponentScalars`, `SelectedColoringTransport`
+and `ForwardHRV` modules. `DiagramProofVerification.lean` passes all 16 axiom
+queries using only `propext`, `Classical.choice`, `Quot.sound`. Its independent
+import closure contains 56 project modules and none of the old word/scan/
+component-expansion route. Source guards, 100-column checks and whitespace
+checks pass. Logs and import inventory are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`.
+Only focused builds ran. The wrapper's known temporary-package-path manifest
+warning persists; no manifest update was performed. Next: corner transport
+and the forward source-cover flip lemma, followed by the restored slide.
+
 ## Detailed formalization plan — complete; implementation not started
 
 The user requested a detailed formalization plan after cleanup checkpoint

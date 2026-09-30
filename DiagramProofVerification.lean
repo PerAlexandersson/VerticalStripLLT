@@ -1,0 +1,22 @@
+import VerticalStripLLT.Components.DiagramProof.PathTransport
+import VerticalStripLLT.Components.DiagramProof.WeakBlocks
+import VerticalStripLLT.Components.SelectedColoringTransport
+
+/-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.fullSelection_injective
+#print axioms VerticalStripLLT.Circular.DiagramProof.fullSelection_ofFullSelection
+#print axioms VerticalStripLLT.Circular.DiagramProof.totalSelected_eq
+#print axioms VerticalStripLLT.Circular.DiagramProof.totalSelected_eq_of_reachable
+#print axioms VerticalStripLLT.Circular.DiagramProof.totalSelected_toUndecorated
+#print axioms VerticalStripLLT.Circular.DiagramProof.flipComponent_subset_edgeLayer
+#print axioms VerticalStripLLT.Circular.DiagramProof.liftReach_iff_reachable
+#print axioms VerticalStripLLT.Circular.DiagramProof.liftCover_iff_cover
+#print axioms VerticalStripLLT.Circular.DiagramProof.selected_of_cover
+#print axioms VerticalStripLLT.Circular.DiagramProof.cover_of_selected_adjacent
+#print axioms VerticalStripLLT.Circular.DiagramProof.directedFlipOfCovers
+#print axioms VerticalStripLLT.Circular.DiagramProof.weakReach_iff_of_reachable
+#print axioms VerticalStripLLT.Circular.DiagramProof.selectedConnected_iff_of_reachable
+#print axioms VerticalStripLLT.Circular.Orientation.liftedHRV_eq_coe_hrv_of_forward
+#print axioms VerticalStripLLT.Circular.EdgeData.strictOrderEnumerator_eq_selected_sum
+#print axioms VerticalStripLLT.Components.strictOrderEnumerator_selected_relabel

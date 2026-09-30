@@ -6,6 +6,12 @@ plan, not a report of new Lean proofs. The mathematical inputs are the
 [cleanup audit](proofs/COMPONENT_DIAGRAM_AUDIT.md). Historical proof notes
 remain the sources for the individual path constructions.
 
+Implementation status: P0 and the two semantic import extractions are now
+verified. P1 has the finite/lifted cover bridge, actual flip constructor
+from finite cover data, and weak-block invariance; its remaining transport
+and source-only construction obligations are open. P2--P10 remain open.
+See `HANDOFF.md` and `DiagramProofVerification.lean` for the exact checkpoint.
+
 ## Deliverable and scope
 
 We will prove a second, independent Lean theorem with the same actual
@@ -517,8 +523,8 @@ and positive consequences, and all required path/recurrence lemmas compile
 without placeholders; focused and necessary integration checks pass;
 proof dependencies exclude the old expansion route; and the source and
 verification record are pushed with an up-to-date handoff. The paper proof
-is complete already. All new formalization checkpoints P0--P10 remain
-unimplemented at the date of this plan.
+is complete already. The implementation status above distinguishes the
+verified source increments from the remaining checkpoints.
 
 ## Review and planning verification
 
