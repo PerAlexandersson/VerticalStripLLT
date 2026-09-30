@@ -1,3 +1,4 @@
+import VerticalStripLLT.Components.DiagramProof.LastCliqueTreePath
 import VerticalStripLLT.Components.DiagramProof.LastCliqueDiagram
 import VerticalStripLLT.Components.DiagramProof.LastCliqueCoreConnectivity
 import VerticalStripLLT.Components.DiagramProof.CliqueLowerConnectivity
@@ -613,5 +614,16 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms CornerFamily.corners_union_last_star_isAcyclic
 #print axioms CornerFamily.corners_union_last_star_subset_goodEdges
 #print axioms CornerFamily.exists_tree_containing_corners_and_last_star
+
+#print axioms CornerFamily.exists_tree_anchor_replacement
+#print axioms SimpleGraph.not_adj_of_adjacent_to_same
+#print axioms SimpleGraph.not_adj_of_three_edge_path
+#print axioms CornerFamily.exists_last_clique_tree
+#print axioms CornerFamily.last_clique_tree_no_internal_edge
+#print axioms CornerFamily.last_clique_tree_omits_shared_edge
+#print axioms exists_lastClique_core_tree
+#print axioms exists_lastClique_tree_replacement
+#print axioms lastClique_block_connected_of_star
+#print axioms exists_reachable_lastClique_tree
 
 end VerticalStripLLT.Circular.DiagramProof

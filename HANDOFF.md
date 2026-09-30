@@ -2,13 +2,14 @@
 
 ## Active implementation — P0/P2/P3/P4 complete, P1/P5 partial
 
-Continuation from clean pushed `baa56e2` made verified progress: the first
-last-clique inheritance step is now an actual Lean-verified path. Every
-connected anchor reaches an anchor with connected retained core. Finite
-iteration preserves the special block's star and all earlier lower weak
-connections. The final core-connectivity argument handles every clique block,
-including reflexive paths at isolated vertices. The fixed-tree and extra-edge
-rearrangement steps remain open.
+Continuation from clean pushed `86c5867` made verified progress: the prescribed
+core tree and full last-clique star can now be reached by the written diagram
+moves, assuming uniqueness in the smaller core. The proof prepares a connected
+core, replaces it while restoring the exterior, then normalizes the whole last
+clique. The same prescribed core tree is selected at the final endpoint.
+The core-tree construction, source-count capacity bounds, and forced edge
+omissions are also verified. Packaging the full tree and rearranging its extra
+edges remain open.
 P0/P2/P3/P4 are complete; P1/P5 remain partial; P6--P10 remain open. The
 independent diagram formalization and illustrated circular/ordinary draft are
 unfinished. The full goal is unchanged.
@@ -32,13 +33,21 @@ lower-path restriction lemma in `LastCliqueCoreConnectivity`. Historical proof-n
 
 ### Ownership and independent review
 
-The preceding goal turn made verified progress and was pushed cleanly. Primary
-owns all new sources, including the returned Terra/Luna candidates, and retains
-the sole serialized build slot. Terra supplied `LastCliquePreparation`; Luna
-supplied `CliqueBlockBounds` and `CornerStarForest`; primary supplied
-`LastCliqueConnectedCore`, integrated the candidates and verified the exact
-contracts. `semantic_extract` independently approved connected-core preparation.
-All subagent source ownership has returned; no subagent or compiler is active.
+Primary owns all returned sources and retains the sole serialized build slot.
+For this increment, Terra supplied `TreeOmissions`, Luna supplied `TreeAnchors`,
+and `semantic_extract` supplied `LastCliqueStarConnectivity`; primary repaired
+and integrated the candidates. Primary wrote `LastCliqueTree`,
+`LastCliqueTreeReplacement`, and `LastCliqueTreePath`. All delegated source
+ownership has returned. Terra independently approved the final composition:
+it uses the same prescribed tree throughout its interfaces, with endpoint
+selection rather than an assertion that every intermediate state retains it.
+This is precisely the written “tree plus extras” endpoint requirement.
+No subagent, compiler, Claude child, or remote task remains active.
+
+The preceding checkpoint `86c5867` integrated Terra's `LastCliquePreparation`,
+Luna's `CliqueBlockBounds` and `CornerStarForest`, and primary's
+`LastCliqueConnectedCore`. `semantic_extract` independently approved
+connected-core preparation. Historical ownership below is unchanged.
 
 The user's additional Claude consultation completed successfully, native
 session `76378`, after about 284 seconds under its 20-minute timeout. Claude
@@ -49,7 +58,33 @@ the ledger records the missing hypotheses in its core-tree path sketch.
 See `docs/ARISTOTLE.md`, section "Auxiliary Claude last-clique tree review".
 No Claude child or remote task remains active.
 
-### Verified P5 increment — connected retained core
+### Verified P5 increment — prescribed tree and full last star
+
+- `TreeOmissions` proves the exclusions using the explicit triangle and
+  b-c-e-a paths. `LastCliqueTree` constructs the displayed good tree containing
+  every retained corner and the terminal star, and specializes the exclusions.
+- `exists_lastClique_core_tree` applies this construction to the actual induced
+  core, transporting its last corner and retaining all ambient corners.
+- `exists_tree_anchor_replacement` extends a prescribed good tree to the source
+  anchor's count. Source connectedness supplies the lower bound, and membership
+  in the good-edge pool supplies the upper bound.
+- `exists_lastClique_tree_replacement` invokes the explicit smaller-core
+  common-cover uniqueness hypothesis, then lifts that actual path and restores
+  the original exterior. It selects the prescribed tree with allowable extras.
+- `lastClique_block_connected_of_star` joins every right-clique block to the
+  last vertex through a retained vertex. Actual ambient connectivity gives the
+  needed retained vertex; no extra assumption on exterior pieces is introduced.
+- `exists_reachable_lastClique_tree` composes connected-core preparation,
+  replacement, and complete last-star normalization. All core-tree edges remain
+  selected at the endpoint: edges before the last-corner tail are restored by
+  the local path; any tree edge in the clique must belong to its terminal star,
+  since an additional edge would form a triangle.
+- The final theorem accepts a fixed core tree, so it can be reused unchanged
+  for both endpoints of the eventual component comparison. It does not choose
+  a new tree depending on each source. Core uniqueness is still a hypothesis,
+  and the final general component theorem is not yet proved by this route.
+
+### Previous P5 increment — connected retained core (`86c5867`)
 
 - `exists_last_clique_preparation` composes the special-block star path with
   a finite sweep over all vertices. Eligible vertices lie below the cutoff
@@ -68,8 +103,8 @@ No Claude child or remote task remains active.
   corner chains plus any of the specified terminal-star edges form a forest
   of good edges. The forest extends to a tree inside a connected good-edge
   graph. The verification uses uniqueness of outgoing edges, which is exactly
-  the chains-and-star structure of the diagram. Specializing to the fixed core
-  tree, its forced omissions, and actual tree-reaching paths remains open.
+  the chains-and-star structure of the diagram. The subsequent increment above
+  supplies the core specialization, omissions, and actual tree-reaching path.
 
 ### Previous P5 increment — actual local block rearrangements (`baa56e2`)
 
@@ -424,17 +459,16 @@ this route. The mathematical diagram proof is complete.
 
 ### Verification and next step
 
-Focused builds of all new modules and the verification import targets pass
-without source warnings. All 514 queries in `DiagramProofVerification.lean`
-use only `propext`, `Classical.choice`, `Quot.sound` (or none). The independent
-import closure contains 233 project files including verification and excludes
-the old word/scan/expansion routes. Source guards (including no `native_decide`),
-100-column and whitespace checks pass. Current logs are
-`p5-connected-core-axioms.log` and `p5-connected-core-imports.txt`;
-final focused builds are `p5-clique-preparation-build.log`,
-`p5-prepared-core-build.log` and `p5-corner-star-forest-build.log`.
-The focused verification import targets also pass. Earlier repair logs may
-contain superseded errors. The preceding local-path checkpoint had
+Focused builds of all six new modules pass without source warnings. All 524
+queries in `DiagramProofVerification.lean` use only `propext`, `Classical.choice`,
+`Quot.sound` (or none). The independent import closure contains 239 project
+files including verification and excludes the old word/scan/expansion routes.
+Source guards (including no `native_decide`), 100-column and whitespace checks
+pass. Current logs are `p5-tree-path-build.log`, `p5-tree-path-axioms.log`, and
+`p5-tree-path-imports.txt`, under the usual external diagram-formalization
+request directory. Earlier repair logs may contain superseded errors. The
+preceding connected-core checkpoint had 514 queries/233 project files
+(`p5-connected-core-*`). The preceding local-path checkpoint had
 505 queries/229 project files (`p5-local-paths-*`). The anchor-transport checkpoint had
 484 queries/219 project files (`p5-core-anchor-*`). The
 preceding restored-core checkpoint had 461 queries/212 project files
@@ -455,21 +489,21 @@ Only primary invokes `lake-workspace`. Lean MCP remains
 rooted at RealRooted, so local compiler diagnostics are used. The wrapper's
 existing package-path manifest warning remains unchanged.
 
-Next: choose a fixed good core spanning tree containing the retained corners
-and every core edge from strictly after the last-corner tail to its head.
-The first inheritance step (connected-core preparation) is now proved.
-The required-forest and tree-extension lemmas now exist. Specialize them to
-the actual core and prove that the shared edge ba is omitted. Then
-use smaller-core uniqueness and the exact core replacement to select that
-fixed tree with extras, connect the full last clique, and perform its final
-star normalization. Rearranging all extras through the shared edge remains. Actual core
-replacement with exact exterior restoration is proved under the smaller-core
-path hypothesis. The written proof starts near line 4298 of
-`COMPONENT_NN_REDISTRIBUTION.md`. Its final rearrangement uses the restricted
-local pool described above. The terminal-clique base, good-edge connectivity,
-feasible sizes and removable-edge consequence are proved; do not repeat them.
-P1's order reversal is needed before first-clique inheritance. No general
-interval-graph library was introduced.
+Next: package the full tree T = T_V union {ve : c<v<e} as the retained tree
+with the omitted leaves, then rearrange its extra edges through the shared
+position ba. Reaching the prescribed core tree and selecting the full last
+star is now proved under smaller-core uniqueness. The shared edge omission is
+proved by the displayed b-c-e-a path; instantiate it on the two core corners
+when defining the extra-position pools. Define P_C and P_R from the written
+“Rearrange all extra edges” argument near line 4400 of
+`COMPONENT_NN_REDISTRIBUTION.md`. Core replacement gives the first pool's
+fixed-count paths. The second must use the restricted local pool: extra
+positions in [a,e] plus ba, holding other copies of its classes fixed.
+Then use their overlap at ba to connect equal-size extra subsets. Do not
+claim that unrestricted terminal-class connectivity already supplies the
+restricted-pool statement. Finally obtain first-clique inheritance through
+P1's still-open order reversal. Terminal-clique base, good-edge connectivity,
+feasible sizes and removable-edge consequences are already proved.
 
 For clique reachability, use `clique_lift_core_of_block` to transport the
 actual core endpoint and its selected relation. The general lower-interval

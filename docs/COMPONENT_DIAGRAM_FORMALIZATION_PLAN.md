@@ -18,8 +18,11 @@ We retain the following correspondence when drafting and illustrating P5:
 | Connect the lower retained vertices of each other block, preserving earlier connections | `exists_last_clique_block_lower_path` | Verified |
 | Perform those moves successively and obtain connected core | `exists_last_clique_preparation`, `exists_reachable_connected_lastClique_core` | Verified |
 | Sweep omitted edges, lift a core path, and restore the original exterior | `exists_lastClique_anchor_replacement_preserving_anchor` | Verified, given the core path |
-| Extend the displayed corner chains and terminal star to a fixed tree | `corners_union_last_star_isAcyclic`, `exists_tree_containing_corners_and_last_star` | General construction verified; core specialization open |
-| Reach that tree, normalize the full last clique, then move the extra edges through the shared position | Final inheritance construction | Open |
+| Extend the displayed corner chains and terminal star to a fixed core tree | `exists_lastClique_core_tree` | Verified |
+| Exclude the shared edge by the path b-c-e-a and other internal edges by triangles | `last_clique_tree_omits_shared_edge`, `last_clique_tree_no_internal_edge` | Verified |
+| Select the prescribed core tree, restoring exterior edges | `exists_lastClique_tree_replacement` | Verified, assuming smaller-core uniqueness |
+| Connect the whole right clique and normalize its star, retaining the same core tree at the endpoint | `lastClique_block_connected_of_star`, `exists_reachable_lastClique_tree` | Verified, assuming smaller-core uniqueness |
+| Move the extra edges through the shared position | Final inheritance construction | Open |
 
 Source: [last-clique inheritance](proofs/COMPONENT_NN_REDISTRIBUTION.md#extending-the-last-clique-from-a-connected-core).
 The observation that the displayed chains and star have at most one outgoing
@@ -525,9 +528,21 @@ the first inheritance step: a connected anchor reaches an anchor with connected
 actual retained core. This step requires no smaller-core uniqueness assumption.
 `CornerStarForest` proves the displayed corner chains and terminal star form a
 forest of good edges, and extends it inside the connected good-edge graph.
-The actual core specialization and forced tree omissions are still needed.
+`LastCliqueTree` specializes this to the complete last star and proves the
+forced omissions by the displayed triangle and b-c-e-a paths.
+`exists_lastClique_core_tree` constructs the actual retained-core tree.
+`TreeAnchors` fills a prescribed tree to the source count; the source anchor
+supplies the upper capacity bound and source connectedness supplies the lower bound.
+`exists_lastClique_tree_replacement` applies smaller-core uniqueness and restores
+all original exterior edges. The uniqueness hypothesis remains explicit.
+`lastClique_block_connected_of_star` joins each right-clique block to the last
+vertex through its retained boundary. Finally `exists_reachable_lastClique_tree`
+composes connected-core preparation, replacement, and full-star normalization.
+It retains the same prescribed core tree at the endpoint. Intermediate states
+may lose its edges, just as allowed in the written path construction.
 
-Remaining: reach the fixed spanning tree; rearrange extra positions using the shared edge.
+Remaining: package the full tree as the core tree with the omitted leaves;
+rearrange extra positions using the shared edge.
 The last operation counts only its specified pool of copies and fixes the
 other copies of the same classes. Tree edges in the terminal clique may move
 during packing; the fixed tree is required only at endpoints. Obtain
