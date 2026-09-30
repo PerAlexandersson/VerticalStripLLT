@@ -450,24 +450,33 @@ without assuming occupancy determines an anchor. Preparation extends this to
 `commonCover_connected_of_total_last_clique`. The graph, capacity and path
 obligations of this base are all locally verified. Inheritance remains open.
 
-The first core interfaces are now verified. `LastCliqueEmbedding` enumerates
-`{0,...,c} ∪ {e}`. `InducedDiagram` constructs its natural diagram, with an
-explicitly empty strict set. `InducedRestriction` constructs actual restriction
-and fixed-exterior extension given natural/strict edge correspondences.
-`LastCliqueSweep` supplies the actual incoming sweep, unchanged core selection,
-and absence of edges from omitted vertices into `e`. `LastCliquePaths` derives
-path closure and exact cover restriction. `LastCliqueLift` uses these to lift
-any actual core path with the swept exterior fixed. The decorated core geometry,
-transport of the anchor hypotheses, and restoration of the ORIGINAL exterior
-remain open; these conditional interfaces do not yet prove inheritance.
+The core interfaces and exact path replacement are now verified.
+`LastCliqueEmbedding` enumerates `{0,...,c} ∪ {e}`. `InducedDiagram` constructs
+the compressed natural graph. `CornerMaximality` and `InducedCorners` prove
+surviving corners remain corners, and no new corners arise when every ambient
+corner survives. `InducedDecorations` therefore constructs the actual decorated
+induced diagram with exact natural and strict edge correspondences, without
+an extra unproved corner hypothesis. `LastCliqueDiagram` supplies the
+last-clique corner correspondence and strictly smaller vertex count.
 
-Then prove last-clique inheritance through its four separate claims:
-make the selected core connected; sweep and lift core paths with exact
-exterior restoration; reach the fixed spanning tree; rearrange extra
-positions using the common buffer edge. Obtain first-clique inheritance
-by the order-reversal path theorem from P1. The final local rearrangement
-uses only its specified pool of copies; other copies of the same class must
-remain fixed and must not count toward the local capacities.
+`InducedRestriction` gives actual restriction and extension. `LastCliqueSweep`
+supplies the incoming sweep and unchanged core selection; `LastCliquePaths`
+and `LastCliqueLift` derive all intermediate cover tests. The final restoration
+uses the existing outgoing sweep with cutoff and final vertex both `e`.
+`LastCliqueRestoration` proves exact endpoint equality on the core and exterior.
+`LastCliqueCoreReplacement` composes the actual paths, and
+`LastCliqueAnchorReplacement` derives the required rows and endpoint covers
+from source and target core anchors. The supplied smaller-core path lifts with
+the ORIGINAL exterior restored. See the
+[short restoration proof](proofs/COMPONENT_LAST_CLIQUE_RESTORATION.md).
+
+Remaining: transport corner-chain terminals and good edges, so restrictions
+and restored endpoints are anchors; make the selected core connected; reach
+the fixed spanning tree; rearrange extra positions using the shared edge.
+The last operation counts only its specified pool of copies and fixes the
+other copies of the same classes. Tree edges in the terminal clique may move
+during packing; the fixed tree is required only at endpoints. Obtain
+first-clique inheritance by the order-reversal path theorem from P1.
 
 Sources: [chain quotient](proofs/COMPONENT_NN_REDISTRIBUTION.md#the-interval-graph-of-corner-chains),
 [terminal clique](proofs/COMPONENT_NN_REDISTRIBUTION.md#complete-recurrences-when-the-last-clique-contains-every-chain-terminal),

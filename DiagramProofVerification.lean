@@ -1,3 +1,5 @@
+import VerticalStripLLT.Components.DiagramProof.LastCliqueDiagram
+import VerticalStripLLT.Components.DiagramProof.LastCliqueAnchorReplacement
 import VerticalStripLLT.Components.DiagramProof.InducedDiagram
 import VerticalStripLLT.Components.DiagramProof.LastCliqueEmbedding
 import VerticalStripLLT.Components.DiagramProof.LastCliqueSweep
@@ -524,5 +526,29 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms exists_lastCliqueSweep
 #print axioms inducedExtend_cover_iff_of_last_gap
 #print axioms induced_lift_reachable_of_last_gap
+
+#print axioms isCorner_iff_extremal
+#print axioms exists_maximal_interval
+#print axioms isCorner_iff_maximal
+#print axioms exists_corner_containing
+#print axioms isCorner_of_inducedEdge_isCorner
+#print axioms inducedEdge_isCorner_iff
+#print axioms inducedDiagram
+#print axioms mem_inducedDiagram_strict
+#print axioms inducedEdgeEmbedding
+#print axioms inducedDiagram_forward
+#print axioms inducedDiagram_naturalEdge_iff
+#print axioms inducedDiagram_strictEndpoint_iff
+#print axioms inducedDiagram_map_strict
+#print axioms lastCliqueDiagram
+#print axioms lastClique_corner_endpoints
+#print axioms lastCliqueDiagram_corner_iff
+#print axioms lastCliqueDiagram_size_lt
+#print axioms CornerFamily.anchor_selected_from_last_tail_iff
+#print axioms CornerFamily.anchor_not_selected_last_tail_of_lt
+#print axioms lastClique_restore_inside
+#print axioms lastClique_restore_outside
+#print axioms exists_lastClique_core_replacement
+#print axioms exists_lastClique_anchor_replacement
 
 end VerticalStripLLT.Circular.DiagramProof

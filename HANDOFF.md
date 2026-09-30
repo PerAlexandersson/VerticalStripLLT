@@ -2,58 +2,87 @@
 
 ## Active implementation — P0/P2/P3/P4 complete, P1/P5 partial
 
-The terminal-clique connectivity theorem is verified and pushed in `f08d1a5`.
-The next increment verifies the incoming sweep and conditional core-path lift
-for last-clique inheritance. P0/P2/P3/P4 are complete; P1/P5 remain partial;
-P6--P10 remain open. The independent diagram formalization and illustrated
-circular/ordinary draft are unfinished. The full goal is unchanged.
+Continuation from clean pushed `2a94504` made verified progress: the decorated
+induced core, exact corner correspondence, and actual core-path replacement
+with the ORIGINAL exterior restored are now Lean-verified. Terminal-clique
+connectivity was pushed in `f08d1a5`. P0/P2/P3/P4 are complete; P1/P5 remain
+partial; P6--P10 remain open. The independent diagram formalization and
+illustrated circular/ordinary draft are unfinished. The full goal is unchanged.
 
-Primary owns all `DiagramProof/` sources, `DiagramProofVerification.lean`,
-this handoff, the formalization plan and the restriction-consolidation suggestion,
-and retains the sole serialized build slot. All subagent ownership has returned.
-Terra supplied `LastCliquePaths` and `LastCliqueSweep`; Luna supplied
-`LastCliqueEmbedding`; `semantic_extract` supplied `InducedRestriction`.
-Primary wrote `InducedDiagram` and `LastCliqueLift`, integrated all candidates,
-and verified every module locally. Terra independently approved the contracts
-and the exact proved/unfinished boundary. No compiler, remote task or subagent
-remains active. Historical proof-note prefixes and unrelated ownership remain
-unchanged.
+Primary owns all `DiagramProof/` sources, `DiagramProofVerification.lean`, this
+handoff, the formalization plan, the restriction-consolidation suggestion, and
+`docs/proofs/COMPONENT_LAST_CLIQUE_RESTORATION.md`, and retains the sole serialized
+build slot. All subagent ownership has returned. Terra supplied
+`CornerMaximality` and independently audited geometry and the final replacement;
+Luna supplied `MaximalIntervals`, `LastCornerRow`, and `LastCliqueAnchorReplacement`;
+`semantic_extract` supplied the initial decoration constructor and restoration
+relation algebra. Primary integrated and verified all candidates, removed the
+constructor's temporary corner assumption, and wrote `InducedCorners`,
+`LastCliqueDiagram`, and `LastCliqueCoreReplacement`. Reviews passed. No compiler,
+remote task or subagent remains active. Historical proof-note prefixes and
+unrelated ownership remain unchanged.
 
-### Current P1/P5 increment — last-clique core interfaces
+### Current P1/P5 increment — decorated core and restored replacement
 
-- `lastCliqueEmbed` enumerates the nonconvex core `{v | v ≤ c} ∪ {e}` with
-  its original order and exact image.
-- `InducedDiagram.inducedUndecorated` realizes the natural edges induced on
-  any increasing nonempty vertex list. The edge map is injective with exact
-  endpoints and range. Its strict set is explicitly empty: this is not yet
-  the inherited decorated core.
-- `InducedRestriction` constructs actual restriction and extension maps under
-  explicit natural and strict edge correspondences. Extension preserves every
-  exterior edge; extending the restriction recovers the source exactly.
-- `LastCliquePaths` proves that, when no omitted vertex has an edge into `e`,
-  forward paths with core endpoints stay in the core. Reachability and all
-  cover tests therefore restrict exactly despite the nonconvex image.
-- `exists_lastCliqueSweep` supplies an actual flip path, the exact incoming
-  sweep endpoint relation, absence of gap-to-`e` edges, and unchanged core
-  selection. `induced_lift_reachable_of_last_gap` then lifts any actual core
-  path with this swept exterior fixed, deriving all intermediate cover tests.
+- `isCorner_iff_extremal` and `isCorner_iff_maximal` identify corners with maximal
+  natural intervals. `exists_corner_containing` puts every natural edge inside
+  a corner. The finite interval maximum is separate in `MaximalIntervals`.
+- `isCorner_of_inducedEdge_isCorner` proves surviving ambient corners remain
+  corners under arbitrary increasing restriction. `inducedEdge_isCorner_iff`
+  proves the converse when every ambient corner survives. The latter condition
+  excludes newly created corners and is not silently dropped.
+- `InducedDecorations.inducedDiagram` now unconditionally constructs the
+  decorated induced diagram. Its strict edges are precisely the original
+  strict edges whose endpoints survive; natural/strict endpoint equivalences
+  supply the exact `InducedRestriction` inputs. There is no unproved corner
+  preservation argument in the constructor.
+- `LastCliqueDiagram` specializes to `{0,...,c} ∪ {e}`. If the designated last
+  corner starts at or below `c` and every other corner ends at or below `c`,
+  all corner endpoints survive and no new corners appear. The vertex count
+  strictly decreases when the deleted gap is nonempty.
+- `LastCornerRow` proves an anchor's only selected edge from the last corner
+  tail is that corner. `LastCliqueRestoration` proves that the final outgoing
+  sweep leaves the replacement core unchanged and restores every original
+  exterior relation pair.
+- `exists_lastClique_core_replacement` composes the actual incoming sweep,
+  actual core-path lift, and actual outgoing sweep. It returns the exact target
+  core and original exterior, not merely the swept exterior. Its endpoint row
+  and cover hypotheses are explicit; no intermediate core-cover hypothesis
+  is imposed.
+- `exists_lastClique_anchor_replacement` derives these row/cover conditions
+  from actual source and target core anchors, using a globally last corner.
+  It still takes the actual smaller-core path as input. The resulting ambient
+  endpoint is not yet asserted to be an anchor: that needs terminal/good-edge
+  transport when all ambient corners survive.
 
-Still open: construct the decorated induced core with inherited maximal
-corners; transport corner-family, good-edge, common-cover, anchor, connectedness
-and count data; restore the original exterior after changing the core. The
-lift endpoint retains the SWEPT exterior. Do not reverse the old sweep trace
-after the core changes. Restore the recorded edges in increasing order using
-the core anchor's pendant last-corner tail. Last-clique inheritance is not yet
-proved.
+The [short restoration proof](docs/proofs/COMPONENT_LAST_CLIQUE_RESTORATION.md)
+records the simplification for the draft. Use the existing outgoing sweep with
+both cutoff and final vertex `e`; do not reverse the original incoming trace
+through changed core states. Terra independently approved this argument and
+the final actual path composition.
 
-The read-only local-capacity audit also confirmed that the final rearrangement
-must count only terminal copies in the last clique plus the crossing-slide
-copy `ba`. Copies elsewhere stay fixed and do not count toward capacity.
-The terminal-star tree edges lie in this mutable pool: the tree is required
-only at endpoints, not throughout the packing paths. Existing
-`RepresentativePacking`, `fixed_label_connectivity`, and the noninjective
-count descent provide the finite interfaces; actual local paths remain to
-be assembled.
+Next prove corner-chain terminal and good-edge transport for a restriction
+retaining all corner endpoints. This should identify the restricted source as
+a core anchor and the restored endpoint as an ambient anchor. Then implement
+making the selected core connected, the fixed spanning tree, and the final
+extra-position rearrangement. Last-clique inheritance is not yet complete.
+
+For the final rearrangement, count only terminal copies in the last clique
+plus the crossing-slide copy `ba`. Copies elsewhere stay fixed and do not count
+toward capacity. The terminal-star tree edges lie in this mutable pool: the tree
+is required only at endpoints. Existing `RepresentativePacking`,
+`fixed_label_connectivity`, and noninjective count descent supply the finite
+interfaces; the actual restricted local paths remain to be assembled.
+
+### Earlier core interfaces — `2a94504`
+
+`LastCliqueEmbedding` enumerates the nonconvex core. `InducedDiagram` constructs
+its undecorated natural graph. `InducedRestriction` gives actual restriction
+and extension with fixed exterior. `LastCliquePaths` proves path closure after
+the sweep, and `LastCliqueLift` derives every intermediate core cover test.
+These interfaces were verified with 438 axiom queries/203 project files. Their
+former decorated-core and exterior-restoration obligations are now discharged
+as described above; full inheritance and anchor transport remain unfinished.
 
 ### Verified P5 checkpoint `f08d1a5` — terminal-clique connectivity
 
@@ -279,13 +308,14 @@ this route. The mathematical diagram proof is complete.
 ### Verification and next step
 
 Focused builds of all new modules and the verification import targets pass
-without source warnings. All 438 queries in `DiagramProofVerification.lean`
+without source warnings. All 461 queries in `DiagramProofVerification.lean`
 use only `propext`, `Classical.choice`, `Quot.sound` (or none). The independent
-import closure contains 203 project files including verification and excludes
+import closure contains 212 project files including verification and excludes
 the old word/scan/expansion routes. Source guards (including no `native_decide`),
 100-column and whitespace checks pass. Current logs are
-`p5-last-core-build.log`, `p5-last-core-axioms.log` and
-`p5-last-core-imports.txt`. The terminal-clique checkpoint had
+`p5-restored-core-build.log`, `p5-restored-core-axioms.log` and
+`p5-restored-core-imports.txt`. The preceding core-interface checkpoint had
+438 queries/203 project files (`p5-last-core-*`). The terminal-clique checkpoint had
 408 queries/197 project files (`p5-terminal-complete-*`). The direct-transfer checkpoint had
 393 queries/190 project files (`p5-direct-*`). The repair checkpoint had 374 queries/183 project
 files (`p5-repair-*`). The preceding packing checkpoint had 373 queries/182
@@ -301,21 +331,16 @@ Only primary invokes `lake-workspace`. Lean MCP remains
 rooted at RealRooted, so local compiler diagnostics are used. The wrapper's
 existing package-path manifest warning remains unchanged.
 
-Next: finish the decorated core geometry and exact exterior restoration, then
-assemble P5's four last-clique inheritance steps: make the selected core
-connected; sweep, lift and restore;
-reach the fixed spanning tree; rearrange extra positions through the shared
-edge. The written proof starts near line 4298 of
-`COMPONENT_NN_REDISTRIBUTION.md`. Its last step needs the terminal-clique
-argument restricted to the stated local pool: same-pair copies elsewhere are
-held fixed and must not count toward local capacity. The terminal-clique base,
-good-edge connectivity, feasible sizes and removable-edge consequence are
-proved; do not repeat them. P1's order reversal is needed before first-clique
-inheritance. No general interval-graph library was introduced. Surviving
-ambient corners remain corners under arbitrary increasing restriction; the
-last-clique hypotheses are needed for the converse, excluding new corners.
-A corner-as-maximal-natural-interval characterization would support this
-geometry; the current induced diagram does not yet prove it.
+Next: prove terminal and good-edge transport, then assemble P5's remaining
+last-clique inheritance steps: make the selected core connected; reach the fixed
+spanning tree; rearrange extra positions through the shared edge. Actual core
+replacement with exact exterior restoration is proved under the smaller-core
+path hypothesis. The written proof starts near line 4298 of
+`COMPONENT_NN_REDISTRIBUTION.md`. Its final rearrangement uses the restricted
+local pool described above. The terminal-clique base, good-edge connectivity,
+feasible sizes and removable-edge consequence are proved; do not repeat them.
+P1's order reversal is needed before first-clique inheritance. No general
+interval-graph library was introduced.
 
 For clique reachability, use `clique_lift_core_of_block` to transport the
 actual core endpoint and its selected relation. The general lower-interval
