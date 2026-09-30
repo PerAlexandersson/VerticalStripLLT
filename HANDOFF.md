@@ -2,17 +2,17 @@
 
 ## Active implementation — P0/P2/P3 complete, P1/P4 partial
 
-Current continuation began clean at pushed `eb3fa06`; the previous turn
-made verified progress. The current increment completes the complete-diagram
-connectivity theorem for every size, including the version with its extreme
-corner strict, through the four explicit five-vertex paths and strong induction.
+Continuation began clean at pushed `c1e2e8e`; the previous turn made
+verified progress. The current increment proves the incoming-normalization
+stage of reachability forcing, including exact induced weak-block and
+exterior-edge preservation. Hasse-path hull shortening remains unfinished.
 
 Primary owns all `DiagramProof/` files, `DiagramProofVerification.lean`, this
-handoff, the formalization plan and the new implementation-history archive,
-and retains the sole serialized build slot. Terra returned `CoverCut`; Luna
-returned `ThreePositionPaths`. Primary repaired, integrated and verified
-both, and wrote `FiveVertexPaths`, `FiveVertexBase` and `CompleteConnectivity`.
-Terra independently reviewed the completed theorem and its finite base.
+handoff and the formalization plan, and retains the sole serialized build
+slot. Terra returned `UniqueIncomingPaths`; primary repaired, streamlined
+and verified it. Primary wrote `RestrictedFlips`, `IncomingNormalization`
+and `IntervalReachability`, and extended `IncomingFlip`. Terra independently
+reviewed the new interfaces. Luna returned a read-only Hasse-path/API audit.
 Both agents are finished; all current source is primary-owned. Historical
 proof notes and unrelated ownership remain unchanged.
 
@@ -29,7 +29,36 @@ terms or state the condition itself, follow Robin and the author's diagram
 reasoning, and keep implementation/audit details out of the manuscript.
 No fundamental-basis or old word/scan argument is used.
 
-### Current P4 increment — complete-diagram connectivity
+### Current P4 increment — reachability inside an interval
+
+- `IncomingFlip.exists_reverseFlip_of_sourceCovers` supplies the incoming
+  exchange as a reverse directed witness, with exact short-edge endpoints.
+- `RestrictedFlips.DirectedFlipWithin` records that all three vertices of
+  an actual directed flip lie in a specified set. Reverse paths of these
+  flips are actual ambient flip paths. They fix every selected edge outside
+  that induced set and preserve induced weak blocks in every containing set.
+- `IncomingNormalization.exists_leftUnique_covers_within` repeatedly removes
+  incoming cover forks inside the specified set. Each reverse flip strictly
+  decreases `selectedTailSum`. Strict edges are retained by the actual
+  orientation/flip interface. The global version is also proved.
+- `UniqueIncomingPaths` proves that a left-unique relation gives common
+  ancestors to weakly related vertices. Cover factorization then proves
+  that a least vertex of a weak block reaches the whole block when incoming
+  covers are unique. `eqvGen_relationCover_iff` extracts the reusable fact
+  that replacing selected edges by cover paths preserves weak blocks.
+- `IntervalReachability` proves exact convex restriction of paths and
+  covers, including induced weak-block preservation under cover refinement.
+  `exists_reachable_within_of_minimal` handles a least vertex of an induced
+  weak block in any convex set. `exists_reachable_within_interval` specializes
+  to a weak path already inside `[u,v]`, producing a state where `u` reaches
+  `v` by actual flips confined to that interval.
+
+Terra's independent audit found no gap in flip direction, termination,
+preservation, minimality transport or interval semantics. These results
+finish the normalization stage of the written reachability argument. They
+DO NOT yet shrink an arbitrary Hasse path into its endpoint interval.
+
+### Verified at `c1e2e8e` — complete-diagram connectivity
 
 - `CoverCut.relationCover_of_cut` gives a sufficient cover test: the selected
   edge is the only edge allowed to cross a separating set. Its proof uses
@@ -98,34 +127,38 @@ strict edges; specialize to `allCorners D` for the proof note's multigraph H.
 P1 remains partial: other induced-core geometry and order reversal remain;
 the specific nonconvex complete-interval lift is now proved. P4 remains
 partial: localizing the complete theorem to a selected weak block and
-reachability forcing remain. P5--P10 remain open. General component
+Hasse-path hull shortening remain. The incoming-normalization stage of
+reachability forcing is now verified. P5--P10 remain open. General component
 recurrences, endpoint attachment and the final independent theorem are NOT
 yet Lean-proved by this route. The mathematical diagram proof is complete.
 
 ### Verification and next step
 
-Focused builds of `CompleteConnectivity` and its new dependencies pass
-without source warnings. All 262 queries in `DiagramProofVerification.lean`
-pass using only `propext`, `Classical.choice`, `Quot.sound` (or none). The
-independent import closure contains 152 project files including the
-verification file, and excludes the old word/scan/expansion routes. Source
-guards (including no `native_decide`), 100-column and whitespace checks pass.
-Logs are `p4-complete-connectivity-build.log`, `p4-complete-axioms.log` and
-`p4-complete-imports.txt` in the directory below. No compiler or agent job
-remains running.
+Focused builds of `IntervalReachability`, the affected complete-diagram
+consumer and all verification imports pass without source warnings. All 280
+queries in `DiagramProofVerification.lean` pass using only `propext`,
+`Classical.choice`, `Quot.sound` (or none). The independent import closure
+contains 156 project files including verification and excludes the old
+word/scan/expansion routes. Source guards (including no `native_decide`),
+100-column and whitespace checks pass. Logs are
+`p4-interval-reach-build.log`, `p4-interval-reach-closure-build.log`,
+`p4-interval-reach-axioms.log` and `p4-interval-reach-imports.txt` in the
+directory below. No compiler or agent job remains running.
 
 No broad build, dependency update, remote proof search or mathematical
 computation ran. Only primary invokes `lake-workspace`. Lean MCP remains
 rooted at RealRooted, so local compiler diagnostics are used. The wrapper's
 existing package-path manifest warning remains unchanged.
 
-Next: finish P4's local complete-block and reachability-forcing interfaces.
+Next: finish P4's Hasse-path hull shortening and local complete-block
+interfaces.
 The reachability proof is in `COMPONENT_NN_REDISTRIBUTION.md` around lines
 1557--1595: take a Hasse path between two vertices in one selected weak
 block, remove an internal largest/smallest vertex by an incoming/outgoing
 cover flip, refine selected edges back to cover paths, and decrease the
-containing label interval. Once inside the endpoint interval, eliminate
-incoming cover forks to make the least endpoint reach the greatest.
+containing label interval. The final incoming-fork normalization is now
+`exists_reachable_within_interval`; its actual-flip conversion and induced
+weak-block preservation are in `RestrictedFlips`.
 Record preservation of selected edges internal to a retained lower interval
 during upper-hull removal, and preservation of its weak blocks thereafter
 (used around lines 4081--4089 and 4334--4342 for clique inheritance).
@@ -144,7 +177,8 @@ implementation. Earlier verification logs remain under
 `p4-interval-*` records 195 axiom checks/131 project files;
 `p4-rearrangement-*` records 222 axiom checks/138 project files;
 `p4-outer-*` records 234 axiom checks/141 project files;
-`p4-chord-step-*` records 244 axiom checks/147 project files.
+`p4-chord-step-*` records 244 axiom checks/147 project files;
+`p4-complete-*` records 262 axiom checks/152 project files.
 
 ## Detailed formalization plan — completed before implementation
 

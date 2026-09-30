@@ -120,7 +120,17 @@ then completes strong induction for every `n`, with no smaller-diagram
 hypothesis left. `complete_reachable_marked` supplies the path with `0n`
 strict throughout. These theorems retain connectedness, endpoint coverhood
 of `0n`, and equality of total selected-edge counts as hypotheses.
-P4 still needs the local selected-block version and reachability forcing;
+The incoming-fork stage of reachability forcing is now formalized:
+`IncomingNormalization` decreases the selected tail sum using reverse actual
+flips within a prescribed set. `RestrictedFlips` preserves its exterior
+selected edges and the induced weak blocks in every containing set.
+`UniqueIncomingPaths` proves that unique incoming covers make the least
+vertex reach its weak block. `IntervalReachability` combines these facts
+with exact convex restriction of paths and covers: an induced weak path
+already inside `[u,v]` can be made directed by flips confined to `[u,v]`.
+It also proves that refining selected edges to covers preserves induced
+weak blocks. This does not yet bring an arbitrary weak path into `[u,v]`.
+P4 still needs the local selected-block version and Hasse-path hull shortening;
 P5--P10 remain open. The independent component
 theorem is not yet formalized. See `HANDOFF.md` and `DiagramProofVerification.lean`
 for ownership and exact verification.

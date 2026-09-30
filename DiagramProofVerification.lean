@@ -29,6 +29,7 @@ import VerticalStripLLT.Components.DiagramProof.OuterChordMove
 import VerticalStripLLT.Components.DiagramProof.ChordConnectivityStep
 import VerticalStripLLT.Components.DiagramProof.CompleteSmall
 import VerticalStripLLT.Components.DiagramProof.CompleteConnectivity
+import VerticalStripLLT.Components.DiagramProof.IntervalReachability
 
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
 
@@ -317,3 +318,25 @@ import VerticalStripLLT.Components.DiagramProof.CompleteConnectivity
 #print axioms VerticalStripLLT.Circular.DiagramProof.complete_reachable_five
 #print axioms VerticalStripLLT.Circular.DiagramProof.complete_reachable
 #print axioms VerticalStripLLT.Circular.DiagramProof.complete_reachable_marked
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_reverseFlip_of_sourceCovers
+#print axioms VerticalStripLLT.Circular.DiagramProof.DirectedFlipWithin.directedFlip
+#print axioms VerticalStripLLT.Circular.DiagramProof.weakReach_within_iff_of_directedFlip
+#print axioms VerticalStripLLT.Circular.DiagramProof.selected_outside_iff_of_directedFlip
+#print axioms VerticalStripLLT.Circular.DiagramProof.flip_reachable_of_reverse_directed_within
+#print axioms
+  VerticalStripLLT.Circular.DiagramProof.weakReach_within_iff_of_reverse_directed_reachable
+#print axioms
+  VerticalStripLLT.Circular.DiagramProof.selected_outside_iff_of_reverse_directed_reachable
+#print axioms VerticalStripLLT.Circular.DiagramProof.eqvGen_of_reflTransGen
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_common_ancestor_of_eqvGen_of_leftUnique
+#print axioms VerticalStripLLT.Circular.DiagramProof.eqvGen_relationCover_iff
+#print axioms
+  VerticalStripLLT.Circular.DiagramProof.reachable_of_eqvGen_of_minimal_of_leftUnique_relationCover
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_leftUnique_covers_within
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_leftUnique_covers
+#print axioms VerticalStripLLT.Circular.DiagramProof.reachable_within_iff_of_convex
+#print axioms VerticalStripLLT.Circular.DiagramProof.relationCover_within_iff_of_convex
+#print axioms VerticalStripLLT.Circular.DiagramProof.weakReach_covers_within_iff
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_reachable_within_of_minimal
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_reachable_within_interval

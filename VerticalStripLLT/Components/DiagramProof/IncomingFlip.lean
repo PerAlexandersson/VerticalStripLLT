@@ -51,6 +51,19 @@ theorem incomingSwap_mem_flipComponent (hforward : Forward D) (θ : Orientation 
   exact Relation.ReflTransGen.single (Or.inr ⟨reverseFlipOfSourceCovers
     hforward θ eab ebc habnormal hbcnormal htail hsbc hsac⟩)
 
+/-- Two incoming covers supply a reverse directed flip with explicit short endpoints. -/
+theorem exists_reverseFlip_of_sourceCovers (hforward : Forward D) (θ : Orientation D)
+    (a b c : Fin n) (hsbc : Cover θ b c) (hsac : Cover θ a c) (hab : a < b) :
+    ∃ η : Orientation D, ∃ w : DirectedFlipWitness D η θ,
+      w.eab.tail = a ∧ w.eab.head = b ∧ w.ebc.tail = b ∧ w.ebc.head = c := by
+  obtain ⟨eab, ebc, habnormal, hbcnormal, hat, hah, hbt, hbh⟩ :=
+    exists_normalShortEdges_of_selected hforward θ a b c
+      (selected_of_cover hforward hsac) hab hsbc.1
+  have hsourcebc : Cover θ eab.head ebc.head := by simpa only [hah, hbh] using hsbc
+  have hsourceac : Cover θ eab.tail ebc.head := by simpa only [hat, hbh] using hsac
+  exact ⟨_, reverseFlipOfSourceCovers hforward θ eab ebc habnormal hbcnormal
+    (hbt.trans hah.symm) hsourcebc hsourceac, hat, hah, hbt, hbh⟩
+
 /-- The incoming move also supplies its exact selected-relation endpoint. -/
 theorem exists_incomingSwap_of_covers (hforward : Forward D) (θ : Orientation D)
     (a b c : Fin n) (hsbc : Cover θ b c) (hsac : Cover θ a c) (hab : a < b) :
