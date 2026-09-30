@@ -10,7 +10,11 @@ Implementation status: P0 and the two semantic import extractions are now
 verified in pushed checkpoint `9d8c4bc`. P1 now has the finite/lifted cover
 bridge, weak-block invariance, exact corner-marking component transport and
 an actual flip derived from two source covers. Induced-core geometry, path
-lifting and order reversal remain open. P2--P10 remain open.
+lifting and order reversal remain open (structural checkpoint `3bbb1e4`).
+P2 now has the state/component marked semantic bridge, both marked diamond
+identities with arbitrary exterior, closure invariance and marked K
+relabeling. Its right-marked E signature and E relabeling remain open.
+P3--P10 remain open.
 See `HANDOFF.md` and `DiagramProofVerification.lean` for the exact checkpoint.
 
 ## Deliverable and scope

@@ -2,6 +2,7 @@ import VerticalStripLLT.Components.DiagramProof.PathTransport
 import VerticalStripLLT.Components.DiagramProof.WeakBlocks
 import VerticalStripLLT.Components.DiagramProof.CornerTransport
 import VerticalStripLLT.Components.DiagramProof.ShortFlip
+import VerticalStripLLT.Components.DiagramProof.LocalIdentities
 import VerticalStripLLT.Components.SelectedColoringTransport
 
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
@@ -28,6 +29,18 @@ import VerticalStripLLT.Components.SelectedColoringTransport
 #print axioms VerticalStripLLT.Circular.DiagramProof.relationCover_short_swap
 #print axioms VerticalStripLLT.Circular.DiagramProof.directedFlipOfSourceCovers
 #print axioms VerticalStripLLT.Circular.DiagramProof.swapShort_mem_flipComponent
+#print axioms VerticalStripLLT.Circular.DiagramProof.relationValue_fibre
+#print axioms VerticalStripLLT.Circular.DiagramProof.sum_markedK
+#print axioms VerticalStripLLT.Circular.DiagramProof.sum_markedE
+#print axioms VerticalStripLLT.Circular.DiagramProof.sum_componentMarkedK
+#print axioms VerticalStripLLT.Circular.DiagramProof.sum_componentMarkedE
+#print axioms VerticalStripLLT.Circular.DiagramProof.markedRelationValue_diamond
+#print axioms VerticalStripLLT.Circular.DiagramProof.markedRelationValue_eq_of_transGen_eq
+#print axioms VerticalStripLLT.Circular.DiagramProof.diamond_hrv_maps
+#print axioms VerticalStripLLT.Circular.DiagramProof.markedK_diamond
+#print axioms VerticalStripLLT.Circular.DiagramProof.markedE_diamond
+#print axioms VerticalStripLLT.Circular.DiagramProof.hrv_eq_of_reachable_eq
+#print axioms VerticalStripLLT.Circular.DiagramProof.markedRelationValue_relabel
 #print axioms VerticalStripLLT.Circular.Orientation.liftedHRV_eq_coe_hrv_of_forward
 #print axioms VerticalStripLLT.Circular.EdgeData.strictOrderEnumerator_eq_selected_sum
 #print axioms VerticalStripLLT.Components.strictOrderEnumerator_selected_relabel

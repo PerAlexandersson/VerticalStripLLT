@@ -1,6 +1,6 @@
 # VerticalStripLLT handoff
 
-## Active implementation — P0 complete, P1 in progress
+## Active implementation — P0 complete, P1/P2 partial
 
 The user authorized implementation of the detailed plan. Starting HEAD is
 `9890254`, with a clean checkout. Primary owns
@@ -26,22 +26,34 @@ source-to-target cover argument; `ShortFlip.lean` constructs an actual
 `DirectedFlipWitness` and proves membership in the whole component.
 `CornerTransport.lean` includes both directions and surjectivity, plus HRV
 and strict-coloring preservation. P1 is still partial: induced-core geometry,
-path lifting and order reversal remain. P2--P10 are not complete.
+path lifting and order reversal remain. This structural increment is pushed
+as `3bbb1e4`.
+
+`MarkedValues.lean` now defines K with a fixed endpoint color and E using
+the increasing order inside each actual HRV fibre. Summing the mark recovers
+the existing state and whole-component coloring/elementary semantics, for
+every finite alphabet, including the empty alphabet. `LocalIdentities.lean`
+proves the marked K diamond pointwise in colors and the marked E diamond
+by preservation of the unordered pair of entire HRV maps. Both allow
+arbitrary selected exterior. Closure-preserving changes and marked coloring
+relabeling are also proved. P2 remains partial: the right-marked E signature
+and sink-order relabeling for E remain. P3--P10 are not implemented.
 
 The changed old consumers compiled in the first checkpoint. Focused builds
-of all new modules pass. `DiagramProofVerification.lean` now passes 25 axiom
+of all new modules pass. `DiagramProofVerification.lean` now passes 37 axiom
 queries using only `propext`, `Classical.choice`, `Quot.sound` (or none).
-Its independent closure contains 64 project files, including the verification
+Its independent closure contains 76 project files, including the verification
 entry, and excludes the old word/scan/component-expansion route. Source guards,
 100-column checks and whitespace checks pass. Logs/import inventories are in
 `/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`:
 `p1-relations-build.log`, `p1-short-flip-build.log`, `p1-axioms.log` and
-`p1-imports.txt`; corner compilation succeeded in `p1-corner-relations-build.log`
+`p1-imports.txt`; the semantic increment adds `p2-local-identities-build.log`,
+`p2-axioms.log`, `p2-imports.txt`. Corner compilation succeeded in `p1-corner-relations-build.log`
 before the relation-module correction. Only focused builds ran. The wrapper's
 known temporary-package-path warning persists; no manifest update was performed.
-Next: establish the marked semantic bridge, then the remaining core/path
-interfaces and restored crossing slide. No general recurrence or attachment
-formalization is claimed yet.
+Next: the remaining core/path interfaces and restored crossing slide;
+complete the right-marked E signature before endpoint relabeling/attachment.
+No general recurrence or attachment formalization is claimed yet.
 
 ## Detailed formalization plan — completed before implementation
 
