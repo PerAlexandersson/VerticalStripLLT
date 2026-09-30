@@ -2,7 +2,33 @@
 
 ## Active implementation — P0/P2 complete, P1/P3 partial
 
-Current increment, based on clean pushed `98f226c`, proves the full restored
+Current increment, based on clean pushed `0871d38`, formalizes the full
+ordered corner-chain preparation. `CornerFamily.exists_preparation` takes
+any actual common-cover state to an anchor by actual flips, retaining every
+already-good selected edge. `exists_anchor_in_component` also records the
+same whole component, total selected count and every weak block. The theorem
+allows temporary redundant corners and proves their recovery at the end of
+each chain sweep. It does not assert that preparation is constant on a
+component or that all anchors of one size are connected.
+
+The new primary-owned files are `CornerChains`, `GoodEdges`,
+`AbsorbingPaths`, `PreparationStep`, `ChainPreparation` and `Preparation`.
+Corner families may be arbitrary retained maximal corners containing the
+original strict edges; `allCorners` gives the full family. Chain terminals
+reuse HRV on the existing empty-normal orientation marked by that family.
+The proof establishes unique predecessor/successor, ordered terminal fibres,
+nonoverlapping chain-corner intervals and the strict-successor position of
+an inversion edge. Every subset of good edges containing the corners is an
+actual anchor, and every anchor has all retained corners covering.
+
+The inner induction removes the least exit head and decreases the finite
+exit count. The outer induction processes terminal labels in decreasing
+order. An absorbing processed union rules out paths that enter it and return;
+this supplies the cover tests without assuming all other corners cover at
+intermediate states. The previous goal turn made verified progress; this
+increment adds further verified progress, and the general theorem stays open.
+
+Checkpoint `0871d38`, based on clean pushed `98f226c`, proves the full restored
 crossing slide in `DiagramProof/CrossingSlide.lean`. For `a<b<c<d`, selected
 `ab`, absent `cd`, and covers `ac,bd`, `exists_crossingSlide` constructs an
 actual flip path replacing exactly `ab` by `cd`, restoring all other selected
@@ -42,7 +68,7 @@ Verified implementation checkpoints:
 - `98f226c`: marked-E fibre signature by nonempty sizes, increasing fibre
   bijections fixing the greatest vertex, sink-order relabelings preserving
   full HRV maps and marked values, and closure invariance between diagrams.
-- Current crossing increment: `SweepCovers`, `IncomingFlip`, `OrderedSweep`,
+- `0871d38` crossing increment: `SweepCovers`, `IncomingFlip`, `OrderedSweep`,
   `RelationExchange`, `SweepRestoration`, `OrientationRestoration`,
   `CrossingCore`, `CrossingTransforms`, `CrossingSlide`, plus the short-edge
   existence extraction in `ShortFlip`. Sweep induction decreases the number
@@ -56,34 +82,34 @@ No old word/scan proof or fundamental-basis argument is used.
 
 P1 remains partial: specific induced-core constructions and strict corner
 geometry, swept nonconvex cores and order reversal remain. P3 now has the
-restored crossing slide, but corner-chain terminals, full anchor preparation,
-auxiliary short-path/copy ordering and fixed-count parallel rearrangement
-remain. P4--P10 are open. Next: formalize corner chains and ordered anchor
-preparation, then the path-induction bases. The general component recurrences,
+restored crossing slide, corner-chain terminals, anchor cover characterization
+and full ordered anchor preparation. Auxiliary short-path/copy ordering and
+fixed-count parallel rearrangement remain. P4--P10 are open. Next: formalize
+auxiliary short-edge paths and parallel-copy rearrangement, then the complete
+and two-chain path-induction bases. The general component recurrences,
 endpoint attachment and final independent theorem are NOT yet Lean-proved
 by this route. The mathematical diagram proof remains complete.
 
-Verification of the current crossing increment:
+Verification of the current preparation increment:
 
-- Focused local build of `DiagramProof.CrossingSlide` passes without source
-  warnings. `DiagramProofVerification.lean` passes all 70 axiom queries,
+- Focused local build of `DiagramProof.Preparation` passes without source
+  warnings. `DiagramProofVerification.lean` passes all 87 axiom queries,
   using only `propext`, `Classical.choice`, `Quot.sound` (or none).
-- The independent import closure has 89 project files, including verification;
+- The independent import closure has 100 project files, including verification;
   no old Word/Mountain/Scan/Cauchy, component-coefficient or old expansion
   route is imported. Source guards, 100-column and whitespace checks pass.
-- While the local slot was occupied, AXLE checked generic lemmas and then a
-  concatenated source closure in explicit environment `lean-4.34.0`.
-  This auxiliary check did not replace the local build. Local checking caught
-  and fixed a missing direct `OrderDual` import and fragile normalization
-  simplification. The final local build includes all accepted refactors.
+- No remote proof search, mathematical computation or new consultant was used
+  for preparation. The earlier crossing checkpoint used AXLE auxiliarily
+  while another project's compiler ran; its final local build included every
+  accepted refactor. No broad build or dependency update ran in either turn.
 
-Logs, AXLE receipts, source bundles and the Claude report are under
-`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`:
-`p3-crossing-build.log`, `p3-crossing-axioms.log`, `p3-crossing-imports.txt`,
-`p3-crossing-axle.json`, `claude-refactor-report.txt`. Earlier checkpoint
-logs remain. The wrapper's known temporary-package-path manifest warning
-persists; no manifest update was performed. Lean MCP remains rooted at
-RealRooted, so local diagnostics came from the project compiler.
+Logs, source bundles and the previous Claude report are under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`.
+Current checks: `p3-preparation-build.log`, `p3-preparation-axioms.log`,
+`p3-preparation-imports.txt`; focused intermediate module logs and all earlier
+checkpoint logs remain. The wrapper's known temporary-package-path manifest
+warning persists; no manifest update was performed. Lean MCP remains rooted
+at RealRooted, so local diagnostics came from the project compiler.
 
 ## Detailed formalization plan — completed before implementation
 

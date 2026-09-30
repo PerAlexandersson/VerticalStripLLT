@@ -6,6 +6,7 @@ import VerticalStripLLT.Components.DiagramProof.LocalIdentities
 import VerticalStripLLT.Components.DiagramProof.CoreExtension
 import VerticalStripLLT.Components.DiagramProof.SinkRelabel
 import VerticalStripLLT.Components.DiagramProof.CrossingSlide
+import VerticalStripLLT.Components.DiagramProof.Preparation
 import VerticalStripLLT.Components.SelectedColoringTransport
 
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
@@ -81,3 +82,21 @@ import VerticalStripLLT.Components.SelectedColoringTransport
 #print axioms VerticalStripLLT.Circular.DiagramProof.exists_preparedCrossing
 #print axioms VerticalStripLLT.Circular.DiagramProof.exists_crossingSlide
 #print axioms VerticalStripLLT.Circular.DiagramProof.crossingSlide_mem_component
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.step_rightUnique
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.step_leftUnique
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.reachable_iff
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.terminal_eq_iff_mem
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.step_intervals
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.successor_of_inversion
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.anchor_ofFullSelection
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.commonCover_of_anchor
+#print axioms VerticalStripLLT.Circular.DiagramProof.Absorbing.not_mem_of_reachable
+#print axioms VerticalStripLLT.Circular.DiagramProof.relationCover_of_subrelation_outside_absorbing
+#print axioms VerticalStripLLT.Circular.DiagramProof.relationCover_of_subrelation_inside_absorbing
+#print axioms VerticalStripLLT.Circular.DiagramProof.relationCover_of_first_outside
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_preparationStep
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_chainSweep
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_prepareChain
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_preparation
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_anchor_in_component

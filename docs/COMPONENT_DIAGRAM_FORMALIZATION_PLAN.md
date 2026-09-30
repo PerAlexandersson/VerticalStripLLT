@@ -24,9 +24,18 @@ sweeps retain traces; one reverse-replay lemma handles restoration, with its
 order-dual adapter handling the other direction. At the user's request,
 Claude reviewed the sweep interfaces read-only. Primary integrated the
 simpler right-before-left restoration, eliminating a special exterior
-transform, and checked it locally. Corner chains, anchor preparation and
-parallel-copy rearrangement remain in P3; P4--P10 remain open. The independent
-component theorem is not yet formalized. See `HANDOFF.md`
+transform, and checked it locally (`0871d38`).
+
+The current P3 increment adds corner families and their terminal chains,
+the characterization of anchors by good-edge subsets, and the full ordered
+preparation theorem in
+[Preparation.lean](../VerticalStripLLT/Components/DiagramProof/Preparation.lean).
+`CornerFamily.exists_anchor_in_component` supplies an actual path endpoint
+in the same component, with total selected count, all weak blocks and all
+already-good edges preserved. The proof permits temporary redundant corners
+and proves recovery after each completed chain sweep. Auxiliary short-path
+and copy ordering, and fixed-count parallel rearrangement remain in P3;
+P4--P10 remain open. The independent component theorem is not yet formalized. See `HANDOFF.md`
 and `DiagramProofVerification.lean` for ownership and exact verification.
 
 ## Deliverable and scope
