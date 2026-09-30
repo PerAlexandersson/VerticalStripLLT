@@ -144,7 +144,7 @@ of the NN redistribution and DN joint-repair notes, earlier authorized
 endpoint/source-addition continuations, handoff archives and existing external
 consumers under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/diamond-exploration/hrv-bridge/`.
-Preserve other ownership and proof-note prefixes at `28bc4b9`.
+Preserve other ownership and proof-note prefixes at `d7da9ab`.
 No Lean/Lake build, extra worker/subagent/Claude consultation, manuscript
 TeX/PDF/Overleaf edit or maintained Rust edit is authorized in this lane.
 
@@ -158,5 +158,8 @@ There is no external blocker; the general goal remains unfinished.
 The replacement began at account-swap `2511182`. Recent pushed proof
 checkpoints are `8149366` (two cliques), `0884521` (minimum-middle DN),
 `cf5451e` (pendant/arbitrary-middle DN), followed by metadata `28bc4b9`.
-Frozen replay is complete. The proof notes, preserved prefixes, relocated
-archive, relative links and whitespace are checked before the checkpoint.
+Proof checkpoint `d7da9ab` (last-clique inheritance and the full middle-
+position family) is committed and pushed to `origin/main`. Frozen replay,
+receipt hashes, preserved prefixes, relocated archive, relative links and
+whitespace checks all pass. No verification jobs remain running. The full
+general goal remains active and unfinished.
