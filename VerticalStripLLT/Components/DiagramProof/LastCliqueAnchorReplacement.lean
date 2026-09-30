@@ -1,3 +1,4 @@
+import VerticalStripLLT.Components.DiagramProof.InducedAnchors
 import VerticalStripLLT.Components.DiagramProof.LastCliqueCoreReplacement
 import VerticalStripLLT.Components.DiagramProof.LastCornerRow
 
@@ -73,6 +74,37 @@ theorem exists_lastClique_anchor_replacement
     exact (hvj.ne ((hrowf.mp (by simpa only [hfi] using hv)).trans hfj)).elim
   exact exists_lastClique_core_replacement hD ι c i j hac hce
     (by simpa only [hj] using himage) θ (by simpa only [hi, hj] using hae) hrow α hαcover hαrow hp
+
+/-- When every ambient corner survives, the restored endpoint is again an ambient anchor. -/
+theorem exists_lastClique_anchor_replacement_preserving_anchor
+    (hD : Forward D) (ι : Fin (k + 1) ↪o Fin n) (c : Fin n)
+    (g : Edge D.area) (hg : IsCorner g) (hlast : ∀ v : Fin n, v ≤ g.head)
+    (hgc : g.tail < c) (hcg : c < g.head)
+    (himage : ∀ z, (∃ w, ι w = z) ↔ z ≤ c ∨ z = g.head)
+    (hcorners : ∀ e : Edge D.area, IsCorner e →
+      ∃ u v, ι u = e.tail ∧ ι v = e.head)
+    (θ : Orientation D) (hθ : (allCorners D).Anchor hD θ)
+    (α : Orientation (inducedDiagram hD ι))
+    (hα : (allCorners (inducedDiagram hD ι)).Anchor
+      (inducedDiagram_forward hD ι) α)
+    (hp : Relation.ReflTransGen (Flip (inducedDiagram hD ι))
+      (inducedRestrict (inducedDiagram_forward hD ι) ι
+        (inducedDiagram_naturalEdge_iff hD ι)
+        (inducedDiagram_strictEndpoint_iff hD ι) θ) α) :
+    ∃ ζ : Orientation D, Relation.ReflTransGen (Flip D) θ ζ ∧
+      (allCorners D).Anchor hD ζ ∧
+      (∀ u v, D.edgeData.selected ζ.val (ι u) (ι v) ↔
+        (inducedDiagram hD ι).edgeData.selected α.val u v) ∧
+      (∀ u v, (¬ ∃ a b, ι a = u ∧ ι b = v) →
+        (D.edgeData.selected ζ.val u v ↔ D.edgeData.selected θ.val u v)) := by
+  obtain ⟨ζ, hpath, hinside, houtside⟩ := exists_lastClique_anchor_replacement
+    hD ι c g hg hlast hgc hcg himage θ hθ α hα hp
+  refine ⟨ζ, hpath, ?_, hinside, houtside⟩
+  have hfamily := CornerFamily.induced_allCorners hD ι hcorners
+  apply (allCorners D).anchor_of_induced_replacement hD ι
+    (fun e he => hcorners e ((allCorners D).corner e he)) θ ζ hθ α
+    _ hinside houtside
+  simpa only [hfamily] using hα
 
 end
 

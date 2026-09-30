@@ -470,8 +470,18 @@ from source and target core anchors. The supplied smaller-core path lifts with
 the ORIGINAL exterior restored. See the
 [short restoration proof](proofs/COMPONENT_LAST_CLIQUE_RESTORATION.md).
 
-Remaining: transport corner-chain terminals and good edges, so restrictions
-and restored endpoints are anchors; make the selected core connected; reach
+`InducedCornerFamily`, `InducedTerminals` and `InducedAnchors` now transport
+corner-chain terminals and good edges when every retained corner survives.
+Restrictions of anchors are anchors, and the restored endpoint of core
+replacement is an ambient anchor. `InducedCounts` splits the selected-edge
+count into core and exterior counts. `LastCliqueEdges` puts every natural
+edge either in the core or in the last clique. `CoreConnectivity` and
+`LastCliqueCoreConnectivity` prove that every last-clique selected block meets
+the core, and that connected intersections of these blocks with the core
+imply connectedness of the full core. The latter is a criterion; construction
+of local rearrangements achieving its hypothesis remains open.
+
+Remaining: make the selected core connected by the local block paths; reach
 the fixed spanning tree; rearrange extra positions using the shared edge.
 The last operation counts only its specified pool of copies and fixes the
 other copies of the same classes. Tree edges in the terminal clique may move

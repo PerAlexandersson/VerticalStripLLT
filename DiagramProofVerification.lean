@@ -1,4 +1,6 @@
 import VerticalStripLLT.Components.DiagramProof.LastCliqueDiagram
+import VerticalStripLLT.Components.DiagramProof.LastCliqueCoreConnectivity
+import VerticalStripLLT.Components.DiagramProof.InducedCounts
 import VerticalStripLLT.Components.DiagramProof.LastCliqueAnchorReplacement
 import VerticalStripLLT.Components.DiagramProof.InducedDiagram
 import VerticalStripLLT.Components.DiagramProof.LastCliqueEmbedding
@@ -550,5 +552,29 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms lastClique_restore_outside
 #print axioms exists_lastClique_core_replacement
 #print axioms exists_lastClique_anchor_replacement
+
+#print axioms CornerFamily.ext_edges
+#print axioms CornerFamily.induced
+#print axioms CornerFamily.mem_induced_edges
+#print axioms CornerFamily.induced_step_iff
+#print axioms CornerFamily.induced_step_closed
+#print axioms CornerFamily.induced_allCorners
+#print axioms CornerFamily.induced_terminal_eq
+#print axioms inducedRestrict_mem_fullSelection_iff
+#print axioms CornerFamily.terminal_induced
+#print axioms CornerFamily.goodEdge_induced_iff
+#print axioms CornerFamily.anchor_inducedRestrict
+#print axioms CornerFamily.anchor_of_induced_replacement
+#print axioms inducedRestrict_image_fullSelection
+#print axioms inducedRestrict_totalSelected_eq_filter
+#print axioms totalSelected_eq_inducedRestrict_add_outside
+#print axioms exists_lastClique_anchor_replacement_preserving_anchor
+#print axioms coreConnected_of_block_gluing
+#print axioms coreRepresentative_exists_of_connected
+#print axioms coreConnected_of_block_gluing_of_connected
+#print axioms naturalEdge_in_last_clique_or_core
+#print axioms selected_in_last_clique_or_core
+#print axioms lastClique_block_meets_core
+#print axioms selectedConnected_inducedRestrict_of_lastClique_blocks
 
 end VerticalStripLLT.Circular.DiagramProof

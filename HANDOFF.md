@@ -2,25 +2,56 @@
 
 ## Active implementation — P0/P2/P3/P4 complete, P1/P5 partial
 
-Continuation from clean pushed `2a94504` made verified progress: the decorated
-induced core, exact corner correspondence, and actual core-path replacement
-with the ORIGINAL exterior restored are now Lean-verified. Terminal-clique
-connectivity was pushed in `f08d1a5`. P0/P2/P3/P4 are complete; P1/P5 remain
-partial; P6--P10 remain open. The independent diagram formalization and
-illustrated circular/ordinary draft are unfinished. The full goal is unchanged.
+Continuation from clean pushed `b9f746e` made verified progress: corner-chain
+terminals, good edges and anchors transport to the induced core, core counts
+split exactly from exterior counts, and core replacement restores an ambient
+anchor. The last-clique block criterion for core connectivity is verified.
+Constructing the block rearrangements satisfying that criterion remains open.
+P0/P2/P3/P4 are complete; P1/P5 remain partial; P6--P10 remain open. The
+independent diagram formalization and illustrated circular/ordinary draft are
+unfinished. The full goal is unchanged.
 
 Primary owns all `DiagramProof/` sources, `DiagramProofVerification.lean`, this
 handoff, the formalization plan, the restriction-consolidation suggestion, and
 `docs/proofs/COMPONENT_LAST_CLIQUE_RESTORATION.md`, and retains the sole serialized
-build slot. All subagent ownership has returned. Terra supplied
-`CornerMaximality` and independently audited geometry and the final replacement;
-Luna supplied `MaximalIntervals`, `LastCornerRow`, and `LastCliqueAnchorReplacement`;
-`semantic_extract` supplied the initial decoration constructor and restoration
-relation algebra. Primary integrated and verified all candidates, removed the
-constructor's temporary corner assumption, and wrote `InducedCorners`,
-`LastCliqueDiagram`, and `LastCliqueCoreReplacement`. Reviews passed. No compiler,
+build slot. All subagent ownership has returned. This increment: Terra supplied
+`InducedTerminals` and `LastCliqueEdges`; Luna supplied `InducedCounts`;
+`semantic_extract` supplied `CoreConnectivity` and independently audited the
+checkpoint. Primary integrated and verified the candidates and wrote
+`InducedCornerFamily`, `InducedAnchors`, `LastCliqueCoreConnectivity`, and the
+restored-anchor specialization of `LastCliqueAnchorReplacement`. No compiler,
 remote task or subagent remains active. Historical proof-note prefixes and
 unrelated ownership remain unchanged.
+
+### Current P1/P5 increment — anchors and core connectivity
+
+- `InducedCornerFamily` restricts any retained corner family. If every retained
+  corner has both endpoints in the image, its corner steps are closed there.
+  `induced_allCorners` identifies the induced family with all core corners
+  when every ambient corner survives. The assumption is explicit.
+- `InducedTerminals` transports terminal labels under corresponding steps and
+  image closure. `InducedAnchors` specializes this to the actual core, proves
+  exact good-edge correspondence and preserves anchors under restriction.
+- `anchor_of_induced_replacement` proves the ambient anchor property from an
+  anchor core and exact restoration of the original exterior. The actual path
+  theorem `exists_lastClique_anchor_replacement_preserving_anchor` supplies
+  all these properties at its endpoint. Global connectedness also persists
+  along this actual path by `selectedConnected_iff_of_reachable`.
+- `InducedCounts` identifies the image of the full core selection with the
+  ambient selection on retained endpoints, then splits the total selected
+  count into the core count and exterior count.
+- `LastCliqueEdges` places each natural edge either below the last corner or
+  entirely in the prefix core. `CoreConnectivity` proves two general graph
+  facts: every ambient block meets the nonempty core when all other edges
+  have core endpoints, and connected core intersections imply full core
+  connectedness. `LastCliqueCoreConnectivity` specializes these facts to the
+  actual decorated restriction. Its `hblock` hypothesis remains to be
+  established by local rearrangement paths; this is not yet the theorem
+  that every source can be rearranged to have connected core.
+- Independent read-only review found the contracts aligned with P5. The
+  corner-endpoint hypothesis for the actual image is already supplied by
+  `lastClique_corner_endpoints`. No extra global-connectivity reconstruction
+  is needed after replacement: use preservation along the returned flip path.
 
 ### Current P1/P5 increment — decorated core and restored replacement
 
@@ -308,13 +339,17 @@ this route. The mathematical diagram proof is complete.
 ### Verification and next step
 
 Focused builds of all new modules and the verification import targets pass
-without source warnings. All 461 queries in `DiagramProofVerification.lean`
+without source warnings. All 484 queries in `DiagramProofVerification.lean`
 use only `propext`, `Classical.choice`, `Quot.sound` (or none). The independent
-import closure contains 212 project files including verification and excludes
+import closure contains 219 project files including verification and excludes
 the old word/scan/expansion routes. Source guards (including no `native_decide`),
 100-column and whitespace checks pass. Current logs are
-`p5-restored-core-build.log`, `p5-restored-core-axioms.log` and
-`p5-restored-core-imports.txt`. The preceding core-interface checkpoint had
+`p5-core-anchor-build.log`, `p5-core-anchor-axioms.log` and
+`p5-core-anchor-imports.txt`; focused new-module logs are
+`p1-induced-family-build.log`, `p5-anchor-transport-build.log`,
+`p5-core-connectivity-build.log` and `p5-last-clique-blocks-build.log`. The
+preceding restored-core checkpoint had 461 queries/212 project files
+(`p5-restored-core-*`). The preceding core-interface checkpoint had
 438 queries/203 project files (`p5-last-core-*`). The terminal-clique checkpoint had
 408 queries/197 project files (`p5-terminal-complete-*`). The direct-transfer checkpoint had
 393 queries/190 project files (`p5-direct-*`). The repair checkpoint had 374 queries/183 project
@@ -331,9 +366,12 @@ Only primary invokes `lake-workspace`. Lean MCP remains
 rooted at RealRooted, so local compiler diagnostics are used. The wrapper's
 existing package-path manifest warning remains unchanged.
 
-Next: prove terminal and good-edge transport, then assemble P5's remaining
-last-clique inheritance steps: make the selected core connected; reach the fixed
-spanning tree; rearrange extra positions through the shared edge. Actual core
+Next: construct the local right-clique block rearrangements yielding the
+`hblock` hypothesis of `selectedConnected_inducedRestrict_of_lastClique_blocks`.
+For the block containing the retained last corner, use the star endpoint with
+the last tail pendant; for other blocks, use repeated lower-connection
+preservation. Then reach the fixed spanning tree and rearrange extra positions
+through the shared edge. Actual core
 replacement with exact exterior restoration is proved under the smaller-core
 path hypothesis. The written proof starts near line 4298 of
 `COMPONENT_NN_REDISTRIBUTION.md`. Its final rearrangement uses the restricted
