@@ -1,5 +1,44 @@
 # VerticalStripLLT handoff
 
+## Cleanup audit before formalization — complete
+
+The user requested one cleanup/optimization audit of the completed diagram
+proof before Lean formalization. Starting HEAD is `8ccde0e`; the checkout
+was clean. Read the [audit and extracted lemmas](docs/proofs/COMPONENT_DIAGRAM_AUDIT.md)
+alongside the [assembled proof](docs/proofs/COMPONENT_DIAGRAM_COMPLETION.md).
+
+The mathematical conclusion remains complete. The audit found no gap in
+the reviewed completion argument. The assembled proof now chooses its
+initial-path/first-block prefix directly from the area sequence: internal
+v is an articulation iff a_(v+1)=1. This avoids general block-decomposition
+infrastructure for the final recurrence. We also state the required
+re-marking before alternating deletion and distinguish total selected-edge
+layers from the original normal-edge exponent.
+
+The audit note extracts proved finite forest-extension and subset-band
+lemmas, the area-prefix lemma, component isolation by subtraction, and
+attachment from a right-marked equality. It records the proposed two-stage
+formalization (vertex-count path induction, then valuation induction),
+existing Lean interfaces and import-boundary cautions. These are paper
+lemmas and implementation guidance; no new Lean formalization is claimed.
+
+Primary owns this handoff, the assembled completion, the new audit note,
+and `suggestions/diagram-proof-import-boundary.md`. Existing chronological
+proof-note prefixes remain unchanged. Independent Astra reviewer
+`diagram_audit` owns no files; it reviewed recurrence, attachment, first-drop
+and induction interfaces and approved the final cleanup and extracted lemmas.
+This supplies the independent decomposition review required by the project
+guide. Primary audited the path-induction side. No builds or mathematical
+computations ran; no finite-check replay is claimed for this documentation
+audit. Formalization remains the next implementation task.
+
+Final cleanup checks: independent review approved the edited proof and
+extracted statements; 21 local links and six Lean file breadcrumbs resolve;
+the NN, DN, endpoint and coverage historical files are byte-for-byte
+unchanged from `8ccde0e`; `git diff --check` passes. Only the four owned
+documentation files listed above enter this checkpoint on `main`.
+The reviewer is finished and no verification/build jobs remain running.
+
 ## Completed — ordinary component expansion by diagram recurrences
 
 The mathematical goal is complete. The general first-drop NN and forward DN
@@ -11,7 +50,8 @@ e-expansion for ordinary, non-circular Motzkin/Dyck-path diagrams.
 Read the [assembled proof](docs/proofs/COMPONENT_DIAGRAM_COMPLETION.md).
 It is independent of the separate word-functional proof and uses no
 fundamental-basis calculation. This is a mathematical proof; no new Lean
-formalization is claimed or requested in this lane.
+formalization is claimed. The next requested step is preparation for
+formalization through the cleanup audit recorded above.
 
 ### What closes the last gap
 
@@ -120,8 +160,9 @@ handoff archives and existing external consumers under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/diamond-exploration/hrv-bridge/`.
 Preserve other ownership and the proof-note prefixes at `a3d076b`.
 
-No extra worker/subagent/Claude consultation, manuscript TeX/PDF/Overleaf
-edit, maintained Rust edit or Lean build was used. No account/profile/model
+The original completion used no extra worker/subagent/Claude consultation,
+manuscript TeX/PDF/Overleaf edit, maintained Rust edit or Lean build. The
+subsequent cleanup's read-only review is recorded above. No account/profile/model
 assignment changed. Runtime tools, `codex mcp list`, Cargo metadata, the
 Rust guide and relevant existing APIs were inspected. Lean MCP remains rooted
 at RealRooted and was unused. There is no external blocker or unfinished

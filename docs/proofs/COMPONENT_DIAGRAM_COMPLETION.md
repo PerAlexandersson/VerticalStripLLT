@@ -9,6 +9,11 @@ The final verification record is given below. No word-functional proof,
 fundamental-basis calculation, or separate completed component theorem is an
 input. This is a mathematical proof; no new Lean formalization is claimed.
 
+The [cleanup audit and extracted lemmas](COMPONENT_DIAGRAM_AUDIT.md) give
+a shorter area-sequence construction of the required prefix, explicit
+interfaces for the sector and attachment arguments, and the proposed order
+of formalization. Historical proof notes remain unchanged.
+
 ## The theorem
 
 Let C be a complete flip component of an ordinary decorated natural diagram,
@@ -59,10 +64,10 @@ For a fixed set S of remaining extras, core paths lift unchanged: no
 forward path between core vertices can visit 0. Thus core uniqueness
 connects each fixed-S sector.
 
-Let r be the core tree size and m its maximum good size. At total size k,
+Let r be the core tree size and m its maximum good size. At total size s,
 the nonempty connected-core sectors are exactly
 
-    max(0,k-1-m) <= |S| <= min(|J|,k-1-r),               (4)
+    max(0,s-1-m) <= |S| <= min(|J|,s-1-r).               (4)
 
 where J is the set of available extras. If deleting each matching core
 edge a h_v from A*(G') leaves it connected, we can choose a core anchor
@@ -72,6 +77,8 @@ when an exchange would cross its lower bound, add the wanted element
 before removing the unwanted one. A nontrivial one-level band cannot
 occur, since removability implies m>=r+1. The empty-J case is immediate.
 This proves initial-vertex inheritance.
+The [forest-extension and subset-band lemmas](COMPONENT_DIAGRAM_AUDIT.md#two-finite-lemmas-for-the-sector-argument)
+isolate the two elementary existence/connectivity facts used here.
 
 Now use strong induction on vertex count for connected natural graphs
 without articulation. Complete diagrams and graphs with at most two
@@ -102,8 +109,10 @@ argument. We do not equate component values under pendant contraction.
 ## Isolate one whole component in a layer
 
 Let L be a connected source diagram with the preceding uniqueness property,
-and let C be its connected common-cover component in edge layer k. Some
-maximal corners may be unmarked, including the corner unmarked in the
+and let C be its connected common-cover component in edge layer s. Here s
+counts ALL selected edges, including strict corners; it is unchanged by
+remarking. It differs from the original normal-edge exponent k(C) in (2).
+Some maximal corners may be unmarked, including the corner unmarked in the
 DD/ND inheritance step, but C selects them all.
 
 Every other component D in that source layer has an independently smaller
@@ -116,7 +125,11 @@ expression B_X(D), with identical integer coefficients for X=K,E:
   component in a smaller-area diagram.
 - Otherwise D has no simultaneous-cover witness, by uniqueness. The proved
   alternating corner-deletion identity expresses it in whole components
-  of diagrams with at least one natural corner deleted.
+  of diagrams with at least one natural corner deleted. Before applying
+  that identity, mark every selected maximal corner strict, including any
+  corner unmarked for DD/ND. Maximal-corner membership is constant on each
+  component, so this is the same whole component and the same valuations,
+  not an induction call.
 
 These operations do not assume the expansion of any equally large unknown
 component. In particular the alternating deletion uses a redundant-corner
@@ -128,8 +141,8 @@ Let F_j(R) denote the entire j-edge layer of the eligible NN or forward DN
 target R, written as the union of its actual complete components. The
 ordinary local diagram identities give
 
-    NN: X(C)=X(F_k(R))+X(F_(k-1)(R))-sum_(D!=C) B_X(D),
-    DN: X(C)=X(F_k(R))             -sum_(D!=C) B_X(D).   (5)
+    NN: X(C)=X(F_s(R))+X(F_(s-1)(R))-sum_(D!=C) B_X(D),
+    DN: X(C)=X(F_s(R))             -sum_(D!=C) B_X(D).   (5)
 
 The same signs and integer multiplicities occur for K and E. All displayed
 outputs, including the correction terms after expansion, are WHOLE
@@ -154,19 +167,22 @@ It remains to provide (5) for a general connected ordinary natural graph,
 where common-cover uniqueness at a fixed TOTAL edge count can be false.
 We do not assume that stronger assertion.
 
-Order its maximal natural cliques by their left endpoints. Their right
-endpoints also increase. Consecutive cliques meet in an interval; a
-one-vertex intersection is precisely a separating articulation between
-the left and right parts. Group successive cliques whose intersections
-have at least two vertices. The resulting natural blocks are consecutive
-intervals, meeting only at their endpoints. An edge block is a bridge;
-a block containing a triangle has no articulation internally.
+We can choose the prefix directly from the area sequence. In a connected
+ordinary diagram, an internal vertex v is an articulation exactly when
+a_(v+1)=1. Indeed this equality excludes every edge crossing from below v
+to above v. If instead a_(v+1)>=2, the edge (v-1)(v+1) bypasses v in the
+adjacent-edge spanning path.
 
-If every block is an edge, the diagram is a path and is a base case.
-Otherwise let [b,c] be the first nontrivial block. The prefix on [0,c]
-is an initial path followed by this one block. It has common-cover
-uniqueness by the path induction above. The remainder is an arbitrary
-right attachment on [c,n-1], with no natural edge between the interiors.
+If every positive-index area is 1, the diagram is a path and is a base
+case. Otherwise let j be the first index with a_j>=2, put b=j-2, and
+let c>=j be the first index with c=n-1 or a_(c+1)=1. Then a_j=2.
+The growth bound gives a_i<=i-b for i>=b+1. Thus the prefix on [0,c]
+is an initial path to b followed by the block [b,c], whose internal cuts
+all have area at least 2. This block has no articulation. The prefix
+has common-cover uniqueness by the path induction, and [c,n-1] is an
+arbitrary right attachment with no natural edge between the interiors.
+See the [prefix lemma](COMPONENT_DIAGRAM_AUDIT.md#choose-the-prefix-directly-from-the-area-sequence)
+for the endpoint and one-vertex-attachment cases.
 
 Every flip belongs to one side of this cut. Its cover tests are internal,
 since a forward path cannot leave a side and return. Thus any whole source
@@ -181,8 +197,10 @@ The proved right-marked theorem therefore gives
 
     X(P)[beta]=sum_i m_i X(P_i)[beta],   X=K,E.          (6)
 
-Glue the same T to every term. Coloring sums glue at fixed beta, counting
-c once; exactly the HRV fibre ending at c merges with the attachment's
+Only the marked equality (6) is needed for attachment; its derivation
+does not enter the gluing argument. Glue the same T to every term.
+Coloring sums glue at fixed beta, counting c once; exactly the HRV fibre
+ending at c merges with the attachment's
 fibre beginning at c. Whole-component factorization gives
 
     X(P*T)=sum_i m_i X(P_i*T),          X=K,E.           (7)
@@ -192,10 +210,10 @@ have the same vertex set, so adjoining T adds the same vertices, area and
 moment contribution to each term; every strict decrease is retained.
 
 This also uses the required FIRST-DROP contact of the original source.
-If an attachment follows c, its first incoming area is 1, whereas the
-last area of the nontrivial prefix is at least 2. Therefore the first
-strict area drop of the full graph occurs at or before c. It is the same
-first drop as in the prefix, where the appended final area is zero.
+Our choice gives a_c>=2. If c<n-1, the next source area is 1; in the
+prefix it is the appended 0. Both give a strict drop at c, and all
+earlier comparisons coincide. If c=n-1, the prefix is the entire source.
+Thus the source and prefix have exactly the same first strict drop.
 The earlier DD/ND inheritance and contact-eligibility checks apply without
 change. There is no uncontrolled left attachment: the initial path is
 included in the prefix whose uniqueness was proved.
