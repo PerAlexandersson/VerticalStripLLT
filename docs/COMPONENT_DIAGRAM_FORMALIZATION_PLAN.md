@@ -6,7 +6,7 @@ plan, not a report of new Lean proofs. The mathematical inputs are the
 [cleanup audit](proofs/COMPONENT_DIAGRAM_AUDIT.md). Historical proof notes
 remain the sources for the individual path constructions.
 
-Implementation status: P0, P2 and P3 are verified; P1 is partial. P0 and the
+Implementation status: P0, P2 and P3 are verified; P1 and P4 are partial. P0 and the
 semantic import extractions are in `9d8c4bc`. P1 includes finite/lifted covers,
 weak-block invariance, exact corner marking, source-only short flips
 (`3bbb1e4`), convex path/cover restriction and an injective fixed-exterior
@@ -35,7 +35,7 @@ in the same component, preserving total selected count, weak blocks and all
 already-good edges. Temporary redundant corners are recovered after each
 completed chain sweep.
 
-P3 is now complete. `CopyGeometry`, `CopyPaths` and `ShortPathClasses` prove
+P3 is complete at pushed `03c05c4`. `CopyGeometry`, `CopyPaths` and `ShortPathClasses` prove
 the unique auxiliary short-edge path for each unordered terminal pair and
 the increasing order of good copies. `ParallelMoves` lifts both directions
 of neighboring-copy exchange to actual flips with exact restored exterior.
@@ -49,10 +49,22 @@ without asserting that an occupancy vector is invariant on a whole component.
 A distinguished highest-position representative and capacity formulas are
 not needed for this interface and have not been formalized.
 
-P4--P10 remain open. Luna is preparing the two-chain base in its separately
-owned `TwoChainBase.lean`; primary will verify it before changing P4 status.
-The independent component theorem is not yet formalized. See `HANDOFF.md`
-and `DiagramProofVerification.lean` for ownership and exact verification.
+P4 now includes the verified two-chain base in `TwoChainBase.lean`:
+common-cover states of a fixed total size connect when there are at most
+two terminal chains. It also includes `ForestExtension` (all feasible
+connected spanning sizes containing a required forest, with removable-edge
+avoidance), `OverlappingPositions` (fixed-size exchanges on connected
+position relations), and `SubsetBands` (nontrivial bands and singleton
+extremes). `SectorPaths` transports subset-band paths to the additive
+feasibility equation `t + 1 + S.card = s`, assuming `r < m` or an empty
+sector universe. All are actual finite path or existence theorems; none
+assume the sought component expansion.
+
+The complete-clique construction, interval opening/closing, column sweep,
+four explicit five-vertex paths, local lifting and reachability forcing
+remain in P4. P5--P10 remain open. The independent component theorem is
+not yet formalized. See `HANDOFF.md` and `DiagramProofVerification.lean`
+for ownership and exact verification.
 
 ## Deliverable and scope
 

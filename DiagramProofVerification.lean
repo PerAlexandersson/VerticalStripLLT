@@ -11,6 +11,12 @@ import VerticalStripLLT.Components.DiagramProof.ParallelPacking
 import VerticalStripLLT.Components.DiagramProof.ShortPathClasses
 import VerticalStripLLT.Components.SelectedColoringTransport
 
+import VerticalStripLLT.Components.DiagramProof.TwoChainBase
+import VerticalStripLLT.Components.DiagramProof.ForestExtension
+import VerticalStripLLT.Components.DiagramProof.OverlappingPositions
+
+import VerticalStripLLT.Components.DiagramProof.SectorPaths
+
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
 
 #print axioms VerticalStripLLT.Circular.DiagramProof.fullSelection_injective
@@ -125,3 +131,20 @@ import VerticalStripLLT.Components.SelectedColoringTransport
 #print axioms VerticalStripLLT.Circular.DiagramProof.fixed_label_connectivity
 #print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_parallelCopyExchange
 #print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.anchors_connected_of_occupancy
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.anchors_connected_of_single_label
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.copyLabel_eq_of_two_terminals
+#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.anchors_connected_of_two_terminals
+#print axioms
+  VerticalStripLLT.Circular.DiagramProof.CornerFamily.commonCover_connected_of_two_terminals
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_connected_extension_card
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_connected_extension_card_avoiding
+#print axioms VerticalStripLLT.Circular.DiagramProof.fixed_card_connectivity_of_position_paths
+#print axioms
+  VerticalStripLLT.Circular.DiagramProof.fixed_card_connectivity_of_overlapping_positions
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.subsetBand_connected_of_lt
+#print axioms VerticalStripLLT.Circular.DiagramProof.subsetBand_connected_zero
+#print axioms VerticalStripLLT.Circular.DiagramProof.subsetBand_connected_top
+#print axioms VerticalStripLLT.Circular.DiagramProof.subsetBand_connected
+#print axioms VerticalStripLLT.Circular.DiagramProof.feasibleSector_connected

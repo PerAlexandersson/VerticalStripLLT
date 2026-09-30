@@ -1,26 +1,55 @@
 # VerticalStripLLT handoff
 
-## Active implementation — P0/P2/P3 complete, P1 partial
+## Active implementation — P0/P2/P3 complete, P1/P4 partial
 
-Current verified increment, based on clean pushed `da01755`, completes P3:
+Pushed checkpoint `03c05c4`, based on clean `da01755`, completes P3:
 auxiliary short-edge paths, ordered good copies, and unrestricted parallel
 rearrangement. `CornerFamily.anchors_connected_of_occupancy` connects any
 two anchors with the same per-pair counts by actual flips. Each elementary
 exchange has exact endpoint selection `A - e + f`; all other edges are
-restored. The full independent component theorem remains unfinished.
+restored. The full independent component theorem remains unfinished. The active goal
+also requires a new illustrated draft after formalization, combining the
+circular e-expansion and the ordinary diagram-based component proof in the
+authors' style; that writing stage has not started.
 
-Primary owns `VerticalStripLLT/Components/DiagramProof/` except the active
-Luna lane below, `DiagramProofVerification.lean`, this handoff and plan-status
-updates. Primary alone runs Lean builds. Historical proof notes are untouched.
-The user explicitly authorized several Luna/Terra agents. Current delegation:
+Primary owns all `VerticalStripLLT/Components/DiagramProof/` files,
+`DiagramProofVerification.lean`, this handoff and plan-status updates.
+Primary alone runs Lean builds. Historical proof notes are untouched.
+The user explicitly authorized several Luna/Terra agents; all have now
+completed and released their lanes. No compiler or consultant is left running
+at the checkpoint.
 
-- Luna `two_chain_base` owns ONLY new `DiagramProof/TwoChainBase.lean` for the
-  at-most-two-chain base. It is unverified work in progress and must not build.
-- Terra `copy_audit` finished a read-only mathematical/API audit, including
-  the packing integration; no issue found, no files owned, no builds.
-- The earlier Luna `subset_paths` worker released `FiniteSubsetPaths.lean`.
-  Primary adopted its path-exchange draft, fixed it, removed the commented
-  unfinished API draft, and proved the fixed-label connectivity theorem.
+- Luna `two_chain_base` supplied `TwoChainBase.lean`. Primary checked the
+  proof after one repair round and removed deprecated syntax. Its later
+  read-only complete-clique API audit informs the next-step notes below.
+- Terra `copy_audit` found no issue in the copy/packing contracts, then supplied
+  `SubsetBands.lean`. Primary checked it after two textual correction rounds.
+- Earlier Luna `subset_paths` supplied `FiniteSubsetPaths.lean`. Primary
+  adopted its draft, fixed it and completed fixed-label connectivity.
+
+Current P4 verified increment, based on pushed `03c05c4`:
+
+- `TwoChainBase.commonCover_connected_of_two_terminals`: common-cover states
+  with the same total selected count connect if the corner terminal map has
+  at most two values. Equal terminal values are allowed; connectedness of
+  the selected graph is not an extra hypothesis. Uses preparation and the
+  single-label anchor theorem; no component-valued formula is inferred.
+- `ForestExtension`: extend any required forest in a finite connected graph
+  to every feasible connected spanning edge count. If a nonrequired edge
+  can be deleted without disconnecting the graph, all sizes up to one less
+  than the full edge count have such an extension omitting it. Reuses
+  Mathlib's spanning-tree extension, with additive cardinality bounds.
+- `OverlappingPositions`: exact exchanges on any connected position relation
+  give fixed-size state connectivity; two overlapping covering position sets
+  provide that relation. This is an abstract finite path helper, not yet
+  the diagram-specific interval opening/closing construction.
+- `SubsetBands`: single-element insertion/deletion paths inside a cardinality
+  interval of positive width, plus the empty/full singleton extremes. No
+  assertion of connectivity for an interior one-level band.
+- `SectorPaths.feasibleSector_connected`: the sector formulation with
+  `∃ t, r ≤ t ∧ t ≤ m ∧ t + 1 + S.card = s`. It follows from the band theorem
+  when `r < m` or the sector universe is empty. Natural subtraction is
+  confined to a proved equivalence; the public interface stays additive.
 
 P3 source and exact contracts:
 
@@ -69,19 +98,20 @@ Verified implementation checkpoints:
 
 P1 remains partial: specific induced-core geometry, swept nonconvex transport
 and order reversal remain. P3 is complete at the plan's required interface.
-P4--P10 remain open; next is the two-chain base, then complete-clique paths
-and the finite connectivity helpers. General component recurrences, endpoint
+P4 is partial: the two-chain base and some finite helpers are checked;
+complete-clique paths, their local lift and reachability forcing remain.
+P5--P10 remain open. General component recurrences, endpoint
 attachment and the final independent theorem are NOT yet Lean-proved by
 this route. The mathematical diagram proof remains complete. No old
 word/scan proof or fundamental-basis argument is used.
 
-Verification of this P3 completion:
+Verification of the current P4 increment:
 
-- Focused builds of `DiagramProof.ParallelPacking` and `ShortPathClasses`
-  pass without source warnings. `DiagramProofVerification.lean` passes all
-  107 axiom queries, using only `propext`, `Classical.choice`, `Quot.sound`
-  (or none). The new subset helper is locally checked after primary edits.
-- Independent import closure: 106 project files including verification;
+- Focused builds of `TwoChainBase`, `ForestExtension`, `OverlappingPositions`
+  and `SectorPaths` (including `SubsetBands`) pass without source warnings.
+  `DiagramProofVerification.lean` passes all 120 axiom queries, using only
+  `propext`, `Classical.choice`, `Quot.sound` (or none).
+- Independent import closure: 111 project files including verification;
   no old Word/Mountain/Scan/Cauchy, component-coefficient, old expansion,
   BlockExtractor or BlockCancellation route. Source guards, 100-column
   and whitespace checks pass.
@@ -89,10 +119,25 @@ Verification of this P3 completion:
   build, dependency update, remote proof search or mathematical computation.
   Lean MCP remains rooted at RealRooted; local compiler diagnostics used.
   The wrapper's known package-path manifest warning remains unchanged.
-- Logs: `p3-packing-build.log`, `p3-packing-axioms.log`,
-  `p3-packing-imports.txt` under
-  `/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`.
-  Earlier module logs and consultant reports remain there.
+- Logs under
+  `/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`:
+  `p4-helpers-build.log`, `p4-forest-build.log`, `p4-overlap-build.log`,
+  `p4-sector-build.log`, `p4-helpers-axioms.log`, `p4-helpers-imports.txt`.
+  P3 `p3-packing-*` logs retain 107 axiom checks and its 106-file closure.
+
+Next concrete implementation: use `Diagram.ofIntervalRelation` with `<`
+for a complete diagram, and expose canonical edges by endpoints. A designated
+extreme corner requires at least two vertices; handle the one-vertex case
+separately. Then formalize complete-chain normalization (CC1--CC2), interval
+opening/closing (CC3), and chord rearrangement using `OverlappingPositions`.
+Existing source-cover outgoing/incoming swaps, weak-block invariance,
+forward HRV sink lemmas and `CoreExtension.lift_reachable` are available.
+Do not assume the swept nonconvex core automatically satisfies the convex
+lift contract. The selected-orientation/SimpleGraph bridge is also absent;
+keep normalization in the forward relation unless that bridge is needed.
+The four five-vertex paths in `COMPONENT_NN_REDISTRIBUTION.md` around 3628
+are explicit paper certificates, still awaiting Lean actual-flip witnesses.
+No arbitrary finite component enumeration is an assumption of the plan.
 
 The user-authorized Claude refactor sweep was completed at `0871d38`.
 Primary integrated its strongest suggestion: right-before-left restoration,
