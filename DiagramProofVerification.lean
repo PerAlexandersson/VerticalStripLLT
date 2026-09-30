@@ -1,3 +1,7 @@
+import VerticalStripLLT.Components.DiagramProof.InducedDiagram
+import VerticalStripLLT.Components.DiagramProof.LastCliqueEmbedding
+import VerticalStripLLT.Components.DiagramProof.LastCliqueSweep
+import VerticalStripLLT.Components.DiagramProof.LastCliqueLift
 import VerticalStripLLT.Components.DiagramProof.PathTransport
 import VerticalStripLLT.Components.DiagramProof.TerminalPacking
 import VerticalStripLLT.Components.DiagramProof.TerminalRepair
@@ -489,5 +493,36 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms CornerFamily.exists_terminal_receiver
 #print axioms CornerFamily.anchors_connected_of_total_last_clique
 #print axioms CornerFamily.commonCover_connected_of_total_last_clique
+
+#print axioms inducedNaturalRelation
+#print axioms inducedNaturalRelation_forward
+#print axioms inducedNaturalRelation_interval
+#print axioms inducedUndecorated
+#print axioms inducedUndecorated_strict
+#print axioms inducedUndecorated_forward
+#print axioms inducedUndecorated_naturalEdge_iff
+#print axioms inducedEdge
+#print axioms inducedEdge_tail
+#print axioms inducedEdge_head
+#print axioms inducedEdge_injective
+#print axioms mem_range_inducedEdge_iff
+#print axioms inducedRestrict
+#print axioms inducedRestrict_selected
+#print axioms inducedExtend
+#print axioms inducedExtend_selected
+#print axioms inducedExtend_inside
+#print axioms inducedExtend_outside
+#print axioms inducedExtend_restrict
+#print axioms induced_lift_reachable
+#print axioms lastCliqueEmbed
+#print axioms lastCliqueEmbed_of_le
+#print axioms lastCliqueEmbed_last
+#print axioms lastCliqueEmbed_image
+#print axioms pathImage_closed_of_last_gap
+#print axioms reachable_iff_of_last_gap
+#print axioms relationCover_iff_of_last_gap
+#print axioms exists_lastCliqueSweep
+#print axioms inducedExtend_cover_iff_of_last_gap
+#print axioms induced_lift_reachable_of_last_gap
 
 end VerticalStripLLT.Circular.DiagramProof

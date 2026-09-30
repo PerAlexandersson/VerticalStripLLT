@@ -450,6 +450,17 @@ without assuming occupancy determines an anchor. Preparation extends this to
 `commonCover_connected_of_total_last_clique`. The graph, capacity and path
 obligations of this base are all locally verified. Inheritance remains open.
 
+The first core interfaces are now verified. `LastCliqueEmbedding` enumerates
+`{0,...,c} ∪ {e}`. `InducedDiagram` constructs its natural diagram, with an
+explicitly empty strict set. `InducedRestriction` constructs actual restriction
+and fixed-exterior extension given natural/strict edge correspondences.
+`LastCliqueSweep` supplies the actual incoming sweep, unchanged core selection,
+and absence of edges from omitted vertices into `e`. `LastCliquePaths` derives
+path closure and exact cover restriction. `LastCliqueLift` uses these to lift
+any actual core path with the swept exterior fixed. The decorated core geometry,
+transport of the anchor hypotheses, and restoration of the ORIGINAL exterior
+remain open; these conditional interfaces do not yet prove inheritance.
+
 Then prove last-clique inheritance through its four separate claims:
 make the selected core connected; sweep and lift core paths with exact
 exterior restoration; reach the fixed spanning tree; rearrange extra
