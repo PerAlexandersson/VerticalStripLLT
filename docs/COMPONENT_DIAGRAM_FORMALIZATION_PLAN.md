@@ -402,6 +402,13 @@ parallel-copy rearrangement, and the small vertex cases are explicit.
 
 Modules: `ChainQuotient.lean`, `TerminalClique.lean`, `LastClique.lean`.
 
+Implemented first increment: `ChainQuotient` proves that good copies retain
+exactly the natural quotient adjacencies and that contraction preserves every
+weak block for selections containing the corner family, including isolated
+chains. `GoodEdgeConnectivity` proves that the full good-edge and natural
+relations have the same weak components. The feasible-size, separator,
+terminal-transfer and inheritance obligations below remain unfinished.
+
 Use P3's auxiliary short-edge paths to prove that good copies retain exactly
 the natural adjacencies between chain
 classes. Obtain connectivity of A*, feasible anchor sizes, and the quotient

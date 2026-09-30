@@ -2,6 +2,35 @@
 
 ## Active implementation — P0/P2/P3/P4 complete, P1 partial
 
+Current continuation starts clean at pushed `46107c6`. Primary is implementing
+P5's chain contraction in `ChainQuotient.lean` and owns integration,
+verification and this handoff, with the sole build slot. Luna is assigned
+only the new `GoodEdgeConnectivity.lean`: replace natural edges by weak
+paths of good edges using the existing short-link geometry. Terra is
+assigned a read-only audit of the feasible-size bridge to `ForestExtension`.
+Both delegates are build-free. P5 remains unfinished.
+
+The first P5 increment is verified: `ChainQuotient` identifies the simple
+quotient on actual chain terminals, proves that good edges retain exactly
+all natural quotient adjacencies, and preserves every selected weak block
+when the retained corners are present. `GoodEdgeConnectivity` replaces a
+natural edge by a good-edge weak path and proves equality of all natural
+and good-edge weak connections. The contraction statements include isolated
+chains; they do not assert any coloring or HRV contraction identity.
+Focused builds and all 323 axiom queries pass (only the three standard
+axioms, or none). Logs: `p5-connectivity-build.log` and
+`p5-connectivity-axioms.log` in the verification directory below.
+Feasible-size conversion and the no-articulation/no-bridge consequence are
+still open, as are terminal transfers and inheritance.
+
+Luna returned `GoodEdgeConnectivity.lean`; primary now owns its integration.
+Terra's read-only feasible-size audit identified the exact missing bridges.
+Luna is next assigned only `CornerForest.lean` (retained-corner acyclicity).
+Terra is next assigned only `EdgeSetGraph.lean` (finite selected-edge/simple
+graph and cardinality conversions). Both remain build-free; primary owns
+`AnchorSizes.lean` and all builds. These assignments do not change historical
+proof-note ownership.
+
 Continuation began clean at pushed `7d76087`; the preceding turn made
 verified progress. The current increment completes the local complete-block
 interface and its actual endpoint lifting. P0/P2/P3/P4 are verified;

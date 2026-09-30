@@ -32,6 +32,8 @@ import VerticalStripLLT.Components.DiagramProof.CompleteConnectivity
 import VerticalStripLLT.Components.DiagramProof.IntervalReachability
 import VerticalStripLLT.Components.DiagramProof.ReachabilityForcing
 import VerticalStripLLT.Components.DiagramProof.CliquePaths
+import VerticalStripLLT.Components.DiagramProof.ChainQuotient
+import VerticalStripLLT.Components.DiagramProof.GoodEdgeConnectivity
 
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
 
@@ -379,3 +381,16 @@ import VerticalStripLLT.Components.DiagramProof.CliquePaths
 #print axioms VerticalStripLLT.Circular.DiagramProof.clique_reachable_of_block
 #print axioms VerticalStripLLT.Circular.DiagramProof.clique_lift_core_of_block
 #print axioms VerticalStripLLT.Circular.DiagramProof.clique_exists_reachable_of_block
+
+namespace VerticalStripLLT.Circular.DiagramProof
+
+#print axioms CornerFamily.chainQuotient_goodEdges_eq
+#print axioms CornerFamily.weakReach_terminal_of_subset
+#print axioms CornerFamily.chainQuotient_reachable_iff
+#print axioms CornerFamily.chainQuotient_reachable_iff_weakReach
+#print axioms CornerFamily.chainQuotient_preconnected_iff
+#print axioms CornerFamily.chainQuotient_preconnected_iff_selectedConnected
+#print axioms CornerFamily.eqvGen_goodEdgeRelation_of_natural_edge
+#print axioms CornerFamily.eqvGen_goodEdgeRelation_iff_eqvGen_naturalEdgeRelation
+
+end VerticalStripLLT.Circular.DiagramProof
