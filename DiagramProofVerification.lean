@@ -26,6 +26,8 @@ import VerticalStripLLT.Components.DiagramProof.ChainConnected
 
 import VerticalStripLLT.Components.DiagramProof.ChordRearrangement
 import VerticalStripLLT.Components.DiagramProof.OuterChordMove
+import VerticalStripLLT.Components.DiagramProof.ChordConnectivityStep
+import VerticalStripLLT.Components.DiagramProof.CompleteSmall
 
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
 
@@ -284,3 +286,14 @@ import VerticalStripLLT.Components.DiagramProof.OuterChordMove
 #print axioms VerticalStripLLT.Circular.DiagramProof.complete_interval_chain_path_of_chain_above
 #print axioms VerticalStripLLT.Circular.DiagramProof.complete_chain_repair
 #print axioms VerticalStripLLT.Circular.DiagramProof.exists_complete_outerChordMove
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChainState_selected_iff
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChainState_selected_singleton_iff
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_singleChord_path
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChainState_singleChord_reachable
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_subset_with_prescribed_pair_away_from
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChainState_outerChord_reachable
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeChainState_reachable_of_smaller
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_reachable_of_smaller
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_chord_sets_eq_of_le_three
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_reachable_of_le_three

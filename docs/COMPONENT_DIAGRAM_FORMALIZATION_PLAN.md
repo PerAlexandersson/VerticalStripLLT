@@ -100,8 +100,19 @@ Opening now needs adjacent edges only at or above its threshold;
 `ChainRepair` therefore lifts the explicit four child-merging flips on
 `0,1,2,3` even with `12` missing. `OuterChordMove` obtains exactly
 `A - 13 + 1n`, restoring every other selected edge. This move has no
-smaller-connectivity hypothesis. The single-chord path, cardinality-indexed
-assembly, four explicit five-vertex paths and reachability forcing remain. P5--P10 remain open. The independent component
+smaller-connectivity hypothesis (`8395f6e`).
+
+The single-chord path and the full `n >= 5` induction step are now verified.
+`SingleChord` opens to `2`, performs the two stated flips and closes.
+`ChordOuterExchange` identifies CC4's exact chord-set endpoint, and
+`ChordSubsetChoice` supplies a same-size subset containing `13,2n` when
+needed. `ChordConnectivityStep` combines these moves with fixed-outer
+rearrangement, then normalizes actual connected active states and transports
+their total selected counts. Its smaller-diagram premise remains explicit.
+`CompleteSmall` proves the `n <= 3` cases from the unique possible chord
+position. The four explicit five-vertex paths (`n = 4`), final strong-induction
+assembly and reachability forcing remain. Intermediate states of those paths
+must use their full selected sets, since chain edges are temporarily removed. P5--P10 remain open. The independent component
 theorem is not yet formalized. See `HANDOFF.md` and `DiagramProofVerification.lean`
 for ownership and exact verification.
 
