@@ -1,5 +1,40 @@
 # VerticalStripLLT handoff
 
+## Detailed formalization plan — complete; implementation not started
+
+The user requested a detailed formalization plan after cleanup checkpoint
+`61ff6f8`. The checkout was clean at that HEAD. Read the
+[detailed plan](docs/COMPONENT_DIAGRAM_FORMALIZATION_PLAN.md): exact semantic
+target, existing source interfaces, proposed modules, theorem obligations,
+P0--P10 checkpoints, dependencies, acceptance criteria and focused checks.
+All new Lean checkpoints remain unimplemented. The mathematical proof
+remains complete; the plan does not claim a new formal proof.
+
+Reuse `Circular.Diagram` with forwardness and actual orientations/flips/
+components, keeping vertex-count path induction separate from the final
+valuation induction. The review identified necessary small extractions from
+`ComponentScalars` and `ForwardHRV` to keep the new imports independent of
+word machinery. Component partitioning should also avoid importing
+`ComponentCoefficient`. Marked E uses a fibre-coloring relation, not a new
+natural diagram. Reduction terms are whole components on the same vertex
+set, with common integer coefficients, forwardness and strict decrease.
+
+Independent Astra reviewer `diagram_audit` approved the detailed architecture
+after two ordering clarifications: auxiliary short-edge/copy-order geometry
+is proved in P3 before the two-chain base; local target-decrease lemmas are
+proved in P8 before reduction certificates and reused by P9. Its review
+also covers endpoint semantics, corner validity, core lifting and component
+multiplicities. It owns no files and is finished.
+
+Primary owns the plan and this handoff. Only these two documentation files
+change in the planning checkpoint. Source/interface/import inspection,
+27 plan links and `git diff --check` pass. Existing proof notes and Lean
+sources are unchanged. No builds or mathematical experiments ran; Lean MCP
+is still rooted at RealRooted and was not used. No verification jobs remain.
+At implementation start, recheck shared build ownership and begin P0/P1;
+the plan proposes early crossing-slide and marked-semantics checks before
+the longer path inductions.
+
 ## Cleanup audit before formalization — complete
 
 The user requested one cleanup/optimization audit of the completed diagram
