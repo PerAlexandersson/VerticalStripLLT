@@ -2,6 +2,7 @@ import VerticalStripLLT.Components.DiagramProof.PathTransport
 import VerticalStripLLT.Components.DiagramProof.TerminalPacking
 import VerticalStripLLT.Components.DiagramProof.TerminalRepair
 import VerticalStripLLT.Components.DiagramProof.TerminalTransfer
+import VerticalStripLLT.Components.DiagramProof.TerminalConnectivity
 import VerticalStripLLT.Components.DiagramProof.ConnectedExchange
 import VerticalStripLLT.Components.DiagramProof.OccupancyTransfers
 import VerticalStripLLT.Components.DiagramProof.WeakBlocks
@@ -473,5 +474,20 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms CornerFamily.last_clique_block_of_terminal_connected
 #print axioms CornerFamily.exists_terminal_exchange
 #print axioms CornerFamily.exists_direct_terminal_transfer
+#print axioms reflTransGen_of_occupancy_descent_of_equal_counts
+#print axioms exists_surplus_and_deficit_of_sum_eq
+#print axioms CornerFamily.exists_terminalEdge_of_pair
+#print axioms CornerFamily.simpleGraph_edge_eq_of_terminal_pair
+#print axioms CornerFamily.terminal_capacity_pos
+#print axioms CornerFamily.occupancy_eq_zero_of_not_adj
+#print axioms CornerFamily.chainQuotient_of_occupancy_transfer
+#print axioms CornerFamily.exists_terminal_transfer
+#print axioms CornerFamily.sum_occupancy
+#print axioms CornerFamily.occupancy_diagonal_eq
+#print axioms CornerFamily.occupancy_le_capacity
+#print axioms CornerFamily.exists_terminalEdge_of_occupancy_gt
+#print axioms CornerFamily.exists_terminal_receiver
+#print axioms CornerFamily.anchors_connected_of_total_last_clique
+#print axioms CornerFamily.commonCover_connected_of_total_last_clique
 
 end VerticalStripLLT.Circular.DiagramProof

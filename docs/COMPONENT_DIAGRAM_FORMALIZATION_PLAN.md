@@ -436,27 +436,27 @@ come from the retained corner; intermediate covers are not assumed.
 `TerminalRepair.one_temporary_edge_repair`, returned by Aristotle and
 independently reviewed, passes the local Lean 4.34.0 build and axiom guards.
 It proves the exact graph repair for both donor-copy cases without extra
-hypotheses. The remaining terminal-transfer obligations are: identify the
-support after an exact occupancy update, realize the absent repair pair as a
-positive-capacity terminal class, compose the two actual transfers, and close
-the finite connected-support occupancy descent. Inheritance remains open.
+hypotheses. `TerminalCapacity` and `OccupancySupport` now identify the support
+after an exact occupancy update and realize the absent repair pair with positive
+capacity. `RepairedTerminalTransfer.exists_terminal_transfer` composes the two
+actual transfers and restores the temporary count. `TerminalReceiver` selects
+a deficit class preserving connected support. `OccupancyCounts` and
+`EqualSumCounts` supply the count and capacity facts for finite descent.
 
-Use P3's auxiliary short-edge paths to prove that good copies retain exactly
-the natural adjacencies between chain
-classes. Obtain connectivity of A*, feasible anchor sizes, and the quotient
-no-articulation/no-bridge consequence needed for edge removability. We need
-these concrete consequences, not a new general interval-graph library.
-
-Formalize terminal-clique occupancy transfer with capacities. A transfer
-that obstructs connectivity uses the proved temporary class repair; the
-sum of occupancy discrepancies decreases. Lift these transfers by the
-complete-clique paths and crossing slides.
+`TerminalConnectivity.anchors_connected_of_total_last_clique` completes the
+terminal-clique base: all connected anchors of the same total size connect
+by actual flips. The descent finishes with the existing equal-occupancy path,
+without assuming occupancy determines an anchor. Preparation extends this to
+`commonCover_connected_of_total_last_clique`. The graph, capacity and path
+obligations of this base are all locally verified. Inheritance remains open.
 
 Then prove last-clique inheritance through its four separate claims:
 make the selected core connected; sweep and lift core paths with exact
 exterior restoration; reach the fixed spanning tree; rearrange extra
 positions using the common buffer edge. Obtain first-clique inheritance
-by the order-reversal path theorem from P1.
+by the order-reversal path theorem from P1. The final local rearrangement
+uses only its specified pool of copies; other copies of the same class must
+remain fixed and must not count toward the local capacities.
 
 Sources: [chain quotient](proofs/COMPONENT_NN_REDISTRIBUTION.md#the-interval-graph-of-corner-chains),
 [terminal clique](proofs/COMPONENT_NN_REDISTRIBUTION.md#complete-recurrences-when-the-last-clique-contains-every-chain-terminal),

@@ -2,58 +2,56 @@
 
 ## Active implementation — P0/P2/P3/P4 complete, P1/P5 partial
 
-This continuation began clean at pushed `ea5d895` and made verified progress:
-the direct terminal-clique transfer is now proved as an actual flip path with
-exact occupancy changes. P0/P2/P3/P4 are complete; P1/P5 remain partial;
-P6--P10 remain open. The independent diagram formalization and illustrated
-circular/ordinary draft are unfinished. The full goal is unchanged.
+Continuation from clean pushed `2e8f9ff`: terminal-clique connectivity is
+now Lean-verified, including the actual repaired transfers and finite occupancy
+descent. P0/P2/P3/P4 are complete; P1/P5 remain partial; P6--P10 remain open.
+The independent diagram formalization and illustrated circular/ordinary draft
+are unfinished. The full goal is unchanged.
 
 Primary owns all `DiagramProof/` sources, `DiagramProofVerification.lean`,
 this handoff, the formalization plan and the restriction-consolidation suggestion,
-and retains the sole build slot. All subagent source ownership has returned.
-Terra returned `CliqueCounts`, `QuotientOccupancy` and `TerminalGraph`; Luna
-returned `CliqueInterval` and a graph-deletion proof snippet; the reused
-`semantic_extract` agent returned `OccupancyExchange`. Primary integrated and
-verified all candidates and wrote `PackedTerminalGraph` and `TerminalTransfer`.
-The independent review approved `exists_terminal_exchange`, the exact packed
-support identity and the final TL2 wrapper. Subagents remain build-free. No compiler or
-remote job is active. Historical proof-note prefixes and unrelated ownership
-remain unchanged.
+and retains the sole serialized build slot. All implementation ownership has
+returned from the subagents. Terra supplied `OccupancySupport` and
+`TerminalReceiver`; Luna supplied `EqualSumCounts` and the descent interface;
+`semantic_extract` supplied `TerminalCapacity` and `OccupancyCounts`. Primary
+integrated and locally verified every candidate, and wrote
+`RepairedTerminalTransfer` and `TerminalConnectivity`. Terra independently
+approved the assembled transfer and connectivity proofs.
 
-### Current P5 increment — actual direct terminal transfer
+Terra and Luna completed read-only audits of last-clique inheritance,
+identifying the nonconvex core cover equivalence as the next useful step.
+`semantic_extract` is reviewing the restricted local capacity argument.
+The reviewers own no source files and remain build-free. No compiler or remote job is
+active. Historical proof-note prefixes and unrelated ownership remain unchanged.
 
-- `CliqueInterval.exists_interval_orderEmbedding` enumerates the full natural
-  interval with exact endpoints. `CliqueCounts` identifies the local selected
-  set with the selected ambient edges having both endpoints in that interval;
-  a selected-to-vacant inside swap preserves its cardinality.
-- `QuotientOccupancy` reads increasing quotient adjacency as positive occupancy.
-  `TerminalGraph` proves terminal-pair injectivity and exact graph deletion/
-  insertion. `PackedTerminalGraph.packed_terminal_graph_eq` proves the selected
-  terminal graph of the packed anchor is exactly the original support minus
-  the receiver pair, with isolated chains retained.
-- `TerminalTransfer.last_clique_block_of_terminal_connected` supplies the whole
-  interval block from connected selected terminal copies plus the retained last
-  corner. `exists_terminal_exchange` invokes the complete-clique theorem with
-  proved endpoint covers, equal local count and exact exterior. Its actual
-  target full selection is `insert f (S.erase e)`.
-- `exists_direct_terminal_transfer` now takes exactly TL2, a positive donor,
-  a receiver vacancy and distinct terminal copies. It packs once, performs
-  the actual local flip path, and returns an actual anchor with exactly one
-  unit removed from the donor occupancy and added to the receiver occupancy.
-  All original strict edges are retained. No intermediate cover invariance
-  or occupancy invariance of a whole component is asserted.
+### Current P5 increment — terminal-clique connectivity
 
-Next combine `TerminalRepair.one_temporary_edge_repair` with the direct
-transfer. The outstanding adapter is the exact support after an occupancy
-update: the donor remains iff its original count exceeds one. Realize the
-returned absent pair by `exists_terminalEdge_of_last_clique`, whose good
-terminal copy proves positive capacity; apply two direct transfers and cancel
-the temporary occupancy. Then prove connected fixed-size occupancy descent
-using `ConnectedExchange.exists_reconnecting_edge` in the bridge case.
-`OccupancyTransfers` currently uses injectivity of the count map; for actual
-anchors replace this with the already-proved equal-occupancy path when closing
-the induction, or work on realized occupancy vectors. Do not assume occupancy
-is injective on anchors. Last-/first-clique inheritance is still open.
+- `TerminalCapacity` realizes every distinct terminal pair by a good terminal
+  copy and proves positive capacity. `OccupancySupport` identifies the exact
+  graph after a unit transfer: the donor remains precisely when another copy
+  remains, and the receiver is inserted.
+- `RepairedTerminalTransfer.exists_terminal_transfer` uses the locally verified
+  Aristotle repair theorem. An absent temporary class has positive capacity;
+  two actual direct transfers through that class compose to the required
+  occupancy change, with the temporary count restored.
+- `TerminalReceiver` chooses a deficit receiver preserving connected support.
+  For a single-copy bridge it uses a reconnecting edge from the target graph.
+  `OccupancyCounts` proves the total count identity, fixed diagonal counts,
+  capacity bounds, and realization of differing classes by terminal copies.
+- `OccupancyTransfers.reflTransGen_of_occupancy_descent_of_equal_counts` closes
+  finite deficit descent with an actual equal-count path. The earlier
+  injectivity-based interface remains a wrapper; occupancy is not assumed
+  injective on anchors. `EqualSumCounts` supplies a surplus and a deficit.
+- `TerminalConnectivity.anchors_connected_of_total_last_clique` connects actual
+  connected anchors of equal total size when all chain terminals lie in the
+  last clique. `commonCover_connected_of_total_last_clique` adds preparation
+  and its reverse, giving the analogous result for common-cover states.
+
+The direct transfer from `2e8f9ff` uses terminal packing and the complete-clique
+path with exact exterior and exact selected-to-vacant exchange. The repaired
+transfer and descent now discharge its former application obligations.
+Last-/first-clique inheritance is still open. These are actual path theorems;
+no general signed recurrence or semantic expansion is claimed yet.
 
 ### Earlier P5 checkpoints — packing and graph repair
 
@@ -72,7 +70,7 @@ using `exists_terminalEdge_of_last_clique`.
 [The ledger](docs/ARISTOTLE.md) records the exact target and external directory.
 The final theorem passes the local axiom and independent-import guards.
 
-### Current P5 increment — terminal copies and packing
+### Earlier P5 increment — terminal copies and packing
 
 - `LabelPacking` constructs subsets with prescribed per-label counts between
   a required subset and an allowed pool. `RepresentativePacking` specializes
@@ -90,9 +88,9 @@ The final theorem passes the local axiom and independent-import guards.
   `exists_connected_edge_exchange` handles equal-size connected graphs too.
 - `OccupancyTransfers.reflTransGen_of_occupancy_descent` proves termination of
   exact surplus-to-deficit unit transfers, deriving sum preservation and strict
-  decrease of the total deficit. Its local transfer hypothesis is still to be
-  supplied by the diagram construction; it does not assume arbitrary transfers
-  preserve connectivity.
+  decrease of the total deficit. The current increment supplies the actual
+  transfer hypothesis; arbitrary transfers are not assumed to preserve
+  connectivity.
 - `TerminalRepair.one_temporary_edge_repair`, from the Aristotle candidate,
   realizes the exact graph statement: either both direct-transfer tests hold,
   or an absent third pair makes them hold for both consecutive transfers.
@@ -125,7 +123,7 @@ by good paths preserves avoidance of that chain.
 
 The `n≥3` and third-chain qualifications are retained. The two-chain base
 is separate. These are graph paths and actual anchor-existence results;
-terminal-clique transfers and component inheritance are still unfinished.
+terminal-clique transfers are now verified; component inheritance is unfinished.
 No coloring or HRV contraction identity is asserted.
 
 ### Verified P5 checkpoints `584d931` / `e45e107` — contraction and sizes
@@ -250,19 +248,21 @@ this route. The mathematical diagram proof is complete.
 ### Verification and next step
 
 Focused builds of all new modules and the verification import targets pass
-without source warnings. All 393 queries in `DiagramProofVerification.lean`
+without source warnings. All 408 queries in `DiagramProofVerification.lean`
 use only `propext`, `Classical.choice`, `Quot.sound` (or none). The independent
-import closure contains 190 project files including verification and excludes
+import closure contains 197 project files including verification and excludes
 the old word/scan/expansion routes. Source guards (including no `native_decide`),
 100-column and whitespace checks pass. Current logs are
-`p5-direct-closure-build.log`, `p5-direct-axioms.log` and
-`p5-direct-imports.txt`. The repair checkpoint had 374 queries/183 project
+`p5-terminal-complete-build.log`, `p5-terminal-complete-axioms.log` and
+`p5-terminal-complete-imports.txt`. The direct-transfer checkpoint had
+393 queries/190 project files (`p5-direct-*`). The repair checkpoint had 374 queries/183 project
 files (`p5-repair-*`). The preceding packing checkpoint had 373 queries/182
 project files (`p5-terminal-*`). The separator checkpoint had 359 queries/176
 project files (`p5-separator-*`). Prior P5 checkpoints have
 323 queries/168 project files (`p5-connectivity-*`) and
 340 queries/171 project files (`p5-sizes-*`). No compiler, remote task or
-subagent remains running.
+implementation subagent remains running; the remaining read-only audit above
+is active.
 
 No broad build, dependency update or mathematical computation ran. Aristotle
 was used for the exact graph repair lemma, as requested.
@@ -270,18 +270,16 @@ Only primary invokes `lake-workspace`. Lean MCP remains
 rooted at RealRooted, so local compiler diagnostics are used. The wrapper's
 existing package-path manifest warning remains unchanged.
 
-Next: implement P5's terminal-clique occupancy transfers, then its four
-last-clique steps. The full good-edge graph connectivity, feasible sizes,
-chain-quotient separators and the no-articulation removable-edge consequence
-are now proved; do not repeat them. The written terminal-clique proof starts
-near line 3724 of `COMPONENT_NN_REDISTRIBUTION.md`. It packs selected copies
-into the terminal clique, performs a local complete-diagram path satisfying
-both connectivity tests, and repairs a blocked transfer through at most one
-absent class. Connect fixed-size capacity-bounded occupancies by decreasing
-the discrepancy. P1's order reversal is needed before first-clique inheritance.
-Local clique applications still need concrete target connectedness,
-extreme-cover, exact local count and exterior conditions. No general
-interval-graph library was introduced.
+Next: implement P5's four last-clique inheritance steps: make the selected
+core connected; sweep and lift core paths with exact exterior restoration;
+reach the fixed spanning tree; rearrange extra positions through the shared
+edge. The written proof starts near line 4298 of
+`COMPONENT_NN_REDISTRIBUTION.md`. Its last step needs the terminal-clique
+argument restricted to the stated local pool: same-pair copies elsewhere are
+held fixed and must not count toward local capacity. The terminal-clique base,
+good-edge connectivity, feasible sizes and removable-edge consequence are
+proved; do not repeat them. P1's order reversal is needed before first-clique
+inheritance. No general interval-graph library was introduced.
 
 For clique reachability, use `clique_lift_core_of_block` to transport the
 actual core endpoint and its selected relation. The general lower-interval

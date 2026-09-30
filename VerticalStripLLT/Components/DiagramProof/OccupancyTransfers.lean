@@ -14,10 +14,10 @@ def occupancyDeficit {I State : Type*} [Fintype I]
     (count : State → I → ℕ) (τ σ : State) : ℕ :=
   ∑ i, (count τ i - count σ i)
 
-theorem reflTransGen_of_occupancy_descent
+theorem reflTransGen_of_occupancy_descent_of_equal_counts
     {I State : Type*} [Fintype I] [DecidableEq I]
     (count : State → I → ℕ) (step : State → State → Prop) (τ : State)
-    (hinj : Function.Injective count)
+    (hfinish : ∀ σ, count σ = count τ → Relation.ReflTransGen step σ τ)
     (hmove : ∀ (σ : State),
       (∑ i, count σ i) = ∑ i, count τ i →
       (∃ i, count σ i ≠ count τ i) →
@@ -66,9 +66,7 @@ theorem reflTransGen_of_occupancy_descent
       intro σ hmeasure hsumσ
       by_cases heq : ∀ i, count σ i = count τ i
       · have hcount : count σ = count τ := funext heq
-        have hstate : σ = τ := hinj hcount
-        subst σ
-        exact Relation.ReflTransGen.refl
+        exact hfinish σ hcount
       · obtain ⟨e, f, σ', he, hf, hpath, hupdate⟩ :=
           hmove σ hsumσ (not_forall.mp heq)
         have hef : e ≠ f := by
@@ -109,9 +107,33 @@ theorem reflTransGen_of_occupancy_descent
           dsimp only [gnew, gold]
           rw [he', hf']
           lia
-        exact hpath.trans (ih (occupancyDeficit count τ σ') (hdeficit.trans_le hmeasure.le) σ'
-          rfl hsum')
+        have hlt : occupancyDeficit count τ σ' < m := by
+          rw [← hmeasure]
+          exact hdeficit
+        exact hpath.trans (ih _ hlt σ' rfl hsum')
   exact aux (occupancyDeficit count τ σ) σ rfl hsum
+
+theorem reflTransGen_of_occupancy_descent
+    {I State : Type*} [Fintype I] [DecidableEq I]
+    (count : State → I → ℕ) (step : State → State → Prop) (τ : State)
+    (hinj : Function.Injective count)
+    (hmove : ∀ (σ : State),
+      (∑ i, count σ i) = ∑ i, count τ i →
+      (∃ i, count σ i ≠ count τ i) →
+      ∃ e f σ', count τ e < count σ e ∧ count σ f < count τ f ∧
+        Relation.ReflTransGen step σ σ' ∧
+        (∀ i, count σ' i =
+          if i = e then count σ i - 1
+          else if i = f then count σ i + 1
+          else count σ i))
+    {σ : State} (hsum : (∑ i, count σ i) = ∑ i, count τ i) :
+    Relation.ReflTransGen step σ τ := by
+  apply reflTransGen_of_occupancy_descent_of_equal_counts count step τ
+    (fun σ hcount => by
+      have hstate : σ = τ := hinj hcount
+      subst σ
+      exact Relation.ReflTransGen.refl)
+    hmove hsum
 
 end
 

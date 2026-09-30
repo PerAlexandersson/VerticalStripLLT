@@ -39,9 +39,12 @@ for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
   only `propext`, `Classical.choice` and `Quot.sound`. The source uses the
   narrow connectivity import and no old LLT proof route. Verification logs:
   `diagram-formalization/p5-terminal-repair-build.log`, `p5-repair-axioms.log`
-  and `p5-repair-imports.txt`. The direct diagram transfer and its application
-  to capacities remain separate obligations; the graph lemma assumes no
-  capacity model and needs no finiteness hypothesis.
+  and `p5-repair-imports.txt`. The graph lemma assumes no capacity model and
+  needs no finiteness hypothesis. Its diagram application is now verified in
+  `RepairedTerminalTransfer.exists_terminal_transfer`, including positive
+  temporary capacity and exact cancellation of the temporary occupancy.
+  `TerminalConnectivity` uses it in finite descent to prove the terminal-clique
+  connectivity base; general last-clique inheritance remains unfinished.
 
 ## Circular finite coefficient identity: accepted mathematical proof
 
