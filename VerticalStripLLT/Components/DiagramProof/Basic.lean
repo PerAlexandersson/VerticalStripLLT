@@ -49,6 +49,22 @@ theorem fullSelection_injective :
   apply Subtype.ext
   rw [← fullSelection_sdiff_strict θ, ← fullSelection_sdiff_strict η, h]
 
+theorem mem_fullSelection_iff_selected (θ : Orientation D) (e : Edge D.area) :
+    e ∈ fullSelection θ ↔ D.edgeData.selected θ.val e.tail e.head := by
+  constructor
+  · intro he
+    exact ⟨e, he, rfl, rfl⟩
+  · rintro ⟨f, hf, ht, hh⟩
+    have hfe : f = e := D.endpointEmbedding.injective (Prod.ext ht hh)
+    exact hfe ▸ hf
+
+theorem normal_mem_iff_selected (θ : Orientation D) (e : Edge D.area)
+    (hnormal : e ∈ D.edgeData.normalEdges) :
+    e ∈ θ.val ↔ D.edgeData.selected θ.val e.tail e.head := by
+  rw [← mem_fullSelection_iff_selected]
+  have hns : e ∉ D.strict := (Finset.mem_sdiff.mp hnormal).2
+  simp only [fullSelection, Finset.mem_union, hns, false_or]
+
 /-- Every forward full selection containing the strict edges is an actual state. -/
 def ofFullSelection (hforward : Forward D) (A : Finset (Edge D.area))
     (_hstrict : D.strict ⊆ A) : Orientation D :=
