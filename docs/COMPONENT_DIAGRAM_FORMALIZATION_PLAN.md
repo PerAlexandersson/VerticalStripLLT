@@ -7,9 +7,10 @@ plan, not a report of new Lean proofs. The mathematical inputs are the
 remain the sources for the individual path constructions.
 
 Implementation status: P0 and the two semantic import extractions are now
-verified. P1 has the finite/lifted cover bridge, actual flip constructor
-from finite cover data, and weak-block invariance; its remaining transport
-and source-only construction obligations are open. P2--P10 remain open.
+verified in pushed checkpoint `9d8c4bc`. P1 now has the finite/lifted cover
+bridge, weak-block invariance, exact corner-marking component transport and
+an actual flip derived from two source covers. Induced-core geometry, path
+lifting and order reversal remain open. P2--P10 remain open.
 See `HANDOFF.md` and `DiagramProofVerification.lean` for the exact checkpoint.
 
 ## Deliverable and scope

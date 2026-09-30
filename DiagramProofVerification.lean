@@ -1,5 +1,7 @@
 import VerticalStripLLT.Components.DiagramProof.PathTransport
 import VerticalStripLLT.Components.DiagramProof.WeakBlocks
+import VerticalStripLLT.Components.DiagramProof.CornerTransport
+import VerticalStripLLT.Components.DiagramProof.ShortFlip
 import VerticalStripLLT.Components.SelectedColoringTransport
 
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
@@ -17,6 +19,15 @@ import VerticalStripLLT.Components.SelectedColoringTransport
 #print axioms VerticalStripLLT.Circular.DiagramProof.directedFlipOfCovers
 #print axioms VerticalStripLLT.Circular.DiagramProof.weakReach_iff_of_reachable
 #print axioms VerticalStripLLT.Circular.DiagramProof.selectedConnected_iff_of_reachable
+#print axioms VerticalStripLLT.Circular.DiagramProof.corner_mem_iff_of_reachable
+#print axioms VerticalStripLLT.Circular.DiagramProof.reachable_markCorner_iff
+#print axioms VerticalStripLLT.Circular.DiagramProof.mem_flipComponent_markCorner_iff
+#print axioms VerticalStripLLT.Circular.DiagramProof.markCorner_hrv
+#print axioms VerticalStripLLT.Circular.DiagramProof.markCorner_strictOrderEnumerator
+#print axioms VerticalStripLLT.Circular.DiagramProof.reachable_mono_on_interval
+#print axioms VerticalStripLLT.Circular.DiagramProof.relationCover_short_swap
+#print axioms VerticalStripLLT.Circular.DiagramProof.directedFlipOfSourceCovers
+#print axioms VerticalStripLLT.Circular.DiagramProof.swapShort_mem_flipComponent
 #print axioms VerticalStripLLT.Circular.Orientation.liftedHRV_eq_coe_hrv_of_forward
 #print axioms VerticalStripLLT.Circular.EdgeData.strictOrderEnumerator_eq_selected_sum
 #print axioms VerticalStripLLT.Components.strictOrderEnumerator_selected_relabel

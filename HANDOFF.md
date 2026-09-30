@@ -11,48 +11,48 @@ Lean/Lake compiler. Builds remain focused and serialized through
 `lake-workspace`. Lean MCP is rooted at RealRooted and will not be used
 for project diagnostics/builds; use focused local compiler diagnostics.
 
-A bounded Luna extraction worker owns only existing `ComponentScalars.lean`,
-`SelectedColoringTransport.lean`, `ForwardHRV.lean` and new
-`SelectedColoringSum.lean`, `ForwardHRVBasic.lean` in
-`VerticalStripLLT/Components/`. It will move the already proved structural
-declarations to smaller import modules, preserving public names, and return
-notes without invoking Lean or editing other files. Primary will verify
-and integrate its changes. Historical proof-note ownership is unchanged.
-The prior independent Astra review already approved this architecture.
-The extraction worker has finished and released its five files to primary
-for integration. Initial focused compilation identified only two extraction
-import issues (an unused namespace opening and the missing direct HRV type
-import), which primary corrected. No worker builds ran.
+The bounded Luna extraction worker finished and released its five files
+(`ComponentScalars`, `SelectedColoringTransport`, `ForwardHRV`,
+`SelectedColoringSum`, `ForwardHRVBasic`). Primary verified and integrated
+its changes in pushed checkpoint `9d8c4bc`. No other worker has active edits
+or the build slot. Historical proof-note ownership is unchanged. The prior
+independent Astra review approved the architecture.
 
-The first verified source increment implements `DiagramProof/Basic.lean`,
-`PathTransport.lean` and `WeakBlocks.lean`: full selections and exact layer
-counts, inverse full-selection construction, whole-component layer closure,
-finite/lifted reachability and cover equivalence, an actual directed-flip
-constructor from finite cover data, and invariance of every weak block
-under actual flip paths. P1 is still partial: source-only flip construction,
-corner marking and induced-core transport remain. P2--P10 are not complete.
+P0 and the structural part of P1 compile: full selections and exact layer
+counts, finite/lifted cover equivalence, weak-block invariance, exact corner
+marking of whole components, and a short-edge flip derived from only the two
+source covers. `RelationPaths.lean` proves interval path mapping and the
+source-to-target cover argument; `ShortFlip.lean` constructs an actual
+`DirectedFlipWitness` and proves membership in the whole component.
+`CornerTransport.lean` includes both directions and surjectivity, plus HRV
+and strict-coloring preservation. P1 is still partial: induced-core geometry,
+path lifting and order reversal remain. P2--P10 are not complete.
 
-Both low-level extractions compile, with existing names preserved. Focused
-builds also verify the changed `ComponentScalars`, `SelectedColoringTransport`
-and `ForwardHRV` modules. `DiagramProofVerification.lean` passes all 16 axiom
-queries using only `propext`, `Classical.choice`, `Quot.sound`. Its independent
-import closure contains 56 project modules and none of the old word/scan/
-component-expansion route. Source guards, 100-column checks and whitespace
-checks pass. Logs and import inventory are under
-`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`.
-Only focused builds ran. The wrapper's known temporary-package-path manifest
-warning persists; no manifest update was performed. Next: corner transport
-and the forward source-cover flip lemma, followed by the restored slide.
+The changed old consumers compiled in the first checkpoint. Focused builds
+of all new modules pass. `DiagramProofVerification.lean` now passes 25 axiom
+queries using only `propext`, `Classical.choice`, `Quot.sound` (or none).
+Its independent closure contains 64 project files, including the verification
+entry, and excludes the old word/scan/component-expansion route. Source guards,
+100-column checks and whitespace checks pass. Logs/import inventories are in
+`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`:
+`p1-relations-build.log`, `p1-short-flip-build.log`, `p1-axioms.log` and
+`p1-imports.txt`; corner compilation succeeded in `p1-corner-relations-build.log`
+before the relation-module correction. Only focused builds ran. The wrapper's
+known temporary-package-path warning persists; no manifest update was performed.
+Next: establish the marked semantic bridge, then the remaining core/path
+interfaces and restored crossing slide. No general recurrence or attachment
+formalization is claimed yet.
 
-## Detailed formalization plan — complete; implementation not started
+## Detailed formalization plan — completed before implementation
 
 The user requested a detailed formalization plan after cleanup checkpoint
 `61ff6f8`. The checkout was clean at that HEAD. Read the
 [detailed plan](docs/COMPONENT_DIAGRAM_FORMALIZATION_PLAN.md): exact semantic
 target, existing source interfaces, proposed modules, theorem obligations,
 P0--P10 checkpoints, dependencies, acceptance criteria and focused checks.
-All new Lean checkpoints remain unimplemented. The mathematical proof
-remains complete; the plan does not claim a new formal proof.
+At that planning checkpoint, all new Lean checkpoints were unimplemented.
+The active implementation status above supersedes that historical status.
+The mathematical proof remains complete.
 
 Reuse `Circular.Diagram` with forwardness and actual orientations/flips/
 components, keeping vertex-count path induction separate from the final
