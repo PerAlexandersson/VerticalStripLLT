@@ -59,9 +59,17 @@ private theorem selected_agree {θ η : Orientation E} (w : DirectedFlipWitness 
       (Prod.ext w.short_head_tail.symm rfl)]
   simp only [hab, hbc, not_false_eq_true, and_true, false_or]
 
-/-- An actual core flip lifts to an actual ambient flip with the prescribed exterior. -/
-def liftDirected {θ η : Orientation E} (w : DirectedFlipWitness E θ η) :
-    DirectedFlipWitness D (C.state θ) (C.state η) := by
+/-- Cover tests and unchanged exterior suffice to lift an actual flip; the image
+need not be order-convex. -/
+def liftDirected_of_cover_iff (ι : Fin k ↪o Fin n)
+    (state : Orientation E → Orientation D)
+    (hinside : ∀ θ u v,
+      D.edgeData.selected (state θ).val (ι u) (ι v) ↔ E.edgeData.selected θ.val u v)
+    (houtside : ∀ θ η u v, (¬ ∃ a b, ι a = u ∧ ι b = v) →
+      (D.edgeData.selected (state θ).val u v ↔ D.edgeData.selected (state η).val u v))
+    (hcovers : ∀ θ u v, Cover (state θ) (ι u) (ι v) ↔ Cover θ u v)
+    {θ η : Orientation E} (w : DirectedFlipWitness E θ η) :
+    DirectedFlipWitness D (state θ) (state η) := by
   let a := w.eab.tail
   let b := w.eab.head
   let c := w.ebc.head
@@ -75,23 +83,23 @@ def liftDirected {θ η : Orientation E} (w : DirectedFlipWitness E θ η) :
   have tnab : ¬ Cover η a b := fun h =>
     wn.target_not_ab ((liftCover_iff_cover hE η a b).mpr h)
   have hbc : b < c := (w.canonical_triple_order hE).2
-  have esab := (C.cover_iff hD θ a b).mpr sab
-  have esac := (C.cover_iff hD θ a c).mpr sac
-  let existence := exists_directedFlip_of_sourceCovers hD (C.state θ)
-    (C.embed a) (C.embed b) (C.embed c) esab esac (C.embed.strictMono hbc)
+  have esab := (hcovers θ a b).mpr sab
+  have esac := (hcovers θ a c).mpr sac
+  let existence := exists_directedFlip_of_sourceCovers hD (state θ)
+    (ι a) (ι b) (ι c) esab esac (ι.strictMono hbc)
   let w' := Classical.choose (Classical.choose_spec existence)
   have ends := Classical.choose_spec (Classical.choose_spec existence)
-  apply directedFlipOfCovers hD esab.1 (C.embed.strictMono hbc) w'.eab w'.ebc
+  apply directedFlipOfCovers hD esab.1 (ι.strictMono hbc) w'.eab w'.ebc
     ends.1 ends.2.1 ends.2.2.1 ends.2.2.2 w'.eab_normal w'.ebc_normal
-    esab esac (fun h => snbc ((C.cover_iff hD θ b c).mp h))
-    ((C.cover_iff hD η a c).mpr tac) ((C.cover_iff hD η b c).mpr tbc)
-    (fun h => tnab ((C.cover_iff hD η a b).mp h))
+    esab esac (fun h => snbc ((hcovers θ b c).mp h))
+    ((hcovers η a c).mpr tac) ((hcovers η b c).mpr tbc)
+    (fun h => tnab ((hcovers η a b).mp h))
   intro e heab hebc
   by_cases hnormal : e ∈ D.edgeData.normalEdges
   · rw [normal_mem_iff_selected _ e hnormal, normal_mem_iff_selected _ e hnormal]
-    by_cases hcore : ∃ u v, C.embed u = e.tail ∧ C.embed v = e.head
+    by_cases hcore : ∃ u v, ι u = e.tail ∧ ι v = e.head
     · obtain ⟨u, v, hu, hv⟩ := hcore
-      rw [← hu, ← hv, C.inside, C.inside]
+      rw [← hu, ← hv, hinside, hinside]
       apply selected_agree w u v
       · rintro ⟨rfl, rfl⟩
         apply heab
@@ -101,10 +109,32 @@ def liftDirected {θ η : Orientation E} (w : DirectedFlipWitness E θ η) :
         apply hebc
         apply D.endpointEmbedding.injective
         exact Prod.ext (hu.symm.trans ends.2.2.1.symm) (hv.symm.trans ends.2.2.2.symm)
-    · exact C.outside θ η e.tail e.head hcore
-  · have hθ : e ∉ (C.state θ).val := fun h => hnormal ((C.state θ).property.1 h)
-    have hη : e ∉ (C.state η).val := fun h => hnormal ((C.state η).property.1 h)
+    · exact houtside θ η e.tail e.head hcore
+  · have hθ : e ∉ (state θ).val := fun h => hnormal ((state θ).property.1 h)
+    have hη : e ∉ (state η).val := fun h => hnormal ((state η).property.1 h)
     simp only [hθ, hη]
+
+/-- An actual core flip lifts to an actual ambient flip with the prescribed exterior. -/
+def liftDirected {θ η : Orientation E} (w : DirectedFlipWitness E θ η) :
+    DirectedFlipWitness D (C.state θ) (C.state η) :=
+  liftDirected_of_cover_iff hD hE C.embed C.state C.inside C.outside (C.cover_iff hD) w
+
+include hD hE in
+/-- The same cover interface lifts an entire path while retaining the exterior. -/
+theorem lift_reachable_of_cover_iff (ι : Fin k ↪o Fin n)
+    (state : Orientation E → Orientation D)
+    (hinside : ∀ θ u v,
+      D.edgeData.selected (state θ).val (ι u) (ι v) ↔ E.edgeData.selected θ.val u v)
+    (houtside : ∀ θ η u v, (¬ ∃ a b, ι a = u ∧ ι b = v) →
+      (D.edgeData.selected (state θ).val u v ↔ D.edgeData.selected (state η).val u v))
+    (hcovers : ∀ θ u v, Cover (state θ) (ι u) (ι v) ↔ Cover θ u v)
+    {θ η : Orientation E} (h : Relation.ReflTransGen (Flip E) θ η) :
+    Relation.ReflTransGen (Flip D) (state θ) (state η) := by
+  apply h.lift state
+  intro α β hstep
+  rcases hstep with hstep | hstep
+  · exact Or.inl ⟨liftDirected_of_cover_iff hD hE ι state hinside houtside hcovers hstep.some⟩
+  · exact Or.inr ⟨liftDirected_of_cover_iff hD hE ι state hinside houtside hcovers hstep.some⟩
 
 include hD hE in
 theorem lift_flip {θ η : Orientation E} (h : Flip E θ η) :

@@ -21,6 +21,9 @@ import VerticalStripLLT.Components.DiagramProof.CompleteDiagram
 import VerticalStripLLT.Components.DiagramProof.CompletePrefix
 import VerticalStripLLT.Components.DiagramProof.CompleteChain
 
+import VerticalStripLLT.Components.DiagramProof.IntervalPaths
+import VerticalStripLLT.Components.DiagramProof.ChainConnected
+
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
 
 #print axioms VerticalStripLLT.Circular.DiagramProof.fullSelection_injective
@@ -202,3 +205,37 @@ import VerticalStripLLT.Components.DiagramProof.CompleteChain
 
 #print axioms VerticalStripLLT.Circular.DiagramProof.selected_markCorner_iff
 #print axioms VerticalStripLLT.Circular.DiagramProof.exists_complete_chain_marked
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.CoreExtension.liftDirected_of_cover_iff
+#print axioms VerticalStripLLT.Circular.DiagramProof.CoreExtension.lift_reachable_of_cover_iff
+#print axioms VerticalStripLLT.Circular.DiagramProof.reachable_iff_of_pathImage
+#print axioms VerticalStripLLT.Circular.DiagramProof.relationCover_iff_of_pathImage
+#print axioms VerticalStripLLT.Circular.DiagramProof.pathImage_closed_of_zero_interval
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeRestrictAlong_selected
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeExtendAlong_selected
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeExtendAlong_inside
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeExtendAlong_outside
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeExtendAlong_restrict
+#print axioms VerticalStripLLT.Circular.DiagramProof.completeExtendAlong_eq_of_outside
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_liftAlong_reachable
+#print axioms VerticalStripLLT.Circular.DiagramProof.intervalEmbed_range
+#print axioms VerticalStripLLT.Circular.DiagramProof.intervalExtend_no_low_head
+#print axioms VerticalStripLLT.Circular.DiagramProof.intervalExtend_cover_iff
+#print axioms VerticalStripLLT.Circular.DiagramProof.interval_lift_reachable
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_chain_opening_step
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_chain_opening
+#print axioms VerticalStripLLT.Circular.DiagramProof.openCompleteChain_selected
+#print axioms VerticalStripLLT.Circular.DiagramProof.openCompleteChain_row
+#print axioms VerticalStripLLT.Circular.DiagramProof.openCompleteChain_below
+#print axioms VerticalStripLLT.Circular.DiagramProof.openCompleteChain_outside
+#print axioms VerticalStripLLT.Circular.DiagramProof.reachable_openCompleteChain
+#print axioms VerticalStripLLT.Circular.DiagramProof.openCompleteChain_interval_row
+#print axioms VerticalStripLLT.Circular.DiagramProof.openCompleteChain_interval_chain
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_interval_chain_path
+#print axioms VerticalStripLLT.Circular.DiagramProof.reachable_last_of_selected_chain
+#print axioms VerticalStripLLT.Circular.DiagramProof.selectedConnected_of_selected_chain
+#print axioms VerticalStripLLT.Circular.DiagramProof.cover_zero_last_of_selected_chain
+#print axioms VerticalStripLLT.Circular.DiagramProof.selectedConnected_and_cover_of_selected_chain
+
+#print axioms
+  VerticalStripLLT.Circular.DiagramProof.openCompleteChain_interval_connected_cover

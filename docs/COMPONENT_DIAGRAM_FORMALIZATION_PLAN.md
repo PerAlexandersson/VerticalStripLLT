@@ -72,10 +72,20 @@ the exterior exactly and lifts every local flip path through the existing
 convex-core interface. `CompleteChain.exists_complete_chain` completes CC1
 by induction: the endpoint contains the internal consecutive chain and has
 only the extreme edge out of 0. It proves the final cover tests afresh after
-the lifted path before reversing the last move. Interval opening/closing,
-chord rearrangement, column sweep, four explicit five-vertex paths and
-reachability forcing remain in P4. P5--P10 remain open. The independent component theorem is
-not yet formalized. See `HANDOFF.md` and `DiagramProofVerification.lean`
+the lifted path before reversing the last move (`1c22d95`).
+
+CC3 interval opening/closing and actual local lifting are now verified.
+`ChainOpening` gives the descending adjacent swaps with an exact endpoint.
+`CompleteInterval` proves selected-path and cover restriction on
+`{0,a,...,b}` using the root row, without assuming order convexity.
+`IntervalPaths.complete_interval_chain_path` opens, lifts a supplied smaller
+path, and closes with all exterior edges restored. Its opened restriction
+is a connected state with the smaller extreme corner covering. The generic
+cover-based flip lift is extracted from `CoreExtension`, retaining its old
+convex interface. Restricted count transport and chord-position bookkeeping
+remain, as do chord rearrangement, column sweep, the four explicit five-vertex
+paths and reachability forcing. P5--P10 remain open. The independent component
+theorem is not yet formalized. See `HANDOFF.md` and `DiagramProofVerification.lean`
 for ownership and exact verification.
 
 ## Deliverable and scope
