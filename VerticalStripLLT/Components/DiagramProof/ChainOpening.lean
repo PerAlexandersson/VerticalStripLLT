@@ -12,10 +12,10 @@ variable {n : ℕ} [NeZero n] {D : Diagram n}
 
 /-! The one-step form is stated with a natural threshold.  This avoids having
 to represent the predecessor of the lower endpoint as a `Fin n`. -/
-theorem exists_chain_opening_step (hforward : Forward D) (θ ξ : Orientation D)
+theorem exists_chain_opening_step_of_chain_above (hforward : Forward D) (θ ξ : Orientation D)
     (b t : Fin n) (hb : 0 < b) (q : ℕ) (hbq : b.val < q) (hqt : q ≤ t.val)
     (hrow : ∀ v, D.edgeData.selected θ.val 0 v ↔ v = t)
-    (hchain : ∀ u v, 0 < u → u.val + 1 = v.val → v ≤ t →
+    (hchain : ∀ u v, b ≤ u → u.val + 1 = v.val → v ≤ t →
       D.edgeData.selected θ.val u v)
     (hrel : ∀ u v, D.edgeData.selected ξ.val u v ↔
       (u = 0 ∧ q ≤ v.val ∧ v.val ≤ t.val) ∨
@@ -48,7 +48,9 @@ theorem exists_chain_opening_step (hforward : Forward D) (θ ξ : Orientation D)
     change q = (q - 1) + 1
     exact (Nat.sub_add_cancel (by lia : 1 ≤ q)).symm
   have hseljkθ : D.edgeData.selected θ.val j k := by
-    apply hchain j k hjpos hjkval.symm hkt
+    apply hchain j k (by
+      change b.val ≤ q - 1
+      lia) hjkval.symm hkt
   have hseljk : D.edgeData.selected ξ.val j k := by
     apply (hrel j k).mpr
     right
@@ -87,12 +89,29 @@ theorem exists_chain_opening_step (hforward : Forward D) (θ ξ : Orientation D)
   simp only [Fin.ext_iff, hjval, hkval]
   grind
 
-/-! Open the chain by the actual incoming swaps
-`(t-1)t, (t-2)(t-1), ..., b(b+1)`. -/
-theorem exists_chain_opening (hforward : Forward D) (θ : Orientation D)
-    (b t : Fin n) (hb : 0 < b) (hbt : b ≤ t)
+theorem exists_chain_opening_step (hforward : Forward D) (θ ξ : Orientation D)
+    (b t : Fin n) (hb : 0 < b) (q : ℕ) (hbq : b.val < q) (hqt : q ≤ t.val)
     (hrow : ∀ v, D.edgeData.selected θ.val 0 v ↔ v = t)
     (hchain : ∀ u v, 0 < u → u.val + 1 = v.val → v ≤ t →
+      D.edgeData.selected θ.val u v)
+    (hrel : ∀ u v, D.edgeData.selected ξ.val u v ↔
+      (u = 0 ∧ q ≤ v.val ∧ v.val ≤ t.val) ∨
+        (D.edgeData.selected θ.val u v ∧
+          ¬ (q ≤ u.val ∧ u.val + 1 = v.val ∧ v.val ≤ t.val))) :
+    ∃ η : Orientation D, Flip D ξ η ∧
+      (∀ u v, D.edgeData.selected η.val u v ↔
+        (u = 0 ∧ q - 1 ≤ v.val ∧ v.val ≤ t.val) ∨
+          (D.edgeData.selected θ.val u v ∧
+            ¬ (q - 1 ≤ u.val ∧ u.val + 1 = v.val ∧ v.val ≤ t.val))) := by
+  exact exists_chain_opening_step_of_chain_above hforward θ ξ b t hb q hbq hqt hrow
+    (fun u v hbu huv hvt => hchain u v (hb.trans_le hbu) huv hvt) hrel
+
+/-! Open the chain by the actual incoming swaps
+`(t-1)t, (t-2)(t-1), ..., b(b+1)`. -/
+theorem exists_chain_opening_of_chain_above (hforward : Forward D) (θ : Orientation D)
+    (b t : Fin n) (hb : 0 < b) (hbt : b ≤ t)
+    (hrow : ∀ v, D.edgeData.selected θ.val 0 v ↔ v = t)
+    (hchain : ∀ u v, b ≤ u → u.val + 1 = v.val → v ≤ t →
       D.edgeData.selected θ.val u v) :
     ∃ η : Orientation D, Relation.ReflTransGen (Flip D) θ η ∧
       (∀ u v, D.edgeData.selected η.val u v ↔
@@ -119,11 +138,13 @@ theorem exists_chain_opening (hforward : Forward D) (θ : Orientation D)
           intro u v
           exact hξ u v
         · have hbq' : b.val < q := lt_of_le_of_ne hbq (Ne.symm hqb)
-          obtain ⟨ζ, hξζ, hζ⟩ := exists_chain_opening_step hforward θ ξ b t hb q
+          obtain ⟨ζ, hξζ, hζ⟩ :=
+            exists_chain_opening_step_of_chain_above hforward θ ξ b t hb q
             hbq' hqt hrow hchain hξ
           have hqpred : b.val ≤ q - 1 := by lia
           have hpredlt : q - 1 < q := by lia
-          obtain ⟨η, hζη, hη⟩ := ih (q - 1) hpredlt hqpred ((Nat.sub_le q 1).trans hqt) ζ hζ
+          obtain ⟨η, hζη, hη⟩ :=
+            ih (q - 1) hpredlt hqpred ((Nat.sub_le q 1).trans hqt) ζ hζ
           refine ⟨η, (Relation.ReflTransGen.single hξζ).trans hζη, ?_⟩
           exact hη
   have hstart : ∀ u v, D.edgeData.selected θ.val u v ↔
@@ -159,6 +180,19 @@ theorem exists_chain_opening (hforward : Forward D) (θ : Orientation D)
   refine ⟨η, hpath, ?_⟩
   intro u v
   simpa only [Fin.le_iff_val_le_val] using hη u v
+
+theorem exists_chain_opening (hforward : Forward D) (θ : Orientation D)
+    (b t : Fin n) (hb : 0 < b) (hbt : b ≤ t)
+    (hrow : ∀ v, D.edgeData.selected θ.val 0 v ↔ v = t)
+    (hchain : ∀ u v, 0 < u → u.val + 1 = v.val → v ≤ t →
+      D.edgeData.selected θ.val u v) :
+    ∃ η : Orientation D, Relation.ReflTransGen (Flip D) θ η ∧
+      (∀ u v, D.edgeData.selected η.val u v ↔
+        (u = 0 ∧ b ≤ v ∧ v ≤ t) ∨
+          (D.edgeData.selected θ.val u v ∧
+            ¬ (b ≤ u ∧ u.val + 1 = v.val ∧ v ≤ t))) := by
+  exact exists_chain_opening_of_chain_above hforward θ b t hb hbt hrow
+    (fun u v hbu huv hvt => hchain u v (hb.trans_le hbu) huv hvt)
 
 end
 

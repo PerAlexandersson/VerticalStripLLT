@@ -33,8 +33,8 @@ theorem incomingSweepRelation_iff (R : V → V → Prop) (b c d u v : V) :
     incomingSweepRelation R b c d u v ↔
       (v < d ∧ c < v ∧ u = b ∧ R v d) ∨ (R u v ∧ ¬ (v = d ∧ c < u)) := Iff.rfl
 
-theorem outgoingSweepRelation_step {R S : V → V → Prop} {a b c w : V}
-    (haw : a < w) (hwb : w < b) (hbc : b < c)
+theorem outgoingSweepRelation_step_of_le {R S : V → V → Prop} {a b c w : V}
+    (haw : a < w) (hwb : w < b) (hbc : b ≤ c)
     (hsel : R a w)
     (hstep : ∀ u v, S u v ↔ (u = w ∧ v = c) ∨ (R u v ∧ ¬ (u = a ∧ v = w)))
     (u v : V) :
@@ -42,6 +42,14 @@ theorem outgoingSweepRelation_step {R S : V → V → Prop} {a b c w : V}
   simp only [outgoingSweepRelation, hstep]
   have hawne : a ≠ w := haw.ne
   grind
+
+theorem outgoingSweepRelation_step {R S : V → V → Prop} {a b c w : V}
+    (haw : a < w) (hwb : w < b) (hbc : b < c)
+    (hsel : R a w)
+    (hstep : ∀ u v, S u v ↔ (u = w ∧ v = c) ∨ (R u v ∧ ¬ (u = a ∧ v = w)))
+    (u v : V) :
+    outgoingSweepRelation S a b c u v ↔ outgoingSweepRelation R a b c u v := by
+  exact outgoingSweepRelation_step_of_le haw hwb hbc.le hsel hstep u v
 
 theorem outgoingSweepRelation_agree_above {R : V → V → Prop} {a b c u v : V}
     (hab : a < b) (hbu : b ≤ u) : outgoingSweepRelation R a b c u v ↔ R u v := by
@@ -64,7 +72,7 @@ def OutgoingSweepStep {State : Type*} (selected : State → V → V → Prop)
       (u = w ∧ v = c) ∨ (selected θ u v ∧ ¬ (u = a ∧ v = w)))
 
 /-- A finite ordered sweep for any state system with the proved two-source-cover move. -/
-theorem exists_orderedOutgoingSweep_trace [Fintype V] {State : Type*}
+theorem exists_orderedOutgoingSweep_trace_of_le [Fintype V] {State : Type*}
     (selected : State → V → V → Prop) (step : State → State → Prop)
     (hforward : ∀ θ ⦃u v⦄, selected θ u v → u < v)
     (hstep : ∀ θ a b c, RelationCover (selected θ) a b →
@@ -72,7 +80,7 @@ theorem exists_orderedOutgoingSweep_trace [Fintype V] {State : Type*}
       ∃ η, step θ η ∧ RelationCover (selected η) a c ∧
         (∀ u v, selected η u v ↔
           (u = b ∧ v = c) ∨ (selected θ u v ∧ ¬ (u = a ∧ v = b))))
-    (θ : State) (a b c : V) (hab : a < b) (hbc : b < c)
+    (θ : State) (a b c : V) (hab : a < b) (hbc : b ≤ c)
     (hac : RelationCover (selected θ) a c) :
     ∃ η, Relation.ReflTransGen (OutgoingSweepStep selected step a b c) θ η ∧
       RelationCover (selected η) a c ∧
@@ -116,7 +124,7 @@ theorem exists_orderedOutgoingSweep_trace [Fintype V] {State : Type*}
         have hz : z ∈ sweepExits (selected ξ) a b :=
           Finset.mem_filter.mpr ⟨Finset.mem_univ _, hzw.trans hwb, haz⟩
         exact (not_lt_of_ge (Finset.min'_le _ z hz)) hzw
-      obtain ⟨ξ', hmove, hac', hswap⟩ := hstep ξ a w c hcover hac (hwb.trans hbc)
+      obtain ⟨ξ', hmove, hac', hswap⟩ := hstep ξ a w c hcover hac (hwb.trans_le hbc)
       have hexits : sweepExits (selected ξ') a b = (sweepExits (selected ξ) a b).erase w := by
         ext z
         simp only [sweepExits, Finset.mem_filter, Finset.mem_univ, true_and,
@@ -128,12 +136,29 @@ theorem exists_orderedOutgoingSweep_trace [Fintype V] {State : Type*}
         exact Finset.card_erase_lt_of_mem hw
       obtain ⟨η, hpath, hfinalCover, hfinal⟩ := ih _ hlt ξ' rfl hac'
       have hshort := (relationCover_short_swap (hforward ξ)
-        (hwb.trans hbc) hcover hac hswap).2.1
+        (hwb.trans_le hbc) hcover hac hswap).2.1
       have htrace : OutgoingSweepStep selected step a b c ξ ξ' :=
         ⟨w, hav, hwb, hmove, hcover, hac, hac', hshort, hswap⟩
       refine ⟨η, (Relation.ReflTransGen.single htrace).trans hpath, hfinalCover, ?_⟩
       intro u v
-      exact (hfinal u v).trans (outgoingSweepRelation_step hav hwb hbc haw hswap u v)
+      exact (hfinal u v).trans (outgoingSweepRelation_step_of_le
+        hav hwb hbc haw hswap u v)
+
+theorem exists_orderedOutgoingSweep_trace [Fintype V] {State : Type*}
+    (selected : State → V → V → Prop) (step : State → State → Prop)
+    (hforward : ∀ θ ⦃u v⦄, selected θ u v → u < v)
+    (hstep : ∀ θ a b c, RelationCover (selected θ) a b →
+      RelationCover (selected θ) a c → b < c →
+      ∃ η, step θ η ∧ RelationCover (selected η) a c ∧
+        (∀ u v, selected η u v ↔
+          (u = b ∧ v = c) ∨ (selected θ u v ∧ ¬ (u = a ∧ v = b))))
+    (θ : State) (a b c : V) (hab : a < b) (hbc : b < c)
+    (hac : RelationCover (selected θ) a c) :
+    ∃ η, Relation.ReflTransGen (OutgoingSweepStep selected step a b c) θ η ∧
+      RelationCover (selected η) a c ∧
+      (∀ u v, selected η u v ↔ outgoingSweepRelation (selected θ) a b c u v) := by
+  exact exists_orderedOutgoingSweep_trace_of_le selected step hforward hstep θ a b c
+    hab hbc.le hac
 
 theorem outgoingSweepTrace_forget {State : Type*} (selected : State → V → V → Prop)
     (step : State → State → Prop) (a b c : V) {θ η : State}
@@ -144,6 +169,22 @@ theorem outgoingSweepTrace_forget {State : Type*} (selected : State → V → V 
   exact hmove
 
 /-- Forget the stored sweep pivots when only an actual path and its endpoint are needed. -/
+theorem exists_orderedOutgoingSweep_of_le [Fintype V] {State : Type*}
+    (selected : State → V → V → Prop) (step : State → State → Prop)
+    (hforward : ∀ θ ⦃u v⦄, selected θ u v → u < v)
+    (hstep : ∀ θ a b c, RelationCover (selected θ) a b →
+      RelationCover (selected θ) a c → b < c →
+      ∃ η, step θ η ∧ RelationCover (selected η) a c ∧
+        (∀ u v, selected η u v ↔
+          (u = b ∧ v = c) ∨ (selected θ u v ∧ ¬ (u = a ∧ v = b))))
+    (θ : State) (a b c : V) (hab : a < b) (hbc : b ≤ c)
+    (hac : RelationCover (selected θ) a c) :
+    ∃ η, Relation.ReflTransGen step θ η ∧ RelationCover (selected η) a c ∧
+      (∀ u v, selected η u v ↔ outgoingSweepRelation (selected θ) a b c u v) := by
+  obtain ⟨η, hpath, hcover, hfinal⟩ :=
+    exists_orderedOutgoingSweep_trace_of_le selected step hforward hstep θ a b c hab hbc hac
+  exact ⟨η, outgoingSweepTrace_forget selected step a b c hpath, hcover, hfinal⟩
+
 theorem exists_orderedOutgoingSweep [Fintype V] {State : Type*}
     (selected : State → V → V → Prop) (step : State → State → Prop)
     (hforward : ∀ θ ⦃u v⦄, selected θ u v → u < v)
@@ -156,13 +197,28 @@ theorem exists_orderedOutgoingSweep [Fintype V] {State : Type*}
     (hac : RelationCover (selected θ) a c) :
     ∃ η, Relation.ReflTransGen step θ η ∧ RelationCover (selected η) a c ∧
       (∀ u v, selected η u v ↔ outgoingSweepRelation (selected θ) a b c u v) := by
-  obtain ⟨η, hpath, hcover, hfinal⟩ :=
-    exists_orderedOutgoingSweep_trace selected step hforward hstep θ a b c hab hbc hac
-  exact ⟨η, outgoingSweepTrace_forget selected step a b c hpath, hcover, hfinal⟩
+  exact exists_orderedOutgoingSweep_of_le selected step hforward hstep θ a b c
+    hab hbc.le hac
 
 variable {n : ℕ} {D : Diagram n}
 
 /-- The outgoing sweep with its complete actual-flip trace retained for restoration. -/
+theorem exists_outgoingSweep_trace_of_le (hforward : Forward D) (θ : Orientation D)
+    (a b c : Fin n) (hab : a < b) (hbc : b ≤ c) (hac : Cover θ a c) :
+    ∃ η : Orientation D,
+      Relation.ReflTransGen
+        (OutgoingSweepStep (fun ξ : Orientation D => D.edgeData.selected ξ.val) (Flip D) a b c)
+        θ η ∧ Cover η a c ∧
+      (∀ u v, D.edgeData.selected η.val u v ↔
+        outgoingSweepRelation (D.edgeData.selected θ.val) a b c u v) := by
+  apply exists_orderedOutgoingSweep_trace_of_le
+    (fun ξ : Orientation D => D.edgeData.selected ξ.val) (Flip D)
+    (fun ξ {_ _} hs => ξ.selected_lt_of_forward hforward hs) ?_ θ a b c hab hbc hac
+  intro ξ x y z hxy hxz hyz
+  obtain ⟨η, hmove, hlong, _, hswap⟩ :=
+    exists_outgoingSwap_of_covers hforward ξ x y z hxy hxz hyz
+  exact ⟨η, hmove, hlong, hswap⟩
+
 theorem exists_outgoingSweep_trace (hforward : Forward D) (θ : Orientation D)
     (a b c : Fin n) (hab : a < b) (hbc : b < c) (hac : Cover θ a c) :
     ∃ η : Orientation D,
@@ -171,23 +227,24 @@ theorem exists_outgoingSweep_trace (hforward : Forward D) (θ : Orientation D)
         θ η ∧ Cover η a c ∧
       (∀ u v, D.edgeData.selected η.val u v ↔
         outgoingSweepRelation (D.edgeData.selected θ.val) a b c u v) := by
-  apply exists_orderedOutgoingSweep_trace
-    (fun ξ : Orientation D => D.edgeData.selected ξ.val) (Flip D)
-    (fun ξ {_ _} hs => ξ.selected_lt_of_forward hforward hs) ?_ θ a b c hab hbc hac
-  intro ξ x y z hxy hxz hyz
-  obtain ⟨η, hmove, hlong, _, hswap⟩ :=
-    exists_outgoingSwap_of_covers hforward ξ x y z hxy hxz hyz
-  exact ⟨η, hmove, hlong, hswap⟩
+  exact exists_outgoingSweep_trace_of_le hforward θ a b c hab hbc.le hac
 
 /-- Actual outgoing flips sweep the entire initial neighbor interval in increasing order. -/
+theorem exists_outgoingSweep_of_le (hforward : Forward D) (θ : Orientation D)
+    (a b c : Fin n) (hab : a < b) (hbc : b ≤ c) (hac : Cover θ a c) :
+    ∃ η : Orientation D, Relation.ReflTransGen (Flip D) θ η ∧ Cover η a c ∧
+      (∀ u v, D.edgeData.selected η.val u v ↔
+        outgoingSweepRelation (D.edgeData.selected θ.val) a b c u v) := by
+  obtain ⟨η, htrace, hcover, hrel⟩ :=
+    exists_outgoingSweep_trace_of_le hforward θ a b c hab hbc hac
+  exact ⟨η, outgoingSweepTrace_forget _ _ a b c htrace, hcover, hrel⟩
+
 theorem exists_outgoingSweep (hforward : Forward D) (θ : Orientation D)
     (a b c : Fin n) (hab : a < b) (hbc : b < c) (hac : Cover θ a c) :
     ∃ η : Orientation D, Relation.ReflTransGen (Flip D) θ η ∧ Cover η a c ∧
       (∀ u v, D.edgeData.selected η.val u v ↔
         outgoingSweepRelation (D.edgeData.selected θ.val) a b c u v) := by
-  obtain ⟨η, htrace, hcover, hrel⟩ :=
-    exists_outgoingSweep_trace hforward θ a b c hab hbc hac
-  exact ⟨η, outgoingSweepTrace_forget _ _ a b c htrace, hcover, hrel⟩
+  exact exists_outgoingSweep_of_le hforward θ a b c hab hbc.le hac
 
 /-- Retain the decreasing incoming sweep as an outgoing trace in the dual order. -/
 theorem exists_incomingSweep_trace (hforward : Forward D) (θ : Orientation D)

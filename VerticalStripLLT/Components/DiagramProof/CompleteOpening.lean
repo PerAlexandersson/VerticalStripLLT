@@ -67,14 +67,14 @@ theorem openCompleteChain_outside {k n : ℕ} (ι : Fin (k + 1) ↪o Fin (n + 1)
   rw [openCompleteChain_selected, openCompleteChain_selected, hout u v huv]
 
 /-- The explicit opened state is reached by the descending actual flips of CC3. -/
-theorem reachable_openCompleteChain {n : ℕ} (θ : Orientation (completeDiagram n))
+theorem reachable_openCompleteChain_of_chain_above {n : ℕ} (θ : Orientation (completeDiagram n))
     (b : Fin (n + 1)) (hb : 0 < b)
     (hrow : ∀ v, (completeDiagram n).edgeData.selected θ.val 0 v ↔ v = Fin.last n)
-    (hchain : ∀ u v : Fin (n + 1), 0 < u → u.val + 1 = v.val →
+    (hchain : ∀ u v : Fin (n + 1), b ≤ u → u.val + 1 = v.val →
       (completeDiagram n).edgeData.selected θ.val u v) :
     Relation.ReflTransGen (Flip (completeDiagram n)) θ (openCompleteChain θ b hb) := by
-  obtain ⟨η, hp, hη⟩ := exists_chain_opening (complete_forward n) θ b (Fin.last n) hb
-    (Fin.le_last b) hrow (fun u v hu huv _ => hchain u v hu huv)
+  obtain ⟨η, hp, hη⟩ := exists_chain_opening_of_chain_above (complete_forward n) θ b
+    (Fin.last n) hb (Fin.le_last b) hrow (fun u v hbu huv _ => hchain u v hbu huv)
   have heq : η = openCompleteChain θ b hb := by
     apply fullSelection_injective
     ext e
@@ -82,6 +82,15 @@ theorem reachable_openCompleteChain {n : ℕ} (θ : Orientation (completeDiagram
       hη, openCompleteChain_selected]
     simp only [Fin.le_last, and_true]
   exact heq ▸ hp
+
+theorem reachable_openCompleteChain {n : ℕ} (θ : Orientation (completeDiagram n))
+    (b : Fin (n + 1)) (hb : 0 < b)
+    (hrow : ∀ v, (completeDiagram n).edgeData.selected θ.val 0 v ↔ v = Fin.last n)
+    (hchain : ∀ u v : Fin (n + 1), 0 < u → u.val + 1 = v.val →
+      (completeDiagram n).edgeData.selected θ.val u v) :
+    Relation.ReflTransGen (Flip (completeDiagram n)) θ (openCompleteChain θ b hb) := by
+  exact reachable_openCompleteChain_of_chain_above θ b hb hrow
+    (fun u v hbu huv => hchain u v (hb.trans_le hbu) huv)
 
 /-- The positive interval endpoint is a valid opening threshold. -/
 theorem intervalEmbed_last_pos {n a m : ℕ} (ha : 0 < a) (hb : a + m ≤ n) :

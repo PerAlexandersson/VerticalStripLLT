@@ -91,10 +91,17 @@ inside either `[1,n-1]` or `[2,n]`, restoring every other edge. Their chord
 positions cover all except `1n` and overlap at `24` for `n >= 5`.
 `ChordRearrangement.complete_chain_reachable_of_fixed_outer` therefore
 connects equal-count chain states with the same outer-chord membership,
-conditional on strictly smaller complete-diagram connectivity. Local paths
-need not preserve that membership at intermediate flips. Changing the outer
-chord, column sweep, the four explicit five-vertex paths and reachability
-forcing remain. P5--P10 remain open. The independent component
+conditional on strictly smaller complete-diagram connectivity (`58a7bf1`).
+Local paths need not preserve that membership at intermediate flips.
+
+The column sweep and four-flip repair (CC4--CC6) are now verified.
+`ColumnSweep` proves `A - 12 + 1n`, using the weak-cutoff outgoing sweep.
+Opening now needs adjacent edges only at or above its threshold;
+`ChainRepair` therefore lifts the explicit four child-merging flips on
+`0,1,2,3` even with `12` missing. `OuterChordMove` obtains exactly
+`A - 13 + 1n`, restoring every other selected edge. This move has no
+smaller-connectivity hypothesis. The single-chord path, cardinality-indexed
+assembly, four explicit five-vertex paths and reachability forcing remain. P5--P10 remain open. The independent component
 theorem is not yet formalized. See `HANDOFF.md` and `DiagramProofVerification.lean`
 for ownership and exact verification.
 

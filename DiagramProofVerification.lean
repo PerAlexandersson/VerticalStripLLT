@@ -25,6 +25,7 @@ import VerticalStripLLT.Components.DiagramProof.IntervalPaths
 import VerticalStripLLT.Components.DiagramProof.ChainConnected
 
 import VerticalStripLLT.Components.DiagramProof.ChordRearrangement
+import VerticalStripLLT.Components.DiagramProof.OuterChordMove
 
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
 
@@ -270,3 +271,16 @@ import VerticalStripLLT.Components.DiagramProof.ChordRearrangement
 #print axioms VerticalStripLLT.Circular.DiagramProof.fixed_card_connectivity_fixing_position
 #print axioms VerticalStripLLT.Circular.DiagramProof.completeChainState_reachable_of_fixed_outer
 #print axioms VerticalStripLLT.Circular.DiagramProof.complete_chain_reachable_of_fixed_outer
+
+#print axioms VerticalStripLLT.Circular.DiagramProof.outgoingSweepRelation_step_of_le
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_orderedOutgoingSweep_trace_of_le
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_orderedOutgoingSweep_of_le
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_outgoingSweep_trace_of_le
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_outgoingSweep_of_le
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_columnSweep
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_chain_opening_step_of_chain_above
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_chain_opening_of_chain_above
+#print axioms VerticalStripLLT.Circular.DiagramProof.reachable_openCompleteChain_of_chain_above
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_interval_chain_path_of_chain_above
+#print axioms VerticalStripLLT.Circular.DiagramProof.complete_chain_repair
+#print axioms VerticalStripLLT.Circular.DiagramProof.exists_complete_outerChordMove
