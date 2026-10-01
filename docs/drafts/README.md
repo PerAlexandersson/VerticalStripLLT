@@ -22,9 +22,10 @@ the right-before-left restoration used by Lean. The parallel-edge and two-chain
 lemmas, and the explicit avoiding paths proving good-edge removability, are
 now written in detail. The complete-diagram base now includes chain insertion,
 interval opening/lifting/closing, outer-chord moves and the four explicit
-five-vertex paths. Last-clique inheritance still needs its detailed manuscript
-proof. The section is therefore not yet a
-self-contained paper. The mathematical source is the
+five-vertex paths. Last-clique inheritance now includes connected-core
+preparation, sweep/lift/restoration, the fixed spanning tree and both kinds
+of extra-edge exchange. These expansions still need a whole-proof dependency
+and notation audit before assembly into the combined paper. The mathematical source is the
 [assembled proof](../proofs/COMPONENT_DIAGRAM_COMPLETION.md).
 
 The independent Lean formalization is unfinished. The draft does not claim
@@ -40,13 +41,16 @@ manuscript prose.
 | Figure 3: fixed-count rearrangement within a chain pair | `copy_reachable_undirected`, `anchors_connected_of_occupancy` | Checked restored crossing slides; canonical packing is an exposition of these exchanges |
 | Figure 4: complete-diagram chain construction | `exists_complete_chain`, `exists_connected_prefix_of_single_corner` | Checked fork elimination, child merge and prefix induction |
 | Complete-diagram interval and chord paths | `complete_interval_chain_path`, `completeChainState_reachable_of_fixed_outer`, `completeChainState_outerChord_reachable`, `completeChainState_singleChord_reachable`, `complete_reachable_five`, `complete_reachable` | Checked; the detailed draft uses the same moves and finite base paths |
+| Last-clique connected core and restored exterior | `exists_reachable_connected_lastClique_core`, `exists_lastClique_anchor_replacement_preserving_anchor` | Checked; smaller-core uniqueness is the explicit inheritance hypothesis |
+| Figure 5: fixed core tree and omitted leaves | `exists_lastClique_core_tree`, `exists_lastClique_tree_replacement`, `lastCliqueFixedEdges_isTree` | Checked; the figure fixes a concrete selected tree in each diagram |
+| Last-clique extra-edge exchanges and inheritance | `exists_last_clique_shared_exchange`, `anchors_connected_of_overlapping_extra_positions`, `commonCover_connected_of_lastClique_core` | Checked; the draft retains the temporary repair of the missing star edge and restores the full tree at endpoints |
 | Removing one good normal edge | `goodEdge_weakReach_avoiding_terminal`, `weakReach_erase_good_edge`, `goodEdgeGraph_delete_connected` | Checked two-edge replacement, skipped-chain path and third-chain detour |
 | Three smaller corrections and envelope | P7 | Detailed written proof; Lean unfinished |
-| Figure 6: NN/DN layer sums and component isolation | P8 | Explicit size accounting in draft; Lean unfinished |
+| Figure 7: NN/DN layer sums and component isolation | P8 | Explicit size accounting in draft; NN full-layer focused build passed at `3665a3d`; component isolation remains unfinished |
 | Restrict after deleting zero | `initialVertex_anchor_restrict`, `induced_allCorners_initialVertex` | Checked |
 | Make the selected core connected | `CornerFamily.exists_reachable_connected_initialVertex_core` | Checked actual crossing-slide paths |
 | Keep initial extras fixed along a core path | `initialVertex_lift_reachable`, `initialVertex_reachable_of_same_initial_row` | Checked under smaller-core uniqueness |
-| Figure 5: initial crossing-slide endpoint | `initialVertex_row_of_exchange`, `initialVertex_restrict_of_exchange` | Checked exact selected-edge identities |
+| Figure 6: initial crossing-slide endpoint | `initialVertex_row_of_exchange`, `initialVertex_restrict_of_exchange` | Checked exact selected-edge identities |
 | Choose the missing-edge witness and connect neighboring extra sets | `CornerFamily.exists_initialVertex_adjacent`, `initialVertex_reachable_of_erase_initial_row` | Checked under the stated removability/core-uniqueness hypotheses |
 | Connect all feasible extra sets | `initialVertex_connected_core_anchors` | Checked actual assembly under the stated core hypotheses |
 | Initial-vertex inheritance for common-cover states | `commonCover_connected_of_initialVertex_core` | Checked preparation, sector paths and reversed target preparation |
@@ -56,8 +60,8 @@ manuscript prose.
 | Common-cover uniqueness without articulation | `commonCoverUnique_of_shortEdges` | Claude reports checked at `fb68ff5` |
 | Extension through an initial path | `commonCoverUnique_of_initialPathBlock` | Focused build passed at `58b8b4b`; new axiom audit not yet recorded |
 | Endpoint-marked K and E | `markedK`, `markedE`, `markedK_diamond`, `markedE_diamond` | Existing checked semantics; see plan for the P2 interfaces |
-| Figure 7: attachment and fibre merger | `IsRightAttachment.flipComponent_glue`, `hrv_glue_left`, `hrv_glue_right`, `attach_transfer` | Checked at `26b2d97`: whole product components, marked K/E transfer and measure decrease |
-| Figure 8: first nontrivial prefix and fixed attachment | P9 prefix selection; `attach_measure_lt` | Prefix selection written in detail; attachment measure transfer checked |
+| Figure 8: attachment and fibre merger | `IsRightAttachment.flipComponent_glue`, `hrv_glue_left`, `hrv_glue_right`, `attach_transfer` | Checked at `26b2d97`: whole product components, marked K/E transfer and measure decrease |
+| Figure 9: first nontrivial prefix and fixed attachment | P9 prefix selection; `attach_measure_lt` | Prefix selection written in detail; attachment measure transfer checked |
 | Whole-component corrections and marked recurrences | P7–P8 | Unfinished |
 | First-drop coverage and final expansion | P9–P10 | Unfinished |
 
@@ -84,7 +88,8 @@ colors. Gray/white cells distinguish unweighted and normal-edge-weighted sums.
 The two-page `diagram-examples.tex` preview and the diamond and NN/DN figures
 compile without warnings or box overflows and were visually inspected.
 
-The diamond, layer, crossing-sweep, two-chain, child-merge and prefix-attachment SVGs are generated
+The diamond, layer, crossing-sweep, two-chain, child-merge, last-clique-tree
+and prefix-attachment SVGs are generated
 from their `.tex` sources using
 `llt-diagrams.sty`; edit those sources rather than their generated font paths.
 The other SVG figures are editable vector sources. Their PNG previews live in the

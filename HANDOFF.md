@@ -1,201 +1,118 @@
 # VerticalStripLLT handoff
 
-## Active split — Claude owns Lean; Codex owns the writeup
+## Active ownership — Claude owns Lean; Codex owns the writeup
 
-Ownership transfer recorded 2026-10-01, after the two pending P6 modules
-passed focused builds and all 649 axiom checks. The persistent Claude worker
-`agent-verticalstri-motzki-c-001af720` may now take all `DiagramProof/` Lean
-implementation, `DiagramProofVerification.lean`, and the **sole project build
-slot**. Begin with issue #8 and continue the remaining diagram formalization.
-Serialize builds with other Lean projects. Codex and its subagents will run
-no further Lean builds or edit Lean sources after this release.
+Transfer pushed at `b78312c`, 2026-10-01. Persistent Claude worker
+`agent-verticalstri-motzki-c-001af720` owns all `DiagramProof/` Lean sources,
+`DiagramProofVerification.lean`, and the **sole Lean build slot**. Serialize
+with other Lean projects. Codex and its subagents must not edit Lean or run
+Lean builds. Claude owns [LEAN_COORDINATION](docs/LEAN_COORDINATION.md),
+whose latest recorded report covers the attachment and no-articulation proofs.
 
-Codex retains `HANDOFF.md`, mathematical proof prose, formalization source maps,
-`docs/drafts/`, figures and manuscript work. Claude should report durable status,
-checks, commits and needed proof clarifications in `docs/LEAN_COORDINATION.md`
-(new file owned by Claude); Codex will incorporate those reports here.
-This transfer releases all earlier Codex source ownership below. All delegated
-source tasks have returned. At the transfer, Codex had no compiler or queued
-build remaining; Claude now runs its own focused checks.
+Codex owns this handoff, mathematical prose, formalization maps and plan,
+`docs/drafts/`, figures and manuscript work. The three read-only subagents
+`semantic_extract`, `anchor_sizes` and `good_edges` have returned the
+last-clique writing reviews; they own no editable files or build slot.
+Check Git status and HEAD before each edit/checkpoint; Claude commits on the
+shared `main`. Stage only writing-owned files. The current untracked
+`DiagramProof/DNRecurrence.lean` is Claude-owned.
 
-The Docker-side supervisor report/tail did not discover the persistent session;
-a read-only tmux inspection confirmed Claude was preparing attachment files in
-its scratchpad and waiting for this explicit transfer. No input guards were
-bypassed. This paragraph is the durable release the worker was instructed to read.
+The full goal is unfinished: complete the independent diagram formalization
+and assemble a new paper with the circular aggregate expansion and the
+ordinary component expansion proved by these same diagram moves. The older
+word/scan proof does not substitute for this route. Preserve historical
+proof-note prefixes at `a3d076b`; append-only continuations remain authorized.
 
-P0–P5 are complete under their contracts. Claude reports the no-articulation
-P6 induction checked at `fb68ff5`. Its initial-path extension was committed
-as `58b8b4b`; the focused build passed, and its axiom audit is not yet recorded.
-P7/P8/P10 are open,
-and P9 has its attachment lemma checked; prefix and first-drop coverage remain.
-The complete mathematical diagram proof and the independent Lean theorem
-remain distinct. The older word/scan proof is not imported by this route.
+## Lean verification boundaries
 
-### Writing progress after the transfer
+- P0–P5 are verified under their contracts. The last Codex source checkpoint
+  passed 649 axiom queries and source/import guards before the build transfer.
+- `26b2d97`: the four right-attachment modules prove actual whole product
+  components, HRV fibre merger, endpoint-omitted K/E gluing, paired integer
+  recurrence transfer and measure decrease. No identity for the attached
+  component is assumed. Codex read the successful focused log and all 719
+  axiom outputs in exact query order; independent review approved the scope.
+  Issue #8 is closed for this attachment subtask only, not all P9.
+- `fb68ff5`: Claude reports no-articulation common-cover uniqueness and 724
+  standard-axiom checks (`axioms-2.log`).
+- `58b8b4b`: initial-path extension; Codex read successful `initpath-2.log`.
+  Its new queries have not yet been added to the verification file, so the
+  previous axiom audit does not cover it.
+- `cdac9cc`, `cb723f6`, `f59bd96`: relational transport, alternating deletion
+  and whole-component correction certificates. `altcert-2.log` passed.
+  The only inspected `compcorr-1.log` failed before a duplicate declaration
+  was removed; no later successful correction log has yet been identified.
+  Do not infer verification of P7 from its source commit alone.
+- `3665a3d`: NN full-layer recurrence. Codex read successful `nn-5.log`
+  (three deprecated-simp warnings). The DN source also has a successful
+  `dn-3.log`, but remained uncommitted at this writing check. No new NN/DN
+  axiom queries were present. Component isolation, prefix/first-drop coverage
+  and final induction remain to be integrated and independently audited.
 
-Source/build release is pushed as `b78312c`. Claude's attachment checkpoint
-`26b2d97` is now pushed. The four `RightAttachment*.lean` modules give the
-actual union/cut constructions, exact whole product component, HRV fibre
-merger, endpoint-omitted K/E gluing, paired integer recurrence transfer, and
-area/moment decrease. No identity for the attached component is assumed.
-This completes issue #8's attachment subtask, not P9 or the full theorem.
+Logs: `/lake-cache/ai-projects/requests/VerticalStripLLT/claude-right-attachment/logs/`.
+Only Claude may perform the remaining focused builds and axiom checks.
+Do not run `lake update` in response to the known manifest-path warning.
 
-The writer inspected the public source, the focused successful build log and
-all 719 axiom outputs against the current queries in exact order. Only standard
-axioms occur. A separate read-only review approved the statement, whole-component
-scope, actual HRV semantics and conditional transfer. Claude's durable report
-is [LEAN_COORDINATION](docs/LEAN_COORDINATION.md); it owns that file and continues
-P6. Its coefficient form `z i • V` over `ℤ` and lexicographic `(area,moment)`
-for fixed-size prefixes match the written recurrence and plan.
+## Current writing checkpoint
 
-Writing checkpoint `52afc77` is pushed. Issue #8 was read back and matches
-the tracked task after conversion of relative links to repository links.
-The new circular section `docs/drafts/CIRCULAR_E_EXPANSION.md` follows the
-checked aggregate proof. It separately treats the terminal-contact reduction
-(factor `1+q`, doubled area down six) and interior column reversal; the
-external manuscript had grouped their geometry. The rank definition is the
-sum of proper-ancestor counts times strict-edge lengths, exactly Lean's
-`strictRank`. A new column-reversal SVG was rendered in the external cache
-and visually inspected. The local boundary checks and DD-contact elimination
-remain compressed, and the combined manuscript remains unfinished.
-Independent review approved the terminal-pair count, both contact branches,
-and the exact rank definition. Local Markdown links and SVG XML pass; issue
-#8 was refreshed to match the tracked task.
+The user-requested general diagram macros are in
+[llt-diagrams.sty](docs/drafts/tex/llt-diagrams.sty), with a
+[usage guide](docs/drafts/tex/README.md). Blank cells denote optional natural
+edges; other cells specify selected, absent, forbidden, strict or cover
+restrictions. Global conditions specify size, component and endpoint colors.
+Area data can generate forbidden cells. Diagrams denote the resulting sums;
+actual path figures fix every natural cell and denote individual states.
+The two-page example guide and all macro-generated figures compile externally.
+No external Overleaf source was edited.
 
-### P6 interfaces and subsequent induction
+The [ordinary draft](docs/drafts/ORDINARY_COMPONENT_DIAGRAM_PROOF.md) now
+expands all previously listed local construction gaps: diamond, corrections,
+preparation, restored crossing slides, two-chain paths, removable edges,
+complete-diagram base, last-clique and initial-vertex inheritance, NN/DN
+layers, attachment, prefix selection, four contact cases and final induction.
+This is written mathematical proof, not a claim of completed formalization.
+A whole-proof dependency/notation audit and combined manuscript assembly remain.
 
-`lastClique_induced_short_naturalEdges` in `LastCliqueNaturalEdges` preserves
-short natural edges in the canonical core on `0,...,c,e`; interior pairs
-lift identically, and final pairs lie inside the given crossing edge.
-`CornerFamily.commonCover_connected_of_terminal_card_le_two` derives the
-existing two-terminal base from the bound on terminal fixed points.
-Terra supplied the former and Luna the latter; Codex repaired and verified
-both. These were auxiliary lemmas for the subsequent global induction below.
+The latest increment supplies the last-clique proof: connected retained parts
+of selected blocks, sweep/lift/restoration, a fixed core spanning tree,
+omitted leaves and exchanges through the shared edge. The temporary repair
+when removing `ce` is explicit. Three read-only source reviews approved these
+constructions, with geometry/count/endpoint clarifications incorporated.
+The new `last-clique-tree.tex` figure uses the shared macros; its SVG was
+rendered and visually inspected. Figure references and source maps are current.
 
-Checks: 649 axiom queries in exact order, only standard axioms; independent
-closure 283 project files; 209 DiagramProof modules pass source/100-column
-guards. Logs in the external request directory: `p6-core-short-build.log`,
-`p6-two-chain-card-build.log`, `p6-core-geometry-axioms.log`, and
-`p6-core-geometry-imports.txt`. No broad build or dependency update ran.
+The [circular draft](docs/drafts/CIRCULAR_E_EXPANSION.md) follows the checked
+aggregate theorem. It separates terminal contact (factor `1+q`, doubled
+area down six) from interior column reversal, and uses exactly Lean's
+strict-edge length times proper-ancestor rank. The local boundary checks and
+DD-contact elimination still need expansion before combined assembly.
 
-Claude completed the no-articulation integration in `fb68ff5` after this
-earlier P6 checkpoint: `commonCoverUnique_of_shortEdges` assembles strong
-induction with the complete-diagram bridge and reversed first-clique branch.
-Its coordination note reports 724 passing standard-axiom checks. Codex has
-not rerun those checks and retains no build ownership. Claude subsequently
-implemented `commonCoverUnique_of_initialPathBlock` at `58b8b4b`. Codex read
-`claude-right-attachment/logs/initpath-2.log`: the focused build passed, with
-one unused-simp warning. Its new queries are not yet in
-`DiagramProofVerification.lean`, so the earlier 724-query report does not
-cover this extension. Claude continues to own verification and its next P7 work.
+Writing previews/logs:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/tex-preview/`.
+Latest checks: warning-free figure compilation, visual inspection, exact
+rendered-source correspondence, SVG XML, local Markdown links and whitespace.
+No Codex Lean build or mathematical computation ran during this increment.
 
-## Current writing increment
+## Next work and recovery
 
-The user explicitly requested general figure macros whose diagrams denote sums
-of all objects satisfying the pictured restrictions. `docs/drafts/tex/llt-diagrams.sty`
-now supplies this convention: arbitrary ordered labels, optional/selected/absent/
-forbidden/strict cells, cover restrictions, global conditions, and weighted or
-unweighted sums. A two-page illustrated guide and small diamond and layer
-figures compile in the external `diagram-formalization/tex-preview/` directory.
-All three PDFs were visually inspected; no TeX warnings or box warnings occur.
-The diamond and NN/DN layer SVGs are generated from those macro sources.
-No external Overleaf files were edited.
+1. Audit the complete ordinary proof for dependencies, notation and match to
+   the actual checked diagram paths; keep compiler status outside the paper.
+2. Expand circular local-boundary and DD-contact arguments, then assemble the
+   combined manuscript with native vector figures and sparse TeX builds.
+3. Incorporate Claude's final certificates/coverage/induction once verified;
+   audit new theorem axioms, independent import closure and paper correspondence.
 
-The ordinary draft now gives the full HRV-map diamond proof, the three
-whole-component corrections, selected-envelope normalization and the refined
-NN/DN layer calculation. The NN size split is `s,s-1`; DN keeps size `s`. Independent review
-approved the diamond, whole-component corrections and layer calculation;
-its requests to spell out exterior disjointness, strict decorations and the
-original shifted normal-edge exponent were incorporated.
-The diagrams themselves denote sums with the selected-edge count shown below.
-Last-clique inheritance still needs its detailed manuscript proof.
-The final first-drop/prefix
-induction is now expanded:
-articulation test, first nontrivial prefix, strict-corner preservation, all
-four contact cases, marking changes, area/moment decrease and final induction.
-The new prefix-attachment figure uses restricted sums with a fixed endpoint
-color and an omitted shared-vertex weight. `\LLTAreaDiagram` generates the
-forbidden cells directly from ordinary area data and checks the area bounds.
-The figure compiled without TeX or box warnings and was visually inspected.
-Independent read-only review found no new flaw in prefix selection or the
-final induction. Its clarifications about local area indexing, the new DN
-edge and the retained unmarked corner were incorporated. Local Markdown links,
-SVG XML, exact rendered-source correspondence and `git diff --check` pass.
+Primary sources: [assembled proof](docs/proofs/COMPONENT_DIAGRAM_COMPLETION.md),
+[cleanup audit](docs/proofs/COMPONENT_DIAGRAM_AUDIT.md),
+[formalization plan](docs/COMPONENT_DIAGRAM_FORMALIZATION_PLAN.md), and
+[draft correspondence](docs/drafts/README.md). Use the
+[combinatorics writing skill](/home/dev/.codex/skills/combinatorics-paper-writing/SKILL.md),
+first-person plural prose and the authors' cell-diagram conventions.
 
-Writing checkpoint `5014939` is pushed. The next writing increment supplies
-full preparation and crossing-slide proofs: process chains in decreasing
-terminal order, recover all corner covers after each chain, sweep both
-obstructions, perform the two central flips, then restore right before left.
-That restoration order agrees with `exists_crossingSlide`; the historical
-research note uses the other valid order and remains unchanged. The new
-four-state figure records all six actual flips and fixes every natural cell.
-The preparation statement follows the checked existence/retention interface;
-it does not add an unformalized exact endpoint formula.
-Independent read-only review approved both new proofs and the exact four
-displayed states. The figure compiled without TeX or box warnings and was
-visually inspected; local links, SVG XML and exact source correspondence pass.
-Claude's source-only checkpoint `cdac9cc` appeared during that writing pass,
-adding relational transport and extracting the measures. Its ongoing Lean
-edits remain Claude-owned and are excluded from this writing checkpoint.
-
-Writing checkpoint `e8d9e39` is pushed. The next increment proves the
-parallel-edge and two-chain lemmas by the same restored crossing slides,
-and supplies the removable-edge argument directly: replace each wrong-way
-terminal edge by a corner/good-edge walk, skip one corner chain using
-length-one/two natural edges, then detour through a third chain. This follows
-`ChainSeparators` and `RemovableGoodEdges`, avoiding reliance on the older
-projected-clique outline. All corners are explicitly marked strict for the
-path arguments; the original normal-edge weights are restored only afterwards.
-The new two-chain figure fixes all selected cells and shows the two slides
-to the final two occupied positions. Independent source reviews approved the
-path geometry, packing and third-chain detour; one-chain/empty-complement
-wording was checked using the impossibility of consecutive vertices in one
-chain under the length-two hypothesis. Lean supplies equal-occupancy
-connectivity, not a named canonical packing function; the draft uses the
-packed endpoint only to describe those same elementary exchanges.
-The figure compiled without TeX or box warnings and was visually inspected;
-exact rendered-source correspondence, local links, SVG XML and whitespace
-checks pass. No Codex Lean build ran.
-
-Writing checkpoint `27bfe09` is pushed. The next increment expands the
-complete-diagram base: fork elimination, the four-flip child merge, chain
-insertion by prefix induction, interval opening/lifting/closing, rearrangement
-of chords with fixed outer status, the outer-chord and single-chord moves,
-and all four five-vertex base paths. The child-merge figure is generated
-with the shared macros. This follows the existing checked P4 construction;
-it adds no new Lean theorem or alternative component argument.
-Two independent read-only reviews confirmed the actual proof correspondence,
-including the fork/child sequence inside `CompletePrefix`, the interval
-endpoint hypothesis, the required `13,2N` selections in the outer-chord
-move, and the four finite base paths. The figure compiled without TeX or
-box warnings and was visually inspected; local links, SVG XML, exact
-rendered-source correspondence and whitespace checks pass.
-The circular section and combined manuscript have the remaining limits already
-recorded above. The full user goal is unchanged and unfinished.
-
-## Sources, verification and recovery
-
-Primary mathematical sources are
-[the assembled diagram proof](docs/proofs/COMPONENT_DIAGRAM_COMPLETION.md),
-[its cleanup audit](docs/proofs/COMPONENT_DIAGRAM_AUDIT.md),
-[the formalization plan](docs/COMPONENT_DIAGRAM_FORMALIZATION_PLAN.md), and
-[the draft correspondence](docs/drafts/README.md).
-The invoked writing skill is
-[combinatorics-paper-writing](/home/dev/.codex/skills/combinatorics-paper-writing/SKILL.md).
-Keep mathematical prose in first person plural and preserve the author's
-cell-diagram conventions. Status and compiler details belong outside the paper.
-
-External request directory:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`.
-Lean diagnostics use focused `lake-workspace` commands because the Lean MCP
-is rooted at RealRooted. Aristotle is available by CLI; no remote request or
-watcher owned by Codex is active. Claude owns its own builds and watchers.
-No mathematical computation or shared Rust edit was part of this writing pass.
-
-The [complete snapshot through 79ec1d2](docs/archive/diagram-implementation-through-two-chain-base.md)
-preserves the preceding implementation record, historical ownership, exact
-verification scopes and recovery hashes. It in turn links the older archive.
-Historical proof-note prefixes and unrelated ownership remain unchanged;
-Codex retains the authorized proof prose and append-only continuations.
-Preserve their prefixes at `a3d076b`. Never absorb Claude's dirty Lean source
-or its claim/progress notes into a writing checkpoint.
+The [archived handoff through `4a3f8cb`](docs/archive/diagram-writing-through-complete-base.md)
+preserves chronology, exact earlier checks, ownership transfers and recovery
+links. Lean MCP is rooted at RealRooted, so the designated owner uses focused
+`lake-workspace` commands. Aristotle is available by CLI; no Codex remote
+request, watcher or compiler is active. Docker supervisor discovery failed for
+the persistent worker; read-only tmux inspection was possible. Do not bypass
+supervisor input guards or stop/restart the worker.

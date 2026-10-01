@@ -643,6 +643,204 @@ connected after deleting any one of its vertices. The explicit avoiding
 paths above also lift directly to the good-edge graph, as needed for the
 initial-vertex construction.
 
+## Last-clique inheritance
+
+Suppose the last two maximal corners are $bc$ and $ae$, where
+$b<a<c<e$ and $e$ is the greatest vertex. Put
+
+\[
+                      V=\{0,\ldots,c\}\cup\{e\}.
+\]
+
+We call the induced diagram on $V$, with its inherited order, the core.
+Every corner other than $ae$ has head at most $c$, so all maximal corners
+survive this restriction. Every retained edge lies below one of these
+retained corners; hence no new maximal corner appears. The removed vertices
+are singleton corner chains. Terminal labels of the retained chains keep
+their order, and good core edges are exactly
+the original good edges with both endpoints in $V$.
+
+Every vertex strictly between $a$ and $e$ is a terminal of its corner
+chain. Indeed, every corner other than $ae$ starts below $a$ and ends
+at or below $c$. Consequently an anchor has no selected edge from $a$
+except $ae$, and every natural edge with both endpoints strictly above
+$a$ is good.
+
+**Last-clique lemma.** Suppose connected common-cover states of each size
+in the core belong to one flip component. Then the same holds in the
+original diagram.
+
+*Proof.* We first make the selected core connected, then select a fixed
+tree. The remaining edges can be rearranged using core paths and paths
+in the last clique.
+
+**Paths within a selected clique block.** We will use the complete-diagram
+lemma inside selected weak blocks of $[a,e]$, enumerating each block in
+increasing order and restricting to its induced complete diagram.
+Any directed selected path between vertices of such a block stays in
+$[a,e]$, by forwardness, and stays in
+the block, by its definition. Thus cover tests in the restriction agree
+with the ambient tests. A local flip preserves that weak block and lifts
+with every other selected edge fixed. This observation applies even when
+the vertices of the block are not consecutive.
+
+Prepare the source to a connected anchor. In the selected clique block
+$B$ containing $a,e$, the least vertex $a$ has only its edge to $e$.
+Apply the complete-diagram lemma to replace this block by a star at $e$,
+with additional edges among $B\setminus\{a\}$ preserving the count.
+Such a target exists: if $|B|=q$, connectedness gives at least $q-1$
+edges, while the pendant vertex $a$ gives at most
+$1+\binom{q-1}{2}$. The star and its possible additional edges realize
+every count between these bounds. The endpoint is again an anchor,
+and $B\cap V$ is connected within $V$.
+
+Each other selected clique block meets $S=[a+1,c]$. Otherwise all its
+vertices lie in $(c,e)$, have no natural neighbors outside $[a,e]$, and
+would form a separate selected weak block of the whole diagram.
+We make the intersection of each such block with $S$ connected as follows.
+
+Choose its least vertex $u$, which lies in $S$, and another vertex
+$v\leq c$ of the block. Take a path of selected covers from $u$ to $v$,
+allowing either direction along an edge. If its greatest vertex $z$ is
+above $v$, the two neighbors of $z$ are $i<j<z$. Flip
+$jz\mapsto ij$ across $iz$, shortcut the path through $ij$, and replace
+any redundant edge of the new path by a path of covers inside its endpoint
+interval. The greatest vertex of the path decreases. Repeating gives
+a cover path inside $[u,v]$.
+
+Now perform incoming-cover flips inside $[u,v]$ until each vertex has
+at most one incoming cover. The sum of selected edge heads strictly
+decreases, so this terminates. Each cover component is then an increasing
+tree rooted at its least vertex. In particular $u$ reaches $v$.
+These operations preserve every connection already obtained below $c$:
+a flip removing a peak above $c$ removes no selected edge with both
+endpoints below $c$, while a flip wholly below $c$ preserves its selected
+weak blocks there. Iterating over the finitely many vertices of the block
+connects its whole intersection with $S$. All its vertices are strictly
+above $a$, so its endpoint remains an anchor.
+
+The clique-block vertex sets have stayed fixed. Every one now meets $V$
+in a connected selected subgraph. All edges outside $[a,e]$ already have
+both endpoints in $V$. Replacing each excursion of a weak path through
+an omitted vertex by a path in its block's retained part shows that the
+selected core is connected.
+
+**Replacing the core with the exterior restored.** Start from an anchor
+whose core is connected. Sweep every selected $ve$, $c<v<e$, to $av$
+across $ae$, in decreasing $v$. These are actual incoming sweeps and leave
+all core edges unchanged. Earlier corners end at or below $c$, so their
+cover tests are unchanged as well.
+
+After the sweep, no omitted vertex has a selected edge to $e$. Since every
+omitted vertex lies strictly between $c$ and $e$, a forward path leaving
+$V$ could return only at $e$, with an omitted vertex as its predecessor.
+Thus no such path returns. Any actual core path now
+lifts with the swept exterior fixed, even when its intermediate states
+make a corner redundant. By hypothesis we may use such a path to reach
+any connected core anchor of the same size.
+
+At its endpoint $a$ has no outgoing core edge except $ae$. Restore the
+recorded edges in increasing $v$, replacing $av$ by $ve$ across $ae$.
+The remaining swept $a$-neighbors are greater than $v$, while restored
+incoming tails at $e$ are smaller than $v$. Hence $av$ and $ae$ cover
+at every step. We obtain the desired core and the exact original exterior.
+
+**Selecting a fixed tree.** In the good core graph, take all corners and
+all star edges $ve$ with $a<v\leq c$. This is a forest: each vertex
+has at most one outgoing edge, since corner tails are at most $a$ and
+the added star tails are greater than $a$. All edges point forward, so
+an undirected cycle would have a least vertex with two outgoing edges.
+The selected core is connected and its edges are good, so the good core
+graph is connected. Extend this forest to a good spanning tree $T_V$.
+
+Inside the last clique, $T_V$ consists exactly of its terminal star.
+Any additional edge there would close a triangle through $e$. It also
+omits the good edge $ba$, since $bc,ce,ae$ already give a path from $b$
+to $a$. If the selected core has $s_V$ edges, then
+$|V|-1\leq s_V\leq |A^*(G|_V)|$: the lower bound follows from
+connectedness, and the upper bound from the anchor condition. We may therefore
+add $s_V-(|V|-1)$ good edges to $T_V$. This is a connected core anchor
+of the original size, so core replacement realizes it.
+
+The whole selected last clique is now connected. Each omitted vertex
+had a selected path to its first retained vertex inside $[a,e]$; the
+edges before that first retained vertex are exterior to the core and
+have stayed fixed. All retained vertices of the last clique now join
+$e$ through $T_V$. Apply the complete-diagram lemma in $[a,e]$ to
+select its full terminal star, with additional internal edges preserving
+the count and with $a$ still pendant. The part of $T_V$ outside the
+clique stays fixed, and its part inside is in the final star. We have
+reached an anchor containing the fixed spanning tree
+
+\[
+                  T=T_V\cup\{ve:c<v<e\}.                     \tag{F}
+\]
+
+The added vertices are leaves at $e$, so this is indeed a tree.
+
+![The core tree and the full tree in last-clique inheritance](figures/last-clique-tree.svg)
+
+*Figure 5.* Here the corners are $04,15,38$, so $b=1,a=3,c=5,e=8$.
+We retain the core vertices $0,1,2,3,4,5,8$. The left picture specifies
+$T_V$; the right specifies $T$, obtained by attaching $6$ and $7$ at
+$8$. The star inside the core is $38,48,58$, and the shared extra
+position $ba=13$ is absent from both trees. Each picture fixes one
+selected state. In the proof we add good edges to these trees to recover
+the required selected size.
+
+**Exchanging the extra edges.** Let $P=A^*(G)\setminus T$. Let $P_C$
+be its positions with both endpoints in $V$, and put
+
+\[
+             P_R=\bigl(P\cap\{uv:a<u<v<e\}\bigr)\cup\{ba\}.
+\]
+
+Interval closure of $ae$ makes all the internal pairs in this formula
+natural. They are good and lie outside $T$, whose last-clique edges
+form the star at $e$. Thus $P_R=\{uv:a<u<v<e\}\cup\{ba\}$.
+Every good position outside $V$ lies in the last clique. Thus
+$P=P_C\cup P_R$, and $ba\in P_C\cap P_R$.
+Core replacement realizes every fixed-count rearrangement in $P_C$,
+with $T$ and all other extras restored at the endpoint.
+
+Two internal positions of $P_R$ can be exchanged using the complete-diagram
+lemma in $[a,e]$: both endpoints contain the terminal star, and are
+therefore connected anchors of equal size. This restores every other edge.
+To exchange $ba$ with an internal position, we need one additional step.
+
+Suppose $p=ba$ is selected and an internal extra $x$ is absent. Write
+$q=ce$. Choose an endpoint $d$ of $x$ different from $c$, and let $r$
+be the natural edge between $c$ and $d$. If $r$ is selected, the clique
+remains connected after replacing $q$ by $x$: the vertex $c$ joins $d$
+through $r$, and $d$ still joins $e$ through the star. Both source and
+target are anchors with $a$ pendant, so the complete-diagram lemma
+realizes this replacement while fixing the exterior. Now $q$ is absent.
+The crossing slide across $bc,ae$ exchanges $p$ for $q$, restoring the
+full star and giving exactly $A-p+x$.
+
+If $r$ is absent, first carry out the same construction with $r$ in
+place of $x$. The inserted $r$ itself repairs the missing star edge.
+This gives $A-p+r$ with the full star restored. If $r=x$, we are done;
+otherwise exchange the two internal extras $r$ and $x$ as above. The
+reverse path gives exchanges in the other direction. The star edge $ce$
+may be absent temporarily, but every edge of $T$ is restored at the
+final endpoint.
+
+Finally, consider one position in $P_C\setminus P_R$ and another in
+$P_R\setminus P_C$, one selected and the other vacant. Both differ
+from the shared position $ba$. When $ba$ is absent, move
+the selected position to $ba$ and then to the vacant position. When it
+is selected, perform these two exchanges in the opposite order. In both
+cases its original status is restored. Thus all subsets of $P$ with
+the same cardinality are connected by actual flip paths with $T$ at
+the endpoints. Since $|T|$ is fixed, this connects all the normalized
+anchors of the original selected size. Reverse the second preparation
+to finish the proof.
+
+Reversing the vertex order gives the first-clique version of the lemma.
+This reverses the actual paths and their cover tests; no equality of
+coloring or elementary values under order reversal is used.
+
 ## Initial-vertex inheritance
 
 We first treat the case in which the first two maximal corners are
@@ -672,7 +870,7 @@ exchanges $0v$ and $d_v$, with the corners $0a$ and $vh_v$ retained.
 
 ![The initial crossing slide](figures/initial-crossing.svg)
 
-*Figure 5.* The diagonal lists the ordered vertices $0<v<a<h=h_v$.
+*Figure 6.* The diagonal lists the ordered vertices $0<v<a<h=h_v$.
 The cell in column $u$ and row $w$ represents the edge $uw$.
 Arrows denote the two retained corner covers, and $1$ and $0$ denote
 selected and absent normal edges. The edge $va$ is natural because it
@@ -696,7 +894,7 @@ enters a different core component. Otherwise all selected neighbors of
 zero would lie in $B$, contradicting connectedness of $A$. The edge
 $0v$ is an extra, since $0a$ enters $B$. The selected corner $vh_v$
 puts $h_v$ in the same core component as $v$. Hence $ah_v$ is absent.
-We apply the crossing slide in Figure 5. The core gains $ah_v$ and loses
+We apply the crossing slide in Figure 6. The core gains $ah_v$ and loses
 no edge, while the initial row loses $0v$. Repeating this operation
 terminates because the number of selected initial extras decreases.
 
@@ -851,7 +1049,7 @@ all exterior selections of each size. Thus
 
 ![NN and DN as sums over restricted selections](figures/layer-relations.svg)
 
-*Figure 6.* The blank cells and permitted exterior edges are summed over.
+*Figure 7.* The blank cells and permitted exterior edges are summed over.
 Arrows require strict edges, and crosses remove natural edges. The condition
 $|A|=s$ counts all selected edges, including strict edges. Each diagram is
 an entire layer sum for $V=K$ or $V=E$ at an eligible contact.
@@ -934,7 +1132,7 @@ unions of one state of $P$ and one state of $T$.
 
 ![Right attachment and the merged fibre](figures/right-attachment.svg)
 
-*Figure 7.* The upper dashed line indicates the vertex intervals, not a
+*Figure 8.* The upper dashed line indicates the vertex intervals, not a
 natural edge. The diagrams share just $c$. Below, the canonical HRV chain
 ending at $c$ and the chain beginning at $c$ concatenate. Their common
 vertex, colored $\beta$, contributes one weight $x_\beta$.
@@ -1045,7 +1243,7 @@ All earlier comparisons agree, so their first strict decreases agree.
 
 ![A prefix and its right attachment as restricted sums](figures/prefix-attachment.svg)
 
-*Figure 8.* The source areas are $(0,1,1,2,3,2,1,2,1)$.
+*Figure 9.* The source areas are $(0,1,1,2,3,2,1,2,1)$.
 The first area at least two occurs at $j=3$, so $b=1$ and $c=5$.
 The prefix has the initial edge $01$ followed by the block $[1,5]$;
 the attachment is $[5,8]$. The first strict area decrease is at $t=4$

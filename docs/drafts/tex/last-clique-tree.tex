@@ -1,0 +1,26 @@
+\documentclass[border=6pt]{standalone}
+\usepackage{llt-diagrams}
+\LLTDiagramSetup{cell size=5mm}
+% A fixed selected tree: first set every natural edge absent, then insert it.
+\newcommand{\TreeDiagram}[4]{%
+  \LLTAreaDiagram[name={#1}]{#2}{#3}{%
+    \foreach \area [count=\row] in {#3} {
+      \ifnum\area>0
+        \pgfmathtruncatemacro{\first}{\row-\area}%
+        \pgfmathtruncatemacro{\last}{\row-1}%
+        \foreach \col in {\first,...,\last} {\LLTAbsent{\col}{\row}}%
+      \fi
+    }
+    #4}}
+\begin{document}
+\(
+ \TreeDiagram{T_V}{0,1,2,3,4,5,8}{0,1,2,3,4,4,3}{%
+   \LLTStrict*{1}{5}\LLTStrict*{2}{6}\LLTStrict*{4}{7}%
+   \LLTSelected{3}{5}\LLTSelected{5}{7}\LLTSelected{6}{7}}
+ \qquad\qquad
+ \TreeDiagram{T}{0,1,2,3,4,5,6,7,8}{0,1,2,3,4,4,3,4,5}{%
+   \LLTStrict*{1}{5}\LLTStrict*{2}{6}\LLTStrict*{4}{9}%
+   \LLTSelected{3}{5}\LLTSelected{5}{9}\LLTSelected{6}{9}%
+   \LLTSelected{7}{9}\LLTSelected{8}{9}}
+\)
+\end{document}

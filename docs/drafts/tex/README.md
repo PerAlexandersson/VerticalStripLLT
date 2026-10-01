@@ -79,6 +79,10 @@ actual flips between them, including the restoration of the exterior.
 good edges between the same pair of corner chains.
 `complete-child-merge.tex` displays the four flips replacing one child edge
 by an edge between two children, with the common exterior fixed at endpoints.
+`last-clique-tree.tex` fixes every natural cell to show a core tree and the
+full tree obtained by attaching the omitted vertices as leaves. Each picture
+therefore denotes a single selected state; additional good edges are supplied
+in the accompanying proof.
 An equation between diagrams means equality of the indicated sums. A
 flip-path arrow is stated separately as a correspondence between endpoint
 states; it does not assert equality of their individual valuations.
@@ -99,6 +103,8 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error two-chain-packing.tex
 pdftocairo -svg two-chain-packing.pdf two-chain-packing.svg
 latexmk -pdf -interaction=nonstopmode -halt-on-error complete-child-merge.tex
 pdftocairo -svg complete-child-merge.pdf complete-child-merge.svg
+latexmk -pdf -interaction=nonstopmode -halt-on-error last-clique-tree.tex
+pdftocairo -svg last-clique-tree.pdf last-clique-tree.svg
 ```
 
 The previous external `LLTCells` macro was inspected for the diagonal-label

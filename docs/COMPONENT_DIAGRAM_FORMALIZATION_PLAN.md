@@ -40,6 +40,14 @@ paper retains the chains-and-star explanation. The draft must link each move
 to its corresponding verified declaration and must distinguish assumed
 smaller-core uniqueness from conclusions proved without it.
 
+The [draft's last-clique section](drafts/ORDINARY_COMPONENT_DIAGRAM_PROOF.md#last-clique-inheritance)
+now gives these constructions in detail. Its fixed-tree figure is generated
+from the shared restricted-sum macros. The shared-edge exchange includes the
+temporary connection through $cd$ when $ce$ is removed, and states explicitly
+that the full tree and exterior are restored at the endpoint. Three read-only
+reviews checked the core geometry, the block paths and the extra exchanges
+against these declarations.
+
 Implementation status: P0–P5 are verified under their planned contracts,
 including P1's final initial-vertex restriction, corner and path interfaces.
 P6's conditional initial-vertex inheritance is checked, including all feasible
