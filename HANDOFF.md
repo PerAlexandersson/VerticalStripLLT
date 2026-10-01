@@ -2,6 +2,20 @@
 
 ## Current status and ownership
 
+The AS22 case audit after `8eb8550` found an exposition omission in the
+aggregate direct NN/DN orientation proof. The four-selection HRV identity
+replaces the finer AS22 orientation tables, but its assembly was too terse.
+The manuscript now gives separate source/target edge tables, the NN target's
+two states, both DN triangles, exterior-selection reindexing for the empty
+local selection, and transitive-closure matching for the full local selection.
+Independent read-only review checked this against
+`Circular/FirstBounceOrientation.lean`, `FirstBounceOrientationMatching.lean`,
+`DNOrientationBlocks.lean` and `SecondBounceOrientation.lean`.
+No Lean source or build was touched. The rebuilt PDF is 46 pages, with no
+warnings or box overflows; source hashes and all references were checked.
+Codex owns these manuscript/handoff edits; `bounce_case_audit` has finished
+its read-only review and holds no files.
+
 After `9702fef`, the introduction explicitly distinguishes the AS22 diagram
 method and cited background from proof dependencies: we prove the required
 circular local identities and recover the ordinary expansion without assuming
@@ -97,7 +111,7 @@ HRV deletion cancellation, the full finite coefficient argument, actual
 cover-preserving flips and the compatible-lift union of ordinary components.
 We do not claim each circular bounce/reversal restricts to a single component.
 
-The revised manuscript is **45 pages with 14 vector figures**. The original
+The revised manuscript is **46 pages with 14 vector figures**. The original
 tagged baseline was 35 pages. The general
 [llt-diagrams.sty](docs/drafts/tex/llt-diagrams.sty) and its
 [usage guide](docs/drafts/tex/README.md) implement diagrams as restricted sums:
@@ -120,8 +134,8 @@ Files: `manuscript.pdf`, `manuscript.tex`, `manuscript-source.zip`,
 PDF page previews are alongside the manuscript. The author metadata matches
 the earlier Alexandersson--Dai draft.
 
-Verification: the 45-page manuscript and four-page macro guide compile
-without warnings or box overflows. The 170 labels are unique, all 127
+Verification: the 46-page manuscript and four-page macro guide compile
+without warnings or box overflows. The 171 labels are unique, all 130
 references resolve, and all 26 source inputs match the bundle manifest.
 There are 5 theorems, 27 lemmas, 10 propositions, 13 definitions, 2 corollaries,
 2 examples and 43 proofs. The new introduction, original and shifted
@@ -132,7 +146,7 @@ orders, moved connectivity dependency, diagram spacing and notation changes.
 `git diff --check` passes. The complete Lean proof is unchanged.
 
 The revision PDF SHA256 is
-`5508682c216ce18f2b478e2a14435474efb7988a07dedc30f4d56bbc08a01437`.
+`dd15b8d858532c459908e21013fac95cffb577f823b14f202bd1e0b4fdce2683`.
 Paper-cache entries 496 (AS22), 497 (Hwang) and 498 (Dołęga--Kowalski)
 contain exact-version PDFs, source archives and extracted text; precise
 locators are in the draft README. The paper-cache database discovery call

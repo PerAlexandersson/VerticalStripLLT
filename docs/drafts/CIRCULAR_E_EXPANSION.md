@@ -378,22 +378,79 @@ so $y\to z$ remains ineffective. This gives the other pairing and
 proves (3), including all cyclic cases.
 :::
 
-::: {.proof title="The direct NN and DN relations for highest reachable vertices"}
-After inserting weights, (3) becomes
+::: {.proof title="The direct NN and DN orientation relations"}
+The orientation proofs in [@AS22] distinguish the relative orders of
+several highest reachable vertices and the choices of local edges.
+We use (3) to combine the four local selections before comparing the
+source and target diagrams. Its two cases therefore replace the longer
+orientation tables. We give the comparison separately for NN and DN.
+
+Fix a selection $A$ of the exterior normal edges. After inserting the
+weights of the two local short edges, (3) gives
 
 \[
- m+q(\ell+r)
-       +q^2b
- =(1+q)(m+qb).
+ m(A)+q\bigl(\ell(A)+r(A)\bigr)+q^2b(A)
+       =(1+q)\bigl(m(A)+qb(A)\bigr).                 \tag{triangle-weight}
 \]
 
-The bottom terms in (R) correspond under the periodic exchange of the
-contact vertices; the top terms have the same transitive closure.
-Here $x,y$ are consecutive contact vertices. The exchange
-preserves order on sinks: its only inverted pairs are $x+kn,x+1+kn$,
-and the first vertex has the mandatory outgoing edge to $z+kn$.
-Every reachable vertex extends to a sink. Thus the exchange transports
-the highest reachable map and preserves its fibre sizes.
+Here $m(A)$ and $b(A)$ are the values with neither or both local
+short edges selected. Cyclic states still have value zero. The factor
+$q^{|A|}$ from the exterior selection is common to all four terms.
+
+Put $x=p$, $y=p+1$ and $z=t$, and let $\sigma$ exchange $x,y$
+periodically. The boundary argument above shows that the normal edges
+outside the displayed pairs form the same set on both sides and that
+this set is invariant under $\sigma$. The selection $A$ need not itself
+be invariant: the exchange sends it to $\sigma A$.
+
+Write $D'$ for the target diagram. For NN the local edges are as follows.
+All other strict edges are fixed.
+
+| Diagram | Strict edge | Optional normal edges | Removed pair |
+| --- | --- | --- | --- |
+| Source | $xz$ | $xy,yz$ | none |
+| Target | $yz$ | $xy$ | $xz$ |
+
+Write $m'(A)$ for the target value without $xy$, and $b'(A)$ for
+the target value with $xy$. With neither source short selected,
+the exchange $\sigma$ gives the target without $xy$. Hence
+$m(A)=m'(\sigma A)$. To check the HRV assertion, the only pairs
+whose integer order is reversed are $x+kn,y+kn$. The first vertex
+has the mandatory outgoing edge to $z+kn$, so these two vertices
+cannot both be sinks. Thus $\sigma$ preserves the order of sinks.
+Every reachable vertex extends to a sink; consequently the exchange
+transports highest reachable vertices and preserves their fibre sizes.
+It also preserves acyclicity.
+
+With both source shorts selected, the edge $xz$ is redundant because
+of $x\to y\to z$. Deleting it gives exactly the target with $xy$
+selected, with the same exterior $A$. Their lifted transitive closures
+agree, including whether a cycle occurs, so $b(A)=b'(A)$.
+We now sum (triangle-weight) over all exterior selections. The
+cardinality-preserving bijection $A\mapsto\sigma A$ identifies the
+sums of $m$ and $m'$, and the equality of $b$ and $b'$ holds termwise.
+The result is $\widehat G_D=(1+q)\widehat G_{D'}$, as required.
+
+For DN there is also a strict edge $ux$ entering the first contact.
+The two diagrams now have different triangles:
+
+| Diagram | Strict edges | Optional normal edges | Triangle for (3) |
+| --- | --- | --- | --- |
+| Source | $ux,xz$ | $xy,yz$ | $x,y,z$ |
+| Target | $uy,yz$ | $ux,xy$ | $u,x,y$ |
+
+The source pair $uy$ and target pair $xz$ are outside their respective
+diagrams. All remaining edges agree. Apply (triangle-weight) once to
+the source triangle and once to the target triangle. Each side becomes
+$(1+q)(m+qb)$, with primes for the target values. With both local
+normal edges absent, $\sigma$ transports the source strict path
+$u\to x\to z$ to the target strict path $u\to y\to z$.
+The same sink-order argument gives $m(A)=m'(\sigma A)$.
+With both local normal edges present, each graph has the transitive
+closure of $u\to x\to y\to z$, together with the same exterior
+selection. Thus $b(A)=b'(A)$. Summing over the exterior selections
+identifies the two expressions $(1+q)(m+qb)$ and proves
+$\widehat G_D=\widehat G_{D'}$. This is the DN relation.
 :::
 
 ### Removing intervening DD contacts
