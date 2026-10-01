@@ -28,7 +28,7 @@ We repeatedly use the following observation: a directed path in $\Dplus{\theta}$
 between two vertices of an interval stays in that interval, so the cover test
 of an edge $uv$ only involves edges inside $[u,v]$.
 
-\subsection{Terminal vertices and preparation}\label{subs:preparation}
+\subsection{Corner chains}\label{subs:preparation}
 
 Distinct corners have distinct tails and distinct heads, so the corners form
 disjoint directed paths, the \defin{corner chains}; a vertex on no corner is a
@@ -46,7 +46,7 @@ Indeed, $r$ is constant along corners and increases along the other edges of
 $\Gplus$, so a path between the endpoints $u,h$ of a corner only uses corners,
 and the only corner leaving $u$ is $uh$.
 
-\begin{lemma}[Preparation]\label{lem:preparation}
+\begin{lemma}\label{lem:preparation}
 Every orientation $\theta$ in which all corners are covers is joined by flips to
 an orientation $\theta'\subseteq\Gplus$ which contains every edge of
 $\theta\cap\Gplus$.
@@ -59,15 +59,17 @@ We maintain that no edge of $\theta$ leaves $U$, and that all corners are covers
 when we start a new chain; initially $U=\emptyset$.
 
 Let $B$ be the next chain, with last vertex $t$.
-An \defin{exit} is an edge $vy\in\theta$ with $v\in B$ and $r(y)<t$.
-Then $v<y\leq r(y)<t$, so $v$ has a corner successor $h$ on $B$, and
+Consider the edges $vy\in\theta$ with $v\in B$ and $r(y)<t$.
+For such an edge, $v<y\leq r(y)<t$, so $v$ has a corner successor $h$ on $B$, and
 $y<h$ since $vy$ does not contain the corner $vh$.
-Choose $v$ with an exit, and its exit $vy$ with the least head.
+Choose a vertex $v$ with such an edge, and among its edges of this kind the edge
+$vy$ with the least head.
 Then $vy$ is a cover.
 Indeed, a path from $v$ to $y$ cannot pass through $U$, since no edge leaves
 $U$.
 An edge from $v$ to a vertex $z\notin U$ has $r(z)\leq t$, by the choice of $t$.
-If $r(z)=t$, it is the corner $vh$, and $h>y$; if $r(z)<t$, it is an exit, and
+If $r(z)=t$, it is the corner $vh$, and $h>y$; if $r(z)<t$, it is one of the
+edges considered, and
 $z\geq y$ by the choice of $vy$.
 So the only path from $v$ to $y$ is the edge $vy$.
 Since $vh$ is a cover as well, we can perform the flip
@@ -76,12 +78,12 @@ Since $vh$ is a cover as well, we can perform the flip
 \]
 after which $vh$ is still a cover.
 The new edge $yh$ lies inside the corner $vh$, so it is normal, and
-$r(y)<r(h)=t$, so it lies in $\Gplus$ and is not an exit.
+$r(y)<r(h)=t$, so it lies in $\Gplus$ and is not one of the edges considered.
 The intervals of the other corners of $B$ have interiors disjoint from that of
 $vh$, so their cover tests are unchanged, and the edges inside $U$ are
 unchanged.
-Each flip removes an exit and creates none, so after finitely many flips there
-are no exits.
+Each flip removes one of the edges considered and creates none, so after
+finitely many flips there are none left.
 
 Then no edge leaves $U\cup B$, and every edge created while processing $B$ ends
 in $B$.
@@ -93,12 +95,12 @@ When all chains have been processed, all edges of the orientation lie in
 $\Gplus$, and only edges outside $\Gplus$ were removed.
 \end{proof}
 
-\subsection{Crossing slides}\label{subs:slides}
+\subsection{Exchanging two edges}\label{subs:slides}
 
 The next lemma exchanges two edges along two crossing covers, restoring all
 other edges.
 
-\begin{lemma}[Crossing slide]\label{lem:crossingSlide}
+\begin{lemma}\label{lem:crossingSlide}
 Let $a<b<c<d$, and let $\theta$ be an orientation in which $ac$ and $bd$ are
 covers, $ab\in\theta$ and $cd\notin\theta$.
 Then $\theta$ is joined by flips to the orientation $\theta-ab+cd$, in which $ac$
@@ -132,13 +134,12 @@ is absent and the edges from $(c,d)$ to $d$ have been moved.
 After the second flip, $bd$ and $cd$ are covers, and $ac$ is still a cover since
 we removed $bc$ and added an edge leaving $c$.
 
-Finally we undo the second sweep in reverse order, replacing $bv$ by $vd$
-across $bd$.
+Finally we undo the flips across $bd$ in reverse order, replacing $bv$ by $vd$.
 For $v\in R$, the net change from $ab$ to $cd$ does not affect edges inside
 $[b,v]$, so $bv$ is a cover when it is moved back, as it was after the
-corresponding flip of the sweep; and $bd$ remains a cover by
+corresponding flip; and $bd$ remains a cover by
 Lemma~\ref{lem:flipCriterion}.
-Then we undo the first sweep in the same way, using that the edges inside
+Then we undo the flips across $ac$ in the same way, using that the edges inside
 $[v,c]$ are as they were after the corresponding flip, for $v\in L$.
 We obtain $\theta-ab+cd$, see Figure~\ref{fig:crossingSlide}.
 \end{proof}
@@ -148,13 +149,14 @@ We obtain $\theta-ab+cd$, see Figure~\ref{fig:crossingSlide}.
 \LLTpic[cell=0.85em]{nnndddeee}{\LLTasc{1/2,1/3,5/6}}$\;\longrightarrow\;$\LLTpic[cell=0.85em]{nnndddeee}{\LLTasc{1/3,2/4,5/6}}$\;\longrightarrow\;$\LLTpic[cell=0.85em]{nnndddeee}{\LLTasc{1/3,2/4,3/5}}$\;\longrightarrow\;$\LLTpic[cell=0.85em]{nnndddeee}{\LLTasc{2/4,3/4,3/5}}
 \\[1.2em]
 $\;\longrightarrow\;$\LLTpic[cell=0.85em]{nnndddeee}{\LLTasc{2/4,3/5,4/6}}$\;\longrightarrow\;$\LLTpic[cell=0.85em]{nnndddeee}{\LLTasc{2/4,4/6,5/6}}$\;\longrightarrow\;$\LLTpic[cell=0.85em]{nnndddeee}{\LLTasc{1/2,4/6,5/6}}
-\caption{A crossing slide for the area sequence $(0,1,2,3,3,3)$, whose corners
+\caption{The flips in the proof of Lemma~\ref{lem:crossingSlide} for the area
+sequence $(0,1,2,3,3,3)$, whose corners
 $14$, $25$ and $36$ are strict, with $a=1$, $b=3$, $c=4$ and $d=6$, so that $L=\{2\}$
 and $R=\{5\}$.
 The flips are $12\mapsto24$, $56\mapsto35$, $13\mapsto34$, $34\mapsto46$,
 $35\mapsto56$ and $24\mapsto12$.
-The first two are the sweeps, the next two move $13$ to $46$ through $34$, and
-the last two undo the sweeps.
+The third and fourth move $13$ to $46$ through $34$, and the last two undo the
+first two.
 The retained long edge is $14$ or $36$ in every step, and the endpoint is the
 initial orientation with $13$ replaced by $46$.}
 \label{fig:crossingSlide}
@@ -162,25 +164,26 @@ initial orientation with $13$ replaced by $46$.}
 
 
 
-We now use crossing slides to move edges between two corner chains.
+We now use Lemma~\ref{lem:crossingSlide} to move edges between two corner chains.
 Let $uv$ be a normal natural edge such that $u$ has a corner successor $h$.
 Then $v<h$, and $vh$ is natural since it lies inside $uh$.
-We call $uv\to vh$ a \defin{link}.
-A link exchanges the two values of $r$ at the endpoints, and both endpoints
-increase.
+We call $vh$ the successor of the edge $uv$.
+Passing to the successor exchanges the two values of $r$ at the endpoints, and
+both endpoints increase.
 Every normal edge has at most one successor and at most one predecessor, so the
-links form disjoint paths.
+normal edges form disjoint sequences in which each edge is followed by its
+successor.
 
 \begin{lemma}\label{lem:linkPaths}
-For two corner chains there is at most one path of links whose edges join the
+For two corner chains there is at most one such sequence whose edges join the
 two chains.
-Along such a path, the edges in $\Gplus$ and the edges not in $\Gplus$
+Along this sequence, the edges in $\Gplus$ and the edges not in $\Gplus$
 alternate, and two consecutive edges in $\Gplus$ have the form $ab$ and $cd$
 with $a<b<c<d$ such that $ac$ and $bd$ are corners.
 \end{lemma}
 
 \begin{proof}
-Let $uv$ be the first edge of a path of links.
+Let $uv$ be the first edge of such a sequence.
 If $v$ had a corner predecessor $p$, then $p<u$, since $uv$ does not contain
 the corner $pv$, and then $pu$ would be a predecessor of $uv$.
 Hence $v$ is the first vertex of its chain, and $u$ lies on a chain starting
@@ -188,8 +191,9 @@ earlier.
 There is at most one such $u$ on a given chain: if $u<u'<v$ were two
 candidates, the natural edge $uv$ would contain the corner leaving $u$.
 This proves the first claim.
-A link exchanges the two values of $r$, so membership in $\Gplus$ alternates.
-If $ab$ is followed by two links, they use the corners leaving $a$ and $b$, say
+Passing to the successor exchanges the two values of $r$, so membership in
+$\Gplus$ alternates.
+If $ab$ is followed by two further edges, they use the corners leaving $a$ and $b$, say
 $ac$ and $bd$, and the path continues as $ab\to bc\to cd$ with $a<b<c<d$.
 \end{proof}
 
@@ -201,8 +205,8 @@ Then $\theta$ and $\theta'$ lie in the same flip class.
 
 \begin{proof}
 List the positions in $\Gplus$ joining a given pair of chains in the order of
-their path of links.
-By Lemma~\ref{lem:linkPaths} and the crossing slide, we may replace an occupied
+their sequence.
+By Lemmas~\ref{lem:linkPaths} and~\ref{lem:crossingSlide}, we may replace an occupied
 position followed by a vacant one by the reverse, restoring all other edges.
 The sum of the indices of the occupied positions increases, so we reach the
 configuration occupying the last positions of the list, which only depends on
@@ -238,13 +242,12 @@ flip class.
 
 \begin{proof}
 Let $P_N$ consist of $0N$ and the edges $i(i+1)$ for $1\leq i<N$.
-We call the other possible edges $ij$, with $1\leq i<i+1<j\leq N$, the
-\defin{chords}, and an orientation consisting of $P_N$ and some chords a
-\defin{chain state}.
-We first join every orientation in question to a chain state, and then show that
-chain states with the same number of chords lie in one flip class.
+We call the other pairs $ij$, with $1\leq i<i+1<j\leq N$, the chords of $P_N$.
+We first join every orientation in question to an orientation $P_N\cup X$, where
+$X$ is a set of chords, and then show that the orientations $P_N\cup X$ with the
+same number of chords lie in one flip class.
 
-\smallskip\noindent\textbf{Step 1: reaching a chain state.}
+\smallskip\noindent\textbf{Step 1: reaching $P_N\cup X$.}
 Here $r(0)=r(N)=N$ and $r(v)=v$ otherwise, so $\Gplus$ consists of $0N$ and all
 edges on $1,\dotsc,N$.
 By Lemma~\ref{lem:preparation} we may assume that $0N$ is the only edge at $0$.
@@ -280,7 +283,7 @@ These flips remain flips in the whole graph, since a path between two vertices
 below $N$ cannot pass through $N$.
 At the end, $0$ is adjacent only to $N-1$ and $N$, and $N-1$ has no outgoing
 edge, so we can perform $0(N-1)\mapsto(N-1)N\ [0N]$.
-We have reached a chain state.
+We have reached an orientation $P_N\cup X$.
 
 \begin{figure}[!ht]
 \centering
@@ -293,28 +296,28 @@ The diagonal step crosses the strict corner $03$.}
 \end{figure}
 
 \smallskip\noindent\textbf{Step 2: working in a smaller interval.}
-Let $0<p\leq m\leq N$, and consider two chain states which agree on all pairs
-not contained in $W=\{0,p,p+1,\dotsc,m\}$.
+Let $0<p\leq m\leq N$, and consider two orientations $P_N\cup X$ and
+$P_N\cup X'$ which agree on all pairs not contained in $W=\{0,p,p+1,\dotsc,m\}$.
 We show that a path of flips between their restrictions to $W$, in the complete
-graph on $W$, lifts to a path between the two chain states.
+graph on $W$, lifts to a path between them.
 First we open the chain by the flips
 \begin{equation}\label{eq:opening}
  j(j+1)\mapsto 0j\quad[0(j+1)],\qquad j=N-1,N-2,\dotsc,m.
 \end{equation}
 Before such a flip, all edges from $0$ end at $j+1$ or above, so $0(j+1)$ is a
 cover, and these are flips regardless of the chords.
-Now the edges at $0$ are $0m,0(m+1),\dotsc,0N$, and the restriction to $W$ is a
-chain state of the complete graph on $W$.
+Now the edges at $0$ are $0m,0(m+1),\dotsc,0N$, and the restriction to $W$ is
+of the same form for the complete graph on $W$.
 A path between two vertices of $W$ stays in $W$: it cannot use a vertex below
 $p$, since no edge from $0$ goes there, and it cannot return from above $m$.
 Hence flips in the complete graph on $W$ are flips of the whole graph.
-Opening the second chain state in the same way gives its restriction to $W$ with
-the same exterior, so after the path inside $W$ we close the chain by reversing
-the opening of the second state.
+Opening $P_N\cup X'$ in the same way gives its restriction to $W$, with the same
+edges outside $W$, so after the path inside $W$ we close the chain by reversing
+the opening of $P_N\cup X'$.
 
 \smallskip\noindent\textbf{Step 3: rearranging the chords.}
-We show by induction on $N$ that chain states with the same number of chords
-lie in one flip class.
+We show by induction on $N$ that the orientations $P_N\cup X$ with the same
+number of chords lie in one flip class.
 For $N\leq3$ there is at most one chord.
 For $N=4$ the chords are $13$, $14$ and $24$.
 In the following table, a triple $ijk$ denotes the flip exchanging $ij$ and
@@ -344,7 +347,7 @@ contain $24$.
 Hence we can exchange any two chords other than $1N$: if no single set contains
 both, we route through $24$, moving the selected chord to $24$ first if $24$ is
 vacant, and moving $24$ to the vacant position first otherwise.
-This connects all chain states with the same number of chords and the same
+This connects all orientations $P_N\cup X$ with the same number of chords and the same
 status of $1N$.
 
 It remains to change the status of $1N$.
@@ -356,7 +359,8 @@ Hence $iN$ is a cover, and the vertices other than $N$ adjacent to $0$, which ar
 larger than $i$, cannot reach $N$, so $0N$ is a cover.
 Now $02\in\theta$ and $01\notin\theta$, so $02$ is a cover, and we perform the
 flip $12\mapsto 01\ [02]$.
-Then we reverse the sweep in increasing order, including the new edge $01$.
+Then we reverse these flips in increasing order of $i$, including the new edge
+$01$.
 When $0i$ is moved back to $iN$, it has the least head among the edges at $0$,
 and the edges into $N$ restored so far have smaller tails, so $0i$ and $0N$ are
 covers.
@@ -424,11 +428,12 @@ Neither uses $uv$.
 \subsection{The last clique}
 
 Suppose that the last two corners are $bc$ and $ae$, with $b<a<c<e=n$.
-Let $Z=[1,c]\cup\{e\}$, and let the \defin{core} be the graph induced on $Z$,
-with the inherited order and strict edges.
+Let $Z=[1,c]\cup\{e\}$, and let $\Gamma_Z$ be the graph induced on $Z$, with the
+inherited order and strict edges.
+For an orientation $\theta$ we write $\theta_Z$ for its edges inside $Z$.
 All corners other than $ae$ end at most at $c$, so the vertices in $(c,e)$ lie
 on no corner.
-Hence the core has the same corners as $\Gamma$, its corner chains are those of
+Hence $\Gamma_Z$ has the same corners as $\Gamma$, its corner chains are those of
 $\Gamma$ except for the singleton chains of the vertices in $(c,e)$, and its
 set $\Gplus$ consists of the edges of $\Gplus$ inside $Z$.
 Every vertex strictly between $a$ and $e$ is the last vertex of its chain.
@@ -437,7 +442,7 @@ every natural edge with both endpoints strictly between $a$ and $e$, or ending
 at $e$ and starting after $a$, lies in $\Gplus$.
 
 \begin{lemma}\label{lem:lastClique}
-If Theorem~\ref{thm:connectivity} holds for the core, then it holds for
+If Theorem~\ref{thm:connectivity} holds for $\Gamma_Z$, then it holds for
 $\Gamma$.
 \end{lemma}
 
@@ -448,26 +453,27 @@ We show in four steps that $\theta$ can be joined to an orientation containing a
 fixed spanning tree $T$, and that all such orientations of the same size are
 joined.
 
-\smallskip\noindent\textbf{Blocks inside the last clique.}
+\smallskip\noindent\textbf{Components inside the last clique.}
 All pairs in $[a,e]$ are natural.
-Let a \defin{block} be a connected component of the graph formed by the edges of
-$\theta$ inside $[a,e]$.
-A path between two vertices of a block stays in $[a,e]$, and hence in the block.
-So a flip of the complete graph on a block, with its vertices in increasing
-order, is a flip of $\Gamma$ which changes the edges inside the block and fixes
+Consider the connected components of the graph formed by the edges of $\theta$
+inside $[a,e]$.
+A path between two vertices of such a component stays in $[a,e]$, and hence in
+the component.
+So a flip of the complete graph on a component, with its vertices in increasing
+order, is a flip of $\Gamma$ which changes the edges inside the component and fixes
 all other edges.
-The block containing $a$ and $e$ has the extreme edge $ae$, which is a cover,
+The component containing $a$ and $e$ has the extreme edge $ae$, which is a cover,
 so Lemma~\ref{lem:complete} applies to it.
 
-\smallskip\noindent\textbf{Step 1: making the core connected.}
-In the block containing $a$ and $e$, the vertex $a$ is only adjacent to $e$.
-By Lemma~\ref{lem:complete} we replace the edges of this block by the star of all
+\smallskip\noindent\textbf{Step 1: making $\theta_Z$ connected.}
+In the component containing $a$ and $e$, the vertex $a$ is only adjacent to $e$.
+By Lemma~\ref{lem:complete} we replace the edges of this component by the star of all
 edges to $e$, together with other edges avoiding $a$ to keep their number.
 This is possible since a connected graph on $k$ vertices in which one vertex is
 a leaf has between $k-1$ and $1+\binom{k-1}{2}$ edges.
-Every other block meets $(a,c]$, since otherwise it would be a connected
+Every other component meets $(a,c]$, since otherwise it would be a connected
 component of $\theta$.
-For such a block, let $u$ be its least vertex and $v\leq c$ another vertex.
+For such a component, let $u$ be its least vertex and $v\leq c$ another vertex.
 Take a path of covers from $u$ to $v$, using the edges in either direction.
 If its largest vertex $z$ exceeds $v$, its neighbours $i<j$ on the path are
 joined to $z$ by covers, and $jz\mapsto ij\ [iz]$ is a flip, which shortens the
@@ -477,40 +483,41 @@ inside its interval, the largest vertex decreases.
 Repeating, we obtain a path of covers in $[u,v]$, which joins $u$ and $v$ by
 edges inside $Z$.
 These flips do not disconnect pairs which were joined inside $[1,c]$ before.
-Repeating this, every block meets $Z$ in a connected graph.
+Repeating this, every component meets $Z$ in a connected graph.
 Every natural edge with an endpoint in $(c,e)$ lies inside $ae$, so we can
 replace every part of a path in $\theta$ outside $Z$ by a path inside the
-corresponding block, and the edges of $\theta$ inside $Z$ form a connected graph.
+corresponding component, and the edges of $\theta$ inside $Z$ form a connected graph.
 
-\smallskip\noindent\textbf{Step 2: changing the core.}
+\smallskip\noindent\textbf{Step 2: changing $\theta_Z$.}
 Suppose the edges of $\theta$ inside $Z$ form a connected graph.
 We perform $ve\mapsto av\ [ae]$ for all $ve\in\theta$ with $c<v<e$, in decreasing
 order of $v$.
-These are flips by the argument for the sweeps in Lemma~\ref{lem:crossingSlide},
+These are flips by the argument for the first flips in the proof of
+Lemma~\ref{lem:crossingSlide},
 and they do not change edges inside $Z$ or the cover tests of other corners.
 Afterwards no vertex outside $Z$ has an edge to $e$, so a path leaving $Z$
 cannot return to $Z$.
-Hence every path of flips in the core lifts, with all edges outside $Z$ fixed.
-By assumption we can reach any connected orientation of the core in $\Gplus$
+Hence every path of flips in $\Gamma_Z$ lifts, with all edges outside $Z$ fixed.
+By assumption we can reach any connected orientation of $\Gamma_Z$ in $\Gplus$
 with the same number of edges.
-At its end $a$ has no edge to $(a,e)$ inside $Z$, and we reverse the sweep in
+At its end $a$ has no edge to $(a,e)$ inside $Z$, and we reverse the first flips in
 increasing order of $v$.
 
 \smallskip\noindent\textbf{Step 3: a fixed tree.}
-In the set $\Gplus$ of the core, the corners and the edges $ve$ with $a<v\leq c$
+In the set $\Gplus$ of $\Gamma_Z$, the corners and the edges $ve$ with $a<v\leq c$
 form a forest: every vertex has at most one outgoing edge among them, and all
 edges point upwards.
-Since the core of $\theta$ is connected, this forest extends to a spanning tree
-$T'$ of the core inside $\Gplus$.
+Since $\theta_Z$ is connected, this forest extends to a spanning tree $T'$ of
+$\Gamma_Z$ inside $\Gplus$.
 Inside $[a,e]$, the tree $T'$ consists of the edges to $e$, and $T'$ does not
 contain $ba$, since $bc,ce,ea$ already join $b$ and $a$.
-Adding edges of $\Gplus$ to $T'$ we obtain a connected orientation of the core with
-the same number of edges as the core of $\theta$, and Step~2 reaches it.
-Now all of $[a,e]$ is one block.
-Indeed, every vertex in $(c,e)$ is joined, inside its block, to a vertex of $Z$ by
+Adding edges of $\Gplus$ to $T'$ we obtain a connected orientation of $\Gamma_Z$
+with the same number of edges as $\theta_Z$, and Step~2 reaches it.
+Now all of $[a,e]$ is one component.
+Indeed, every vertex in $(c,e)$ is joined, inside its component, to a vertex of $Z$ by
 a path whose edges are not inside $Z$, and these edges were not changed; and
 the vertices of $Z\cap[a,e]$ are joined to $e$ by $T'$.
-Since $ae$ is a cover, Lemma~\ref{lem:complete} makes the block a star at $e$
+Since $ae$ is a cover, Lemma~\ref{lem:complete} makes this component a star at $e$
 together with edges avoiding $a$, containing $T'\cap[a,e]$.
 This gives an orientation containing the spanning tree
 $T=T'\cup\{ve:c<v<e\}$, see Figure~\ref{fig:lastCliqueTree}.
@@ -533,13 +540,14 @@ Let $P=\Gplus\setminus T$, let $P_Z$ be the positions in $P$ inside $Z$, and let
 $P_C$ be the set of pairs $uv$ with $a<u<v<e$, together with $ba$.
 Then $P=P_Z\cup P_C$, and $ba\in P_Z\cap P_C$.
 Step~2 exchanges any two positions of $P_Z$, and Lemma~\ref{lem:complete} on the
-block $[a,e]$ exchanges any two positions of $P_C\setminus\{ba\}$, restoring all
+component $[a,e]$ exchanges any two positions of $P_C\setminus\{ba\}$, restoring all
 other edges.
 Suppose $ba\in\theta$ and $x\in P_C\setminus\{ba\}$ is vacant.
 Let $d\neq c$ be an endpoint of $x$, and let $y$ be the edge joining $c$ and $d$.
-If $y\in\theta$, the block stays connected when we replace $ce$ by $x$, so
+If $y\in\theta$, the component stays connected when we replace $ce$ by $x$, so
 Lemma~\ref{lem:complete} performs this replacement.
-Then the crossing slide across the corners $bc$ and $ae$ exchanges $ba$ for $ce$,
+Then Lemma~\ref{lem:crossingSlide} for the corners $bc$ and $ae$ exchanges $ba$
+for $ce$,
 and we obtain $\theta-ba+x$.
 If $y\notin\theta$, the same construction with $y$ in place of $x$ gives
 $\theta-ba+y$, and then we exchange $y$ and $x$.
@@ -553,7 +561,8 @@ class, and with Lemma~\ref{lem:preparation} this proves the lemma.
 Reversing the order of the vertices maps flips to flips, since it reverses the
 direction of all edges and preserves covers.
 Hence Lemma~\ref{lem:lastClique} also holds for the first two corners, with the
-core $\{1\}\cup[b',n]$ when the first two corners are $1a'$ and $b'c'$.
+graph induced on $\{1\}\cup[b',n]$ in place of $\Gamma_Z$ when the first two
+corners are $1a'$ and $b'c'$.
 
 \subsection{The first vertex}
 
@@ -569,7 +578,8 @@ edges $1v$ for $v$ in
 For $v\in J$, let $vh_v$ be the corner leaving $v$.
 Then $h_v>a$, since a corner starting in $(1,a)$ does not end inside $[1,a]$,
 and $d_v=ah_v$ is a normal edge of $(\Gamma')^{+}$.
-The crossing slide across the corners $1a$ and $vh_v$ exchanges $1v$ and $d_v$.
+Lemma~\ref{lem:crossingSlide} for the corners $1a$ and $vh_v$ exchanges $1v$ and
+$d_v$.
 
 \begin{lemma}\label{lem:firstVertex}
 Suppose that Theorem~\ref{thm:connectivity} holds for $\Gamma'$, and that
@@ -583,7 +593,7 @@ If the edges of $\theta$ inside $[2,n]$ do not form a connected graph, let $B$ b
 component containing $a$.
 Some edge $1v\in\theta$ ends in another component, and then $v\in J$, the vertices
 $v$ and $h_v$ lie in the same component, and $d_v\notin\theta$.
-The crossing slide replaces $1v$ by $d_v$, and the number of edges at $1$
+Lemma~\ref{lem:crossingSlide} replaces $1v$ by $d_v$, and the number of edges at $1$
 decreases.
 Hence we may assume that the edges inside $[2,n]$ form a connected graph.
 
@@ -606,7 +616,8 @@ The corresponding orientations of $\Gamma'$ have $t$ and $t+1$ edges, with
 $n-2\leq t<m$.
 Since $(\Gamma')^{+}\setminus\{d_v\}$ is connected, there is a connected
 orientation of $\Gamma'$ in $(\Gamma')^{+}$ with $t$ edges avoiding $d_v$.
-Together with the edges $1w$, $w\in S$, the crossing slide moves it to an
+Together with the edges $1w$, $w\in S$, Lemma~\ref{lem:crossingSlide} moves it
+to an
 orientation with the set $S\setminus\{v\}$.
 Thus the classes for $S$ and $S\setminus\{v\}$ agree.
 

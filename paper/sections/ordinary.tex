@@ -10,7 +10,7 @@ $\Ev(\Lay_s)$ over all orientations with $s$ strict and ascending edges.
 These are the bounce relations of~\cite{AlexanderssonSulzgruber2022} in a form
 that keeps the number of edges fixed.
 To pass from all orientations to one flip class $C$, we show that every other
-class in the same layer can be written, with the same integer coefficients for
+class with the same number of edges can be written, with the same integer coefficients for
 $\Kv$ and $\Ev$, in terms of classes of smaller graphs.
 For this we need to know that one class contains all orientations of a certain
 kind; this is Theorem~\ref{thm:connectivity}.
@@ -51,7 +51,6 @@ and conversely every flip of $\Gamma\setminus f$ is a flip of $\Gamma$.
 
 By Lemma~\ref{lem:flipInvariants}, every corner is either present throughout
 a flip class or absent throughout.
-We say that $\Gamma$ is \defin{saturated} if every corner is strict.
 
 \subsection{Fixing the color of a vertex}
 
@@ -78,13 +77,14 @@ Summing over $\beta$ gives back $\Kv(X)$ and $\Ev(X)$.
 Below, $c$ is always the largest vertex of the graph under consideration, so
 that~\eqref{eq:markedE} applies, and $\elementaryE_\theta[\beta]$ only depends on
 the fibre sizes and on the size of the fibre of $c$.
-The marked values are preserved by every operation used below: by
+The values with the color of $c$ fixed are preserved by every operation used
+below: by
 Lemma~\ref{lem:decoration}; by deleting a redundant edge, which preserves
 $\Pplus{\theta}$; by the four-term identity, whose pairing preserves the whole
 map $\hrv{\theta}{\cdot}$; and by relabellings as in Lemma~\ref{lem:sinkRelabel}
 which fix $c$.
 
-\subsection{The layer relations}
+\subsection{Two relations}
 
 For an integer $s$, let $\defin{\Lay_s(\Gamma)}$ be the set of orientations
 $\theta$ such that $\Dplus{\theta}$ has $s$ edges.
@@ -115,8 +115,8 @@ unit-interval graph.
 In the DN case, $a_y=x-u=a_x$, so the new area sequence is valid at $y$, and
 $a_{t+1}<a_t$ by the condition on $b(t+1)$.
 The target of an NN contact has one natural edge fewer.
-The target of a DN contact has the same number of natural edges, and its
-\defin{moment} $\mom(\Gamma)\coloneqq\sum_i i\,a_i$ is smaller by $t-y$.
+The target of a DN contact has the same number of natural edges, and
+$\mom(\Gamma)\coloneqq\sum_i i\,a_i$ is smaller by $t-y$.
 
 \begin{figure}[!ht]
 \centering
@@ -161,8 +161,8 @@ and in its target $uy$.}
 \end{figure}
 
 \begin{proposition}\label{prop:layer}
-Let $V$ be one of $\Kv$, $\Ev$, $\Kv[\beta]$ or $\Ev[\beta]$, where the
-marked vertex is $c=n$.
+Let $V$ be one of $\Kv$, $\Ev$, $\Kv[\beta]$ or $\Ev[\beta]$, with the color
+fixed at $c=n$.
 If $\Gamma$ has an NN contact with target $R$, then for all $s$
 \[
  V(\Lay_s(\Gamma))=V(\Lay_s(R))+V(\Lay_{s-1}(R)).
@@ -174,18 +174,18 @@ for all $s$.
 \begin{proof}
 Consider an NN contact $(x,y,t)$, and let $\sigma$ be the transposition of $x$
 and $y$.
-We call the natural edges other than $xy$, $yt$ and $xt$ \defin{exterior}.
-They are the same in $\Gamma$ and $R$, and $\sigma$ permutes them: for $p<x$, the
+Let $E'$ be the set of natural edges other than $xy$, $yt$ and $xt$.
+It is the same for $\Gamma$ and $R$, and $\sigma$ permutes it: for $p<x$, the
 pair $px$ is natural if and only if $py$ is, since $b(x)=b(y)$; for $y<q<t$, the pairs
 $xq$ and $yq$ are both natural since they lie inside $xt$; and there are no
 natural edges from $x$ or $y$ to vertices beyond $t$.
-The strict exterior edges avoid $x$ and $y$, so $\sigma$ fixes them.
+The strict edges in $E'$ avoid $x$ and $y$, so $\sigma$ fixes them.
 
-Fix a set $\eta$ of exterior edges, containing the strict ones, and let
+Fix a set $\eta\subseteq E'$ containing the strict edges in $E'$, and let
 $D_{ij}$ be the graph $\eta+xt$ together with $xy$ if $i=1$ and $yt$ if $j=1$.
 These are the graphs $\Dplus{\theta}$ of the four orientations of $\Gamma$ with
-exterior $\eta$.
-The orientations of $R$ with exterior $\eta$ give the graphs $\eta+yt$ and
+$\Dplus{\theta}\cap E'=\eta$.
+The orientations of $R$ with $\Dplus{\theta}\cap E'=\eta$ give the graphs $\eta+yt$ and
 $\eta+xy+yt$.
 The edge $xt$ is redundant in $D_{11}$, and deleting it gives $\eta+xy+yt$.
 The permutation $\sigma$ maps $D_{00}$ onto $\sigma(\eta)+yt$.
@@ -198,8 +198,8 @@ four-term identity gives $V(D_{10})+V(D_{01})=V(D_{00})+V(D_{11})$.
 Let $L_r$ and $U_r$ be the sums of $V(\eta+yt)$ and $V(\eta+xy+yt)$ over
 all $\eta$ with $|\eta|=r$.
 Since $\eta\mapsto\sigma(\eta)$ preserves $|\eta|$, the four graphs $D_{ij}$ with
-$|\eta|=r$ contribute $L_r$, $L_r+U_r$ and $U_r$ to the layers
-of sizes $r+1$, $r+2$ and $r+3$.
+$|\eta|=r$ contribute $L_r$, $L_r+U_r$ and $U_r$ to $\Lay_{r+1}(\Gamma)$,
+$\Lay_{r+2}(\Gamma)$ and $\Lay_{r+3}(\Gamma)$.
 Thus
 \[
  V(\Lay_s(\Gamma))=L_{s-1}+L_{s-2}+U_{s-2}+U_{s-3},
@@ -208,12 +208,12 @@ Thus
 \]
 which proves the first relation.
 
-For a DN contact $(u,x,y,t)$, define the exterior edges as the natural edges of
+For a DN contact $(u,x,y,t)$, let $E'$ be the set of natural edges of
 $\Gamma$ or $R$ other than $ux$, $uy$, $xy$, $xt$ and $yt$, and again let
 $\sigma$ exchange $x$ and $y$.
-The previous argument shows that $\sigma$ permutes the exterior edges, now using
+The previous argument shows that $\sigma$ permutes $E'$, now using
 that for $p<x$ with $p\neq u$, the pair $px$ is natural if and only if $py$ is.
-For a fixed exterior $\eta$, the source has the strict edges $ux,xt$ and the
+For fixed $\eta$, the source has the strict edges $ux,xt$ and the
 optional edges $xy,yt$, and the target has the strict edges $uy,yt$ and the
 optional edges $ux,xy$.
 We apply the four-term identity to the triangle $x<y<t$ in the source and to the
@@ -231,7 +231,7 @@ $L_{s-2}+L_{s-3}+U_{s-3}+U_{s-4}$, which proves the second
 relation.
 \end{proof}
 
-Multiplying the layer relations by $q^{s-|S|}$ and summing over $s$, the
+Multiplying the relations of Proposition~\ref{prop:layer} by $q^{s-|S|}$ and summing over $s$, the
 NN relation becomes $F_\Gamma=(1+q)F_R$ and the DN relation becomes
 $F_\Gamma=F_R$, for $F_\Gamma=\LLT_\Gamma(\xvec;q+1)$ and for the right-hand side of
 Theorem~\ref{thm:AS}.
@@ -263,8 +263,8 @@ The corner relation deletes a normal corner, or marks it strict; it follows by
 summing Lemma~\ref{lem:decoration} over all flip classes, since every corner is
 present throughout a flip class or absent from it.
 The NN and DN relations are the summed forms of Proposition~\ref{prop:layer}.
-We do not use the ND relation: at the first contact, a strict corner ending at
-$y$ is unmarked instead, by Lemma~\ref{lem:decoration}(i).
+We do not use the ND relation: in Lemma~\ref{lem:firstContact}, a strict corner
+ending at $y$ is unmarked instead, by Lemma~\ref{lem:decoration}(i).
 \end{remark}
 
 \begin{example}\label{ex:NNcontact}
@@ -288,9 +288,9 @@ $\LLT_\Gamma(\xvec;q+1)=(1+q)\LLT_R(\xvec;q+1)$.
 We now express certain flip classes in terms of flip classes of graphs with
 fewer natural edges.
 In all three cases the coefficients are the same for $\Kv$ and $\Ev$, and for
-the marked values.
+the values with the color fixed at $c=n$.
 
-\begin{lemma}[Absent corners]\label{lem:absentCorner}
+\begin{lemma}\label{lem:absentCorner}
 If some corner is absent from $\Dplus{\theta}$ for $\theta\in C$, then $C$ is a
 flip class of a graph with fewer natural edges, with the same values.
 \end{lemma}
@@ -299,12 +299,12 @@ flip class of a graph with fewer natural edges, with the same values.
 This is Lemma~\ref{lem:decoration}(ii).
 \end{proof}
 
-\begin{lemma}[Disconnected classes]\label{lem:disconnected}
+\begin{lemma}\label{lem:disconnected}
 Suppose that the natural graph of $\Gamma$ is connected, but the underlying
 undirected graph of $\Dplus{\theta}$ is disconnected for $\theta\in C$.
 Then there is a graph $\Gamma'$ with fewer natural edges on the same vertex
-set, and a flip class $C'$ of $\Gamma'$, with the same values, including the
-values marked at $c=n$.
+set, and a flip class $C'$ of $\Gamma'$, with the same values, also with the
+color fixed at $c=n$.
 \end{lemma}
 
 \begin{proof}
@@ -330,7 +330,7 @@ increasing on each component; so $\rho$ maps fibres to fibres, and fixes $n$
 together with the position of $n$ in its fibre.
 \end{proof}
 
-\begin{lemma}[Classes without common corner covers]\label{lem:noCover}
+\begin{lemma}\label{lem:noCover}
 Suppose that every corner is strict, and that for every $\theta\in C$ some corner
 is not a cover of $\Pplus{\theta}$.
 For a set $T$ of corners, let $\Gamma\setminus T$ be the graph with the corners
@@ -368,7 +368,7 @@ The corner $f$ may depend on $\theta$, but the identity holds for each $\theta$.
 Summing over $C$ and separating the term $T=\emptyset$ proves the claim.
 \end{proof}
 
-\subsection{Isolating one class}
+\subsection{One flip class}
 
 The following theorem is proved in Section~\ref{sec:connectivity}.
 A vertex $v$ is an \defin{articulation} of a connected graph if deleting it
@@ -385,18 +385,21 @@ $\Pplus{\theta'}$.
 Then $\theta$ and $\theta'$ lie in the same flip class.
 \end{theorem}
 
-We say that an identity $V(C)=\sum_iz_iV(C_i)$ is a \defin{certificate} for $C$
-if the integers $z_i$ do not depend on $V\in\{\Kv,\Ev,\Kv[\beta],\Ev[\beta]\}$,
-with the color fixed at $c=n$, and if every $C_i$ is a flip class of a graph
-$\Gamma_i$ on $[n]$ such that $(|E(\Gamma_i)|,\mom(\Gamma_i))$ is
-lexicographically smaller than $(|E(\Gamma)|,\mom(\Gamma))$.
+We shall express flip classes in the form
+\begin{equation}\label{eq:reduction}
+ V(C)=\sum_iz_iV(C_i)\qquad\text{for }V\in\{\Kv,\Ev,\Kv[\beta],\Ev[\beta]\},
+\end{equation}
+with the color fixed at $c=n$, where the integers $z_i$ do not depend on $V$,
+and every $C_i$ is a flip class of a graph $\Gamma_i$ on $[n]$ such that
+$(|E(\Gamma_i)|,\mom(\Gamma_i))$ is lexicographically smaller than
+$(|E(\Gamma)|,\mom(\Gamma))$.
 
 \begin{proposition}\label{prop:isolation}
 Suppose that $\Gamma$ satisfies the hypothesis of Theorem~\ref{thm:connectivity}
 and has an NN or a DN contact.
 Let $C$ be a flip class containing an orientation $\theta$ such that
 $\Dplus{\theta}$ is connected and every corner is a cover of $\Pplus{\theta}$.
-Then $C$ has a certificate.
+Then $C$ has an expansion~\eqref{eq:reduction}.
 \end{proposition}
 
 \begin{proof}
@@ -406,16 +409,17 @@ disconnected graph, or contains no orientation in which all corners are covers;
 otherwise it would contain an orientation as in Theorem~\ref{thm:connectivity},
 and hence equal $C$.
 In the first two cases Lemmas~\ref{lem:absentCorner} and~\ref{lem:disconnected}
-give a certificate for $C'$.
+give an expansion~\eqref{eq:reduction} of $C'$.
 In the third case, all corners are present in $C'$, and we mark them strict by
 Lemma~\ref{lem:decoration}(i) and apply Lemma~\ref{lem:noCover}.
 Proposition~\ref{prop:layer} expresses $V(\Lay_s(\Gamma))$ in terms of one or two
-layers of the target $R$, which are unions of flip classes of $R$.
+of the sets $\Lay_r(R)$ of the target $R$, which are unions of flip classes of
+$R$.
 Hence
 \[
  V(C)=V(\Lay_s(\Gamma))-\sum_{C'\neq C}V(C')
 \]
-is a certificate.
+is an expansion~\eqref{eq:reduction}.
 \end{proof}
 
 \subsection{Gluing at one vertex}
@@ -512,7 +516,7 @@ area sequence of the right part starts with $a_c=0$.
 Hence replacing the left part by a graph which is smaller in
 $(|E|,\mom)$ makes the glued graph smaller as well.
 
-\subsection{The prefix and the first contact}
+\subsection{The prefix}
 
 Suppose that the natural graph of $\Gamma$ is connected, that is, $a_i>0$ for
 $i>1$.
@@ -558,7 +562,8 @@ The prefix has the same area sequence as $\Gamma$ up to $c$, and
 $a_{c+1}<a_c$ both in $\Gamma$ and in the prefix, since $a_c\geq2$.
 
 \begin{lemma}\label{lem:firstContact}
-Let $\Gamma$ be saturated, with connected natural graph which is not a path.
+Let $\Gamma$ be a graph in which every corner is strict, with connected natural
+graph which is not a path.
 Let $t$ be the least index with $a_{t+1}<a_t$, where $a_{n+1}=0$, and put
 $x=b(t)$ and $y=x+1$.
 Then $a_t\geq2$, and after unmarking the strict edge ending at $y$, if there is
@@ -624,7 +629,7 @@ By Lemma~\ref{lem:firstContact} and Lemma~\ref{lem:decoration}(i), the prefix
 has an NN or DN contact, possibly after unmarking one corner which is present in
 $C_1$.
 The prefix satisfies the hypothesis of Theorem~\ref{thm:connectivity}, and
-Proposition~\ref{prop:isolation} gives a certificate
+Proposition~\ref{prop:isolation} gives an expansion~\eqref{eq:reduction}
 $V(C_1)[\beta]=\sum_iz_iV(C_{1,i})[\beta]$ on $[1,c]$, with the color fixed at
 the last vertex $c$ of the prefix.
 By Lemma~\ref{lem:gluing},

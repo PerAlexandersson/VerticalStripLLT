@@ -8,7 +8,7 @@ apply them to graphs obtained by adding or deleting single edges.
 Let $D$ be a directed graph on $[n]$ whose edges point upwards, or a periodic
 directed graph on $\setZ$ whose edges point upwards and whose projection to
 $\setZ/n\setZ$ is acyclic.
-In both cases every vertex $z$ has a largest reachable vertex, which we denote by
+In both cases every vertex $z$ has a highest reachable vertex, which we denote by
 $H_D(z)$; in the periodic case, the bound follows as in
 Section~\ref{subs:circularDefinitions}.
 The function $H_D$ is weakly decreasing along every edge of $D$, and $H_D(z)$ is
@@ -51,8 +51,6 @@ maps the sinks reachable from $z$ in $D$ onto the sinks reachable from
 $\sigma(z)$ in $D'$, preserving their order.
 \end{proof}
 
-We say that an edge is \defin{ineffective} in $D$ if it satisfies the hypothesis
-of Lemma~\ref{lem:ineffective}(i).
 
 \begin{lemma}[The four-term identity]\label{lem:fourTerm}
 Let $D$ be a directed graph on $[n]$ with upward edges.
@@ -95,16 +93,17 @@ prescribed, gives the second statement.
 For (ii), let $H=H_D$.
 Since $uw$ is an edge, $H(w)\leq H(u)$.
 Suppose first that $H(w)\leq H(v)$.
-Then $vw$ is ineffective in $D$.
 Adding $uv$ does not change $H$ at $v$ or at $w$, since no path starting at
 $v$ or $w$ uses an edge leaving $u<v$.
-Hence $vw$ is also ineffective in $D_{10}$, and Lemma~\ref{lem:ineffective}
-pairs $D_{00}$ with $D_{01}$ and $D_{10}$ with $D_{11}$.
+Hence $H_{D_{10}}(w)\leq H_{D_{10}}(v)$ as well, and
+Lemma~\ref{lem:ineffective}(i) for $F=\{vw\}$ pairs $D_{00}$ with $D_{01}$ and
+$D_{10}$ with $D_{11}$.
 Suppose instead that $H(v)<H(w)$.
-Then $uv$ is ineffective in $D$, since $H(v)<H(w)\leq H(u)$.
+Then $H(v)<H(w)\leq H(u)$.
 In $D_{01}$, a path from $v$ either avoids $vw$ or continues from $w$, so
 $H_{D_{01}}(v)\leq \max(H(v),H(w))=H(w)\leq H_{D_{01}}(u)$.
-Thus $uv$ is ineffective in $D_{01}$ as well, and we obtain the second pairing.
+Lemma~\ref{lem:ineffective}(i) for $F=\{uv\}$, applied to $D$ and to $D_{01}$,
+gives the second pairing.
 \end{proof}
 
 Lemma~\ref{lem:fourTerm} does not say that the two middle terms correspond to

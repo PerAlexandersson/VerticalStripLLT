@@ -48,14 +48,14 @@ $u$ to $v$ the \defin{gain} $\delta(e)=\ell(e)-(p(v)-p(u))$.
 Changing $p$ by a constant on a component does not change the gain of a closed
 walk.
 
-We call a directed multigraph with gains \defin{negative} if every directed cycle
-has negative gain, and \defin{cyclic} if every edge lies on a directed cycle.
+For a directed multigraph $Q$ with gains, let $\nu(Q)=1$ if every directed cycle
+of $Q$ has negative gain, and $\nu(Q)=0$ otherwise.
+Let $\zeta(Q)=1$ if every edge of $Q$ lies on a directed cycle, and
+$\zeta(Q)=0$ otherwise.
 
 \begin{definition}\label{def:coefficient}
-For a balanced $F\subseteq\theta$, let
-$\defin{\chi(\theta,F)}=(-1)^{c(F)-c(\theta)}$ if the contracted graph is negative
-and cyclic.
-Otherwise let $\chi(\theta,F)=0$.
+For a balanced $F\subseteq\theta$ with contracted graph $Q$, let
+$\defin{\chi(\theta,F)}=(-1)^{c(F)-c(\theta)}\,\nu(Q)\,\zeta(Q)$.
 For $F$ not balanced, or not contained in $\theta$, we put $\chi(\theta,F)=0$.
 \end{definition}
 
@@ -89,7 +89,7 @@ the lift of the deleted edge $1\to2$:
 \]
 \end{example}
 
-\subsection{The finite deletion identity}
+\subsection{Deleting edges of a cycle}
 
 \begin{lemma}\label{lem:deletion}
 Let $\theta$ be admissible, and let $Z$ be a cycle of the undirected graph of
@@ -154,7 +154,7 @@ $i\leq j$.
 For every finite directed multigraph $G$,
 \[
  \sum_{\omega}(-1)^{k(\omega)}
- =(-1)^{c(G)}\,[\text{every edge of } G \text{ lies on a directed cycle}],
+ =(-1)^{c(G)}\,\zeta(G),
 \]
 where $\omega$ ranges over the ordered partitions compatible with $G$, and
 $k(\omega)$ is the number of blocks.
@@ -200,14 +200,14 @@ $J\subsetneq N$, and by induction it suffices to prove
 
 Fix $F$; we may assume that $F$ is balanced, with a potential $p$.
 Contract the components of $F$ and let $Q$ be the resulting multigraph with gains.
-Its edges are the edges of $B\setminus F$, which we call \defin{required}, and the
-edges of $N'=N\setminus F$, which are \defin{optional}.
+Its edges are the edges of $B\setminus F$, which we call required, and the
+edges of $N'=N\setminus F$, which we call optional.
 Only the sets $J$ containing $F\cap N$ contribute.
 Writing $Q_J$ for the required edges together with the optional edges in $J$,
 and using $c(B\cup J)=c(Q_J)$, the identity~\eqref{eq:coefficientCancellation}
 becomes, up to a common sign,
 \begin{equation}\label{eq:gainSum}
- \sum_{J\subseteq N'}(-1)^{|J|+c(Q_J)}\,[Q_J \text{ is negative and cyclic}]=0.
+ \sum_{J\subseteq N'}(-1)^{|J|+c(Q_J)}\,\nu(Q_J)\,\zeta(Q_J)=0.
 \end{equation}
 The cycle $Z$ projects to a closed walk in $Q$ which follows the required edges
 forwards and the optional edges backwards, and since the potential
@@ -220,7 +220,7 @@ the sums on the left ranging over the edges of the walk.
 
 By Lemma~\ref{lem:orderedPartitions}, the left side of~\eqref{eq:gainSum} equals
 $\sum_\omega(-1)^{k(\omega)}S_\omega$, where $S_\omega$ is the sum of $(-1)^{|J|}$
-over the $J$ such that $\omega$ is compatible with $Q_J$ and $Q_J$ is negative.
+over the $J$ such that $\omega$ is compatible with $Q_J$ and $\nu(Q_J)=1$.
 Fix $\omega$, and assume that the required edges are compatible with $\omega$,
 since otherwise $S_\omega$ is empty.
 If an optional edge compatible with $\omega$ goes strictly upwards between blocks,
@@ -233,28 +233,29 @@ edges traversed backwards increase it strictly.
 The total change is zero, so the walk lies in a single block, and it remains to
 show that
 \begin{equation}\label{eq:negativeSum}
- \sum_{J}(-1)^{|J|}\,[Q_J \text{ is negative}]=0,
+ \sum_{J}(-1)^{|J|}\,\nu(Q_J)=0,
 \end{equation}
 the sum ranging over the sets $J$ of compatible optional edges.
 
 Let $M$ exceed both the number of vertices and the number of optional edges of
 $Q$, and put $\gamma(e)=M\delta(e)+1$.
 A simple cycle of length $r$ has $\gamma$-gain $M g+r$, where $g$ is its gain, so
-$Q_J$ is negative if and only if no cycle has positive $\gamma$-gain.
+$\nu(Q_J)=1$ if and only if no cycle has positive $\gamma$-gain.
 In that case let $\tau(y)$ be the maximum of $0$ and the $\gamma$-gains of the
 directed walks ending at $y$.
 It is the least nonnegative function with $\tau(v)-\tau(u)\geq\gamma(e)$ for all edges
 $e$ from $u$ to $v$ of $Q_J$.
-We call an optional edge \defin{slack} if $\tau(v)-\tau(u)>\gamma(e)$.
 Summing $\tau(v)-\tau(u)-\gamma(e)$ around the closed walk,
 by~\eqref{eq:walkGain} the optional edges exceed the required ones by
 $M(\sum\delta-\sum\delta)+(\#\text{required}-\#\text{optional})>0$,
-so some optional edge of the walk is slack.
-Adding a slack edge preserves the inequalities, so $\tau$ does not change, and
+so some optional edge $e$ of the walk, from $u$ to $v$, has
+$\tau(v)-\tau(u)>\gamma(e)$.
+Adding such an edge preserves the inequalities, so $\tau$ does not change, and
 removing it does not change $\tau$ either, since a walk through it is not
 maximizing.
-Toggling the first slack edge is therefore a sign-reversing involution, which
-proves~\eqref{eq:negativeSum} and the proposition.
+Toggling the first such edge, in a fixed order of the optional edges, is
+therefore a sign-reversing involution, which proves~\eqref{eq:negativeSum} and
+the proposition.
 \end{proof}
 
 \subsection{Constancy on flip classes}
@@ -273,7 +274,8 @@ Let $\theta$ and $\eta$ differ by a flip which exchanges $ab$ for $bc$ across
 $ac$, in a window $a<b<c<a+n$ of the lift.
 Let $\alpha\in C$ with $\chi(\alpha,\theta)\neq0$, so $\theta\subseteq\alpha$.
 Choose a potential $p$ of $\theta$ and contract the components of $\theta$.
-The edges of $\alpha\setminus\theta$ form a negative graph, so with
+In the contracted graph, every directed cycle formed by edges of
+$\alpha\setminus\theta$ has negative gain, so with
 $\gamma=M\delta+1$, where $M$ exceeds the number of vertices, there is a function
 $\tau$ on the contracted vertices with $\tau(v)-\tau(u)\geq\gamma(e)$ for these edges,
 as in the proof of Proposition~\ref{prop:balancedExpansion}.
