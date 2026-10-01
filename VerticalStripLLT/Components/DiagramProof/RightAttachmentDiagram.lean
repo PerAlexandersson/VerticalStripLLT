@@ -1,5 +1,5 @@
 import VerticalStripLLT.Components.DiagramProof.InducedRestriction
-import VerticalStripLLT.Components.DiagramProof.NaturalRelations
+import VerticalStripLLT.Components.DiagramProof.RelationalDiagram
 import VerticalStripLLT.Components.DiagramProof.InducedDecorations
 
 /-!
@@ -335,10 +335,10 @@ section Construction
 variable (L : Diagram (p + 1)) (R : Diagram (q + 1)) (hL : Forward L) (hR : Forward R)
 
 include hL hR in
-theorem attachNatural_interval {u v w : Fin (p + q + 1)}
-    (h : attachUnion (naturalRel L) (naturalRel R) u w) (huv : u < v) (hvw : v < w) :
-    attachUnion (naturalRel L) (naturalRel R) u v ∧
-      attachUnion (naturalRel L) (naturalRel R) v w := by
+theorem attachNatural_ordinary : OrdinaryRelation (attachUnion (naturalRel L) (naturalRel R)) := by
+  refine ⟨fun u v h => attachUnion_forward (fun _ _ => naturalRel_forward hL)
+    (fun _ _ => naturalRel_forward hR) h, ?_⟩
+  intro u v w h huv hvw
   rcases h with ⟨a, c, rfl, rfl, hac⟩ | ⟨a, c, rfl, rfl, hac⟩
   · obtain ⟨b, rfl⟩ := (exists_attachLeft_iff v).mpr (by
       have hc := (exists_attachLeft_iff (attachLeft p q c)).mp ⟨c, rfl⟩
@@ -355,89 +355,44 @@ theorem attachNatural_interval {u v w : Fin (p + q + 1)}
       ((attachRight p q).lt_iff_lt.mp huv) ((attachRight p q).lt_iff_lt.mp hvw)
     exact ⟨Or.inr ⟨a, b, rfl, rfl, hab⟩, Or.inr ⟨b, c, rfl, rfl, hbc⟩⟩
 
-/-- The natural union, before adding its strict markings. -/
-def attachUndecorated : Diagram (p + q + 1) :=
-  Diagram.ofIntervalRelation (attachUnion (naturalRel L) (naturalRel R))
-    (fun h huv hvw => attachNatural_interval L R hL hR h huv hvw) (Nat.succ_pos _)
-
-theorem attachUndecorated_naturalRel (u v : Fin (p + q + 1)) :
-    naturalRel (attachUndecorated L R hL hR) u v ↔
-      attachUnion (naturalRel L) (naturalRel R) u v :=
-  Diagram.ofIntervalRelation_naturalEdge_iff _
-    (fun h => attachUnion_forward (fun _ _ => naturalRel_forward hL)
-      (fun _ _ => naturalRel_forward hR) h) _ _ u v
-
-theorem attachUndecorated_forward : Forward (attachUndecorated L R hL hR) := by
-  intro e
-  exact attachUnion_forward (fun _ _ => naturalRel_forward hL)
-    (fun _ _ => naturalRel_forward hR)
-    ((attachUndecorated_naturalRel L R hL hR _ _).mp ⟨e, rfl, rfl⟩)
-
-/-- A strict corner of either factor is still a maximal natural interval of the union. -/
-theorem attach_isCorner (e : Edge (attachUndecorated L R hL hR).area)
-    (he : attachUnion (strictRel L) (strictRel R) e.tail e.head) : IsCorner e := by
-  have hU := attachUndecorated_forward L R hL hR
-  apply (isCorner_iff_maximal hU e).mpr
-  intro g hgt hgh
-  have hg := (attachUndecorated_naturalRel L R hL hR _ _).mp ⟨g, rfl, rfl⟩
-  have hgfwd : g.tail < g.head := hU g
-  apply (attachUndecorated L R hL hR).endpointEmbedding.injective
-  rcases he with ⟨a, b, ha, hb, f, hf, rfl, rfl⟩ | ⟨a, b, ha, hb, f, hf, rfl, rfl⟩
-  · have hmax := (isCorner_iff_maximal hL f).mp (L.strict_corner f hf)
-    have hfb : f.head.val ≤ p := by have := f.head.isLt; lia
-    rcases hg with ⟨a', b', ha', hb', g', rfl, rfl⟩ | ⟨a', b', ha', hb', -⟩
-    · have hgf := hmax g'
-        ((attachLeft p q).le_iff_le.mp (by rw [ha', ha]; exact hgt))
-        ((attachLeft p q).le_iff_le.mp (by rw [hb', hb]; exact hgh))
-      subst hgf
-      exact Prod.ext (ha'.symm.trans ha) (hb'.symm.trans hb)
+include hL hR in
+/-- A strict corner of either factor is a maximal natural pair of the union. -/
+theorem attachStrict_maximal (s t : Fin (p + q + 1))
+    (hst : attachUnion (strictRel L) (strictRel R) s t) :
+    MaximalPair (attachUnion (naturalRel L) (naturalRel R)) s t := by
+  refine ⟨attachUnion_mono (fun _ _ => naturalRel_of_strictRel)
+    (fun _ _ => naturalRel_of_strictRel) hst, ?_⟩
+  intro x y hxy hxs hty
+  rcases hst with ⟨a, b, rfl, rfl, hab⟩ | ⟨a, b, rfl, rfl, hab⟩
+  · have hlt : a.val < b.val := naturalRel_forward hL (naturalRel_of_strictRel hab)
+    have hbp : b.val ≤ p := by have := b.isLt; lia
+    rcases hxy with ⟨a', b', rfl, rfl, hn⟩ | ⟨a', b', rfl, -, -⟩
+    · obtain ⟨h1, h2⟩ := strictRel_maximal hL hab hn ((attachLeft p q).le_iff_le.mp hxs)
+        ((attachLeft p q).le_iff_le.mp hty)
+      exact ⟨congrArg _ h1, congrArg _ h2⟩
     · exfalso
-      have h1 : (g.tail).val ≤ (e.tail).val := hgt
-      rw [← ha', ← ha] at h1
-      simp only [attachLeft_val, attachRight_val] at h1
-      have hft : f.tail < f.head := hL f
-      have hft' : f.tail.val < f.head.val := hft
+      have : (attachRight p q a').val ≤ (attachLeft p q a).val := hxs
+      simp only [attachLeft_val, attachRight_val] at this
       lia
-  · have hmax := (isCorner_iff_maximal hR f).mp (R.strict_corner f hf)
-    rcases hg with ⟨a', b', ha', hb', -⟩ | ⟨a', b', ha', hb', g', rfl, rfl⟩
+  · have hlt : a.val < b.val := naturalRel_forward hR (naturalRel_of_strictRel hab)
+    rcases hxy with ⟨a', b', -, rfl, -⟩ | ⟨a', b', rfl, rfl, hn⟩
     · exfalso
-      have h1 : (e.head).val ≤ (g.head).val := hgh
-      rw [← hb', ← hb] at h1
-      simp only [attachLeft_val, attachRight_val] at h1
-      have hft : f.tail < f.head := hR f
-      have hft' : f.tail.val < f.head.val := hft
+      have : (attachRight p q b).val ≤ (attachLeft p q b').val := hty
       have := b'.isLt
+      simp only [attachLeft_val, attachRight_val] at *
       lia
-    · have hgf := hmax g'
-        ((attachRight p q).le_iff_le.mp (by rw [ha', ha]; exact hgt))
-        ((attachRight p q).le_iff_le.mp (by rw [hb', hb]; exact hgh))
-      subst hgf
-      exact Prod.ext (ha'.symm.trans ha) (hb'.symm.trans hb)
+    · obtain ⟨h1, h2⟩ := strictRel_maximal hR hab hn ((attachRight p q).le_iff_le.mp hxs)
+        ((attachRight p q).le_iff_le.mp hty)
+      exact ⟨congrArg _ h1, congrArg _ h2⟩
 
 /-- The ordinary diagram obtained by gluing `R` to the right endpoint of `L`. -/
-def attachDiagram : Diagram (p + q + 1) where
-  area := (attachUndecorated L R hL hR).area
-  strict := Finset.univ.filter fun e =>
-    attachUnion (strictRel L) (strictRel R) e.tail e.head
-  strict_corner := by
-    intro e he
-    exact attach_isCorner L R hL hR e (Finset.mem_filter.mp he).2
+def attachDiagram : Diagram (p + q + 1) :=
+  ofRelations (attachUnion (naturalRel L) (naturalRel R)) (attachUnion (strictRel L) (strictRel R))
+    (attachNatural_ordinary L R hL hR) (attachStrict_maximal L R hL hR) (Nat.succ_pos _)
 
 theorem attachDiagram_isRightAttachment :
-    IsRightAttachment (attachDiagram L R hL hR) L R where
-  forwardL := hL
-  forwardR := hR
-  natural := attachUndecorated_naturalRel L R hL hR
-  strict := by
-    intro u v
-    constructor
-    · rintro ⟨e, he, rfl, rfl⟩
-      exact (Finset.mem_filter.mp he).2
-    · intro huv
-      obtain ⟨e, rfl, rfl⟩ := (attachUndecorated_naturalRel L R hL hR u v).mpr
-        (attachUnion_mono (fun _ _ => naturalRel_of_strictRel)
-          (fun _ _ => naturalRel_of_strictRel) huv)
-      exact ⟨e, Finset.mem_filter.mpr ⟨Finset.mem_univ _, huv⟩, rfl, rfl⟩
+    IsRightAttachment (attachDiagram L R hL hR) L R :=
+  ⟨hL, hR, fun _ _ => ofRelations_naturalRel .., fun _ _ => ofRelations_strictRel ..⟩
 
 end Construction
 

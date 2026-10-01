@@ -249,6 +249,32 @@ theorem swap_back {a : Fin (k + 1)} (hx : nnSwap x y a ≠ x) (hy : nnSwap x y a
   rw [nnSwap_involutive] at this
   exact this.symm
 
+omit h in
+/-- Swapping `x` and `x + 1` preserves the order of sinks when `x` is not a sink. -/
+theorem swap_sinkOrder {D : Diagram (k + 1)} {θ : Orientation D} {x y t : Fin (k + 1)}
+    (hsucc : y.val = x.val + 1) (hxt : D.edgeData.selected θ.val x t) (u w : Fin (k + 1))
+    (hu : ∀ z, ¬ D.edgeData.selected θ.val u z) (hw : ∀ z, ¬ D.edgeData.selected θ.val w z)
+    (huw : u ≤ w) : nnSwap x y u ≤ nnSwap x y w := by
+  have hux : u ≠ x := fun he => hu t (he ▸ hxt)
+  have hwx : w ≠ x := fun he => hw t (he ▸ hxt)
+  have hxy : x < y := by rw [Fin.lt_def, hsucc]; lia
+  by_cases huy : u = y
+  · rw [huy, Equiv.swap_apply_right]
+    by_cases hwy : w = y
+    · rw [hwy, Equiv.swap_apply_right]
+    · rw [swap_fix hwx hwy]
+      exact hxy.le.trans (huy ▸ huw)
+  · rw [swap_fix hux huy]
+    by_cases hwy : w = y
+    · rw [hwy, Equiv.swap_apply_right, Fin.le_def]
+      have h1 : u.val ≤ w.val := huw
+      rw [hwy] at h1
+      have h2 : u.val ≠ y.val := fun he => huy (Fin.ext he)
+      have h3 : u.val ≠ x.val := fun he => hux (Fin.ext he)
+      lia
+    · rw [swap_fix hwx hwy]
+      exact huw
+
 include hD
 
 /-- Strict pairs correspond under the swap. -/
@@ -408,35 +434,6 @@ theorem bottom_selected {Q : Finset (Fin (k + 1) × Fin (k + 1))}
     · exact Or.inl hs
     · exact Or.inr ⟨hq, ((mem_exterior.mp (hQ hq)).1).1⟩
 
-theorem bottom_sinkOrder {Q : Finset (Fin (k + 1) × Fin (k + 1))} (u w : Fin (k + 1))
-    (hu : ∀ z, ¬ D.edgeData.selected (stateOf hD Q).val u z)
-    (hw : ∀ z, ¬ D.edgeData.selected (stateOf hD Q).val w z) (huw : u ≤ w) :
-    nnSwap x y u ≤ nnSwap x y w := by
-  have hxs : ∀ z, ¬ D.edgeData.selected (stateOf hD Q).val z t → z ≠ x := by
-    intro z hz hzx
-    rw [hzx] at hz
-    exact hz ((stateOf_selected hD Q x t).mpr (Or.inl h.root))
-  have hux : u ≠ x := hxs u (hu t)
-  have hwx : w ≠ x := hxs w (hw t)
-  have hxy' := h.xy_lt
-  have hsucc := h.succ
-  by_cases huy : u = y
-  · rw [huy, Equiv.swap_apply_right]
-    by_cases hwy : w = y
-    · rw [hwy, Equiv.swap_apply_right]
-    · rw [swap_fix hwx hwy]
-      exact hxy'.le.trans (huy ▸ huw)
-  · rw [swap_fix hux huy]
-    by_cases hwy : w = y
-    · rw [hwy, Equiv.swap_apply_right, Fin.le_def]
-      have h1 : u.val ≤ w.val := huw
-      rw [hwy] at h1
-      have h2 : u.val ≠ y.val := fun he => huy (Fin.ext he)
-      have h3 : u.val ≠ x.val := fun he => hux (Fin.ext he)
-      lia
-    · rw [swap_fix hwx hwy]
-      exact huw
-
 /-- The states with both local shorts have the same closure. -/
 theorem top_transGen {Q : Finset (Fin (k + 1) × Fin (k + 1))} (hQ : Q ⊆ exterior D x y t) :
     Relation.TransGen (D.edgeData.selected (stateOf hD (insert (x, y) (insert (y, t) Q))).val) =
@@ -520,7 +517,8 @@ theorem layer (s m : ℕ) (β : Fin m) :
     ⟨(markedK_relabel _ _ (nnSwap x y) (h.bottom_selected hD (hQ Q hQ')) _
         h.swap_last m β).symm,
       (markedE_relabel_of_sinkOrder _ _ hD hR (nnSwap x y) (h.bottom_selected hD (hQ Q hQ'))
-        (h.bottom_sinkOrder hD) _ (fun u => Fin.le_last u) h.swap_last m β).symm⟩
+        (swap_sinkOrder h.succ ((stateOf_selected hD Q x t).mpr (Or.inl h.root))) _
+        (fun u => Fin.le_last u) h.swap_last m β).symm⟩
   have htop (Q) (hQ' : Q ∈ (exterior D x y t).powerset) :=
     markedValues_eq_of_transGen_eq hR hD _ _ (h.top_transGen hD (hQ Q hQ')).symm
       (Fin.last k) m β

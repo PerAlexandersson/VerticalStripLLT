@@ -800,7 +800,7 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms IsRightAttachment.glue_restrict
 #print axioms IsRightAttachment.glue_inj
 #print axioms IsRightAttachment.stateEquiv
-#print axioms attach_isCorner
+#print axioms attachStrict_maximal
 #print axioms attachDiagram_isRightAttachment
 #print axioms isRightAttachment_induced
 #print axioms target_selected_iff
@@ -949,6 +949,7 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms NNContact.strictRel_swap
 #print axioms NNContact.exterior_swap
 #print axioms NNContact.bottom_selected
+#print axioms NNContact.swap_sinkOrder
 #print axioms NNContact.top_transGen
 #print axioms NNContact.layer
 #print axioms NNContact.target_measureLT
@@ -962,7 +963,7 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms DNContact.top_transGen
 #print axioms DNContact.layer
 #print axioms DNContact.target_measureLT
-#print axioms swap_sinkOrder
+
 #print axioms certifies_of_layer
 #print axioms certifies_nn
 #print axioms certifies_dn

@@ -295,47 +295,6 @@ theorem dnTarget_strictRel (a b : Fin (k + 1)) :
     strictRel (dnTarget hD h) a b ↔ dnStrict D u x y t a b :=
   ofRelations_strictRel ..
 
-/-- Relations with the same transitive closure. -/
-theorem transGen_eq_of_le_transGen {α : Type*} {R S : α → α → Prop}
-    (h₁ : ∀ a b, R a b → Relation.TransGen S a b) (h₂ : ∀ a b, S a b → Relation.TransGen R a b) :
-    Relation.TransGen R = Relation.TransGen S := by
-  funext a b
-  apply propext
-  constructor
-  · intro hab
-    induction hab with
-    | single hr => exact h₁ _ _ hr
-    | tail _ hr ih => exact ih.trans (h₁ _ _ hr)
-  · intro hab
-    induction hab with
-    | single hr => exact h₂ _ _ hr
-    | tail _ hr ih => exact ih.trans (h₂ _ _ hr)
-
-/-- Swapping `x` and `x + 1` preserves the order of sinks when `x` is not a sink. -/
-theorem swap_sinkOrder {D : Diagram (k + 1)} {θ : Orientation D} {x y t : Fin (k + 1)}
-    (hsucc : y.val = x.val + 1) (hxt : D.edgeData.selected θ.val x t) (u w : Fin (k + 1))
-    (hu : ∀ z, ¬ D.edgeData.selected θ.val u z) (hw : ∀ z, ¬ D.edgeData.selected θ.val w z)
-    (huw : u ≤ w) : nnSwap x y u ≤ nnSwap x y w := by
-  have hux : u ≠ x := fun he => hu t (he ▸ hxt)
-  have hwx : w ≠ x := fun he => hw t (he ▸ hxt)
-  have hxy : x < y := by rw [Fin.lt_def, hsucc]; lia
-  by_cases huy : u = y
-  · rw [huy, Equiv.swap_apply_right]
-    by_cases hwy : w = y
-    · rw [hwy, Equiv.swap_apply_right]
-    · rw [NNContact.swap_fix hwx hwy]
-      exact hxy.le.trans (huy ▸ huw)
-  · rw [NNContact.swap_fix hux huy]
-    by_cases hwy : w = y
-    · rw [hwy, Equiv.swap_apply_right, Fin.le_def]
-      have h1 : u.val ≤ w.val := huw
-      rw [hwy] at h1
-      have h2 : u.val ≠ y.val := fun he => huy (Fin.ext he)
-      have h3 : u.val ≠ x.val := fun he => hux (Fin.ext he)
-      lia
-    · rw [NNContact.swap_fix hwx hwy]
-      exact huw
-
 namespace DNContact
 
 include h hD
@@ -642,7 +601,7 @@ theorem layer (s m : ℕ) (β : Fin m) :
     ⟨(markedK_relabel _ _ (nnSwap x y) (h.bottom_selected hD (hQ Q hQ')) _
         (h.swap_last) m β).symm,
       (markedE_relabel_of_sinkOrder _ _ hD hR (nnSwap x y) (h.bottom_selected hD (hQ Q hQ'))
-        (swap_sinkOrder h.succ ((stateOf_selected hD Q x t).mpr (Or.inl h.root))) _
+        (NNContact.swap_sinkOrder h.succ ((stateOf_selected hD Q x t).mpr (Or.inl h.root))) _
         (fun v => Fin.le_last v) (h.swap_last) m β).symm⟩
   have htop (Q) (hQ' : Q ∈ (NNContact.exterior D x y t).powerset) :=
     markedValues_eq_of_transGen_eq hR hD _ _ (h.top_transGen hD (hQ Q hQ')).symm

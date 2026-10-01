@@ -214,18 +214,27 @@ theorem deleteImage_closed (T : Finset (Fin n × Fin n)) (θ : Orientation D) :
   exact Finset.mem_image.mpr ⟨ζ, mem_flipComponent_iff.mpr
     ((mem_flipComponent_iff.mp hη).trans hp), rfl⟩
 
+/-- Relations with mutually bounded transitive closures have the same closure. -/
+theorem transGen_eq_of_le_transGen {α : Type*} {R S : α → α → Prop}
+    (h₁ : ∀ a b, R a b → Relation.TransGen S a b) (h₂ : ∀ a b, S a b → Relation.TransGen R a b) :
+    Relation.TransGen R = Relation.TransGen S := by
+  funext a b
+  apply propext
+  constructor
+  · intro hab
+    induction hab with
+    | single hr => exact h₁ _ _ hr
+    | tail _ hr ih => exact ih.trans (h₁ _ _ hr)
+  · intro hab
+    induction hab with
+    | single hr => exact h₂ _ _ hr
+    | tail _ hr ih => exact ih.trans (h₂ _ _ hr)
+
 /-- A relation between `S` and the transitive closure of `S` has the same closure. -/
 theorem transGen_eq_of_le_of_le_transGen {α : Type*} {R S : α → α → Prop}
     (h₁ : ∀ x y, S x y → R x y) (h₂ : ∀ x y, R x y → Relation.TransGen S x y) :
-    Relation.TransGen R = Relation.TransGen S := by
-  funext x y
-  apply propext
-  constructor
-  · intro h
-    induction h with
-    | single hr => exact h₂ _ _ hr
-    | tail _ hr ih => exact ih.trans (h₂ _ _ hr)
-  · exact fun h => Relation.TransGen.mono h₁ _ _ h
+    Relation.TransGen R = Relation.TransGen S :=
+  transGen_eq_of_le_transGen h₂ fun a b h => Relation.TransGen.single (h₁ a b h)
 
 /-! ### The alternating sum at one state -/
 
