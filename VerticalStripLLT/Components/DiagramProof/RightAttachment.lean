@@ -1,4 +1,5 @@
 import VerticalStripLLT.Components.DiagramProof.RightAttachmentValues
+import VerticalStripLLT.Components.DiagramProof.DiagramMeasure
 
 /-!
 # Transferring a right-marked recurrence across a right attachment
@@ -86,54 +87,6 @@ theorem attach_transfer
     evalElementary_componentHRV_attach_transfer s z h hs P Ps T m hE⟩
 
 end Transfer
-
-/-! ### Natural area and area moment -/
-
-/-- Total natural area `∑ j a_j`. -/
-def naturalArea (D : Diagram n) : ℕ := ∑ j, D.area.area j
-
-/-- Area moment `∑ j j a_j`. -/
-def areaMoment (D : Diagram n) : ℕ := ∑ j, j.val * D.area.area j
-
-/-- A column's area counts the natural edges with that head. -/
-theorem area_eq_card_naturalRel {D : Diagram n} (j : Fin n) :
-    D.area.area j = (Finset.univ.filter fun u => naturalRel D u j).card := by
-  have hedges : (Finset.univ.filter fun e : Edge D.area => e.head = j).card =
-      D.area.area j := by
-    have hbound := D.area.bound j
-    refine (Finset.card_bij (t := Finset.Ioc 0 (D.area.area j))
-      (fun e _ => e.length.val) ?_ ?_ ?_).trans (by simp)
-    · intro e he
-      have hj := (Finset.mem_filter.mp he).2
-      have hpos := e.length_pos
-      have hle := e.length_le_area
-      rw [hj] at hle
-      exact Finset.mem_Ioc.mpr ⟨hpos, hle⟩
-    · intro e he f hf hef
-      have hje := (Finset.mem_filter.mp he).2
-      have hjf := (Finset.mem_filter.mp hf).2
-      apply Subtype.ext
-      exact Prod.ext (hje.trans hjf.symm) (Fin.ext hef)
-    · intro ℓ hℓ
-      obtain ⟨hpos, hle⟩ := Finset.mem_Ioc.mp hℓ
-      refine ⟨⟨(j, ⟨ℓ, by lia⟩), hpos, hle⟩,
-        Finset.mem_filter.mpr ⟨Finset.mem_univ _, rfl⟩, rfl⟩
-  rw [← hedges]
-  apply Finset.card_bij (fun e _ => e.tail)
-  · intro e he
-    exact Finset.mem_filter.mpr ⟨Finset.mem_univ _, e, rfl, (Finset.mem_filter.mp he).2⟩
-  · intro e he f hf hef
-    exact D.endpointEmbedding.injective (Prod.ext hef
-      ((Finset.mem_filter.mp he).2.trans (Finset.mem_filter.mp hf).2.symm))
-  · intro u hu
-    obtain ⟨e, ht, hh⟩ := (Finset.mem_filter.mp hu).2
-    exact ⟨e, Finset.mem_filter.mpr ⟨Finset.mem_univ _, hh⟩, ht⟩
-
-theorem area_zero_of_forward {D : Diagram (n + 1)} (hD : Forward D) :
-    D.area.area 0 = 0 := by
-  rw [area_eq_card_naturalRel, Finset.card_eq_zero, Finset.filter_eq_empty_iff]
-  intro u _ hu
-  exact (Fin.not_lt_zero u) (naturalRel_forward hD hu)
 
 namespace IsRightAttachment
 

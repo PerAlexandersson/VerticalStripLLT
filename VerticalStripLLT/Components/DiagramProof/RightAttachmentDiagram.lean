@@ -1,4 +1,5 @@
 import VerticalStripLLT.Components.DiagramProof.InducedRestriction
+import VerticalStripLLT.Components.DiagramProof.NaturalRelations
 import VerticalStripLLT.Components.DiagramProof.InducedDecorations
 
 /-!
@@ -157,43 +158,6 @@ theorem attachUnion_cut {u v : Fin (p + q + 1)} (h : attachUnion X Y u v)
   · exact (exists_attachLeft_iff _).mp ⟨b, rfl⟩
   · simp only [attachRight_val] at hu
     lia
-
-/-! ### Natural and strict endpoint relations -/
-
-/-- The natural endpoint relation of a diagram. -/
-def naturalRel (D : Diagram n) (u v : Fin n) : Prop :=
-  ∃ e : Edge D.area, e.tail = u ∧ e.head = v
-
-/-- The strict endpoint relation of a diagram. -/
-def strictRel (D : Diagram n) (u v : Fin n) : Prop :=
-  ∃ e ∈ D.strict, e.tail = u ∧ e.head = v
-
-theorem naturalRel_forward {D : Diagram n} (hD : Forward D) {u v : Fin n}
-    (h : naturalRel D u v) : u < v := by
-  obtain ⟨e, rfl, rfl⟩ := h
-  exact hD e
-
-theorem naturalRel_of_strictRel {D : Diagram n} {u v : Fin n} (h : strictRel D u v) :
-    naturalRel D u v := by
-  obtain ⟨e, -, ht, hh⟩ := h
-  exact ⟨e, ht, hh⟩
-
-theorem naturalRel_interval {D : Diagram n} (hD : Forward D) {a b c : Fin n}
-    (h : naturalRel D a c) (hab : a < b) (hbc : b < c) :
-    naturalRel D a b ∧ naturalRel D b c := by
-  obtain ⟨e, rfl, rfl⟩ := h
-  have he := D.naturalLift_of_tail_lt_head e (hD e)
-  exact ⟨exists_edge_of_naturalLift_of_le he le_rfl hab hbc.le,
-    exists_edge_of_naturalLift_of_le he hab.le hbc le_rfl⟩
-
-/-- Orientations with the same selected endpoint relation are equal. -/
-theorem orientation_eq_of_selected_iff {D : Diagram n} {θ η : Orientation D}
-    (h : ∀ u v, D.edgeData.selected θ.val u v ↔ D.edgeData.selected η.val u v) :
-    θ = η := by
-  apply fullSelection_injective
-  ext e
-  rw [mem_fullSelection_iff_selected, mem_fullSelection_iff_selected]
-  exact h e.tail e.head
 
 /-! ### The attachment predicate -/
 
