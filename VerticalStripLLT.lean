@@ -287,3 +287,4 @@ import VerticalStripLLT.Components.IntervalDiagram
 import VerticalStripLLT.Components.SelectedColoringTransport
 import VerticalStripLLT.Components.ComponentPositive
 import VerticalStripLLT.Components.DiagramProof
+import VerticalStripLLT.Bridge

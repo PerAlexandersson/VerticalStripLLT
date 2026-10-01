@@ -30,6 +30,34 @@ and the positivity statements `component_weighted_e_positive_of_forward` and
 the finite circular companion reduction `component_identity_of_forward_components`
 (`Components/CircularFromOrdinaryComponents.lean`), which uses no word module.
 
+### Bridge to the ordinary expansion of AS22
+
+`VerticalStripLLT/Bridge/` derives the ordinary expansion of AS22 from the new
+proofs, without `SatisfiesRecursion`, the bounce modules or
+`SatisfiesReductionRecursion.unique` (which `VerticalStripLLT/Expansion.lean`
+uses):
+
+- `Bridge/PathRelations`: the natural pairs of a Schröder path are the pairs
+  `u < v ≤ top u` for a monotone column top. They form an interval-closed relation,
+  and strict edges are maximal natural pairs.
+- `Bridge/PathDiagram`: `SchroderPath.toDiagram` (via `ofRelations`) is a forward
+  circular diagram with the same coloring sum (`toDiagram_coloringLLT`) and shifted
+  HRV expansion (`toDiagram_shiftedOrientationExpansion`); orientations correspond
+  bijectively with the same selected relation and HRV.
+- `Bridge/ByCircular`: `coloringLLT_shifted_eq_eval_shiftedOrientationExpansion_by_circular`
+  and `coloringLLT_eq_eval_orientationExpansion_by_circular`, from the circular
+  expansion. Its closure (237 files) contains no component-proof module beyond
+  the relational diagram construction.
+- `Bridge/ByComponents`: `Circular.coloringLLT_shifted_eq_eval_of_forward_by_components`
+  sums the ordinary component theorem by diagrams over all flip components; then
+  `..._by_components` and `coloringLLT_shifted_e_positive_by_components`. Its closure
+  (330 files) does not contain `Circular.Expansion`.
+
+Neither closure contains `WordProof` or any AS22 recursion module. The full build
+passes (2372 jobs, `full-build-10.log`); `Verification.lean` runs 2829 queries,
+including the 15 bridge queries, with only the standard axioms
+(`verification-5.log`).
+
 ### Names
 
 The diagram theorems carry the plain names. The earlier word proof's theorems,

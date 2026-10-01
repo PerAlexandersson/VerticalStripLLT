@@ -2913,3 +2913,22 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_orientation_sum
 #print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_eval
 #print axioms VerticalStripLLT.Circular.component_weighted_e_positive
+
+-- The Alexandersson–Sulzgruber expansion from the new proofs (`Bridge`).
+namespace VerticalStripLLT
+#print axioms SchroderPath.naturalPair_interval
+#print axioms SchroderPath.strict_maximal
+#print axioms SchroderPath.toDiagram_forward
+#print axioms SchroderPath.toDiagram_coloringLLT
+#print axioms SchroderPath.hrv_toOrientation
+#print axioms SchroderPath.toOrientation_bijective
+#print axioms SchroderPath.toDiagram_shiftedOrientationExpansion
+#print axioms coloringLLT_size_zero
+#print axioms shiftedOrientationExpansion_size_zero
+#print axioms coloringLLT_shifted_eq_eval_shiftedOrientationExpansion_by_circular
+#print axioms coloringLLT_eq_eval_orientationExpansion_by_circular
+#print axioms Circular.coloringLLT_shifted_eq_eval_of_forward_by_components
+#print axioms coloringLLT_shifted_eq_eval_shiftedOrientationExpansion_by_components
+#print axioms coloringLLT_eq_eval_orientationExpansion_by_components
+#print axioms coloringLLT_shifted_e_positive_by_components
+end VerticalStripLLT

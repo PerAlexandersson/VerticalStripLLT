@@ -14,6 +14,7 @@ elementary symmetric functions* (arXiv:2004.09198).
 | Circular LLT expansion and shifted e-positivity | [Circular/Expansion.lean](VerticalStripLLT/Circular/Expansion.lean) |
 | Ordinary and circular flip-component expansions and e-positivity, by diagrams | [Components/DiagramProof.lean](VerticalStripLLT/Components/DiagramProof.lean) |
 | The same component expansions by the earlier, independent word proof | [Components/WordProof.lean](VerticalStripLLT/Components/WordProof.lean) |
+| The ordinary expansion again, from the circular and component theorems, without the recursion of the paper | [Bridge.lean](VerticalStripLLT/Bridge.lean) |
 
 The coloring sums and highest-reachable-vertex (HRV) expansions are defined
 independently. Their equality is proved for every finite alphabet, including
@@ -22,7 +23,7 @@ The component result uses the finite strict/e convention. The two component
 proofs share only the component semantics and the circular companion reduction
 in `Components/`; neither imports the other's directory.
 
-**Verified:** 2,367 build jobs and 2,814 axiom inventory entries; only
+**Verified:** 2,372 build jobs and 2,829 axiom inventory entries; only
 `propext`, `Classical.choice` and `Quot.sound`. No proof placeholders or custom axioms.
 
 ## Build
