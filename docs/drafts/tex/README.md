@@ -77,6 +77,8 @@ by `\widehat V`; the surrounding statement defines this valuation.
 actual flips between them, including the restoration of the exterior.
 `two-chain-packing.tex` uses these crossing slides to rearrange two selected
 good edges between the same pair of corner chains.
+`complete-child-merge.tex` displays the four flips replacing one child edge
+by an edge between two children, with the common exterior fixed at endpoints.
 An equation between diagrams means equality of the indicated sums. A
 flip-path arrow is stated separately as a correspondence between endpoint
 states; it does not assert equality of their individual valuations.
@@ -95,6 +97,8 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error crossing-sweeps.tex
 pdftocairo -svg crossing-sweeps.pdf crossing-sweeps.svg
 latexmk -pdf -interaction=nonstopmode -halt-on-error two-chain-packing.tex
 pdftocairo -svg two-chain-packing.pdf two-chain-packing.svg
+latexmk -pdf -interaction=nonstopmode -halt-on-error complete-child-merge.tex
+pdftocairo -svg complete-child-merge.pdf complete-child-merge.svg
 ```
 
 The previous external `LLTCells` macro was inspected for the diagonal-label

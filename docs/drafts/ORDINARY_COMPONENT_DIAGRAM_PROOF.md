@@ -417,6 +417,181 @@ Both states on the left reach the anchor whose two selected good edges
 occupy the last two positions. Each cell picture fixes a selected state;
 these path arrows are not identities of individual state values.
 
+## The complete-diagram base
+
+We now work in the complete natural diagram on $0,\ldots,N$, with
+$N\geq1$. Its only maximal corner is $0N$.
+
+**Complete-diagram lemma.** Connected states in which $0N$ covers belong
+to one flip component at each fixed total selected size.
+
+We first introduce the selected chain
+
+\[
+                    P_N=\{0N,12,23,\ldots,(N-1)N\},
+\]
+
+then rearrange its extra edges. We call these extra edges chords; their
+positions are $ij$ with $1\leq i<i+1<j\leq N$.
+
+**Introducing the chain.** Preparation gives an anchor consisting of
+$0N$ and a connected selected graph $H$ on $1,\ldots,N$. Whenever
+$ab,ac$ are two outgoing covers of $H$, with $a<b<c$, flip
+$ab\mapsto bc$ retaining $ac$. This is an actual flip: $bc$ is
+absent since otherwise $ac$ would not cover. The sum of the tails of
+the selected edges strictly increases, so these moves terminate.
+
+The final cover graph has at most one outgoing edge at each vertex.
+It is connected, since removing redundant edges preserves weak connectivity.
+An undirected cycle would have a least vertex with two outgoing covers,
+so the graph is a tree. It has unique sink $N$. Replacing a selected
+edge repeatedly by shorter paths until every edge covers shows that its
+endpoints are a vertex and an ancestor in this tree.
+
+Suppose $i<j$ are children of $N$. Each has exactly one outgoing
+selected edge, to $N$. The following four flips replace $iN$ by $ij$:
+
+\[
+ iN\mapsto0i\ [0N],\quad jN\mapsto0j\ [0N],\quad
+ 0i\mapsto ij\ [0j],\quad 0j\mapsto jN\ [0N].       \tag{T}
+\]
+
+For the first two flips, removing a child's sole outgoing edge makes it
+a sink. Thus the new edge from zero cannot bypass $0N$. At the third
+flip both $i$ and $j$ are sinks, so $0i,0j$ cover. After that flip
+zero is adjacent only to the sinks $j,N$, so $0j,0N$ cover and the
+final flip is actual. Incoming selected edges
+cannot change these cover tests. The new tree replaces the branch
+$i\to N$ by $i\to j\to N$, and all old shortcut edges still join
+ancestors.
+
+The greatest child of $N$ is $N-1$. Repeatedly apply (T) with $j=N-1$
+until it is the only child. The restriction of $H$ to $1,\ldots,N-1$
+is then connected. Flip $(N-1)N\mapsto0(N-1)$ across $0N$ and apply
+the chain construction inductively inside $0,\ldots,N-1$. Every local
+flip remains actual: a forward path between two vertices in this interval
+cannot leave through $N$ and return. At the local endpoint, zero has
+only the edges $0(N-1),0N$, and $N-1$ has no outgoing edge. Hence
+both zero-edges cover, and we flip $0(N-1)$ back to $(N-1)N$.
+Starting with $N=1$, this constructs $P_N$ with no other edge at zero.
+
+![Four flips merging two children](figures/complete-child-merge.svg)
+
+*Figure 4.* The four flips in (T) replace $iN$ by $ij$. The pictures
+fix all selected edges on $0,i,j,N$; the remaining selected edges are
+the same at both endpoints. At the source, zero is incident only to
+$0N$, and the only outgoing selected edge of either child is its edge
+to $N$. Arbitrary incoming edges at the children are allowed.
+
+**Using a smaller interval.** Consider two chain states which agree
+outside the ordered vertex set $\{0,a,a+1,\ldots,b\}$, where
+$0<a\leq b\leq N$. We can lift a path between their restrictions
+while restoring the entire exterior.
+
+To do so, open the chain in decreasing order $j=N-1,\ldots,b$:
+
+\[
+                j(j+1)\mapsto0j\quad[0(j+1)].                 \tag{O}
+\]
+
+The adjacent short edge covers. Before its move, every selected edge
+from zero ends at or above $j+1$. After the move the newly reached
+vertex $j$ cannot reach $j+1$, since their adjacent edge was removed.
+Thus each flip is actual, regardless of the chords.
+
+The opened zero-row has precisely the heads $b,b+1,\ldots,N$.
+The restriction to $\{0,a,\ldots,b\}$ is a smaller chain state with
+corner $0b$. A forward path testing an edge with both endpoints in
+$[a,b]$ stays inside this interval. For an edge from zero, a path cannot
+enter a vertex below $a$, since no zero-edge goes there; it cannot return
+from a zero-edge ending above $b$. These facts remain true during any
+path in the smaller diagram, so all its flips lift. Open the target ambient
+chain state by the same procedure. Its restriction is the target of the
+local path, and its exterior agrees with the source opening. We can therefore
+finish by reversing that target opening in increasing order. This restores
+the exterior exactly.
+
+**Rearranging the chords.** We prove the lemma by strong induction on $N$,
+using the chain construction above for both endpoints. For $N\geq5$,
+apply the smaller-interval construction to $[1,N-1]$ and $[2,N]$.
+By induction, within either interval we may rearrange the selected chords
+at fixed count, leaving every other edge fixed at the endpoint.
+
+The two sets of chord positions cover all positions except $1N$, and
+their intersection contains $24$. Thus exchanges within these sets connect
+all equal-size chord subsets with the same selected status of $1N$.
+If no one interval contains both positions of an exchange, we route
+through $24$, which is distinct from both. If $24$ is vacant, move the selected edge there first;
+if occupied, move it to the vacant destination first. In either case
+the second exchange restores the original status of $24$.
+
+It remains to change the $1N$ status. Suppose that $1N$ is absent and
+both $13$ and $2N$ are selected. Sweep every selected incoming edge
+$iN$, $0<i<N$, in decreasing $i$, replacing it by $0i$ across $0N$.
+When $iN$ moves, all incoming edges with larger tails have been removed,
+so $iN$ covers. The zero-neighbors created earlier are larger than $i$
+and cannot reach an unswept incoming tail; therefore $0N$ covers too.
+
+Now $01$ is absent and $02$ is selected. Flip $12\mapsto01$ across
+$02$. The retained $02$ covers because no selected zero-edge has a
+smaller head. Reverse the incoming sweep in increasing order, including
+the new edge $01$. Each zero-edge being moved has the smallest remaining
+head, and all restored incoming tails are smaller than that head. This
+gives actual reverse flips and the exact state
+
+\[
+                            A-12+1N.                          \tag{U}
+\]
+
+We repair the missing chain edge using $13$. Open the chain down to $3$
+by (O). On $0,1,2,3$ the selected edges are $03,13,23$, with $12$
+absent. Apply the four flips (T) with $i=1,j=2,N=3$, then close the
+chain. The smaller-interval cover argument permits all the fixed exterior
+chords. We have restored $12$ and removed $13$, obtaining
+
+\[
+               A\longmapsto A-13+1N
+               \qquad(13,2N\in A,\ 1N\notin A).              \tag{U'}
+\]
+
+Let $Q=\binom{N-1}{2}$ be the number of chord positions. If the chord
+count $c$ satisfies $2\leq c\leq Q-1$, the fixed-$1N$ rearrangements
+let us select $13$ and $2N$ in an outer-absent state. Move (U') then
+joins the two possible $1N$ statuses. At counts $0$ and $Q$ there is
+only one chord set.
+
+For $c=1$, start from $P_N+13$ and open the chain down to $2$.
+Perform
+
+\[
+                    13\mapsto01\ [03],\qquad
+                    01\mapsto1N\ [0N],
+\]
+
+then close the chain. All vertices $2,\ldots,N$ are sinks while the
+chain is open, and there are no other chords, so both retained longs
+and exchanged shorts cover. The endpoint is $P_N+1N$. Together with
+the fixed-status rearrangements, this connects every single-chord state.
+
+For completeness, the induction has the following explicit bases. If
+$N\leq3$, there is at most one chord position. For $N=4$, the positions
+are $13,14,24$. In the table, a triple $abc$ means the flip exchanging
+$ab$ and $bc$ while retaining $ac$; its direction is determined by the
+current selected state. Each row starts with $P_4$ plus the indicated
+left chord set and ends with $P_4$ plus the right chord set.
+
+| Chord sets | Successive flip triples |
+| --- | --- |
+| $\{13\}\longrightarrow\{14\}$ | $034,023,013,014,023,034$ |
+| $\{14\}\longrightarrow\{24\}$ | $034,124,014,023,012,023,034$ |
+| $\{13,24\}\longrightarrow\{14,24\}$ | $034,024,012,014,024,013,023,012,023,034$ |
+| $\{14,24\}\longrightarrow\{13,14\}$ | $034,023,012,013,023,124,034$ |
+
+Inspection of these selected diagrams verifies the short and long covers
+at each step. The rows connect every one- and two-chord subset; the zero-
+and three-chord subsets are unique. This starts the induction. Finally,
+we reverse the chain construction for the second original state.
+
 ## Removing one good edge
 
 We justify the removable-edge hypothesis needed below directly in the
@@ -497,7 +672,7 @@ exchanges $0v$ and $d_v$, with the corners $0a$ and $vh_v$ retained.
 
 ![The initial crossing slide](figures/initial-crossing.svg)
 
-*Figure 4.* The diagonal lists the ordered vertices $0<v<a<h=h_v$.
+*Figure 5.* The diagonal lists the ordered vertices $0<v<a<h=h_v$.
 The cell in column $u$ and row $w$ represents the edge $uw$.
 Arrows denote the two retained corner covers, and $1$ and $0$ denote
 selected and absent normal edges. The edge $va$ is natural because it
@@ -521,7 +696,7 @@ enters a different core component. Otherwise all selected neighbors of
 zero would lie in $B$, contradicting connectedness of $A$. The edge
 $0v$ is an extra, since $0a$ enters $B$. The selected corner $vh_v$
 puts $h_v$ in the same core component as $v$. Hence $ah_v$ is absent.
-We apply the crossing slide in Figure 4. The core gains $ah_v$ and loses
+We apply the crossing slide in Figure 5. The core gains $ah_v$ and loses
 no edge, while the initial row loses $0v$. Repeating this operation
 terminates because the number of selected initial extras decreases.
 
@@ -676,7 +851,7 @@ all exterior selections of each size. Thus
 
 ![NN and DN as sums over restricted selections](figures/layer-relations.svg)
 
-*Figure 5.* The blank cells and permitted exterior edges are summed over.
+*Figure 6.* The blank cells and permitted exterior edges are summed over.
 Arrows require strict edges, and crosses remove natural edges. The condition
 $|A|=s$ counts all selected edges, including strict edges. Each diagram is
 an entire layer sum for $V=K$ or $V=E$ at an eligible contact.
@@ -759,7 +934,7 @@ unions of one state of $P$ and one state of $T$.
 
 ![Right attachment and the merged fibre](figures/right-attachment.svg)
 
-*Figure 6.* The upper dashed line indicates the vertex intervals, not a
+*Figure 7.* The upper dashed line indicates the vertex intervals, not a
 natural edge. The diagrams share just $c$. Below, the canonical HRV chain
 ending at $c$ and the chain beginning at $c$ concatenate. Their common
 vertex, colored $\beta$, contributes one weight $x_\beta$.
@@ -870,7 +1045,7 @@ All earlier comparisons agree, so their first strict decreases agree.
 
 ![A prefix and its right attachment as restricted sums](figures/prefix-attachment.svg)
 
-*Figure 7.* The source areas are $(0,1,1,2,3,2,1,2,1)$.
+*Figure 8.* The source areas are $(0,1,1,2,3,2,1,2,1)$.
 The first area at least two occurs at $j=3$, so $b=1$ and $c=5$.
 The prefix has the initial edge $01$ followed by the block $[1,5]$;
 the attachment is $[5,8]$. The first strict area decrease is at $t=4$

@@ -1,0 +1,15 @@
+\documentclass[border=6pt]{standalone}
+\usepackage{llt-diagrams}
+\begin{document}
+\(
+ \LLTDiagram[name={A},condition={\text{fixed exterior}}]{0,i,j,N}{%
+   \LLTStrict*{1}{4}\LLTSelected{2}{4}\LLTSelected{3}{4}%
+   \LLTAbsent{1}{2}\LLTAbsent{1}{3}\LLTAbsent{2}{3}}
+ \quad\xrightarrow{\substack{
+   iN\mapsto0i\ [0N]\\jN\mapsto0j\ [0N]\\
+   0i\mapsto ij\ [0j]\\0j\mapsto jN\ [0N]}}\quad
+ \LLTDiagram[name={A-iN+ij},condition={\text{fixed exterior}}]{0,i,j,N}{%
+   \LLTStrict*{1}{4}\LLTSelected{2}{3}\LLTSelected{3}{4}%
+   \LLTAbsent{1}{2}\LLTAbsent{1}{3}\LLTAbsent{2}{4}}
+\)
+\end{document}

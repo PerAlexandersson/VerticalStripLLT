@@ -108,8 +108,8 @@ approved the diamond, whole-component corrections and layer calculation;
 its requests to spell out exterior disjointness, strict decorations and the
 original shifted normal-edge exponent were incorporated.
 The diagrams themselves denote sums with the selected-edge count shown below.
-The complete-diagram base and last-clique inheritance still need detailed
-manuscript proofs. The final first-drop/prefix
+Last-clique inheritance still needs its detailed manuscript proof.
+The final first-drop/prefix
 induction is now expanded:
 articulation test, first nontrivial prefix, strict-corner preservation, all
 four contact cases, marking changes, area/moment decrease and final induction.
@@ -156,6 +156,20 @@ packed endpoint only to describe those same elementary exchanges.
 The figure compiled without TeX or box warnings and was visually inspected;
 exact rendered-source correspondence, local links, SVG XML and whitespace
 checks pass. No Codex Lean build ran.
+
+Writing checkpoint `27bfe09` is pushed. The next increment expands the
+complete-diagram base: fork elimination, the four-flip child merge, chain
+insertion by prefix induction, interval opening/lifting/closing, rearrangement
+of chords with fixed outer status, the outer-chord and single-chord moves,
+and all four five-vertex base paths. The child-merge figure is generated
+with the shared macros. This follows the existing checked P4 construction;
+it adds no new Lean theorem or alternative component argument.
+Two independent read-only reviews confirmed the actual proof correspondence,
+including the fork/child sequence inside `CompletePrefix`, the interval
+endpoint hypothesis, the required `13,2N` selections in the outer-chord
+move, and the four finite base paths. The figure compiled without TeX or
+box warnings and was visually inspected; local links, SVG XML, exact
+rendered-source correspondence and whitespace checks pass.
 The circular section and combined manuscript have the remaining limits already
 recorded above. The full user goal is unchanged and unfinished.
 
