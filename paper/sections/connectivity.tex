@@ -63,9 +63,13 @@ An \defin{exit} is an edge $vy\in\theta$ with $v\in B$ and $r(y)<t$.
 Then $v<y\leq r(y)<t$, so $v$ has a corner successor $h$ on $B$, and
 $y<h$ since $vy$ does not contain the corner $vh$.
 Choose $v$ with an exit, and its exit $vy$ with the least head.
-Then $vy$ is a cover: a path from $v$ to $y$ cannot pass through $U$, since no
-edge leaves $U$; its first edge is not $vh$, since $h>y$; and any other edge
-from $v$ to a vertex outside $U$ is an exit or a corner, by the choice of $t$.
+Then $vy$ is a cover.
+Indeed, a path from $v$ to $y$ cannot pass through $U$, since no edge leaves
+$U$.
+An edge from $v$ to a vertex $z\notin U$ has $r(z)\leq t$, by the choice of $t$.
+If $r(z)=t$, it is the corner $vh$, and $h>y$; if $r(z)<t$, it is an exit, and
+$z\geq y$ by the choice of $vy$.
+So the only path from $v$ to $y$ is the edge $vy$.
 Since $vh$ is a cover as well, we can perform the flip
 \[
  vy\mapsto yh\quad[vh],
@@ -128,10 +132,14 @@ is absent and the edges from $(c,d)$ to $d$ have been moved.
 After the second flip, $bd$ and $cd$ are covers, and $ac$ is still a cover since
 we removed $bc$ and added an edge leaving $c$.
 
-Finally we undo the second sweep in reverse order, and then the first.
-For $v\in R$, the net change $ab\mapsto cd$ does not affect edges inside
-$[b,v]$, so each reversed flip has the same cover tests as the corresponding
-flip of the sweep; similarly for $v\in L$ and edges inside $[v,c]$.
+Finally we undo the second sweep in reverse order, replacing $bv$ by $vd$
+across $bd$.
+For $v\in R$, the net change from $ab$ to $cd$ does not affect edges inside
+$[b,v]$, so $bv$ is a cover when it is moved back, as it was after the
+corresponding flip of the sweep; and $bd$ remains a cover by
+Lemma~\ref{lem:flipCriterion}.
+Then we undo the first sweep in the same way, using that the edges inside
+$[v,c]$ are as they were after the corresponding flip, for $v\in L$.
 We obtain $\theta-ab+cd$.
 \end{proof}
 
@@ -162,7 +170,8 @@ There is at most one such $u$ on a given chain: if $u<u'<v$ were two
 candidates, the natural edge $uv$ would contain the corner leaving $u$.
 This proves the first claim.
 A link exchanges the two values of $r$, so membership in $\Gplus$ alternates.
-Two links $ab\to bc'\to c'd$ use the corners $ac'$ and $bd$, and $c=c'$.
+If $ab$ is followed by two links, they use the corners leaving $a$ and $b$, say
+$ac$ and $bd$, and the path continues as $ab\to bc\to cd$ with $a<b<c<d$.
 \end{proof}
 
 \begin{lemma}\label{lem:parallel}
@@ -315,8 +324,8 @@ order of $i$.
 When $iN$ is moved, the edges into $N$ with larger tails have been moved, so
 $iN$ is a cover, and the vertices adjacent to $0$ are larger than $i$, so $0N$
 remains a cover.
-Now $02\in\theta$ and $01\notin\theta$, and we perform $12\mapsto 01\ [02]$; this is
-a flip since $1$ cannot reach $2$ through $13$.
+Now $02\in\theta$ and $01\notin\theta$, so $02$ is a cover, and we perform the
+flip $12\mapsto 01\ [02]$.
 Reversing the first sweep in increasing order, including the new edge $01$,
 gives $\theta-12+1N$.
 To restore $12$, we open the chain down to $3$ by~\eqref{eq:opening}.
@@ -342,9 +351,10 @@ This completes the induction, and the proof.
 In this subsection, connectivity means connectivity of undirected graphs.
 Suppose that the natural graph is connected, has at least three vertices, and
 has no articulation.
-Then every pair $uv$ with $v-u\leq2$ is a natural edge: otherwise, by closure
-under subintervals, no natural edge would pass over $u+1$, or no natural edge
-would join the two sides of $u$ and $u+1$.
+Then every pair $uv$ with $v-u\leq2$ is a natural edge.
+Indeed, if $u(u+1)$ were not natural, then by closure under subintervals no
+natural edge would join $[1,u]$ and $[u+1,n]$; and if $u(u+2)$ were not natural,
+no natural edge would pass over $u+1$, which would be an articulation.
 
 Replacing the natural graph by $\Gplus$ preserves connectivity within any union
 of corner chains.
@@ -387,7 +397,7 @@ All corners other than $ae$ end at most at $c$, so the core has the same corners
 and corner chains as $\Gamma$, and its set $\Gplus$ consists of the edges of
 $\Gplus$ inside $Z$.
 Every vertex strictly between $a$ and $e$ is the last vertex of its chain.
-Consequently, an orientation in $\Gplus$ has no edge from $a$ other than $ae$, and
+Hence an orientation in $\Gplus$ has no edge from $a$ other than $ae$, and
 every natural edge with both endpoints strictly between $a$ and $e$, or ending
 at $e$ and starting after $a$, lies in $\Gplus$.
 

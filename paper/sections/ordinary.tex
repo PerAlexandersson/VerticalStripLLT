@@ -75,6 +75,9 @@ For a set $X$ of orientations we write $\Kv(X)[\beta]$ and $\Ev(X)[\beta]$ for t
 corresponding sums.
 Summing over $\beta$ gives back $\Kv(X)$ and $\Ev(X)$.
 
+Below, $c$ is always the largest vertex of the graph under consideration, so
+that~\eqref{eq:markedE} applies, and $\elementaryE_\theta[\beta]$ only depends on
+the fibre sizes and on the size of the fibre of $c$.
 The marked values are preserved by every operation used below: by
 Lemma~\ref{lem:decoration}; by deleting a redundant edge, which preserves
 $\Pplus{\theta}$; by the four-term identity, whose pairing preserves the whole
@@ -186,16 +189,16 @@ it fixes $c=n$, and relabelling colorings by $\sigma$ preserves $\Kp$.
 Hence $V(D_{00})=V(\sigma(\eta)+yt)$ and $V(D_{11})=V(\eta+xy+yt)$, and the
 four-term identity gives $V(D_{10})+V(D_{01})=V(D_{00})+V(D_{11})$.
 
-Let $\beta_r$ and $\gamma_r$ be the sums of $V(\eta+yt)$ and $V(\eta+xy+yt)$ over
+Let $L_r$ and $U_r$ be the sums of $V(\eta+yt)$ and $V(\eta+xy+yt)$ over
 all $\eta$ with $|\eta|=r$.
 Since $\eta\mapsto\sigma(\eta)$ preserves $|\eta|$, the four graphs $D_{ij}$ with
-$|\eta|=r$ contribute $\beta_r$, $\beta_r+\gamma_r$ and $\gamma_r$ to the layers
+$|\eta|=r$ contribute $L_r$, $L_r+U_r$ and $U_r$ to the layers
 of sizes $r+1$, $r+2$ and $r+3$.
 Thus
 \[
- V(\Lay_s(\Gamma))=\beta_{s-1}+\beta_{s-2}+\gamma_{s-2}+\gamma_{s-3},
+ V(\Lay_s(\Gamma))=L_{s-1}+L_{s-2}+U_{s-2}+U_{s-3},
  \qquad
- V(\Lay_s(R))=\beta_{s-1}+\gamma_{s-2},
+ V(\Lay_s(R))=L_{s-1}+U_{s-2},
 \]
 which proves the first relation.
 
@@ -213,12 +216,12 @@ With both optional edges absent, $\sigma$ maps $\eta+ux+xt$ onto
 $\sigma(\eta)+uy+yt$, and $x$ is not a sink.
 With both present, both graphs contain the path $u\to x\to y\to t$, and their
 remaining local edges $xt$ and $uy$ are redundant.
-Let $\beta_r$ and $\gamma_r$ be the sums over all $\eta$ with $|\eta|=r$ of the
+Let $L_r$ and $U_r$ be the sums over all $\eta$ with $|\eta|=r$ of the
 values with both optional edges absent and both present, respectively.
 By the two comparisons they are the same for the source and the target, after
 reindexing by $\sigma$.
 By the four-term identity, both $V(\Lay_s(\Gamma))$ and $V(\Lay_s(R))$ equal
-$\beta_{s-2}+\beta_{s-3}+\gamma_{s-3}+\gamma_{s-4}$, which proves the second
+$L_{s-2}+L_{s-3}+U_{s-3}+U_{s-4}$, which proves the second
 relation.
 \end{proof}
 
