@@ -2,6 +2,13 @@
 
 ## Current status and ownership
 
+Following the author's correction after `9225853`, the AI statement no longer
+singles out the cumulant corollary's formalization status. The published
+Dołęga--Kowalski results remain attributed in the cumulant section. This is an
+expository change only; no mathematical claim or Lean source changes. The
+41-page PDF and source bundle were rebuilt successfully, with no TeX warnings
+or box overflows; `git diff --check` passed.
+
 The requested author revision is complete at checkpoint `1e9437c`. The manuscript now explains the
 LLT/chromatic comparison and Hwang's component refinement in its introduction,
 collects all four recurrences in Proposition 2.7 and one TikZ boundary-path
@@ -122,7 +129,7 @@ actual north/east/diagonal steps in the recurrence figure. All SVG previews
 were regenerated from the current native sources.
 
 The revision PDF SHA256 is
-`caeba63c595cfa02dd012b365ce8b9297b8c06a415a43a53229909ccbedd7529`.
+`fb3eb2de74ad3fee916f4932407c0da666512316fb348d2bcb945f8b432a3ed3`.
 Paper-cache entries 496 (AS22), 497 (Hwang) and 498 (Dołęga--Kowalski)
 contain exact-version PDFs, source archives and extracted text; precise
 locators are in the draft README. The paper-cache database discovery call

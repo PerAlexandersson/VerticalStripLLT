@@ -19,7 +19,9 @@ components. The final corollary applies the component theorem to them.
 This deduction is written and reviewed mathematically, but is not part of
 the Lean formalization. The author information is restored from the earlier
 Alexandersson--Dai draft in `tex/manuscript-authors.tex`; the closing
-[AI statement](AI_STATEMENT.md) records assistance and that scope distinction.
+[AI statement](AI_STATEMENT.md) records assistance. At the authors' request,
+it does not discuss the cumulant corollary's formalization status; the
+cumulant section retains its attribution to the published results.
 
 The aggregate theorem alone is not the component proof. Its local identities
 are reused with marked colors and fixed selected-edge counts. The circular
