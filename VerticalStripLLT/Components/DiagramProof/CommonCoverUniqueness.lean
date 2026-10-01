@@ -3,6 +3,7 @@ import VerticalStripLLT.Components.DiagramProof.FirstCliqueInheritance
 import VerticalStripLLT.Components.DiagramProof.TwoChainCardinality
 import VerticalStripLLT.Components.DiagramProof.LastCliqueNaturalEdges
 import VerticalStripLLT.Components.DiagramProof.CompleteBlock
+import VerticalStripLLT.Components.DiagramProof.NaturalRelations
 
 /-!
 # Common-cover uniqueness without articulation
@@ -39,20 +40,6 @@ def CommonCoverUnique (D : Diagram n) : Prop :=
   ∀ θ τ : Orientation D, (allCorners D).CommonCover θ → (allCorners D).CommonCover τ →
     SelectedConnected θ → SelectedConnected τ → totalSelected θ = totalSelected τ →
     Relation.ReflTransGen (Flip D) θ τ
-
-/-- The total selected size counts the selected endpoint pairs. -/
-theorem totalSelected_eq_card_selected {D : Diagram n} (θ : Orientation D) :
-    totalSelected θ = (Finset.univ.filter fun p : Fin n × Fin n =>
-      D.edgeData.selected θ.val p.1 p.2).card := by
-  rw [totalSelected, ← Finset.card_map D.endpointEmbedding]
-  congr 1
-  ext p
-  simp only [Finset.mem_map, Finset.mem_filter, Finset.mem_univ, true_and]
-  constructor
-  · rintro ⟨e, he, rfl⟩
-    exact (mem_fullSelection_iff_selected θ e).mp he
-  · rintro ⟨e, he, ht, hh⟩
-    exact ⟨e, he, Prod.ext ht hh⟩
 
 theorem shortEdges_reversed {D : Diagram n} (hD : Forward D) (hshort : ShortEdges D) :
     ShortEdges (reversedDiagram hD) := by

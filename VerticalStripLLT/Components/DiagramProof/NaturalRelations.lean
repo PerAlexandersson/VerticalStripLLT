@@ -71,6 +71,20 @@ theorem not_strictRel_of_lt (hD : Forward D) {x y s t : Fin n} (hxy : naturalRel
   · exact h.ne h1
   · exact h.ne h2.symm
 
+/-- The total selected size counts the selected endpoint pairs. -/
+theorem totalSelected_eq_card_selected {D : Diagram n} (θ : Orientation D) :
+    totalSelected θ = (Finset.univ.filter fun p : Fin n × Fin n =>
+      D.edgeData.selected θ.val p.1 p.2).card := by
+  rw [totalSelected, ← Finset.card_map D.endpointEmbedding]
+  congr 1
+  ext p
+  simp only [Finset.mem_map, Finset.mem_filter, Finset.mem_univ, true_and]
+  constructor
+  · rintro ⟨e, he, rfl⟩
+    exact (mem_fullSelection_iff_selected θ e).mp he
+  · rintro ⟨e, he, ht, hh⟩
+    exact ⟨e, he, Prod.ext ht hh⟩
+
 /-- Orientations with the same selected endpoint relation are equal. -/
 theorem orientation_eq_of_selected_iff {θ η : Orientation D}
     (h : ∀ u v, D.edgeData.selected θ.val u v ↔ D.edgeData.selected η.val u v) :
