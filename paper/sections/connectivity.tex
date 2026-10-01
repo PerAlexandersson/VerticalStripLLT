@@ -229,65 +229,65 @@ Lemma~\ref{lem:parallel} applies.
 
 \subsection{Complete graphs}\label{subs:complete}
 
-In this subsection we label the vertices $0,1,\dotsc,N$, with $N\geq1$, and
+In this subsection we label the vertices $0,1,\dotsc,n$, with $n\geq1$, and
 consider the complete natural graph.
-Its only corner is $0N$.
+Its only corner is $0n$.
 
 \begin{lemma}\label{lem:complete}
-For the complete graph on $0,1,\dotsc,N$, the connected orientations in which
-$0N$ is a cover and which have the same number of ascending edges lie in one
+For the complete graph on $0,1,\dotsc,n$, the connected orientations in which
+$0n$ is a cover and which have the same number of ascending edges lie in one
 flip class.
 \end{lemma}
 
 \begin{proof}
-Let $P_N$ consist of $0N$ and the edges $i(i+1)$ for $1\leq i<N$.
-We call the other pairs $ij$, with $1\leq i<i+1<j\leq N$, the chords of $P_N$.
-We first join every orientation in question to an orientation $P_N\cup X$, where
-$X$ is a set of chords, and then show that the orientations $P_N\cup X$ with the
+Let $P_n$ consist of $0n$ and the edges $i(i+1)$ for $1\leq i<n$.
+We call the other pairs $ij$, with $1\leq i<i+1<j\leq n$, the chords of $P_n$.
+We first join every orientation in question to an orientation $P_n\cup X$, where
+$X$ is a set of chords, and then show that the orientations $P_n\cup X$ with the
 same number of chords lie in one flip class.
 
-\smallskip\noindent\textbf{Step 1: reaching $P_N\cup X$.}
-Here $r(0)=r(N)=N$ and $r(v)=v$ otherwise, so $\Gplus$ consists of $0N$ and all
-edges on $1,\dotsc,N$.
-By Lemma~\ref{lem:preparation} we may assume that $0N$ is the only edge at $0$.
+\smallskip\noindent\textbf{Step 1: reaching $P_n\cup X$.}
+Here $r(0)=r(n)=n$ and $r(v)=v$ otherwise, so $\Gplus$ consists of $0n$ and all
+edges on $1,\dotsc,n$.
+By Lemma~\ref{lem:preparation} we may assume that $0n$ is the only edge at $0$.
 Since $\theta$ is connected, the remaining edges form a connected graph $D'$ on
-$1,\dotsc,N$.
+$1,\dotsc,n$.
 Whenever a vertex $i$ has two outgoing covers $ij$ and $ik$ in $D'$, with $j<k$,
 we perform the flip $ij\mapsto jk\ [ik]$.
 The sum of the tails of the edges increases, so this terminates.
 Then every vertex has at most one outgoing cover.
 The covers form a connected graph, and a cycle in it would have a least vertex
-with two outgoing covers, so they form a tree, with unique sink $N$.
+with two outgoing covers, so they form a tree, with unique sink $n$.
 Every edge of $D'$ joins a vertex to one of its ancestors in this tree.
 
-If $i<j$ are two children of $N$, their only outgoing edges are $iN$ and $jN$,
+If $i<j$ are two children of $n$, their only outgoing edges are $iN$ and $jN$,
 and the four flips
 \begin{equation}\label{eq:childMerge}
- iN\mapsto0i\ [0N],\qquad jN\mapsto 0j\ [0N],\qquad
- 0i\mapsto ij\ [0j],\qquad 0j\mapsto jN\ [0N]
+ iN\mapsto0i\ [0n],\qquad jN\mapsto 0j\ [0n],\qquad
+ 0i\mapsto ij\ [0j],\qquad 0j\mapsto jN\ [0n]
 \end{equation}
 replace $iN$ by $ij$, see Figure~\ref{fig:childMerge}.
-For the first two, the vertex losing its edge to $N$ becomes a sink, so the new
-edge from $0$ is a cover and $0N$ remains one.
+For the first two, the vertex losing its edge to $n$ becomes a sink, so the new
+edge from $0$ is a cover and $0n$ remains one.
 At the third flip, $i$ and $j$ are sinks; afterwards $0$ is adjacent only to
-the sink $j$ and to $N$, which gives the last flip.
-In the tree, the branch $i\to N$ becomes $i\to j\to N$, and every edge still
+the sink $j$ and to $n$, which gives the last flip.
+In the tree, the branch $i\to n$ becomes $i\to j\to n$, and every edge still
 joins a vertex to an ancestor.
-The vertex $N-1$ is always a child of $N$.
-Applying~\eqref{eq:childMerge} with $j=N-1$ until $N-1$ is the only child of
-$N$, the edges on $1,\dotsc,N-1$ form a connected graph.
-Then we perform $(N-1)N\mapsto 0(N-1)\ [0N]$ and apply the construction
-inductively on $0,\dotsc,N-1$.
+The vertex $n-1$ is always a child of $n$.
+Applying~\eqref{eq:childMerge} with $j=n-1$ until $n-1$ is the only child of
+$n$, the edges on $1,\dotsc,n-1$ form a connected graph.
+Then we perform $(n-1)n\mapsto 0(n-1)\ [0n]$ and apply the construction
+inductively on $0,\dotsc,n-1$.
 These flips remain flips in the whole graph, since a path between two vertices
-below $N$ cannot pass through $N$.
-At the end, $0$ is adjacent only to $N-1$ and $N$, and $N-1$ has no outgoing
-edge, so we can perform $0(N-1)\mapsto(N-1)N\ [0N]$.
-We have reached an orientation $P_N\cup X$.
+below $n$ cannot pass through $n$.
+At the end, $0$ is adjacent only to $n-1$ and $n$, and $n-1$ has no outgoing
+edge, so we can perform $0(n-1)\mapsto(n-1)n\ [0n]$.
+We have reached an orientation $P_n\cup X$.
 
 \begin{figure}[!ht]
 \centering
 \LLTpic[cell=0.9em,first=0]{nnndeee}{\LLTasc{1/3,2/3}}$\;\longrightarrow\;$\LLTpic[cell=0.9em,first=0]{nnndeee}{\LLTasc{0/1,2/3}}$\;\longrightarrow\;$\LLTpic[cell=0.9em,first=0]{nnndeee}{\LLTasc{0/1,0/2}}$\;\longrightarrow\;$\LLTpic[cell=0.9em,first=0]{nnndeee}{\LLTasc{0/2,1/2}}$\;\longrightarrow\;$\LLTpic[cell=0.9em,first=0]{nnndeee}{\LLTasc{1/2,2/3}}
-\caption{The four flips~\eqref{eq:childMerge} for $N=3$, $i=1$ and $j=2$.
+\caption{The four flips~\eqref{eq:childMerge} for $n=3$, $i=1$ and $j=2$.
 They are $13\mapsto01$, $23\mapsto02$, $01\mapsto12$ and $02\mapsto23$, and the
 children $1$ and $2$ of $3$ become the chain $1\to2\to3$.
 The diagonal step crosses the strict corner $03$.}
@@ -295,30 +295,30 @@ The diagonal step crosses the strict corner $03$.}
 \end{figure}
 
 \smallskip\noindent\textbf{Step 2: working in a smaller interval.}
-Let $0<p\leq m\leq N$, and consider two orientations $P_N\cup X$ and
-$P_N\cup X'$ which agree on all pairs not contained in $W=\{0,p,p+1,\dotsc,m\}$.
+Let $0<p\leq m\leq n$, and consider two orientations $P_n\cup X$ and
+$P_n\cup X'$ which agree on all pairs not contained in $W=\{0,p,p+1,\dotsc,m\}$.
 We show that a path of flips between their restrictions to $W$, in the complete
 graph on $W$, lifts to a path between them.
 First we open the chain by the flips
 \begin{equation}\label{eq:opening}
- j(j+1)\mapsto 0j\quad[0(j+1)],\qquad j=N-1,N-2,\dotsc,m.
+ j(j+1)\mapsto 0j\quad[0(j+1)],\qquad j=n-1,n-2,\dotsc,m.
 \end{equation}
 Before such a flip, all edges from $0$ end at $j+1$ or above, so $0(j+1)$ is a
 cover, and these are flips regardless of the chords.
-Now the edges at $0$ are $0m,0(m+1),\dotsc,0N$, and the restriction to $W$ is
+Now the edges at $0$ are $0m,0(m+1),\dotsc,0n$, and the restriction to $W$ is
 of the same form for the complete graph on $W$.
 A path between two vertices of $W$ stays in $W$: it cannot use a vertex below
 $p$, since no edge from $0$ goes there, and it cannot return from above $m$.
 Hence flips in the complete graph on $W$ are flips of the whole graph.
-Opening $P_N\cup X'$ in the same way gives its restriction to $W$, with the same
+Opening $P_n\cup X'$ in the same way gives its restriction to $W$, with the same
 edges outside $W$, so after the path inside $W$ we close the chain by reversing
-the opening of $P_N\cup X'$.
+the opening of $P_n\cup X'$.
 
 \smallskip\noindent\textbf{Step 3: rearranging the chords.}
-We show by induction on $N$ that the orientations $P_N\cup X$ with the same
+We show by induction on $n$ that the orientations $P_n\cup X$ with the same
 number of chords lie in one flip class.
-For $N\leq3$ there is at most one chord.
-For $N=4$ the chords are $13$, $14$ and $24$.
+For $n\leq3$ there is at most one chord.
+For $n=4$ the chords are $13$, $14$ and $24$.
 In the following table, a triple $ijk$ denotes the flip exchanging $ij$ and
 $jk$ across $ik$, in the direction allowed by the current state, and each row
 starts and ends with $P_4$ together with the indicated chords:
@@ -337,48 +337,48 @@ $\{14,24\}\to\{13,14\}$ & $034,023,012,013,023,124,034$ \\
 The cover conditions are checked directly at each step.
 These rows connect all sets of one or two chords.
 
-Let $N\geq5$.
-By Step~2 and induction applied to $W=\{0,1,\dotsc,N-1\}$ and to
-$W=\{0,2,3,\dotsc,N\}$, we can rearrange the chords inside either set at a fixed
+Let $n\geq5$.
+By Step~2 and induction applied to $W=\{0,1,\dotsc,n-1\}$ and to
+$W=\{0,2,3,\dotsc,n\}$, we can rearrange the chords inside either set at a fixed
 number, restoring all other edges.
-The two sets of chord positions cover all positions except $1N$, and both
+The two sets of chord positions cover all positions except $1n$, and both
 contain $24$.
-Hence we can exchange any two chords other than $1N$: if no single set contains
+Hence we can exchange any two chords other than $1n$: if no single set contains
 both, we route through $24$, moving the selected chord to $24$ first if $24$ is
 vacant, and moving $24$ to the vacant position first otherwise.
-This connects all orientations $P_N\cup X$ with the same number of chords and the same
-status of $1N$.
+This connects all orientations $P_n\cup X$ with the same number of chords and the same
+status of $1n$.
 
-It remains to change the status of $1N$.
-Suppose $1N\notin\theta$ and $13,2N\in\theta$.
-We perform $iN\mapsto 0i\ [0N]$ for all $iN\in\theta$ with $0<i<N$, in decreasing
+It remains to change the status of $1n$.
+Suppose $1n\notin\theta$ and $13,2n\in\theta$.
+We perform $iN\mapsto 0i\ [0n]$ for all $iN\in\theta$ with $0<i<n$, in decreasing
 order of $i$.
-When $iN$ is moved, the edges into $N$ with larger tails have been moved.
-Hence $iN$ is a cover, and the vertices other than $N$ adjacent to $0$, which are
-larger than $i$, cannot reach $N$, so $0N$ is a cover.
+When $iN$ is moved, the edges into $n$ with larger tails have been moved.
+Hence $iN$ is a cover, and the vertices other than $n$ adjacent to $0$, which are
+larger than $i$, cannot reach $n$, so $0n$ is a cover.
 Now $02\in\theta$ and $01\notin\theta$, so $02$ is a cover, and we perform the
 flip $12\mapsto 01\ [02]$.
 Then we reverse these flips in increasing order of $i$, including the new edge
 $01$.
 When $0i$ is moved back to $iN$, it has the least head among the edges at $0$,
-and the edges into $N$ restored so far have smaller tails, so $0i$ and $0N$ are
+and the edges into $n$ restored so far have smaller tails, so $0i$ and $0n$ are
 covers.
-We obtain $\theta-12+1N$.
+We obtain $\theta-12+1n$.
 To restore $12$, we open the chain down to $3$ by~\eqref{eq:opening}.
 On $0,1,2,3$ the edges are then $03$, $13$ and $23$, and~\eqref{eq:childMerge}
-with $(i,j,N)=(1,2,3)$ replaces $13$ by $12$.
+with $(i,j,n)=(1,2,3)$ replaces $13$ by $12$.
 Closing the chain gives
 \begin{equation}\label{eq:outerChord}
- \theta\longmapsto\theta-13+1N\qquad(13,2N\in\theta,\ 1N\notin\theta).
+ \theta\longmapsto\theta-13+1n\qquad(13,2n\in\theta,\ 1n\notin\theta).
 \end{equation}
-Let $c$ be the number of chords and $Q=\binom{N-1}{2}$ the number of positions.
-If $2\leq c\leq Q-1$, we can first arrange $13,2N\in\theta$ and $1N\notin\theta$,
-and~\eqref{eq:outerChord} connects the two statuses of $1N$.
-If $c=0$ or $c=Q$, there is only one set of chords.
-If $c=1$, start from $P_N+13$, open the chain down to $2$, perform
-$13\mapsto01\ [03]$ and $01\mapsto 1N\ [0N]$, and close the chain.
-While the chain is open, the vertices $2,\dotsc,N$ are sinks, so these are flips,
-and we reach $P_N+1N$.
+Let $\theta=P_n\cup X$; there are $\binom{n-1}{2}$ chords in total.
+If $2\leq|X|\leq\binom{n-1}{2}-1$, we can first arrange $13,2n\in\theta$ and
+$1n\notin\theta$, and~\eqref{eq:outerChord} connects the two statuses of $1n$.
+If $|X|=0$ or $|X|=\binom{n-1}{2}$, there is only one set of chords.
+If $|X|=1$, start from $P_n+13$, open the chain down to $2$, perform
+$13\mapsto01\ [03]$ and $01\mapsto 1n\ [0n]$, and close the chain.
+While the chain is open, the vertices $2,\dotsc,n$ are sinks, so these are flips,
+and we reach $P_n+1n$.
 This completes the induction, and the proof.
 \end{proof}
 
@@ -426,22 +426,22 @@ Neither uses $uv$.
 
 \subsection{The last clique}
 
-Suppose that the last two corners are $bc$ and $ae$, with $b<a<c<e=n$.
-Let $Z=[1,c]\cup\{e\}$, and let $\Gamma_Z$ be the graph induced on $Z$, with the
+Suppose that the last two corners are $bc$ and $an$, with $b<a<c<n$.
+Let $L=[1,c]\cup\{n\}$, and let $\Gamma_L$ be the graph induced on $L$, with the
 inherited order and strict edges.
-For an orientation $\theta$ we write $\theta_Z$ for its edges inside $Z$.
-All corners other than $ae$ end at most at $c$, so the vertices in $(c,e)$ lie
+For an orientation $\theta$ we write $\theta_L$ for its edges inside $L$.
+All corners other than $an$ end at most at $c$, so the vertices in $(c,n)$ lie
 on no corner.
-Hence $\Gamma_Z$ has the same corners as $\Gamma$, its corner chains are those of
-$\Gamma$ except for the singleton chains of the vertices in $(c,e)$, and its
-set $\Gplus$ consists of the edges of $\Gplus$ inside $Z$.
-Every vertex strictly between $a$ and $e$ is the last vertex of its chain.
-Hence an orientation in $\Gplus$ has no edge from $a$ other than $ae$, and
-every natural edge with both endpoints strictly between $a$ and $e$, or ending
-at $e$ and starting after $a$, lies in $\Gplus$.
+Hence $\Gamma_L$ has the same corners as $\Gamma$, its corner chains are those of
+$\Gamma$ except for the singleton chains of the vertices in $(c,n)$, and its
+set $\Gplus$ consists of the edges of $\Gplus$ inside $L$.
+Every vertex strictly between $a$ and $n$ is the last vertex of its chain.
+Hence an orientation in $\Gplus$ has no edge from $a$ other than $an$, and
+every natural edge with both endpoints strictly between $a$ and $n$, or ending
+at $n$ and starting after $a$, lies in $\Gplus$.
 
 \begin{lemma}\label{lem:lastClique}
-If Theorem~\ref{thm:connectivity} holds for $\Gamma_Z$, then it holds for
+If Theorem~\ref{thm:connectivity} holds for $\Gamma_L$, then it holds for
 $\Gamma$.
 \end{lemma}
 
@@ -453,21 +453,21 @@ fixed spanning tree $T$, and that all such orientations of the same size are
 joined.
 
 \smallskip\noindent\textbf{Components inside the last clique.}
-All pairs in $[a,e]$ are natural.
+All pairs in $[a,n]$ are natural.
 Consider the connected components of the graph formed by the edges of $\theta$
-inside $[a,e]$.
-A path between two vertices of such a component stays in $[a,e]$, and hence in
+inside $[a,n]$.
+A path between two vertices of such a component stays in $[a,n]$, and hence in
 the component.
 So a flip of the complete graph on a component, with its vertices in increasing
 order, is a flip of $\Gamma$ which changes the edges inside the component and fixes
 all other edges.
-The component containing $a$ and $e$ has the extreme edge $ae$, which is a cover,
+The component containing $a$ and $n$ has the extreme edge $an$, which is a cover,
 so Lemma~\ref{lem:complete} applies to it.
 
-\smallskip\noindent\textbf{Step 1: making $\theta_Z$ connected.}
-In the component containing $a$ and $e$, the vertex $a$ is only adjacent to $e$.
+\smallskip\noindent\textbf{Step 1: making $\theta_L$ connected.}
+In the component containing $a$ and $n$, the vertex $a$ is only adjacent to $n$.
 By Lemma~\ref{lem:complete} we replace the edges of this component by the star of all
-edges to $e$, together with other edges avoiding $a$ to keep their number.
+edges to $n$, together with other edges avoiding $a$ to keep their number.
 This is possible since a connected graph on $k$ vertices in which one vertex is
 a leaf has between $k-1$ and $1+\binom{k-1}{2}$ edges.
 Every other component meets $(a,c]$, since otherwise it would be a connected
@@ -480,46 +480,46 @@ path.
 Replacing an edge of the new path which is no longer a cover by a path of covers
 inside its interval, the largest vertex decreases.
 Repeating, we obtain a path of covers in $[u,v]$, which joins $u$ and $v$ by
-edges inside $Z$.
+edges inside $L$.
 These flips do not disconnect pairs which were joined inside $[1,c]$ before.
-Repeating this, every component meets $Z$ in a connected graph.
-Every natural edge with an endpoint in $(c,e)$ lies inside $ae$, so we can
-replace every part of a path in $\theta$ outside $Z$ by a path inside the
-corresponding component, and the edges of $\theta$ inside $Z$ form a connected graph.
+Repeating this, every component meets $L$ in a connected graph.
+Every natural edge with an endpoint in $(c,n)$ lies inside $an$, so we can
+replace every part of a path in $\theta$ outside $L$ by a path inside the
+corresponding component, and the edges of $\theta$ inside $L$ form a connected graph.
 
-\smallskip\noindent\textbf{Step 2: changing $\theta_Z$.}
-Suppose the edges of $\theta$ inside $Z$ form a connected graph.
-We perform $ve\mapsto av\ [ae]$ for all $ve\in\theta$ with $c<v<e$, in decreasing
+\smallskip\noindent\textbf{Step 2: changing $\theta_L$.}
+Suppose the edges of $\theta$ inside $L$ form a connected graph.
+We perform $vn\mapsto av\ [an]$ for all $vn\in\theta$ with $c<v<n$, in decreasing
 order of $v$.
 These are flips by the argument for the first flips in the proof of
 Lemma~\ref{lem:crossingSlide},
-and they do not change edges inside $Z$ or the cover tests of other corners.
-Afterwards no vertex outside $Z$ has an edge to $e$, so a path leaving $Z$
-cannot return to $Z$.
-Hence every path of flips in $\Gamma_Z$ lifts, with all edges outside $Z$ fixed.
-By assumption we can reach any connected orientation of $\Gamma_Z$ in $\Gplus$
+and they do not change edges inside $L$ or the cover tests of other corners.
+Afterwards no vertex outside $L$ has an edge to $n$, so a path leaving $L$
+cannot return to $L$.
+Hence every path of flips in $\Gamma_L$ lifts, with all edges outside $L$ fixed.
+By assumption we can reach any connected orientation of $\Gamma_L$ in $\Gplus$
 with the same number of edges.
-At its end $a$ has no edge to $(a,e)$ inside $Z$, and we reverse the first flips in
+At its end $a$ has no edge to $(a,n)$ inside $L$, and we reverse the first flips in
 increasing order of $v$.
 
 \smallskip\noindent\textbf{Step 3: a fixed tree.}
-In the set $\Gplus$ of $\Gamma_Z$, the corners and the edges $ve$ with $a<v\leq c$
+In the set $\Gplus$ of $\Gamma_L$, the corners and the edges $vn$ with $a<v\leq c$
 form a forest: every vertex has at most one outgoing edge among them, and all
 edges point upwards.
-Since $\theta_Z$ is connected, this forest extends to a spanning tree $T'$ of
-$\Gamma_Z$ inside $\Gplus$.
-Inside $[a,e]$, the tree $T'$ consists of the edges to $e$, and $T'$ does not
-contain $ba$, since $bc,ce,ea$ already join $b$ and $a$.
-Adding edges of $\Gplus$ to $T'$ we obtain a connected orientation of $\Gamma_Z$
-with the same number of edges as $\theta_Z$, and Step~2 reaches it.
-Now all of $[a,e]$ is one component.
-Indeed, every vertex in $(c,e)$ is joined, inside its component, to a vertex of $Z$ by
-a path whose edges are not inside $Z$, and these edges were not changed; and
-the vertices of $Z\cap[a,e]$ are joined to $e$ by $T'$.
-Since $ae$ is a cover, Lemma~\ref{lem:complete} makes this component a star at $e$
-together with edges avoiding $a$, containing $T'\cap[a,e]$.
+Since $\theta_L$ is connected, this forest extends to a spanning tree $T'$ of
+$\Gamma_L$ inside $\Gplus$.
+Inside $[a,n]$, the tree $T'$ consists of the edges to $n$, and $T'$ does not
+contain $ba$, since $bc,cn,na$ already join $b$ and $a$.
+Adding edges of $\Gplus$ to $T'$ we obtain a connected orientation of $\Gamma_L$
+with the same number of edges as $\theta_L$, and Step~2 reaches it.
+Now all of $[a,n]$ is one component.
+Indeed, every vertex in $(c,n)$ is joined, inside its component, to a vertex of $L$ by
+a path whose edges are not inside $L$, and these edges were not changed; and
+the vertices of $L\cap[a,n]$ are joined to $n$ by $T'$.
+Since $an$ is a cover, Lemma~\ref{lem:complete} makes this component a star at $n$
+together with edges avoiding $a$, containing $T'\cap[a,n]$.
 This gives an orientation containing the spanning tree
-$T=T'\cup\{ve:c<v<e\}$, see Figure~\ref{fig:lastCliqueTree}.
+$T=T'\cup\{vn:c<v<n\}$, see Figure~\ref{fig:lastCliqueTree}.
 
 \begin{figure}[!ht]
 \centering
@@ -527,7 +527,7 @@ $T=T'\cup\{ve:c<v<e\}$, see Figure~\ref{fig:lastCliqueTree}.
 \LLTpic[cell=0.9em]{nnnnddenndeeeee}{\LLTasc{3/5,5/9,6/9,7/9,8/9}\LLTmark{2/4}{$\circ$}}
 \caption{The trees $T'$ (left) and $T$ (right) for the path
 $\mathtt{nnnnddenndeeeee}$, with corners $15$, $26$ and $49$, so that $b=2$, $a=4$,
-$c=6$, $e=9$ and $Z=[1,6]\cup\{9\}$.
+$c=6$, $n=9$ and $L=[1,6]\cup\{9\}$.
 The diagonal steps cross the corners, which are tree edges, and the arrows
 are the remaining tree edges; $T$ adds the leaves $7$ and $8$ at $9$.
 The position $ba=24$, marked $\circ$, lies in neither tree.}
@@ -535,23 +535,23 @@ The position $ba=24$, marked $\circ$, lies in neither tree.}
 \end{figure}
 
 \smallskip\noindent\textbf{Step 4: moving the remaining edges.}
-Let $M=\Gplus\setminus T$, let $M_Z$ be the positions in $M$ inside $Z$, and let
-$M_C$ be the set of pairs $uv$ with $a<u<v<e$, together with $ba$.
-Then $M=M_Z\cup M_C$, and $ba\in M_Z\cap M_C$.
-Step~2 exchanges any two positions of $M_Z$, and Lemma~\ref{lem:complete} on the
-component $[a,e]$ exchanges any two positions of $M_C\setminus\{ba\}$, restoring all
+Let $M=\Gplus\setminus T$, let $M_L$ be the positions in $M$ inside $L$, and let
+$M_C$ be the set of pairs $uv$ with $a<u<v<n$, together with $ba$.
+Then $M=M_L\cup M_C$, and $ba\in M_L\cap M_C$.
+Step~2 exchanges any two positions of $M_L$, and Lemma~\ref{lem:complete} on the
+component $[a,n]$ exchanges any two positions of $M_C\setminus\{ba\}$, restoring all
 other edges.
 Suppose $ba\in\theta$ and $x\in M_C\setminus\{ba\}$ is vacant.
 Let $d\neq c$ be an endpoint of $x$, and let $y$ be the edge joining $c$ and $d$.
-If $y\in\theta$, the component stays connected when we replace $ce$ by $x$, so
+If $y\in\theta$, the component stays connected when we replace $cn$ by $x$, so
 Lemma~\ref{lem:complete} performs this replacement.
-Then Lemma~\ref{lem:crossingSlide} for the corners $bc$ and $ae$ exchanges $ba$
-for $ce$,
+Then Lemma~\ref{lem:crossingSlide} for the corners $bc$ and $an$ exchanges $ba$
+for $cn$,
 and we obtain $\theta-ba+x$.
 If $y\notin\theta$, the same construction with $y$ in place of $x$ gives
 $\theta-ba+y$, and then we exchange $y$ and $x$.
 Reversing these paths exchanges in the other direction.
-Finally, a position of $M_Z\setminus M_C$ and one of $M_C\setminus M_Z$ are
+Finally, a position of $M_L\setminus M_C$ and one of $M_C\setminus M_L$ are
 exchanged by routing through $ba$, as in Step~3 of Lemma~\ref{lem:complete}.
 Thus all orientations containing $T$ with the same number of edges lie in one flip
 class, and with Lemma~\ref{lem:preparation} this proves the lemma.
@@ -560,7 +560,7 @@ class, and with Lemma~\ref{lem:preparation} this proves the lemma.
 Reversing the order of the vertices maps flips to flips, since it reverses the
 direction of all edges and preserves covers.
 Hence Lemma~\ref{lem:lastClique} also holds for the first two corners, with the
-graph induced on $\{1\}\cup[b',n]$ in place of $\Gamma_Z$ when the first two
+graph induced on $\{1\}\cup[b',n]$ in place of $\Gamma_L$ when the first two
 corners are $1a'$ and $b'c'$.
 
 \subsection{The first vertex}
