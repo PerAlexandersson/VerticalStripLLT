@@ -33,9 +33,13 @@ now records the new division. Claude's claim proposal and approximately
 1,450 lines of scratchpad candidates remain unverified; its proposal is in
 `suggestions/claude-right-attachment-claim.md` (Claude-owned). A read-only
 pane inspection showed its bounded handoff watcher and an unsent user prompt;
-Codex left the prompt untouched. No acknowledgement of the transfer was
-inferred from that queued text.
+Codex left the prompt untouched. A later inspection confirmed Claude has
+started integrating the four `RightAttachment*.lean` sources and running
+focused builds. Those untracked source files belong to Claude; their checks
+are ongoing and no attachment theorem is yet recorded as complete.
 
+Writing checkpoint `52afc77` is pushed. Issue #8 was read back and matches
+the tracked task after conversion of relative links to repository links.
 The new circular section `docs/drafts/CIRCULAR_E_EXPANSION.md` follows the
 checked aggregate proof. It separately treats the terminal-contact reduction
 (factor `1+q`, doubled area down six) and interior column reversal; the
