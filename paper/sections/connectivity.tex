@@ -140,8 +140,75 @@ corresponding flip of the sweep; and $bd$ remains a cover by
 Lemma~\ref{lem:flipCriterion}.
 Then we undo the first sweep in the same way, using that the edges inside
 $[v,c]$ are as they were after the corresponding flip, for $v\in L$.
-We obtain $\theta-ab+cd$.
+We obtain $\theta-ab+cd$, see Figure~\ref{fig:crossingSlide}.
 \end{proof}
+
+\begin{figure}[!ht]
+\centering
+\ytableausetup{boxsize=0.85em}
+\begin{ytableau}
+*(lightgray) & *(lightgray) & *(lightgray)\to &  & \to & *(yellow) 6 \\
+*(lightgray) & *(lightgray)\to &  &  & *(yellow) 5 \\
+*(lightgray)\to &  &  & *(yellow) 4 \\
+\to &  & *(yellow) 3 \\
+\to & *(yellow) 2 \\
+*(yellow) 1
+\end{ytableau}$\;\xrightarrow{12\mapsto24}\;$\begin{ytableau}
+*(lightgray) & *(lightgray) & *(lightgray)\to &  & \to & *(yellow) 6 \\
+*(lightgray) & *(lightgray)\to &  &  & *(yellow) 5 \\
+*(lightgray)\to & \to &  & *(yellow) 4 \\
+\to &  & *(yellow) 3 \\
+ & *(yellow) 2 \\
+*(yellow) 1
+\end{ytableau}$\;\xrightarrow{56\mapsto35}\;$\begin{ytableau}
+*(lightgray) & *(lightgray) & *(lightgray)\to &  &  & *(yellow) 6 \\
+*(lightgray) & *(lightgray)\to & \to &  & *(yellow) 5 \\
+*(lightgray)\to & \to &  & *(yellow) 4 \\
+\to &  & *(yellow) 3 \\
+ & *(yellow) 2 \\
+*(yellow) 1
+\end{ytableau}$\;\xrightarrow{13\mapsto34}\;$\begin{ytableau}
+*(lightgray) & *(lightgray) & *(lightgray)\to &  &  & *(yellow) 6 \\
+*(lightgray) & *(lightgray)\to & \to &  & *(yellow) 5 \\
+*(lightgray)\to & \to & \to & *(yellow) 4 \\
+ &  & *(yellow) 3 \\
+ & *(yellow) 2 \\
+*(yellow) 1
+\end{ytableau}
+\\[1.2em]
+$\;\xrightarrow{34\mapsto46}\;$\begin{ytableau}
+*(lightgray) & *(lightgray) & *(lightgray)\to & \to &  & *(yellow) 6 \\
+*(lightgray) & *(lightgray)\to & \to &  & *(yellow) 5 \\
+*(lightgray)\to & \to &  & *(yellow) 4 \\
+ &  & *(yellow) 3 \\
+ & *(yellow) 2 \\
+*(yellow) 1
+\end{ytableau}$\;\xrightarrow{35\mapsto56}\;$\begin{ytableau}
+*(lightgray) & *(lightgray) & *(lightgray)\to & \to & \to & *(yellow) 6 \\
+*(lightgray) & *(lightgray)\to &  &  & *(yellow) 5 \\
+*(lightgray)\to & \to &  & *(yellow) 4 \\
+ &  & *(yellow) 3 \\
+ & *(yellow) 2 \\
+*(yellow) 1
+\end{ytableau}$\;\xrightarrow{24\mapsto12}\;$\begin{ytableau}
+*(lightgray) & *(lightgray) & *(lightgray)\to & \to & \to & *(yellow) 6 \\
+*(lightgray) & *(lightgray)\to &  &  & *(yellow) 5 \\
+*(lightgray)\to &  &  & *(yellow) 4 \\
+ &  & *(yellow) 3 \\
+\to & *(yellow) 2 \\
+*(yellow) 1
+\end{ytableau}
+\caption{A crossing slide for the area sequence $(0,1,2,3,3,3)$, whose corners
+$14$, $25$ and $36$ are strict, with $a=1$, $b=3$, $c=4$ and $d=6$, so that $L=\{2\}$
+and $R=\{5\}$.
+The first two flips are the sweeps, the next two move $13$ to $46$ through $34$,
+and the last two undo the sweeps.
+The retained long edge is $14$ or $36$ in every step, and the endpoint is the
+initial orientation with $13$ replaced by $46$.}
+\label{fig:crossingSlide}
+\end{figure}
+
+
 
 We now use crossing slides to move edges between two corner chains.
 Let $uv$ be a normal natural edge such that $u$ has a corner successor $h$.
@@ -220,7 +287,8 @@ flip class.
 \begin{proof}
 Let $P_N$ consist of $0N$ and the edges $i(i+1)$ for $1\leq i<N$.
 We call the other possible edges $ij$, with $1\leq i<i+1<j\leq N$, the
-\defin{chords}, and an orientation containing $P_N$ a \defin{chain state}.
+\defin{chords}, and an orientation consisting of $P_N$ and some chords a
+\defin{chain state}.
 We first join every orientation in question to a chain state, and then show that
 chain states with the same number of chords lie in one flip class.
 
@@ -244,7 +312,7 @@ and the four flips
  iN\mapsto0i\ [0N],\qquad jN\mapsto 0j\ [0N],\qquad
  0i\mapsto ij\ [0j],\qquad 0j\mapsto jN\ [0N]
 \end{equation}
-replace $iN$ by $ij$.
+replace $iN$ by $ij$, see Figure~\ref{fig:childMerge}.
 For the first two, the vertex losing its edge to $N$ becomes a sink, so the new
 edge from $0$ is a cover and $0N$ remains one.
 At the third flip, $i$ and $j$ are sinks; afterwards $0$ is adjacent only to
@@ -262,6 +330,41 @@ At the end, $0$ is adjacent only to $N-1$ and $N$, and $N-1$ has no outgoing
 edge, so we can perform $0(N-1)\mapsto(N-1)N\ [0N]$.
 We have reached a chain state.
 
+\begin{figure}[!ht]
+\centering
+\ytableausetup{boxsize=0.9em}
+\begin{ytableau}
+*(lightgray)\to & \to & \to & *(yellow) 3 \\
+ &  & *(yellow) 2 \\
+ & *(yellow) 1 \\
+*(yellow) 0
+\end{ytableau}$\;\xrightarrow{13\mapsto01}\;$\begin{ytableau}
+*(lightgray)\to &  & \to & *(yellow) 3 \\
+ &  & *(yellow) 2 \\
+\to & *(yellow) 1 \\
+*(yellow) 0
+\end{ytableau}$\;\xrightarrow{23\mapsto02}\;$\begin{ytableau}
+*(lightgray)\to &  &  & *(yellow) 3 \\
+\to &  & *(yellow) 2 \\
+\to & *(yellow) 1 \\
+*(yellow) 0
+\end{ytableau}$\;\xrightarrow{01\mapsto12}\;$\begin{ytableau}
+*(lightgray)\to &  &  & *(yellow) 3 \\
+\to & \to & *(yellow) 2 \\
+ & *(yellow) 1 \\
+*(yellow) 0
+\end{ytableau}$\;\xrightarrow{02\mapsto23}\;$\begin{ytableau}
+*(lightgray)\to &  & \to & *(yellow) 3 \\
+ & \to & *(yellow) 2 \\
+ & *(yellow) 1 \\
+*(yellow) 0
+\end{ytableau}
+\caption{The four flips~\eqref{eq:childMerge} for $N=3$, $i=1$ and $j=2$.
+The children $1$ and $2$ of $3$ become the chain $1\to2\to3$.
+The shaded arrow is the corner $03$.}
+\label{fig:childMerge}
+\end{figure}
+
 \smallskip\noindent\textbf{Step 2: working in a smaller interval.}
 Let $0<p\leq m\leq N$, and consider two chain states which agree on all pairs
 not contained in $W=\{0,p,p+1,\dotsc,m\}$.
@@ -271,8 +374,8 @@ First we open the chain by the flips
 \begin{equation}\label{eq:opening}
  j(j+1)\mapsto 0j\quad[0(j+1)],\qquad j=N-1,N-2,\dotsc,m.
 \end{equation}
-Before such a flip, all edges from $0$ end at $j+1$ or above, and afterwards
-$j$ cannot reach $j+1$, so these are flips regardless of the chords.
+Before such a flip, all edges from $0$ end at $j+1$ or above, so $0(j+1)$ is a
+cover, and these are flips regardless of the chords.
 Now the edges at $0$ are $0m,0(m+1),\dotsc,0N$, and the restriction to $W$ is a
 chain state of the complete graph on $W$.
 A path between two vertices of $W$ stays in $W$: it cannot use a vertex below
@@ -321,13 +424,16 @@ It remains to change the status of $1N$.
 Suppose $1N\notin\theta$ and $13,2N\in\theta$.
 We perform $iN\mapsto 0i\ [0N]$ for all $iN\in\theta$ with $0<i<N$, in decreasing
 order of $i$.
-When $iN$ is moved, the edges into $N$ with larger tails have been moved, so
-$iN$ is a cover, and the vertices adjacent to $0$ are larger than $i$, so $0N$
-remains a cover.
+When $iN$ is moved, the edges into $N$ with larger tails have been moved.
+Hence $iN$ is a cover, and the vertices other than $N$ adjacent to $0$, which are
+larger than $i$, cannot reach $N$, so $0N$ is a cover.
 Now $02\in\theta$ and $01\notin\theta$, so $02$ is a cover, and we perform the
 flip $12\mapsto 01\ [02]$.
-Reversing the first sweep in increasing order, including the new edge $01$,
-gives $\theta-12+1N$.
+Then we reverse the sweep in increasing order, including the new edge $01$.
+When $0i$ is moved back to $iN$, it has the least head among the edges at $0$,
+and the edges into $N$ restored so far have smaller tails, so $0i$ and $0N$ are
+covers.
+We obtain $\theta-12+1N$.
 To restore $12$, we open the chain down to $3$ by~\eqref{eq:opening}.
 On $0,1,2,3$ the edges are then $03$, $13$ and $23$, and~\eqref{eq:childMerge}
 with $(i,j,N)=(1,2,3)$ replaces $13$ by $12$.
@@ -436,12 +542,9 @@ If its largest vertex $z$ exceeds $v$, its neighbours $i<j$ on the path are
 joined to $z$ by covers, and $jz\mapsto ij\ [iz]$ is a flip, which shortens the
 path.
 Replacing an edge of the new path which is no longer a cover by a path of covers
-inside its interval, the largest vertex decreases, and we obtain a path of covers
-in $[u,v]$.
-Then we eliminate vertices with two incoming covers inside $[u,v]$ by the same
-flips; the sum of the heads decreases.
-Afterwards the covers inside $[u,v]$ form trees rooted at their least vertices,
-so $u$ reaches $v$.
+inside its interval, the largest vertex decreases.
+Repeating, we obtain a path of covers in $[u,v]$, which joins $u$ and $v$ by
+edges inside $Z$.
 These flips do not disconnect pairs which were joined inside $[1,c]$ before.
 Repeating this, every block meets $Z$ in a connected graph.
 Every natural edge with an endpoint in $(c,e)$ lies inside $ae$, so we can
@@ -472,10 +575,48 @@ Inside $[a,e]$, the tree $T'$ consists of the edges to $e$, and $T'$ does not
 contain $ba$, since $bc,ce,ea$ already join $b$ and $a$.
 Adding edges of $\Gplus$ to $T'$ we obtain a connected orientation of the core with
 the same number of edges as the core of $\theta$, and Step~2 reaches it.
-Now all of $[a,e]$ is one block, and by Lemma~\ref{lem:complete} we make it a
-star at $e$ together with edges avoiding $a$, containing $T'\cap[a,e]$.
+Now all of $[a,e]$ is one block.
+Indeed, every vertex in $(c,e)$ is joined, inside its block, to a vertex of $Z$ by
+a path whose edges are not inside $Z$, and these edges were not changed; and
+the vertices of $Z\cap[a,e]$ are joined to $e$ by $T'$.
+By Lemma~\ref{lem:complete} we make the block a star at $e$ together with edges
+avoiding $a$, containing $T'\cap[a,e]$.
 This gives an orientation containing the spanning tree
-$T=T'\cup\{ve:c<v<e\}$.
+$T=T'\cup\{ve:c<v<e\}$, see Figure~\ref{fig:lastCliqueTree}.
+
+\begin{figure}[!ht]
+\centering
+\ytableausetup{boxsize=0.9em}
+\begin{ytableau}
+*(lightgray) & *(lightgray) & *(lightgray) & *(lightgray)\to & \to & \to &  &  & *(yellow) 9 \\
+*(lightgray) & *(lightgray) & *(lightgray) &  &  &  &  & *(yellow) 8 \\
+*(lightgray) & *(lightgray) & *(lightgray) &  &  &  & *(yellow) 7 \\
+*(lightgray) & *(lightgray)\to &  &  &  & *(yellow) 6 \\
+*(lightgray)\to &  & \to &  & *(yellow) 5 \\
+ & \circ &  & *(yellow) 4 \\
+ &  & *(yellow) 3 \\
+ & *(yellow) 2 \\
+*(yellow) 1
+\end{ytableau}\qquad\qquad
+\begin{ytableau}
+*(lightgray) & *(lightgray) & *(lightgray) & *(lightgray)\to & \to & \to & \to & \to & *(yellow) 9 \\
+*(lightgray) & *(lightgray) & *(lightgray) &  &  &  &  & *(yellow) 8 \\
+*(lightgray) & *(lightgray) & *(lightgray) &  &  &  & *(yellow) 7 \\
+*(lightgray) & *(lightgray)\to &  &  &  & *(yellow) 6 \\
+*(lightgray)\to &  & \to &  & *(yellow) 5 \\
+ & \circ &  & *(yellow) 4 \\
+ &  & *(yellow) 3 \\
+ & *(yellow) 2 \\
+*(yellow) 1
+\end{ytableau}
+\caption{The trees $T'$ (left) and $T$ (right) for the area sequence
+$(0,1,2,3,4,4,3,4,5)$ with corners $15$, $26$ and $49$, so that $b=2$, $a=4$,
+$c=6$, $e=9$ and $Z=[1,6]\cup\{9\}$.
+Shaded arrows are the corners and the other arrows are the remaining tree
+edges; $T$ adds the leaves $7$ and $8$ at $9$.
+The position $ba=24$, marked $\circ$, lies in neither tree.}
+\label{fig:lastCliqueTree}
+\end{figure}
 
 \smallskip\noindent\textbf{Step 4: moving the remaining edges.}
 Let $P=\Gplus\setminus T$, let $P_Z$ be the positions in $P$ inside $Z$, and let
@@ -566,6 +707,8 @@ This fails only if~\eqref{eq:initialBand} allows a single cardinality and more
 than one set.
 If $J\neq\emptyset$, the hypothesis gives $m\geq n-1$, and then a single allowed
 cardinality forces $S=\emptyset$ or $S=J$.
+Hence all connected orientations in $\Gplus$ with $s$ edges lie in one flip
+class, and Lemma~\ref{lem:preparation} proves the lemma.
 \end{proof}
 
 \subsection{Proof of Theorem~\ref{thm:connectivity}}

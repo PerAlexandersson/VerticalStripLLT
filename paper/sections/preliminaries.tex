@@ -320,12 +320,33 @@ For ordinary graphs these definitions agree with the previous ones.
 Let $\avec=(1,1,1)$ with no strict edges.
 The natural edges form the directed cycle $1\to2\to3\to1$.
 The orientation with ascending edges $3\to1$ and $1\to2$ lifts to the path
-$3\to4\to5$, so all three vertices have highest reachable vertex $2$.
+$3\to4\to5$, so all three vertices have highest reachable vertex $2$, see
+Figure~\ref{fig:lift}.
 The admissible orientations are the empty one, the three single edges and the
 three paths of two edges, and the right-hand side of
 Corollary~\ref{cor:circularExpansion} below is
 $\elementaryE_{111}+3q\,\elementaryE_{21}+3q^2\elementaryE_3$.
 \end{example}
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[x=3em,y=3em]
+\draw[gray] (-0.5,0)--(6.5,0);
+\foreach \z/\r in {0/3,1/1,2/2,3/3,4/1,5/2,6/3}{
+  \node[vtx,fill=white] (z\z) at (\z,0) {$\z$};
+  \node[font=\scriptsize,gray] at (\z,-0.55) {$\r$};}
+\draw[sel] (z0) to[bend left=40] (z1);
+\draw[sel] (z1) to[bend left=40] (z2);
+\draw[sel,red!70!black] (z3) to[bend left=40] (z4);
+\draw[sel,red!70!black] (z4) to[bend left=40] (z5);
+\draw[sel] (z6) to[bend left=40] (6.6,0.25);
+\end{tikzpicture}
+\caption{The lift to $\setZ$ of the orientation in Example~\ref{ex:threeCycle}
+with ascending edges $3\to1$ and $1\to2$; residues are shown below the
+integers.
+The path $3\to4\to5$ shows that $3$ reaches the lift $5$ of $2$.}
+\label{fig:lift}
+\end{figure}
 
 Flips are defined on the lift.
 Let $u<v<w<u+n$ be integers such that $uw$ is a lifted natural edge, and let

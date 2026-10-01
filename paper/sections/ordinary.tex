@@ -379,6 +379,32 @@ triangle $u<v<w$ with $uw$ natural lies in one part.
 Hence the flip classes of $\Gamma$ are the products $C_1\times C_2$ of flip
 classes of the two parts.
 
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[x=2.6em,y=2.6em]
+\fill[blue!8] (-0.4,-0.6) rectangle (4.4,0.6);
+\fill[orange!12] (3.6,-0.55) rectangle (7.4,0.55);
+\foreach \i in {0,...,7} \node[vtx] (v\i) at (\i,0) {};
+\node[vtx,fill=red!25] at (1,0) {};
+\node[vtx,fill=red!25] at (2,0) {};
+\node[vtx,fill=red!25!blue!25] at (4,0) {$c$};
+\node[vtx,fill=blue!25] at (6,0) {};
+\draw[sel] (1,0.3) to[bend left=35] (2,0.3);
+\draw[sel] (2,0.3) to[bend left=35] (4,0.3);
+\draw[sel] (4,-0.3) to[bend right=35] (6,-0.3);
+\node at (2,-1) {left part};
+\node at (5.5,-1) {right part};
+\end{tikzpicture}
+\caption{Gluing at $c$.
+A left fibre whose highest reachable vertex is $c$ (red) merges with the right
+fibre containing $c$ (blue).
+In the merged chain, $c$ is the largest left vertex and the smallest right
+vertex, and summing over its color $\beta$ gives
+$\sum_\beta x_\beta\,\elementaryE_{p-1}(x_1,\dotsc,x_{\beta-1})\,
+\elementaryE_{r-1}(x_{\beta+1},\dotsc)=\elementaryE_{p+r-1}$.}
+\label{fig:gluing}
+\end{figure}
+
 \begin{lemma}\label{lem:gluing}
 Let $C_2$ be a flip class of $\Gamma_{\geq c}$.
 Suppose that $V(C_1)[\beta]=\sum_iz_iV(C_{1,i})[\beta]$ for all $\beta$ and
@@ -409,7 +435,8 @@ Hence the highest reachable vertex of a left vertex $u$ is
 $\hrv{\theta_1}{u}$ if this is smaller than $c$, and $\hrv{\theta_2}{c}$
 otherwise, while the right vertices keep their highest reachable vertices.
 The fibre of $c$ in the left part, of size $p$, merges with the fibre of $c$ in
-the right part, of size $r$, and all other fibres are unchanged.
+the right part, of size $r$, and all other fibres are unchanged, see
+Figure~\ref{fig:gluing}.
 In the two chains, $c$ is the largest element of the first and the smallest
 element of the second.
 Since
@@ -460,7 +487,29 @@ By the choice of $c$, no vertex strictly between $b$ and $c$ is an
 articulation of the graph induced on $[b,c]$, and $b(c+1)=c$ if $c<n$.
 \end{proof}
 
-We call $\Gamma_{\leq c}$ the \defin{prefix} of $\Gamma$.
+\begin{figure}[!ht]
+\centering
+\ytableausetup{boxsize=0.9em}
+\begin{ytableau}
+*(lightgray) & *(lightgray) & *(lightgray) & *(lightgray) & *(lightgray) & *(lightgray) & *(lightgray) & *(orange!35) & *(yellow) 9 \\
+*(lightgray) & *(lightgray) & *(lightgray) & *(lightgray) & *(lightgray) & *(orange!35) & *(orange!35) & *(yellow) 8 \\
+*(lightgray) & *(lightgray) & *(lightgray) & *(lightgray) & *(lightgray) & *(orange!35) & *(yellow) 7 \\
+*(lightgray) & *(lightgray) & *(lightgray) & *(blue!20) & *(blue!20) & *(yellow) 6 \\
+*(lightgray) & *(blue!20) & *(blue!20) & *(blue!20) & *(yellow) 5 \\
+*(lightgray) & *(blue!20) & *(blue!20) & *(yellow) 4 \\
+*(lightgray) & *(blue!20) & *(yellow) 3 \\
+*(green!35) & *(yellow) 2 \\
+*(yellow) 1
+\end{ytableau}
+\caption{The area sequence $(0,1,1,2,3,2,1,2,1)$, with $j=4$, $b=2$ and $c=6$ in
+Lemma~\ref{lem:prefix}.
+The prefix is the path $1,2$ (green) followed by the graph on $[2,6]$ without
+articulations (blue), and the whole graph is glued at $6$ from the prefix and
+the graph on $[6,9]$ (orange).}
+\label{fig:prefix}
+\end{figure}
+
+We call $\Gamma_{\leq c}$ the \defin{prefix} of $\Gamma$, see Figure~\ref{fig:prefix}.
 For the prefix we put $a_{c+1}=0$.
 The prefix has the same area sequence as $\Gamma$ up to $c$, and
 $a_{c+1}<a_c$ both in $\Gamma$ and in the prefix, since $a_c\geq2$.

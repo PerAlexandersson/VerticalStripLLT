@@ -72,6 +72,18 @@ Lemma~\ref{lem:deletion} below, applied to this cycle, gives
 $\Kv(\theta)=\Kv(F)$ and $[H_\theta]=[H_F]$ for $F=\{1\to3,3\to2\}$.
 The set $F$ is balanced; its lift is the path $1\to3\to5$, so all three
 vertices reach $2$, and both values equal $\elementaryE_3$.
+In the lift below, the dashed edge is the deleted edge $1\to2$:
+\[
+\begin{tikzpicture}[x=3em,y=3em]
+\draw[gray] (0.5,0)--(5.5,0);
+\foreach \z/\r in {1/1,2/2,3/3,4/1,5/2}{
+  \node[vtx,fill=white] (z\z) at (\z,0) {$\z$};
+  \node[font=\scriptsize,gray] at (\z,-0.55) {$\r$};}
+\draw[sel,densely dashed] (z1) to[bend left=50] (z2);
+\draw[sel] (z1) to[bend left=40] (z3);
+\draw[sel] (z3) to[bend left=40] (z5);
+\end{tikzpicture}
+\]
 \end{example}
 
 \subsection{The finite deletion identity}
@@ -119,10 +131,11 @@ Toggling the first edge of $N$ with this property is therefore a sign-reversing
 involution which preserves $H$.
 \end{proof}
 
-If $\theta$ is not balanced, extend a potential on a spanning forest of $\theta$.
-An edge outside the forest violating the potential lies on a cycle of the forest
-with nonzero signed length, and we traverse it in the direction in which the
-forward edges are longer.
+If $\theta$ is not balanced, choose a spanning forest of $\theta$ and a potential
+on it.
+Some edge outside the forest violates the potential, and together with the path
+in the forest between its endpoints it forms a cycle with nonzero signed length.
+We traverse this cycle in the direction in which the forward edges are longer.
 Then $N\neq\emptyset$, since otherwise $\theta$ would contain a directed cycle.
 Hence every set $B\cup J$ with $J\subsetneq N$ in Lemma~\ref{lem:deletion} has fewer
 edges than $\theta$.
@@ -148,7 +161,7 @@ $k(\omega)$ is the number of blocks.
 A strongly connected component lies in one block of a compatible ordered
 partition, so we may contract the strong components and remove the loops.
 The edges of $G$ all lie on directed cycles exactly when the resulting acyclic
-graph $Q$ has no edges.
+graph $Q$ has no edges, and in that case $c(G)$ is the number of vertices of $Q$.
 We show by induction that the sum for $Q$ is $(-1)^{|Q|}$ if $Q$ has no edges and
 $0$ otherwise.
 The last block $U$ of a compatible ordered partition is a nonempty set closed
@@ -202,10 +215,11 @@ telescopes, its gain satisfies
 \end{equation}
 the sums on the left ranging over the edges of the walk.
 
-By Lemma~\ref{lem:orderedPartitions}, the left side of~\eqref{eq:gainSum} is
-$\sum_\omega(-1)^{k(\omega)}$ times the sum of $(-1)^{|J|}$ over the $J$ such that
-$\omega$ is compatible with $Q_J$ and $Q_J$ is negative.
-Fix $\omega$.
+By Lemma~\ref{lem:orderedPartitions}, the left side of~\eqref{eq:gainSum} equals
+$\sum_\omega(-1)^{k(\omega)}S_\omega$, where $S_\omega$ is the sum of $(-1)^{|J|}$
+over the $J$ such that $\omega$ is compatible with $Q_J$ and $Q_J$ is negative.
+Fix $\omega$, and assume that the required edges are compatible with $\omega$,
+since otherwise $S_\omega$ is empty.
 If an optional edge compatible with $\omega$ goes strictly upwards between blocks,
 it lies on no cycle of a graph compatible with $\omega$, and toggling it is a
 sign-reversing involution.
@@ -255,9 +269,11 @@ The function $a_C$ is constant on every flip class.
 Let $\theta$ and $\eta$ differ by a flip which exchanges $ab$ for $bc$ across
 $ac$, in a window $a<b<c<a+n$ of the lift.
 Let $\alpha\in C$ with $\chi(\alpha,\theta)\neq0$, so $\theta\subseteq\alpha$.
-Choose a potential $p$ of $\theta$, contract, and let $\tau$ be the function of the
-proof of Proposition~\ref{prop:balancedExpansion} for the gains of
-$\alpha\setminus\theta$.
+Choose a potential $p$ of $\theta$ and contract the components of $\theta$.
+The edges of $\alpha\setminus\theta$ form a negative graph, so with
+$\gamma=M\delta+1$, where $M$ exceeds the number of vertices, there is a function
+$\tau$ on the contracted vertices with $\tau(v)-\tau(u)\geq\gamma(e)$ for these edges,
+as in the proof of Proposition~\ref{prop:balancedExpansion}.
 Then $z(v)=p(v)+\tau(v)/M$ satisfies $z(v)-z(u)=\ell(e)$ for the edges of $\theta$ and
 $z(v)-z(u)>\ell(e)$ for the edges of $\alpha\setminus\theta$.
 The lengths satisfy $\ell(ac)=\ell(ab)+\ell(bc)$, so $bc\notin\alpha$.
