@@ -2,18 +2,21 @@
 
 ## Active implementation — P0–P5 complete, P6 partial
 
-Continuation from clean pushed `607c84e` verifies P6's initial-core
-preparation and fixed-extra-edge paths. Deleting zero loses exactly its first
-corner and creates no new corner when the next corner starts at one. Retained
-chain terminals and good edges correspond exactly. Each extra has an actual
-normal good matching edge in the core. A finite sequence of the written
-crossing slides makes the selected core connected. Equal-size anchors with
-the same initial row then connect using only smaller-core uniqueness.
+Continuation from clean pushed `69612d1` implements P6's missing-edge witness
+and adjacent-extra paths. We choose a same-size connected core omitting the
+matching edge, lift with the initial row fixed, and use the actual crossing
+slide. The core gains exactly its matching edge and the initial row loses
+exactly the selected extra. Smaller-core uniqueness connects arbitrary
+anchors with these neighboring rows. Target feasibility supplies the needed
+free core position. All five new modules pass their focused builds.
 
-Adjacent-sector witnesses, the subset-band assembly, and the global
-vertex-count induction remain unfinished. P0–P5 are complete under their
+The subset-band assembly and global vertex-count induction remain
+unfinished. P0–P5 are complete under their
 planned contracts; P6 is partial and P7--P10 remain open. The independent diagram
-e-expansion and illustrated circular/ordinary draft remain unfinished.
+e-expansion and complete circular/ordinary draft remain unfinished. A new
+ordinary draft section now details initial-vertex inheritance and endpoint
+attachment, with two inspected figures. A separate Claude task gives the
+exact independent attachment obligations.
 The full goal is unchanged.
 
 User reaffirmed that the paper must retain the diagram-style proof and that
@@ -29,6 +32,17 @@ the archive below preserves their exact earlier record.
 
 ### Active P6 work and ownership
 
+Terra supplied `InitialVertexExtension.lean`; Luna supplied
+`InitialVertexExtras.lean` and a read-only sector-interface audit. Both files
+have returned to primary, which repaired and verified them. Primary wrote
+`InitialVertexExchange`, `InitialVertexAdjacent` and `InitialVertexAdjacentPaths`.
+All delegates remained build-free. The independent review approved the exact
+row/core equations, witness construction and use of target capacity, with no
+hidden global uniqueness assumption. The focused build passes. The queued
+axiom check `67389` waits for the other project's compiler to release the slot.
+The five new Lean sources and their verification queries remain task-owned
+working changes until that check completes; the writing checkpoint is separate.
+
 Primary owns all DiagramProof source files, verification, this handoff, the
 formalization plan and the Aristotle ledger, and retains the sole serialized
 build slot. All subagent source ownership has returned. Terra supplied
@@ -38,7 +52,7 @@ owns `ClosedInducedAnchors`, `InitialVertexRestriction`,
 `InitialVertexConnectedCore`, `InitialVertexCounts` and `InitialVertexCorePaths`.
 Primary also wrote `InitialVertexMatching`. All nine new modules pass their
 focused builds and independent import/source/axiom checks. No delegated task,
-compiler or queued check remains active. The initial native wait `11485`
+compiler or queued check remained active at `69612d1`. The initial native wait `11485`
 finished; it let the other project's live compilers release the shared slot
 before invoking Lake. Subsequent repairs and checks were serialized.
 
@@ -90,8 +104,9 @@ instructions authorize Aristotle, subagents and Claude; only primary builds.
   uniqueness only in the smaller core. The core path lifts with every exterior
   edge fixed, and its endpoint is identified with the prescribed target.
 - This completes the first two parts of the written initial-vertex argument.
-  Witnesses omitting the matching edge, adjacent-sector exchanges, subset-band
-  connectivity and the global path induction remain to be assembled.
+  Witnesses omitting the matching edge and adjacent-sector exchanges are now
+  implemented in the continuation above. Subset-band connectivity and the
+  global path induction remain to be assembled.
 
 ### Verified P1/P5 increment — reflection and first-clique inheritance
 
@@ -126,12 +141,14 @@ instructions authorize Aristotle, subagents and Claude; only primary builds.
 
 ### Next obligations and source map
 
-Next: finish P6's adjacent-sector argument. For connected-core anchors with
-initial extras S and a selected extra e, use the explicit removable matching
-core edge d to construct a connected core anchor of the required size omitting
-d. Lift it with exactly S fixed, use the checked crossing slide e to d, and
-apply the fixed-initial-row theorem at both ends. Then use the existing subset
-band to connect every feasible S at a fixed total selected count.
+Next: assemble P6's feasible subset band. Use `InitialVertexExtras` to identify
+the selected extra subset and its core-count equation. Construct an actual
+ambient anchor for any feasible S and connected core anchor, using
+`initialVertexExtend`. `SectorPaths.feasibleSector_connected` supplies the
+abstract insertion/deletion path. For each deletion use
+`initialVertex_reachable_of_erase_initial_row`; reverse the actual path for
+an insertion. The target's feasibility already supplies the capacity bound.
+Finally reverse the initial-core preparation and common-cover preparation.
 
 The full inheritance theorem still needs the removable-edge hypothesis; the
 global no-articulation induction must derive that hypothesis and strictly
@@ -146,10 +163,9 @@ The written source for the current work is
 [initial-vertex inheritance](docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#initial-vertex-inheritance-through-extra-edge-sectors),
 with the staged obligations in
 [the formalization plan](docs/COMPONENT_DIAGRAM_FORMALIZATION_PLAN.md).
-After connected-core preparation and fixed-sector paths, construct the
-same-size connected core witness omitting each matching edge, join adjacent
-extra subsets by the actual crossing slide, and use the proved subset-band
-lemma. The global vertex-count induction then supplies core uniqueness and
+The same-size missing-edge witness and adjacent-sector paths are now checked.
+Use the proved subset-band lemma to assemble them. The global vertex-count
+induction then supplies core uniqueness and
 matching-edge removability under its no-articulation hypotheses.
 
 The [assembled mathematical proof](docs/proofs/COMPONENT_DIAGRAM_COMPLETION.md)
@@ -160,7 +176,17 @@ not imported into the DiagramProof route. Preserve that distinction.
 
 The full goal also requires a new illustrated draft combining the circular
 e-expansion and ordinary component expansion by diagrams, in Robin and the
-author's style. Drafting has not started. The invoked writing skill is
+author's style. The user requested drafting during build waits and a
+GitHub task for Claude. The new
+[ordinary draft section](docs/drafts/ORDINARY_COMPONENT_DIAGRAM_PROOF.md)
+details initial-vertex inheritance and right attachment, with two vector
+figures rendered and visually inspected. It summarizes the remaining
+component-recursion induction; the circular section and combined manuscript
+are not yet assembled. Independent mathematical review approved the core
+and fibre-merger arguments; its endpoint and figure clarifications were
+incorporated. The [Claude task](docs/DIAGRAM_PROOF_CLAUDE_TASK.md) gives the
+exact independent P9 attachment contracts and proposed new files. No Claude
+run is active and no source ownership has yet transferred. The invoked writing skill is
 [combinatorics-paper-writing](/home/dev/.codex/skills/combinatorics-paper-writing/SKILL.md);
 its instructions and author-style references have been read. Use first-person
 plural mathematical prose and established terminology. Keep audit and compiler
@@ -169,14 +195,14 @@ corresponding verified lemma in the supporting source map.
 
 ### Verification and recovery
 
-Starting checkpoint: `607c84e` on `main`, clean and pushed at continuation start.
-The current nine-module increment passes focused builds, all 615 axiom queries
-(standard three axioms or none), the 268-project-file independent import check
-and source/100-column guards on all 194 DiagramProof modules. Logs are
-`p6-initial-core-build.log`, `p6-initial-paths-build.log`,
-`p6-initial-matching-build.log`, `p6-initial-core-axioms.log` and
-`p6-initial-core-imports.txt`. Archive preservation, relocated links and
-whitespace checks also pass. Earlier repair logs may contain superseded errors.
+Starting checkpoint: `69612d1` on `main`, clean and pushed at continuation start.
+The five new modules pass focused builds. The independent import closure now
+has 273 project files; all 199 DiagramProof modules pass source/100-column
+guards. The 633-query axiom check is queued behind the other project's build.
+Logs: `p6-initial-exchange-build.log` (contains the superseded first repair),
+`p6-initial-adjacent-build.log`, `p6-initial-adjacent-axioms.log` and
+`p6-initial-adjacent-imports.txt`. The previous 615-query checkpoint and its
+initial-core logs remain preserved. No broad build or dependency update ran.
 
 External request directory:
 `/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`.

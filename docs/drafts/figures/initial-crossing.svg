@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="260" viewBox="0 0 760 260">
+  <title>Exchange an initial extra edge with its matching core edge</title>
+  <desc>Two triangular cell diagrams on vertices zero, v, a, h. The corners zero-a
+  and v-h stay selected. The selected edge zero-v is replaced by a-h.</desc>
+  <rect width="760" height="260" fill="white"/>
+  <style>
+    text{font-family:Georgia,serif;font-size:19px;text-anchor:middle;fill:#17212b}
+    .cell{fill:#f0f0f0;stroke:#525960;stroke-width:1.2}
+    .vertex{fill:#fff0ab;stroke:#525960;stroke-width:1.2}
+    .move{fill:#e0edf8;stroke:#24608c;stroke-width:2}
+    .label{font-family:Arial,sans-serif;font-size:14px}
+  </style>
+  <g transform="translate(90,35)">
+    <rect class="vertex" x="0" y="126" width="42" height="42"/>
+    <rect class="vertex" x="42" y="84" width="42" height="42"/>
+    <rect class="vertex" x="84" y="42" width="42" height="42"/>
+    <rect class="vertex" x="126" y="0" width="42" height="42"/>
+    <rect class="move" x="0" y="84" width="42" height="42"/>
+    <rect class="cell" x="0" y="42" width="42" height="42"/>
+    <rect class="cell" x="42" y="42" width="42" height="42"/>
+    <rect class="cell" x="42" y="0" width="42" height="42"/>
+    <rect class="move" x="84" y="0" width="42" height="42"/>
+    <text x="21" y="153">0</text><text x="63" y="111">v</text>
+    <text x="105" y="69">a</text><text x="147" y="27">h</text>
+    <text x="21" y="111">1</text><text x="21" y="69">↓</text>
+    <text x="63" y="69">0</text><text x="63" y="27">↓</text>
+    <text x="105" y="27">0</text>
+    <text class="label" x="84" y="203">initial extra 0v selected</text>
+  </g>
+  <text x="380" y="119" style="font-size:36px">⟷</text>
+  <text class="label" x="380" y="147">crossing slide</text>
+  <g transform="translate(495,35)">
+    <rect class="vertex" x="0" y="126" width="42" height="42"/>
+    <rect class="vertex" x="42" y="84" width="42" height="42"/>
+    <rect class="vertex" x="84" y="42" width="42" height="42"/>
+    <rect class="vertex" x="126" y="0" width="42" height="42"/>
+    <rect class="move" x="0" y="84" width="42" height="42"/>
+    <rect class="cell" x="0" y="42" width="42" height="42"/>
+    <rect class="cell" x="42" y="42" width="42" height="42"/>
+    <rect class="cell" x="42" y="0" width="42" height="42"/>
+    <rect class="move" x="84" y="0" width="42" height="42"/>
+    <text x="21" y="153">0</text><text x="63" y="111">v</text>
+    <text x="105" y="69">a</text><text x="147" y="27">h</text>
+    <text x="21" y="111">0</text><text x="21" y="69">↓</text>
+    <text x="63" y="69">0</text><text x="63" y="27">↓</text>
+    <text x="105" y="27">1</text>
+    <text class="label" x="84" y="203">matching core edge ah selected</text>
+  </g>
+</svg>

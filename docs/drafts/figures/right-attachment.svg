@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="300" viewBox="0 0 820 300">
+  <title>A right attachment and its merged highest-reachable-vertex fibre</title>
+  <desc>A prefix and an attachment share only c. At fixed color beta the fibre
+  ending at c and the fibre starting at c concatenate, with c counted once.</desc>
+  <rect width="820" height="300" fill="white"/>
+  <style>
+    text{font-family:Georgia,serif;font-size:18px;text-anchor:middle;fill:#17212b}
+    .label{font-family:Arial,sans-serif;font-size:14px}
+    .edge{stroke:#525960;stroke-width:2;fill:none}
+    .vertex{fill:#fff0ab;stroke:#525960;stroke-width:1.2}
+  </style>
+  <rect x="45" y="24" width="355" height="100" rx="12" fill="#f0f0f0"/>
+  <rect x="420" y="24" width="355" height="100" rx="12" fill="#e0edf8"/>
+  <text x="205" y="57">prefix P</text><text x="615" y="57">attachment T</text>
+  <path class="edge" stroke-dasharray="5 5" d="M95 90 H725"/>
+  <circle class="vertex" cx="95" cy="90" r="17"/>
+  <circle class="vertex" cx="410" cy="90" r="20"/>
+  <circle class="vertex" cx="725" cy="90" r="17"/>
+  <text x="95" y="96">0</text><text x="410" y="96">c</text>
+  <text x="725" y="96">d</text>
+  <text class="label" x="410" y="151">shared color β; no edge joins the two interiors</text>
+  <path class="edge" d="M105 211 H715"/>
+  <text x="166" y="204">...</text><text x="313" y="204">...</text>
+  <text x="509" y="204">...</text><text x="656" y="204">...</text>
+  <circle class="vertex" cx="105" cy="211" r="7"/>
+  <circle class="vertex" cx="235" cy="211" r="7"/>
+  <circle class="vertex" cx="410" cy="211" r="16"/>
+  <circle class="vertex" cx="585" cy="211" r="7"/>
+  <circle class="vertex" cx="715" cy="211" r="7"/>
+  <text x="410" y="217">c</text>
+  <text class="label" x="250" y="253">p − 1 vertices with colors below β</text>
+  <text class="label" x="575" y="253">q − 1 vertices with colors above β</text>
+  <text class="label" x="410" y="285">merged fibre size p + q − 1</text>
+</svg>

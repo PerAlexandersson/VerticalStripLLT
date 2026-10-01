@@ -42,7 +42,8 @@ smaller-core uniqueness from conclusions proved without it.
 
 Implementation status: P0–P5 are verified under their planned contracts,
 including P1's final initial-vertex restriction, corner and path interfaces.
-P6's connected-core preparation and fixed-extra-edge paths are checked. P0 and the
+P6's connected-core preparation, fixed-extra-edge paths, missing-edge witness
+and adjacent-extra paths are checked. P0 and the
 semantic import extractions are in `9d8c4bc`. P1 includes finite/lifted covers,
 weak-block invariance, exact corner marking, source-only short flips
 (`3bbb1e4`), convex path/cover restriction and an injective fixed-exterior
@@ -649,7 +650,10 @@ The first parts are now verified, following the same written diagrams:
 | Slide extras into the core until it is connected | `CornerFamily.exists_reachable_connected_initialVertex_core` | Verified by decreasing the selected zero-row count |
 | Lift a core path with the initial row fixed | `initialVertex_lift_reachable` | Verified, given the actual core path |
 | Connect equal-size anchors with the same extra set | `initialVertex_reachable_of_same_initial_row` | Verified, assuming smaller-core uniqueness and connected endpoint restrictions |
-| Construct the missing-edge witness and join adjacent extra sets | Not yet assembled | Open |
+| Replace the core with a prescribed anchor and restore the initial row | `initialVertexRestrict_extend`, `CornerFamily.initialVertex_anchor_extend`, `initialVertexExtend_row` | Verified |
+| Construct the missing-edge witness and use the crossing slide | `CornerFamily.exists_initialVertex_adjacent` | Verified, assuming smaller-core uniqueness, removable matching edge and free core capacity |
+| Connect any two anchors with neighboring extra sets | `initialVertex_reachable_of_erase_initial_row` | Verified; target feasibility supplies the free core capacity |
+| Record the initial extra subset and its core-count equation | `CornerFamily.selectedInitialVertexExtras_subset`, `CornerFamily.totalSelected_eq_initialVertex_core_add_one_add_extras` | Verified |
 | Assemble the feasible subset band and global vertex-count induction | Not yet assembled | Open |
 
 `ClosedInducedAnchors` extracts the precise restriction condition: retained
@@ -659,6 +663,14 @@ at the completed anchor endpoints; intermediate lifted core states may make the
 old corner at zero redundant. Restriction is not claimed to identify whole
 components. The existing crossing-slide theorem supplies every actual join,
 with exact restoration of all other edges.
+
+The [new draft section](drafts/ORDINARY_COMPONENT_DIAGRAM_PROOF.md) follows
+these moves in detail and includes the initial crossing-slide cell diagram.
+Its right-attachment section gives the statewise HRV merger and fixed-color
+gluing proof. This mathematical prose is ahead of the Lean implementation:
+P7--P10 are still open. The [Claude task](DIAGRAM_PROOF_CLAUDE_TASK.md) isolates
+P9's attachment construction as independent work, with exact whole-component
+and marked-value contracts; it does not require completion of P6.
 
 For first corners 0a,1b, prove deletion of 0 loses exactly 0a and preserves
 all remaining chain terminals. Establish the disjoint decomposition
