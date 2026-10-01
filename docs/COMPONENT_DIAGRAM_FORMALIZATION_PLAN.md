@@ -28,7 +28,8 @@ We retain the following correspondence when drafting and illustrating P5:
 | Route fixed-size extra subsets through the shared position | `anchors_connected_of_overlapping_extra_positions` | Verified, assuming both pools supply exact local exchanges |
 | Exchange ba with a clique extra using cd temporarily, then reverse the path | `exists_last_clique_shared_exchange`, `exists_last_clique_reverse_shared_exchange` | Verified |
 | Supply every exchange in the restricted right pool, with exact endpoint selection | `exists_last_clique_right_exchange` | Verified, given the crossing-copy geometry |
-| Assemble these paths with the full fixed tree | Final inheritance construction | Open |
+| Identify the full fixed tree with the retained tree plus omitted leaves | `lastCliqueFixedEdges_isTree` | Verified; Aristotle leaf lemma checked locally |
+| Assemble both pools and reverse normalization, then undo preparation | `anchors_connected_of_lastClique_core`, `commonCover_connected_of_lastClique_core` | Verified, assuming retained-core uniqueness |
 
 Source: [last-clique inheritance](proofs/COMPONENT_NN_REDISTRIBUTION.md#extending-the-last-clique-from-a-connected-core).
 The observation that the displayed chains and star have at most one outgoing
@@ -577,11 +578,30 @@ is the exact deletion/insertion in the original full selection. It uses the
 same diagram moves and does not appeal to global capacities. Intermediate
 local paths may move star edges; the terminal star is restored at endpoints.
 
-Remaining: package the full tree as the core tree with the omitted leaves;
-instantiate the two pool exchange hypotheses using the prescribed core tree,
-the concrete bc/ae crossing-copy geometry, and the full-star endpoint theorem.
-The ba exchange and its reverse are now proved. The full inheritance theorem
-and the vertex-count induction are still open.
+Last-clique inheritance is now assembled in `LastCliqueInheritance`.
+`lastClique_fixed_anchors_connected` instantiates both pool exchanges. Its
+wrapper `anchors_connected_of_lastClique_core` chooses one core tree, normalizes
+both states to contain its fixed edges, and joins equal-size extra selections.
+`commonCover_connected_of_lastClique_core` adds preparation and its reverse.
+The only uniqueness assumption is on the retained core. The geometric inputs
+are the crossing last corners bc, ae and the image {0,...,c} union {e}; every
+ambient corner survives automatically under the preceding-head bound.
+
+`LastCliqueFixedEdges` defines the displayed core edges plus omitted leaves,
+proves the exact restriction and full-star facts, and supplies connectedness
+of every core containing those fixed edges. `LastCliqueSharedPosition` excludes
+ba by the core path b-c-e-a. `LastCliqueCrossingCopies` constructs ba and ce
+and their actual crossing-copy relation. `LastCliqueFullTree` identifies the
+fixed graph with an embedded tree with attached leaves and proves it is a tree.
+The isolated leaf lemma was returned by Aristotle and checked locally after
+small API updates; it verifies the same displayed tree, independently of the
+path construction.
+
+Remaining: P1 order reversal to obtain first-clique inheritance, then P6's
+initial-vertex inheritance and vertex-count induction. The existing canonical
+core size lemma supplies strict decrease when the last gap contains an omitted
+vertex. The present last-clique theorem keeps core uniqueness explicit; it does
+not assert uniqueness for arbitrary diagrams at a fixed total count.
 The last operation counts only its specified pool of copies and fixes the
 other copies of the same classes. Tree edges in the terminal clique may move
 during packing; the fixed tree is required only at endpoints. Obtain

@@ -11,6 +11,37 @@ ordinary/circular candidates. The entries below give current final outcomes
 for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
 [the proof map](FLIP_COMPONENT_STATUS.md) owns the mathematical overview.
 
+## Last-clique tree with attached leaves — locally verified
+
+- Project `4012e914-b7f9-4452-b627-c9c59a325166`, task
+  `6d06c437-1875-4705-bd52-da468662d263`, terminal status **COMPLETE**.
+  The CLI status watcher, native session `39847`, exited 0. No child or remote
+  task remains active. Primary downloaded and integrated the returned proof.
+- Exact scope: a finite tree embedded into a larger finite vertex set, with
+  every omitted vertex attached to one specified retained vertex, is a tree.
+  This justifies the displayed full tree after the last-clique construction.
+- External directory: `last-clique-tree-leaves/` under the requests root.
+  `TARGET.md` SHA-256: `09799ae609ad1977388f568c8cc6e9ae4c62c40750784bcfec351597de8308be`.
+- The request warns that the mapped core alone is not connected on the larger
+  vertex type and that `IsAcyclic.of_map` has the opposite direction. It requests
+  the direct leaf or edge-count proof, narrow imports, no new axioms or proof
+  holes, and no alternative component proof. A returned proof is a candidate
+  until checked under local Lean 4.34.0.
+- Aristotle returned `RequestProject/TreeLeaves.lean`, checked remotely with
+  Lean/Mathlib 4.28.0. Terra ported the namespace/header; primary updated the
+  deprecated tree-connectedness accessor, local instance style, and one subtype
+  equality for 4.34.0. The exact edge bijection remains unchanged: core edges
+  plus omitted vertices correspond to all edges of the extended tree.
+- `tree_with_attached_leaves` in `DiagramProof/TreeLeaves.lean` passes the local build.
+  `lastCliqueFixedEdges_isTree` in `LastCliqueFullTree.lean` identifies the actual fixed
+  selection with this graph, so the application to the diagram is also verified.
+  Both declarations use only the standard three axioms. Logs are
+  `diagram-formalization/p5-tree-leaves-build.log`, `p5-full-tree-build.log`,
+  and `p5-inheritance-axioms.log`.
+
+- Downloaded `result.tar.gz` SHA-256:
+  `07e3648892dde9840288b2f37ad06211de1179994f9daaf9a9b81cde98f8d8ce`.
+
 ## Auxiliary Claude last-clique tree review — completed
 
 - User explicitly requested additional Claude help. Primary launched a tool-free,

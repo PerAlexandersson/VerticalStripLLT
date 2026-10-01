@@ -1,3 +1,5 @@
+import VerticalStripLLT.Components.DiagramProof.LastCliqueInheritance
+import VerticalStripLLT.Components.DiagramProof.LastCliqueFullTree
 import VerticalStripLLT.Components.DiagramProof.LastCliqueSharedExchange
 import VerticalStripLLT.Components.DiagramProof.LastCliqueCorePaths
 import VerticalStripLLT.Components.DiagramProof.LastCliqueExtraPositions
@@ -651,5 +653,21 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms CornerFamily.exists_last_clique_shared_exchange
 #print axioms CornerFamily.exists_last_clique_reverse_shared_exchange
 #print axioms CornerFamily.exists_last_clique_right_exchange
+
+#print axioms selectedConnected_inducedRestrict_of_selected_tree
+#print axioms CornerFamily.exists_crossing_copies
+#print axioms lastCliqueFixedEdges
+#print axioms inducedEdge_mem_lastCliqueFixedEdges
+#print axioms inducedEdge_mem_lastCliqueFixedEdges_iff
+#print axioms lastCliqueFixedEdges_subset_selection
+#print axioms lastCliqueFixedEdges_connected_core
+#print axioms allCorners_subset_lastCliqueFixedEdges
+#print axioms lastCliqueFixedEdges_star
+#print axioms crossing_shared_not_mem_lastCliqueFixedEdges
+#print axioms lastClique_fixed_anchors_connected
+#print axioms anchors_connected_of_lastClique_core
+#print axioms commonCover_connected_of_lastClique_core
+#print axioms tree_with_attached_leaves
+#print axioms lastCliqueFixedEdges_isTree
 
 end VerticalStripLLT.Circular.DiagramProof

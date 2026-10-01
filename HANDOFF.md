@@ -2,14 +2,13 @@
 
 ## Active implementation — P0/P2/P3/P4 complete, P1/P5 partial
 
-Continuation from clean pushed `1e8feaa` made verified progress on extra-edge
-rearrangement. The core-side fixed-exterior path, the two extra-position pools
-and their shared ba position, and every exact exchange in the restricted right
-pool are now Lean-proved. The ba exchange uses the written crossing slide and
-one temporary edge cd, with the terminal star restored at the endpoint. The
-finite-subset glue is proved under the two local exchange hypotheses.
-The remaining last-clique assembly must package the full fixed tree and
-instantiate those hypotheses with its core connectivity and crossing corners.
+Continuation from clean pushed `b0d0254` completed last-clique path inheritance.
+`commonCover_connected_of_lastClique_core` now connects equal-size connected
+common-cover states by the written diagram proof, assuming uniqueness only in
+the retained core. Both endpoints use the same fixed tree and the two exact
+extra-position pools. The full fixed graph is also proved to be the displayed
+core tree with the omitted vertices attached as leaves. The first-clique
+transport, initial-vertex inheritance and global vertex-count induction remain.
 P0/P2/P3/P4 are complete; P1/P5 remain partial; P6--P10 remain open. The
 independent diagram formalization and illustrated circular/ordinary draft are
 unfinished. The full goal is unchanged.
@@ -33,18 +32,28 @@ lower-path restriction lemma in `LastCliqueCoreConnectivity`. Historical proof-n
 
 ### Ownership and independent review
 
-Primary owns all new and returned sources, `OverlappingPositions.lean`,
-`DiagramProofVerification.lean`, this handoff and the formalization plan, and
-retains the sole serialized build slot. Luna supplied `LastCliqueCorePaths`
-and `LastCliqueExchange`; Terra supplied `LastCliqueStarExchange`. Primary
-corrected, integrated and locally verified all candidates and wrote
-`LastCliqueExtraPositions`, `ExtraPositionPaths`, `LastCliqueStarRepair`, and
-`LastCliqueSharedExchange`. All subagent file ownership has returned.
-`semantic_extract` independently approved the final source: both temporary-edge
-cases, the omitted final swap when cd=x, reverse-path endpoint identification,
-and the combined right-pool exchange match the written diagram argument.
-Only caller-side crossing geometry and inheritance assembly remain for this
-local step. No subagent, compiler, Claude child, or remote task remains active.
+Primary owns all new/returned sources, verification, handoff, formalization
+plan and Aristotle ledger, and retains the sole serialized build slot. Luna
+supplied `LastCliqueCrossingCopies` and `LastCliqueSharedPosition`; Terra
+supplied `SelectedCoreTree` and ported Aristotle's `TreeLeaves`. Primary repaired
+and verified the candidates and wrote `LastCliqueFixedEdges`,
+`LastCliqueFullTree`, and `LastCliqueInheritance`. All delegated source ownership
+has returned. `semantic_extract` independently approved the assembled proof:
+one fixed core tree, exact two-pool exchanges, smaller-core uniqueness only,
+and preparation/reverse preparation. Anchor and tree guarantees are at completed
+local exchange endpoints; intermediate flips may have redundant corners.
+
+Aristotle project `4012e914-b7f9-4452-b627-c9c59a325166`, task
+`6d06c437-1875-4705-bd52-da468662d263`, completed. Native watcher `39847` exited 0.
+The returned isolated tree-with-leaves proof was downloaded, ported from 4.28.0,
+and checked locally under 4.34.0. Its application to the actual fixed graph is
+also verified. `docs/ARISTOTLE.md` records request/result hashes and checks.
+No subagent, compiler, remote task, or CLI watcher remains running.
+
+The preceding `b0d0254` checkpoint integrated Luna's `LastCliqueCorePaths` and
+`LastCliqueExchange`, Terra's `LastCliqueStarExchange`, and primary's
+extra-position definitions, finite-subset glue, star repair and shared exchange.
+The independent source review approved all temporary-edge cases and reversals.
 
 Checkpoint `1e8feaa` integrated Terra's `TreeOmissions`, Luna's `TreeAnchors`,
 and `semantic_extract`'s `LastCliqueStarConnectivity`. Primary wrote
@@ -65,7 +74,37 @@ the ledger records the missing hypotheses in its core-tree path sketch.
 See `docs/ARISTOTLE.md`, section "Auxiliary Claude last-clique tree review".
 No Claude child or remote task remains active.
 
-### Verified P5 increment — extra-position paths and the restricted right pool
+### Verified P5 increment — assembled last-clique inheritance
+
+- `LastCliqueFixedEdges` defines T_V lifted to the ambient diagram together with
+  ve for c<v<e. It proves its exact core restriction, corner inclusion, full
+  star, and containment in the normalized path endpoint. `SelectedCoreTree`
+  gives connectedness of every core restriction containing the fixed tree.
+- `LastCliqueCrossingCopies` constructs the two copies ba and ce from bc/ae,
+  their `CopyLink`, and the needed good-edge inequality.
+  `LastCliqueSharedPosition` excludes ba from the fixed selection by the
+  actual core path b-c-e-a, without any ambient uniqueness assumption.
+- `lastClique_fixed_anchors_connected` instantiates both exact exchange
+  hypotheses of the finite-subset glue. Core exchanges retain the fixed
+  core tree, hence have connected restrictions, and restore the exterior.
+  Right-pool exchanges use the proved local clique/temporary-edge paths.
+- `anchors_connected_of_lastClique_core` chooses ONE core tree, normalizes both
+  anchors to contain the corresponding fixed selection, and connects their
+  equal-size extras. `commonCover_connected_of_lastClique_core` adds the
+  preparation paths and reverses the target path. All inherited corner facts
+  are derived from the bound on earlier corner heads. Its only uniqueness
+  assumption concerns `inducedDiagram hD ι`.
+- `tree_with_attached_leaves` is Aristotle's locally checked finite graph lemma.
+  The proof maps core paths, attaches omitted vertices, and counts core edges
+  plus leaves through an explicit bijection. `lastCliqueFixedEdges_isTree`
+  identifies the diagram's fixed graph with that graph and proves the full
+  displayed tree property. This is structural verification of the same diagram,
+  not a replacement for its local flip paths.
+- Last-clique inheritance is complete under its intended retained-core
+  hypothesis. P5's order-dual first-clique application awaits P1 reversal;
+  global path uniqueness and the general component recurrence are not yet proved.
+
+### Previous P5 increment — extra-position paths and the restricted right pool (`b0d0254`)
 
 - `lastClique_reachable_of_same_exterior` connects prescribed equal-size
   ambient anchors when both core restrictions are connected and the exterior
@@ -504,19 +543,18 @@ this route. The mathematical diagram proof is complete.
 
 ### Verification and next step
 
-Focused builds of all seven new modules, the modified finite-position helper,
-and the verification import targets pass without source warnings. All 543
+Focused builds of all seven new modules pass without source warnings. All 558
 queries in `DiagramProofVerification.lean` use only `propext`, `Classical.choice`,
-`Quot.sound` (or none). The independent import closure contains 246 project
+`Quot.sound` (or none). The independent import closure contains 253 project
 files including verification and excludes the old word/scan/expansion routes.
 Source guards (including no `native_decide`), 100-column and whitespace checks
-pass. Current logs are `p5-extra-axioms.log`, `p5-extra-imports.txt`,
-`p5-extra-import-targets-build.log`, `p5-shared-exchange-build.log`,
-`p5-local-clique-exchange-build.log`, and `p5-extra-paths-build.log`, under the
-usual external diagram-formalization request directory. Earlier repair logs
-may contain superseded errors. The preceding tree-path checkpoint had 524
-queries/239 project files (`p5-tree-path-*`); connected-core had 514/233
-(`p5-connected-core-*`). The preceding local-path checkpoint had
+pass. Current logs are `p5-inheritance-build.log`, `p5-fixed-edges-build.log`,
+`p5-tree-leaves-build.log`, `p5-full-tree-build.log`,
+`p5-inheritance-axioms.log`, and `p5-inheritance-imports.txt`, under the usual
+external diagram-formalization request directory. Earlier repair logs may
+contain superseded errors. The preceding extra-path checkpoint had 543
+queries/246 project files (`p5-extra-*`); tree-path had 524/239
+(`p5-tree-path-*`); connected-core had 514/233 (`p5-connected-core-*`). The preceding local-path checkpoint had
 505 queries/229 project files (`p5-local-paths-*`). The anchor-transport checkpoint had
 484 queries/219 project files (`p5-core-anchor-*`). The
 preceding restored-core checkpoint had 461 queries/212 project files
@@ -533,36 +571,31 @@ subagent remains running.
 
 No broad build, dependency update or mathematical computation ran. Aristotle
 was used for the exact graph repair lemma, as requested.
-Runtime discovery and `codex mcp list` were refreshed. Aristotle is available
-through its CLI but is not a registered MCP in this session; no new remote
-request was needed for these explicit local paths. The earlier Aristotle
-repair remains verified. Only primary invokes `lake-workspace`. Lean MCP remains
-rooted at RealRooted, so local compiler diagnostics are used. The wrapper's
-existing package-path manifest warning remains unchanged.
+Runtime discovery and `codex mcp list` were refreshed in the preceding turn.
+Aristotle is available through its CLI rather than a registered MCP. The new
+leaf request completed and its proof is locally verified. Only primary invokes
+`lake-workspace`. Lean MCP remains rooted at RealRooted, so focused compiler
+diagnostics are used. The wrapper's existing package-path warning is unchanged.
 
-Next: assemble last-clique inheritance. Package the full fixed selection
-T = T_V union {ve : c<v<e}; identify its restriction with T_V, and show it
-contains all corners and the full last star. For each core-pool swap, use
-`exists_anchor_exchange` to construct the exact endpoint. Both restrictions
-contain the fixed core tree, hence are connected; exterior agrees and total
-count is unchanged, so `lastClique_reachable_of_same_exterior` applies.
-For the right-pool swap, use `lastClique_right_extra_position_cases`, the
-concrete CopyLink ba→ce from corners bc/ae, and
-`exists_last_clique_right_exchange`. Exact selection restores every fixed
-edge since the swapped positions are extras. Instantiate the two local-path
-hypotheses of `anchors_connected_of_overlapping_extra_positions`, then combine
-with `exists_reachable_lastClique_tree` and preparation to prove common-cover
-uniqueness under smaller-core uniqueness. The geometry assumes b<a<c<e.
+Next: P1 order reversal and the first-clique consequence of the now-proved
+last-clique inheritance. A read-only audit found no concrete reversed Diagram
+or Orientation API. Reuse `Fin.rev`, `Fin.revPerm`, `Fin.rev_rev`,
+`Fin.rev_lt_rev`, `Fin.rev_le_rev`, and `Fin.revOrderIso`, plus generic
+`relationCover_dual` in `SweepCovers`. Construct the reversed ordinary natural
+diagram and exact edge/orientation correspondence, then transport covers,
+actual flips/paths, selected connectedness and total selected counts. The
+inheritance theorem needs CommonCover transport. Do NOT assume order reversal
+preserves anchors, chain terminals, good-edge sets, K or E; that stronger
+claim is neither needed nor supplied by the audit. `flip_symm` reverses time,
+not vertex order, and cannot replace the missing diagram correspondence.
 
-The full-tree graph can be justified by adjoining the omitted leaves. A
-reviewer suggested map/leaf induction, but a mapped core tree is NOT connected
-on the larger ambient vertex type before the leaves are added, and Mathlib's
-`IsAcyclic.of_map` is the reverse direction. Do not copy that unverified sketch
-as a transport theorem. Alternatively count the mapped core edges and leaf
-edges after proving ambient connectedness. No full-tree packaging theorem is
-yet claimed. Afterwards obtain first-clique inheritance through P1's open
-order reversal. The vertex-count induction, recurrences, endpoint attachment,
-and final independent expansion/draft remain unfinished.
+Then prove the first-clique inheritance wrapper, followed by P6's
+initial-vertex inheritance and global vertex-count induction. The canonical
+last-clique size lemma already proves strict decrease when an omitted gap
+vertex exists. All last-clique pool geometry, paths, fixed-tree facts, and
+common-cover inheritance are now available and should not be reproved.
+The recurrences, endpoint attachment, independent e-expansion and illustrated
+draft remain unfinished.
 
 For clique reachability, use `clique_lift_core_of_block` to transport the
 actual core endpoint and its selected relation. The general lower-interval
