@@ -93,6 +93,17 @@ SVG XML pass, and all 21 bundled source inputs match their manifest hashes.
 The two-page macro guide also compiles without warnings. No Codex Lean build
 ran during writing.
 
+## Baseline for author revisions
+
+Annotated GitHub tag `draft-v1-before-author-edits` points to `80c106d`, the
+verified two-part draft produced with the combinatorics paper-writing skill.
+Preserve this tag for comparison with the user's revisions and later skill
+improvements. Compare tracked prose and figures with
+`git diff draft-v1-before-author-edits -- docs/drafts/`.
+If revisions are made to exported TeX, rebuild the tagged canonical sources
+to recover the baseline TeX before comparing. The tag excludes subsequent
+uncommitted Lean refactoring owned by Claude.
+
 ## Follow-up
 
 The requested formalization and new draft are delivered. Further author
