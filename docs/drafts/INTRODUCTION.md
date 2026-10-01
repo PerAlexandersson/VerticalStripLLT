@@ -166,6 +166,12 @@ Thus the common diagram relations and the two component constructions
 provide related approaches to positivity, while the generating functions
 and local moves remain distinct.
 
+We follow the diagram method of [@AS22], proving the required local
+identities in the circular setting. The resulting argument recovers their
+ordinary elementary expansion as a special case, without assuming their
+expansion or uniqueness theorem. The component theorem further refines
+this identity, both for ordinary and for circular diagrams.
+
 The two proofs have a common starting point. We use diagrams to describe
 sums over selections. Blank cells
 are optional edges; selected, absent and strict entries impose the

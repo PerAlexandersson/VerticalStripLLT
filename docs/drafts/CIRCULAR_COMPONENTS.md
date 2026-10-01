@@ -158,7 +158,7 @@ $\ell$ we have $t(u)-t(v)\geq\ell$. Telescoping around the cycle gives
 Thus some edge of $N$ has $t(u)-t(v)>\ell(u,v)$. Equivalently,
 its lifted endpoints satisfy $H(u)>H(v)$. Adding this edge leaves the
 entire HRV map unchanged by the same path bound used for the
-[four selected triangles](CIRCULAR_\mathsf{E}_EXPANSION.md#the-four-selected-triangles).
+[four selected triangles](CIRCULAR_E_EXPANSION.md#the-four-selected-triangles).
 Removing it also leaves the map unchanged. Indeed, a path using this
 edge cannot be a maximizing path: at its tail we can instead continue
 to $H(u)$, strictly beyond every endpoint reachable through its head.

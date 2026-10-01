@@ -2,7 +2,7 @@
 
 We now refine the expansion to flip components. We first treat ordinary
 diagrams, applying the corner and NN/DN relations from the
-[circular proof](CIRCULAR_\mathsf{E}_EXPANSION.md#the-local-reductions) to complete edge
+[circular proof](CIRCULAR_E_EXPANSION.md#the-local-reductions) to complete edge
 layers and then isolating one component. The main step is to connect the states in which every
 maximal corner is a cover. We then complete such a component to an entire
 edge layer, apply the local relation, and remove the additional components by

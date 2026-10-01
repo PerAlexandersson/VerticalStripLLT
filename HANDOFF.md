@@ -2,6 +2,14 @@
 
 ## Current status and ownership
 
+After `9702fef`, the introduction explicitly distinguishes the AS22 diagram
+method and cited background from proof dependencies: we prove the required
+circular local identities and recover the ordinary expansion without assuming
+the AS22 expansion or uniqueness theorem. The component identity further
+refines both cases. Also repaired two malformed internal manuscript links caused
+by the preceding notation pass. The rebuilt manuscript has 45 pages and no
+LaTeX warnings or box overflows. Ownership and mathematical scope are unchanged.
+
 The author's diagram and exposition revision after `e4c7159` is complete.
 The six-section outline is recorded in
 [REVISION_OUTLINE](docs/drafts/REVISION_OUTLINE.md): introduction and both main
@@ -89,7 +97,7 @@ HRV deletion cancellation, the full finite coefficient argument, actual
 cover-preserving flips and the compatible-lift union of ordinary components.
 We do not claim each circular bounce/reversal restricts to a single component.
 
-The revised manuscript is **44 pages with 14 vector figures**. The original
+The revised manuscript is **45 pages with 14 vector figures**. The original
 tagged baseline was 35 pages. The general
 [llt-diagrams.sty](docs/drafts/tex/llt-diagrams.sty) and its
 [usage guide](docs/drafts/tex/README.md) implement diagrams as restricted sums:
@@ -112,7 +120,7 @@ Files: `manuscript.pdf`, `manuscript.tex`, `manuscript-source.zip`,
 PDF page previews are alongside the manuscript. The author metadata matches
 the earlier Alexandersson--Dai draft.
 
-Verification: the 44-page manuscript and four-page macro guide compile
+Verification: the 45-page manuscript and four-page macro guide compile
 without warnings or box overflows. The 170 labels are unique, all 127
 references resolve, and all 26 source inputs match the bundle manifest.
 There are 5 theorems, 27 lemmas, 10 propositions, 13 definitions, 2 corollaries,
@@ -124,7 +132,7 @@ orders, moved connectivity dependency, diagram spacing and notation changes.
 `git diff --check` passes. The complete Lean proof is unchanged.
 
 The revision PDF SHA256 is
-`451554dfa6642da99091b6051955dda543d48658d5a6ae7cb421ac1088a0e238`.
+`5508682c216ce18f2b478e2a14435474efb7988a07dedc30f4d56bbc08a01437`.
 Paper-cache entries 496 (AS22), 497 (Hwang) and 498 (Dołęga--Kowalski)
 contain exact-version PDFs, source archives and extracted text; precise
 locators are in the draft README. The paper-cache database discovery call
