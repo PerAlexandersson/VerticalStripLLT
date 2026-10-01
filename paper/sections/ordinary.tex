@@ -232,6 +232,37 @@ Theorem~\ref{thm:AS}.
 These correspond to the shifted forms of the first two bounce relations
 of~\cite[Thm.~2.1]{AlexanderssonSulzgruber2022} for a single bounce point.
 
+\begin{example}\label{ex:NNcontact}
+In the graph $\Gamma$ of Example~\ref{ex:running}, with area sequence
+$(0,1,2,3,3,2)$ and strict edges $14$ and $25$, the triple $(2,3,5)$ is an NN
+contact: $25$ is the only strict edge leaving $2$, no strict edge ends at $2$ or
+$3$, $b(2)=b(3)=1$, and $b(6)=4>3$.
+Its target $R$ has area sequence $(0,1,2,3,2,2)$ and strict edges $14$ and $35$:
+\[
+\ytableausetup{boxsize=1.1em}
+\begin{ytableau}
+*(lightgray) & *(lightgray) & *(lightgray) & & & *(yellow) 6 \\
+*(lightgray) & *(lightgray)\to & & & *(yellow) 5 \\
+*(lightgray)\to & & & *(yellow) 4 \\
+ & & *(yellow) 3 \\
+ & *(yellow) 2 \\
+*(yellow) 1
+\end{ytableau}
+\;\;\longmapsto\;\;
+\begin{ytableau}
+*(lightgray) & *(lightgray) & *(lightgray) & & & *(yellow) 6 \\
+*(lightgray) & *(lightgray) & *(lightgray)\to & & *(yellow) 5 \\
+*(lightgray)\to & & & *(yellow) 4 \\
+ & & *(yellow) 3 \\
+ & *(yellow) 2 \\
+*(yellow) 1
+\end{ytableau}
+\]
+The graph $\Gamma$ has nine normal edges and $R$ has eight, and
+Proposition~\ref{prop:layer}, summed as above, gives
+$\LLT_\Gamma(\xvec;q+1)=(1+q)\LLT_R(\xvec;q+1)$.
+\end{example}
+
 \subsection{Three smaller classes}
 
 We now express certain flip classes in terms of flip classes of graphs with
@@ -406,9 +437,13 @@ $\sum_\beta x_\beta\,\elementaryE_{p-1}(x_1,\dotsc,x_{\beta-1})\,
 \end{figure}
 
 \begin{lemma}\label{lem:gluing}
-Let $C_2$ be a flip class of $\Gamma_{\geq c}$.
-Suppose that $V(C_1)[\beta]=\sum_iz_iV(C_{1,i})[\beta]$ for all $\beta$ and
-$V\in\{\Kv,\Ev\}$, with the color fixed at $c$, where $C_{1,i}$ is a flip
+Let $C_2$ be a flip class of $\Gamma_{\geq c}$, and suppose that, with the
+color fixed at $c$,
+\[
+ V(C_1)[\beta]=\sum_iz_iV(C_{1,i})[\beta]
+ \qquad\text{for all $\beta$ and $V\in\{\Kv,\Ev\}$},
+\]
+where $C_{1,i}$ is a flip
 class of a graph $\Gamma_{1,i}$ on $[1,c]$.
 Then $V(C_1\times C_2)=\sum_iz_iV(C_{1,i}\times C_2)$ for $V\in\{\Kv,\Ev\}$, where
 $C_{1,i}\times C_2$ is a flip class of the graph obtained by gluing
