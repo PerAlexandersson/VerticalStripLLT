@@ -2908,3 +2908,8 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.component_strict_eq_elementary_of_forward_by_diagrams
 #print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_eval_of_forward_by_diagrams
 #print axioms VerticalStripLLT.Circular.component_weighted_e_positive_of_forward_by_diagrams
+-- Circular component theorem: the companion reduction plus the diagram route.
+#print axioms VerticalStripLLT.Circular.component_strict_eq_elementary_by_diagrams
+#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_orientation_sum_by_diagrams
+#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_eval_by_diagrams
+#print axioms VerticalStripLLT.Circular.component_weighted_e_positive_by_diagrams

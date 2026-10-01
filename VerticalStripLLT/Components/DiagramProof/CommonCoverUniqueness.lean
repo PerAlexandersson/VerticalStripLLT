@@ -33,7 +33,7 @@ variable {n : ℕ}
 
 /-- Every natural edge of length at most two is present. -/
 def ShortEdges (D : Diagram n) : Prop :=
-  ∀ u v : Fin n, u < v → v.val ≤ u.val + 2 → naturalEdgeRelation (D := D) u v
+  ∀ u v : Fin n, u < v → v.val ≤ u.val + 2 → naturalRel D u v
 
 /-- Connected common-cover states of the same total size lie in one flip component. -/
 def CommonCoverUnique (D : Diagram n) : Prop :=
@@ -84,8 +84,8 @@ theorem reachable_of_complete {k : ℕ} {D : Diagram (k + 1)} (hD : Forward D)
   · intro u v hout
     exact (hout ⟨u, v, rfl, rfl⟩).elim
 
-theorem exists_corner_of_naturalEdgeRelation {D : Diagram n} (hD : Forward D) {u v : Fin n}
-    (h : naturalEdgeRelation (D := D) u v) :
+theorem exists_corner_of_naturalRel {D : Diagram n} (hD : Forward D) {u v : Fin n}
+    (h : naturalRel D u v) :
     ∃ f : Edge D.area, IsCorner f ∧ f.tail ≤ u ∧ v ≤ f.head := by
   obtain ⟨e, rfl, rfl⟩ := h
   exact exists_corner_containing hD e
@@ -116,7 +116,7 @@ theorem commonCoverUnique_of_shortEdges :
         (fun u : {t : Fin n // F.terminal hD t = t} => u.val) Subtype.val_injective)
   obtain ⟨k, rfl⟩ : ∃ k, n = k + 2 := ⟨n - 2, by lia⟩
   -- The first corner starts at zero.
-  obtain ⟨f, hf, hft0, -⟩ := exists_corner_of_naturalEdgeRelation hD
+  obtain ⟨f, hf, hft0, -⟩ := exists_corner_of_naturalRel hD
     (hshort ⟨0, by lia⟩ ⟨1, by lia⟩ (by simp) (by simp))
   have hft : f.tail = 0 := Fin.ext (by
     have : f.tail.val ≤ 0 := hft0
@@ -136,7 +136,7 @@ theorem commonCoverUnique_of_shortEdges :
     have hne : f.head.val ≠ k + 1 := fun h => hfh (Fin.ext h)
     lia
   -- A second corner contains the length-two edge over the first corner head.
-  obtain ⟨h0, hh0, hh0t, hh0h⟩ := exists_corner_of_naturalEdgeRelation hD
+  obtain ⟨h0, hh0, hh0t, hh0h⟩ := exists_corner_of_naturalRel hD
     (hshort ⟨f.head.val - 1, by lia⟩ ⟨f.head.val + 1, by lia⟩
       (by rw [Fin.lt_def]; dsimp only; lia) (by dsimp only; lia))
   have hh0t' : h0.tail.val ≤ f.head.val - 1 := hh0t

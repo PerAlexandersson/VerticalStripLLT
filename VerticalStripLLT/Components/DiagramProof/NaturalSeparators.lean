@@ -14,14 +14,9 @@ namespace CornerFamily
 
 variable {n : ℕ} {D : Diagram n}
 
-theorem naturalEdgeRelation_forward (hforward : Forward D) {u v : Fin n}
-    (h : naturalEdgeRelation (D := D) u v) : u < v := by
-  obtain ⟨e, ht, hh⟩ := h
-  simpa only [ht, hh] using hforward e
-
-theorem naturalEdgeRelation_of_le_of_le (hforward : Forward D) {x y a b : Fin n}
-    (hxy : naturalEdgeRelation (D := D) x y) (hxa : x ≤ a) (hab : a < b)
-    (hby : b ≤ y) : naturalEdgeRelation (D := D) a b := by
+theorem naturalRel_of_le_of_le (hforward : Forward D) {x y a b : Fin n}
+    (hxy : naturalRel D x y) (hxa : x ≤ a) (hab : a < b)
+    (hby : b ≤ y) : naturalRel D a b := by
   obtain ⟨e, ht, hh⟩ := hxy
   obtain ⟨f, hft, hfh⟩ := exists_edge_of_naturalLift_of_le
     (D.naturalLift_of_tail_lt_head e (hforward e))
@@ -29,12 +24,12 @@ theorem naturalEdgeRelation_of_le_of_le (hforward : Forward D) {x y a b : Fin n}
   exact ⟨f, hft, hfh⟩
 
 /-- A weak path outside an open interval forces its endpoint edge to be natural. -/
-theorem naturalEdgeRelation_of_eqvGen_of_side
+theorem naturalRel_of_eqvGen_of_side
     (hforward : Forward D) {R : Fin n → Fin n → Prop} {a b : Fin n} (hab : a < b)
-    (hR : ∀ ⦃x y⦄, R x y → naturalEdgeRelation (D := D) x y)
+    (hR : ∀ ⦃x y⦄, R x y → naturalRel D x y)
     (hside : ∀ ⦃x y⦄, R x y →
       (x ≤ a ∨ b ≤ x) ∧ (y ≤ a ∨ b ≤ y))
-    (hpath : Relation.EqvGen R a b) : naturalEdgeRelation (D := D) a b := by
+    (hpath : Relation.EqvGen R a b) : naturalRel D a b := by
   by_contra habN
   have hstable : ∀ ⦃x y⦄, R x y → (x ≤ a ↔ y ≤ a) := by
     intro x y hxy
@@ -44,12 +39,12 @@ theorem naturalEdgeRelation_of_eqvGen_of_side
       by_contra hnoty
       rcases hys with hy | hy
       · exact hnoty hy
-      · exact habN (naturalEdgeRelation_of_le_of_le hforward (hR hxy) hx hab hy)
+      · exact habN (naturalRel_of_le_of_le hforward (hR hxy) hx hab hy)
     · intro hy
       by_contra hnotx
       rcases hxs with hx | hx
       · exact hnotx hx
-      · have hlt := naturalEdgeRelation_forward hforward (hR hxy)
+      · have hlt := naturalRel_forward hforward (hR hxy)
         have hba : b < a := hx.trans_lt (hlt.trans_le hy)
         exact (not_lt_of_ge hab.le) hba
   have hstableEqv : ∀ ⦃x y⦄, Relation.EqvGen R x y → (x ≤ a ↔ y ≤ a) := by
@@ -92,13 +87,13 @@ private theorem le_or_ge_of_distance_two {u v w x : Fin n} (huw : w.val = u.val 
 
 /-- A connected natural diagram which remains connected after deleting every vertex has all
 length-one and length-two natural edges. -/
-theorem naturalEdgeRelation_short_of_connected_of_delete
+theorem naturalRel_short_of_connected_of_delete
     (hforward : Forward D)
-    (hconn : ∀ u v, Relation.EqvGen (naturalEdgeRelation (D := D)) u v)
+    (hconn : ∀ u v, Relation.EqvGen (naturalRel D) u v)
     (hdelete : ∀ w u v, u ≠ w → v ≠ w →
       Relation.EqvGen (fun x y => x ≠ w ∧ y ≠ w ∧
-        naturalEdgeRelation (D := D) x y) u v) :
-    ∀ u v, u < v → v.val ≤ u.val + 2 → naturalEdgeRelation (D := D) u v := by
+        naturalRel D x y) u v) :
+    ∀ u v, u < v → v.val ≤ u.val + 2 → naturalRel D u v := by
   intro u v huv hgap
   have hlow : u.val + 1 ≤ v.val := by
     have huvval : u.val < v.val := huv
@@ -109,7 +104,7 @@ theorem naturalEdgeRelation_short_of_connected_of_delete
     · right
       lia
   rcases hcases with hval | hval
-  · apply naturalEdgeRelation_of_eqvGen_of_side hforward huv
+  · apply naturalRel_of_eqvGen_of_side hforward huv
       (fun {_ _} h => h)
     · intro x y _
       exact ⟨le_or_ge_of_adjacent hval, le_or_ge_of_adjacent hval⟩
@@ -129,8 +124,8 @@ theorem naturalEdgeRelation_short_of_connected_of_delete
       change v.val = u.val + 1 at hval'
       rw [hval] at hval'
       lia
-    apply naturalEdgeRelation_of_eqvGen_of_side hforward
-      (R := fun x y => x ≠ w ∧ y ≠ w ∧ naturalEdgeRelation (D := D) x y) huv
+    apply naturalRel_of_eqvGen_of_side hforward
+      (R := fun x y => x ≠ w ∧ y ≠ w ∧ naturalRel D x y) huv
       (fun {_ _} h => h.2.2)
     · intro x y hxy
       exact ⟨le_or_ge_of_distance_two (rfl : w.val = u.val + 1) hval hxy.1,
@@ -138,18 +133,18 @@ theorem naturalEdgeRelation_short_of_connected_of_delete
     · exact hdelete w u v hwu hvw
 
 /-- Short natural edges connect every pair of vertices. -/
-theorem naturalEdgeRelation_connected_of_short
-    (hshort : ∀ u v : Fin n, u < v → v.val ≤ u.val + 2 → naturalEdgeRelation (D := D) u v)
-    (u v : Fin n) : Relation.EqvGen (naturalEdgeRelation (D := D)) u v := by
+theorem naturalRel_connected_of_short
+    (hshort : ∀ u v : Fin n, u < v → v.val ≤ u.val + 2 → naturalRel D u v)
+    (u v : Fin n) : Relation.EqvGen (naturalRel D) u v := by
   have hp := eqvGen_of_short_edges_of_no_consecutive_omissions
     (S := Set.univ) hshort (fun _ _ _ => Or.inl trivial) u v trivial trivial
   exact Relation.EqvGen.mono (fun _ _ h => h.2.2) _ _ hp
 
 /-- Short natural edges also connect all surviving vertices after any one vertex is deleted. -/
-theorem naturalEdgeRelation_delete_of_short
-    (hshort : ∀ u v : Fin n, u < v → v.val ≤ u.val + 2 → naturalEdgeRelation (D := D) u v)
+theorem naturalRel_delete_of_short
+    (hshort : ∀ u v : Fin n, u < v → v.val ≤ u.val + 2 → naturalRel D u v)
     (w u v : Fin n) (hu : u ≠ w) (hv : v ≠ w) :
-    Relation.EqvGen (fun x y => x ≠ w ∧ y ≠ w ∧ naturalEdgeRelation (D := D) x y) u v := by
+    Relation.EqvGen (fun x y => x ≠ w ∧ y ≠ w ∧ naturalRel D x y) u v := by
   apply eqvGen_of_short_edges_of_no_consecutive_omissions hshort _ u v hu hv
   intro x y hxy
   by_cases hx : x = w

@@ -9,7 +9,7 @@ variable {n : ℕ} {D : Diagram n} (F : CornerFamily D) (hforward : Forward D)
 
 theorem chainQuotient_induce_preconnected_avoiding_terminal (hn : 3 ≤ n)
     (hshort : ∀ u v : Fin n, u < v → v.val ≤ u.val + 2 →
-      naturalEdgeRelation (D := D) u v) (t : Fin n) :
+      naturalRel D u v) (t : Fin n) :
     (F.chainQuotient hforward (F.goodEdges hforward)).induce
       {B : {r : Fin n // F.terminal hforward r = r} | B.val ≠ t} |>.Preconnected := by
   let V := {B : {t : Fin n // F.terminal hforward t = t} // B.val ≠ t}
@@ -94,7 +94,7 @@ theorem chainQuotient_induce_preconnected_avoiding_terminal (hn : 3 ≤ n)
 /-- At least one chain survives any one-terminal deletion. -/
 theorem chainQuotient_induce_connected_avoiding_terminal (hn : 3 ≤ n)
     (hshort : ∀ u v : Fin n, u < v → v.val ≤ u.val + 2 →
-      naturalEdgeRelation (D := D) u v) (t : Fin n) :
+      naturalRel D u v) (t : Fin n) :
     ((F.chainQuotient hforward (F.goodEdges hforward)).induce
       {B : {r : Fin n // F.terminal hforward r = r} | B.val ≠ t}).Connected := by
   classical

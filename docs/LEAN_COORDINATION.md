@@ -6,7 +6,33 @@ transfer is recorded in `HANDOFF.md` at `b78312c`: Claude owns all
 `DiagramProof/` Lean sources, `DiagramProofVerification.lean` and the sole
 project build slot.
 
-## Current status — 2026-10-01: the ordinary theorem is formalized by diagrams
+## Current status — 2026-10-01: the ordinary and circular theorems by diagrams
+
+**Circular theorem (new).** `DiagramProof/CircularConsequences.lean` proves, for
+every diagram (circular or not), every whole flip component and every finite
+alphabet:
+
+```lean
+theorem VerticalStripLLT.Circular.component_strict_eq_elementary_by_diagrams
+    {n : ℕ} {D : Diagram n} (θ : Orientation D) (m : ℕ) :
+    componentStrictEnumerator D θ m = evalElementary m (componentHRV D θ)
+```
+
+It also proves the weighted forms `component_weighted_strict_eq_orientation_sum_by_diagrams`
+and `component_weighted_strict_eq_eval_by_diagrams`, and positivity in
+`component_weighted_e_positive_by_diagrams`. The proof feeds the ordinary
+diagram theorem below into the existing finite circular companion reduction
+`component_identity_of_forward_components` (`CircularFromOrdinaryComponents`).
+
+That reduction had reached the word route through a single unneeded import:
+`BalancedHRVTransport` imported `ForwardHRV` (which pulls in `BlockCancellation`,
+`BlockExtractor` and `SinkReachability`), although it uses only `ForwardHRVBasic`.
+The import is now `ForwardHRVBasic`; no declaration changed. The companion
+modules (`Gain*`, `CircularFiniteCompanion`, `ComponentCoefficient`,
+`ComponentSumPartition`, the compatible-diagram modules) are the circular
+argument itself and use no word, scan, mountain or block-extractor module.
+
+**Ordinary theorem.**
 
 The independent diagram-route theorem is proved in Lean:
 
@@ -28,6 +54,24 @@ These are statements about the existing semantics: the strict-coloring
 enumerator and the evaluated HRV elementary monomials of every whole flip
 component of every forward diagram, for every finite alphabet. They carry no
 extra hypotheses.
+
+Checks for the circular step and the `naturalRel` merge (this checkpoint):
+
+- `lake-workspace env lean DiagramProofVerification.lean` runs **860** axiom
+  queries, all using only `propext`, `Classical.choice` and `Quot.sound` (or a
+  subset, or none) (`axioms-4.log`).
+- The import closure of the verification entry point now has **384** project
+  files. It contains none of the 59 modules that the old ordinary word route
+  (`OrdinaryComponentExpansion`) adds beyond the companion reduction: no
+  `Word*`, `Mountain*`, `Block*`/`BlockExtractor`, `SinkReachability`,
+  `ForwardHRV`, `ComponentFunctional`, `ComponentScalars`,
+  `OrdinaryComponentExpansion` or `ComponentExpansion`
+  (`imports-circular.txt`).
+- The full `lake-workspace build VerticalStripLLT` passes (2365 jobs,
+  `full-build-3.log`). `Verification.lean`, with the four circular theorems
+  added, runs 2814 queries with only the standard axioms (`verification-2.log`).
+- Source guards pass for all 238 `DiagramProof` modules, the verification file
+  and `BalancedHRVTransport`.
 
 Checks at `f2f396f`:
 
@@ -65,7 +109,7 @@ All modules are in `VerticalStripLLT/Components/DiagramProof/`.
 
 | Module | Content | Written step |
 | --- | --- | --- |
-| `NaturalRelations` | `naturalRel`, `strictRel`; strict pairs are maximal (`strictRel_maximal`); orientations are determined by selected relations; states from valid relations | the relational model of ordinary diagrams |
+| `NaturalRelations` | `strictRel` (`naturalRel` itself is in `Basic`); strict pairs are maximal (`strictRel_maximal`); orientations are determined by selected relations; states from valid relations | the relational model of ordinary diagrams |
 | `RelationalTransport` | `directedFlip_iff`: a flip is exactly a short exchange under two covers. `Corresponds π θ θ'` transports flips, paths and whole components between any two forward diagrams along a vertex bijection that is order-preserving in selected weak blocks | "a maximal natural edge is never an exchanged short"; all identity re-presentations |
 | `RelationalValues` | marked K/E are preserved by correspondences fixing the marked vertex | marked identities (EA1)/(RE1) under relabelling |
 | `RelationalDiagram` | `ofRelations N S`: an ordinary diagram from an interval-closed natural relation and maximal strict pairs | every diagram operation (deletion, marking, reordering, targets) |
@@ -112,7 +156,8 @@ All modules are in `VerticalStripLLT/Components/DiagramProof/`.
 | --- | --- | --- |
 | `DisjointUnion` | `IsDisjointUnion`, product components, `componentStrictEnumerator_glue`, `evalElementary_componentHRV_glue` | disjoint natural components factor |
 | `Expansion` | `component_eq_by_diagrams_aux`, path base `component_eq_of_path` | strong induction on `(n, A, M)` |
-| `Consequences` | the three public theorems | weights and positivity |
+| `Consequences` | the three ordinary public theorems | weights and positivity |
+| `CircularConsequences` | the four circular public theorems | circular companion + ordinary theorem |
 
 ## Notes for the writer: where the Lean proof is organised differently
 
@@ -137,15 +182,20 @@ None of these changes the mathematics. They may help the exposition.
 5. **Measure.** `A` is the number of natural pairs and `M` the sum of their
    heads, equal to `Σ a_j` and `Σ j·a_j`.
 
-## Remaining items (optional; not needed for the stated theorem)
+## Remaining items
 
-- The circular theorem is not re-derived by diagrams.
-  `CircularFromOrdinaryComponents` imports word-route modules
-  (`BlockCancellation`, `BlockExtractor`, `ComponentCoefficient`), so it was not
-  used.
+None for the Lean formalization.
+
+- Done at this checkpoint: the circular theorem is derived from the diagram
+  route (see above).
+- Done at this checkpoint: `CornerFamily.naturalEdgeRelation` and `naturalRel`
+  are merged. The single definition `naturalRel` and `naturalRel_forward` now
+  live in `DiagramProof/Basic.lean`. The P6 separator lemmas are renamed
+  `CornerFamily.naturalRel_*` (and `exists_corner_of_naturalRel`,
+  `eqvGen_goodEdgeRelation_iff_eqvGen_naturalRel`), and the duplicate
+  `CornerFamily.naturalEdgeRelation_forward` is removed.
 - Done at `55cfaf5`: `attachDiagram` is now built on `ofRelations`, the NN and
   DN recurrences share one sink-order lemma, and one symmetric closure lemma
   replaces the two helpers.
-- Possible further cleanup: `naturalRel` duplicates `CornerFamily.naturalEdgeRelation`
-  (they are definitionally equal); merging them would touch many earlier P1–P6
-  modules, so it is left as a suggestion.
+- For the writer: `HANDOFF.md` should record the circular theorem by diagrams,
+  the narrowed `BalancedHRVTransport` import and the rename above.

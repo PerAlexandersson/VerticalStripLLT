@@ -20,6 +20,15 @@ variable {n : ℕ} {D : Diagram n}
 /-- All natural edges increase in the fixed vertex order. -/
 def Forward (D : Diagram n) : Prop := ∀ e : Edge D.area, e.tail < e.head
 
+/-- The natural endpoint relation of a diagram. -/
+def naturalRel (D : Diagram n) (u v : Fin n) : Prop :=
+  ∃ e : Edge D.area, e.tail = u ∧ e.head = v
+
+theorem naturalRel_forward (hD : Forward D) {u v : Fin n}
+    (h : naturalRel D u v) : u < v := by
+  obtain ⟨e, rfl, rfl⟩ := h
+  exact hD e
+
 /-- The actual selected edges, including the required strict corners. -/
 def fullSelection (θ : Orientation D) : Finset (Edge D.area) := D.strict ∪ θ.val
 

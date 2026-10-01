@@ -348,3 +348,4 @@ import VerticalStripLLT.Components.HRVScanExtraction
 import VerticalStripLLT.Components.OrdinaryComponentExpansion
 import VerticalStripLLT.Components.ComponentExpansion
 import VerticalStripLLT.Components.DiagramProof.Consequences
+import VerticalStripLLT.Components.DiagramProof.CircularConsequences

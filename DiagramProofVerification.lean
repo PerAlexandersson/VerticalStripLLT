@@ -1,4 +1,5 @@
 import VerticalStripLLT.Components.DiagramProof.Consequences
+import VerticalStripLLT.Components.DiagramProof.CircularConsequences
 import VerticalStripLLT.Components.DiagramProof.CommonCoverUniqueness
 import VerticalStripLLT.Components.DiagramProof.RightAttachment
 import VerticalStripLLT.Components.DiagramProof.LastCliqueNaturalEdges
@@ -435,7 +436,7 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms CornerFamily.chainQuotient_preconnected_iff
 #print axioms CornerFamily.chainQuotient_preconnected_iff_selectedConnected
 #print axioms CornerFamily.eqvGen_goodEdgeRelation_of_natural_edge
-#print axioms CornerFamily.eqvGen_goodEdgeRelation_iff_eqvGen_naturalEdgeRelation
+#print axioms CornerFamily.eqvGen_goodEdgeRelation_iff_eqvGen_naturalRel
 
 #print axioms edgeSym2Embedding
 #print axioms edgeSetGraph_mono
@@ -457,12 +458,11 @@ namespace VerticalStripLLT.Circular.DiagramProof
 
 #print axioms edgeSetGraph_erase
 #print axioms eqvGen_of_short_edges_of_no_consecutive_omissions
-#print axioms CornerFamily.naturalEdgeRelation_forward
-#print axioms CornerFamily.naturalEdgeRelation_of_le_of_le
-#print axioms CornerFamily.naturalEdgeRelation_of_eqvGen_of_side
-#print axioms CornerFamily.naturalEdgeRelation_short_of_connected_of_delete
-#print axioms CornerFamily.naturalEdgeRelation_connected_of_short
-#print axioms CornerFamily.naturalEdgeRelation_delete_of_short
+#print axioms CornerFamily.naturalRel_of_le_of_le
+#print axioms CornerFamily.naturalRel_of_eqvGen_of_side
+#print axioms CornerFamily.naturalRel_short_of_connected_of_delete
+#print axioms CornerFamily.naturalRel_connected_of_short
+#print axioms CornerFamily.naturalRel_delete_of_short
 #print axioms CornerFamily.goodEdge_weakReach_within_terminals_iff
 #print axioms CornerFamily.terminal_ne_of_consecutive
 #print axioms CornerFamily.goodEdge_weakReach_avoiding_terminal
@@ -866,6 +866,11 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms VerticalStripLLT.Circular.component_strict_eq_elementary_of_forward_by_diagrams
 #print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_eval_of_forward_by_diagrams
 #print axioms VerticalStripLLT.Circular.component_weighted_e_positive_of_forward_by_diagrams
+#print axioms VerticalStripLLT.Circular.component_strict_eq_elementary_by_diagrams
+#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_orientation_sum_by_diagrams
+#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_eval_by_diagrams
+#print axioms VerticalStripLLT.Circular.component_weighted_e_positive_by_diagrams
+#print axioms naturalRel_forward
 #print axioms component_eq_by_diagrams_aux
 #print axioms component_eq_of_path
 #print axioms not_flip_of_adjacent_only

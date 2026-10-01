@@ -40,14 +40,14 @@ theorem edgeSetGraph_corners_isAcyclic : (edgeSetGraph F.edges).IsAcyclic := by
 /-- The full good-edge graph has all the weak connections of the natural diagram. -/
 theorem goodEdgeGraph_preconnected_iff :
     (edgeSetGraph (F.goodEdges hforward)).Preconnected ↔
-      ∀ u v, Relation.EqvGen (naturalEdgeRelation (D := D)) u v := by
+      ∀ u v, Relation.EqvGen (naturalRel D) u v := by
   constructor
   · intro h u v
-    exact (F.eqvGen_goodEdgeRelation_iff_eqvGen_naturalEdgeRelation hforward u v).mp
+    exact (F.eqvGen_goodEdgeRelation_iff_eqvGen_naturalRel hforward u v).mp
       ((eqvGen_iff_fromRel_reachable u v).mpr (h u v))
   · intro h u v
     exact (eqvGen_iff_fromRel_reachable u v).mp
-      ((F.eqvGen_goodEdgeRelation_iff_eqvGen_naturalEdgeRelation hforward u v).mpr (h u v))
+      ((F.eqvGen_goodEdgeRelation_iff_eqvGen_naturalRel hforward u v).mpr (h u v))
 
 /-- Every spanning subgraph between the corner forest and the good-edge graph
 is the exact full-selection graph of an actual anchor. -/
@@ -67,7 +67,7 @@ theorem exists_anchor_of_graph (H : SimpleGraph (Fin n))
 
 /-- Every feasible total selected size has a connected simultaneous-cover anchor. -/
 theorem exists_connected_anchor_card (hn : 0 < n)
-    (hconnected : ∀ u v, Relation.EqvGen (naturalEdgeRelation (D := D)) u v)
+    (hconnected : ∀ u v, Relation.EqvGen (naturalRel D) u v)
     (k : ℕ) (hlower : n ≤ k + 1) (hupper : k ≤ (F.goodEdges hforward).card) :
     ∃ θ : Orientation D, F.Anchor hforward θ ∧ SelectedConnected θ ∧ totalSelected θ = k := by
   let : Nonempty (Fin n) := ⟨⟨0, hn⟩⟩
@@ -114,7 +114,7 @@ theorem exists_connected_anchor_card_avoiding (d : Edge D.area)
 
 /-- The possible total sizes of connected anchors form the full feasible interval. -/
 theorem exists_connected_anchor_card_iff (hn : 0 < n)
-    (hconnected : ∀ u v, Relation.EqvGen (naturalEdgeRelation (D := D)) u v) (k : ℕ) :
+    (hconnected : ∀ u v, Relation.EqvGen (naturalRel D) u v) (k : ℕ) :
     (∃ θ : Orientation D, F.Anchor hforward θ ∧ SelectedConnected θ ∧
       totalSelected θ = k) ↔ n ≤ k + 1 ∧ k ≤ (F.goodEdges hforward).card := by
   constructor

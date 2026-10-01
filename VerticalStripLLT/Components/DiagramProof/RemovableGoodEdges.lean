@@ -28,7 +28,7 @@ theorem weakReach_erase_of_avoiding_terminal (d : Edge D.area) (t u v : Fin n)
 
 /-- A third chain provides a path around a good non-corner edge. -/
 theorem weakReach_erase_good_edge (hn : 3 ≤ n)
-    (hshort : ∀ u v : Fin n, u < v → v.val ≤ u.val + 2 → naturalEdgeRelation (D := D) u v)
+    (hshort : ∀ u v : Fin n, u < v → v.val ≤ u.val + 2 → naturalRel D u v)
     (d : Edge D.area) (hdG : d ∈ F.goodEdges hforward) (hdF : d ∉ F.edges)
     (w : Fin n) (hwt : F.terminal hforward w ≠ F.terminal hforward d.tail)
     (hwh : F.terminal hforward w ≠ F.terminal hforward d.head) :
@@ -46,7 +46,7 @@ theorem weakReach_erase_good_edge (hn : 3 ≤ n)
 /-- Deleting a good non-corner edge leaves the full good-edge graph connected
 as soon as there is a third chain. -/
 theorem goodEdgeGraph_delete_connected (hn : 3 ≤ n)
-    (hshort : ∀ u v : Fin n, u < v → v.val ≤ u.val + 2 → naturalEdgeRelation (D := D) u v)
+    (hshort : ∀ u v : Fin n, u < v → v.val ≤ u.val + 2 → naturalRel D u v)
     (d : Edge D.area) (hdG : d ∈ F.goodEdges hforward) (hdF : d ∉ F.edges)
     (hthird : ∃ w, F.terminal hforward w ≠ F.terminal hforward d.tail ∧
       F.terminal hforward w ≠ F.terminal hforward d.head) :
@@ -58,8 +58,8 @@ theorem goodEdgeGraph_delete_connected (hn : 3 ≤ n)
   constructor
   intro u v
   apply (eqvGen_iff_fromRel_reachable u v).mp
-  have hnat := naturalEdgeRelation_connected_of_short hshort u v
-  have hg := (F.eqvGen_goodEdgeRelation_iff_eqvGen_naturalEdgeRelation
+  have hnat := naturalRel_connected_of_short hshort u v
+  have hg := (F.eqvGen_goodEdgeRelation_iff_eqvGen_naturalRel
     hforward u v).mpr hnat
   apply Relation.EqvGen.eqvGen_le _ u v hg
   rintro x y ⟨e, he, rfl, rfl⟩
@@ -70,15 +70,15 @@ theorem goodEdgeGraph_delete_connected (hn : 3 ≤ n)
 /-- The deletion hypothesis needed for the anchor construction follows from
 connectivity after every vertex deletion and the existence of a third chain. -/
 theorem goodEdgeGraph_delete_connected_of_no_articulation (hn : 3 ≤ n)
-    (hconn : ∀ u v, Relation.EqvGen (naturalEdgeRelation (D := D)) u v)
+    (hconn : ∀ u v, Relation.EqvGen (naturalRel D) u v)
     (hdelete : ∀ w u v, u ≠ w → v ≠ w →
-      Relation.EqvGen (fun x y => x ≠ w ∧ y ≠ w ∧ naturalEdgeRelation (D := D) x y) u v)
+      Relation.EqvGen (fun x y => x ≠ w ∧ y ≠ w ∧ naturalRel D x y) u v)
     (d : Edge D.area) (hdG : d ∈ F.goodEdges hforward) (hdF : d ∉ F.edges)
     (hthird : ∃ w, F.terminal hforward w ≠ F.terminal hforward d.tail ∧
       F.terminal hforward w ≠ F.terminal hforward d.head) :
     ((edgeSetGraph (F.goodEdges hforward)).deleteEdges {s(d.tail, d.head)}).Connected :=
   F.goodEdgeGraph_delete_connected hforward hn
-    (naturalEdgeRelation_short_of_connected_of_delete hforward hconn hdelete) d hdG hdF hthird
+    (naturalRel_short_of_connected_of_delete hforward hconn hdelete) d hdG hdF hthird
 
 /-- With at least three chains, a third terminal exists outside any two given chains. -/
 theorem exists_third_terminal
@@ -109,9 +109,9 @@ theorem exists_third_terminal
 /-- Every feasible size below the full size admits an anchor omitting the specified edge
 when the natural graph has no articulation and at least three corner chains remain. -/
 theorem exists_connected_anchor_card_avoiding_of_no_articulation (hn : 3 ≤ n)
-    (hconn : ∀ u v, Relation.EqvGen (naturalEdgeRelation (D := D)) u v)
+    (hconn : ∀ u v, Relation.EqvGen (naturalRel D) u v)
     (hdelete : ∀ w u v, u ≠ w → v ≠ w →
-      Relation.EqvGen (fun x y => x ≠ w ∧ y ≠ w ∧ naturalEdgeRelation (D := D) x y) u v)
+      Relation.EqvGen (fun x y => x ≠ w ∧ y ≠ w ∧ naturalRel D x y) u v)
     (hchains : 3 ≤ Nat.card {t : Fin n // F.terminal hforward t = t})
     (d : Edge D.area) (hdG : d ∈ F.goodEdges hforward) (hdF : d ∉ F.edges)
     (k : ℕ) (hlower : n ≤ k + 1) (hupper : k + 1 ≤ (F.goodEdges hforward).card) :

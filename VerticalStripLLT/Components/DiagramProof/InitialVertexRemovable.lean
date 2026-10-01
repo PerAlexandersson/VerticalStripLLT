@@ -19,7 +19,7 @@ namespace CornerFamily
 theorem initialVertex_goodEdgeGraph_delete_connected (F : CornerFamily D) (hD : Forward D)
     (f : Edge D.area) (hf : f ∈ F.edges) (hft : f.tail = 0)
     (hshort : ∀ u v : Fin (k + 2), u < v → v.val ≤ u.val + 2 →
-      naturalEdgeRelation (D := D) u v)
+      naturalRel D u v)
     (hchains : 3 ≤ Nat.card {v : Fin (k + 2) // F.terminal hD v = v})
     (d : Edge (inducedDiagram hD (Fin.succOrderEmb (k + 1))).area)
     (hdG : d ∈ (F.induced hD (Fin.succOrderEmb (k + 1))).goodEdges
@@ -50,7 +50,7 @@ theorem commonCover_connected_of_initialVertex_short (hD : Forward D)
     (f g : Edge D.area) (hf : IsCorner f) (hg : IsCorner g)
     (hft : f.tail = 0) (hgt : g.tail = 1) (hfg : f.head < g.head)
     (hshort : ∀ u v : Fin (k + 2), u < v → v.val ≤ u.val + 2 →
-      naturalEdgeRelation (D := D) u v)
+      naturalRel D u v)
     (hchains : 3 ≤ Nat.card {v : Fin (k + 2) // (allCorners D).terminal hD v = v})
     (hunique : ∀ α β : Orientation (inducedDiagram hD (Fin.succOrderEmb (k + 1))),
       (allCorners (inducedDiagram hD (Fin.succOrderEmb (k + 1)))).CommonCover α →

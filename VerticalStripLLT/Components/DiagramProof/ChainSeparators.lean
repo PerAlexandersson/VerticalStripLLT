@@ -13,7 +13,7 @@ theorem goodEdge_weakReach_within_terminals_iff (S : Set (Fin n)) (u v : Fin n) 
     Relation.EqvGen (fun x y => S (F.terminal hforward x) ∧
       S (F.terminal hforward y) ∧ F.goodEdgeRelation hforward x y) u v ↔
     Relation.EqvGen (fun x y => S (F.terminal hforward x) ∧
-      S (F.terminal hforward y) ∧ naturalEdgeRelation (D := D) x y) u v := by
+      S (F.terminal hforward y) ∧ naturalRel D x y) u v := by
   constructor
   · apply Relation.EqvGen.mono
     rintro x y ⟨hx, hy, e, _, ht, hh⟩
@@ -47,7 +47,7 @@ theorem goodEdge_weakReach_within_terminals_iff (S : Set (Fin n)) (u v : Fin n) 
 /-- If all edges of length one and two are natural, consecutive vertices
 belong to different corner chains. -/
 theorem terminal_ne_of_consecutive (hn : 3 ≤ n)
-    (hshort : ∀ u v : Fin n, u < v → v.val ≤ u.val + 2 → naturalEdgeRelation (D := D) u v)
+    (hshort : ∀ u v : Fin n, u < v → v.val ≤ u.val + 2 → naturalRel D u v)
     (u v : Fin n) (huv : u.val + 1 = v.val) :
     F.terminal hforward u ≠ F.terminal hforward v := by
   intro heq
@@ -72,7 +72,7 @@ theorem terminal_ne_of_consecutive (hn : 3 ≤ n)
 /-- Any two vertices outside one corner chain remain connected by good edges
 outside that chain. -/
 theorem goodEdge_weakReach_avoiding_terminal (hn : 3 ≤ n)
-    (hshort : ∀ u v : Fin n, u < v → v.val ≤ u.val + 2 → naturalEdgeRelation (D := D) u v)
+    (hshort : ∀ u v : Fin n, u < v → v.val ≤ u.val + 2 → naturalRel D u v)
     (t u v : Fin n) (hu : F.terminal hforward u ≠ t) (hv : F.terminal hforward v ≠ t) :
     Relation.EqvGen (fun x y => F.terminal hforward x ≠ t ∧
       F.terminal hforward y ≠ t ∧ F.goodEdgeRelation hforward x y) u v := by

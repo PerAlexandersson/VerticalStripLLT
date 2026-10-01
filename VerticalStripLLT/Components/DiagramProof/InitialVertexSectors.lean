@@ -47,7 +47,7 @@ theorem initialVertex_connected_core_anchors (hD : Forward D)
   have hfF : f ∈ F.edges := Finset.mem_filter.mpr ⟨Finset.mem_univ _, hf⟩
   have hF' : F.induced hD ι = F' :=
     induced_allCorners_initialVertex hD f g hf hg hft hgt hfg
-  have hnat : ∀ u v, Relation.EqvGen (naturalEdgeRelation (D := E)) u v := by
+  have hnat : ∀ u v, Relation.EqvGen (naturalRel E) u v := by
     intro u v
     apply Relation.EqvGen.mono ?_ u v (hcθ u v)
     rintro x y ⟨e, _, ht, hh⟩

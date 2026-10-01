@@ -17,18 +17,9 @@ noncomputable section
 
 variable {n : ℕ} {D : Diagram n}
 
-/-- The natural endpoint relation of a diagram. -/
-def naturalRel (D : Diagram n) (u v : Fin n) : Prop :=
-  ∃ e : Edge D.area, e.tail = u ∧ e.head = v
-
 /-- The strict endpoint relation of a diagram. -/
 def strictRel (D : Diagram n) (u v : Fin n) : Prop :=
   ∃ e ∈ D.strict, e.tail = u ∧ e.head = v
-
-theorem naturalRel_forward (hD : Forward D) {u v : Fin n}
-    (h : naturalRel D u v) : u < v := by
-  obtain ⟨e, rfl, rfl⟩ := h
-  exact hD e
 
 theorem naturalRel_of_strictRel {u v : Fin n} (h : strictRel D u v) :
     naturalRel D u v := by

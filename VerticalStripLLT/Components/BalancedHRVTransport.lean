@@ -1,5 +1,5 @@
 import VerticalStripLLT.Components.BalancedLiftReach
-import VerticalStripLLT.Components.ForwardHRV
+import VerticalStripLLT.Components.ForwardHRVBasic
 import VerticalStripLLT.Circular.HRVConjugacy
 
 /-!
