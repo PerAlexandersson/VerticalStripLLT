@@ -1,5 +1,14 @@
 # Claude task: formalize the right-endpoint attachment in the diagram proof
 
+**Attachment subtask completed at pushed `26b2d97`.** The four modules,
+whole-component product, HRV merger, paired marked transfer and measure
+identities are checked. The focused build and all 719 current axiom queries
+pass. Independent source review approved correspondence with the written
+attachment proof. See [Claude's report](LEAN_COORDINATION.md). This does not
+complete P9's prefix/contact work or the general diagram formalization.
+
+The task below is retained as the exact mathematical acceptance contract.
+
 The requested result is the **same diagram argument used in the paper**.
 The written ordinary component proof is complete; its independent Lean route
 is not. The older completed word/scan component theorem is not an input.
@@ -28,11 +37,11 @@ Lean sources, `DiagramProofVerification.lean` and the sole project build slot
 to the persistent Claude worker `agent-verticalstri-motzki-c-001af720`.
 The current [HANDOFF](../HANDOFF.md) is authoritative.
 
-Claude begins with the attachment task below, then continues the remaining
+Claude completed the attachment task below and continues the remaining
 formalization. Codex retains mathematical prose, figures, source maps and the
 top-level handoff. Claude reports progress, checks and blockers in
-`docs/LEAN_COORDINATION.md`, which it owns. The prepared attachment drafts in
-the external request cache are uncompiled candidates until checked locally.
+`docs/LEAN_COORDINATION.md`, which it owns. The external scratchpad drafts have been superseded by the checked project
+sources at `26b2d97`.
 
 Proposed attachment files:
 
@@ -48,7 +57,8 @@ needed targets. Separate worktrees do not make concurrent builds safe.
 P6 now includes all feasible-extra-set paths, conditional initial-vertex
 inheritance, preserved chain count, matching-edge removability, canonical
 last-clique short edges and the two-chain cardinal base. Its global vertex-count
-induction remains unfinished. P7–P10 are still open.
+induction remains unfinished. P7/P8/P10 remain open; P9's attachment is now checked and its other
+obligations remain open.
 
 ## Exact mathematical input
 

@@ -1,0 +1,131 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{llt-diagrams}[2026/10/01 LLT diagrams as restricted sums]
+\RequirePackage{tikz}
+\RequirePackage{xparse}
+\RequirePackage{amsmath}
+
+% A diagram denotes a sum over the selections satisfying its restrictions.
+% The surrounding text specifies the ambient diagram, exterior, and valuation.
+% Positions in the ordered label list are numbered from 1, independently of labels.
+\definecolor{lltLabelYellow}{RGB}{255,240,171}
+\definecolor{lltUnweightedGray}{RGB}{231,231,231}
+\newif\ifllt@weighted
+\pgfkeys{/llt/.is family,/llt/.cd,
+  cell size/.store in=\llt@unit,
+  label font/.store in=\llt@labelfont,
+  entry font/.store in=\llt@entryfont,
+  condition/.store in=\llt@condition,
+  name/.store in=\llt@name,
+  weighted/.is if=llt@weighted,
+  weighted/.default=true,
+  cell size=5.8mm,
+  label font=\scriptsize,
+  entry font=\small,
+  condition={},name={},weighted=false}
+\NewDocumentCommand{\LLTDiagramSetup}{m}{\pgfkeys{/llt/.cd,#1}}
+
+\ExplSyntaxOn
+\cs_new:Npn \lltcountlabels #1 { \clist_count:n {#1} }
+\ExplSyntaxOff
+
+% Internal cell painter, deliberately shared by all restriction commands.
+\newcommand{\llt@cell}[4]{%
+  \ifnum#1<1 \PackageError{llt-diagrams}{Cell column must be positive}{}\fi
+  \ifnum#1<#2\else
+    \PackageError{llt-diagrams}{A cell must have column < row}{}%
+  \fi
+  \ifnum#2>\llt@count
+    \PackageError{llt-diagrams}{Cell row exceeds the label count}{}%
+  \fi
+  \path[draw=black!75,line width=.35pt,fill=#3]
+    (#1-1,#2-1) rectangle +(1,1);
+  \node[font=\llt@entryfont,inner sep=0pt]
+    at (#1-.5,#2-.5) {$#4$};%
+}
+\newcommand{\llt@normalfill}{%
+  \ifllt@weighted white\else lltUnweightedGray\fi}
+
+% Optional natural edge; selection contributes q only in weighted mode.
+\NewDocumentCommand{\LLTOptional}{m m}{%
+  \llt@cell{#1}{#2}{\llt@normalfill}{}%
+}
+% Selected normal edge; a star additionally requires it to be a cover.
+\NewDocumentCommand{\LLTSelected}{s m m}{%
+  \llt@cell{#2}{#3}{\llt@normalfill}{\IfBooleanTF{#1}{\underline{1}}{1}}%
+}
+% Natural normal edge present in the diagram but absent from the selection.
+\NewDocumentCommand{\LLTAbsent}{m m}{%
+  \llt@cell{#1}{#2}{lltUnweightedGray}{0}%
+}
+% No natural edge. This changes the ambient diagram, not just the selection.
+\NewDocumentCommand{\LLTForbidden}{m m}{%
+  \llt@cell{#1}{#2}{lltUnweightedGray}{\times}%
+}
+% Strict natural edge: required selected, with no factor q.
+% A star additionally requires it to be a cover in the full selected relation.
+\NewDocumentCommand{\LLTStrict}{s m m}{%
+  \llt@cell{#2}{#3}{lltUnweightedGray}
+    {\IfBooleanTF{#1}{\underline{\rightarrow}}{\rightarrow}}%
+}
+% Custom mathematical restriction; its meaning must be defined in the text.
+\NewDocumentCommand{\LLTCell}{O{lltUnweightedGray} m m m}{%
+  \llt@cell{#2}{#3}{#1}{#4}%
+}
+
+% Unspecified off-diagonal cells are optional NATURAL edges.
+% An omitted exterior vertex does not impose absence on its incident edges.
+\NewDocumentCommand{\LLTDiagram}{O{} m +m}{%
+  \begingroup
+  \pgfkeys{/llt/.cd,#1}%
+  \edef\llt@count{\lltcountlabels{#2}}%
+  \ifnum\llt@count<1
+    \PackageError{llt-diagrams}{A diagram needs at least one vertex label}{}%
+  \fi
+  \begin{tikzpicture}[x=\llt@unit,y=\llt@unit,baseline=(lltcenter)]
+    \coordinate (lltcenter) at (\llt@count/2,\llt@count/2);
+    \foreach \lab [count=\row] in {#2} {
+      \foreach \col in {1,...,\row}
+        \path[draw=black!75,line width=.35pt,fill=\llt@normalfill]
+          (\col-1,\row-1) rectangle +(1,1);
+      \path[draw=black!75,line width=.35pt,fill=lltLabelYellow]
+        (\row-1,\row-1) rectangle +(1,1);
+      \node[font=\llt@labelfont,inner sep=0pt]
+        at (\row-.5,\row-.5) {$\lab$};
+    }
+    #3%
+    \ifx\llt@name\empty\else
+      \node[anchor=south,font=\small,inner sep=3pt]
+        at (\llt@count/2,\llt@count) {$\llt@name$};
+    \fi
+    \ifx\llt@condition\empty\else
+      \node[anchor=north,font=\scriptsize,inner sep=4pt]
+        at (\llt@count/2,0) {$\llt@condition$};
+    \fi
+  \end{tikzpicture}%
+  \endgroup
+}
+
+% Convenient fixed restrictions; all rendering still goes through LLTDiagram.
+\NewDocumentCommand{\LLTSelectionTriangle}{O{} m m m}{%
+  \LLTDiagram[#1]{#2}{%
+    \LLTSelected{1}{3}%
+    \ifnum#3=1 \LLTSelected{1}{2}\else\LLTAbsent{1}{2}\fi
+    \ifnum#4=1 \LLTSelected{2}{3}\else\LLTAbsent{2}{3}\fi}%
+}
+\NewDocumentCommand{\LLTNNSource}{O{} m}{%
+  \LLTDiagram[#1]{#2}{\LLTStrict{1}{3}}%
+}
+\NewDocumentCommand{\LLTNNTarget}{O{} m}{%
+  \LLTDiagram[#1]{#2}{\LLTForbidden{1}{3}\LLTStrict{2}{3}}%
+}
+\NewDocumentCommand{\LLTDNSource}{O{} m}{%
+  \LLTDiagram[#1]{#2}{%
+    \LLTStrict{1}{2}\LLTStrict{2}{4}%
+    \LLTForbidden{1}{3}\LLTForbidden{1}{4}}%
+}
+\NewDocumentCommand{\LLTDNTarget}{O{} m}{%
+  \LLTDiagram[#1]{#2}{%
+    \LLTStrict{1}{3}\LLTStrict{3}{4}%
+    \LLTForbidden{1}{4}\LLTForbidden{2}{4}}%
+}
+\endinput

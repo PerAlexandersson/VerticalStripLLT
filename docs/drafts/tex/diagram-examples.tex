@@ -1,0 +1,120 @@
+\documentclass[11pt]{amsart}
+\usepackage[a4paper,margin=22mm]{geometry}
+\usepackage{llt-diagrams}
+\usepackage[colorlinks=true]{hyperref}
+\title{Diagram notation for restricted sums}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+Fix an ambient natural diagram, its strict edges, and a valuation $V(A)$
+of a selected state. A cell diagram denotes the sum of $V(A)$ over all
+states satisfying its restrictions. The diagonal lists the ordered vertex
+labels; the cell in column $i$, row $j$ concerns the edge from the $i$th
+label to the $j$th. Vertices suppressed from the picture retain their
+specified exterior data. Unless we fix the exterior explicitly, we sum
+over every permitted exterior selection as well.
+
+\section*{Cell restrictions}
+\begin{center}
+\begin{tabular}{c@{\qquad}l}
+\LLTDiagram{u,v}{} & natural edge, either selected or absent\\[8pt]
+\LLTDiagram{u,v}{\LLTSelected{1}{2}} & selected normal edge\\[8pt]
+\LLTDiagram{u,v}{\LLTAbsent{1}{2}} & normal edge, required absent from the selection\\[8pt]
+\LLTDiagram{u,v}{\LLTForbidden{1}{2}} & no natural edge in the ambient diagram\\[8pt]
+\LLTDiagram{u,v}{\LLTStrict{1}{2}} & strict edge, always selected\\[8pt]
+\LLTDiagram{u,v}{\LLTSelected*{1}{2}} & selected normal edge required to be a cover\\[8pt]
+\LLTDiagram{u,v}{\LLTStrict*{1}{2}} & strict edge required to be a cover
+\end{tabular}
+\end{center}
+
+The underline imposes a cover condition in the \emph{full} selected relation,
+including all exterior vertices. It does not merely exclude the displayed
+two-step paths. A zero and a cross differ: zero restricts a selection,
+whereas a cross removes the natural edge from the ambient diagram.
+All unspecified cells represent optional natural edges. We draw a cross
+where a pair is not natural.
+
+\section*{Weights and extra conditions}
+Gray cells carry no ascent weight. In the weighted convention, selected
+normal edges contribute $q$ and their cells are white; strict edges
+remain gray and contribute no $q$. Thus the two modes denote respectively
+\[
+ \sum_{A\text{ satisfying the picture}} V(A),\qquad
+ \sum_{A\text{ satisfying the picture}}q^{|A\setminus S|}V(A).
+\]
+This weighted convention is the selected-state expansion after the LLT
+substitution $q\mapsto q+1$. The exponent counts all selected normal edges,
+including the exterior.
+Color is redundant with the stated convention; entries still specify
+the selection restrictions in a monochrome copy.
+\[
+ \LLTDiagram[name={\text{unweighted}},condition={|A|=s,\ \kappa(c)=\beta}]{a,b,c}
+   {\LLTStrict{1}{3}}
+ \qquad\qquad
+ \LLTDiagram[weighted,name={\text{weighted}},condition={\kappa(c)=\beta}]{a,b,c}
+   {\LLTStrict{1}{3}}
+\]
+For $V=E$ a fixed color refers to the canonical increasing HRV fibre chains.
+Conditions below a diagram may also specify connectedness or component
+membership. Such conditions are part of the sum, and are never inferred
+from a small local picture.
+
+\clearpage
+\section*{The diamond}
+For either $V=K$ or $V=E$, with any common fixed exterior and no cover
+hypotheses, the following diagrams denote sums satisfying
+\[
+ \LLTSelectionTriangle{i,j,k}{1}{0}
+ +\LLTSelectionTriangle{i,j,k}{0}{1}
+ =\LLTSelectionTriangle{i,j,k}{0}{0}
+ +\LLTSelectionTriangle{i,j,k}{1}{1}.
+\]
+The same identity holds with the color of a specified vertex fixed.
+If all exterior choices are fixed as well, each picture denotes one
+state contribution. The diamond is an equality of sums; it does not
+assert that every two displayed states are joined by a flip.
+
+\section*{NN: whole layers and weighted sums}
+At an eligible NN contact, $x=w+1<z$. The exterior selection is summed
+over its full permitted set. In the unweighted convention,
+\[
+ \LLTNNSource[condition={|A|=s}]{w,x,z}
+ =\LLTNNTarget[condition={|A|=s}]{w,x,z}
+ +\LLTNNTarget[condition={|A|=s-1}]{w,x,z}.
+\]
+Here $|A|$ includes strict edges. These are whole edge layers, each
+partitioned into whole flip components. The identity does not assert
+a recurrence for an arbitrary component without the correction argument.
+
+Summing with normal-edge weights gives
+\[
+ \LLTNNSource[weighted]{w,x,z}
+ =(1+q)\,\LLTNNTarget[weighted]{w,x,z}.
+\]
+Both sources and targets have the same number of strict edges, so the
+two total-size layers give the two powers differing by one. The same
+right-endpoint color can be fixed on every term.
+
+\section*{The initial crossing slide}
+The four displayed vertices satisfy $0<v<a<h$. The retained corner
+covers are $0a$ and $vh$. The cell $va$ is a natural edge required to
+be absent in these anchor endpoints.
+\[
+ \LLTDiagram[condition={\text{same exterior}}]{0,v,a,h}{%
+   \LLTStrict*{1}{3}\LLTStrict*{2}{4}
+   \LLTSelected{1}{2}\LLTAbsent{2}{3}\LLTAbsent{3}{4}
+   \LLTForbidden{1}{4}}
+ \quad\longleftrightarrow\quad
+ \LLTDiagram[condition={\text{same exterior}}]{0,v,a,h}{%
+   \LLTStrict*{1}{3}\LLTStrict*{2}{4}
+   \LLTAbsent{1}{2}\LLTAbsent{2}{3}\LLTSelected{3}{4}
+   \LLTForbidden{1}{4}}.
+\]
+This arrow denotes a path of actual flips between corresponding endpoint
+states, with every exterior edge restored. It is not an equality of
+their individual $K$ or $E$ values. Marking the selected maximal corners
+strict makes their required status explicit.
+
+\end{document}

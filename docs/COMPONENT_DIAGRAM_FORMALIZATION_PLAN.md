@@ -45,7 +45,10 @@ including P1's final initial-vertex restriction, corner and path interfaces.
 P6's conditional initial-vertex inheritance is checked, including all feasible
 extra sets and common-cover preparation. Retained short edges and corner-chain
 count now discharge matching-edge removability in the three-chain branch.
-Global vertex-count induction remains. P0 and the
+Global vertex-count induction remains. At `26b2d97`, P9's independent
+right-attachment lemma is checked, including whole product components and
+transfer of the two marked recurrences; prefix and first-drop coverage remain.
+P0 and the
 semantic import extractions are in `9d8c4bc`. P1 includes finite/lifted covers,
 weak-block invariance, exact corner marking, source-only short flips
 (`3bbb1e4`), convex path/cover restriction and an injective fixed-exterior
@@ -197,7 +200,8 @@ component transport. `CliquePaths` also lifts arbitrary core endpoints
 with exact inside/outside selections and localizes reachability forcing.
 No whole-component equality or intermediate cover preservation is asserted
 by these local path-lifting interfaces. P0–P5 are complete under their
-contracts; P6 is partial and P7--P10 remain open. The independent component
+contracts; P6 is partial, P7/P8/P10 are open, and P9 has its attachment lemma
+checked while prefix selection and first-drop coverage remain open. The independent component
 theorem is not yet formalized. See `HANDOFF.md` and `DiagramProofVerification.lean`
 for ownership and exact verification.
 
@@ -676,7 +680,8 @@ The [new draft section](drafts/ORDINARY_COMPONENT_DIAGRAM_PROOF.md) follows
 these moves in detail and includes the initial crossing-slide cell diagram.
 Its right-attachment section gives the statewise HRV merger and fixed-color
 gluing proof. This mathematical prose is ahead of the Lean implementation:
-P7--P10 are still open. The [Claude task](DIAGRAM_PROOF_CLAUDE_TASK.md) isolates
+P7/P8/P10 remain open. P9's attachment subtask is checked at `26b2d97`;
+its prefix/contact obligations remain open. The [Claude task](DIAGRAM_PROOF_CLAUDE_TASK.md) isolates
 P9's attachment construction as independent work, with exact whole-component
 and marked-value contracts; it does not require completion of P6.
 
@@ -778,6 +783,17 @@ in every relabeling. All final terms have a certified strict decrease.
 ### P9. Right attachment, prefix selection and first-drop coverage
 
 Modules: `RightAttachment.lean`, `FirstDrop.lean`.
+
+**Attachment subtask checked at `26b2d97`.** The four modules
+`RightAttachmentDiagram`, `RightAttachmentPaths`, `RightAttachmentValues`
+and `RightAttachment` implement the construction, actual product component,
+HRV fibre merger, endpoint-omitted gluing, paired integer transfer and area/
+moment decrease. `IsRightAttachment.attach_transfer` assumes both marked
+prefix identities with the same `ℤ` coefficients and no expansion for the
+attachment. The actual induced-cut realization and constructed unions are
+both available. The one-vertex factors and empty alphabet are included.
+Claude's focused build and all 719 axiom queries pass; see
+[coordination](LEAN_COORDINATION.md). P9 as a whole is still unfinished.
 
 Prove the Cartesian-product theorem for flip components in two diagrams
 meeting at an endpoint. Prove strict-coloring gluing and the HRV fibre

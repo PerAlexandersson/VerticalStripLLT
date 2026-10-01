@@ -9,12 +9,16 @@ to be assembled. The existing external circular-first manuscript was consulted
 read-only; this draft explicitly separates terminal contact from interior
 overlap to match the checked Lean decomposition.
 
-The [ordinary component section](ORDINARY_COMPONENT_DIAGRAM_PROOF.md) develops
+The [ordinary component section](ORDINARY_COMPONENT_DIAGRAM_PROOF.md) now
+includes the local diamond proof, absent-corner deletion, weak-block reordering,
+alternating corner deletion, envelope normalization, and the full NN/DN layer
+calculation with explicit selected-edge counts. It also develops
 initial-vertex inheritance and right-endpoint attachment in detail. Its opening
 states the component theorem, and its final section summarizes the established
-component-recursion argument. The prerequisite local diagram lemmas and the
-smaller-component corrections still need to be incorporated for a self-contained
-paper. The mathematical source is the
+component-recursion argument. Preparation, restored-exterior crossing slides, the complete and two-chain
+bases, last-clique inheritance, and the chain-quotient path lemma still need
+their detailed manuscript proofs. The final first-drop/prefix induction is
+still summarized. The section is therefore not yet a self-contained paper. The mathematical source is the
 [assembled proof](../proofs/COMPONENT_DIAGRAM_COMPLETION.md).
 
 The independent Lean formalization is unfinished. The draft does not claim
@@ -24,10 +28,13 @@ manuscript prose.
 
 | Draft construction | Lean correspondence | Current scope |
 | --- | --- | --- |
+| Figure 1: diamond as a restricted sum | `diamond_hrv_maps`, `markedK_diamond`, `markedE_diamond` | Checked with arbitrary exterior; no cover hypothesis |
+| Three smaller corrections and envelope | P7 | Detailed written proof; Lean unfinished |
+| Figure 3: NN/DN layer sums and component isolation | P8 | Explicit size accounting in draft; Lean unfinished |
 | Restrict after deleting zero | `initialVertex_anchor_restrict`, `induced_allCorners_initialVertex` | Checked |
 | Make the selected core connected | `CornerFamily.exists_reachable_connected_initialVertex_core` | Checked actual crossing-slide paths |
 | Keep initial extras fixed along a core path | `initialVertex_lift_reachable`, `initialVertex_reachable_of_same_initial_row` | Checked under smaller-core uniqueness |
-| Figure 1: exact crossing-slide endpoint | `initialVertex_row_of_exchange`, `initialVertex_restrict_of_exchange` | Checked exact selected-edge identities |
+| Figure 2: exact crossing-slide endpoint | `initialVertex_row_of_exchange`, `initialVertex_restrict_of_exchange` | Checked exact selected-edge identities |
 | Choose the missing-edge witness and connect neighboring extra sets | `CornerFamily.exists_initialVertex_adjacent`, `initialVertex_reachable_of_erase_initial_row` | Checked under the stated removability/core-uniqueness hypotheses |
 | Connect all feasible extra sets | `initialVertex_connected_core_anchors` | Checked actual assembly under the stated core hypotheses |
 | Initial-vertex inheritance for common-cover states | `commonCover_connected_of_initialVertex_core` | Checked preparation, sector paths and reversed target preparation |
@@ -36,7 +43,7 @@ manuscript prose.
 | At most two corner chains | `CornerFamily.commonCover_connected_of_terminal_card_le_two` | Checked cardinality wrapper for the two-terminal path theorem |
 | Global common-cover uniqueness | P6 global induction | Unfinished |
 | Endpoint-marked K and E | `markedK`, `markedE`, `markedK_diamond`, `markedE_diamond` | Existing checked semantics; see plan for the P2 interfaces |
-| Figure 2: attachment and fibre merger | [Claude issue #8](https://github.com/PerAlexandersson/VerticalStripLLT/issues/8) | Detailed written proof; new Lean task |
+| Figure 4: attachment and fibre merger | `IsRightAttachment.flipComponent_glue`, `hrv_glue_left`, `hrv_glue_right`, `attach_transfer` | Checked at `26b2d97`: whole product components, marked K/E transfer and measure decrease |
 | Whole-component corrections and marked recurrences | P7–P8 | Unfinished |
 | First-drop coverage and final expansion | P9–P10 | Unfinished |
 
@@ -56,7 +63,16 @@ The circular section uses greatest reachable integers followed by reduction
 modulo the period. Its theorem is aggregate; the ordinary section proves the
 component refinement by the diagram route.
 
-The SVG figures are editable vector sources. Their PNG previews live in the
+The [diagram macros and usage guide](tex/README.md) implement the user's
+restricted-sum convention. A diagram specifies selected/absent/optional/strict
+edges, forbidden natural pairs, cover conditions, total-size layers and endpoint
+colors. Gray/white cells distinguish unweighted and normal-edge-weighted sums.
+The two-page `diagram-examples.tex` preview and the diamond and NN/DN figures
+compile without warnings or box overflows and were visually inspected.
+
+The diamond and layer SVGs are generated from their small `.tex` sources using
+`llt-diagrams.sty`; edit those sources rather than their generated font paths.
+The other SVG figures are editable vector sources. Their PNG previews live in the
 external request cache, and both figures have been visually inspected. The
 cell figure follows the diagonal-label and selected-cell convention of the
 paper with Robin; its retained arrows indicate corner covers at the two

@@ -1,0 +1,13 @@
+\documentclass[border=6pt]{standalone}
+\usepackage{llt-diagrams}
+\begin{document}
+\(\begin{array}{r@{\quad}c}
+ \mathrm{NN}: &
+ \LLTNNSource[condition={|A|=s}]{w,x,z}
+ =\LLTNNTarget[condition={|A|=s}]{w,x,z}
+ +\LLTNNTarget[condition={|A|=s-1}]{w,x,z}\\[24pt]
+ \mathrm{DN}: &
+ \LLTDNSource[condition={|A|=s}]{u,w,x,z}
+ =\LLTDNTarget[condition={|A|=s}]{u,w,x,z}
+ \end{array}\)
+\end{document}
