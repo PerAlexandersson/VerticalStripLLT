@@ -87,7 +87,7 @@ and in the formalization plan, outside the manuscript prose.
 | Figure 8: attachment and fibre merger | `IsRightAttachment.flipComponent_glue`, `hrv_glue_left`, `hrv_glue_right`, `attach_transfer` | Checked at `26b2d97`: whole product components, marked K/E transfer and measure decrease |
 | Figure 9: first nontrivial prefix and fixed attachment | `exists_prefix`, `uCertifies_of_witness`, `attach_measure_lt` | Checked prefix coverage and attached certificate with strict measure decrease |
 | Whole-component corrections and marked recurrences | `certifies_of_not_hasCommonWitness`, `certifies_nn`, `certifies_dn` | Checked; integrated into the final induction |
-| First-drop coverage and final expansion | `certifies_firstDrop`, `component_eq_by_diagrams_aux`, `component_strict_eq_elementary_of_forward_by_diagrams` | Checked for every ordinary diagram and every whole component |
+| First-drop coverage and final expansion | `certifies_firstDrop`, `component_eq_by_diagrams_aux`, `component_strict_eq_elementary_of_forward` | Checked for every ordinary diagram and every whole component |
 
 The [circular component subsections](CIRCULAR_COMPONENTS.md) finish the second
 part. They give the finite signed expansion, constancy on actual components,
@@ -103,7 +103,7 @@ map; it is not inferred just from the aggregate circular theorem.
 | Coefficient constancy under actual circular flips | `componentCoefficient_eq_of_mem_flipComponent` | Tight potentials reconstruct both full cover tests and preserve the original component |
 | Compatible lift sorting and semantic transport | `orientationFromCompatible_injective`, `orientationFromCompatible_hrvMonomial`, `orientationFromCompatible_strictOrderEnumerator` | Injective state transport and exact finite fibre sizes |
 | Group the preimage by whole ordinary components | `compatibleComponentPreimage_closed`, `component_identity_of_forward_components` | A union of components, not an assumed single component |
-| Final circular identity and positivity | `component_strict_eq_elementary_by_diagrams`, `component_weighted_e_positive_by_diagrams` | Every circular diagram, every actual component and every finite alphabet |
+| Final circular identity and positivity | `component_strict_eq_elementary`, `component_weighted_e_positive` | Every circular diagram, every actual component and every finite alphabet |
 
 The circular source map supplements [the completion audit](../CIRCULAR_COMPLETION.md):
 

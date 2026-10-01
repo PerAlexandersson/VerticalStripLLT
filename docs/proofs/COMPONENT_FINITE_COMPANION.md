@@ -293,9 +293,9 @@ The main independent statements are:
 5. The finite tight-edge flip reconstruction above and grouping by complete
    components. This preserves the original component throughout.
 
-Related Lean: `Components/BlockCancellation.lean` proves the ordinary
-unique-sink cancellation. `Components/WordRank.lean` and `LiftCoverRank.lean`
-connect compatible words to the actual integer cover relation. The existing
+Related Lean: `Components/WordProof/BlockCancellation.lean` proves the ordinary
+unique-sink cancellation. `Components/WordProof/WordRank.lean` and
+`LiftCoverRank.lean` connect compatible words to the actual integer cover relation. The existing
 `Circular/Flip.lean` supplies `DirectedFlipWitness`, `flipComponent`, and
 `target_eq_source_swap`. These are verified ingredients, not a declaration
 of the full companion theorem.

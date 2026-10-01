@@ -26,12 +26,16 @@ explains where each principal result enters the argument.
 | --- | --- | --- |
 | Ordinary LLT expansion | [Completion audit](COMPLETION.md) | [Source map](FORMALIZATION.md) |
 | Circular LLT expansion | [Completion audit](CIRCULAR_COMPLETION.md) | [Verified results](CIRCULAR_STATUS.md) |
-| All flip-component expansions | [Completion audit](COMPONENT_COMPLETION.md) | [Module map](COMPONENT_FORMALIZATION.md) |
+| All flip-component expansions, by diagrams | [Completion audit](DIAGRAM_PROOF_COMPLETION.md) | [Module map](LEAN_COORDINATION.md) |
+| The same expansions, by the earlier word proof | [Completion audit](COMPONENT_COMPLETION.md) | [Module map](COMPONENT_FORMALIZATION.md) |
 
 These include the finite strict/e component identity, shifted elementary
-positivity and weighted degree. The [ordinary word proof](proofs/COMPONENT_ORDINARY_PROOF.md)
-and [finite circular companion](proofs/COMPONENT_FINITE_COMPANION.md) supply
-this completed proof; the current recurrence outline seeks a different proof.
+positivity and weighted degree. Both proofs are complete and import-disjoint.
+The diagram proof follows the
+[draft](drafts/ORDINARY_COMPONENT_DIAGRAM_PROOF.md) and carries the plain
+theorem names. The [ordinary word proof](proofs/COMPONENT_ORDINARY_PROOF.md)
+gives the `_by_words` theorems. Both reach all circular components through the
+[finite circular companion](proofs/COMPONENT_FINITE_COMPANION.md).
 
 ## Manuscript, provenance and recovery
 

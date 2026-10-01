@@ -2,8 +2,11 @@
 
 An independent proof by diagrams now covers both ordinary and circular
 components at `77cabb9`; see the
-[diagram completion audit](DIAGRAM_PROOF_COMPLETION.md). The word-functional
-route and its historical verification are recorded below.
+[diagram completion audit](DIAGRAM_PROOF_COMPLETION.md). Since `1a9eb1f` the
+plain names below denote the diagram theorems. The word-functional route
+recorded here proves the same statements under the names with the suffix
+`_by_words`, in `Components/WordProof/`. The counts below are historical; the
+current checks are in the diagram audit.
 
 The ordinary and full circular component identities are Lean theorems, committed
 in `f355a28`. After subsequent proof streamlining, the current
@@ -13,15 +16,15 @@ custom axioms or unchecked native proofs.
 
 ## Public statements
 
-In namespace `VerticalStripLLT.Circular`:
+In namespace `VerticalStripLLT.Circular`, by the word route:
 
 | Declaration | Statement |
 | --- | --- |
-| `component_strict_eq_elementary_of_forward` | Actual component strict-coloring sum equals its HRV elementary expression for forward diagrams. |
-| `component_strict_eq_elementary` | The same identity for every circular diagram and complete flip component. |
-| `component_weighted_strict_eq_orientation_sum` | The identity with each state's shifted weight `q ^ η.val.card` exposed on both sides. |
-| `component_weighted_strict_eq_eval` | The weighted coloring sum evaluates the independently defined `weightedComponentHRV`. |
-| `component_weighted_e_positive` | One elementary expression works for every finite alphabet, has nonnegative q-coefficients, and has elementary weighted degree n. |
+| `component_strict_eq_elementary_of_forward_by_words` | Actual component strict-coloring sum equals its HRV elementary expression for forward diagrams. |
+| `component_strict_eq_elementary_by_words` | The same identity for every circular diagram and complete flip component. |
+| `component_weighted_strict_eq_orientation_sum_by_words` | The identity with each state's shifted weight `q ^ η.val.card` exposed on both sides. |
+| `component_weighted_strict_eq_eval_by_words` | The weighted coloring sum evaluates the independently defined `weightedComponentHRV`. |
+| `component_weighted_e_positive_by_words` | One elementary expression works for every finite alphabet, has nonnegative q-coefficients, and has elementary weighted degree n. |
 
 The ordinary theorem is in
 [OrdinaryComponentExpansion](../VerticalStripLLT/Components/WordProof/OrdinaryComponentExpansion.lean).
@@ -84,7 +87,7 @@ Pinned environment: Lean 4.34.0, Mathlib
 `5ed2965256430c3649e86755f9576b54eca72435`. Commands, run sequentially:
 
 ```sh
-lake-workspace build VerticalStripLLT.Components.ComponentExpansion
+lake-workspace build VerticalStripLLT.Components.WordProof.ComponentExpansion
 lake-workspace build
 lake-workspace env lean Verification.lean
 ```

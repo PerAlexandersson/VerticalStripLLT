@@ -1,8 +1,13 @@
-# Component formalization map
+# Component formalization map: the word proof
 
-The ordinary and complete circular component identities, shifted weights,
-elementary positivity and degree are proved. See the
-[completion audit](COMPONENT_COMPLETION.md) for statements and checks.
+This maps the earlier word proof of the component identities. Its ordinary
+modules are in `VerticalStripLLT/Components/WordProof/` and its theorems end in
+`_by_words`. The circular reduction below stays in `Components/`, because the
+diagram proof uses it too. The diagram proof, which carries the plain theorem names, is mapped
+in [LEAN_COORDINATION](LEAN_COORDINATION.md). The ordinary and complete circular
+component identities, shifted weights, elementary positivity and degree are
+proved by both. See the [completion audit](COMPONENT_COMPLETION.md) for the word
+route's statements and checks.
 The [earlier integration plan](archive/component-integration-through-scan-20260927.md)
 is archived as implementation history; its open-task descriptions are superseded.
 
@@ -35,8 +40,10 @@ is archived as implementation history; its open-task descriptions are superseded
   all six full integer-cover tests and forward flip transport.
 - `FlipClosedSums`, `CircularFromOrdinaryComponents`: sum over the compatible
   preimage, a union of complete ordinary components.
-- `ComponentPositive`, `ComponentExpansion`: final circular theorem, shifted
-  q-weights, nonnegative coefficients and elementary weighted degree.
+- `ComponentPositive`, `WordProof/ComponentExpansion`: final circular theorem by
+  words, shifted q-weights, nonnegative coefficients and elementary weighted
+  degree. `DiagramProof/CircularConsequences` gives the same with the diagram
+  ordinary theorem as input.
 
 Primary retained all build ownership. Bounded Luna/Astra implementation and
 independent Astra reviews supported integration. Claude supplied the extraction

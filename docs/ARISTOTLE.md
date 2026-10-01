@@ -35,6 +35,8 @@ for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
 - `tree_with_attached_leaves` in `DiagramProof/TreeLeaves.lean` passes the local build.
   `lastCliqueFixedEdges_isTree` in `LastCliqueFullTree.lean` identifies the actual fixed
   selection with this graph, so the application to the diagram is also verified.
+  Both modules belonged to the superseded terminal-clique route to P6 and were
+  removed at `98ad880`; they remain in history at `77cabb9`.
   Both declarations use only the standard three axioms. Logs are
   `diagram-formalization/p5-tree-leaves-build.log`, `p5-full-tree-build.log`,
   and `p5-inheritance-axioms.log`.
@@ -98,6 +100,8 @@ for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
   Terra ported it build-free to `DiagramProof/TerminalRepair.lean`; primary
   verified the focused build under local Lean 4.34.0. An independent
   read-only review approved the exact contract and both donor-copy cases.
+  The module was removed with the superseded terminal-clique route at `98ad880`;
+  it remains in history at `77cabb9`.
 - No scans or alternative LLT proof routes are requested. The remote may use
   its cached toolchain; returned source must be ported to local Lean 4.34.0
   and pass the serialized focused build, source/import and axiom guards.

@@ -36,7 +36,7 @@ must be `ae` itself. Thus the construction applies to any actual path
 from the source core restriction to a replacement core anchor. The
 existence of that core path remains the smaller-core induction hypothesis.
 
-Related Lean: `VerticalStripLLT/Components/DiagramProof/LastCornerRow.lean`,
+Related Lean: `VerticalStripLLT/Components/DiagramProof/LastClique/LastCornerRow.lean`,
 `anchor_selected_from_last_tail_iff`; `LastCliqueRestoration.lean`,
 `lastClique_restore_inside` and `lastClique_restore_outside`;
 `LastCliqueCoreReplacement.lean`, `exists_lastClique_core_replacement`.

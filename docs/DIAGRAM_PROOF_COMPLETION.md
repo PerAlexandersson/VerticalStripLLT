@@ -9,18 +9,31 @@ committed checkpoints.
 
 ## Current source checkpoint
 
-Cleanup at `98ad880` moves the independent older proof into `WordProof/` and
-removes unused diagram modules. Public theorem contracts and the actual
-circular consequence closure are unchanged. Independent read-only review
-confirmed that no removed module was in that closure.
+At `1a9eb1f` the diagram theorems take the plain public names, for example
+`component_strict_eq_elementary`. The earlier word proof's theorems, with the
+same statements, end in `_by_words`. The interim `_by_diagrams` names remain as
+deprecated aliases. The 215 diagram modules are grouped into 13 folders under
+`DiagramProof/` that follow the written proof; each folder imports only earlier
+ones. [DiagramProof.lean](../VerticalStripLLT/Components/DiagramProof.lean)
+describes the folders. Docstrings and linter fixes changed no statement.
 
-- The full library build passes, **2367 jobs** (`full-build-4.log`).
-- The remaining **815** dedicated axiom queries match `axioms-5.log` in exact
-  namespace-normalized order; all use only standard Lean axioms or none.
-- Immutable log: `axioms-98ad880.log`, SHA256
-  `6eee3af0725d74a361367ced0b5ef502716d8cb08a0ff4a4dd0a13ac0a50745a`.
+Cleanup at `98ad880` had moved the independent older proof into `WordProof/` and
+removed unused diagram modules. Independent read-only review confirmed that no
+removed module was in the circular consequence closure.
+
+- The full library build passes, **2367 jobs** (`full-build-1a9eb1f.log`). The
+  only warnings are seven unused hypotheses in public `WordProof` statements.
+- All **815** dedicated axiom queries use only standard Lean axioms or none.
+  Immutable log: `axioms-1a9eb1f.log`, SHA256
+  `3708b826ec5976623a13398898e80c3056e6af09c6176a0ed76ad1e58c4df518`.
+- The broad audit runs **2814** queries with only standard axioms. Immutable
+  log: `verification-1a9eb1f.log`, SHA256
+  `237b059cf9214c050e49295574130f9806e096af6b5d7b985162ca725c002a24`.
 - The circular theorem's **360-file** project import closure contains no
-  `WordProof`, old component-expansion, word/scan or mountain module.
+  `WordProof`, old component-expansion, word/scan or mountain module. The
+  ordinary theorem's closure has 289 files.
+- At `98ad880` the same 815 queries matched `axioms-98ad880.log`, SHA256
+  `6eee3af0725d74a361367ced0b5ef502716d8cb08a0ff4a4dd0a13ac0a50745a`.
 
 The larger historical inventories below also included unused helper modules;
 the lower current count reflects their removal, not a weaker theorem audit.
@@ -31,9 +44,9 @@ The public declarations in
 [Consequences.lean](../VerticalStripLLT/Components/DiagramProof/Consequences.lean)
 are in `VerticalStripLLT.Circular`:
 
-- `component_strict_eq_elementary_of_forward_by_diagrams`;
-- `component_weighted_strict_eq_eval_of_forward_by_diagrams`;
-- `component_weighted_e_positive_of_forward_by_diagrams`.
+- `component_strict_eq_elementary_of_forward`;
+- `component_weighted_strict_eq_eval_of_forward`;
+- `component_weighted_e_positive_of_forward`.
 
 For every forward diagram, every actual orientation and every finite alphabet,
 the first theorem identifies `componentStrictEnumerator D θ m` with
@@ -47,10 +60,11 @@ the usual empty product.
 ## Circular component theorem
 
 [CircularConsequences.lean](../VerticalStripLLT/Components/DiagramProof/CircularConsequences.lean)
-adds `component_strict_eq_elementary_by_diagrams` for **every** circular
+adds `component_strict_eq_elementary` for **every** circular
 `Diagram n`, orientation and finite alphabet, with no forwardness assumption.
 The weighted orientation-sum, evaluated elementary expression and positivity
-forms have the same names with the `_by_diagrams` suffix. No balance,
+forms are `component_weighted_strict_eq_orientation_sum`,
+`component_weighted_strict_eq_eval` and `component_weighted_e_positive`. No balance,
 connectivity, recurrence or assumed semantic identity is a final hypothesis.
 
 The finite companion reduction `component_identity_of_forward_components`
@@ -65,9 +79,9 @@ identities with the same integer coefficients for both valuations.
 strong `ForwardHRV`. The circular theorem's 360-file project import closure
 contains no old ordinary word/scan theorem. An independent semantic review
 checked the public scope, the union-of-components argument, this import change
-and the merge of the duplicate natural-edge relation into `DiagramProof.Basic`.
+and the merge of the duplicate natural-edge relation into `DiagramProof.Foundation.Basic`.
 
-Verification at the circular-extension checkpoint `77cabb9`:
+Verification at the earlier circular-extension checkpoint `77cabb9`:
 
 - The full library build passed, 2365 jobs (`full-build-3.log`).
 - The dedicated inventory and `axioms-4.log` match all **860** queries in exact
@@ -95,10 +109,10 @@ initial path and nontrivial block needed for this argument. Endpoint-marked
 coloring and HRV identities attach the resulting signed list of components to
 the fixed right component, with the same coefficients on both sides.
 
-`component_eq_by_diagrams_aux` closes strong induction on vertex count,
-natural area and the sum of natural-edge heads. Disjoint natural blocks
-factor, saturation preserves the measure, and every attached recurrence
-target is strictly smaller. The path base uses its actual selected-coloring
+`component_eq_by_diagrams_aux` (`Induction/Expansion.lean`) closes strong
+induction on vertex count, natural area and the sum of natural-edge heads.
+Disjoint natural blocks factor, saturation preserves the measure, and every
+attached recurrence target is strictly smaller. The path base uses its actual selected-coloring
 and HRV semantics. See the
 [draft correspondence](drafts/README.md) and
 [Lean coordination report](LEAN_COORDINATION.md) for the individual maps.

@@ -43,4 +43,6 @@ for workspace setup and build ownership.
 - [Challenge](CHALLENGE.md): a precise target for a shorter component proof.
 - [Documentation](docs/README.md): proof maps, source correspondence and audits.
 - Completion audits: [ordinary](docs/COMPLETION.md),
-  [circular](docs/CIRCULAR_COMPLETION.md), [components](docs/COMPONENT_COMPLETION.md).
+  [circular](docs/CIRCULAR_COMPLETION.md),
+  [components by diagrams](docs/DIAGRAM_PROOF_COMPLETION.md),
+  [components by words](docs/COMPONENT_COMPLETION.md).

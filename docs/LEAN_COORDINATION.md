@@ -82,24 +82,18 @@ redundant module prefix was dropped, for example `LastCliqueTree` is now
 Logs are in
 `/lake-cache/ai-projects/requests/VerticalStripLLT/claude-right-attachment/logs/`.
 
-### For the writer
+### Documentation
 
-These files cite the old names or paths and are yours to update:
-
-- `docs/DIAGRAM_PROOF_COMPLETION.md` and `docs/drafts/README.md`: the
-  `_by_diagrams` names (they still resolve, as deprecated aliases) and the flat
-  `DiagramProof/<Module>.lean` paths.
-- `docs/COMPONENT_COMPLETION.md`, `docs/CIRCULAR_FLIPS.md` and
-  `docs/proofs/COMPONENT_ORDINARY_PROOF.md`: they attribute
-  `component_strict_eq_elementary` and its relatives to the word proof; that
-  proof's theorems now end in `_by_words`. Word-module paths are now
-  `Components/WordProof/<Module>.lean`.
-- `docs/proofs/COMPONENT_LAST_CLIQUE_RESTORATION.md`,
-  `COMPONENT_FINITE_COMPANION.md`, `COMPONENT_CIRCULAR_FACE_PROOF.md`,
-  `COMPONENT_DIAGRAM_AUDIT.md`: module paths.
-- `HANDOFF.md`: the layout, the names and the checks above.
-
-Archive snapshots under `docs/archive/` are historical and left unchanged.
+At the user's request Claude updated the stale names and paths in the shared
+documentation after `1a9eb1f`: `HANDOFF.md` (scope and checks),
+`docs/DIAGRAM_PROOF_COMPLETION.md` (names, layout, immutable logs
+`axioms-1a9eb1f.log` and `verification-1a9eb1f.log` with hashes),
+`docs/COMPONENT_COMPLETION.md` and `docs/COMPONENT_FORMALIZATION.md` (now
+marked as the word route, `_by_words`), `docs/README.md` and `README.md` (both
+audits listed), `docs/drafts/README.md` (names only), `docs/CIRCULAR_FLIPS.md`,
+`docs/ARISTOTLE.md` (removed modules noted), the plan, and module paths in
+`docs/proofs/`. Manuscript sources were not touched. Archive snapshots under
+`docs/archive/` are historical and left unchanged.
 
 ## History
 

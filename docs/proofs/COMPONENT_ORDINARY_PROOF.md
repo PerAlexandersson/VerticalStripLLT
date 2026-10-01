@@ -222,16 +222,18 @@ Related Lean: existing component definitions are in `VerticalStripLLT/Circular/F
 (`flipComponent`, `componentHRV`) and
 `VerticalStripLLT/Circular/ComponentSemantics.lean`
 (`componentStrictEnumerator`). The contextual quotient and induced concatenation
-are implemented in `Components/WordRelations.lean` and `WordAlgebra.lean`.
-[ComponentFunctional](../../VerticalStripLLT/Components/ComponentFunctional.lean)
+are implemented in `Components/WordProof/WordRelations.lean` and `WordAlgebra.lean`.
+[ComponentFunctional](../../VerticalStripLLT/Components/WordProof/ComponentFunctional.lean)
 now proves (1) as `componentWordCount_four`, including the zero extension off
 full words, and defines `componentWordFunctional` on the quotient.
-[ComponentBijection](../../VerticalStripLLT/Components/ComponentBijection.lean)
+[ComponentBijection](../../VerticalStripLLT/Components/WordProof/ComponentBijection.lean)
 proves the actual-flip pairing within the original complete component.
 These foundational statements assume ordinary forward edges. The full theorem
-is now `Circular.component_strict_eq_elementary_of_forward` in
-`Components/OrdinaryComponentExpansion.lean`, using the direct signed-sink
-extraction and literal HRV threshold scan in `HRVScanExtraction.lean`. The
-circular result is `Circular.component_strict_eq_elementary`. No aggregate
+by this word route is `Circular.component_strict_eq_elementary_of_forward_by_words`
+in `Components/WordProof/OrdinaryComponentExpansion.lean`, using the direct signed-sink
+extraction and literal HRV threshold scan in `HRVScanExtraction.lean`. Its
+circular result is `Circular.component_strict_eq_elementary_by_words`. The plain
+names now denote the same statements proved by diagrams, in
+`Components/DiagramProof/Consequences.lean` and `CircularConsequences.lean`. No aggregate
 expansion is used to infer a component identity. Unlike the mathematical
 empty-graph convention above, the circular Diagram n model requires n>0.

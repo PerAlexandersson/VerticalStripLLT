@@ -49,8 +49,10 @@ over this component. The full strict/e target is, for every D, θ, and m,
     Σ η ∈ flipComponent D θ, strictOrderEnumerator η.val m
       = evalElementary m (componentHRV D θ).
 
-This is now `Circular.component_strict_eq_elementary`, with no semantic
-hypothesis. The source uses weak/h conventions; the formal result is the finite
+This is now `Circular.component_strict_eq_elementary`, proved by diagrams in
+`Components/DiagramProof/CircularConsequences.lean`, with no semantic
+hypothesis. The earlier word proof gives the same statement as
+`component_strict_eq_elementary_by_words`. The source uses weak/h conventions; the formal result is the finite
 strict/e statement above. No finite-alphabet omega translation or identification
 of weak and strict order enumerators is claimed.
 

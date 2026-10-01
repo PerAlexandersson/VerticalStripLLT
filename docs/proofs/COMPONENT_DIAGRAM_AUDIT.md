@@ -243,7 +243,7 @@ Related Lean, inspected read-only:
 - `../../VerticalStripLLT/Components/IntervalDiagram.lean`:
   `Diagram.ofIntervalRelation` and `ofIntervalRelation_naturalEdge_iff`
   realize forward interval-closed relations, useful for induced diagrams.
-- `../../VerticalStripLLT/Components/ForwardHRV.lean`:
+- `../../VerticalStripLLT/Components/WordProof/ForwardHRV.lean`:
   `Orientation.liftedHRV_eq_coe_hrv_of_forward` links to actual HRV data.
 - `../../VerticalStripLLT/Components/SelectedColoringTransport.lean`:
   `strictOrderEnumerator_selected_relabel` is the existing unmarked

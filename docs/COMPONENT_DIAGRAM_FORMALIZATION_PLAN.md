@@ -226,7 +226,9 @@ for ownership and exact verification.
 We will prove a second, independent Lean theorem with the same actual
 semantics as the existing ordinary component theorem. Proposed declaration,
 in `VerticalStripLLT.Circular`, with all names except the theorem name
-already present in the repository:
+already present in the repository. (Done: since `1a9eb1f` it is
+`component_strict_eq_elementary_of_forward` in `DiagramProof/Consequences.lean`;
+the proposed name remains as a deprecated alias.)
 
 ```lean
 theorem component_strict_eq_elementary_of_forward_by_diagrams

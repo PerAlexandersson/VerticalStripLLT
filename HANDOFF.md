@@ -37,16 +37,24 @@ See [DIAGRAM_PROOF_COMPLETION](docs/DIAGRAM_PROOF_COMPLETION.md).
   diagram modules. The circular theorem's 360-file closure is unchanged and
   contains no word/scan theorem. The ordinary and circular public contracts
   have no recurrence certificate, balance or assumed semantic-bridge premise.
-- Latest full library build passes: **2367 jobs**, `full-build-4.log`.
-  The **815** remaining dedicated axiom queries match `axioms-5.log` in order
-  after namespace qualification and use only standard Lean axioms or none.
-  Independent review checked the inventory and import closure. The preceding
-  860-query audit at `77cabb9` also passed; the difference is unused helpers.
+- `1a9eb1f` gives the diagram theorems the plain names
+  (`component_strict_eq_elementary`, `..._of_forward` and relatives); the word
+  proof's theorems end in `_by_words`, and the interim `_by_diagrams` names are
+  deprecated aliases. The 215 diagram modules sit in 13 proof-step folders
+  under `DiagramProof/`, described in `Components/DiagramProof.lean`.
+  Docstrings and linter fixes changed no statement.
+- Latest full library build passes: **2367 jobs**, `full-build-1a9eb1f.log`;
+  the only warnings are seven unused hypotheses in public `WordProof`
+  statements. All **815** dedicated axiom queries and the 2814
+  `Verification.lean` queries use only standard Lean axioms or none. The
+  preceding 860-query audit at `77cabb9` also passed; the difference is unused
+  helpers.
 
 Logs live under
 `/lake-cache/ai-projects/requests/VerticalStripLLT/claude-right-attachment/logs/`.
-Immutable copies `axioms-77cabb9.log` and `axioms-98ad880.log` have hashes in
-the completion report. The working log `axioms-4.log` was reused; do not infer
+Immutable copies `axioms-77cabb9.log`, `axioms-98ad880.log`,
+`axioms-1a9eb1f.log` and `verification-1a9eb1f.log` have hashes in the
+completion report. The working log `axioms-4.log` was reused; do not infer
 its contents from an older count. A
 [workflow suggestion](suggestions/commit-stamped-axiom-logs.md) records this.
 

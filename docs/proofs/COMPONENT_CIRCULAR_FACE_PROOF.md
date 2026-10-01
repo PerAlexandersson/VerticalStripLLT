@@ -203,9 +203,11 @@ The component identity is now Lean-verified by the finite companion route.
 The bounded-face argument above remains an independent audited prose proof;
 no general Brianchon–Gram or polyhedral Euler-characteristic formalization was
 needed. Direct signed-sink extraction from the v9 argument is integrated in
-`Components/HRVScanExtraction.lean`.
+`Components/WordProof/HRVScanExtraction.lean`.
 
-Related Lean: `Components/OrdinaryComponentExpansion.lean` and
-`Components/ComponentExpansion.lean` contain the complete ordinary and circular
-strict/e identities. See [the completion audit](../COMPONENT_COMPLETION.md)
+Related Lean: `Components/WordProof/OrdinaryComponentExpansion.lean` and
+`Components/WordProof/ComponentExpansion.lean` contain the complete ordinary and
+circular strict/e identities by the word route (names ending in `_by_words`);
+`Components/DiagramProof/Consequences.lean` and `CircularConsequences.lean`
+prove the same statements by diagrams. See [the completion audit](../COMPONENT_COMPLETION.md)
 for exact statements, model boundaries and checks.
