@@ -347,3 +347,4 @@ import VerticalStripLLT.Components.ComponentPositive
 import VerticalStripLLT.Components.HRVScanExtraction
 import VerticalStripLLT.Components.OrdinaryComponentExpansion
 import VerticalStripLLT.Components.ComponentExpansion
+import VerticalStripLLT.Components.DiagramProof.Consequences

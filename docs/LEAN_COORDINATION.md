@@ -6,94 +6,146 @@ transfer is recorded in `HANDOFF.md` at `b78312c`: Claude owns all
 `DiagramProof/` Lean sources, `DiagramProofVerification.lean` and the sole
 project build slot.
 
-## Current status — 2026-10-01
+## Current status — 2026-10-01: the ordinary theorem is formalized by diagrams
 
-### Verified: right-endpoint attachment (issue #8, the attachment subtask of P9)
+The independent diagram-route theorem is proved in Lean:
 
-This checkpoint is the attachment lemma only. It is **not** all of P9 and not
-the completed formalization. Its inputs are the marked recurrence and the
-semantics; no component-expansion theorem is assumed.
+```lean
+theorem VerticalStripLLT.Circular.component_strict_eq_elementary_of_forward_by_diagrams
+    {n : ℕ} {D : Diagram n} (θ : Orientation D)
+    (hforward : ∀ e : Edge D.area, e.tail < e.head) (m : ℕ) :
+    componentStrictEnumerator D θ m = evalElementary m (componentHRV D θ)
+```
 
-New modules, all in `VerticalStripLLT/Components/DiagramProof/`:
+Its consequences, in `DiagramProof/Consequences.lean`, are:
 
-| Module | Content |
-| --- | --- |
-| `RightAttachmentDiagram` | Embeddings `attachLeft`/`attachRight` (shared vertex `p`); the generic `attachUnion`; the predicate `IsRightAttachment G L R`; restriction/`glue`/`stateEquiv` on actual orientations; the constructed union `attachDiagram` with exact strict corners (`attach_isCorner`); `isRightAttachment_induced` for a forward diagram with a cut at `p` |
-| `RightAttachmentPaths` | Internal covers; `flip_glue_iff` (a flip of the union is one factor flip with the other fixed); `reachable_glue_iff`; `flipComponent_glue` (whole component = image of the product of the two whole components, both directions) |
-| `RightAttachmentValues` | Endpoint-omitted values (`omittedRelationValue`, `omittedMarkedK/E`, component versions), defined as products over the other vertices; `hrv_glue_left`/`hrv_glue_right` (exact HRV merger) and `fibre_glue_valid`; `relationValue_attach` (fixed-colour gluing); the state and component K/E gluing formulas; boundary lemmas `omittedRelationValue_one` (one-vertex attachment) and `relationValue_zero_alphabet` |
-| `RightAttachment` | `attach_transfer`: from right-marked K and E identities with one list `z : ι → ℤ` (via `•`) to the unmarked identities for `P*T`, `P_i*T`, together with whole-component identification; measures `naturalArea`, `areaMoment`, with `naturalArea_eq`, `areaMoment_eq`, `attach_measure_lt` |
+- `component_weighted_strict_eq_eval_of_forward_by_diagrams`: restores the
+  common shifted weight;
+- `component_weighted_e_positive_of_forward_by_diagrams`: gives a homogeneous
+  elementary-positive expansion.
 
-Modelling decisions:
+These are statements about the existing semantics: the strict-coloring
+enumerator and the evaluated HRV elementary monomials of every whole flip
+component of every forward diagram, for every finite alphabet. They carry no
+extra hypotheses.
 
-- Vertices are indexed by `Fin (p+1)`, `Fin (q+1)` and `Fin (p+q+1)`. Both
-  `p = 0` and `q = 0` are covered by the general statements.
-- `IsRightAttachment` is an edge correspondence, not an equality of
-  diagrams. P9 can therefore apply it either to the source diagram's own
-  induced sides or to constructed unions with varying prefixes.
-- Marked values fix the colour at `Fin.last p`, the prefix's greatest
-  vertex. The attachment's factor omits its minimum vertex `0`.
-- No identity between `K(T)` and `E(T)` is assumed.
+Checks at `f2f396f`:
 
-Checks:
-
-- Focused `lake-workspace build` of `VerticalStripLLT.Components.DiagramProof.RightAttachment`
-  passes, rebuilding the three dependent modules.
-- `lake-workspace env lean DiagramProofVerification.lean` runs all 719
-  axiom queries, 70 of them new. Every query uses only `propext`,
-  `Classical.choice` and `Quot.sound`, or no axioms.
-- The import closure of the verification file grew from 282 to 286 project
-  files, exactly these four. It contains no word/scan, block-extractor or
-  old component-expansion module.
-- Source guards pass: no `sorry`, `admit`, `native_decide`, custom axioms or
-  `omega`; all lines are at most 100 columns; no trailing whitespace.
+- Every new module passes a focused `lake-workspace` build.
+- `lake-workspace env lean DiagramProofVerification.lean` runs **856** axiom
+  queries. Each uses only `propext`, `Classical.choice` and `Quot.sound`, or
+  no axioms (`axioms-3.log`).
+- The import closure of the verification entry point has **313** project
+  files. It contains no word/scan, block-extractor, `ComponentScalars`,
+  `ComponentCoefficient`, `OrdinaryComponentExpansion`, `ComponentExpansion`
+  or `CircularFromOrdinaryComponents` module (`imports-final.txt`).
+  The earlier word-functional theorem is therefore not an input.
+- Source guards pass for all 237 `DiagramProof` modules and the verification
+  file: no `sorry`, `admit`, `native_decide`, `omega` or custom axioms; at
+  most 100 columns; no trailing whitespace.
+- Umbrella integration: `Consequences` is exported through
+  `VerticalStripLLT.lean`. The full `lake-workspace build VerticalStripLLT`
+  passes (2364 jobs, `full-build-2.log`). The existing `Verification.lean`
+  audit, with the three new public theorems added, runs 2810 queries, all using
+  only the standard three axioms or none (`verification-1.log`).
+- Pre-existing break fixed: `Components/CompatibleDiagramSemantics.lean` lost
+  its transitive `Circular.ComponentSemantics` import at `9d8c4bc`, when the P0
+  extraction changed `SelectedColoringTransport`'s imports. No full build had
+  run since. The module now imports `ComponentSemantics` directly; no
+  declaration changed.
 
 Logs are in
-`/lake-cache/ai-projects/requests/VerticalStripLLT/claude-right-attachment/logs/`:
-`attach-3.log`, `axioms-1.log` and `imports-1.txt`. Earlier logs contain
-superseded repairs.
+`/lake-cache/ai-projects/requests/VerticalStripLLT/claude-right-attachment/logs/`.
 
-### Verified: P6 common-cover uniqueness without articulation
+## Module map and correspondence with the written proof
 
-`CommonCoverUniqueness.lean` proves `commonCoverUnique_of_shortEdges`:
-for every forward diagram with `ShortEdges D`, i.e. every natural edge of
-length at most two (the no-articulation condition), connected common-cover
-states of equal total size are joined by actual flips. It has no remaining
-hypotheses. The proof is strong induction on the vertex count:
+All modules are in `VerticalStripLLT/Components/DiagramProof/`.
 
-- base cases: at most two corner chains (`commonCover_connected_of_terminal_card_le_two`)
-  and complete diagrams (`reachable_of_complete`, via `clique_reachable_of_block`
-  with the identity core);
-- second corner tail `1`: initial-vertex inheritance
-  (`commonCover_connected_of_initialVertex_short`) on `Fin.succOrderEmb`;
-- second corner tail `>1`: first-clique inheritance on `{0} ∪ [b, n-1]`, with
-  the core embedding chosen as the reversal of `lastCliqueEmbed`. This makes
-  `lastClique_induced_short_naturalEdges` apply after `reverseOrderEmbedding_involutive`.
+### Shared foundation (streamlining)
 
-All 724 axiom queries pass with only standard axioms (`axioms-2.log`).
-The initial-path extension remains (next).
+| Module | Content | Written step |
+| --- | --- | --- |
+| `NaturalRelations` | `naturalRel`, `strictRel`; strict pairs are maximal (`strictRel_maximal`); orientations are determined by selected relations; states from valid relations | the relational model of ordinary diagrams |
+| `RelationalTransport` | `directedFlip_iff`: a flip is exactly a short exchange under two covers. `Corresponds π θ θ'` transports flips, paths and whole components between any two forward diagrams along a vertex bijection that is order-preserving in selected weak blocks | "a maximal natural edge is never an exchanged short"; all identity re-presentations |
+| `RelationalValues` | marked K/E are preserved by correspondences fixing the marked vertex | marked identities (EA1)/(RE1) under relabelling |
+| `RelationalDiagram` | `ofRelations N S`: an ordinary diagram from an interval-closed natural relation and maximal strict pairs | every diagram operation (deletion, marking, reordering, targets) |
+| `DiagramMeasure` | `naturalArea = #natural pairs`, `areaMoment = Σ heads`, `MeasureLT` | the order `(n, A, M)` |
+| `Certificates` | `Cert k = Comp k →₀ ℤ` (integer combinations of whole components), right-marked `K/E` and unmarked `KU/EU` valuations, `Certifies`, `UCertifies`, component representatives of flip-closed sets | "the same signed list of whole components for K and E" |
 
-### Open questions for the writer
+### P6: uniqueness
 
-- **Coefficients.** The transfer uses `z i • V` with `z : ι → ℤ`. P8
-  certificates should use the same form, or adapt to it with one lemma.
-- **Measure.** `naturalArea = ∑ a_j` and `areaMoment = ∑ j·a_j`, taken from
-  the diagram's own area sequence. The decrease is stated lexicographically
-  on `(area, moment)` for prefixes on the same vertex set; the vertex count is
-  then equal automatically.
-- **The draft proof.** The Lean proof matches the written argument step by
-  step: triangles lie on one side, covers are internal, a flip changes
-  exactly one factor, and the fibres at `c` merge with `c` contributing one
-  weight. No clarification is needed.
+| Module | Main result | Written step |
+| --- | --- | --- |
+| `CommonCoverUniqueness` | `commonCoverUnique_of_shortEdges` | common-cover uniqueness without articulation (vertex-count induction: two-chain and complete bases, initial-vertex and first-clique branches) |
+| `InitialPathUniqueness` | `commonCoverUnique_of_initialPathBlock` | "an initial path can be added": pendant deletion as a path argument only |
 
-### Remaining obligations (unchanged goal)
+### P7: corrections without a witness
 
-- **P6.** The initial-path extension of common-cover uniqueness.
-- **P7.** Smaller-component corrections and envelope normalization.
-- **P8.** Right-marked full-layer NN/DN recurrences and component isolation.
-- **P9, rest.** Articulation prefix selection, first-drop coverage, and
-  using `attach_transfer` with the four contact cases.
-- **P10.** Well-founded induction, weights, positivity and the final
-  independent theorem.
+| Module | Main result | Written step |
+| --- | --- | --- |
+| `AlternatingDeletion`, `AlternatingCertificate` | `certifies_alternating` | alternating deletion of strict corners; images are unions of whole components; cancellation at a redundant corner |
+| `CornerCorrections` | `certifies_absentCorner`, `exists_saturate`, `certifies_noCommonCover` | absent-corner deletion; marking all selected maximal corners first |
+| `BlockReordering` | `certifies_disconnected` | weak blocks placed consecutively, the greatest vertex's block last |
+| `ComponentCorrections` | `certifies_of_not_hasCommonWitness` | the three direct corrections |
 
-Next Lean step: resume P6 from the `b78312c` interfaces, following
-`HANDOFF.md`'s "Next obligations" and the plan.
+### P8: full-layer recurrences and isolation
+
+| Module | Main result | Written step |
+| --- | --- | --- |
+| `LayerStates`, `LocalSplit` | layer sums over normal subsets; the split at two local shorts; `stateOf_diamond`; relabelling exterior selections | the local split `L_ij(Q)` |
+| `NNRecurrence` | `NNContact.layer`: `X(L_(s+1)) = X(R_(s+1)) + X(R_s)` | NN on full layers: diamond, bottom swap, top closure |
+| `DNRecurrence` | `DNContact.layer`: `X(L_s) = X(R_s)`; area kept, moment down by `t - y` | forward DN on full layers |
+| `ComponentIsolation` | `certifies_of_layer`, `certifies_nn`, `certifies_dn` | (A2): isolate the unique witness component |
+
+### P9: first drop, prefix and attachment
+
+| Module | Main result | Written step |
+| --- | --- | --- |
+| `FirstDrop` | `exists_firstDrop`, `certifies_firstDrop` | the first-drop lemma; ND/DD reduce to NN/DN by unmarking the corner at `y` |
+| `RightAttachment*` (issue #8) | `attach_transfer`, `attach_measure_lt` | the attachment lemma (A3)–(A4) |
+| `AttachmentWitness` | the left restriction keeps saturation and a connected common-cover witness | P is connected with a witness |
+| `PrefixAttachment` | `exists_prefix`, `uCertifies_of_witness` | the area-sequence prefix and the glued certificate (7) |
+
+### P10: induction and consequences
+
+| Module | Main result | Written step |
+| --- | --- | --- |
+| `DisjointUnion` | `IsDisjointUnion`, product components, `componentStrictEnumerator_glue`, `evalElementary_componentHRV_glue` | disjoint natural components factor |
+| `Expansion` | `component_eq_by_diagrams_aux`, path base `component_eq_of_path` | strong induction on `(n, A, M)` |
+| `Consequences` | the three public theorems | weights and positivity |
+
+## Notes for the writer: where the Lean proof is organised differently
+
+None of these changes the mathematics. They may help the exposition.
+
+1. **One relational transport lemma** (`Corresponds`) replaces separate flip
+   arguments for absent-corner deletion, marking, unmarking (DD/ND), and
+   saturation, all with the identity bijection, and for weak-block reordering
+   (blockwise order-preserving). The key fact is that in a forward diagram the
+   two shorts under a selected natural long are automatically natural and
+   normal, so flips depend only on selected relations.
+2. **The NN/DN identities are proved directly on full layers.** Summing the
+   four local identities over the exterior selection `Q` gives the layer
+   statements. The earlier packet reconstruction (`J_NN`) is not needed.
+3. **Saturation precedes the first drop.** The witness component is first
+   carried to the saturated diagram. The first drop is then taken in the
+   saturated prefix, and "unmark the incoming corner at `y`" is implemented as
+   removing the strict pairs ending at `y` (there is at most one).
+4. **Corrections are right-marked** at the greatest vertex even in the main
+   induction, so one set of certificates serves both the prefix and the
+   unmarked induction.
+5. **Measure.** `A` is the number of natural pairs and `M` the sum of their
+   heads, equal to `Σ a_j` and `Σ j·a_j`.
+
+## Remaining items (optional; not needed for the stated theorem)
+
+- The circular theorem is not re-derived by diagrams.
+  `CircularFromOrdinaryComponents` imports word-route modules
+  (`BlockCancellation`, `BlockExtractor`, `ComponentCoefficient`), so it was not
+  used.
+- Possible cleanups:
+  - `attachDiagram` could be rebuilt on `ofRelations`;
+  - `naturalRel` duplicates `CornerFamily.naturalEdgeRelation` (they are
+    definitionally equal);
+  - the NN and DN contact lemmas share swap/exterior arguments that could be
+    factored further.

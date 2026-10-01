@@ -1,6 +1,7 @@
 import VerticalStripLLT.Components.CompatibleDiagramOrientations
 import VerticalStripLLT.Components.BalancedHRVTransport
 import VerticalStripLLT.Components.SelectedColoringTransport
+import VerticalStripLLT.Circular.ComponentSemantics
 
 /-! Actual component valuations transported to a set of ordinary orientations. -/
 

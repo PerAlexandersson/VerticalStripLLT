@@ -2903,3 +2903,8 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.componentClass_mk_eq_iff_mem
 #print axioms VerticalStripLLT.Components.mountainScan_succ_of_lt
 #print axioms VerticalStripLLT.Components.mul_central_left_comm
+
+-- Ordinary component theorem by the independent diagram route.
+#print axioms VerticalStripLLT.Circular.component_strict_eq_elementary_of_forward_by_diagrams
+#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_eval_of_forward_by_diagrams
+#print axioms VerticalStripLLT.Circular.component_weighted_e_positive_of_forward_by_diagrams
