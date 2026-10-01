@@ -86,6 +86,11 @@ in the accompanying proof.
 `circular-dd-elimination.tex` displays the weighted restricted-sum identity
 `q F(D) = F(R) - F(E)` for a DD contact. Its blank cells remain optional;
 the accompanying caption specifies the coloring or admissible HRV valuation.
+`circular-direct-relations.tex` gives the weighted NN/DN identities.
+`initial-crossing.tex` uses the same cells for the crossing-slide endpoints.
+`circular-reversal.tex` and `right-attachment.tex` give native TikZ sources
+for the column permutation and fibre concatenation. Every manuscript figure
+now has a native TeX source.
 An equation between diagrams means equality of the indicated sums. A
 flip-path arrow is stated separately as a correspondence between endpoint
 states; it does not assert equality of their individual valuations.
@@ -110,6 +115,14 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error last-clique-tree.tex
 pdftocairo -svg last-clique-tree.pdf last-clique-tree.svg
 latexmk -pdf -interaction=nonstopmode -halt-on-error circular-dd-elimination.tex
 pdftocairo -svg circular-dd-elimination.pdf circular-dd-elimination.svg
+latexmk -pdf -interaction=nonstopmode -halt-on-error circular-direct-relations.tex
+pdftocairo -svg circular-direct-relations.pdf circular-direct-relations.svg
+latexmk -pdf -interaction=nonstopmode -halt-on-error initial-crossing.tex
+pdftocairo -svg initial-crossing.pdf initial-crossing.svg
+latexmk -pdf -interaction=nonstopmode -halt-on-error circular-reversal.tex
+pdftocairo -svg circular-reversal.pdf circular-reversal.svg
+latexmk -pdf -interaction=nonstopmode -halt-on-error right-attachment.tex
+pdftocairo -svg right-attachment.pdf right-attachment.svg
 ```
 
 The previous external `LLTCells` macro was inspected for the diagonal-label

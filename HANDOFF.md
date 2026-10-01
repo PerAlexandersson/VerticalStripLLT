@@ -15,7 +15,8 @@ Codex owns this handoff, mathematical prose, formalization maps and plan,
 last-clique writing reviews; they own no editable files or build slot.
 Check Git status and HEAD before each edit/checkpoint; Claude commits on the
 shared `main`. Stage only writing-owned files. Current dirty or untracked
-`DiagramProof/` sources are Claude-owned; the current lane is first-drop coverage.
+`DiagramProof/` sources are Claude-owned. Claude is cleaning the final exports
+and verification inventory; do not absorb its dirty Lean files.
 
 The full goal is unfinished: complete the independent diagram formalization
 and assemble a new paper with the circular aggregate expansion and the
@@ -47,13 +48,24 @@ proof-note prefixes at `a3d076b`; append-only continuations remain authorized.
   (three deprecated-simp warnings). `e926c75` gives the DN full-layer
   recurrence; its final `dn-7.log` passes with unused-section-variable warnings.
   `e8bb9dd` adds component isolation and NN/DN certificates; `iso-1.log` passes.
-  No new queries for these declarations were present. Prefix/first-drop
-  coverage and final induction remain to be integrated and independently
-  audited, together with the new certificate axioms and import closure.
+  Later checkpoints `3a08229`, `403e871`, `5476954`, `f2f396f`, `1b6d13e`
+  add first-drop coverage, prefix attachment, disjoint-block factorization,
+  final diagram induction and public weighted consequences. Final independent
+  source/axiom reviews are in progress; do not mark the goal complete.
+  Codex read successful `fd-6.log` and `cons-1.log`.
 
 Logs: `/lake-cache/ai-projects/requests/VerticalStripLLT/claude-right-attachment/logs/`.
 Only Claude may perform the remaining focused builds and axiom checks.
 Do not run `lake update` in response to the known manifest-path warning.
+
+The independent static review at `1b6d13e` found 289 project files in the
+`Consequences` closure and 314 in the dedicated verification closure. Neither
+closure uses the old word/scan or component-expansion proof. `ComponentPositive`
+provides semantic positivity helpers only. All 237 DiagramProof modules pass
+source guards and the 100-column check. The final theorem/induction review is
+pending. The 856-query log contains only standard axioms, but exact inventory
+matching is being rechecked with namespace qualification; final cleanup also
+renames declarations. Preserve this distinction until the final audit passes.
 
 ## Current writing checkpoint
 
@@ -92,8 +104,11 @@ expanded with the two child row tables,
 terminal eligibility, preservation of the remaining contacts, closing DN
 move and cancellation. A new weighted restricted-sum figure shows the three
 actual diagrams. Its auxiliary induction is explicitly on contact count,
-since the resolved child has larger doubled area. Local boundary checks
-still need expansion before combined assembly.
+since the resolved child has larger doubled area. The remaining local
+arguments are now expanded: explicit NN/DN coloring involutions, cyclic HRV
+diamond cases, seven separated-ND identities, and the reversal area and
+exterior-boundary checks. Read-only reviews checked the coloring, separated
+ND and reversal arguments; their precise hypotheses were incorporated.
 
 The whole ordinary-proof audit clarified the attachment hypothesis for every
 target prefix, justified its preservation in the final induction, and expanded
@@ -110,13 +125,21 @@ Latest checks: warning-free figure compilation, visual inspection, exact
 rendered-source correspondence, SVG XML, local Markdown links and whitespace.
 No Codex Lean build or mathematical computation ran during this increment.
 
+The latest writing increment adds `INTRODUCTION.md` and `references.bib`;
+the ordinary source metadata was checked against arXiv:2004.09198. A new
+weighted direct-relation figure uses the shared sum macros. The three older
+SVG-only figures (initial crossing, reversal and attachment) now have native
+TeX sources, compiled externally and visually checked. All manuscript SVGs
+are generated from editable TeX. The next production task is the combined
+PDF/TeX assembly, using the Markdown sections as the canonical prose.
+
 ## Next work and recovery
 
 1. Assemble and edit the ordinary draft after the returned whole-proof audit;
    retain its correspondence to the actual checked diagram paths and keep
    compiler status outside the paper.
-2. Expand circular local-boundary arguments, then assemble the
-   combined manuscript with native vector figures and sparse TeX builds.
+2. Assemble the combined manuscript with the new introduction and all native
+   vector figures; inspect the complete PDF, references and notation.
 3. Incorporate Claude's final certificates/coverage/induction once verified;
    audit new theorem axioms, independent import closure and paper correspondence.
 

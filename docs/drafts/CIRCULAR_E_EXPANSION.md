@@ -118,9 +118,73 @@ strict head from $x$ to $x+1$ and has coefficient $1$. In path notation,
 Here the displayed steps specify the contact and terminal changes in the
 integer lift; all periodic exterior data remain in place.
 
-The coloring calculation pairs the two orders of the colors at $x,x+1$.
-Boundary monotonicity exchanges their exterior incidences. For the
-orientation calculation, consider a lifted triangle $P<Y<T$ with
+![The direct NN and DN relations as weighted sums](figures/circular-direct-relations.svg)
+
+*Figure 1.* These are the direct contacts in (2), with $y=p+1$.
+Each picture sums over
+its optional natural edges with weight $q^{|A\setminus S|}$. The
+labels denote integer lifts; the periodic exterior is summed over and
+satisfies the contact conditions. The equations hold for the corresponding
+weighted sums of strict-coloring values and of admissible HRV values.
+We prove these two identities separately below.
+
+### Boundary symmetry and the coloring relations
+
+Let $p=b(t)$ and write $\sigma$ for the periodic exchange of $p$ and
+$p+1$. Thus $\sigma(p+kn)=p+1+kn$ and
+$\sigma(p+1+kn)=p+kn$, and every other integer is fixed. The terminal
+strict edge has length at least two, and its positive east gap gives
+
+\[
+                   b(t)=p,\qquad b(t+1)\geq p+2.
+\]
+
+By monotonicity and periodicity, no boundary value is congruent to
+$p+1$ modulo $n$. At a direct NN contact, we also have
+$b(p)=b(p+1)$. These two facts give the required exterior symmetry.
+Indeed, the two incoming intervals agree below $p$, while an incoming
+interval at any other head cannot separate the adjacent tails $p,p+1$:
+its lower endpoint never equals $p+1$. The only order inversion is the
+pair $p,p+1$ itself. After removing this normal edge and the two pairs
+from $p,p+1$ to $t$, the natural background is invariant under $\sigma$.
+For the coloring comparison we retain the normal edge $p(p+1)$ and
+track its ascent separately. There is no strict head at either contact
+vertex. A strict tail is a boundary value, so no strict edge leaves
+$p+1$; strict-successor uniqueness leaves just the distinguished edge
+from $p$ to $t$. Deleting that edge therefore leaves every strict
+endpoint pair fixed by $\sigma$.
+
+We now pair colorings. In the NN source, write the colors at $p,p+1,t$
+as $a,b,c$, with $a<c$. If also $b<c$, keep the coloring. Otherwise
+exchange the colors at $p,p+1$. The result is strict on the shortened
+target edge $(p+1)t$, and the same rule in reverse recovers the source.
+Exterior weights are unchanged by the symmetry just proved. If both
+$a,b<c$, the normal edge $(p+1)t$ supplies one extra ascent in the
+source. If $a<c\leq b$, the normal edge $p(p+1)$ supplies that extra
+ascent before the exchange. In both cases the source has exactly one
+more normal ascent. Its shifted coloring weight is therefore $1+q$
+times the target weight, proving NN.
+
+For DN, write the two strict edges as $up$ and $pt$, where
+$a_p=a_{p+1}$. Temporarily delete the corner $up$. The two contact
+boundaries then agree, the terminal gap still excludes the value $p+1$,
+and there is no strict head at either contact vertex. The same argument
+identifies the exterior background. In the source the distinguished
+normal pair is $(p+1)t$; in the target it is $up$. The normal edge
+$p(p+1)$ is present in both backgrounds.
+
+For a source coloring, let the colors at $u,p,p+1,t$ be $a,b,c,d$,
+so $a<b<d$. Keep the coloring if $a<c<d$; otherwise exchange $b,c$.
+If both lie between $a,d$, the distinguished normal pair ascends on
+both sides. If $c\leq a$, the source ascent on $(p+1)t$ is replaced
+by the target ascent on $p(p+1)$. If $c\geq d$, the source ascent
+on $p(p+1)$ is replaced by the target ascent on $up$. Thus the total
+normal ascent count is unchanged. The exchange is invertible and proves
+DN for the coloring sum.
+
+### The four selected triangles
+
+For the orientation calculation, consider a lifted triangle $P<Y<T$ with
 $P\to T$ mandatory. With all other selected edges fixed, let $M_U$
 be the HRV elementary monomial after adding
 $U\subseteq\{P\to Y,Y\to T\}$, taking value zero for a cycle.
@@ -131,13 +195,34 @@ The four selections satisfy
        =M_\varnothing+M_{\{P\to Y,Y\to T\}}.                     \tag{3}
 \]
 
-Indeed, we distinguish $\widetilde H(Y)\leq\widetilde H(P)$ from
-$\widetilde H(P)<\widetilde H(Y)$. In the first case adding $P\to Y$
-does not change the bottom HRV map, and it does not change the map
-after $Y\to T$ is added. In the second case the corresponding redundant
-edge is $Y\to T$. The mandatory edge $P\to T$ gives the required
-comparison with $\widetilde H(T)$. These pairings include the zero
-terms arising from cyclic selections.
+We first note that adding $u\to v$ preserves the entire lifted HRV
+map whenever $\widetilde H(v)\leq\widetilde H(u)$. The old HRV
+function is nonincreasing along every old edge and along every periodic
+copy of the added edge. Hence a new path starting at $z$ still ends at
+or below $\widetilde H(z)$, and the old maximizing path is still
+available. This also proves acyclicity: a directed cycle on residues
+could be repeated in the lift to produce arbitrarily large endpoints.
+
+If the bottom selection is cyclic, all four terms are zero. Otherwise
+let $H$ be its lifted HRV map; the mandatory edge gives $H(T)\leq H(P)$.
+We distinguish two cases.
+
+If $H(Y)\leq H(P)$, adding $P\to Y$ changes nothing. If adding
+$Y\to T$ creates a cycle, the two terms containing that edge both
+vanish. Otherwise a new path from $Y$ either avoids the added edge or
+starts with it: it cannot first return to another lift of $Y$, since
+that would give a cycle on residues. Its greatest endpoint is therefore
+at most $\max(H(Y),H(T))\leq H(P)$. Thus $P\to Y$ is ineffective
+after adding $Y\to T$ as well. This pairs the bottom with the first
+middle term and the other middle term with the top.
+
+If $H(P)<H(Y)$, the ineffective bottom edge is $Y\to T$. After
+adding $P\to Y$, either both terms containing it vanish, or the
+highest vertex reachable from $T$ stays $H(T)$. Indeed, a path from
+$T$ cannot reach a lift of $P$, since the mandatory edge back to the
+residue of $T$ would make a cycle. The HRV at $Y$ can only increase,
+so $Y\to T$ remains ineffective. This gives the other pairing and
+proves (3), including all cyclic cases.
 
 After inserting weights, (3) becomes
 
@@ -197,7 +282,7 @@ Unmarking and deleting $e'$, followed by the direct DN identity, give
 
 ![One DD elimination as a difference of restricted sums](figures/circular-dd-elimination.svg)
 
-*Figure 1.* We illustrate (DD1) with areas $(0,1,2,2,2)$ and strict
+*Figure 2.* We illustrate (DD1) with areas $(0,1,2,2,2)$ and strict
 corners $02,13,24$. Thus $p=2$ and $t=4$. The resolved diagram has
 areas $(0,1,2,3,1)$ and strict corners $03,34$; the deletion diagram
 has areas $(0,1,2,1,2)$ and strict corners $02,24$. Each diagram sums
@@ -271,17 +356,92 @@ larger; the outer area induction is not used for this intermediate.
 
 ### Separated ND contacts
 
-For an ND contact whose two strict paths are disjoint, the same
-unmarking and deletion argument gives
+Suppose the final contact is ND. If the bounce has $k$ intervening
+DD contacts, its initial vertex is $x=b^{k+1}(t)$, with $s(x)=0$
+and $s(x+1)=1$. We first assume
 
 \[
-                        F_D=qF_Q+(1+q)F_R,                       \tag{4}
+              b^i(t)\not\equiv x+1\pmod n
+              \qquad(0\leq i\leq k).                          \tag{S}
 \]
 
-where $Q$ shortens the terminal strict edge and $R$ also moves the
-initial strict head from $x+1$ to $x$. The separation condition ensures
-that these row changes are distinct. We next treat contacts whose
-paths meet.
+Together with strict acyclicity, this says that the main and parallel
+strict contact paths are disjoint. To see the implication, an intersection
+propagates backwards along their unique strict predecessors until a main
+contact equals $x+1$. Within either path, a repeated residue would give
+a strict cycle. Thus their rows can be changed independently.
+
+Put $A=a_x$ and $L=a_t$. The zero gap at $x$ gives
+$a_{x+1}=A+1$. We have $A\geq1$: if $A=0$, the strict edge into
+$x+1$ starts at $x$, whose outgoing strict edge already belongs to the
+main path. Strict-successor uniqueness would identify their heads,
+contrary to (S). Let $e$ be the strict corner into $x+1$.
+We form four auxiliary diagrams:
+
+- $N$ unmarks $e$ in $D$;
+- $E$ deletes $e$ from $D$;
+- $S$ marks the new corner into $x$ in $E$;
+- $J$ deletes that new corner from $E$.
+
+Let $Q$ shorten the terminal strict edge of $D$. Let $N',E',J',R$
+be the corresponding terminal shortenings of $N,E,J,S$. Separation
+ensures that these terminal changes use different rows from the initial
+changes. The two final targets are
+
+| Diagram | Row $x$ | Row $x+1$ | Row $t$ |
+| --- | --- | --- | --- |
+| $D$ | $(A,0)$ | $(A+1,1)$ | $(L,1)$ |
+| $Q$ | $(A,0)$ | $(A+1,1)$ | $(L-1,1)$ |
+| $R$ | $(A,1)$ | $(A,0)$ | $(L-1,1)$ |
+
+As before, each entry gives the area and strict flag. All other rows
+are unchanged. Condition (S) separates every intervening contact and the
+terminal eligibility data from the altered initial rows. The same counted
+bounce and terminal eligibility therefore hold in $N,S,J$. The strict
+graphs of $N$ and $J$ are subgraphs of the source and remain acyclic.
+In $N$ both initial flags are non-strict, with equal
+boundaries. In $J$ both contact areas are $A-1$, so their boundaries
+again agree. Hence the full NN relation applies to each. The DN target
+of $S$ is exactly $Q$. If $S$ is strict-acyclic, the full DN relation
+applies. If it has a strict cycle, so does $Q$: exchanging corresponding
+vertices of the main and parallel paths transports one strict graph to
+the other, including their exterior attachments. Thus both values vanish
+in this case, and we still have $F_S=F_Q$.
+
+The four corner relations and these three bounce relations are
+
+\[
+\begin{aligned}
+ F_N&=F_E+qF_D,       & F_{N'}&=F_{E'}+qF_Q,\\
+ F_E&=F_J+qF_S,       & F_{E'}&=F_{J'}+qF_R,\\
+ F_N&=(1+q)F_{N'},    & F_J&=(1+q)F_{J'},\\
+ F_S&=F_Q.
+\end{aligned}                                                   \tag{ND}
+\]
+
+Substituting the first two rows into the last two gives
+
+\[
+\begin{aligned}
+ qF_D
+   &=F_N-F_J-qF_S\\
+   &=(1+q)(F_{N'}-F_{J'})-qF_Q\\
+   &=(1+q)(qF_R+qF_Q)-qF_Q\\
+   &=q\bigl(qF_Q+(1+q)F_R\bigr).
+\end{aligned}
+\]
+
+Cancelling $q$ proves
+
+\[
+                        F_D=qF_Q+(1+q)F_R.                       \tag{4}
+\]
+
+Both targets preserve the strict-edge count. Their area sums are smaller
+by one and two, respectively, so their doubled areas decrease by two
+and four. We use outer induction only on these final targets; the
+auxiliary relations in (ND) have already been proved by contact-count
+induction. We next treat contacts for which (S) fails.
 
 ## A contact at the terminal vertex
 
@@ -373,7 +533,7 @@ as follows:
 
 ![Reversal inside consecutive intervals](figures/circular-reversal.svg)
 
-*Figure 2.* We take $r=5$ and $j=2$, so the strict chain is
+*Figure 3.* We take $r=5$ and $j=2$, so the strict chain is
 $w_0\to\cdots\to w_6$. Each row is a consecutive circular interval,
 drawn in circular order. The permutation reverses the entries within
 each row. The rows need not be adjacent on the circle. Strict edges
@@ -381,14 +541,35 @@ in the new diagram are the images of the original chain edges.
 
 At a strict head in $C_c$, $c>0$, the transported edge has length
 $H_c+\ell_c-\ell_{c-1}$. At a strict head in $C_0$, its length is
-$H_0+\ell_0-\ell_{j-1}-1$. These are the prescribed new areas.
-Within each column the new boundary increases by one. At its endpoint,
-a positive area decrement can occur only at the old terminal vertex
-or at the new non-strict head. The terminal east gap absorbs the
-former decrement; the latter needs only a nonnegative gap.
-Thus the cyclic area inequalities and all strict-corner conditions hold.
-No area increases, the strict-edge count is unchanged, and the total
-area decreases by $2d+1$ if $s=0$, or by $2d+2$ if $s>0$.
+$H_0+\ell_0-\ell_{j-1}-1$. These are the prescribed new areas:
+consecutive column lengths agree except at $c=s$ when $s>0$.
+Every new area is positive, since $H_c\geq\ell_{c-1}\geq2$,
+and no area increases. In particular the bound $a_i<n$ is preserved.
+
+We check the boundary inequalities at the ends of the columns. Write
+$\delta(v)=a_v-a'_v$, so $b'(v)=b(v)+\delta(v)$. Inside a column,
+the new area is constant and hence $b'(v+1)-b'(v)=1$.
+At a column end with $\delta(v)=0$, the old nonnegative gap suffices.
+If that vertex is strict in the target, it was strict in the source
+and the old gap is at least one.
+
+The positive decrements at column ends occur in just two places.
+When $s=0$, the end of $C_0$ is $w_r=t$, and $\delta(t)=2$.
+It is the new source $\sigma(w_0)$ and is not strict. The terminal
+east gap gives $b(t+1)-b(t)\geq2$, so the new boundary is
+nondecreasing there. When $s>0$, the end of $C_s$ is $t$ and has
+decrement one. It remains strict, and the same terminal gap leaves
+$b'(t+1)-b'(t)\geq1$. The end of $C_0$ is the new non-strict
+source and also has decrement one. It was a strict row, so its old
+boundary gap was at least one, which leaves a nonnegative gap.
+If the next vertex also has a decrement, the new gap only increases.
+These cases prove all cyclic area inequalities and strict-corner conditions.
+
+The transported strict chain has the same number of edges. For $s=0$,
+the first row of $C_0$ decreases by one and its other $d$ rows by two,
+so the total area decreases by $2d+1$. For $s>0$, the last $d+1$
+rows of $C_0$ and all $d+1$ rows of $C_s$ decrease by one. The total
+decrease is then $2d+2$.
 
 To compare the two expressions, remove all non-strict edges internal to
 the displayed strict component in both diagrams. An internal edge
@@ -404,13 +585,43 @@ $v+kn$ for some $k\geq0$. Hence
 $\widetilde H(v)+kn\leq\widetilde H(u)$, and adding $u\to v$
 cannot increase any highest reachable value.
 
-The two residual lifted graphs are conjugate by $\sigma$. To check
-exterior incidences, observe that an incoming interval from an exterior
-head contains a whole column or misses it: strict-successor uniqueness
-and boundary monotonicity exclude an endpoint inside the column.
-At the strict sink the boundary value is skipped by the terminal gap.
-For a head inside the component, the changed lower endpoint lies in
-the preceding column or just after it, so only internal edges change.
+The two residual lifted graphs are conjugate by $\sigma$. We give the
+boundary check, since a column reversal need not preserve the order of
+all vertices.
+
+First consider an exterior head $z$. Its incoming interval cannot start
+strictly inside a lifted column. Indeed, let $v$ be an integer lift of
+$w_a$, other than the first vertex of its column, so $a\geq j$.
+If $w_a$ is not the strict sink, it has strict successor $w_{a+1}$.
+Choose the latter's integer lift
+$y$ with $b(y)=v$. The preceding row $y-1$ is the lift of
+$w_{a+1-j}$, which is also strict. Thus
+
+\[
+                    b(y-1)<v=b(y)<b(y+1).
+\]
+
+For a row below $y$, monotonicity bounds its boundary by $b(y-1)<v$;
+for a row above $y$, it bounds it below by $b(y+1)>v$.
+Thus $y$ is the only row with boundary $v$.
+It belongs to the displayed component, so no exterior head has this
+boundary. If $v$ lifts the strict sink $w_{r+j-1}$, the preceding
+integer $v-1$ lifts $w_{r-1}$. Choose the lift of the terminal row $t$
+so that $b(t)=v-1$. Its east gap gives $b(t+1)>v$, skipping the
+boundary value $v$ entirely. Thus the incoming interval of an exterior head
+contains a whole column or misses it. Its area is unchanged, and
+reversing the column preserves all its incidences.
+
+For a strict head inside the component, the transported strict edge
+identifies its new lower boundary with the reversal of the old lower
+boundary. Both lie in the preceding column, and the head stays in its
+own column. An exterior vertex therefore crosses neither endpoint of
+the incoming interval. The remaining head is the unique non-strict
+source $w_0$. Its old lower boundary is the first vertex of the preceding
+column, while the boundary of its image $\sigma(w_0)$ is just after
+that column. The only changed incidences are again internal. We have
+proved the required correspondence for every pair with at least one
+exterior endpoint, and the strict edges correspond by construction.
 
 Relabeling colors now identifies the residual coloring sums. For the
 orientation sums, every selected sink is a strict sink. The moved

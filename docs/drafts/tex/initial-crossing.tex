@@ -1,0 +1,14 @@
+\documentclass[border=6pt]{standalone}
+\usepackage{llt-diagrams}
+\usepackage{mathtools}
+\begin{document}
+\(
+ \LLTDiagram{0,v,a,h}{%
+  \LLTForbidden{1}{4}\LLTStrict*{1}{3}\LLTStrict*{2}{4}%
+  \LLTSelected{1}{2}\LLTAbsent{2}{3}\LLTAbsent{3}{4}}
+ \quad\xleftrightarrow{\text{crossing slide}}\quad
+ \LLTDiagram{0,v,a,h}{%
+  \LLTForbidden{1}{4}\LLTStrict*{1}{3}\LLTStrict*{2}{4}%
+  \LLTAbsent{1}{2}\LLTAbsent{2}{3}\LLTSelected{3}{4}}
+\)
+\end{document}

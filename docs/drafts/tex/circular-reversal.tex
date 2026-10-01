@@ -1,0 +1,29 @@
+\documentclass[border=6pt]{standalone}
+\usepackage{llt-diagrams}
+\newcommand{\ColumnEntry}[4]{%
+  \node[draw=black!75,fill=lltLabelYellow,minimum width=12mm,
+    minimum height=7mm,inner sep=0pt] at (#1,#2) {$w_{#3}$};
+  \node[font=\scriptsize] at (#1,#2-.8) {$#4$};}
+\begin{document}
+\begin{tikzpicture}[x=12mm,y=7mm]
+ \node[font=\small] at (1.5,1.2) {original positions};
+ \node[font=\small] at (7.5,1.2) {images under $\sigma$};
+ \node at (-1,0) {$C_0$};
+ \node at (-1,-2.3) {$C_1$};
+ \ColumnEntry{0}{0}{0}{H_0}
+ \foreach \idx in {1,2,3} {
+   \pgfmathtruncatemacro{\lab}{2*\idx}
+   \ColumnEntry{\idx}{0}{\lab}{H_0+1}}
+ \foreach \idx in {0,1,2} {
+   \pgfmathtruncatemacro{\lab}{2*\idx+1}
+   \ColumnEntry{\idx}{-2.3}{\lab}{H_1}}
+ \foreach \idx in {0,1,2,3} {
+   \pgfmathtruncatemacro{\lab}{6-2*\idx}
+   \ColumnEntry{6+\idx}{0}{\lab}{H_0}}
+ \foreach \idx in {0,1,2} {
+   \pgfmathtruncatemacro{\lab}{5-2*\idx}
+   \ColumnEntry{6+\idx}{-2.3}{\lab}{H_1-1}}
+ \draw[->,semithick] (4,-1.1) -- (5,-1.1);
+ \node[font=\scriptsize] at (4.5,-1.65) {reverse};
+\end{tikzpicture}
+\end{document}

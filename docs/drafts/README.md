@@ -1,12 +1,15 @@
 # Draft and proof correspondence
 
+The [introduction](INTRODUCTION.md) presents the two expansion theorems and
+their diagram proofs; `references.bib` records the ordinary formula's source.
 The [circular section](CIRCULAR_E_EXPANSION.md) gives the integer-cover
 definition, aggregate expansion, local reductions, terminal-contact reduction,
 interior column reversal and the area/rank induction. Its reversal figure is
-an editable SVG, rendered and visually inspected. DD-contact elimination now
+now generated from native TeX, rendered and visually inspected. DD-contact elimination now
 has explicit child and closing row tables, eligibility and contact-count
-arguments, and a weighted-sum figure. Local boundary checks are still
-compressed; the combined manuscript remains
+arguments, and a weighted-sum figure. The boundary-swap coloring proof,
+cyclic cases of the HRV diamond, seven separated-ND identities and
+column-reversal boundary checks are now expanded. The combined manuscript remains
 to be assembled. The existing external circular-first manuscript was consulted
 read-only; this draft explicitly separates terminal contact from interior
 overlap to match the checked Lean decomposition.
@@ -74,9 +77,12 @@ The circular source map supplements [the completion audit](../CIRCULAR_COMPLETIO
 | --- | --- | --- |
 | Circular expansion theorem | `Circular/Expansion.lean`, `coloringLLT_shifted_eq_orientation_sum` | Checked aggregate theorem |
 | Four selected triangles | `Circular/HRVTriangle.lean`, `tri_local_identity` | Integer-cover HRV identity |
-| Figure 1: DD resolution and contact-count induction | `DDLocalData.coloring_resolution`, `orientation_resolution`, `resolved_dd_child`, `delete_dd_child`, `coloring_closing_nn`, `dnModelsClaim_succ` | Checked; the resolved child's doubled area increases by one, so it is not an outer-induction step |
+| Figure 1: direct NN/DN coloring relations | `naturalPairs_erase_map_swap`, `firstBounce_strict_exterior_swap`, `coloringLLT_firstBounce_geometry`, `coloringLLT_dnSuccessor` | Checked; the draft spells out boundary avoidance and all coloring-ascent cases |
+| Figure 2: DD resolution and contact-count induction | `DDLocalData.coloring_resolution`, `orientation_resolution`, `resolved_dd_child`, `delete_dd_child`, `coloring_closing_nn`, `dnModelsClaim_succ` | Checked; the resolved child's doubled area increases by one, so it is not an outer-induction step |
+| Separated ND contacts | `NDSeparatedHyp.dS_dQ_models`, `xQShift_coloringLLT_nd`, `shiftedOrientationExpansion_nd` | Seven identities, cyclic case and final area decreases written explicitly |
 | Terminal-contact reduction | `Circular/AliasRecurrences.lean`, `Diagram.exists_nd_alias_reduction`; `AliasReductionForced.lean`, `card_B`, `card_C` | Common factor `1+q`, doubled-area decrease six |
 | Interior column reversal | `Circular/InteriorReversalReduction.lean`, `Diagram.expansion_of_nd_interior_overlap` | Strict interior intersection; terminal contact treated separately |
+| Reversal boundary checks | `reversalAreaValues_cyclic`, `boundary_not_inside_column`, `boundaryNaturalLift_reversal_iff` | Explicit column-end decrements, unique boundary row, sink exception and source exception |
 | Internal-edge factor cancellation | `Circular/ComponentFactorization.lean`, `Diagram.expansion_iff_component_residual` | Different source/target exponents allowed |
 | Area and rank induction | `Circular/GeometricArea.lean`, `Diagram.doubledArea`; `NeutralTransport.lean`, `Diagram.strictRank` | Draft `J` is exactly the sum of proper-ancestor count times strict-edge length |
 
@@ -92,13 +98,10 @@ colors. Gray/white cells distinguish unweighted and normal-edge-weighted sums.
 The two-page `diagram-examples.tex` preview and the diamond and NN/DN figures
 compile without warnings or box overflows and were visually inspected.
 
-The diamond, layer, crossing-sweep, two-chain, child-merge, last-clique-tree,
-circular DD-elimination
-and prefix-attachment SVGs are generated
-from their `.tex` sources using
-`llt-diagrams.sty`; edit those sources rather than their generated font paths.
-The other SVG figures are editable vector sources. Their PNG previews live in the
-external request cache, and all figures have been visually inspected. The
+All SVG figures now have native `.tex` sources in `tex/`; the cell figures
+use `llt-diagrams.sty`. Edit those sources rather than the generated SVG
+font paths. Their PNG previews live in the external request cache, and all
+figures have been visually inspected. The
 cell figure follows the diagonal-label and selected-cell convention of the
 paper with Robin; its retained arrows indicate corner covers at the two
 displayed endpoints.
