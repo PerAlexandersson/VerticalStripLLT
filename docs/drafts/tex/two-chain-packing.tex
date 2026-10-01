@@ -1,0 +1,18 @@
+\documentclass[border=6pt]{standalone}
+\usepackage{llt-diagrams}
+\LLTDiagramSetup{cell size=4.8mm}
+\newcommand{\TwoChainState}[2]{%
+  \LLTAreaDiagram[name={#1}]{0,1,2,3,4,5,6}{0,1,2,2,2,2,2}{%
+    \foreach \i/\j in {1/3,2/4,3/5,4/6,5/7} {\LLTStrict*{\i}{\j}}%
+    \foreach \i/\j in {1/2,3/4,5/6} {\LLTAbsent{\i}{\j}}%
+    \foreach \i/\j in {2/3,4/5,6/7} {\LLTSelected{\i}{\j}}%
+    #2}}
+\begin{document}
+\(
+ \TwoChainState{\{12,34\}}{\LLTAbsent{6}{7}}
+ \xrightarrow{34\mapsto56}
+ \TwoChainState{\{12,56\}}{\LLTAbsent{4}{5}}
+ \xrightarrow{12\mapsto34}
+ \TwoChainState{\{34,56\}}{\LLTAbsent{2}{3}}
+\)
+\end{document}

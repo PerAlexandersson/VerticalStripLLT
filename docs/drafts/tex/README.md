@@ -75,6 +75,8 @@ endpoint color. Its right factor omits the shared vertex weight, as indicated
 by `\widehat V`; the surrounding statement defines this valuation.
 `crossing-sweeps.tex` shows four fully specified selected states and the six
 actual flips between them, including the restoration of the exterior.
+`two-chain-packing.tex` uses these crossing slides to rearrange two selected
+good edges between the same pair of corner chains.
 An equation between diagrams means equality of the indicated sums. A
 flip-path arrow is stated separately as a correspondence between endpoint
 states; it does not assert equality of their individual valuations.
@@ -91,6 +93,8 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error prefix-attachment.tex
 pdftocairo -svg prefix-attachment.pdf prefix-attachment.svg
 latexmk -pdf -interaction=nonstopmode -halt-on-error crossing-sweeps.tex
 pdftocairo -svg crossing-sweeps.pdf crossing-sweeps.svg
+latexmk -pdf -interaction=nonstopmode -halt-on-error two-chain-packing.tex
+pdftocairo -svg two-chain-packing.pdf two-chain-packing.svg
 ```
 
 The previous external `LLTCells` macro was inspected for the diagonal-label

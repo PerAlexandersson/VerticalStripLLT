@@ -108,8 +108,8 @@ approved the diamond, whole-component corrections and layer calculation;
 its requests to spell out exterior disjointness, strict decorations and the
 original shifted normal-edge exponent were incorporated.
 The diagrams themselves denote sums with the selected-edge count shown below.
-Complete/two-chain bases, last-clique inheritance, and the chain-quotient
-lemma still need detailed manuscript proofs. The final first-drop/prefix
+The complete-diagram base and last-clique inheritance still need detailed
+manuscript proofs. The final first-drop/prefix
 induction is now expanded:
 articulation test, first nontrivial prefix, strict-corner preservation, all
 four contact cases, marking changes, area/moment decrease and final induction.
@@ -134,9 +134,28 @@ it does not add an unformalized exact endpoint formula.
 Independent read-only review approved both new proofs and the exact four
 displayed states. The figure compiled without TeX or box warnings and was
 visually inspected; local links, SVG XML and exact source correspondence pass.
-Claude's source-only checkpoint `cdac9cc` appeared during this writing pass,
+Claude's source-only checkpoint `cdac9cc` appeared during that writing pass,
 adding relational transport and extracting the measures. Its ongoing Lean
 edits remain Claude-owned and are excluded from this writing checkpoint.
+
+Writing checkpoint `e8d9e39` is pushed. The next increment proves the
+parallel-edge and two-chain lemmas by the same restored crossing slides,
+and supplies the removable-edge argument directly: replace each wrong-way
+terminal edge by a corner/good-edge walk, skip one corner chain using
+length-one/two natural edges, then detour through a third chain. This follows
+`ChainSeparators` and `RemovableGoodEdges`, avoiding reliance on the older
+projected-clique outline. All corners are explicitly marked strict for the
+path arguments; the original normal-edge weights are restored only afterwards.
+The new two-chain figure fixes all selected cells and shows the two slides
+to the final two occupied positions. Independent source reviews approved the
+path geometry, packing and third-chain detour; one-chain/empty-complement
+wording was checked using the impossibility of consecutive vertices in one
+chain under the length-two hypothesis. Lean supplies equal-occupancy
+connectivity, not a named canonical packing function; the draft uses the
+packed endpoint only to describe those same elementary exchanges.
+The figure compiled without TeX or box warnings and was visually inspected;
+exact rendered-source correspondence, local links, SVG XML and whitespace
+checks pass. No Codex Lean build ran.
 The circular section and combined manuscript have the remaining limits already
 recorded above. The full user goal is unchanged and unfinished.
 

@@ -229,8 +229,11 @@ strict markings is only a new representation of the same selected states.
 ## Connecting the states with corner covers
 
 A common-cover state is one in which every maximal natural corner is a
-cover. Let $M$ be the set of these corners. They form disjoint
-directed chains. We write $r(u)$ for the last vertex in the chain containing
+cover. Let $M$ be the set of these corners. Throughout the path arguments
+we mark them all strict. They are selected in every state under consideration,
+and a corner cannot be exchanged as a short edge, so this changes no permitted
+flip along these paths. The corners form disjoint directed chains.
+We write $r(u)$ for the last vertex in the chain containing
 $u$. An anchor consists of all edges in $M$ and any additional natural
 edges $uv$ satisfying $r(u)<r(v)$. Denote the union of all these allowed
 edges by $A^*(G)$. A natural edge joining two vertices of the same corner
@@ -359,6 +362,112 @@ $03$ and $25$. The corner $14$ may be redundant between the two endpoint
 states. Each picture specifies one selected state; the arrows denote paths
 of flips, and do not assert equality of individual state values.
 
+## Rearranging edges between two corner chains
+
+For a natural normal edge $uv$, a corner $uh$ gives the short-edge link
+$uv\longrightarrow vh$. Maximality of $uh$ implies $v<h$, and $vh$
+is natural because it lies inside $uh$. This link exchanges the terminal
+labels of the two endpoints. Each normal edge has at most one successor
+and at most one predecessor under these links. Both endpoints strictly
+increase along a link, so the links form disjoint finite paths.
+
+For any two corner chains there is at most one such path. To see this,
+let $uv$ be its first edge. If $v$ had a corner predecessor $p$, then
+$p<u$: otherwise $uv$ would equal or properly contain the corner $pv$.
+The edge $pu$ would be a predecessor, a contradiction. Thus $v$ is the
+first vertex of its chain, and $u$ belongs to the chain starting earlier.
+There is at most one possible $u$ in that chain below $v$. Indeed, if
+$u<u'<v$ were two choices, the natural interval $uv$ would properly
+contain the corner from $u$ to its successor, which is at most $u'$.
+
+Good and non-good edges alternate on each short-edge path, since a link
+exchanges its two distinct terminal labels. Consecutive good positions
+therefore have the form $ab,cd$ with $a<b<c<d$ and corners $ac,bd$.
+In an anchor, both corners cover. Whenever exactly one of $ab,cd$ is
+selected, the crossing-slide lemma exchanges it for the other, restoring
+every exterior edge. The endpoint is another anchor.
+
+**Parallel-edge lemma.** Suppose two anchors select the same number of
+good normal edges between each pair of corner chains. Then actual flips
+join them.
+
+*Proof.* List the good positions for one pair in their short-edge order.
+We repeatedly exchange an occupied position followed by a vacant one.
+The sum of the occupied position indices strictly increases and is bounded,
+so we reach the configuration occupying the last positions of that list.
+It depends only on the number selected. Each exchange restores every other
+edge, so we can do this separately for every pair of chains. Both anchors
+reach the same selected diagram. We reverse the path from the second.
+
+**Two-chain lemma.** If there are at most two corner chains, all
+common-cover states of a fixed total selected size lie in one flip component.
+
+*Proof.* Prepare both states to anchors. If there is at most one chain,
+the only anchor is $M$. With two chains, every selected normal edge joins
+that one pair. Equal total size gives equal numbers of normal edges,
+so the parallel-edge lemma connects the anchors. Reverse the second
+preparation path.
+
+![Rearranging selected edges between two corner chains](figures/two-chain-packing.svg)
+
+*Figure 3.* The corner chains are $0,2,4,6$ and $1,3,5$. The good
+normal positions are $12,34,56$. Each arrow is the crossing-slide path
+between the two indicated anchors, with every other selected edge restored.
+Both states on the left reach the anchor whose two selected good edges
+occupy the last two positions. Each cell picture fixes a selected state;
+these path arrows are not identities of individual state values.
+
+## Removing one good edge
+
+We justify the removable-edge hypothesis needed below directly in the
+good-edge graph $A^*(G)$. Connectivity in this paragraph is undirected.
+
+First, replacing the natural graph by $A^*(G)$ preserves connectivity
+within any specified union of corner chains. For a natural normal edge
+$uv$ with $r(u)>r(v)$, let $uh$ be the corner successor of $u$.
+As in preparation, $u<v<h$. We replace the edge $uv$ in a walk by
+the two edges $uh,hv$, traversing the latter backwards. The corner $uh$
+and good edge $vh$ belong to $A^*(G)$, and the replacement visits only
+the two original corner chains. All other natural edges already belong
+to $A^*(G)$.
+
+**Chain-deletion lemma.** If a connected ordinary natural graph has at
+least three vertices and remains connected after deleting any single vertex,
+then deleting all vertices of one
+corner chain leaves the other vertices connected in $A^*(G)$.
+
+*Proof.* Every pair of vertices at distance one or two is a natural edge.
+An absent adjacent edge would, by closure under subintervals, exclude every
+edge across its cut and disconnect the graph. If $(i-1)(i+1)$ were absent, closure
+under subintervals would exclude every natural edge from below $i$ to
+above $i$. The vertex $i$ would be an articulation.
+
+Consecutive vertices cannot belong to the same corner chain. Their edge
+would be a corner, but it lies properly in a natural edge of length two:
+extend it to the left unless its first vertex is zero, and to the right
+in that case. Thus removing a corner chain never removes two consecutive
+vertices, and at least one vertex survives. Consecutive surviving vertices
+differ by at most two and hence
+are joined by a natural edge. They form a path through all remaining
+vertices. Replace its non-good edges by the two-edge walks above; these
+walks avoid the removed chain.
+
+**Removable-edge lemma.** Under the same hypotheses, suppose there are
+at least three corner chains. Deleting any good normal edge from
+$A^*(G)$ leaves it connected.
+
+*Proof.* Let the edge be $uv$, and choose a vertex $w$ in a third chain.
+By the chain-deletion lemma, a path joins $u$ to $w$ while avoiding the
+chain of $v$, and a path joins $w$ to $v$ while avoiding the chain of $u$.
+Neither path uses $uv$, so their concatenation goes around that edge.
+The full graph $A^*(G)$ is connected by the natural-edge replacement
+argument. Replacing every use of $uv$ by this walk proves the result.
+
+Equivalently, contraction of the corner chains gives a graph which remains
+connected after deleting any one of its vertices. The explicit avoiding
+paths above also lift directly to the good-edge graph, as needed for the
+initial-vertex construction.
+
 ## Initial-vertex inheritance
 
 We first treat the case in which the first two maximal corners are
@@ -388,7 +497,7 @@ exchanges $0v$ and $d_v$, with the corners $0a$ and $vh_v$ retained.
 
 ![The initial crossing slide](figures/initial-crossing.svg)
 
-*Figure 3.* The diagonal lists the ordered vertices $0<v<a<h=h_v$.
+*Figure 4.* The diagonal lists the ordered vertices $0<v<a<h=h_v$.
 The cell in column $u$ and row $w$ represents the edge $uw$.
 Arrows denote the two retained corner covers, and $1$ and $0$ denote
 selected and absent normal edges. The edge $va$ is natural because it
@@ -412,7 +521,7 @@ enters a different core component. Otherwise all selected neighbors of
 zero would lie in $B$, contradicting connectedness of $A$. The edge
 $0v$ is an extra, since $0a$ enters $B$. The selected corner $vh_v$
 puts $h_v$ in the same core component as $v$. Hence $ah_v$ is absent.
-We apply the crossing slide in Figure 3. The core gains $ah_v$ and loses
+We apply the crossing slide in Figure 4. The core gains $ah_v$ and loses
 no edge, while the initial row loses $0v$. Repeating this operation
 terminates because the number of selected initial extras decreases.
 
@@ -473,14 +582,9 @@ supplies its required path theorem.
 
 If $b=1$, deleting zero removes just $0a$. The remaining graph has fewer
 vertices and no articulation, and the number of corner chains is unchanged.
-It has at least three chains outside the base cases. Contracting these
-chains in its good-edge graph gives the connected quotient without
-articulation of the corner-chain lemma. A connected graph without
-articulation on at least three vertices has no bridge. Removing one copy
-of a good edge therefore leaves the good-edge graph connected: if it
-were the only copy of its class, we lift a path around that quotient
-edge, using corner chains to join consecutive copies. This verifies
-the removable-edge hypothesis of the initial-vertex lemma.
+It has at least three chains outside the base cases. The removable-edge
+lemma therefore applies to every matching edge $d_v$, verifying the
+remaining hypothesis of the initial-vertex lemma.
 
 An initial path may be adjoined to this graph. We remove its pendant
 vertices one at a time. Each has just one natural edge, which must be
@@ -572,7 +676,7 @@ all exterior selections of each size. Thus
 
 ![NN and DN as sums over restricted selections](figures/layer-relations.svg)
 
-*Figure 4.* The blank cells and permitted exterior edges are summed over.
+*Figure 5.* The blank cells and permitted exterior edges are summed over.
 Arrows require strict edges, and crosses remove natural edges. The condition
 $|A|=s$ counts all selected edges, including strict edges. Each diagram is
 an entire layer sum for $V=K$ or $V=E$ at an eligible contact.
@@ -655,7 +759,7 @@ unions of one state of $P$ and one state of $T$.
 
 ![Right attachment and the merged fibre](figures/right-attachment.svg)
 
-*Figure 5.* The upper dashed line indicates the vertex intervals, not a
+*Figure 6.* The upper dashed line indicates the vertex intervals, not a
 natural edge. The diagrams share just $c$. Below, the canonical HRV chain
 ending at $c$ and the chain beginning at $c$ concatenate. Their common
 vertex, colored $\beta$, contributes one weight $x_\beta$.
@@ -766,7 +870,7 @@ All earlier comparisons agree, so their first strict decreases agree.
 
 ![A prefix and its right attachment as restricted sums](figures/prefix-attachment.svg)
 
-*Figure 6.* The source areas are $(0,1,1,2,3,2,1,2,1)$.
+*Figure 7.* The source areas are $(0,1,1,2,3,2,1,2,1)$.
 The first area at least two occurs at $j=3$, so $b=1$ and $c=5$.
 The prefix has the initial edge $01$ followed by the block $[1,5]$;
 the attachment is $[5,8]$. The first strict area decrease is at $t=4$
