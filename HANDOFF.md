@@ -41,6 +41,11 @@ supplied `InitialVertexNaturalEdges.lean`. Primary repaired, integrated and
 verified both, and wrote `InitialVertexRemovable`. Their ownership has returned.
 All three modules pass focused builds, and all 647 axiom queries pass.
 Both delegates remained build-free; primary retains the single build slot.
+The independent review approved all three contracts at pushed `f23eac3`:
+zero is nonterminal because its retained corner starts there, successor
+restriction preserves terminal fixed points, and the existing third-chain
+paths supply removability. It also approved the canonical reversed
+`lastCliqueEmbed` choice for the next branch. No review remains active.
 
 Terra supplied `InitialVertexSectorWitness.lean`, constructing an anchor with
 prescribed initial extras and core. Luna supplied `InitialVertexFeasibility.lean`
@@ -172,6 +177,9 @@ Use `reverseOrderEmbedding_involutive` for the reflected core actually named
 by `commonCover_connected_of_firstClique_core`. Prove strict size decrease,
 find the first two corners or the complete base, and derive the two-terminal
 base from the existing cardinal chain bound. Then close the strong induction.
+Ambient short edges must also be transported through reversal. No preservation
+of chain count under first-clique trimming is needed if the induction theorem
+covers all chain counts and dispatches the two-chain case internally.
 
 The general conditional inheritance theorem retains its removable-edge
 hypothesis. The short-edge/three-chain specialization now proves it. Global
