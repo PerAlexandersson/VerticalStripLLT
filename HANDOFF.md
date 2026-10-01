@@ -2,6 +2,24 @@
 
 ## Current status and ownership
 
+The active author-directed manuscript is now Claude's **component-first**
+`paper/`, per `paper/PLAN.md` and `docs/LEAN_COORDINATION.md`. Claude owns it;
+the older `docs/drafts/` sources and the aggregate-first descriptions below
+are retained history, not the current manuscript architecture.
+
+Codex reviewed `paper/` at `3a28bc1`, including the figures/examples at
+`8af0161`, without editing it. See
+[the review](docs/proofs/CLAUDE_MANUSCRIPT_REVIEW_2026-10-01.md) for exact fixes:
+admissible versus acyclic orientations in Theorem B; a missing cover hypothesis
+in one connectivity paragraph; an overbroad Lean-verification claim; and
+smaller wording/presentation follow-ups. The two independent read-only reviews
+found no substantive gap in the ordinary or circular component arguments.
+The isolated 33-page TeX build passes without warnings or box errors; all 79
+labels and 156 references check. Codex owns only this review and handoff update.
+The review agents have finished and hold no files. No Lean build was run.
+
+## Earlier Codex manuscript checkpoints
+
 The AS22 case audit after `8eb8550` found an exposition omission in the
 aggregate direct NN/DN orientation proof. The four-selection HRV identity
 replaces the finer AS22 orientation tables, but its assembly was too terse.
