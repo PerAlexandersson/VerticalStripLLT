@@ -120,39 +120,43 @@ The target of a DN contact has the same number of natural edges, and its
 
 \begin{figure}[!ht]
 \centering
-\ytableausetup{boxsize=1.1em}
-\begin{ytableau}
-*(lightgray)\to & & *(yellow) t \\
- & *(yellow) y \\
-*(yellow) x
-\end{ytableau}
-\;\;$\longmapsto$\;\;
-\begin{ytableau}
-*(lightgray) & *(lightgray)\to & *(yellow) t \\
- & *(yellow) y \\
-*(yellow) x
-\end{ytableau}
+\begin{tikzpicture}[llt={cell=0.8em}]
+\LLTframe{5}{8}
+\draw[llt arbitrary] (0,0)--(1,2) (1,4)--(2,6) (4,7)--(5,8);
+\LLTsteps{1}{2}{nn}\LLTsteps{2}{6}{de}
+\draw[llt bounce] (3,7)--(3,3)--(1,3);
+\end{tikzpicture}
+\;$\longmapsto$\;
+\begin{tikzpicture}[llt={cell=0.8em}]
+\LLTframe{5}{8}
+\draw[llt arbitrary] (0,0)--(1,2) (1,4)--(2,6) (4,7)--(5,8);
+\LLTsteps{1}{2}{nn}\LLTsteps{2}{6}{ed}
+\draw[llt bounce] (3,6)--(3,3)--(1,3);
+\end{tikzpicture}
 \qquad\qquad
-\begin{ytableau}
-*(lightgray) & *(lightgray)\to & & *(yellow) t \\
-*(lightgray) & & *(yellow) y \\
-*(lightgray)\to & *(yellow) x \\
-*(yellow) u
-\end{ytableau}
-\;\;$\longmapsto$\;\;
-\begin{ytableau}
-*(lightgray) & *(lightgray) & *(lightgray)\to & *(yellow) t \\
-*(lightgray)\to & & *(yellow) y \\
- & *(yellow) x \\
-*(yellow) u
-\end{ytableau}
-\caption{The local edges of an NN contact (left) and a DN contact (right) and
-of their targets.
-Shaded cells are not natural edges, shaded cells with an arrow are strict
-edges, and white cells are normal edges.
-The vertices $x$ and $y=x+1$ are consecutive, while other vertices may lie
-between $u$ and $x$ and between $y$ and $t$; they are not shown.
-All other vertices and edges are unchanged.}
+\begin{tikzpicture}[llt={cell=0.8em}]
+\LLTframe{5}{8}
+\draw[llt arbitrary] (0,0)--(1,2) (2,4)--(2,6) (4,7)--(5,8);
+\LLTsteps{1}{2}{dn}\LLTsteps{2}{6}{de}
+\draw[llt bounce] (3,7)--(3,3)--(2,3);
+\end{tikzpicture}
+\;$\longmapsto$\;
+\begin{tikzpicture}[llt={cell=0.8em}]
+\LLTframe{5}{8}
+\draw[llt arbitrary] (0,0)--(1,2) (2,4)--(2,6) (4,7)--(5,8);
+\LLTsteps{1}{2}{nd}\LLTsteps{2}{6}{ed}
+\draw[llt bounce] (3,6)--(3,3)--(1,3);
+\end{tikzpicture}
+\caption{An NN contact (left) and a DN contact (right), each followed by its
+target, drawn as in~\cite[(3), (4)]{AlexanderssonSulzgruber2022}.
+Thick segments are steps of the Schröder path, and dotted segments are
+arbitrary.
+The diagonal steps at the top cross the strict edge $xt$, and $yt$ in the
+targets.
+The red path goes down from there to the diagonal box of $x$ and then left to
+the path, between the rows of $x$ and $y=x+1$.
+In the DN contact the diagonal step at the bottom crosses the strict edge $ux$,
+and in its target $uy$.}
 \label{fig:contacts}
 \end{figure}
 
@@ -270,24 +274,9 @@ contact: $25$ is the only strict edge leaving $2$, no strict edge ends at $2$ or
 $3$, $b(2)=b(3)=1$, and $b(6)=4>3$.
 Its target $R$ has area sequence $(0,1,2,3,2,2)$ and strict edges $14$ and $35$:
 \[
-\ytableausetup{boxsize=1.1em}
-\begin{ytableau}
-*(lightgray) & *(lightgray) & *(lightgray) & & & *(yellow) 6 \\
-*(lightgray) & *(lightgray)\to & & & *(yellow) 5 \\
-*(lightgray)\to & & & *(yellow) 4 \\
- & & *(yellow) 3 \\
- & *(yellow) 2 \\
-*(yellow) 1
-\end{ytableau}
+\LLTpic{nnnddeneee}{}
 \;\;\longmapsto\;\;
-\begin{ytableau}
-*(lightgray) & *(lightgray) & *(lightgray) & & & *(yellow) 6 \\
-*(lightgray) & *(lightgray) & *(lightgray)\to & & *(yellow) 5 \\
-*(lightgray)\to & & & *(yellow) 4 \\
- & & *(yellow) 3 \\
- & *(yellow) 2 \\
-*(yellow) 1
-\end{ytableau}
+\LLTpic{nnndedneee}{}
 \]
 The graph $\Gamma$ has nine normal edges and $R$ has eight, and
 Proposition~\ref{prop:layer}, summed as above, gives
@@ -454,10 +443,9 @@ classes of the two parts.
 \draw[sel] (1,0.3) to[bend left=35] (2,0.3);
 \draw[sel] (2,0.3) to[bend left=35] (4,0.3);
 \draw[sel] (4,-0.3) to[bend right=35] (6,-0.3);
-\node at (2,-1) {left part};
-\node at (5.5,-1) {right part};
 \end{tikzpicture}
-\caption{Gluing at $c$.
+\caption{Gluing at $c$, with the left part $[1,c]$ on the light blue background
+and the right part $[c,n]$ on the light orange one.
 A left fibre whose highest reachable vertex is $c$ (red) merges with the right
 fibre containing $c$ (blue).
 In the merged chain, $c$ is the largest left vertex and the smallest right
@@ -555,18 +543,7 @@ articulation of the graph induced on $[b,c]$, and $b(c+1)=c$ if $c<n$.
 
 \begin{figure}[!ht]
 \centering
-\ytableausetup{boxsize=0.9em}
-\begin{ytableau}
-*(lightgray) & *(lightgray) & *(lightgray) & *(lightgray) & *(lightgray) & *(lightgray) & *(lightgray) & *(orange!35) & *(yellow) 9 \\
-*(lightgray) & *(lightgray) & *(lightgray) & *(lightgray) & *(lightgray) & *(orange!35) & *(orange!35) & *(yellow) 8 \\
-*(lightgray) & *(lightgray) & *(lightgray) & *(lightgray) & *(lightgray) & *(orange!35) & *(yellow) 7 \\
-*(lightgray) & *(lightgray) & *(lightgray) & *(blue!20) & *(blue!20) & *(yellow) 6 \\
-*(lightgray) & *(blue!20) & *(blue!20) & *(blue!20) & *(yellow) 5 \\
-*(lightgray) & *(blue!20) & *(blue!20) & *(yellow) 4 \\
-*(lightgray) & *(blue!20) & *(yellow) 3 \\
-*(green!35) & *(yellow) 2 \\
-*(yellow) 1
-\end{ytableau}
+\LLTpic[cell=0.9em]{nnennneeneenneenee}{\LLTshade{1/2}{green!35}\LLTshade{2/3,2/4,3/4,2/5,3/5,4/5,4/6,5/6}{blue!20}\LLTshade{6/7,6/8,7/8,8/9}{orange!35}}
 \caption{The area sequence $(0,1,1,2,3,2,1,2,1)$, with $j=4$, $b=2$ and $c=6$ in
 Lemma~\ref{lem:prefix}.
 The prefix is the path $1,2$ (green) followed by the graph on $[2,6]$ without

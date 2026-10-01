@@ -10,7 +10,6 @@
 \usepackage{enumerate,booktabs,bm}
 \usepackage{tikz}
 \usetikzlibrary{decorations.pathmorphing,arrows.meta,positioning}
-\usepackage[centertableaux]{ytableau}
 \usepackage{xcolor}
 \usepackage{hyperref}
 
@@ -81,6 +80,21 @@
   strictedge/.style={-{Stealth[length=2mm]},very thick,red!70!black},
   unsel/.style={densely dotted,gray},
 }
+\input{diagrams}
+
+% The four graphs of the four-term identity; #1 and #2 say whether uv and vw
+% are present.
+\newcommand{\FTpic}[2]{%
+  \begin{tikzpicture}[x=2.05em,y=2.2em,
+      every node/.append style={minimum size=1.15em,font=\scriptsize}]
+  \draw[llt arbitrary,line width=0.6pt] (-0.6,0)--(2.6,0);
+  \node[vtx,fill=white] (u) at (0,0) {$u$};
+  \node[vtx,fill=white] (v) at (1,0) {$v$};
+  \node[vtx,fill=white] (w) at (2,0) {$w$};
+  \draw[sel] (u) to[out=70,in=110,looseness=1.1] (w);
+  \ifnum#1=1 \draw[sel] (u) to[out=50,in=130] (v);\fi
+  \ifnum#2=1 \draw[sel] (v) to[out=50,in=130] (w);\fi
+  \end{tikzpicture}}
 
 %--------------------------------------------------
 %  Front matter

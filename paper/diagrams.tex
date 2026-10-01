@@ -1,0 +1,121 @@
+%--------------------------------------------------
+%  Diagrams of decorated unit-interval graphs
+%--------------------------------------------------
+%
+% A graph is drawn as in [AS22]: vertex v is the diagonal box
+% [v-1,v]x[v-1,v], the natural edge uv (u<v) is the cell [u-1,u]x[v-1,v],
+% and the Schröder path in the steps n, e, d bounds the natural edges from
+% the left.  A diagonal step crosses a strict corner.
+%
+%   \LLTpic[<tikz options>]{<path>}{<overlays>}
+%       A complete diagram, e.g. \LLTpic{nnnddeneee}{\LLTasc{1/3,2/3}}.
+%   \LLTdiagram{<path>}      inside a tikzpicture with style llt
+%   \LLTasc{u/v,...}         ascending edges (arrows)
+%   \LLTvertex{v,...}{color} recolor diagonal boxes
+%   \LLTshade{u/v,...}{color} shade cells
+%   \LLTmark{u/v,...}{text}  put a symbol in cells
+%   \LLTsteps[style]{x}{y}{path}  draw a path from (x,y), for general
+%       pictures; combine with the styles llt arbitrary, llt diagonal and
+%       llt bounce.
+%   \LLTframe{w}{h}          background and diagonal of a general picture
+%
+% Options: llt/cell (box size, default 1.1em), llt/label font,
+% llt/labels (true/false), llt/first (label of the first vertex, default 1).
+
+\pgfdeclarelayer{lltback}
+\pgfsetlayers{lltback,main}
+
+\makeatletter
+\newif\ifllt@labels
+\pgfkeys{/llt/.cd,
+  cell/.store in=\llt@cell, cell=1.1em,
+  label font/.store in=\llt@labelfont, label font=\scriptsize,
+  labels/.is if=llt@labels, labels=true,
+  first/.store in=\llt@first, first=1,
+  vertex fill/.store in=\llt@vfill, vertex fill=yellow}
+\newcommand{\lltset}[1]{\pgfkeys{/llt/.cd,#1}}
+
+\tikzset{
+  llt/.style={/llt/.cd,#1,/tikz/.cd,x=\llt@cell,y=\llt@cell},
+  llt/.default={},
+  llt grid/.style={draw=black!55,line width=0.3pt},
+  llt path/.style={line width=1.1pt,line cap=round,line join=round},
+  llt arbitrary/.style={line width=1.1pt,dotted,line cap=round},
+  llt diagonal/.style={black!45,line width=0.4pt},
+  llt bounce/.style={red!75!black,line width=0.9pt,-{Stealth[length=1.6mm]}},
+  llt asc/.style={-{Stealth[length=1mm]},line width=0.5pt},
+  llt frame/.style={black!6},
+}
+
+\newcount\llt@x
+\newcount\llt@y
+\newcount\llt@i
+
+% \LLTsteps[style]{x}{y}{word}
+\newcommand{\LLTsteps}[4][llt path]{%
+  \begingroup
+  \pgfmathsetmacro\llt@px{#2}\pgfmathsetmacro\llt@py{#3}%
+  \edef\llt@path{(\llt@px,\llt@py)}%
+  \@tfor\llt@s:=#4\do{%
+    \if n\llt@s\pgfmathsetmacro\llt@py{\llt@py+1}\fi
+    \if e\llt@s\pgfmathsetmacro\llt@px{\llt@px+1}\fi
+    \if d\llt@s\pgfmathsetmacro\llt@px{\llt@px+1}%
+      \pgfmathsetmacro\llt@py{\llt@py+1}\fi
+    \edef\llt@path{\llt@path--(\llt@px,\llt@py)}}%
+  \draw[#1] \llt@path;%
+  \endgroup}
+
+% One row: the path is at x, the row is y+1.
+\newcommand{\llt@row}{%
+  \llt@i=\llt@x
+  \loop\ifnum\llt@i<\llt@y
+    \draw[llt grid] (\the\llt@i,\the\llt@y) rectangle +(1,1);%
+    \advance\llt@i by 1
+  \repeat
+  \begin{pgfonlayer}{lltback}
+    \fill[\llt@vfill] (\the\llt@y,\the\llt@y) rectangle +(1,1);%
+  \end{pgfonlayer}%
+  \draw[llt grid] (\the\llt@y,\the\llt@y) rectangle +(1,1);%
+  \ifllt@labels
+    \node[font=\llt@labelfont,inner sep=0pt]
+      at (\the\llt@y+0.5,\the\llt@y+0.5) {$\the\numexpr\llt@y+\llt@first\relax$};%
+  \fi}
+
+\newcommand{\LLTdiagram}[1]{%
+  \begin{scope}[shift={(\llt@first-1,\llt@first-1)}]
+  \begingroup
+  \llt@x=0 \llt@y=0
+  \@tfor\llt@s:=#1\do{%
+    \if n\llt@s\llt@row\advance\llt@y by 1 \fi
+    \if d\llt@s\llt@row\advance\llt@x by 1 \advance\llt@y by 1 \fi
+    \if e\llt@s\advance\llt@x by 1 \fi}%
+  \endgroup
+  \LLTsteps{0}{0}{#1}
+  \end{scope}}
+
+\newcommand{\LLTframe}[2]{%
+  \fill[llt frame] (-0.4,-0.4) rectangle (#1+0.4,#2+0.4);%
+  \draw[llt diagonal] (-0.4,-0.4)--(#1+0.4,#1+0.4);}
+
+\newcommand{\LLTasc}[1]{%
+  \foreach \u/\v in {#1}{\draw[llt asc] (\u-0.82,\v-0.5)--(\u-0.18,\v-0.5);}}
+
+\newcommand{\LLTvertex}[2]{%
+  \foreach \v in {#1}{%
+    \begin{pgfonlayer}{lltback}
+      \fill[#2] (\v-1,\v-1) rectangle (\v,\v);
+    \end{pgfonlayer}}}
+
+\newcommand{\LLTshade}[2]{%
+  \foreach \u/\v in {#1}{%
+    \begin{pgfonlayer}{lltback}
+      \fill[#2] (\u-1,\v-1) rectangle (\u,\v);
+    \end{pgfonlayer}}}
+
+\newcommand{\LLTmark}[2]{%
+  \foreach \u/\v in {#1}{%
+    \node[font=\llt@labelfont,inner sep=0pt] at (\u-0.5,\v-0.5) {#2};}}
+
+\newcommand{\LLTpic}[3][]{%
+  \begin{tikzpicture}[llt={#1}]\LLTdiagram{#2}#3\end{tikzpicture}}
+\makeatother

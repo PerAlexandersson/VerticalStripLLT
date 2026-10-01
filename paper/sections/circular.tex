@@ -75,15 +75,13 @@ $\Kv(\theta)=\Kv(F)$ and $[H_\theta]=[H_F]$ for $F=\{1\to3,3\to2\}$.
 The set $F$ is balanced; its lift is the path $1\to3\to5$, so $1$ and $3$ have the
 highest reachable vertex $5\equiv2$, with or without the edge $1\to2$, and both
 values equal $\elementaryE_3$.
-In the lift below, the gray numbers are residues modulo $3$, the solid edges are
-the lift of $F$ starting in $\{1,2,3\}$, and the dashed edge is the lift of the
-deleted edge $1\to2$:
+In the lift below, the integer $z$ lies over the residue of $z$ modulo $3$, the
+solid edges are the lift of $F$ starting in $\{1,2,3\}$, and the dashed edge is
+the lift of the deleted edge $1\to2$:
 \[
 \begin{tikzpicture}[x=3.2em,y=3em]
 \draw[gray] (0.4,0)--(5.6,0);
-\foreach \z/\r in {1/1,2/2,3/3,4/1,5/2}{
-  \node[vtx,fill=white] (z\z) at (\z,0) {$\z$};
-  \node[font=\scriptsize,gray] at (\z,-0.85) {$\r$};}
+\foreach \z in {1,...,5}{\node[vtx,fill=white] (z\z) at (\z,0) {$\z$};}
 \draw[sel,gray,densely dashed] (z1) to[out=-60,in=-120,looseness=1.8] (z2);
 \draw[sel] (z1) to[bend left=45] (z3);
 \draw[sel] (z3) to[bend left=45] (z5);

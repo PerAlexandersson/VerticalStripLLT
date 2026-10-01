@@ -49,27 +49,20 @@ step followed by an east step, and the strict edges are the cells of the
 diagonal steps.
 
 We draw $\Gamma$ as in~\cite{AlexanderssonSulzgruber2022}.
-The cell in column $u$ and row $v$ represents the pair $uv$; white cells are
-normal edges, shaded cells are not natural edges, and a shaded cell with an
-arrow is a strict edge.
+The diagonal box in row $v$ is the vertex $v$, and the cell in column $u$ and
+row $v$, for $u<v$, is the pair $uv$.
+The natural edges are the cells between the Schröder path and the diagonal, and
+the diagonal steps of the path cross the strict edges.
 
 \begin{example}\label{ex:running}
 The Schröder path $\nstep\nstep\nstep\dstep\dstep\estep\nstep\estep\estep\estep$
 of~\cite[Ex.~2.8]{AlexanderssonSulzgruber2022} gives the area sequence
 $(0,1,2,3,3,2)$ with strict edges $14$ and $25$.
 The corners are $14$, $25$ and $46$; only the first two are strict.
-In the left diagram below, arrows in white cells mark the ascending edges of an
-orientation $\theta$, defined in the next subsection:
+In the diagram below, arrows mark the ascending edges of an orientation
+$\theta$, defined in the next subsection:
 \[
-\ytableausetup{boxsize=1.1em}
-\begin{ytableau}
-*(lightgray) & *(lightgray) & *(lightgray) & & \to & *(yellow) 6 \\
-*(lightgray) & *(lightgray) \to & & & *(yellow) 5 \\
-*(lightgray) \to & \to & \to & *(yellow) 4 \\
-\to & \to & *(yellow) 3 \\
- & *(yellow) 2 \\
-*(yellow) 1
-\end{ytableau}
+\LLTpic{nnnddeneee}{\LLTasc{1/3,2/3,2/4,3/4,5/6}}
 \]
 \end{example}
 
@@ -144,18 +137,10 @@ paths.
 The fibres are $\{1,3,4\}$ and $\{2,5,6\}$, so $\lambda(\theta)=(3,3)$, and
 $\theta$ contributes $q^{5}\elementaryE_{33}$ to Theorem~\ref{thm:AS} below,
 see also~\cite[Ex.~2.8]{AlexanderssonSulzgruber2022}.
-Below, the diagonal cells and the vertices are colored by fibre, and the right
+Below, the diagonal boxes and the vertices are colored by fibre, and the right
 picture is the Hasse diagram of $\Pplus{\theta}$:
 \[
-\ytableausetup{boxsize=1.1em}
-\begin{ytableau}
-*(lightgray) & *(lightgray) & *(lightgray) &  & \to & *(cyan!35) 6 \\
-*(lightgray) & *(lightgray)\to &  &  & *(cyan!35) 5 \\
-*(lightgray)\to & \to & \to & *(yellow) 4 \\
-\to & \to & *(yellow) 3 \\
- & *(cyan!35) 2 \\
-*(yellow) 1
-\end{ytableau}
+\LLTpic{nnnddeneee}{\LLTasc{1/3,2/3,2/4,3/4,5/6}\LLTvertex{2,5,6}{cyan!35}}
 \qquad\qquad
 \begin{tikzpicture}[x=2.6em,y=2.6em]
 \node[vtx,fill=yellow] (1) at (0,0) {1};
@@ -221,7 +206,6 @@ Figure~\ref{fig:flip}.
 \draw[sel] (u)--(v);
 \draw[sel] (u)--(w);
 \draw[unsel] (v)--(w);
-\node at (0.5,-0.9) {$\theta$};
 \end{scope}
 \draw[<->,thick] (2,1)--(3.4,1);
 \begin{scope}[xshift=13em]
@@ -231,18 +215,15 @@ Figure~\ref{fig:flip}.
 \draw[unsel] (u)--(v);
 \draw[sel] (u)--(w);
 \draw[sel] (v)--(w);
-\node at (0.5,-0.9) {$\theta'$};
 \end{scope}
 \end{tikzpicture}
-\caption{A flip at $u<v<w$.
+\caption{A flip at $u<v<w$, from $\theta$ (left) to $\theta'$ (right).
 The long edge $uw$ is kept, and the upward short edge moves from $uv$ to $vw$;
 dotted pairs are not upward edges.
 Both drawn edges on each side must be covers, and all other edges of
 $\Dplus{\theta}$ are unchanged.}
 \label{fig:flip}
 \end{figure}
-
-
 
 Since $u\lessdot w$ in $\Pplus{\theta}$, the pair $uw$ is an edge of
 $\Dplus{\theta}$, the \defin{long edge} of the flip.
@@ -284,20 +265,11 @@ Let $\Gamma$ be the complete graph on $[3]$, with area sequence $(0,1,2)$ and no
 strict edges.
 The two orientations
 \[
-\ytableausetup{boxsize=1.1em}
 \theta=\;
-\begin{ytableau}
-\to & & *(yellow) 3 \\
-\to & *(yellow) 2 \\
-*(yellow) 1
-\end{ytableau}
+\LLTpic{nnneee}{\LLTasc{1/2,1/3}}
 \qquad\text{and}\qquad
 \theta'=\;
-\begin{ytableau}
-\to & \to & *(yellow) 3 \\
- & *(yellow) 2 \\
-*(yellow) 1
-\end{ytableau}
+\LLTpic{nnneee}{\LLTasc{1/3,2/3}}
 \]
 differ by a flip at $(1,2,3)$:
 the covers of $\Pplus{\theta}$ are $1\lessdot 2$ and $1\lessdot 3$, and those of
@@ -329,77 +301,28 @@ of a flip.
 
 \begin{figure}[!ht]
 \centering
-\ytableausetup{boxsize=0.72em}
-\begin{tikzpicture}[x=6.4em,y=6.4em]
-\node[align=center,inner sep=1pt] (s1) at (2, 0) {\begin{ytableau}
-\sto &  &  & *(yellow) 4 \\
-\sto &  & *(cyan!35) 3 \\
-\sto & *(pink!45) 2 \\
-*(yellow) 1
-\end{ytableau}\\[1pt]
-  {\scriptsize $\lambda=211$}};
-\node[align=center,inner sep=1pt] (s2) at (5, -1) {\begin{ytableau}
-\sto &  &  & *(yellow) 4 \\
- & \sto & *(cyan!35) 3 \\
-\sto & *(cyan!35) 2 \\
-*(yellow) 1
-\end{ytableau}\\[1pt]
-  {\scriptsize $\lambda=22$}};
-\node[align=center,inner sep=1pt] (s3) at (1, 0) {\begin{ytableau}
-\sto &  &  & *(yellow) 4 \\
-\sto & \sto & *(cyan!35) 3 \\
- & *(cyan!35) 2 \\
-*(yellow) 1
-\end{ytableau}\\[1pt]
-  {\scriptsize $\lambda=22$}};
-\node[align=center,inner sep=1pt] (s4) at (3, 0) {\begin{ytableau}
-\sto & \sto &  & *(yellow) 4 \\
-\sto &  & *(cyan!35) 3 \\
- & *(yellow) 2 \\
-*(yellow) 1
-\end{ytableau}\\[1pt]
-  {\scriptsize $\lambda=31$}};
-\node[align=center,inner sep=1pt] (s5) at (4, -1) {\begin{ytableau}
-\sto & \sto &  & *(yellow) 4 \\
- & \sto & *(cyan!35) 3 \\
- & *(yellow) 2 \\
-*(yellow) 1
-\end{ytableau}\\[1pt]
-  {\scriptsize $\lambda=31$}};
-\node[align=center,inner sep=1pt] (s6) at (2, -1) {\begin{ytableau}
-\sto &  & \sto & *(yellow) 4 \\
- &  & *(yellow) 3 \\
-\sto & *(pink!45) 2 \\
-*(yellow) 1
-\end{ytableau}\\[1pt]
-  {\scriptsize $\lambda=31$}};
-\node[align=center,inner sep=1pt] (s7) at (0, 0) {\begin{ytableau}
-\sto &  & \sto & *(yellow) 4 \\
- & \sto & *(yellow) 3 \\
- & *(yellow) 2 \\
-*(yellow) 1
-\end{ytableau}\\[1pt]
-  {\scriptsize $\lambda=4$}};
-\node[align=center,inner sep=1pt] (s8) at (3, -1) {\begin{ytableau}
-\sto & \sto & \sto & *(yellow) 4 \\
- &  & *(yellow) 3 \\
- & *(yellow) 2 \\
-*(yellow) 1
-\end{ytableau}\\[1pt]
-  {\scriptsize $\lambda=4$}};
-\draw[gray!70] (s1) -- node[font=\scriptsize,above,text=black] {$12\to23$} (s3);
-\draw[gray!70] (s1) -- node[font=\scriptsize,above,text=black] {$12\to24$} (s4);
-\draw[gray!70] (s1) -- node[font=\scriptsize,right,text=black] {$13\to34$} (s6);
-\draw[gray!70] (s2) -- node[font=\scriptsize,above,text=black] {$12\to24$} (s5);
-\draw[gray!70] (s3) -- node[font=\scriptsize,above,text=black] {$13\to34$} (s7);
-\draw[gray!70] (s4) -- node[font=\scriptsize,right,text=black] {$13\to34$} (s8);
-\draw[gray!70] (s5) -- node[font=\scriptsize,above,text=black] {$23\to34$} (s8);
-\draw[gray!70] (s6) -- node[font=\scriptsize,above,text=black] {$12\to24$} (s8);
+\begin{tikzpicture}[x=5.4em,y=5.4em]
+\node[inner sep=1pt] (s1) at (2, 0) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{1/2,1/3,1/4}\LLTvertex{2}{pink!45}\LLTvertex{3}{cyan!35}}};
+\node[inner sep=1pt] (s2) at (5, -1) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{1/2,2/3,1/4}\LLTvertex{2,3}{cyan!35}}};
+\node[inner sep=1pt] (s3) at (1, 0) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{1/3,2/3,1/4}\LLTvertex{2,3}{cyan!35}}};
+\node[inner sep=1pt] (s4) at (3, 0) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{1/3,1/4,2/4}\LLTvertex{3}{cyan!35}}};
+\node[inner sep=1pt] (s5) at (4, -1) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{2/3,1/4,2/4}\LLTvertex{3}{cyan!35}}};
+\node[inner sep=1pt] (s6) at (2, -1) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{1/2,1/4,3/4}\LLTvertex{2}{pink!45}}};
+\node[inner sep=1pt] (s7) at (0, 0) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{2/3,1/4,3/4}}};
+\node[inner sep=1pt] (s8) at (3, -1) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{1/4,2/4,3/4}}};
+\draw[gray] (s1) -- (s3);
+\draw[gray] (s1) -- (s4);
+\draw[gray] (s1) -- (s6);
+\draw[gray] (s2) -- (s5);
+\draw[gray] (s3) -- (s7);
+\draw[gray] (s4) -- (s8);
+\draw[gray] (s5) -- (s8);
+\draw[gray] (s6) -- (s8);
 \end{tikzpicture}
 \caption{A flip class of the complete graph on $[4]$, with eight orientations,
 each with three ascending edges.
-Lines are flips, labelled by the exchanged short edges, and the diagonal cells
-are colored by the fibres of $\hrv{\theta}{\cdot}$.}
+Lines are flips, and the diagonal boxes are colored by the fibres of
+$\hrv{\theta}{\cdot}$.}
 \label{fig:largerClass}
 \end{figure}
 
@@ -503,9 +426,7 @@ $\elementaryE_{111}+3q\,\elementaryE_{21}+3q^2\elementaryE_3$.
 \centering
 \begin{tikzpicture}[x=3em,y=3em]
 \draw[gray] (-0.5,0)--(6.5,0);
-\foreach \z/\r in {0/3,1/1,2/2,3/3,4/1,5/2,6/3}{
-  \node[vtx,fill=white] (z\z) at (\z,0) {$\z$};
-  \node[font=\scriptsize,gray] at (\z,-0.55) {$\r$};}
+\foreach \z in {0,...,6}{\node[vtx,fill=white] (z\z) at (\z,0) {$\z$};}
 \draw[sel] (z0) to[bend left=40] (z1);
 \draw[sel] (z1) to[bend left=40] (z2);
 \draw[sel,red!70!black] (z3) to[bend left=40] (z4);
@@ -513,8 +434,8 @@ $\elementaryE_{111}+3q\,\elementaryE_{21}+3q^2\elementaryE_3$.
 \draw[sel] (z6) to[bend left=40] (6.6,0.25);
 \end{tikzpicture}
 \caption{The lift to $\setZ$ of the orientation in Example~\ref{ex:threeCycle}
-with ascending edges $3\to1$ and $1\to2$; residues are shown below the
-integers.
+with ascending edges $3\to1$ and $1\to2$; the integer $z$ lies over the residue
+of $z$ modulo $3$.
 The path $3\to4\to5$ shows that $3$ reaches the lift $5$ of $2$.}
 \label{fig:lift}
 \end{figure}
