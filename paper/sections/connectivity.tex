@@ -499,9 +499,11 @@ Neither uses $uv$.
 Suppose that the last two corners are $bc$ and $ae$, with $b<a<c<e=n$.
 Let $Z=[1,c]\cup\{e\}$, and let the \defin{core} be the graph induced on $Z$,
 with the inherited order and strict edges.
-All corners other than $ae$ end at most at $c$, so the core has the same corners
-and corner chains as $\Gamma$, and its set $\Gplus$ consists of the edges of
-$\Gplus$ inside $Z$.
+All corners other than $ae$ end at most at $c$, so the vertices in $(c,e)$ lie
+on no corner.
+Hence the core has the same corners as $\Gamma$, its corner chains are those of
+$\Gamma$ except for the singleton chains of the vertices in $(c,e)$, and its
+set $\Gplus$ consists of the edges of $\Gplus$ inside $Z$.
 Every vertex strictly between $a$ and $e$ is the last vertex of its chain.
 Hence an orientation in $\Gplus$ has no edge from $a$ other than $ae$, and
 every natural edge with both endpoints strictly between $a$ and $e$, or ending
@@ -524,9 +526,11 @@ All pairs in $[a,e]$ are natural.
 Let a \defin{block} be a connected component of the graph formed by the edges of
 $\theta$ inside $[a,e]$.
 A path between two vertices of a block stays in $[a,e]$, and hence in the block.
-So Lemma~\ref{lem:complete}, applied to the complete graph on a block with its
-vertices in increasing order, gives flips of $\Gamma$ which change the edges
-inside the block and fix all other edges.
+So a flip of the complete graph on a block, with its vertices in increasing
+order, is a flip of $\Gamma$ which changes the edges inside the block and fixes
+all other edges.
+The block containing $a$ and $e$ has the extreme edge $ae$, which is a cover,
+so Lemma~\ref{lem:complete} applies to it.
 
 \smallskip\noindent\textbf{Step 1: making the core connected.}
 In the block containing $a$ and $e$, the vertex $a$ is only adjacent to $e$.
@@ -579,8 +583,8 @@ Now all of $[a,e]$ is one block.
 Indeed, every vertex in $(c,e)$ is joined, inside its block, to a vertex of $Z$ by
 a path whose edges are not inside $Z$, and these edges were not changed; and
 the vertices of $Z\cap[a,e]$ are joined to $e$ by $T'$.
-By Lemma~\ref{lem:complete} we make the block a star at $e$ together with edges
-avoiding $a$, containing $T'\cap[a,e]$.
+Since $ae$ is a cover, Lemma~\ref{lem:complete} makes the block a star at $e$
+together with edges avoiding $a$, containing $T'\cap[a,e]$.
 This gives an orientation containing the spanning tree
 $T=T'\cup\{ve:c<v<e\}$, see Figure~\ref{fig:lastCliqueTree}.
 

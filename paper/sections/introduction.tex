@@ -89,7 +89,8 @@ with~\eqref{eq:introAS} we obtain the following.
 
 \begin{theoremB}[Corollary~\ref{cor:circularExpansion}]
 The expansion~\eqref{eq:introAS} holds for every circular decorated unit-interval
-graph, where $\theta$ ranges over the acyclic orientations and highest reachable
+graph, where $\theta$ ranges over the admissible orientations, those in which the
+strict and ascending edges form no directed cycle, and highest reachable
 vertices are computed on the integer cover.
 \end{theoremB}
 
@@ -124,12 +125,13 @@ both sides, in terms of flip classes of graphs with fewer edges.
 A graph with articulations is cut at the end of its first block, and the
 relation is transported to the whole graph by fixing the color of the cut vertex.
 The circular case is reduced to the ordinary one: a finite signed expansion
-writes every acyclic orientation in terms of orientations whose edge lengths are
+writes every admissible orientation in terms of orientations whose edge lengths are
 differences of a potential, the coefficients are constant on flip classes, and
 the flip classes of such orientations can be drawn on a line.
 
-All results of this paper have been formally verified in the Lean proof
-assistant using Mathlib; the formalization is available at
+Theorem~A for ordinary and circular graphs, and the elementary expansions
+obtained from it, have been formally verified in the Lean proof assistant using
+Mathlib; the formalization is available at
 \url{https://github.com/PerAlexandersson/VerticalStripLLT}.
 
 \subsection*{Outline}

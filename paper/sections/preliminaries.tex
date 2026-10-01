@@ -330,7 +330,7 @@ of a flip.
 \begin{figure}[!ht]
 \centering
 \ytableausetup{boxsize=0.72em}
-\begin{tikzpicture}[x=5.9em,y=6.2em]
+\begin{tikzpicture}[x=6.4em,y=6.4em]
 \node[align=center,inner sep=1pt] (s1) at (2, 0) {\begin{ytableau}
 \sto &  &  & *(yellow) 4 \\
 \sto &  & *(cyan!35) 3 \\
@@ -387,14 +387,14 @@ of a flip.
 *(yellow) 1
 \end{ytableau}\\[1pt]
   {\scriptsize $\lambda=4$}};
-\draw[gray] (s1) -- node[font=\tiny,above] {$12\to23$} (s3);
-\draw[gray] (s1) -- node[font=\tiny,above] {$12\to24$} (s4);
-\draw[gray] (s1) -- node[font=\tiny,right] {$13\to34$} (s6);
-\draw[gray] (s2) -- node[font=\tiny,above] {$12\to24$} (s5);
-\draw[gray] (s3) -- node[font=\tiny,above] {$13\to34$} (s7);
-\draw[gray] (s4) -- node[font=\tiny,right] {$13\to34$} (s8);
-\draw[gray] (s5) -- node[font=\tiny,above] {$23\to34$} (s8);
-\draw[gray] (s6) -- node[font=\tiny,above] {$12\to24$} (s8);
+\draw[gray!70] (s1) -- node[font=\scriptsize,above,text=black] {$12\to23$} (s3);
+\draw[gray!70] (s1) -- node[font=\scriptsize,above,text=black] {$12\to24$} (s4);
+\draw[gray!70] (s1) -- node[font=\scriptsize,right,text=black] {$13\to34$} (s6);
+\draw[gray!70] (s2) -- node[font=\scriptsize,above,text=black] {$12\to24$} (s5);
+\draw[gray!70] (s3) -- node[font=\scriptsize,above,text=black] {$13\to34$} (s7);
+\draw[gray!70] (s4) -- node[font=\scriptsize,right,text=black] {$13\to34$} (s8);
+\draw[gray!70] (s5) -- node[font=\scriptsize,above,text=black] {$23\to34$} (s8);
+\draw[gray!70] (s6) -- node[font=\scriptsize,above,text=black] {$12\to24$} (s8);
 \end{tikzpicture}
 \caption{A flip class of the complete graph on $[4]$, with eight orientations,
 each with three ascending edges.
@@ -436,7 +436,6 @@ $6$ & $132$ & $106419$ & $25276$ & $11331$ & $2589$ \\
 \bottomrule
 \end{tabular}
 \end{center}
-For all these classes, a computer check confirms Theorem~\ref{thm:main}.
 
 \subsection{Circular graphs}\label{subs:circularDefinitions}
 
