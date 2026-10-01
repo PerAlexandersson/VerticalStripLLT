@@ -21,6 +21,23 @@ from label `i` to label `j`, with `i<j`. The macro checks these bounds.
 All unspecified off-diagonal cells are optional natural edges. Use an
 explicit forbidden cell for each displayed pair which is not natural.
 
+For a whole ordinary diagram, supply its area sequence to cross out those
+pairs automatically:
+
+```tex
+\LLTAreaDiagram[condition={A\in C}]{0,1,2,3}{0,1,2,1}{
+  \LLTStrict{1}{3}
+  \LLTStrict{3}{4}
+}
+```
+
+The label and area lists must have equal lengths; area entries are integers
+with `0 <= a_i <= i` and `a_(i+1) <= a_i+1`. The command checks these bounds.
+Its final argument adds restrictions using the same cell commands. Supply
+only restrictions compatible with the specified natural edges; the renderer
+does not verify strict-corner or cover conditions. A label such as `5` can
+occupy position one: the area sequence uses positions, not numerical labels.
+
 | Command inside the diagram | Meaning | Cell entry |
 | --- | --- | --- |
 | `\LLTOptional{i}{j}` | Natural normal edge, freely selected or absent | Blank |
@@ -53,6 +70,9 @@ the two short bits fixed as supplied.
 
 `diagram-examples.tex` is a two-page legend and mathematical usage guide.
 `ordinary-diamond.tex` and `layer-relations.tex` generate the draft's SVGs.
+`prefix-attachment.tex` shows component-restricted sums glued at a fixed
+endpoint color. Its right factor omits the shared vertex weight, as indicated
+by `\widehat V`; the surrounding statement defines this valuation.
 An equation between diagrams means equality of the indicated sums. A
 flip-path arrow is stated separately as a correspondence between endpoint
 states; it does not assert equality of their individual valuations.
@@ -65,6 +85,8 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error ordinary-diamond.tex
 pdftocairo -svg ordinary-diamond.pdf ordinary-diamond.svg
 latexmk -pdf -interaction=nonstopmode -halt-on-error layer-relations.tex
 pdftocairo -svg layer-relations.pdf layer-relations.svg
+latexmk -pdf -interaction=nonstopmode -halt-on-error prefix-attachment.tex
+pdftocairo -svg prefix-attachment.pdf prefix-attachment.svg
 ```
 
 The previous external `LLTCells` macro was inspected for the diagonal-label

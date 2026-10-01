@@ -14,11 +14,12 @@ includes the local diamond proof, absent-corner deletion, weak-block reordering,
 alternating corner deletion, envelope normalization, and the full NN/DN layer
 calculation with explicit selected-edge counts. It also develops
 initial-vertex inheritance and right-endpoint attachment in detail. Its opening
-states the component theorem, and its final section summarizes the established
-component-recursion argument. Preparation, restored-exterior crossing slides, the complete and two-chain
+states the component theorem, and its final sections give prefix selection,
+the four first-contact cases, attachment measure decrease and the final
+component induction. Preparation, restored-exterior crossing slides, the complete and two-chain
 bases, last-clique inheritance, and the chain-quotient path lemma still need
-their detailed manuscript proofs. The final first-drop/prefix induction is
-still summarized. The section is therefore not yet a self-contained paper. The mathematical source is the
+their detailed manuscript proofs. The section is therefore not yet a
+self-contained paper. The mathematical source is the
 [assembled proof](../proofs/COMPONENT_DIAGRAM_COMPLETION.md).
 
 The independent Lean formalization is unfinished. The draft does not claim
@@ -39,11 +40,12 @@ manuscript prose.
 | Connect all feasible extra sets | `initialVertex_connected_core_anchors` | Checked actual assembly under the stated core hypotheses |
 | Initial-vertex inheritance for common-cover states | `commonCover_connected_of_initialVertex_core` | Checked preparation, sector paths and reversed target preparation |
 | Preserve chain count and discharge matching-edge removability | `CornerFamily.initialVertex_fixedTerminal_card`, `commonCover_connected_of_initialVertex_short` | Checked under short-edge and three-chain hypotheses, leaving smaller-core uniqueness |
-| Preserve short edges in the canonical last-clique core | `lastClique_induced_short_naturalEdges` | Checked; reversed first-clique induction still needs assembly |
+| Preserve short edges in the canonical last-clique core | `lastClique_induced_short_naturalEdges` | Checked; used in the reversed first-clique induction |
 | At most two corner chains | `CornerFamily.commonCover_connected_of_terminal_card_le_two` | Checked cardinality wrapper for the two-terminal path theorem |
-| Global common-cover uniqueness | P6 global induction | Unfinished |
+| Common-cover uniqueness without articulation | `commonCoverUnique_of_shortEdges` | Claude reports checked at `fb68ff5`; initial-path extension remains unfinished |
 | Endpoint-marked K and E | `markedK`, `markedE`, `markedK_diamond`, `markedE_diamond` | Existing checked semantics; see plan for the P2 interfaces |
 | Figure 4: attachment and fibre merger | `IsRightAttachment.flipComponent_glue`, `hrv_glue_left`, `hrv_glue_right`, `attach_transfer` | Checked at `26b2d97`: whole product components, marked K/E transfer and measure decrease |
+| Figure 5: first nontrivial prefix and fixed attachment | P9 prefix selection; `attach_measure_lt` | Prefix selection written in detail; attachment measure transfer checked |
 | Whole-component corrections and marked recurrences | P7–P8 | Unfinished |
 | First-drop coverage and final expansion | P9–P10 | Unfinished |
 
@@ -70,10 +72,10 @@ colors. Gray/white cells distinguish unweighted and normal-edge-weighted sums.
 The two-page `diagram-examples.tex` preview and the diamond and NN/DN figures
 compile without warnings or box overflows and were visually inspected.
 
-The diamond and layer SVGs are generated from their small `.tex` sources using
+The diamond, layer and prefix-attachment SVGs are generated from their `.tex` sources using
 `llt-diagrams.sty`; edit those sources rather than their generated font paths.
 The other SVG figures are editable vector sources. Their PNG previews live in the
-external request cache, and both figures have been visually inspected. The
+external request cache, and all figures have been visually inspected. The
 cell figure follows the diagonal-label and selected-cell convention of the
 paper with Robin; its retained arrows indicate corner covers at the two
 displayed endpoints.

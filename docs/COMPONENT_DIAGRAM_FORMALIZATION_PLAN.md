@@ -666,7 +666,8 @@ The first parts are now verified, following the same written diagrams:
 | Retain the chain count after deleting the initial nonterminal vertex | `CornerFamily.initialVertex_fixedTerminalEquiv`, `CornerFamily.initialVertex_fixedTerminal_card` | Verified bijection of terminal fixed points |
 | Retain short edges and connectivity after one further vertex deletion | `initialVertex_induced_short_naturalEdges`, `initialVertex_induced_naturalEdges_delete_of_short` | Verified |
 | Derive matching-edge removability and apply inheritance | `CornerFamily.initialVertex_goodEdgeGraph_delete_connected`, `commonCover_connected_of_initialVertex_short` | Verified, with three chains, short edges and smaller-core uniqueness |
-| Supply those hypotheses by global vertex-count induction | Not yet assembled | Open |
+| Supply those hypotheses by vertex-count induction without articulation | `commonCoverUnique_of_shortEdges` | Claude reports verified at `fb68ff5`, with 724 standard-axiom checks |
+| Extend uniqueness through a forced initial path | Not yet assembled | Open |
 
 `ClosedInducedAnchors` extracts the precise restriction condition: retained
 vertices are closed under corner successors. Requiring every ambient corner

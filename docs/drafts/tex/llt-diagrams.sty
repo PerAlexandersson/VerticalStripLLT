@@ -105,6 +105,31 @@
   \endgroup
 }
 
+% Ordinary area sequence: cross out the non-natural pairs automatically.
+% The final argument imposes additional restrictions with the usual commands.
+\NewDocumentCommand{\LLTAreaDiagram}{O{} m m +m}{%
+  \ifnum\lltcountlabels{#2}=\lltcountlabels{#3}\else
+    \PackageError{llt-diagrams}{Label and area counts must agree}{}%
+  \fi
+  \LLTDiagram[#1]{#2}{%
+    \foreach \area [count=\row,remember=\area as \previous (initially 0)] in {#3} {
+      \ifnum\area<0
+        \PackageError{llt-diagrams}{Area entries must be nonnegative integers}{}%
+      \fi
+      \ifnum\area<\row\else
+        \PackageError{llt-diagrams}{Area entry exceeds its vertex index}{}%
+      \fi
+      \ifnum\area>\numexpr\previous+1\relax
+        \PackageError{llt-diagrams}{Area growth exceeds one}{}%
+      \fi
+      \pgfmathtruncatemacro{\lastforbidden}{\row-\area-1}%
+      \ifnum\lastforbidden>0
+        \foreach \col in {1,...,\lastforbidden} {\LLTForbidden{\col}{\row}}%
+      \fi
+    }
+    #4}%
+}
+
 % Convenient fixed restrictions; all rendering still goes through LLTDiagram.
 \NewDocumentCommand{\LLTSelectionTriangle}{O{} m m m}{%
   \LLTDiagram[#1]{#2}{%

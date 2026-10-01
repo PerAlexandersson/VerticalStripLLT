@@ -591,39 +591,214 @@ identity (4) by $\widehat V(T)[\beta]$, and sum over $\beta$. This gives
 (5) with exactly the coefficients $z_i$. The one-vertex attachment has
 omitted weight $1$ for each allowed fixed color, so it is included.
 
-## From the local relations to the component theorem
+## Choosing the prefix and the first contact
 
-We apply induction on the lexicographic triple consisting of vertex
-count, natural area, and area moment. Missing-corner deletion, alternating
-corner deletion, and weak-block reordering give the smaller corrections.
-We normalize to the selected-edge envelope; if it is proper, natural
-area decreases. Disjoint natural components factor on fewer vertices.
-The saturated connected path is an increasing chain, with value $e_n$.
+Write $b_i=i-a_i$ and append $a_n=0$ for the terminal comparison.
+The boundaries $b_i$ are nondecreasing. A corner ending at $i$ is
+$b_i i$, and it exists exactly when $a_i>0$ and $a_{i+1}\leq a_i$.
+We call a diagram saturated when every natural corner is marked strict.
 
-For a connected common-cover component in a graph without articulation,
-uniqueness permits the component collection: we add the other source
-components to complete its total-edge layer, apply the local NN or DN
-relation, then subtract their smaller corrections. NN yields target
-layers $s$ and $s-1$; DN yields target layer $s$. DD and ND first unmark
-the obstructing selected corner to use these same constructions. This
-changes the representation of the component while preserving its states
-and the two unweighted values.
+The natural graph is connected precisely when $a_i>0$ for every $i>0$.
+These inequalities supply the adjacent-edge spanning path. Conversely,
+if $a_i=0$, every later boundary is at least $i$, so no natural edge
+crosses the cut between $i-1$ and $i$.
 
-For a graph with articulations, we take the initial path and the first
-nontrivial block as the prefix. In area coordinates, an internal vertex
-$v$ is an articulation exactly when $a_{v+1}=1$: an area of at least two
-supplies the bypass edge $(v-1)(v+1)$. Thus we find the prefix by taking
-the first run of area entries at least two, together with its initial
-path. This prefix has the uniqueness just proved. The remaining graph
-is a right attachment, and the attachment lemma applies to its marked
-component recurrence.
+**Prefix lemma.** In a connected ordinary diagram, suppose some $a_j\geq2$.
+Choose the least such $j$, put $b=j-2$, and choose the least $c\geq j$
+such that $c=n-1$ or $a_{c+1}=1$. The induced prefix on $[0,c]$
+consists of the path $[0,b]$ followed by a graph on $[b,c]$ without
+articulation. The rest of the diagram is a right attachment at $c$.
+The prefix and original diagram have the same first strict decrease in
+area, with terminal area zero appended to each.
 
-At the cut $c$, the prefix has $a_c\geq2$. The next area in the source
-is $1$, if present, whereas the appended prefix area is $0$. Both are
-strict drops; every earlier comparison agrees. Hence the first-drop
-contact used by the recurrence is the same in the prefix and source.
-NN decreases natural area, and forward DN preserves area and decreases
-area moment. Adding the same right attachment preserves these decreases.
-Every resulting term is therefore a whole smaller component, with the
-same integer coefficient for $K$ and $E$. Applying induction to these
-terms gives the asserted equality.
+*Proof.* For an internal vertex $v$, the equality $a_{v+1}=1$ makes
+$b_{v+1}=v$. Every later boundary is at least $v$, so no natural edge
+joins a vertex below $v$ to a vertex above $v$. Thus $v$ is an articulation.
+If $a_{v+1}\geq2$, the edge $(v-1)(v+1)$ bypasses $v$ in the
+adjacent-edge spanning path. Removing $v$ leaves all other vertices
+connected. Removing either endpoint also leaves an adjacent-edge path.
+This proves the articulation test.
+
+By minimality of $j$ and the area growth bound, $j\geq2$,
+$a_{j-1}=1$ and $a_j=2$. Every earlier positive area is one.
+Starting at $a_{b+1}=1$, the growth bound gives $a_i\leq i-b$ for
+all $i>b$. Hence every natural edge ending above $b$ starts at least
+at $b$. The initial path meets the remaining graph only at $b$.
+After reindexing $[b,c]$ from zero, its local areas begin $0,1,2$;
+all subsequent areas through $c$ are at least two. The articulation
+test applies.
+
+If $c<n-1$, the boundary at $c+1$ is $c$, and monotonicity excludes
+all natural edges between the interiors of $[0,c]$ and $[c,n-1]$.
+If $c=n-1$, the attachment is the single vertex $c$. The inherited
+strict edges stay corners in their respective factors: a larger
+containing natural interval there would already contradict their
+maximality in the source.
+
+Finally, $a_c\geq2$. At $c$, the original diagram compares $a_c$
+with $1$ when the attachment is proper, whereas the prefix compares
+it with its appended $0$. Both comparisons are strict decreases.
+All earlier comparisons agree, so their first strict decreases agree.
+
+![A prefix and its right attachment as restricted sums](figures/prefix-attachment.svg)
+
+*Figure 5.* The source areas are $(0,1,1,2,3,2,1,2,1)$.
+The first area at least two occurs at $j=3$, so $b=1$ and $c=5$.
+The prefix has the initial edge $01$ followed by the block $[1,5]$;
+the attachment is $[5,8]$. The first strict area decrease is at $t=4$
+in both prefix and source. For a whole component $C=P*T$, each picture
+denotes the indicated restricted sum. The attachment value $\widehat V$
+omits the weight of the shared vertex $5$. The displayed identity holds
+for $V=K$ and $V=E$ separately.
+
+We now choose the local relation in the prefix. Rows are called N or D
+according as their incoming corner is not strict or is strict. In
+particular, row zero is N.
+
+**First-contact lemma.** Let a connected saturated ordinary diagram have
+at least one non-adjacent natural edge. Let $t$ be the first index with
+$a_{t+1}<a_t$, and set $x=b_t$, $y=x+1$. Then $xt$ is a strict
+corner of length at least two, and $x,y$ form an eligible NN, ND, DN
+or DD contact at that corner.
+
+*Proof.* The appended zero guarantees a strict decrease. Before $t$ the
+areas are nondecreasing. If $a_t=1$, connectedness would force $t=n-1$
+and all positive areas would be one, contrary to the non-adjacent edge.
+Thus $a_t\geq2$ and $0\leq x<y<t<n$. The strict decrease makes
+$xt$ a corner and gives its terminal gap.
+
+Since $y<t$ precedes the first decrease, we have
+$a_x\leq a_y\leq a_x+1$. If $a_y=a_x+1$, then $b_y=b_x$ and
+row $x$ has no corner. We have NN or ND according to the flag at $y$.
+In the ND case $a_x>0$: otherwise its strict corner would be $xy$,
+properly contained in the natural corner $xt$.
+
+If $a_y=a_x$, then $a_x>0$, since the subedge $xy$ of $xt$ is natural.
+Put $u=b_x$. The corner $ux$ is strict, and
+
+\[
+                  u<x<y<t,\qquad b_y=u+1.
+\]
+
+This gives DN or DD according to the flag at $y$. In DD its incoming
+strict corner is $(u+1)y$. The required heads are distinct and the
+local area bound follows from $a_x+1\leq x+1=y<t$.
+These two cases give the contact geometries used in (LNN) and (LDN).
+
+There is no strict edge leaving $y$. Before $t$, boundary increments
+are zero or one, so the corner tails encountered there are exactly
+$0,\ldots,x-1$. The corner at $t$ has tail $x$, and the strict area
+decrease gives $b_{t+1}\geq x+2$. All later tails are at least $x+2$.
+Thus, after unmarking its incoming corner when necessary, $y$ has no
+incident strict edge. The adjacent contact exchange has the required
+exterior strict-edge correspondence.
+
+The four cases reduce as follows:
+
+| Contact | Change of marking | Relation |
+| --- | --- | --- |
+| NN | None | NN |
+| ND | Unmark the incoming corner at $y$ | NN |
+| DN | None | Forward DN |
+| DD | Unmark the incoming corner at $y$ | Forward DN |
+
+In the ND and DD cases, the original component still selects the
+unmarked corner throughout. Its selected status is invariant under flips,
+so the component is one whole component of the newly marked diagram.
+The change of marking preserves its full selected relations and its
+unweighted values; it invokes no induction hypothesis.
+We retain this unmarked decoration in the prefix and its recurrence;
+we do not mark it strict again before applying NN or DN.
+
+For the induction measure, put
+
+\[
+          A(D)\coloneqq\sum_i a_i,\qquad
+          M(D)\coloneqq\sum_i i a_i.
+\]
+
+NN decreases $A$ by one. In forward DN, the natural edge $xt$ is
+replaced by $uy$. Since $b_y=u+1$, the pair $uy$ is not natural
+in the source; increasing $a_y$ by one makes it natural in the target.
+Thus
+
+\[
+ a_y\longmapsto a_y+1,\qquad a_t\longmapsto a_t-1,
+ \qquad A(R)=A(D),\qquad M(R)=M(D)-(t-y)<M(D).       \tag{8}
+\]
+
+The source corrections in (L) decrease natural area. If the prefix on
+$[0,c]$ is glued to a fixed attachment $T$, indexed locally from zero,
+write $A(P),M(P)$ and $A(T),M(T)$ for their ambient diagram measures. Then
+
+\[
+ A(P*T)=A(P)+A(T),\qquad
+ M(P*T)=M(P)+M(T)+cA(T).                             \tag{9}
+\]
+
+There are no natural edges between the two interiors, and the attachment's
+local area at the shared vertex is zero. Every other
+attachment column shifts its index by $c$, proving (9). Thus every
+strict decrease in the prefix pair $(A,M)$ remains a strict decrease
+after the same attachment is glued on.
+
+## Proof of the ordinary component expansion
+
+We induct on $(n,A(D),M(D))$ in lexicographic order. The empty selected
+diagram has value $1$, and the single vertex has value $e_1(X)$.
+All equalities below are unweighted and hold for every finite alphabet.
+
+Normalize the component to its selected-interval envelope. If any natural
+edge is removed, natural area decreases, and induction applies to the
+whole component in the smaller diagram. Otherwise mark the selected
+maximal corners strict, preserving the component and both its values.
+We may therefore assume the diagram is saturated.
+
+If the natural graph is disconnected, its connected components occupy
+disjoint consecutive intervals. Every flip stays in one interval, so a
+whole flip component is the product of its restrictions to these diagrams.
+Colorings on disjoint vertex sets factor, and the highest reachable fibres
+stay in their own intervals. Thus both $K$ and $E$ are products of the
+corresponding component values. Each factor has fewer vertices, and
+induction proves the result.
+
+Suppose the natural graph is connected. If it is a path, saturation
+requires every adjacent edge. There is one selected state, the increasing
+chain; its strict colorings and its single HRV fibre both give $e_n(X)$.
+Otherwise the prefix lemma supplies an initial path followed by the first
+block without articulation, and a right attachment $T$.
+
+If the selected graph is disconnected, use weak-block reordering. If the
+component has no simultaneous-cover witness, use the alternating deletion
+formula (C). Every term is a whole component of smaller natural area,
+with the same coefficient for $K$ and $E$, so induction proves its equality.
+It remains to treat a connected component with a simultaneous-cover witness.
+
+Write it as $P*T$ using whole-component factorization at the cut. Both
+selected factors are connected. Restricting the simultaneous-cover witness
+gives such a witness in the prefix: all its maximal corners are the source
+corners ending in the prefix, and their cover tests are internal. The
+initial-path extension of common-cover uniqueness therefore applies to $P$.
+
+Choose the prefix's first strict area decrease. It is the same contact as
+in the source. Apply the marking change in the table and then the marked
+NN or DN component recurrence. Completion of the prefix layer and the
+three smaller corrections give a finite list of integers $z_i$ and whole
+prefix components $P_i$ such that, for every endpoint color $\beta$,
+
+\[
+                    V(P)[\beta]=\sum_i z_i V(P_i)[\beta],
+                    \qquad V=K,E.
+\]
+
+All prefixes have the same vertex set. Each target is smaller in $(A,M)$
+by (8) or a source correction. Attach the same $T$ to each term. The
+attachment lemma gives whole components $P_i*T$ and the two identities
+with these same integers $z_i$. Equation (9) preserves every strict
+decrease, so induction gives $K(P_i*T)=E(P_i*T)$ for every term. Their
+signed sums give $K(P*T)=E(P*T)$.
+
+We finally restore the original normal-edge weight $q^{k(C)}$, which is
+constant on the component before any change of marking. The elementary
+coefficient of its unweighted value counts states having the corresponding
+HRV fibre partition, as asserted.

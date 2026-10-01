@@ -23,7 +23,9 @@ a read-only tmux inspection confirmed Claude was preparing attachment files in
 its scratchpad and waiting for this explicit transfer. No input guards were
 bypassed. This paragraph is the durable release the worker was instructed to read.
 
-P0–P5 are complete under their contracts. P6 is partial, P7/P8/P10 are open,
+P0–P5 are complete under their contracts. Claude reports the no-articulation
+P6 induction checked at `fb68ff5`; its initial-path extension remains open.
+P7/P8/P10 are open,
 and P9 has its attachment lemma checked; prefix and first-drop coverage remain.
 The complete mathematical diagram proof and the independent Lean theorem
 remain distinct. The older word/scan proof is not imported by this route.
@@ -59,7 +61,7 @@ Independent review approved the terminal-pair count, both contact branches,
 and the exact rank definition. Local Markdown links and SVG XML pass; issue
 #8 was refreshed to match the tracked task.
 
-### Latest verified P6 checkpoint
+### P6 interfaces and subsequent induction
 
 `lastClique_induced_short_naturalEdges` in `LastCliqueNaturalEdges` preserves
 short natural edges in the canonical core on `0,...,c,e`; interior pairs
@@ -75,14 +77,12 @@ guards. Logs in the external request directory: `p6-core-short-build.log`,
 `p6-two-chain-card-build.log`, `p6-core-geometry-axioms.log`, and
 `p6-core-geometry-imports.txt`. No broad build or dependency update ran.
 
-Next P6 integration: preserve short edges under reversal, select the first two
-corners (or complete base), use the double reversal of `lastCliqueEmbed` for
-the first-clique branch, prove its size decrease, and assemble strong induction.
-The initial-vertex branch already discharges matching-edge removability.
-For an arbitrary complete natural diagram, audit an identity-embedding bridge
-through `cliqueRestrict`/`cliqueExtend` and `complete_reachable`; strict markings
-must use the marked variant where required. This is a candidate API route,
-not a checked bridge. The initial-path extension also remains open.
+Claude completed the no-articulation integration in `fb68ff5` after this
+earlier P6 checkpoint: `commonCoverUnique_of_shortEdges` assembles strong
+induction with the complete-diagram bridge and reversed first-clique branch.
+Its coordination note reports 724 passing standard-axiom checks. Codex has
+not rerun those checks and retains no build ownership. The next P6 obligation
+is the initial-path extension.
 
 ## Current writing increment
 
@@ -105,7 +105,17 @@ original shifted normal-edge exponent were incorporated.
 The diagrams themselves denote sums with the selected-edge count shown below.
 Preparation, restored-exterior crossing slides, complete/two-chain bases,
 last-clique inheritance, and the chain-quotient lemma still need detailed
-manuscript proofs. The final first-drop/prefix induction remains summarized.
+manuscript proofs. The final first-drop/prefix induction is now expanded:
+articulation test, first nontrivial prefix, strict-corner preservation, all
+four contact cases, marking changes, area/moment decrease and final induction.
+The new prefix-attachment figure uses restricted sums with a fixed endpoint
+color and an omitted shared-vertex weight. `\LLTAreaDiagram` generates the
+forbidden cells directly from ordinary area data and checks the area bounds.
+The figure compiled without TeX or box warnings and was visually inspected.
+Independent read-only review found no new flaw in prefix selection or the
+final induction. Its clarifications about local area indexing, the new DN
+edge and the retained unmarked corner were incorporated. Local Markdown links,
+SVG XML, exact rendered-source correspondence and `git diff --check` pass.
 The circular section and combined manuscript have the remaining limits already
 recorded above. The full user goal is unchanged and unfinished.
 
