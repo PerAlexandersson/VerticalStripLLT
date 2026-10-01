@@ -22,6 +22,7 @@ manuscript prose.
 | Choose the missing-edge witness and connect neighboring extra sets | `CornerFamily.exists_initialVertex_adjacent`, `initialVertex_reachable_of_erase_initial_row` | Checked under the stated removability/core-uniqueness hypotheses |
 | Connect all feasible extra sets | `initialVertex_connected_core_anchors` | Checked actual assembly under the stated core hypotheses |
 | Initial-vertex inheritance for common-cover states | `commonCover_connected_of_initialVertex_core` | Checked preparation, sector paths and reversed target preparation |
+| Preserve chain count and discharge matching-edge removability | `CornerFamily.initialVertex_fixedTerminal_card`, `commonCover_connected_of_initialVertex_short` | Checked under short-edge and three-chain hypotheses, leaving smaller-core uniqueness |
 | Global common-cover uniqueness | P6 global induction | Unfinished |
 | Endpoint-marked K and E | `markedK`, `markedE`, `markedK_diamond`, `markedE_diamond` | Existing checked semantics; see plan for the P2 interfaces |
 | Figure 2: attachment and fibre merger | [Claude issue #8](https://github.com/PerAlexandersson/VerticalStripLLT/issues/8) | Detailed written proof; new Lean task |

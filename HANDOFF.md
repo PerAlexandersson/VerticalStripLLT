@@ -9,6 +9,11 @@ checked crossing slides. Preparation and its reverse then connect arbitrary
 connected common-cover states of the same total selected size.
 `commonCover_connected_of_initialVertex_core` assumes only the explicit
 smaller-core uniqueness and removable matching-edge hypotheses.
+The following increment preserves the exact number of chain terminals and
+the short natural edges after deleting zero. With at least three chains,
+`commonCover_connected_of_initialVertex_short` discharges removability using
+the checked paths around good core edges. Only smaller-core uniqueness remains
+to be supplied by induction in this branch.
 
 The global vertex-count induction remains unfinished. P0–P5 are complete under their
 planned contracts; P6 is partial and P7--P10 remain open. The independent diagram
@@ -30,6 +35,12 @@ proof notes. Historical ownership and immutable prefixes remain unchanged;
 the archive below preserves their exact earlier record.
 
 ### Active P6 work and ownership
+
+After pushed `68efc6a`, Terra supplied `InitialVertexChainCount.lean` and Luna
+supplied `InitialVertexNaturalEdges.lean`. Primary repaired, integrated and
+verified both, and wrote `InitialVertexRemovable`. Their ownership has returned.
+All three modules pass focused builds, and all 647 axiom queries pass.
+Both delegates remained build-free; primary retains the single build slot.
 
 Terra supplied `InitialVertexSectorWitness.lean`, constructing an anchor with
 prescribed initial extras and core. Luna supplied `InitialVertexFeasibility.lean`
@@ -151,17 +162,20 @@ instructions authorize Aristotle, subagents and Claude; only primary builds.
 
 ### Next obligations and source map
 
-Next: supply the hypotheses in the global vertex-count induction. Initial
-deletion retains the short natural edges and the number of corner chains;
-combine these with `RemovableGoodEdges.goodEdgeGraph_delete_connected` to
-derive the matching-edge hypothesis. Then construct the strictly smaller
-cores for the first-clique and initial-vertex branches, including the
-complete/two-chain base cases. The checked conditional inheritance theorem
-already assembles preparation, connected-core normalization and all sectors.
+Next: construct the global vertex-count induction. The initial-vertex branch
+now retains short edges and chain count and discharges matching-edge removability.
+For the first-clique branch, reuse `lastCliqueEmbed` and reversal to avoid
+another embedding representation. A last-clique core retains all short edges:
+ordinary pairs lift identically; pairs ending at the retained last vertex
+start at least at c-1 and lie in the last corner's clique when its tail is < c.
+Use `reverseOrderEmbedding_involutive` for the reflected core actually named
+by `commonCover_connected_of_firstClique_core`. Prove strict size decrease,
+find the first two corners or the complete base, and derive the two-terminal
+base from the existing cardinal chain bound. Then close the strong induction.
 
-The full inheritance theorem still needs the removable-edge hypothesis; the
-global no-articulation induction must derive that hypothesis and strictly
-smaller core sizes in both branches. First-/last-clique inheritance and the
+The general conditional inheritance theorem retains its removable-edge
+hypothesis. The short-edge/three-chain specialization now proves it. Global
+induction must supply strictly smaller cores and their uniqueness. First-/last-clique inheritance and the
 initial-core preparation, restriction and matching-edge constructions are now
 checked and should be reused. Do not assume reflection preserves anchors,
 chain terminals, good-edge sets or valuations; the checked path transport
@@ -173,8 +187,8 @@ The written source for the current work is
 with the staged obligations in
 [the formalization plan](docs/COMPONENT_DIAGRAM_FORMALIZATION_PLAN.md).
 The same-size missing-edge witness, adjacent-sector paths and full subset
-assembly are now checked. The global vertex-count induction supplies core uniqueness and
-matching-edge removability under its no-articulation hypotheses.
+assembly are now checked. Matching-edge removability follows from the retained
+short edges and three chains. The global vertex-count induction supplies core uniqueness.
 
 The [assembled mathematical proof](docs/proofs/COMPONENT_DIAGRAM_COMPLETION.md)
 and [cleanup audit](docs/proofs/COMPONENT_DIAGRAM_AUDIT.md) are complete as written
@@ -207,13 +221,16 @@ corresponding verified lemma in the supporting source map.
 ### Verification and recovery
 
 Starting checkpoint: `114fe7d` on `main`, clean and pushed at continuation start.
-The five new modules pass focused builds. The independent import closure now
-has 278 project files; all 204 DiagramProof modules pass source/100-column
-guards. All 640 axiom queries pass in order, using only the standard three
+The five inheritance modules and three following geometry/removability modules
+pass focused builds. The independent import closure now has 281 project files;
+all 207 DiagramProof modules pass source/100-column guards. All 647 axiom
+queries pass in order, using only the standard three
 axioms or none. Local Markdown links, whitespace and both figure previews
 were also checked.
 Logs: `p6-initial-inheritance-build.log`, `p6-initial-inheritance-axioms.log`
-and `p6-initial-inheritance-imports.txt`. The preliminary sector logs contain
+and `p6-initial-inheritance-imports.txt`, followed by
+`p6-initial-removable-build.log`, `p6-initial-removable-axioms.log` and
+`p6-initial-removable-imports.txt`. The preliminary geometry and sector logs contain
 superseded repairs. Earlier 633/615-query checkpoints and their logs remain
 preserved. No broad build or dependency update ran.
 

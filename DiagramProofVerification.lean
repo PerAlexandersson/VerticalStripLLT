@@ -4,6 +4,7 @@ import VerticalStripLLT.Components.DiagramProof.InitialVertexMatching
 import VerticalStripLLT.Components.DiagramProof.InitialVertexAdjacentPaths
 import VerticalStripLLT.Components.DiagramProof.InitialVertexExtras
 import VerticalStripLLT.Components.DiagramProof.InitialVertexInheritance
+import VerticalStripLLT.Components.DiagramProof.InitialVertexRemovable
 import VerticalStripLLT.Components.DiagramProof.FirstCliqueInheritance
 import VerticalStripLLT.Components.DiagramProof.LastCliqueInheritance
 import VerticalStripLLT.Components.DiagramProof.LastCliqueFullTree
@@ -762,5 +763,13 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms initialVertex_reachable_of_erase_extras
 #print axioms initialVertex_connected_core_anchors
 #print axioms commonCover_connected_of_initialVertex_core
+
+#print axioms CornerFamily.initialVertex_fixedTerminalEquiv
+#print axioms CornerFamily.initialVertex_fixedTerminal_card
+#print axioms initialVertex_induced_short_naturalEdges
+#print axioms initialVertex_induced_naturalEdges_connected_of_short
+#print axioms initialVertex_induced_naturalEdges_delete_of_short
+#print axioms CornerFamily.initialVertex_goodEdgeGraph_delete_connected
+#print axioms commonCover_connected_of_initialVertex_short
 
 end VerticalStripLLT.Circular.DiagramProof

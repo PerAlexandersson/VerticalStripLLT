@@ -43,7 +43,9 @@ smaller-core uniqueness from conclusions proved without it.
 Implementation status: P0–P5 are verified under their planned contracts,
 including P1's final initial-vertex restriction, corner and path interfaces.
 P6's conditional initial-vertex inheritance is checked, including all feasible
-extra sets and common-cover preparation. Global vertex-count induction remains. P0 and the
+extra sets and common-cover preparation. Retained short edges and corner-chain
+count now discharge matching-edge removability in the three-chain branch.
+Global vertex-count induction remains. P0 and the
 semantic import extractions are in `9d8c4bc`. P1 includes finite/lifted covers,
 weak-block invariance, exact corner marking, source-only short flips
 (`3bbb1e4`), convex path/cover restriction and an injective fixed-exterior
@@ -657,6 +659,9 @@ The first parts are now verified, following the same written diagrams:
 | Construct a witness with prescribed extra set and core | `CornerFamily.exists_initialVertex_sector_witness` | Verified |
 | Assemble the feasible subset band by actual crossing-slide paths | `initialVertex_connected_core_anchors` | Verified, with explicit smaller-core uniqueness and removable matching edges |
 | Prepare connected common-cover states and reverse the target preparation | `commonCover_connected_of_initialVertex_core` | Verified under the same explicit hypotheses |
+| Retain the chain count after deleting the initial nonterminal vertex | `CornerFamily.initialVertex_fixedTerminalEquiv`, `CornerFamily.initialVertex_fixedTerminal_card` | Verified bijection of terminal fixed points |
+| Retain short edges and connectivity after one further vertex deletion | `initialVertex_induced_short_naturalEdges`, `initialVertex_induced_naturalEdges_delete_of_short` | Verified |
+| Derive matching-edge removability and apply inheritance | `CornerFamily.initialVertex_goodEdgeGraph_delete_connected`, `commonCover_connected_of_initialVertex_short` | Verified, with three chains, short edges and smaller-core uniqueness |
 | Supply those hypotheses by global vertex-count induction | Not yet assembled | Open |
 
 `ClosedInducedAnchors` extracts the precise restriction condition: retained
