@@ -155,7 +155,7 @@ The [diagram macros and usage guide](tex/README.md) implement the user's
 restricted-sum convention. A diagram specifies selected/absent/optional/strict
 edges, forbidden natural pairs, cover conditions, total-size layers and endpoint
 colors. Gray/white ambient regions distinguish unweighted and normal-edge-weighted sums.
-The two-page `diagram-examples.tex` preview and the diamond and NN/DN figures
+The three-page `diagram-examples.tex` preview and the diamond and recurrence figures
 compile without warnings or box overflows and were visually inspected.
 
 All SVG figures now have native `.tex` sources in `tex/`; the cell figures

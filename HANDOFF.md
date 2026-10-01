@@ -2,7 +2,7 @@
 
 ## Current status and ownership
 
-The requested author revision is complete. The manuscript now explains the
+The requested author revision is complete at checkpoint `1e9437c`. The manuscript now explains the
 LLT/chromatic comparison and Hwang's component refinement in its introduction,
 collects all four recurrences in Proposition 2.7 and one TikZ boundary-path
 figure, and uses numbered mathematical environments. It ends with the circular
@@ -110,7 +110,7 @@ Files: `manuscript.pdf`, `manuscript.tex`, `manuscript-source.zip`,
 PDF page previews are alongside the manuscript. The author metadata matches
 the earlier Alexandersson--Dai draft.
 
-Verification: 41-page PDF and two-page macro guide compile without warnings
+Verification: 41-page PDF and three-page macro guide compile without warnings
 or box overflows. The 152 labels are unique, all 111 equation/theorem/figure
 references resolve, and all 24 bundled source inputs match their manifest.
 There are 5 theorem, 27 lemma, 9 proposition, 12 definition, 2 corollary,

@@ -71,7 +71,7 @@ the same renderer and restrictions. The NN commands take three ordered
 labels; DN takes four. A triangle's long edge is selected normal, with
 the two short bits fixed as supplied.
 
-`diagram-examples.tex` is a two-page legend and mathematical usage guide.
+`diagram-examples.tex` is a three-page legend and mathematical usage guide.
 `ordinary-diamond.tex` and `layer-relations.tex` generate the draft's SVGs.
 `prefix-attachment.tex` shows component-restricted sums glued at a fixed
 endpoint color. Its right factor omits the shared vertex weight, as indicated
