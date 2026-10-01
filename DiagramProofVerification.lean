@@ -1,3 +1,4 @@
+import VerticalStripLLT.Components.DiagramProof.RightAttachment
 import VerticalStripLLT.Components.DiagramProof.LastCliqueNaturalEdges
 import VerticalStripLLT.Components.DiagramProof.TwoChainCardinality
 import VerticalStripLLT.Components.DiagramProof.InitialVertexConnectedCore
@@ -776,5 +777,78 @@ namespace VerticalStripLLT.Circular.DiagramProof
 
 #print axioms lastClique_induced_short_naturalEdges
 #print axioms CornerFamily.commonCover_connected_of_terminal_card_le_two
+
+
+-- Right-endpoint attachment (P9 attachment subtask, issue #8)
+#print axioms attachLeft_last
+#print axioms attachLeft_eq_attachRight_iff
+#print axioms attachUnion_left
+#print axioms attachUnion_right
+#print axioms attachUnion_cut
+#print axioms orientation_eq_of_selected_iff
+#print axioms IsRightAttachment.forward
+#print axioms IsRightAttachment.natural_left
+#print axioms IsRightAttachment.natural_right
+#print axioms IsRightAttachment.strict_left
+#print axioms IsRightAttachment.strict_right
+#print axioms IsRightAttachment.natural_cut
+#print axioms IsRightAttachment.selected_iff
+#print axioms IsRightAttachment.restrictLeft_glue
+#print axioms IsRightAttachment.restrictRight_glue
+#print axioms IsRightAttachment.glue_restrict
+#print axioms IsRightAttachment.glue_inj
+#print axioms IsRightAttachment.stateEquiv
+#print axioms attach_isCorner
+#print axioms attachDiagram_isRightAttachment
+#print axioms isRightAttachment_induced
+#print axioms target_selected_iff
+#print axioms IsRightAttachment.cover_left
+#print axioms IsRightAttachment.cover_right
+#print axioms IsRightAttachment.liftLeftDirected
+#print axioms IsRightAttachment.liftRightDirected
+#print axioms IsRightAttachment.flip_lift_left
+#print axioms IsRightAttachment.flip_lift_right
+#print axioms IsRightAttachment.reachable_lift_left
+#print axioms IsRightAttachment.reachable_lift_right
+#print axioms IsRightAttachment.directedFlip_cases
+#print axioms IsRightAttachment.flip_glue_iff
+#print axioms IsRightAttachment.reachable_restrict
+#print axioms IsRightAttachment.reachable_glue_iff
+#print axioms IsRightAttachment.flipComponent_glue
+#print axioms IsRightAttachment.sum_flipComponent_glue
+#print axioms omittedRelationValue_one
+#print axioms relationValue_zero_alphabet
+#print axioms prod_attach_split
+#print axioms sum_attach_split
+#print axioms splitColoring_injective
+#print axioms exists_splitColoring
+#print axioms monomial_splitColoring
+#print axioms relationValue_attach
+#print axioms IsRightAttachment.reachable_through_shared
+#print axioms IsRightAttachment.reachable_left_iff
+#print axioms IsRightAttachment.reachable_right_iff
+#print axioms IsRightAttachment.hrv_eq_of_reachable_greatest
+#print axioms IsRightAttachment.hrv_last
+#print axioms IsRightAttachment.hrv_glue_right
+#print axioms IsRightAttachment.hrv_glue_left
+#print axioms IsRightAttachment.hrv_glue_left_eq_iff
+#print axioms IsRightAttachment.hrv_glue_right_eq_iff
+#print axioms IsRightAttachment.fibre_glue_valid
+#print axioms IsRightAttachment.selected_glue_valid
+#print axioms IsRightAttachment.strictOrderEnumerator_glue
+#print axioms IsRightAttachment.evalElementary_hrvMonomial_glue
+#print axioms IsRightAttachment.componentStrictEnumerator_glue
+#print axioms IsRightAttachment.evalElementary_componentHRV_glue
+#print axioms componentStrictEnumerator_attach_transfer
+#print axioms evalElementary_componentHRV_attach_transfer
+#print axioms attach_transfer
+#print axioms area_eq_card_naturalRel
+#print axioms area_zero_of_forward
+#print axioms IsRightAttachment.area_left
+#print axioms IsRightAttachment.area_right
+#print axioms IsRightAttachment.sum_area_right
+#print axioms IsRightAttachment.naturalArea_eq
+#print axioms IsRightAttachment.areaMoment_eq
+#print axioms IsRightAttachment.attach_measure_lt
 
 end VerticalStripLLT.Circular.DiagramProof
