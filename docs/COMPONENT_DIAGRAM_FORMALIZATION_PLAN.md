@@ -1,5 +1,10 @@
 # Formalizing the ordinary component theorem by diagrams
 
+**Completed:** the independent diagram theorem and weighted consequences were
+verified at `1b6d13e`, then streamlined and rechecked at `55cfaf5`. See the
+[completion audit](DIAGRAM_PROOF_COMPLETION.md). The detailed plan below is
+retained as the implementation history and paper correspondence.
+
 Plan based on clean checkpoint `61ff6f8`, 2026-09-30. This is an implementation
 plan, not a report of new Lean proofs. The mathematical inputs are the
 [assembled diagram proof](proofs/COMPONENT_DIAGRAM_COMPLETION.md) and its
@@ -48,16 +53,15 @@ that the full tree and exterior are restored at the endpoint. Three read-only
 reviews checked the core geometry, the block paths and the extra exchanges
 against these declarations.
 
-Implementation status: P0–P5 are verified under their planned contracts,
-including P1's final initial-vertex restriction, corner and path interfaces.
-P6's conditional initial-vertex inheritance is checked, including all feasible
-extra sets and common-cover preparation. Retained short edges and corner-chain
-count now discharge matching-edge removability in the three-chain branch.
-Claude reports the no-articulation vertex-count induction checked at `fb68ff5`.
-The initial-path extension's focused build passed at `58b8b4b`; its axiom audit
-is not yet recorded. At `26b2d97`, P9's independent
-right-attachment lemma is checked, including whole product components and
-transfer of the two marked recurrences; prefix and first-drop coverage remain.
+Current implementation status: P0–P10 are complete. This includes common-cover
+uniqueness, initial-path extension, whole-component corrections, NN/DN layer
+recurrences, first-drop coverage, endpoint attachment, prefix selection and
+strong induction on `(n,A,M)`. The final theorem identifies the existing
+strict-coloring enumerator with the existing HRV elementary sum for every
+whole component of every ordinary diagram. All 856 dedicated axiom queries
+match the post-refactor log and use only standard Lean axioms. The following
+paragraphs record the earlier implementation checkpoints.
+
 P0 and the
 semantic import extractions are in `9d8c4bc`. P1 includes finite/lifted covers,
 weak-block invariance, exact corner marking, source-only short flips

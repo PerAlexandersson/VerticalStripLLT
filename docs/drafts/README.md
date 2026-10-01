@@ -34,10 +34,11 @@ inheritance and induction clarifications are incorporated. Assembly into
 the combined paper remains. The mathematical source is the
 [assembled proof](../proofs/COMPONENT_DIAGRAM_COMPLETION.md).
 
-The independent Lean formalization is unfinished. The draft does not claim
-otherwise; compiler status and source correspondence belong here and in the
-[formalization plan](../COMPONENT_DIAGRAM_FORMALIZATION_PLAN.md), outside the
-manuscript prose.
+The independent diagram formalization is complete, including the final
+induction and weighted positivity consequences. See the
+[completion audit](../DIAGRAM_PROOF_COMPLETION.md) for the verified scope and
+856-query axiom audit. Compiler status and source correspondence stay here
+and in the formalization plan, outside the manuscript prose.
 
 | Draft construction | Lean correspondence | Current scope |
 | --- | --- | --- |
@@ -51,8 +52,8 @@ manuscript prose.
 | Figure 5: fixed core tree and omitted leaves | `exists_lastClique_core_tree`, `exists_lastClique_tree_replacement`, `lastCliqueFixedEdges_isTree` | Checked; the figure fixes a concrete selected tree in each diagram |
 | Last-clique extra-edge exchanges and inheritance | `exists_last_clique_shared_exchange`, `anchors_connected_of_overlapping_extra_positions`, `commonCover_connected_of_lastClique_core` | Checked; the draft retains the temporary repair of the missing star edge and restores the full tree at endpoints |
 | Removing one good normal edge | `goodEdge_weakReach_avoiding_terminal`, `weakReach_erase_good_edge`, `goodEdgeGraph_delete_connected` | Checked two-edge replacement, skipped-chain path and third-chain detour |
-| Three smaller corrections and envelope | `certifies_of_not_hasCommonWitness` | Source checkpoint `f59bd96`; successful rebuild in `iso-1.log`, new axiom audit pending |
-| Figure 7: NN/DN layer sums and component isolation | `NNContact.layer`, `DNContact.layer`, `certifies_of_layer`, `certifies_nn`, `certifies_dn` | Focused builds passed at `3665a3d`, `e926c75`, `e8bb9dd`; new axiom audit pending |
+| Three smaller corrections and envelope | `certifies_of_not_hasCommonWitness` | Checked whole-component certificates; included in final axiom audit |
+| Figure 7: NN/DN layer sums and component isolation | `NNContact.layer`, `DNContact.layer`, `certifies_of_layer`, `certifies_nn`, `certifies_dn` | Checked full layers and isolated whole-component certificates; final axiom audit passed |
 | Restrict after deleting zero | `initialVertex_anchor_restrict`, `induced_allCorners_initialVertex` | Checked |
 | Make the selected core connected | `CornerFamily.exists_reachable_connected_initialVertex_core` | Checked actual crossing-slide paths |
 | Keep initial extras fixed along a core path | `initialVertex_lift_reachable`, `initialVertex_reachable_of_same_initial_row` | Checked under smaller-core uniqueness |
@@ -63,13 +64,13 @@ manuscript prose.
 | Preserve chain count and discharge matching-edge removability | `CornerFamily.initialVertex_fixedTerminal_card`, `commonCover_connected_of_initialVertex_short` | Checked under short-edge and three-chain hypotheses, leaving smaller-core uniqueness |
 | Preserve short edges in the canonical last-clique core | `lastClique_induced_short_naturalEdges` | Checked; used in the reversed first-clique induction |
 | At most two corner chains | `CornerFamily.commonCover_connected_of_terminal_card_le_two` | Checked; detailed preparation/one-pair rearrangement proof in draft |
-| Common-cover uniqueness without articulation | `commonCoverUnique_of_shortEdges` | Claude reports checked at `fb68ff5` |
-| Extension through an initial path | `commonCoverUnique_of_initialPathBlock` | Focused build passed at `58b8b4b`; new axiom audit not yet recorded |
+| Common-cover uniqueness without articulation | `commonCoverUnique_of_shortEdges` | Checked vertex-count induction; final axiom audit passed |
+| Extension through an initial path | `commonCoverUnique_of_initialPathBlock` | Checked pendant-path extension; final axiom audit passed |
 | Endpoint-marked K and E | `markedK`, `markedE`, `markedK_diamond`, `markedE_diamond` | Existing checked semantics; see plan for the P2 interfaces |
 | Figure 8: attachment and fibre merger | `IsRightAttachment.flipComponent_glue`, `hrv_glue_left`, `hrv_glue_right`, `attach_transfer` | Checked at `26b2d97`: whole product components, marked K/E transfer and measure decrease |
-| Figure 9: first nontrivial prefix and fixed attachment | P9 prefix selection; `attach_measure_lt` | Prefix selection written in detail; attachment measure transfer checked |
-| Whole-component corrections and marked recurrences | P7–P8 | Certificates have focused build passes; final integration and extended verification remain |
-| First-drop coverage and final expansion | P9–P10 | Unfinished |
+| Figure 9: first nontrivial prefix and fixed attachment | `exists_prefix`, `uCertifies_of_witness`, `attach_measure_lt` | Checked prefix coverage and attached certificate with strict measure decrease |
+| Whole-component corrections and marked recurrences | `certifies_of_not_hasCommonWitness`, `certifies_nn`, `certifies_dn` | Checked; integrated into the final induction |
+| First-drop coverage and final expansion | `certifies_firstDrop`, `component_eq_by_diagrams_aux`, `component_strict_eq_elementary_of_forward_by_diagrams` | Checked for every ordinary diagram and every whole component |
 
 The circular source map supplements [the completion audit](../CIRCULAR_COMPLETION.md):
 

@@ -3,69 +3,51 @@
 ## Active ownership — Claude owns Lean; Codex owns the writeup
 
 Transfer pushed at `b78312c`, 2026-10-01. Persistent Claude worker
-`agent-verticalstri-motzki-c-001af720` owns all `DiagramProof/` Lean sources,
-`DiagramProofVerification.lean`, and the **sole Lean build slot**. Serialize
-with other Lean projects. Codex and its subagents must not edit Lean or run
-Lean builds. Claude owns [LEAN_COORDINATION](docs/LEAN_COORDINATION.md),
-whose latest recorded report covers the attachment and no-articulation proofs.
+`agent-verticalstri-motzki-c-001af720` owns all Lean sources, the verification
+entry points, [LEAN_COORDINATION](docs/LEAN_COORDINATION.md), and the **sole
+Lean build slot**. Codex and its subagents must not edit Lean or run builds.
+Current dirty Lean files, including `CircularConsequences.lean`, belong to
+Claude's further refactoring/development; they are not part of the completed
+ordinary checkpoint below.
 
 Codex owns this handoff, mathematical prose, formalization maps and plan,
-`docs/drafts/`, figures and manuscript work. The three read-only subagents
-`semantic_extract`, `anchor_sizes` and `good_edges` have returned the
-last-clique writing reviews; they own no editable files or build slot.
-Check Git status and HEAD before each edit/checkpoint; Claude commits on the
-shared `main`. Stage only writing-owned files. Current dirty or untracked
-`DiagramProof/` sources are Claude-owned. Claude is cleaning the final exports
-and verification inventory; do not absorb its dirty Lean files.
+`docs/drafts/`, figures and manuscript assembly. Read-only subagents
+`semantic_extract`, `anchor_sizes` and `good_edges` are reviewing the final
+circular proof, introduction/scope and ordinary proof correspondence. They
+own no editable files or build slot. Check status and HEAD before edits;
+Claude commits on shared `main`. Stage only task-owned writing files.
 
-The full goal is unfinished: complete the independent diagram formalization
-and assemble a new paper with the circular aggregate expansion and the
-ordinary component expansion proved by these same diagram moves. The older
-word/scan proof does not substitute for this route. Preserve historical
+The diagram formalization is complete. The full goal remains active until
+we assemble and review the combined paper: circular aggregate expansion and
+ordinary component expansion by the same diagram moves. Preserve historical
 proof-note prefixes at `a3d076b`; append-only continuations remain authorized.
 
-## Lean verification boundaries
+## Verified ordinary diagram theorem
 
-- P0–P5 are verified under their contracts. The last Codex source checkpoint
-  passed 649 axiom queries and source/import guards before the build transfer.
-- `26b2d97`: the four right-attachment modules prove actual whole product
-  components, HRV fibre merger, endpoint-omitted K/E gluing, paired integer
-  recurrence transfer and measure decrease. No identity for the attached
-  component is assumed. Codex read the successful focused log and all 719
-  axiom outputs in exact query order; independent review approved the scope.
-  Issue #8 is closed for this attachment subtask only, not all P9.
-- `fb68ff5`: Claude reports no-articulation common-cover uniqueness and 724
-  standard-axiom checks (`axioms-2.log`).
-- `58b8b4b`: initial-path extension; Codex read successful `initpath-2.log`.
-  Its new queries have not yet been added to the verification file, so the
-  previous axiom audit does not cover it.
-- `cdac9cc`, `cb723f6`, `f59bd96`: relational transport, alternating deletion
-  and whole-component correction certificates. `altcert-2.log` passed.
-  The earlier `compcorr-1.log` failed, but `iso-1.log` now records a successful
-  rebuild of `ComponentCorrections` and its two direct dependencies. The new
-  declarations still await the extended axiom audit.
-- `3665a3d`: NN full-layer recurrence. Codex read successful `nn-5.log`
-  (three deprecated-simp warnings). `e926c75` gives the DN full-layer
-  recurrence; its final `dn-7.log` passes with unused-section-variable warnings.
-  `e8bb9dd` adds component isolation and NN/DN certificates; `iso-1.log` passes.
-  Later checkpoints `3a08229`, `403e871`, `5476954`, `f2f396f`, `1b6d13e`
-  add first-drop coverage, prefix attachment, disjoint-block factorization,
-  final diagram induction and public weighted consequences. Final independent
-  source/axiom reviews are in progress; do not mark the goal complete.
-  Codex read successful `fd-6.log` and `cons-1.log`.
+See [the completion audit](docs/DIAGRAM_PROOF_COMPLETION.md) for exact theorem
+scope, proof dependencies and verification. The proof was completed at
+`f2f396f`, exported and audited at `1b6d13e`, then streamlined at `55cfaf5`.
+Independent source review approved the full theorem and induction, and a
+second review confirmed the refactor preserves all theorem contracts and
+diagram semantics. The public strict, weighted and positivity theorems have
+no recurrence-certificate or assumed semantic-bridge hypothesis.
+
+- Full library build passed at `1b6d13e` (2364 jobs, `full-build-2.log`).
+- Focused post-refactor build passed through `Consequences` (1921 jobs,
+  `clean-4.log`).
+- `axioms-3.log` and the fresh `axioms-4.log` each match all **856** committed
+  queries in order after namespace qualification; all use only standard
+  Lean axioms or none. The earlier literal-name mismatch was a comparison
+  error, corrected by the independent reviewer; no provenance gap remains.
+- Static review at `1b6d13e`: 289 project files in the final theorem closure;
+  314 in the dedicated verification closure including its root (313 imported
+  files). No earlier word/scan component proof is an input. All 237 diagram
+  modules passed source guards and line-width checks.
 
 Logs: `/lake-cache/ai-projects/requests/VerticalStripLLT/claude-right-attachment/logs/`.
-Only Claude may perform the remaining focused builds and axiom checks.
-Do not run `lake update` in response to the known manifest-path warning.
-
-The independent static review at `1b6d13e` found 289 project files in the
-`Consequences` closure and 314 in the dedicated verification closure. Neither
-closure uses the old word/scan or component-expansion proof. `ComponentPositive`
-provides semantic positivity helpers only. All 237 DiagramProof modules pass
-source guards and the 100-column check. The final theorem/induction review is
-pending. The 856-query log contains only standard axioms, but exact inventory
-matching is being rechecked with namespace qualification; final cleanup also
-renames declarations. Preserve this distinction until the final audit passes.
+No Codex build is needed. Do not run `lake update` for the known manifest-path
+warning. The separately checked circular aggregate theorem remains as recorded
+in [CIRCULAR_COMPLETION](docs/CIRCULAR_COMPLETION.md).
 
 ## Current writing checkpoint
 
@@ -84,7 +66,7 @@ expands all previously listed local construction gaps: diamond, corrections,
 preparation, restored crossing slides, two-chain paths, removable edges,
 complete-diagram base, last-clique and initial-vertex inheritance, NN/DN
 layers, attachment, prefix selection, four contact cases and final induction.
-This is written mathematical proof, not a claim of completed formalization.
+The independent ordinary diagram formalization is now verified as recorded above.
 The whole-proof review has returned; its clarifications are incorporated.
 Combined manuscript assembly and final paper/formalization comparison remain.
 
@@ -135,13 +117,12 @@ PDF/TeX assembly, using the Markdown sections as the canonical prose.
 
 ## Next work and recovery
 
-1. Assemble and edit the ordinary draft after the returned whole-proof audit;
-   retain its correspondence to the actual checked diagram paths and keep
-   compiler status outside the paper.
-2. Assemble the combined manuscript with the new introduction and all native
-   vector figures; inspect the complete PDF, references and notation.
-3. Incorporate Claude's final certificates/coverage/induction once verified;
-   audit new theorem axioms, independent import closure and paper correspondence.
+1. Assemble the introduction and two proof sections into one manuscript using
+   the canonical Markdown prose and all native TeX figure sources.
+2. Inspect the complete PDF, references and notation; incorporate the final
+   paper/formalization correspondence reviews. Compiler status stays outside
+   the manuscript.
+3. Checkpoint and push the reproducible draft and its build instructions.
 
 Primary sources: [assembled proof](docs/proofs/COMPONENT_DIAGRAM_COMPLETION.md),
 [cleanup audit](docs/proofs/COMPONENT_DIAGRAM_AUDIT.md),
@@ -150,10 +131,10 @@ Primary sources: [assembled proof](docs/proofs/COMPONENT_DIAGRAM_COMPLETION.md),
 [combinatorics writing skill](/home/dev/.codex/skills/combinatorics-paper-writing/SKILL.md),
 first-person plural prose and the authors' cell-diagram conventions.
 
-The [archived handoff through `4a3f8cb`](docs/archive/diagram-writing-through-complete-base.md)
-preserves chronology, exact earlier checks, ownership transfers and recovery
-links. Lean MCP is rooted at RealRooted, so the designated owner uses focused
-`lake-workspace` commands. Aristotle is available by CLI; no Codex remote
-request, watcher or compiler is active. Docker supervisor discovery failed for
-the persistent worker; read-only tmux inspection was possible. Do not bypass
-supervisor input guards or stop/restart the worker.
+The [archived handoff through `0c87ed0`](docs/archive/diagram-writing-through-native-figures.md)
+preserves earlier status and checks; its unfinished-formalization statements
+are superseded above. Lean MCP is rooted at RealRooted, so the designated
+owner uses focused `lake-workspace` commands. Aristotle is available by CLI;
+no Codex remote request, watcher or compiler is active. Docker supervisor
+discovery failed for the persistent worker; read-only tmux inspection was
+possible. Do not bypass supervisor input guards or stop/restart the worker.
