@@ -1,4 +1,5 @@
 import VerticalStripLLT.Components.DiagramProof.RightAttachmentDiagram
+import VerticalStripLLT.Components.DiagramProof.RelationalTransport
 
 /-!
 # Flips and whole components of a right attachment
@@ -19,17 +20,6 @@ open Classical
 noncomputable section
 
 variable {n p q : ℕ}
-
-/-- The target of a directed flip is the source with its two shorts exchanged. -/
-theorem target_selected_iff {D : Diagram n} {θ η : Orientation D}
-    (w : DirectedFlipWitness D θ η) (u v : Fin n) :
-    D.edgeData.selected η.val u v ↔
-      (u = w.eab.head ∧ v = w.ebc.head) ∨
-        (D.edgeData.selected θ.val u v ∧ ¬ (u = w.eab.tail ∧ v = w.eab.head)) := by
-  rw [w.target_eq_source_swap]
-  exact D.selected_short_swap_iff θ.val w.eab w.ebc w.eab_normal
-    (a := w.eab.tail) (b := w.eab.head) (c := w.ebc.head) rfl
-    (Prod.ext w.short_head_tail.symm rfl) u v
 
 namespace IsRightAttachment
 
@@ -139,8 +129,9 @@ theorem directedFlip_cases (A : Orientation L) (B : Orientation R) {η : Orienta
     congr 1
     · apply orientation_eq_of_selected_iff
       intro x y
-      rw [restrictLeft_selected, target_selected_iff w, target_selected_iff w',
-        glue_selected_left, hat, hah, hch, ← ha, ← hb, ← hc]
+      rw [restrictLeft_selected, target_selected_iff w, target_selected_iff w']
+      simp only [swapRel]
+      rw [glue_selected_left, hat, hah, hch, ← ha, ← hb, ← hc]
       simp only [(attachLeft p q).injective.eq_iff]
     · apply orientation_eq_of_selected_iff
       intro x y
@@ -151,8 +142,9 @@ theorem directedFlip_cases (A : Orientation L) (B : Orientation R) {η : Orienta
         obtain ⟨rfl, -⟩ := attachLeft_eq_attachRight_iff.mp ht.symm
         exact lt_irrefl _ hst
       have hab' : a < b := (attachLeft p q).lt_iff_lt.mp (by rw [ha, hb]; exact hord.1)
-      rw [restrictRight_selected, target_selected_iff w, glue_selected_right,
-        ← ha, ← hb, ← hc]
+      rw [restrictRight_selected, target_selected_iff w]
+      simp only [swapRel]
+      rw [glue_selected_right, ← ha, ← hb, ← hc]
       simp only [hne b c hbc', hne a b hab', false_or, not_false_eq_true, and_true]
   · obtain ⟨b, hb⟩ := (exists_attachRight_iff w.eab.head).mpr (by
       have := (exists_attachRight_iff _).mp ⟨a, ha⟩
@@ -174,13 +166,15 @@ theorem directedFlip_cases (A : Orientation L) (B : Orientation R) {η : Orienta
         obtain ⟨-, rfl⟩ := attachLeft_eq_attachRight_iff.mp ht
         exact lt_irrefl _ hst
       have hab' : a < b := (attachRight p q).lt_iff_lt.mp (by rw [ha, hb]; exact hord.1)
-      rw [restrictLeft_selected, target_selected_iff w, glue_selected_left,
-        ← ha, ← hb, ← hc]
+      rw [restrictLeft_selected, target_selected_iff w]
+      simp only [swapRel]
+      rw [glue_selected_left, ← ha, ← hb, ← hc]
       simp only [hne b c hbc', hne a b hab', false_or, not_false_eq_true, and_true]
     · apply orientation_eq_of_selected_iff
       intro x y
-      rw [restrictRight_selected, target_selected_iff w, target_selected_iff w',
-        glue_selected_right, hat, hah, hch, ← ha, ← hb, ← hc]
+      rw [restrictRight_selected, target_selected_iff w, target_selected_iff w']
+      simp only [swapRel]
+      rw [glue_selected_right, hat, hah, hch, ← ha, ← hb, ← hc]
       simp only [(attachRight p q).injective.eq_iff]
 
 /-- A flip of the union is exactly a flip of one factor with the other fixed. -/

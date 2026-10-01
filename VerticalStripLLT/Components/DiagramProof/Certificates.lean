@@ -273,6 +273,67 @@ theorem layerCert_smaller (hD : Forward D) (S : Finset (Orientation D))
 
 end Layers
 
+/-! ### Unmarked values of combinations -/
+
+namespace Cert
+
+variable {k : ℕ}
+
+/-- The unmarked strict-coloring value of a combination. -/
+def KU (c : Cert k) (m : ℕ) : XPoly m :=
+  Finsupp.linearCombination ℤ (fun x : Comp k => componentStrictEnumerator x.D x.θ m) c
+
+/-- The unmarked HRV value of a combination. -/
+def EU (c : Cert k) (m : ℕ) : XPoly m :=
+  Finsupp.linearCombination ℤ (fun x : Comp k => evalElementary m (componentHRV x.D x.θ)) c
+
+theorem KU_eq_sum (c : Cert k) (m : ℕ) : Cert.KU c m = ∑ β : Fin m, Cert.K c m β := by
+  unfold KU K
+  simp only [Finsupp.linearCombination_apply, Finsupp.sum]
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl fun x _ => ?_
+  rw [← Finset.smul_sum]
+  congr 1
+  exact (sum_componentMarkedK x.θ (Fin.last k) m).symm
+
+theorem EU_eq_sum (c : Cert k) (m : ℕ) : Cert.EU c m = ∑ β : Fin m, Cert.E c m β := by
+  unfold EU E
+  simp only [Finsupp.linearCombination_apply, Finsupp.sum]
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl fun x _ => ?_
+  rw [← Finset.smul_sum]
+  congr 1
+  exact (sum_componentMarkedE x.θ (Fin.last k) m).symm
+
+@[simp] theorem KU_single (x : Comp k) (z : ℤ) (m : ℕ) :
+    Cert.KU (Finsupp.single x z) m = z • componentStrictEnumerator x.D x.θ m :=
+  Finsupp.linearCombination_single ..
+
+@[simp] theorem EU_single (x : Comp k) (z : ℤ) (m : ℕ) :
+    Cert.EU (Finsupp.single x z) m = z • evalElementary m (componentHRV x.D x.θ) :=
+  Finsupp.linearCombination_single ..
+
+theorem KU_sum {ι : Type*} (s : Finset ι) (c : ι → Cert k) (m : ℕ) :
+    Cert.KU (∑ i ∈ s, c i) m = ∑ i ∈ s, Cert.KU (c i) m := map_sum ..
+
+theorem EU_sum {ι : Type*} (s : Finset ι) (c : ι → Cert k) (m : ℕ) :
+    Cert.EU (∑ i ∈ s, c i) m = ∑ i ∈ s, Cert.EU (c i) m := map_sum ..
+
+end Cert
+
+/-- `c` certifies the unmarked values of the component `x` by smaller components. -/
+def UCertifies {k : ℕ} (x : Comp k) (c : Cert k) : Prop :=
+  (∀ m, componentStrictEnumerator x.D x.θ m = Cert.KU c m ∧
+    evalElementary m (componentHRV x.D x.θ) = Cert.EU c m) ∧ Cert.Smaller c x.D
+
+theorem Certifies.uCertifies {k : ℕ} {x : Comp k} {c : Cert k} (h : Certifies x c) :
+    UCertifies x c := by
+  refine ⟨fun m => ⟨?_, ?_⟩, h.2⟩
+  · rw [Cert.KU_eq_sum, ← sum_componentMarkedK x.θ (Fin.last k) m]
+    exact Finset.sum_congr rfl fun β _ => (h.1 m β).1
+  · rw [Cert.EU_eq_sum, ← sum_componentMarkedE x.θ (Fin.last k) m]
+    exact Finset.sum_congr rfl fun β _ => (h.1 m β).2
+
 end
 
 end VerticalStripLLT.Circular.DiagramProof
