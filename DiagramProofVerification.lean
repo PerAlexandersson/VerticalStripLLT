@@ -1,3 +1,5 @@
+import VerticalStripLLT.Components.DiagramProof.LastCliqueNaturalEdges
+import VerticalStripLLT.Components.DiagramProof.TwoChainCardinality
 import VerticalStripLLT.Components.DiagramProof.InitialVertexConnectedCore
 import VerticalStripLLT.Components.DiagramProof.InitialVertexCorePaths
 import VerticalStripLLT.Components.DiagramProof.InitialVertexMatching
@@ -771,5 +773,8 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms initialVertex_induced_naturalEdges_delete_of_short
 #print axioms CornerFamily.initialVertex_goodEdgeGraph_delete_connected
 #print axioms commonCover_connected_of_initialVertex_short
+
+#print axioms lastClique_induced_short_naturalEdges
+#print axioms CornerFamily.commonCover_connected_of_terminal_card_le_two
 
 end VerticalStripLLT.Circular.DiagramProof

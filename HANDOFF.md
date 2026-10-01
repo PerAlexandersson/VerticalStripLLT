@@ -1,6 +1,57 @@
 # VerticalStripLLT handoff
 
-## Active implementation — P0–P5 complete, P6 partial
+## Active split — Claude owns Lean; Codex owns the writeup
+
+Ownership transfer recorded 2026-10-01, after the two pending P6 modules
+passed focused builds and all 649 axiom checks. The persistent Claude worker
+`agent-verticalstri-motzki-c-001af720` may now take all `DiagramProof/` Lean
+implementation, `DiagramProofVerification.lean`, and the **sole project build
+slot**. Begin with issue #8 and continue the remaining diagram formalization.
+Serialize builds with other Lean projects. Codex and its subagents will run
+no further Lean builds or edit Lean sources after this release.
+
+Codex retains `HANDOFF.md`, mathematical proof prose, formalization source maps,
+`docs/drafts/`, figures and manuscript work. Claude should report durable status,
+checks, commits and needed proof clarifications in `docs/LEAN_COORDINATION.md`
+(new file owned by Claude); Codex will incorporate those reports here.
+This transfer releases all earlier Codex source ownership below. All delegated
+source tasks have returned. No local compiler or queued build remains active.
+
+The Docker-side supervisor report/tail did not discover the persistent session;
+a read-only tmux inspection confirmed Claude was preparing attachment files in
+its scratchpad and waiting for this explicit transfer. No input guards were
+bypassed. This paragraph is the durable release the worker was instructed to read.
+
+P0–P5 are complete under their contracts; P6 is partial and P7–P10 are open.
+The complete mathematical diagram proof and the independent Lean theorem
+remain distinct. The older word/scan proof is not imported by this route.
+
+### Latest verified P6 checkpoint
+
+`LastCliqueNaturalEdges.lastClique_induced_short_naturalEdges` preserves
+short natural edges in the canonical core on `0,...,c,e`; interior pairs
+lift identically, and final pairs lie inside the given crossing edge.
+`CornerFamily.commonCover_connected_of_terminal_card_le_two` derives the
+existing two-terminal base from the bound on terminal fixed points.
+Terra supplied the former and Luna the latter; Codex repaired and verified
+both. They remain auxiliary lemmas: the global induction is unfinished.
+
+Checks: 649 axiom queries in exact order, only standard axioms; independent
+closure 283 project files; 209 DiagramProof modules pass source/100-column
+guards. Logs in the external request directory: `p6-core-short-build.log`,
+`p6-two-chain-card-build.log`, `p6-core-geometry-axioms.log`, and
+`p6-core-geometry-imports.txt`. No broad build or dependency update ran.
+
+Next P6 integration: preserve short edges under reversal, select the first two
+corners (or complete base), use the double reversal of `lastCliqueEmbed` for
+the first-clique branch, prove its size decrease, and assemble strong induction.
+The initial-vertex branch already discharges matching-edge removability.
+For an arbitrary complete natural diagram, audit an identity-embedding bridge
+through `cliqueRestrict`/`cliqueExtend` and `complete_reachable`; strict markings
+must use the marked variant where required. This is a candidate API route,
+not a checked bridge. The initial-path extension also remains open.
+
+## Prior implementation record — before ownership transfer
 
 Continuation from clean pushed `114fe7d` completes the conditional initial-vertex
 inheritance theorem. Every feasible initial-extra subset has an actual anchor
@@ -34,7 +85,13 @@ this handoff, the formalization plan, task suggestions and the authorized
 proof notes. Historical ownership and immutable prefixes remain unchanged;
 the archive below preserves their exact earlier record.
 
-### Active P6 work and ownership
+### Previous P6 work and ownership (superseded by the release above)
+
+Continuation from clean pushed `2a023fd`: Terra owns only new
+`LastCliqueNaturalEdges.lean` (canonical core short-edge preservation).
+Luna owns only new `TwoChainCardinality.lean` (two-terminal base from at most
+two terminal fixed points). Primary owns corner selection, reversal of short
+edges and the global induction. Delegates remain build-free; only primary builds.
 
 After pushed `68efc6a`, Terra supplied `InitialVertexChainCount.lean` and Luna
 supplied `InitialVertexNaturalEdges.lean`. Primary repaired, integrated and
