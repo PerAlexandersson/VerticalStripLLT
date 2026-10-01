@@ -42,8 +42,8 @@ smaller-core uniqueness from conclusions proved without it.
 
 Implementation status: P0–P5 are verified under their planned contracts,
 including P1's final initial-vertex restriction, corner and path interfaces.
-P6's connected-core preparation, fixed-extra-edge paths, missing-edge witness
-and adjacent-extra paths are checked. P0 and the
+P6's conditional initial-vertex inheritance is checked, including all feasible
+extra sets and common-cover preparation. Global vertex-count induction remains. P0 and the
 semantic import extractions are in `9d8c4bc`. P1 includes finite/lifted covers,
 weak-block invariance, exact corner marking, source-only short flips
 (`3bbb1e4`), convex path/cover restriction and an injective fixed-exterior
@@ -654,7 +654,10 @@ The first parts are now verified, following the same written diagrams:
 | Construct the missing-edge witness and use the crossing slide | `CornerFamily.exists_initialVertex_adjacent` | Verified, assuming smaller-core uniqueness, removable matching edge and free core capacity |
 | Connect any two anchors with neighboring extra sets | `initialVertex_reachable_of_erase_initial_row` | Verified; target feasibility supplies the free core capacity |
 | Record the initial extra subset and its core-count equation | `CornerFamily.selectedInitialVertexExtras_subset`, `CornerFamily.totalSelected_eq_initialVertex_core_add_one_add_extras` | Verified |
-| Assemble the feasible subset band and global vertex-count induction | Not yet assembled | Open |
+| Construct a witness with prescribed extra set and core | `CornerFamily.exists_initialVertex_sector_witness` | Verified |
+| Assemble the feasible subset band by actual crossing-slide paths | `initialVertex_connected_core_anchors` | Verified, with explicit smaller-core uniqueness and removable matching edges |
+| Prepare connected common-cover states and reverse the target preparation | `commonCover_connected_of_initialVertex_core` | Verified under the same explicit hypotheses |
+| Supply those hypotheses by global vertex-count induction | Not yet assembled | Open |
 
 `ClosedInducedAnchors` extracts the precise restriction condition: retained
 vertices are closed under corner successors. Requiring every ambient corner

@@ -3,6 +3,7 @@ import VerticalStripLLT.Components.DiagramProof.InitialVertexCorePaths
 import VerticalStripLLT.Components.DiagramProof.InitialVertexMatching
 import VerticalStripLLT.Components.DiagramProof.InitialVertexAdjacentPaths
 import VerticalStripLLT.Components.DiagramProof.InitialVertexExtras
+import VerticalStripLLT.Components.DiagramProof.InitialVertexInheritance
 import VerticalStripLLT.Components.DiagramProof.FirstCliqueInheritance
 import VerticalStripLLT.Components.DiagramProof.LastCliqueInheritance
 import VerticalStripLLT.Components.DiagramProof.LastCliqueFullTree
@@ -753,5 +754,13 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms CornerFamily.row_eq_insert_selectedInitialVertexExtras
 #print axioms CornerFamily.selectedInitialVertexExtras_subset
 #print axioms CornerFamily.totalSelected_eq_initialVertex_core_add_one_add_extras
+
+#print axioms connected_selected_card_lower_bound
+#print axioms CornerFamily.goodEdges_card_lower_bound_of_delete_connected
+#print axioms CornerFamily.exists_initialVertex_sector_witness
+#print axioms CornerFamily.initialVertex_extra_good
+#print axioms initialVertex_reachable_of_erase_extras
+#print axioms initialVertex_connected_core_anchors
+#print axioms commonCover_connected_of_initialVertex_core
 
 end VerticalStripLLT.Circular.DiagramProof
