@@ -166,7 +166,7 @@ for the component search. [HANDOFF](../HANDOFF.md) owns running-process status;
   `d73c4482643aafe0d9e33d09af07c2cd50a08355ad7b4f3d1d3de87b738594f5`.
 - Primary read the complete return, checked all hypotheses against TARGET,
   narrowed imports, ported arithmetic to `lia`, and integrated only
-  `VerticalStripLLT/Components/WordConjugation.lean`. No remote package,
+  `VerticalStripLLT/Components/WordProof/WordConjugation.lean`. No remote package,
   manifest, toolchain or project configuration was imported.
 - Completed declarations: `descendingProduct_mul_inverseProduct`,
   `inverseProduct_mul_descendingProduct`, `descendingProduct_conj`,

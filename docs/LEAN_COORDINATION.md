@@ -101,6 +101,57 @@ Checks at `f2f396f`:
 Logs are in
 `/lake-cache/ai-projects/requests/VerticalStripLLT/claude-right-attachment/logs/`.
 
+## Library layout (presentation checkpoint)
+
+The two component proofs are import-disjoint directories under
+`VerticalStripLLT/Components/`, each with one entry file:
+
+| Path | Content |
+| --- | --- |
+| `Components/*.lean` (81 modules) | component semantics shared by both proofs and the finite circular companion reduction (`Gain*`, `Compatible*`, `CircularFiniteCompanion`, `ComponentCoefficient`, `CircularFromOrdinaryComponents`, …) |
+| `Components/DiagramProof.lean` → `DiagramProof/` (215 modules) | the diagram proof; ends in `Consequences` (ordinary) and `CircularConsequences` (circular) |
+| `Components/WordProof.lean` → `WordProof/` (65 modules) | the earlier word-functional proof; ends in `OrdinaryComponentExpansion` and `ComponentExpansion` |
+
+The umbrella `VerticalStripLLT.lean` imports the two entry files. No
+`DiagramProof` module imports a `WordProof` module or the reverse (checked on
+the import graph). Module paths of the word proof changed from
+`Components/X.lean` to `Components/WordProof/X.lean`; declaration names and
+namespaces did not change.
+
+Changes at this checkpoint:
+
+- 65 word-route modules moved by `git mv` into `WordProof/`: the 60 used by
+  its theorems and 5 auxiliary block/mountain modules that were only in the
+  umbrella.
+- 23 unused `DiagramProof` modules deleted: the superseded terminal-clique
+  and occupancy route to P6 (`Terminal*`, `Occupancy*`, `*Packing`,
+  `ChainQuotient`, `ConnectedExchange`, `EqualSumCounts`, `LastCliqueFullTree`,
+  `QuotientOccupancy`, `QuotientSeparators`, `ShortPathClasses`, `TreeLeaves`).
+  None was imported by any theorem or by the umbrella. Their 45 axiom queries
+  were removed. The last commit containing them is `77cabb9`.
+- `CoverCut` gained the one missing module docstring. The empty untracked
+  directory `Components/DiagramProof/` at the repository root was removed.
+- Updated links: `README.md` (results table now points to both entry files),
+  `CHALLENGE.md`, `docs/ARISTOTLE.md`, `docs/COMPONENT_DIAGRAM_FORMALIZATION_PLAN.md`,
+  `suggestions/tensor-ring-inference.md`.
+
+Checks: full build 2367 jobs (`full-build-4.log`), no warnings in `DiagramProof`
+or the entry files; `DiagramProofVerification.lean` 815 queries
+(`axioms-5.log`) and `Verification.lean` 2814 queries (`verification-3.log`),
+all with only the standard axioms; verification closure 361 project files
+(`imports-layout.txt`); guards pass on all 215 `DiagramProof` modules, the entry
+files, the umbrella and the 65 `WordProof` modules.
+
+For the writer: links to `Components/<word module>.lean` remain in files I did
+not edit and should become `Components/WordProof/<module>.lean`:
+`docs/COMPONENT_COMPLETION.md` (lines with `OrdinaryComponentExpansion`,
+`ComponentExpansion` and the focused build command; it had uncommitted writer
+edits), and `docs/proofs/COMPONENT_ORDINARY_PROOF.md`,
+`COMPONENT_CIRCULAR_FACE_PROOF.md`, `COMPONENT_FINITE_COMPANION.md`,
+`COMPONENT_DIAGRAM_AUDIT.md`. Archive snapshots under `docs/archive/` are left
+as historical records. The plan's references to the deleted P6 modules
+are historical too.
+
 ## Module map and correspondence with the written proof
 
 All modules are in `VerticalStripLLT/Components/DiagramProof/`.

@@ -13,7 +13,6 @@ import VerticalStripLLT.Components.DiagramProof.InitialVertexInheritance
 import VerticalStripLLT.Components.DiagramProof.InitialVertexRemovable
 import VerticalStripLLT.Components.DiagramProof.FirstCliqueInheritance
 import VerticalStripLLT.Components.DiagramProof.LastCliqueInheritance
-import VerticalStripLLT.Components.DiagramProof.LastCliqueFullTree
 import VerticalStripLLT.Components.DiagramProof.LastCliqueSharedExchange
 import VerticalStripLLT.Components.DiagramProof.LastCliqueCorePaths
 import VerticalStripLLT.Components.DiagramProof.LastCliqueExtraPositions
@@ -35,12 +34,6 @@ import VerticalStripLLT.Components.DiagramProof.LastCliqueEmbedding
 import VerticalStripLLT.Components.DiagramProof.LastCliqueSweep
 import VerticalStripLLT.Components.DiagramProof.LastCliqueLift
 import VerticalStripLLT.Components.DiagramProof.PathTransport
-import VerticalStripLLT.Components.DiagramProof.TerminalPacking
-import VerticalStripLLT.Components.DiagramProof.TerminalRepair
-import VerticalStripLLT.Components.DiagramProof.TerminalTransfer
-import VerticalStripLLT.Components.DiagramProof.TerminalConnectivity
-import VerticalStripLLT.Components.DiagramProof.ConnectedExchange
-import VerticalStripLLT.Components.DiagramProof.OccupancyTransfers
 import VerticalStripLLT.Components.DiagramProof.WeakBlocks
 import VerticalStripLLT.Components.DiagramProof.CornerTransport
 import VerticalStripLLT.Components.DiagramProof.ShortFlip
@@ -50,7 +43,6 @@ import VerticalStripLLT.Components.DiagramProof.SinkRelabel
 import VerticalStripLLT.Components.DiagramProof.CrossingSlide
 import VerticalStripLLT.Components.DiagramProof.Preparation
 import VerticalStripLLT.Components.DiagramProof.ParallelPacking
-import VerticalStripLLT.Components.DiagramProof.ShortPathClasses
 import VerticalStripLLT.Components.SelectedColoringTransport
 
 import VerticalStripLLT.Components.DiagramProof.TwoChainBase
@@ -74,10 +66,8 @@ import VerticalStripLLT.Components.DiagramProof.CompleteConnectivity
 import VerticalStripLLT.Components.DiagramProof.IntervalReachability
 import VerticalStripLLT.Components.DiagramProof.ReachabilityForcing
 import VerticalStripLLT.Components.DiagramProof.CliquePaths
-import VerticalStripLLT.Components.DiagramProof.ChainQuotient
 import VerticalStripLLT.Components.DiagramProof.GoodEdgeConnectivity
 import VerticalStripLLT.Components.DiagramProof.AnchorSizes
-import VerticalStripLLT.Components.DiagramProof.QuotientSeparators
 import VerticalStripLLT.Components.DiagramProof.RemovableGoodEdges
 
 /-! Independent, focused axiom audit for the implemented diagram-proof interfaces. -/
@@ -184,7 +174,6 @@ import VerticalStripLLT.Components.DiagramProof.RemovableGoodEdges
 #print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.copy_reachable_of_tail_le
 #print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_lastCopy
 #print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.copy_reachable_undirected
-#print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.shortConnected_iff_chainPair_eq
 #print axioms VerticalStripLLT.Circular.DiagramProof.fullSelection_eq_of_exchange
 #print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_forwardCopyExchange
 #print axioms VerticalStripLLT.Circular.DiagramProof.CornerFamily.exists_backwardCopyExchange
@@ -429,12 +418,6 @@ import VerticalStripLLT.Components.DiagramProof.RemovableGoodEdges
 
 namespace VerticalStripLLT.Circular.DiagramProof
 
-#print axioms CornerFamily.chainQuotient_goodEdges_eq
-#print axioms CornerFamily.weakReach_terminal_of_subset
-#print axioms CornerFamily.chainQuotient_reachable_iff
-#print axioms CornerFamily.chainQuotient_reachable_iff_weakReach
-#print axioms CornerFamily.chainQuotient_preconnected_iff
-#print axioms CornerFamily.chainQuotient_preconnected_iff_selectedConnected
 #print axioms CornerFamily.eqvGen_goodEdgeRelation_of_natural_edge
 #print axioms CornerFamily.eqvGen_goodEdgeRelation_iff_eqvGen_naturalRel
 
@@ -466,8 +449,6 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms CornerFamily.goodEdge_weakReach_within_terminals_iff
 #print axioms CornerFamily.terminal_ne_of_consecutive
 #print axioms CornerFamily.goodEdge_weakReach_avoiding_terminal
-#print axioms CornerFamily.chainQuotient_induce_preconnected_avoiding_terminal
-#print axioms CornerFamily.chainQuotient_induce_connected_avoiding_terminal
 #print axioms CornerFamily.weakReach_erase_of_avoiding_terminal
 #print axioms CornerFamily.weakReach_erase_good_edge
 #print axioms CornerFamily.goodEdgeGraph_delete_connected
@@ -475,8 +456,6 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms CornerFamily.exists_third_terminal
 #print axioms CornerFamily.exists_connected_anchor_card_avoiding_of_no_articulation
 
-#print axioms exists_subset_with_label_counts
-#print axioms exists_representative_packing
 #print axioms CornerFamily.mem_terminalEdges
 #print axioms CornerFamily.terminalEdge_good_not_corner
 #print axioms CornerFamily.terminalEdges_label_injective
@@ -485,11 +464,6 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms CornerFamily.goodEdge_eq_last_corner_of_tail
 #print axioms CornerFamily.exists_terminalEdge_of_last_clique
 #print axioms CornerFamily.selected_last_clique_iff
-#print axioms CornerFamily.exists_terminal_packing
-#print axioms SimpleGraph.exists_reconnecting_edge
-#print axioms SimpleGraph.exists_connected_edge_exchange
-#print axioms reflTransGen_of_occupancy_descent
-#print axioms TerminalRepair.one_temporary_edge_repair
 #print axioms exists_interval_orderEmbedding
 #print axioms cliqueEdgeEmbed
 #print axioms cliqueEdgeEmbed_tail
@@ -497,33 +471,6 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms cliqueEdgeEmbed_image_fullSelection
 #print axioms cliqueRestrict_totalSelected_eq_filter
 #print axioms cliqueRestrict_totalSelected_swap
-#print axioms card_filter_insert_erase_label
-#print axioms CornerFamily.occupancy_of_fullSelection_exchange
-#print axioms CornerFamily.chainQuotient_adj_iff_occupancy
-#print axioms CornerFamily.chainQuotient_terminalEdges_adj_iff
-#print axioms CornerFamily.terminal_pair_eq_iff
-#print axioms CornerFamily.chainQuotient_terminal_insert_erase
-#print axioms deleteEdges_deleteEdges_sup_edge
-#print axioms CornerFamily.graph_eq_of_terminal_copies
-#print axioms CornerFamily.packed_terminal_graph_eq
-#print axioms CornerFamily.last_clique_block_of_terminal_connected
-#print axioms CornerFamily.exists_terminal_exchange
-#print axioms CornerFamily.exists_direct_terminal_transfer
-#print axioms reflTransGen_of_occupancy_descent_of_equal_counts
-#print axioms exists_surplus_and_deficit_of_sum_eq
-#print axioms CornerFamily.exists_terminalEdge_of_pair
-#print axioms CornerFamily.simpleGraph_edge_eq_of_terminal_pair
-#print axioms CornerFamily.terminal_capacity_pos
-#print axioms CornerFamily.occupancy_eq_zero_of_not_adj
-#print axioms CornerFamily.chainQuotient_of_occupancy_transfer
-#print axioms CornerFamily.exists_terminal_transfer
-#print axioms CornerFamily.sum_occupancy
-#print axioms CornerFamily.occupancy_diagonal_eq
-#print axioms CornerFamily.occupancy_le_capacity
-#print axioms CornerFamily.exists_terminalEdge_of_occupancy_gt
-#print axioms CornerFamily.exists_terminal_receiver
-#print axioms CornerFamily.anchors_connected_of_total_last_clique
-#print axioms CornerFamily.commonCover_connected_of_total_last_clique
 
 #print axioms inducedNaturalRelation
 #print axioms inducedNaturalRelation_forward
@@ -680,8 +627,6 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms lastClique_fixed_anchors_connected
 #print axioms anchors_connected_of_lastClique_core
 #print axioms commonCover_connected_of_lastClique_core
-#print axioms tree_with_attached_leaves
-#print axioms lastCliqueFixedEdges_isTree
 
 #print axioms reflTransGen_rev_iff
 #print axioms relationCover_rev_iff

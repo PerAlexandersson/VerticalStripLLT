@@ -27,7 +27,8 @@ The declarations are propositions to prove, not assertions that a new proof exis
   diagram type itself requires a positive vertex count.
 - Use only the usual Lean axioms: `propext`, `Classical.choice`, `Quot.sound`.
 - For an independent solution, do not import the umbrella `VerticalStripLLT`,
-  `Components.ComponentExpansion`, `Components.OrdinaryComponentExpansion`, or
+  `Components.WordProof.ComponentExpansion`,
+  `Components.WordProof.OrdinaryComponentExpansion`, `Components.DiagramProof`, or
   any equivalent final theorem through an indirect import. Existing definitions,
   Mathlib and lower-level project lemmas are allowed; disclose imports used.
 - Compare proof length, dependencies and measured elaboration cost. A one-line
@@ -37,8 +38,8 @@ The declarations are propositions to prove, not assertions that a new proof exis
 
 | Target | Existing module | What would help |
 | --- | --- | --- |
-| Ordinary component identity | `Components/OrdinaryComponentExpansion.lean` | A shorter dependency chain from the actual component count to the HRV sum. |
-| Per-state extraction | `Components/HRVScanExtraction.lean` | A simpler invariant or successor proof, retaining actual HRV fibers and `a 0 = 1`. |
+| Ordinary component identity | `Components/WordProof/OrdinaryComponentExpansion.lean` | A shorter dependency chain from the actual component count to the HRV sum. |
+| Per-state extraction | `Components/WordProof/HRVScanExtraction.lean` | A simpler invariant or successor proof, retaining actual HRV fibers and `a 0 = 1`. |
 | Circular reduction | `Components/CircularFromOrdinaryComponents.lean` | A smaller finite transport argument for a union of whole ordinary components. |
 
 The current route is the word functional, finite Cauchy factorization and signed

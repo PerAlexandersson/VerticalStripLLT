@@ -4,7 +4,7 @@ In the pinned Lean 4.34 / Mathlib build, synthesizing `Ring (K ⊗[ℤ] WordAlge
 succeeds, but inferring its distributivity classes inside rewrites can fail.
 This cost repeated checks during scalar-extension integration.
 
-`Components/WordScalars.lean` supplies a local instance equal to
+`Components/WordProof/WordScalars.lean` supplies a local instance equal to
 `Algebra.TensorProduct.instRing`. This makes superclass inference reliable,
 without changing the mathematical structure or any global instance priorities.
 Explicit `(V := Fin n)` arguments also avoid expensive unfolding of the word

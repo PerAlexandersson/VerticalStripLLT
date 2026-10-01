@@ -1,5 +1,7 @@
 import VerticalStripLLT.Components.DiagramProof.RelationPaths
 
+/-! An edge that alone crosses a forward-closed cut is a cover. -/
+
 namespace VerticalStripLLT.Circular.DiagramProof
 
 variable {V : Type*} [LinearOrder V]
