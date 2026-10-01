@@ -1,3 +1,4 @@
+import VerticalStripLLT.Components.DiagramProof.CommonCoverUniqueness
 import VerticalStripLLT.Components.DiagramProof.RightAttachment
 import VerticalStripLLT.Components.DiagramProof.LastCliqueNaturalEdges
 import VerticalStripLLT.Components.DiagramProof.TwoChainCardinality
@@ -850,5 +851,13 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms IsRightAttachment.naturalArea_eq
 #print axioms IsRightAttachment.areaMoment_eq
 #print axioms IsRightAttachment.attach_measure_lt
+
+
+-- Common-cover uniqueness without articulation (P6 global induction)
+#print axioms totalSelected_eq_card_selected
+#print axioms shortEdges_reversed
+#print axioms reachable_of_complete
+#print axioms corner_eq_of_tail_eq
+#print axioms commonCoverUnique_of_shortEdges
 
 end VerticalStripLLT.Circular.DiagramProof

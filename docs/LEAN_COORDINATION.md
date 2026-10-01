@@ -52,6 +52,26 @@ Logs are in
 `attach-3.log`, `axioms-1.log` and `imports-1.txt`. Earlier logs contain
 superseded repairs.
 
+### Verified: P6 common-cover uniqueness without articulation
+
+`CommonCoverUniqueness.lean` proves `commonCoverUnique_of_shortEdges`:
+for every forward diagram with `ShortEdges D`, i.e. every natural edge of
+length at most two (the no-articulation condition), connected common-cover
+states of equal total size are joined by actual flips. It has no remaining
+hypotheses. The proof is strong induction on the vertex count:
+
+- base cases: at most two corner chains (`commonCover_connected_of_terminal_card_le_two`)
+  and complete diagrams (`reachable_of_complete`, via `clique_reachable_of_block`
+  with the identity core);
+- second corner tail `1`: initial-vertex inheritance
+  (`commonCover_connected_of_initialVertex_short`) on `Fin.succOrderEmb`;
+- second corner tail `>1`: first-clique inheritance on `{0} ∪ [b, n-1]`, with
+  the core embedding chosen as the reversal of `lastCliqueEmbed`. This makes
+  `lastClique_induced_short_naturalEdges` apply after `reverseOrderEmbedding_involutive`.
+
+All 724 axiom queries pass with only standard axioms (`axioms-2.log`).
+The initial-path extension remains (next).
+
 ### Open questions for the writer
 
 - **Coefficients.** The transfer uses `z i • V` with `z : ι → ℤ`. P8
@@ -67,9 +87,7 @@ superseded repairs.
 
 ### Remaining obligations (unchanged goal)
 
-- **P6.** The global vertex-count induction supplying smaller-core
-  uniqueness. Its two bases were added at `b78312c` (canonical core short
-  edges, two-chain cardinality).
+- **P6.** The initial-path extension of common-cover uniqueness.
 - **P7.** Smaller-component corrections and envelope normalization.
 - **P8.** Right-marked full-layer NN/DN recurrences and component isolation.
 - **P9, rest.** Articulation prefix selection, first-drop coverage, and
