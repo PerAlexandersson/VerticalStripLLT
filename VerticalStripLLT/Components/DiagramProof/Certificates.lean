@@ -64,16 +64,20 @@ def E (c : Cert k) (m : ℕ) (β : Fin m) : XPoly m :=
     Cert.E (Finsupp.single x z) m β = z • x.E m β :=
   Finsupp.linearCombination_single ..
 
-@[simp] theorem K_add (c d : Cert k) (m : ℕ) (β : Fin m) : Cert.K (c + d) m β = Cert.K c m β + Cert.K d m β :=
+@[simp] theorem K_add (c d : Cert k) (m : ℕ) (β : Fin m) :
+    Cert.K (c + d) m β = Cert.K c m β + Cert.K d m β :=
   map_add ..
 
-@[simp] theorem E_add (c d : Cert k) (m : ℕ) (β : Fin m) : Cert.E (c + d) m β = Cert.E c m β + Cert.E d m β :=
+@[simp] theorem E_add (c d : Cert k) (m : ℕ) (β : Fin m) :
+    Cert.E (c + d) m β = Cert.E c m β + Cert.E d m β :=
   map_add ..
 
-@[simp] theorem K_sub (c d : Cert k) (m : ℕ) (β : Fin m) : Cert.K (c - d) m β = Cert.K c m β - Cert.K d m β :=
+@[simp] theorem K_sub (c d : Cert k) (m : ℕ) (β : Fin m) :
+    Cert.K (c - d) m β = Cert.K c m β - Cert.K d m β :=
   map_sub ..
 
-@[simp] theorem E_sub (c d : Cert k) (m : ℕ) (β : Fin m) : Cert.E (c - d) m β = Cert.E c m β - Cert.E d m β :=
+@[simp] theorem E_sub (c d : Cert k) (m : ℕ) (β : Fin m) :
+    Cert.E (c - d) m β = Cert.E c m β - Cert.E d m β :=
   map_sub ..
 
 @[simp] theorem K_neg (c : Cert k) (m : ℕ) (β : Fin m) : Cert.K (-c) m β = -Cert.K c m β :=
