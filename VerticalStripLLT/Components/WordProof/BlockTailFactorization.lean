@@ -17,6 +17,7 @@ private def carrierRel (R : V → V → Prop)
 private def zipAssign (X : (Finset V × V) × Finset V) : Finset V × Finset V :=
   (X.1.1, X.2)
 
+omit [LinearOrder V] in
 private theorem pairwise_zip_assign (R : V → V → Prop)
     (blocks : List (Finset V × V)) (tails : List (Finset V))
     (hlen : tails.length = blocks.length)
@@ -62,7 +63,7 @@ theorem flattenedTailCompatibilityIndicator_cons_factor
         (T :: tails).length = ((B, r) :: blocks).length ∧
           ∀ X ∈ ((B, r) :: blocks).zip (T :: tails), X.2 ⊆ X.1.1 := by
       constructor
-      · simpa [hvalid.1]
+      · simp [hvalid.1]
       · intro X hX
         simp only [List.zip_cons_cons] at hX
         rcases List.mem_cons.mp hX with rfl | hX

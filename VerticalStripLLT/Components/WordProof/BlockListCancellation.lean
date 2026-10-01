@@ -74,7 +74,7 @@ tail lists contribute zero, which makes pointwise factorization hypotheses
 usable without a dependent list type. -/
 def flattenedTailCompatibilityIndicator (R : V → V → Prop)
     (blocks : List (Finset V × V)) (tails : List (Finset V)) : ℤ :=
-  if h : tails.length = blocks.length ∧
+  if _h : tails.length = blocks.length ∧
       ∀ BT ∈ blocks.zip tails, BT.2 ⊆ BT.1.1 then
     if wordCompatible R
         ((blocks.zip tails).map (fun BT => blockWord BT.1.1 BT.2)).flatten then 1 else 0

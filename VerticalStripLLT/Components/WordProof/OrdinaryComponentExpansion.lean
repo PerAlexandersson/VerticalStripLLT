@@ -12,7 +12,7 @@ open VerticalStripLLT.Components
 variable {n : ℕ} {D : Diagram n}
 
 /-- The ordinary component identity, proved from the actual component word functional. -/
-theorem component_strict_eq_elementary_of_forward (θ : Orientation D)
+theorem component_strict_eq_elementary_of_forward_by_words (θ : Orientation D)
     (hforward : ∀ e : Edge D.area, e.tail < e.head) (m : ℕ) :
     componentStrictEnumerator D θ m = evalElementary m (componentHRV D θ) := by
   rw [componentStrictEnumerator_eq_mountainScan_sum θ hforward m]

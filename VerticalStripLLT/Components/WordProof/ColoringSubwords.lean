@@ -15,10 +15,12 @@ variable {C V : Type*} [Fintype C] [Fintype V]
 def selectedColorSubword (L : List (C × V)) (c : V → C) : List (C × V) :=
   L.filter (fun p => c p.2 = p.1)
 
+omit [Fintype C] [Fintype V] [DecidableEq V] in
 theorem selectedColorSubword_sublist (L : List (C × V)) (c : V → C) :
     (selectedColorSubword L c).Sublist L := by
   exact List.filter_sublist
 
+omit [Fintype C] [Fintype V] [DecidableEq V] in
 theorem fullWord_map_snd_selectedColorSubword
     {L : List (C × V)} (hL : fullWord L) (c : V → C) :
     fullWord ((selectedColorSubword L c).map Prod.snd) := by
@@ -42,6 +44,7 @@ theorem fullWord_map_snd_selectedColorSubword
       List.mem_filter_of_mem hp (by simp)
     exact List.mem_map.mpr ⟨(c v, v), hp', rfl⟩
 
+omit [Fintype C] [Fintype V] [DecidableEq V] in
 theorem existsUnique_selectedColorSubword
     {L : List (C × V)} (hL : fullWord L)
     {S : List (C × V)} (hSsub : S.Sublist L)

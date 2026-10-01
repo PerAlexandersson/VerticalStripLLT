@@ -66,7 +66,8 @@ theorem strictOrderEnumerator_finiteCompanion (θ : Orientation D) (m : ℕ) :
   have h := θ.toUndecorated.strictOrderEnumerator_companion_of_no_strict rfl m
   rw [θ.toUndecorated_strictOrderEnumerator] at h
   simp only [toUndecorated_val, Diagram.naturalGain] at h
-  convert h using 1 <;> congr 1
+  convert h using 1
+  congr 1
 
 /-- The finite companion before evaluating the entire periodic HRV map. -/
 theorem liftedHRV_value_finiteCompanion {M : Type*} [AddCommGroup M]
@@ -80,7 +81,8 @@ theorem liftedHRV_value_finiteCompanion {M : Type*} [AddCommGroup M]
     funext θ.toUndecorated_liftedHRV
   rw [heq] at h
   simp only [toUndecorated_val, Diagram.naturalGain] at h
-  convert h using 1 <;> congr 1
+  convert h using 1
+  congr 1
 
 end
 

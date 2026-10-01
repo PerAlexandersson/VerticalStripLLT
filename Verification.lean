@@ -2893,11 +2893,11 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Circular.Orientation.mountainScan_hrvScanContinuation
 #print axioms VerticalStripLLT.Circular.Orientation.mountainScan_hrvInitialSupport
 #print axioms VerticalStripLLT.Circular.Orientation.mountainScan_fullWord_compatible
-#print axioms VerticalStripLLT.Circular.component_strict_eq_elementary_of_forward
-#print axioms VerticalStripLLT.Circular.component_strict_eq_elementary
-#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_orientation_sum
-#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_eval
-#print axioms VerticalStripLLT.Circular.component_weighted_e_positive
+#print axioms VerticalStripLLT.Circular.component_strict_eq_elementary_of_forward_by_words
+#print axioms VerticalStripLLT.Circular.component_strict_eq_elementary_by_words
+#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_orientation_sum_by_words
+#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_eval_by_words
+#print axioms VerticalStripLLT.Circular.component_weighted_e_positive_by_words
 
 -- Shared helpers from the independent streamlining audit.
 #print axioms VerticalStripLLT.Circular.componentClass_mk_eq_iff_mem
@@ -2905,11 +2905,11 @@ import VerticalStripLLT.Examples.Ordinary
 #print axioms VerticalStripLLT.Components.mul_central_left_comm
 
 -- Ordinary component theorem by the independent diagram route.
-#print axioms VerticalStripLLT.Circular.component_strict_eq_elementary_of_forward_by_diagrams
-#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_eval_of_forward_by_diagrams
-#print axioms VerticalStripLLT.Circular.component_weighted_e_positive_of_forward_by_diagrams
+#print axioms VerticalStripLLT.Circular.component_strict_eq_elementary_of_forward
+#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_eval_of_forward
+#print axioms VerticalStripLLT.Circular.component_weighted_e_positive_of_forward
 -- Circular component theorem: the companion reduction plus the diagram route.
-#print axioms VerticalStripLLT.Circular.component_strict_eq_elementary_by_diagrams
-#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_orientation_sum_by_diagrams
-#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_eval_by_diagrams
-#print axioms VerticalStripLLT.Circular.component_weighted_e_positive_by_diagrams
+#print axioms VerticalStripLLT.Circular.component_strict_eq_elementary
+#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_orientation_sum
+#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_eval
+#print axioms VerticalStripLLT.Circular.component_weighted_e_positive

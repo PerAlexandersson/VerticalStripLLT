@@ -32,7 +32,7 @@ noncomputable instance componentClass_fintype (D : Diagram n) :
 noncomputable def componentWeight (D : Diagram n) (γ : Orientation D)
     (q : componentClass D) : ℤ :=
   Quotient.lift (componentCoefficient D γ)
-    (fun θ η h => componentCoefficient_eq_of_reachable γ h) q
+    (fun _ _ h => componentCoefficient_eq_of_reachable γ h) q
 
 @[simp]
 theorem componentWeight_mk (γ θ : Orientation D) :

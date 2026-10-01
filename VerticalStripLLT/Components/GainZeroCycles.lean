@@ -10,6 +10,7 @@ noncomputable section
 
 variable {V E : Type*} [Fintype V] [DecidableEq E]
 
+omit [DecidableEq E] in
 theorem eq_empty_of_zeroGain_simpleNegative_totallyCyclic
     (G : GainData V E) (A : Finset E)
     (hz : ∀ e ∈ A, G.gain e = 0)

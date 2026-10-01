@@ -20,6 +20,7 @@ variable {V E : Type*} [Fintype V] [DecidableEq V] [DecidableEq E] (G : GainData
 def selectedRelation (A : Finset E) (x y : V) : Prop :=
   ∃ e ∈ A, G.tail e = x ∧ G.head e = y
 
+omit [DecidableEq E] in
 theorem compatible_iff_levelCompatible (A : Finset E) (bs : List (Finset V))
     (hbs : IsCompatible (fun _ _ : V => False) Finset.univ bs) :
     IsCompatible (G.selectedRelation A) Finset.univ bs ↔
@@ -31,6 +32,7 @@ theorem compatible_iff_levelCompatible (A : Finset E) (bs : List (Finset V))
   · rintro h x _ y _ ⟨e, he, rfl, rfl⟩
     exact h e he
 
+omit [DecidableEq E] in
 theorem signedSum_eq_level_sum (A : Finset E) :
     signedSum (G.selectedRelation A) Finset.univ =
       ∑ bs ∈ partitions (fun _ _ : V => False) Finset.univ,

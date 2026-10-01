@@ -13,9 +13,9 @@ variable {V : Type*} [LinearOrder V]
 theorem blockWord_nodup (B T : Finset V) (hT : T ⊆ B) :
     (blockWord B T).Nodup := by
   have hinc : (incWord (B \ T)).Nodup := by
-    simpa [incWord] using (B \ T).sort_nodup (· ≤ ·)
+    exact (B \ T).sort_nodup (· ≤ ·)
   have hdec : (decWord T).Nodup := by
-    simpa [decWord] using T.sort_nodup (· ≥ ·)
+    exact T.sort_nodup (· ≥ ·)
   have hdis : List.Disjoint (incWord (B \ T)) (decWord T) := by
     intro v hvinc hvdec
     have hvinc' : v ∈ B \ T := by simpa [incWord] using hvinc

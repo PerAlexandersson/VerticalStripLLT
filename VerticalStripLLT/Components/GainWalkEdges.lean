@@ -33,7 +33,7 @@ theorem walkGain_eq_sum_walkEdges {A : Finset E} {u v : V} (p : G.Walk A u v) :
   | nil => simp [walkGain, walkEdges]
   | cons p e ih =>
     simp only [walkGain, Quiver.Path.addWeight_cons] at ih ⊢
-    simpa [walkEdges, ih]
+    simp [walkEdges, ih]
 
 /-- Every walk balances its edge endpoints up to its initial and final vertices. -/
 theorem walkEdges_endpoint_perm {A : Finset E} {u v : V} (p : G.Walk A u v) :

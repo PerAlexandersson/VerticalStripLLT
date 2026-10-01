@@ -61,12 +61,13 @@ def strongWeakComponentEquiv (R : V → V → Prop) (hR : TotallyCyclic R) :
 
 variable [DecidableEq V] [Fintype V]
 
+omit [DecidableEq V] in
 /-- The strict reachability condensation has no edges exactly in the totally cyclic case. -/
 theorem condensation_edgeless_iff_totallyCyclic (R : V → V → Prop) :
     letI : Preorder V := reachabilityPreorder R
     Edgeless (fun x y : Antisymmetrization V (· ≤ ·) => x < y)
       (Finset.univ.image (toAntisymmetrization (α := V) (· ≤ ·))) ↔ TotallyCyclic R := by
-  letI : Preorder V := reachabilityPreorder R
+  let : Preorder V := reachabilityPreorder R
   let q := toAntisymmetrization (α := V) (· ≤ ·)
   constructor
   · intro h x y hxy
@@ -90,6 +91,7 @@ theorem condensation_edgeless_iff_totallyCyclic (R : V → V → Prop) :
       toAntisymmetrization_le_toAntisymmetrization_iff.mpr (h.reverse_reachable hab)
     exact (not_le_of_gt hxy) hba
 
+omit [DecidableEq V] in
 /-- The finite vertex image in the totally cyclic condensation has one element
 per weak component. The proof identifies the actual quotient types. -/
 theorem condensation_card_eq_weakComponentCount (R : V → V → Prop)
@@ -97,13 +99,13 @@ theorem condensation_card_eq_weakComponentCount (R : V → V → Prop)
     letI : Preorder V := reachabilityPreorder R
     (Finset.univ.image (toAntisymmetrization (α := V) (· ≤ ·))).card =
       weakComponentCount R := by
-  letI : Preorder V := reachabilityPreorder R
+  let : Preorder V := reachabilityPreorder R
   let Q := Antisymmetrization V (· ≤ ·)
   let q : V → Q := toAntisymmetrization (· ≤ ·)
   have hq : Function.Surjective q := by
     intro x
     exact ⟨ofAntisymmetrization (· ≤ ·) x, by simp [q]⟩
-  letI : Fintype Q := Fintype.ofSurjective q hq
+  let : Fintype Q := Fintype.ofSurjective q hq
   have hfull : (Finset.univ : Finset V).image q = (Finset.univ : Finset Q) :=
     Finset.image_univ_of_surjective hq
   change ((Finset.univ : Finset V).image q).card = weakComponentCount R
@@ -115,7 +117,7 @@ component parity in the totally cyclic case, and zero otherwise. -/
 theorem signedSum_eq_weakComponentCount (R : V → V → Prop) :
     signedSum R (Finset.univ : Finset V) =
       if TotallyCyclic R then (-1 : ℤ) ^ weakComponentCount R else 0 := by
-  letI : Preorder V := reachabilityPreorder R
+  let : Preorder V := reachabilityPreorder R
   have hacyclic : ∀ x : Antisymmetrization V (· ≤ ·),
       ¬ Relation.TransGen (fun a b : Antisymmetrization V (· ≤ ·) => a < b) x x := by
     intro x hx

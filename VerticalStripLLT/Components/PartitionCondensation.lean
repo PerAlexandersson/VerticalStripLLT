@@ -24,11 +24,13 @@ def FiberSaturated (q : V → W) (S : Finset V) : Prop :=
 def blockPreimage (q : V → W) (B : Finset W) : Finset V :=
   Finset.univ.filter fun v => q v ∈ B
 
+omit [DecidableEq V] in
 @[simp]
 theorem mem_blockPreimage (q : V → W) (B : Finset W) (v : V) :
     v ∈ blockPreimage q B ↔ q v ∈ B := by
   simp [blockPreimage]
 
+omit [DecidableEq V] in
 theorem blockPreimage_image (q : V → W) {S : Finset V} (hS : FiberSaturated q S) :
     blockPreimage q (S.image q) = S := by
   ext x
@@ -39,6 +41,7 @@ theorem blockPreimage_image (q : V → W) {S : Finset V} (hS : FiberSaturated q 
   · intro hx
     exact ⟨x, hx, rfl⟩
 
+omit [DecidableEq V] in
 theorem image_blockPreimage (q : V → W) (hq : Function.Surjective q) (B : Finset W) :
     (blockPreimage q B).image q = B := by
   ext y
@@ -55,12 +58,14 @@ theorem blockPreimage_sdiff (q : V → W) (S B : Finset W) :
   ext x
   simp
 
+omit [DecidableEq W] [Fintype V] in
 theorem FiberSaturated.sdiff {q : V → W} {S U : Finset V}
     (hS : FiberSaturated q S) (hU : FiberSaturated q U) : FiberSaturated q (S \ U) := by
   intro x y hxy hx
   obtain ⟨hxS, hxU⟩ := Finset.mem_sdiff.mp hx
   exact Finset.mem_sdiff.mpr ⟨hS hxy hxS, fun hyU => hxU (hU hxy.symm hyU)⟩
 
+omit [Fintype V] in
 theorem image_sdiff_of_saturated (q : V → W) (S U : Finset V)
     (hU : FiberSaturated q U) : (S \ U).image q = S.image q \ U.image q := by
   ext y
@@ -227,6 +232,7 @@ end Preorders
 def DownClosed (R : V → V → Prop) (S : Finset V) : Prop :=
   ∀ ⦃x y⦄, R x y → y ∈ S → x ∈ S
 
+omit [DecidableEq V] [Fintype V] in
 private theorem upClosed_reachability {R : V → V → Prop} {S U : Finset V}
     (hS : DownClosed R S) (hU : UpClosed R S U) :
     UpClosed (Relation.ReflTransGen R) S U := by
@@ -238,12 +244,14 @@ private theorem upClosed_reachability {R : V → V → Prop} {S U : Finset V}
     intro hy
     exact hU (ih (hS hstep hy)) hy hstep
 
+omit [Fintype V] in
 private theorem downClosed_sdiff {R : V → V → Prop} {S U : Finset V}
     (hS : DownClosed R S) (hU : UpClosed R S U) : DownClosed R (S \ U) := by
   intro x y hxy hy
   obtain ⟨hyS, hyU⟩ := Finset.mem_sdiff.mp hy
   exact Finset.mem_sdiff.mpr ⟨hS hxy hyS, fun hxU => hyU (hU hxU hyS hxy)⟩
 
+omit [Fintype V] in
 /-- Adding all reachable pairs does not change compatibility on a down-closed set. -/
 theorem compatible_reachability_iff (R : V → V → Prop) (S : Finset V)
     (hS : DownClosed R S) (bs : List (Finset V)) :
@@ -265,6 +273,7 @@ theorem compatible_reachability_iff (R : V → V → Prop) (S : Finset V)
       refine ⟨(mem_topBlocks R S U).mpr ⟨hUS, hUne, hup'⟩, ?_⟩
       exact (ih (S \ U) (downClosed_sdiff hS hup')).mpr hbs
 
+omit [Fintype V] in
 theorem signedSum_reachability (R : V → V → Prop) (S : Finset V)
     (hS : DownClosed R S) :
     signedSum R S = signedSum (Relation.ReflTransGen R) S := by
@@ -274,6 +283,7 @@ theorem signedSum_reachability (R : V → V → Prop) (S : Finset V)
   simp only [signedSum, heq]
 
 /-- The reachability preorder used to form the strong-component quotient. -/
+@[instance_reducible]
 def reachabilityPreorder (R : V → V → Prop) : Preorder V where
   le := Relation.ReflTransGen R
   le_refl _ := Relation.ReflTransGen.refl
@@ -286,7 +296,7 @@ theorem signedSum_condensation (R : V → V → Prop) :
     signedSum R (Finset.univ : Finset V) =
       signedSum (fun x y : Antisymmetrization V (· ≤ ·) => x < y)
         (Finset.univ.image (toAntisymmetrization (α := V) (· ≤ ·))) := by
-  letI : Preorder V := reachabilityPreorder R
+  let : Preorder V := reachabilityPreorder R
   calc
     signedSum R (Finset.univ : Finset V) =
         signedSum (Relation.ReflTransGen R) Finset.univ :=

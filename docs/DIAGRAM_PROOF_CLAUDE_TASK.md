@@ -45,10 +45,10 @@ sources at `26b2d97`.
 
 Proposed attachment files:
 
-1. `VerticalStripLLT/Components/DiagramProof/RightAttachmentDiagram.lean`;
-2. `VerticalStripLLT/Components/DiagramProof/RightAttachmentPaths.lean`;
-3. `VerticalStripLLT/Components/DiagramProof/RightAttachmentValues.lean`;
-4. `VerticalStripLLT/Components/DiagramProof/RightAttachment.lean`.
+1. `VerticalStripLLT/Components/DiagramProof/Attachment/RightAttachmentDiagram.lean`;
+2. `VerticalStripLLT/Components/DiagramProof/Attachment/RightAttachmentPaths.lean`;
+3. `VerticalStripLLT/Components/DiagramProof/Attachment/RightAttachmentValues.lean`;
+4. `VerticalStripLLT/Components/DiagramProof/Attachment/RightAttachment.lean`.
 
 **Only Claude holds the project build slot after this transfer.** Builds must
 still serialize with other Lean projects, use `lake-workspace` and focus on

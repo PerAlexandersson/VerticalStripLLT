@@ -26,7 +26,7 @@ theorem incWord_insert_max (B : Finset V) (r : V)
     change (incWord B ++ [r]).Nodup
     rw [← List.concat_eq_append]
     have hsort : (incWord B).Nodup := by
-      simpa [incWord] using B.sort_nodup (· ≤ ·)
+      exact B.sort_nodup (· ≤ ·)
     apply hsort.concat
     simpa [incWord] using hrB
   have hLpair : L.Pairwise (· ≤ ·) := by

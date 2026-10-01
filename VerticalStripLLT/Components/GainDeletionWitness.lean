@@ -47,6 +47,7 @@ theorem exists_disjoint_signedLists {F : Finset E} (hF : ¬G.Balanced F) :
   have hd := residual_gain_sub_eq G.gain P N
   lia
 
+omit [Fintype V] [DecidableEq E] in
 /-- A nonempty endpoint-balanced forward list would contradict the existence of a DAG source. -/
 theorem eq_nil_of_endpoint_perm {F : Finset E}
     (hacyclic : ∀ v, ¬Relation.TransGen (G.selectedRelation F) v v)

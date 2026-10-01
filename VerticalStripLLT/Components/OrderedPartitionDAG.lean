@@ -19,9 +19,11 @@ noncomputable section
 
 variable {V : Type*} [DecidableEq V]
 
+omit [DecidableEq V] in
 theorem edgeHeads_subset (R : V → V → Prop) (S : Finset V) : edgeHeads R S ⊆ S :=
   Finset.filter_subset _ _
 
+omit [DecidableEq V] in
 theorem edgeHeads_eq_empty_iff (R : V → V → Prop) (S : Finset V) :
     edgeHeads R S = ∅ ↔ Edgeless R S := by
   constructor
@@ -127,11 +129,12 @@ theorem signedSum_eq_of_sources (R : V → V → Prop) (S : Finset V)
   rw [signedSum_top_recursion R hSne, hsum, ← hfempty]
   lia
 
+omit [DecidableEq V] in
 /-- An acyclic relation has a source in each finite nonempty induced subgraph. -/
 theorem edgeHeads_ne_of_acyclic (R : V → V → Prop)
     (hacyclic : ∀ v, ¬ Relation.TransGen R v v) (S : Finset V) (hS : S.Nonempty) :
     edgeHeads R S ≠ S := by
-  letI : IsStrictOrder V (Relation.TransGen R) :=
+  let : IsStrictOrder V (Relation.TransGen R) :=
     { irrefl := hacyclic
       trans := fun _ _ _ h₁ h₂ => h₁.trans h₂ }
   have hw : WellFounded (fun x y : V =>

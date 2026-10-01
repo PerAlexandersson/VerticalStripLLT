@@ -23,10 +23,12 @@ abbrev quotientGain (s : Setoid V) (p : V → ℤ) : GainData (Quotient s) E whe
   head e := Quotient.mk s (G.head e)
   gain e := G.gain e - (p (G.head e) - p (G.tail e))
 
+omit [DecidableEq E] in
 theorem contraction_eq_quotientGain (F : Finset E) (p : V → ℤ) :
     G.contraction F p =
       G.quotientGain (Relation.EqvGen.setoid (G.selectedRelation F)) p := rfl
 
+omit [DecidableEq E] in
 /-- Pointwise equality of weak connectivity identifies the actual quotient setoids. -/
 theorem weakSetoid_eq_of_weakClosure {F F' : Finset E}
     (hweak : ∀ x y, Relation.EqvGen (G.selectedRelation F) x y ↔
@@ -35,6 +37,7 @@ theorem weakSetoid_eq_of_weakClosure {F F' : Finset E}
       Relation.EqvGen.setoid (G.selectedRelation F') :=
   Setoid.ext hweak
 
+omit [DecidableEq E] in
 theorem weakComponentCount_eq_of_weakClosure {F F' : Finset E}
     (hweak : ∀ x y, Relation.EqvGen (G.selectedRelation F) x y ↔
       Relation.EqvGen (G.selectedRelation F') x y) :
@@ -44,6 +47,7 @@ theorem weakComponentCount_eq_of_weakClosure {F F' : Finset E}
     Nat.card (Quotient (Relation.EqvGen.setoid (G.selectedRelation F')))
   rw [G.weakSetoid_eq_of_weakClosure hweak]
 
+omit [DecidableEq E] in
 /-- Negative cycle gains depend only on the contracted weak partition and common potential. -/
 theorem contraction_simpleCyclesNegative_iff_of_weakClosure {F F' : Finset E}
     (p : V → ℤ)
@@ -57,6 +61,7 @@ theorem contraction_simpleCyclesNegative_iff_of_weakClosure {F F' : Finset E}
       (Relation.EqvGen.setoid (G.selectedRelation F')) p).SimpleCyclesNegative A
   rw [G.weakSetoid_eq_of_weakClosure hweak]
 
+omit [DecidableEq E] in
 theorem contraction_totallyCyclic_iff_of_weakClosure {F F' : Finset E}
     (p : V → ℤ)
     (hweak : ∀ x y, Relation.EqvGen (G.selectedRelation F) x y ↔
@@ -69,6 +74,7 @@ theorem contraction_totallyCyclic_iff_of_weakClosure {F F' : Finset E}
       (Relation.EqvGen.setoid (G.selectedRelation F')) p).selectedRelation A)
   rw [G.weakSetoid_eq_of_weakClosure hweak]
 
+omit [DecidableEq E] in
 theorem contraction_weakComponentCount_eq_of_weakClosure {F F' : Finset E}
     (p : V → ℤ)
     (hweak : ∀ x y, Relation.EqvGen (G.selectedRelation F) x y ↔

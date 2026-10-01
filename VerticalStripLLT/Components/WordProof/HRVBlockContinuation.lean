@@ -34,7 +34,7 @@ theorem signed_blockContinuation_hrvInitialSupport (θ : Orientation D)
     have hunique := θ.hrvFiber_unique_induced_sink hforward r hr
     rw [θ.hrvInitialSupport_sdiff_hrvFiber hforward r]
     split_ifs <;> grind
-  · rw [if_neg hU]
+  · rw [ite_eq_right hU]
     have hnot : ¬(U ⊆ θ.hrvInitialSupport (r.val + 1) ∧
         fullOn (θ.hrvInitialSupport (r.val + 1) \ U) w ∧
         wordCompatible (D.edgeData.selected θ.val) w ∧
@@ -49,6 +49,6 @@ theorem signed_blockContinuation_hrvInitialSupport (θ : Orientation D)
       · intro x hx y hy hxy
         by_contra hxU
         exact hcross x (Finset.mem_sdiff.mpr ⟨hx, hxU⟩) y hy hxy
-    exact if_neg hnot
+    exact ite_eq_right hnot
 
 end VerticalStripLLT.Circular.Orientation

@@ -27,11 +27,13 @@ def UpClosed (R : V → V → Prop) (S U : Finset V) : Prop :=
 def topBlocks (R : V → V → Prop) (S : Finset V) : Finset (Finset V) :=
   S.powerset.filter fun U => U.Nonempty ∧ UpClosed R S U
 
+omit [DecidableEq V] in
 @[simp]
 theorem mem_topBlocks (R : V → V → Prop) (S U : Finset V) :
     U ∈ topBlocks R S ↔ U ⊆ S ∧ U.Nonempty ∧ UpClosed R S U := by
   simp [topBlocks]
 
+omit [DecidableEq V] in
 @[simp]
 theorem topBlocks_empty (R : V → V → Prop) : topBlocks R ∅ = ∅ := by
   ext U

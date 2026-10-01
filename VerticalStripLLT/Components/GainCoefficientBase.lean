@@ -11,10 +11,12 @@ noncomputable section
 
 variable {V E : Type*} [Fintype V] [DecidableEq E] (G : GainData V E)
 
+omit [DecidableEq E] in
 theorem simpleCyclesNegative_empty : G.SimpleCyclesNegative ∅ := by
   apply (G.exists_feasible_strictScale_iff ∅ (Fintype.card V) le_rfl).mp
   exact ⟨fun _ => 0, by intro e he; simp at he⟩
 
+omit [Fintype V] [DecidableEq E] in
 theorem totallyCyclic_selectedRelation_empty : TotallyCyclic (G.selectedRelation ∅) := by
   rintro x y ⟨e, he, _⟩
   simp at he

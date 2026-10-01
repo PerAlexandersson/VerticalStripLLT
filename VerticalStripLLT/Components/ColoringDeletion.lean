@@ -13,6 +13,7 @@ noncomputable section
 
 variable {V E : Type*} [DecidableEq E]
 
+omit [DecidableEq E] in
 /-- Balanced endpoints force an optional ascent when all positive steps are strict. -/
 theorem exists_optional_ascent (tail head : E → V) (P N : List E)
     (hP : P ≠ []) (c : V → ℕ) (hc : ∀ e ∈ P, c (tail e) < c (head e))

@@ -91,6 +91,7 @@ theorem sum_powerset_level_negative_eq_zero_of_upward [Fintype V]
   · intro J hJ hgood
     rfl
 
+omit [DecidableEq E] in
 /-- Balanced endpoints force all backward steps to stay in one level when
 the forward steps rise and no backward edge rises in its own direction. -/
 theorem backward_levels_eq_of_endpoint_balance {P Nsteps : List E} {level : V → ℕ}

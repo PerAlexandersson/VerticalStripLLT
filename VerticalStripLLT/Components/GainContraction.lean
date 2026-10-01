@@ -82,7 +82,7 @@ theorem BalancedPotential.sub_eq_of_block_eq {F : Finset E} {p q : V → ℤ}
 def blockPotentialDifference {F : Finset E} {p q : V → ℤ}
     (hp : G.BalancedPotential F p) (hq : G.BalancedPotential F q) : G.weakBlock F → ℤ :=
   Quotient.lift (fun v => q v - p v)
-    (fun x y hxy => BalancedPotential.sub_eq_of_weak_connected G hp hq hxy)
+    (fun _ _ hxy => BalancedPotential.sub_eq_of_weak_connected G hp hq hxy)
 
 @[simp]
 theorem blockPotentialDifference_mk {F : Finset E} {p q : V → ℤ}

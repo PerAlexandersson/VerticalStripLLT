@@ -60,6 +60,7 @@ theorem contraction_endpoint_perm (F : Finset E) (p : V → ℤ) (P N : List E)
   · simpa only [List.map_append, List.map_map, Function.comp_def] using
       hperm.map (G.weakBlockMk F)
 
+omit [DecidableEq E] in
 private theorem sum_map_sub' (L : List E) (f g : E → ℤ) :
     (L.map (fun e => f e - g e)).sum = (L.map f).sum - (L.map g).sum := by
   induction L with

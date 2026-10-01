@@ -16,11 +16,13 @@ variable {V : Type*} [LinearOrder V]
 def fullOn (S : Finset V) (w : List V) : Prop :=
   w.Nodup ∧ ∀ v, v ∈ w ↔ v ∈ S
 
+omit [LinearOrder V] in
 @[simp]
 theorem fullOn_nil (S : Finset V) : fullOn S [] ↔ S = ∅ := by
   simp only [fullOn, List.nodup_nil, List.not_mem_nil, false_iff, true_and]
   exact Finset.eq_empty_iff_forall_notMem.symm
 
+omit [LinearOrder V] in
 @[simp]
 theorem fullOn_univ [Fintype V] (w : List V) :
     fullOn Finset.univ w ↔ fullWord w := by

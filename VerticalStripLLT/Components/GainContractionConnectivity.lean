@@ -24,10 +24,12 @@ def weakBlockMap {F X : Finset E} (hFX : F ⊆ X) : G.weakBlock F → G.weakBloc
     rintro a b ⟨e, he, htail, hhead⟩
     exact ⟨e, hFX he, htail, hhead⟩)
 
+omit [DecidableEq E] in
 @[simp]
 theorem weakBlockMap_mk {F X : Finset E} (hFX : F ⊆ X) (v : V) :
     G.weakBlockMap hFX (G.weakBlockMk F v) = G.weakBlockMk X v := rfl
 
+omit [DecidableEq E] in
 theorem weakBlockMap_surjective {F X : Finset E} (hFX : F ⊆ X) :
     Function.Surjective (G.weakBlockMap hFX) := by
   intro x
@@ -106,6 +108,7 @@ theorem contraction_weakComponentCount {F X : Finset E} (p : V → ℤ) (hFX : F
   change Nat.card ((G.contraction F p).weakBlock (X \ F)) = Nat.card (G.weakBlock X)
   exact Nat.card_congr (G.contractionWeakBlockEquiv p hFX)
 
+omit [DecidableEq E] in
 /-- Adding selected edges can only reduce the number of spanning weak components. -/
 theorem weakComponentCount_le_of_subset [Fintype V] {F X : Finset E} (hFX : F ⊆ X) :
     OrderedPartitions.weakComponentCount (G.selectedRelation X) ≤

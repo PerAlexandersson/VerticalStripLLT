@@ -45,7 +45,7 @@ theorem sum_map_doubled_gain_eq_forward_sub_backward (L : List (E × Bool)) :
   | cons p L ih =>
     cases p with
     | mk e b =>
-      cases b <;> simp [forwardEdges, backwardEdges, GainData.doubled, ih] <;> ring
+      cases b <;> simp [forwardEdges, backwardEdges, ih] <;> ring
 
 private theorem filter_bool_partition_perm {α : Type*} (L : List α)
     (p : α → Bool) :
@@ -60,7 +60,7 @@ private theorem map_doubled_head_filter_true (L : List (E × Bool)) :
   | cons p L ih =>
     cases p with
     | mk e b =>
-      cases b <;> simp [forwardEdges, GainData.doubled, ih]
+      cases b <;> simp [forwardEdges, ih]
 
 private theorem map_doubled_head_filter_false (L : List (E × Bool)) :
     (L.filter (fun e => !e.2)).map G.doubled.head =
@@ -70,7 +70,7 @@ private theorem map_doubled_head_filter_false (L : List (E × Bool)) :
   | cons p L ih =>
     cases p with
     | mk e b =>
-      cases b <;> simp [backwardEdges, GainData.doubled, ih]
+      cases b <;> simp [backwardEdges, ih]
 
 private theorem map_doubled_tail_filter_true (L : List (E × Bool)) :
     (L.filter (fun e => e.2)).map G.doubled.tail =
@@ -80,7 +80,7 @@ private theorem map_doubled_tail_filter_true (L : List (E × Bool)) :
   | cons p L ih =>
     cases p with
     | mk e b =>
-      cases b <;> simp [forwardEdges, GainData.doubled, ih]
+      cases b <;> simp [forwardEdges, ih]
 
 private theorem map_doubled_tail_filter_false (L : List (E × Bool)) :
     (L.filter (fun e => !e.2)).map G.doubled.tail =
@@ -90,7 +90,7 @@ private theorem map_doubled_tail_filter_false (L : List (E × Bool)) :
   | cons p L ih =>
     cases p with
     | mk e b =>
-      cases b <;> simp [backwardEdges, GainData.doubled, ih]
+      cases b <;> simp [backwardEdges, ih]
 
 /-- A balanced endpoint multiset transports to the two signed projections. -/
 theorem signedEndpointPerm_of_doubledEndpointPerm

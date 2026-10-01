@@ -12,8 +12,8 @@ count on compatible words descends to a linear functional on the word quotient,
 and a signed mountain-word scan with block cancellation extracts the HRV sum
 (`docs/proofs/COMPONENT_ORDINARY_PROOF.md`).
 
-* `OrdinaryComponentExpansion`: `component_strict_eq_elementary_of_forward`.
-* `ComponentExpansion`: `component_strict_eq_elementary` and its weighted and
+* `OrdinaryComponentExpansion`: `component_strict_eq_elementary_of_forward_by_words`.
+* `ComponentExpansion`: `component_strict_eq_elementary_by_words` and its weighted and
   e-positive forms, via the circular companion reduction.
 
 The diagram proof (`VerticalStripLLT.Components.DiagramProof`) imports none of

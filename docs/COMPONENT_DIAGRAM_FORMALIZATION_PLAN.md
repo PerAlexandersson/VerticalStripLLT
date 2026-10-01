@@ -79,7 +79,7 @@ diamonds with arbitrary exterior (`15ec74b`), closure invariance between
 diagrams, the right-marked E signature by nonempty fibre sizes, and marked
 K/E transport under sink-order-preserving relabelings (`98f226c`). P3 now
 includes the full restored crossing slide: `exists_crossingSlide` in
-[CrossingSlide.lean](../VerticalStripLLT/Components/DiagramProof/CrossingSlide.lean).
+[CrossingSlide.lean](../VerticalStripLLT/Components/DiagramProof/Preparation/CrossingSlide.lean).
 It constructs an actual flip path with exact endpoint selection. Both ordered
 sweeps retain traces; one reverse-replay lemma handles restoration, with its
 order-dual adapter handling the other direction. At the user's request,
@@ -90,7 +90,7 @@ transform, and checked it locally (`0871d38`).
 P3 preparation is verified in `da01755`: corner families and their terminal
 chains, the characterization of anchors by good-edge subsets, and the full
 ordered preparation theorem in
-[Preparation.lean](../VerticalStripLLT/Components/DiagramProof/Preparation.lean).
+[Preparation.lean](../VerticalStripLLT/Components/DiagramProof/Preparation/Preparation.lean).
 `CornerFamily.exists_anchor_in_component` supplies an actual path endpoint
 in the same component, preserving total selected count, weak blocks and all
 already-good edges. Temporary redundant corners are recovered after each
@@ -102,7 +102,7 @@ the increasing order of good copies. `ParallelMoves` lifts both directions
 of neighboring-copy exchange to actual flips with exact restored exterior.
 `FiniteSubsetPaths` supplies abstract exact exchanges along a path and
 fixed-label-cardinality connectivity. Their integration in
-[ParallelPacking.lean](../VerticalStripLLT/Components/DiagramProof/ParallelPacking.lean)
+[ParallelPacking.lean](../VerticalStripLLT/Components/DiagramProof/LastClique/ParallelPacking.lean)
 proves `exists_parallelCopyExchange` and `anchors_connected_of_occupancy`.
 Occupancy uses ordered terminal pairs; fixed diagonal corner counts are
 included explicitly. This proves unrestricted fixed-count rearrangement,
@@ -907,7 +907,7 @@ imports or declarations changed. For example, after the proposed file exists:
 
 ```sh
 timeout 20m nice -n 10 lake-workspace build \
-  VerticalStripLLT.Components.DiagramProof.CrossingSlide
+  VerticalStripLLT.Components.DiagramProof.Preparation.CrossingSlide
 ```
 
 Run one Lean job at a time, keep output under `/lake-cache/ai-projects`,
