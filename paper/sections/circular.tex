@@ -1,0 +1,326 @@
+\section{Flip classes of circular graphs}\label{sec:circular}
+
+In this section we prove Theorem~\ref{thm:main} for circular graphs, by
+reduction to the ordinary case.
+The idea is to expand $\Kv(\theta)$ and $\Ev(\theta)$, for every admissible
+orientation, as the same signed sum over \emph{balanced} sub-orientations, in
+which the lengths of the edges are differences of a potential.
+The coefficients turn out to be constant on flip classes, so the expansion can
+be grouped by flip classes.
+Finally, the orientations of a balanced flip class can be drawn on a line, where
+they form a union of ordinary flip classes.
+
+Let $\Gamma$ be a circular decorated unit-interval graph.
+A strict edge is a corner, so it is never a short edge of a flip, and it is
+present in every orientation.
+Hence forgetting the strict markings, and including the strict edges in every
+orientation, identifies the flip classes of $\Gamma$ with flip classes of the
+undecorated graph, with the same graphs $\Dplus{\theta}$.
+We therefore assume that $S=\emptyset$, and identify an orientation $\theta$ with
+the edge set of $\Dplus{\theta}$.
+Throughout, orientations are admissible, and for a set of edges $Y$ we write
+$c(Y)$ for the number of connected components of the undirected graph on
+$\setZ/n\setZ$ with edges $Y$, isolated vertices included.
+Every edge $e$ has a \defin{length} $\ell(e)\in\{1,\dotsc,n-1\}$.
+
+We write $\Kv(\theta)=\Kp_{\Pplus{\theta}}$, and $H_\theta$ for the whole map
+$z\mapsto\widetilde{\hrvop}(\theta,z)$ on $\setZ$.
+We work in the free abelian group on such maps, with basis elements $[H_\theta]$.
+The linear map $[H]\mapsto\elementaryE_\lambda$, where $\lambda$ is the partition
+of the fibre sizes of $H$ modulo $n$, sends $[H_\theta]$ to $\Ev(\theta)$.
+
+\subsection{Balanced orientations}
+
+\begin{definition}
+A set $F$ of edges is \defin{balanced} if on each connected component of the
+undirected graph $(\setZ/n\setZ,F)$ there is a function $p$ to $\setZ$ with
+$\ell(e)=p(v)-p(u)$ for every edge $e$ from $u$ to $v$ in $F$.
+\end{definition}
+
+Equivalently, the lifted graph of $F$ is a disjoint union of translates of a
+graph on finitely many integers.
+Let $F\subseteq\theta$ be balanced, with such a potential $p$.
+Contract the connected components of $F$, keeping the edges of $\theta\setminus F$
+as individual edges, possibly loops or parallel edges, and give the edge $e$ from
+$u$ to $v$ the \defin{gain} $\delta(e)=\ell(e)-(p(v)-p(u))$.
+Changing $p$ by a constant on a component does not change the gain of a closed
+walk.
+
+We call a directed multigraph with gains \defin{negative} if every directed cycle
+has negative gain, and \defin{cyclic} if every edge lies on a directed cycle.
+
+\begin{definition}\label{def:coefficient}
+For a balanced $F\subseteq\theta$, let
+$\defin{\chi(\theta,F)}=(-1)^{c(F)-c(\theta)}$ if the contracted graph is negative
+and cyclic.
+Otherwise let $\chi(\theta,F)=0$.
+For $F$ not balanced we put $\chi(\theta,F)=0$.
+\end{definition}
+
+If $\theta$ itself is balanced, then $\chi(\theta,F)=[F=\theta]$.
+Indeed, restricting a potential of $\theta$ to $F\subsetneq\theta$ gives every edge
+of $\theta\setminus F$ gain zero, so any directed cycle containing one of them,
+a loop included, has gain zero.
+
+\begin{example}\label{ex:deletion}
+Let $\avec=(2,2,2)$, so that $\Gamma$ is the complete circular graph on three
+vertices, and let $\theta$ consist of the edges $1\to2$, $1\to3$ and $3\to2$, of
+lengths $1$, $2$ and $2$.
+It is not balanced: the path $1\to3\to2$ has length $4$, while $1\to2$ has length
+$1$.
+Lemma~\ref{lem:deletion} below, applied to this cycle, gives
+$\Kv(\theta)=\Kv(F)$ and $[H_\theta]=[H_F]$ for $F=\{1\to3,3\to2\}$.
+The set $F$ is balanced; its lift is the path $1\to3\to5$, so all three
+vertices reach $2$, and both values equal $\elementaryE_3$.
+\end{example}
+
+\subsection{The finite deletion identity}
+
+\begin{lemma}\label{lem:deletion}
+Let $\theta$ be admissible, and let $Z$ be a cycle of the undirected graph of
+$\theta$, traversed so that its forward edges form a nonempty set $P$, its
+backward edges form a set $N$, and
+\[
+ \sum_{e\in P}\ell(e)>\sum_{e\in N}\ell(e).
+\]
+Let $B=\theta\setminus N$.
+Then
+\[
+ \sum_{J\subseteq N}(-1)^{|J|}\Kv(B\cup J)=0
+ \qquad\text{and}\qquad
+ \sum_{J\subseteq N}(-1)^{|J|}[H_{B\cup J}]=0.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $\kappa$ be a coloring which increases along the edges of $B$.
+The values of $\kappa$ telescope around $Z$, so
+$\sum_{P}(\kappa(v)-\kappa(u))=\sum_{N}(\kappa(v)-\kappa(u))$, the sums ranging over
+the edges from $u$ to $v$.
+The left side is positive, so some edge of $N$ increases.
+Toggling the first such edge, in a fixed order of $N$, is a sign-reversing
+involution on the sets $J$ for which $\kappa$ increases along $B\cup J$, which
+proves the first identity.
+
+For the second, fix $J$ and let $H=H_{B\cup J}$.
+The function $t(z)=H(z)-z$ is periodic, so it is a function on residues.
+For an edge from $u$ to $v$ in $B\cup J$, its lift ends at $u+\ell$ and
+$H(u)\geq H(u+\ell)$, so $t(u)-t(v)\geq\ell$.
+Telescoping $t$ around $Z$ gives
+\[
+ \sum_{N}(t(u)-t(v))=\sum_{P}(t(u)-t(v))\geq\sum_P\ell>\sum_N\ell.
+\]
+Hence some edge of $N$ satisfies $t(u)-t(v)>\ell$, that is, $H(u)>H(u+\ell)$ for its
+lifts.
+Adding this edge does not change $H$, by Lemma~\ref{lem:ineffective}(i).
+Removing it does not change $H$ either: a path through a lift of this edge ends
+below $H(u+\ell)<H(u)$ and is not maximizing.
+Toggling the first edge of $N$ with this property is therefore a sign-reversing
+involution which preserves $H$.
+\end{proof}
+
+If $\theta$ is not balanced, extend a potential on a spanning forest of $\theta$.
+An edge outside the forest violating the potential lies on a cycle of the forest
+with nonzero signed length, and we traverse it in the direction in which the
+forward edges are longer.
+Then $N\neq\emptyset$, since otherwise $\theta$ would contain a directed cycle.
+Hence every set $B\cup J$ with $J\subsetneq N$ in Lemma~\ref{lem:deletion} has fewer
+edges than $\theta$.
+
+\subsection{Expansion into balanced orientations}
+
+An \defin{ordered partition} of the vertex set of a directed multigraph $G$ is
+a sequence $\omega=(B_1,\dotsc,B_k)$ of disjoint nonempty blocks covering it; it is
+\defin{compatible} with $G$ if every edge goes from some $B_i$ to some $B_j$ with
+$i\leq j$.
+
+\begin{lemma}\label{lem:orderedPartitions}
+For every finite directed multigraph $G$,
+\[
+ \sum_{\omega}(-1)^{k(\omega)}
+ =(-1)^{c(G)}\,[\text{every edge of } G \text{ lies on a directed cycle}],
+\]
+where $\omega$ ranges over the ordered partitions compatible with $G$, and
+$k(\omega)$ is the number of blocks.
+\end{lemma}
+
+\begin{proof}
+A strongly connected component lies in one block of a compatible ordered
+partition, so we may contract the strong components and remove the loops.
+The edges of $G$ all lie on directed cycles exactly when the resulting acyclic
+graph $Q$ has no edges.
+We show by induction that the sum for $Q$ is $(-1)^{|Q|}$ if $Q$ has no edges and
+$0$ otherwise.
+The last block $U$ of a compatible ordered partition is a nonempty set closed
+under taking heads of edges, so the sum for $Q$ is minus the sum over such $U$ of
+the sums for $Q\setminus U$.
+By induction only the sets $U$ containing every head of an edge contribute, and
+the sum becomes $-(-1)^{|Q|}\sum_U(-1)^{|U|}$ over the nonempty sets $U$
+containing all heads.
+If $Q$ has an edge, it has a source which is not a head, and the sum vanishes;
+otherwise it equals $-1$.
+\end{proof}
+
+\begin{proposition}\label{prop:balancedExpansion}
+For every admissible orientation $\theta$,
+\[
+ \Kv(\theta)=\sum_{F\subseteq\theta}\chi(\theta,F)\,\Kv(F)
+ \qquad\text{and}\qquad
+ [H_\theta]=\sum_{F\subseteq\theta}\chi(\theta,F)\,[H_F].
+\]
+In particular $\Ev(\theta)=\sum_F\chi(\theta,F)\,\Ev(F)$.
+\end{proposition}
+
+\begin{proof}
+We proceed by induction on $|\theta|$.
+If $\theta$ is balanced, then $\chi(\theta,F)=[F=\theta]$.
+Otherwise choose a cycle as after Lemma~\ref{lem:deletion}.
+That lemma expresses both values of $\theta$ through the sets $B\cup J$ with
+$J\subsetneq N$, and by induction it suffices to prove
+\begin{equation}\label{eq:coefficientCancellation}
+ \sum_{J\subseteq N}(-1)^{|J|}\chi(B\cup J,F)=0
+ \qquad\text{for all } F\subseteq\theta.
+\end{equation}
+
+Fix $F$; we may assume that $F$ is balanced, with a potential $p$.
+Contract the components of $F$ and let $Q$ be the resulting multigraph with gains.
+Its edges are the edges of $B\setminus F$, which we call \defin{required}, and the
+edges of $N'=N\setminus F$, which are \defin{optional}.
+Only the sets $J$ containing $F\cap N$ contribute.
+Writing $Q_J$ for the required edges together with the optional edges in $J$,
+and using $c(B\cup J)=c(Q_J)$, the identity~\eqref{eq:coefficientCancellation}
+becomes, up to a common sign,
+\begin{equation}\label{eq:gainSum}
+ \sum_{J\subseteq N'}(-1)^{|J|+c(Q_J)}\,[Q_J \text{ is negative and cyclic}]=0.
+\end{equation}
+The cycle $Z$ projects to a closed walk in $Q$ which follows the required edges
+forwards and the optional edges backwards, and since the potential
+telescopes, its gain satisfies
+\begin{equation}\label{eq:walkGain}
+ \sum_{\text{required}}\delta-\sum_{\text{optional}}\delta
+ =\sum_P\ell-\sum_N\ell>0,
+\end{equation}
+the sums on the left ranging over the edges of the walk.
+
+By Lemma~\ref{lem:orderedPartitions}, the left side of~\eqref{eq:gainSum} is
+$\sum_\omega(-1)^{k(\omega)}$ times the sum of $(-1)^{|J|}$ over the $J$ such that
+$\omega$ is compatible with $Q_J$ and $Q_J$ is negative.
+Fix $\omega$.
+If an optional edge compatible with $\omega$ goes strictly upwards between blocks,
+it lies on no cycle of a graph compatible with $\omega$, and toggling it is a
+sign-reversing involution.
+Otherwise every compatible optional edge stays in one block.
+Along the closed walk, required edges do not decrease the block index,
+compatible optional edges traversed backwards keep it, and incompatible optional
+edges traversed backwards increase it strictly.
+The total change is zero, so the walk lies in a single block, and it remains to
+show that
+\begin{equation}\label{eq:negativeSum}
+ \sum_{J}(-1)^{|J|}\,[Q_J \text{ is negative}]=0,
+\end{equation}
+the sum ranging over the sets $J$ of compatible optional edges.
+
+Let $M$ exceed both the number of vertices and the number of optional edges of
+$Q$, and put $\gamma(e)=M\delta(e)+1$.
+A simple cycle of length $r$ has $\gamma$-gain $M g+r$, where $g$ is its gain, so
+$Q_J$ is negative if and only if no cycle has positive $\gamma$-gain.
+In that case let $\tau(y)$ be the maximum of $0$ and the $\gamma$-gains of the
+directed walks ending at $y$.
+It is the least nonnegative function with $\tau(v)-\tau(u)\geq\gamma(e)$ for all edges
+$e$ from $u$ to $v$ of $Q_J$.
+We call an optional edge \defin{slack} if $\tau(v)-\tau(u)>\gamma(e)$.
+Summing $\tau(v)-\tau(u)-\gamma(e)$ around the closed walk,
+by~\eqref{eq:walkGain} the optional edges exceed the required ones by
+$M(\sum\delta-\sum\delta)+(\#\text{required}-\#\text{optional})>0$,
+so some optional edge of the walk is slack.
+Adding a slack edge preserves the inequalities, so $\tau$ does not change, and
+removing it does not change $\tau$ either, since a walk through it is not
+maximizing.
+Toggling the first slack edge is therefore a sign-reversing involution, which
+proves~\eqref{eq:negativeSum} and the proposition.
+\end{proof}
+
+\subsection{Constancy on flip classes}
+
+Let $C$ be a flip class of $\Gamma$, and for an admissible orientation $\eta$ put
+\[
+ a_C(\eta)=\sum_{\alpha\in C}\chi(\alpha,\eta).
+\]
+
+\begin{lemma}\label{lem:constancy}
+The function $a_C$ is constant on every flip class.
+\end{lemma}
+
+\begin{proof}
+Let $\theta$ and $\eta$ differ by a flip which exchanges $ab$ for $bc$ across
+$ac$, in a window $a<b<c<a+n$ of the lift.
+Let $\alpha\in C$ with $\chi(\alpha,\theta)\neq0$, so $\theta\subseteq\alpha$.
+Choose a potential $p$ of $\theta$, contract, and let $\tau$ be the function of the
+proof of Proposition~\ref{prop:balancedExpansion} for the gains of
+$\alpha\setminus\theta$.
+Then $z(v)=p(v)+\tau(v)/M$ satisfies $z(v)-z(u)=\ell(e)$ for the edges of $\theta$ and
+$z(v)-z(u)>\ell(e)$ for the edges of $\alpha\setminus\theta$.
+The lengths satisfy $\ell(ac)=\ell(ab)+\ell(bc)$, so $bc\notin\alpha$.
+Let $\alpha'=\alpha-ab+bc$.
+
+A lifted path in $\alpha$ between the endpoints of $ab$ has total length
+$\ell(ab)$ and total increase of $z$ equal to $\ell(ab)$, so all its edges satisfy
+the equality, that is, they lie in $\theta$.
+Since $ab$ and $ac$ are covers for $\theta$, they are covers for $\alpha$, and
+similarly $bc$ and $ac$ are covers for $\alpha'$, using $\eta$.
+The function $z$ increases along every edge of $\alpha'$, so $\alpha'$ is admissible,
+and $\alpha'$ differs from $\alpha$ by a flip; hence $\alpha'\in C$.
+The orientations $\theta$ and $\eta$ have the same components and the same
+potential, and $\alpha'\setminus\eta=\alpha\setminus\theta$, so
+$\chi(\alpha',\eta)=\chi(\alpha,\theta)$.
+The same construction from $\eta$ inverts $\alpha\mapsto\alpha'$, which proves
+$a_C(\theta)=a_C(\eta)$.
+\end{proof}
+
+Summing Proposition~\ref{prop:balancedExpansion} over $C$ and grouping by flip
+classes $B$, we obtain
+\begin{equation}\label{eq:grouping}
+ \Kv(C)=\sum_B a_C(B)\,\Kv(B),\qquad \Ev(C)=\sum_B a_C(B)\,\Ev(B),
+\end{equation}
+where $a_C(B)$ denotes the common value on $B$, and $a_C(B)=0$ unless $B$
+contains a balanced orientation.
+
+\subsection{Balanced classes are ordinary}
+
+\begin{proposition}\label{prop:balancedClass}
+Let $B$ be a flip class containing a balanced orientation.
+Then $\Kv(B)=\Ev(B)$.
+\end{proposition}
+
+\begin{proof}
+Let $h$ be a potential of a balanced orientation in $B$.
+On each component, $h(v)-v$ is constant modulo $n$, so changing $h$ by constants
+we may assume that $h(v)\equiv v\pmod n$ and that $h$ is injective.
+The relation $\ell(ac)=\ell(ab)+\ell(bc)$ shows that $h$ is a potential for every
+orientation in $B$.
+Order the vertices by the values of $h$, and let $\Gamma'$ be the ordinary graph on
+these ranks in which a pair is a natural edge if the corresponding lifts
+$h(u)<h(v)$ form a lifted natural edge.
+It is a unit-interval graph since the lifted natural edges are closed under
+subintervals.
+
+An orientation $\xi$ of $\Gamma'$ maps to the circular orientation consisting of the
+residues of its lifted edges.
+A lifted path starting at $h(u)$ only visits the chosen lifts $h(w)$, since
+$h$ is injective modulo $n$.
+Hence the image is admissible, its covers correspond to those of
+$\Pplus{\xi}$, its colorings correspond to those of $\xi$, and its highest
+reachable lifts are the values $h(\hrv{\xi}{u})$.
+So the map preserves $\Kv$ and $\Ev$, and maps ordinary flips to circular flips;
+the window has length less than $n$ since the long edge is natural.
+Every orientation in $B$ is the image of some $\xi$, since $h$ is a potential for
+it.
+Hence the set of $\xi$ whose image lies in $B$ is closed under ordinary flips,
+and is a union of ordinary flip classes, on which the ordinary case of
+Theorem~\ref{thm:main} gives $\Kv=\Ev$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main} for circular graphs]
+By~\eqref{eq:grouping} and Proposition~\ref{prop:balancedClass},
+$\Kv(C)=\sum_Ba_C(B)\Kv(B)=\sum_Ba_C(B)\Ev(B)=\Ev(C)$.
+\end{proof}

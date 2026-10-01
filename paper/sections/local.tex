@@ -1,0 +1,138 @@
+\section{The four-term identity}\label{sec:local}
+
+This section contains the only local identity used in the proof, together with
+two facts about highest reachable vertices.
+We state them for directed graphs rather than orientations, since later we
+apply them to graphs obtained by adding or deleting single edges.
+
+Let $D$ be a directed graph on $[n]$ whose edges point upwards, or a periodic
+directed graph on $\setZ$ whose edges point upwards and whose projection to
+$\setZ/n\setZ$ is acyclic.
+In both cases every vertex $z$ has a largest reachable vertex, which we denote by
+$H_D(z)$; in the periodic case, the bound follows as in
+Section~\ref{subs:circularDefinitions}.
+The function $H_D$ is weakly decreasing along every edge of $D$, and $H_D(z)$ is
+the largest sink of $D$ reachable from $z$.
+
+\begin{lemma}\label{lem:ineffective}
+Let $D$ be as above.
+\begin{enumerate}[(i)]
+\item Let $F$ be a set of upward pairs, translation invariant in the periodic
+case, such that $H_D(y)\leq H_D(x)$ for every $xy\in F$.
+Then $H_{D\cup F}=H_D$, and in the periodic case $D\cup F$ still has acyclic
+projection.
+\item If $D$ contains a path from $x$ to $y$ avoiding the edge $xy$, then
+deleting $xy$ does not change reachability in $D$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For (i), $H_D$ is weakly decreasing along every edge of $D\cup F$.
+Hence every vertex reachable from $z$ in $D\cup F$ is at most $H_D(z)$, and the
+maximizing path in $D$ is still available.
+In the periodic case, a directed cycle in the projection would lift to a path
+from $z$ to $z+kn$ for some $k\geq1$, and then
+$H_D(z)+kn=H_D(z+kn)\leq H_D(z)$, which is absurd.
+Part (ii) is clear.
+\end{proof}
+
+\begin{lemma}\label{lem:sinkRelabel}
+Let $D$ and $D'$ be directed graphs on $[n]$ with upward edges, and let
+$\sigma$ be a permutation of $[n]$ mapping the edges of $D$ bijectively onto the
+edges of $D'$.
+If $\sigma$ is increasing on the set of sinks of $D$, then
+$H_{D'}(\sigma(z))=\sigma(H_D(z))$ for all $z$.
+In particular the fibres of $H_{D'}$ are the images of the fibres of $H_D$.
+\end{lemma}
+
+\begin{proof}
+The vertex $H_D(z)$ is the largest sink of $D$ reachable from $z$, and $\sigma$
+maps the sinks reachable from $z$ in $D$ onto the sinks reachable from
+$\sigma(z)$ in $D'$, preserving their order.
+\end{proof}
+
+We say that an edge is \defin{ineffective} in $D$ if it satisfies the hypothesis
+of Lemma~\ref{lem:ineffective}(i).
+
+\begin{lemma}[The four-term identity]\label{lem:fourTerm}
+Let $D$ be a directed graph on $[n]$ with upward edges.
+Let $u<v<w$ be vertices such that $uw$ is an edge of $D$, and $uv$ and $vw$ are
+not.
+Put $D_{00}=D$, $D_{10}=D+uv$, $D_{01}=D+vw$ and $D_{11}=D+uv+vw$, and write
+$\Kp(D_{ij})$ for $\Kp$ of the transitive closure.
+\begin{enumerate}[(i)]
+\item For every coloring $\kappa:[n]\to\setNN$ which increases along the edges
+of $D$,
+\[
+ [\kappa \text{ increases on } D_{10}]+[\kappa \text{ increases on } D_{01}]
+ =1+[\kappa \text{ increases on } D_{11}].
+\]
+In particular $\Kp(D_{10})+\Kp(D_{01})=\Kp(D_{00})+\Kp(D_{11})$, and the same
+holds for the sums over colorings with prescribed colors at any set of vertices.
+\item The four graphs can be paired, either as $\{D_{00},D_{01}\}$ and
+$\{D_{10},D_{11}\}$ or as $\{D_{00},D_{10}\}$ and $\{D_{01},D_{11}\}$, so that
+paired graphs have the same function $H$.
+In particular $\Phi(D_{10})+\Phi(D_{01})=\Phi(D_{00})+\Phi(D_{11})$ for every
+function $\Phi$ of the highest reachable vertex map, for example
+$\Phi=\elementaryE_{\lambda}$ of its fibre sizes.
+\end{enumerate}
+\end{lemma}
+
+The lemma has no cover hypotheses, and the other edges of $D$ are arbitrary.
+In the diagram notation of~\cite{AlexanderssonSulzgruber2022}, the identity
+reads
+\[
+\ytableausetup{boxsize=1.1em}
+\begin{ytableau}
+\to & 0 & *(yellow) w \\
+1 & *(yellow) v \\
+*(yellow) u
+\end{ytableau}
+\;+\;
+\begin{ytableau}
+\to & 1 & *(yellow) w \\
+0 & *(yellow) v \\
+*(yellow) u
+\end{ytableau}
+\;=\;
+\begin{ytableau}
+\to & 0 & *(yellow) w \\
+0 & *(yellow) v \\
+*(yellow) u
+\end{ytableau}
+\;+\;
+\begin{ytableau}
+\to & 1 & *(yellow) w \\
+1 & *(yellow) v \\
+*(yellow) u
+\end{ytableau}\,,
+\]
+where $1$ and $0$ indicate whether a short edge is present, the long edge is
+present in all four graphs, and all other edges are the same throughout.
+
+\begin{proof}
+For (i), write $a,b,c$ for the colors at $u,v,w$, so that $a<c$.
+Then $[a<b]+[b<c]=1+[a<b<c]$, which is the displayed identity.
+Summing $x_\kappa$ over all $\kappa$ increasing on $D$, with any colors
+prescribed, gives the second statement.
+
+For (ii), let $H=H_D$.
+Since $uw$ is an edge, $H(w)\leq H(u)$.
+Suppose first that $H(w)\leq H(v)$.
+Then $vw$ is ineffective in $D$.
+Adding $uv$ does not change $H$ at $v$ or at $w$, since no path starting at
+$v$ or $w$ uses an edge leaving $u<v$.
+Hence $vw$ is also ineffective in $D_{10}$, and Lemma~\ref{lem:ineffective}
+pairs $D_{00}$ with $D_{01}$ and $D_{10}$ with $D_{11}$.
+Suppose instead that $H(v)<H(w)$.
+Then $uv$ is ineffective in $D$, since $H(v)<H(w)\leq H(u)$.
+In $D_{01}$, a path from $v$ either avoids $vw$ or continues from $w$, so
+$H_{D_{01}}(v)\leq \max(H(v),H(w))=H(w)\leq H_{D_{01}}(u)$.
+Thus $uv$ is ineffective in $D_{01}$ as well, and we obtain the second pairing.
+\end{proof}
+
+Lemma~\ref{lem:fourTerm} does not say that the two middle terms correspond to
+each other.
+In the first case of the proof, $D_{10}$ has the same highest reachable vertices
+as $D_{11}$, not as $D_{01}$.
+This is why the identity is used for sums over many orientations at once.

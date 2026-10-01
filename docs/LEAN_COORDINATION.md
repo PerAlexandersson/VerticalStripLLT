@@ -6,6 +6,12 @@ transfer is recorded in `HANDOFF.md` at `b78312c`: Claude owns all
 `DiagramProof/` Lean sources, `DiagramProofVerification.lean` and the sole
 project build slot.
 
+## Manuscript ownership (2026-10-01)
+
+At the user's request Claude writes a new, component-first manuscript in
+`paper/` (plan: `paper/PLAN.md`). Claude owns `paper/`. The Codex drafts in
+`docs/drafts/` are untouched; the writer should not edit `paper/`.
+
 ## Current status — 2026-10-01: complete, organised for presentation
 
 Both component theorems are proved by diagrams, with only the standard axioms.

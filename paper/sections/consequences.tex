@@ -1,0 +1,129 @@
+\section{Consequences}\label{sec:consequences}
+
+\subsection{The elementary expansion}
+
+\begin{proof}[Proof of Corollary~\ref{cor:circularExpansion}]
+By Lemma~\ref{lem:stateExpansion}, and since $\asc$ is constant on flip classes,
+\[
+ \LLT_\Gamma(\xvec;q+1)=\sum_{\theta}q^{\asc(\theta)}\Kp_{\Pplus{\theta}}(\xvec)
+ =\sum_Cq^{\asc(C)}\Kv(C),
+\]
+the second sum ranging over the flip classes.
+By Theorem~\ref{thm:main} this equals
+\[
+ \sum_Cq^{\asc(C)}\Ev(C)=\sum_\theta q^{\asc(\theta)}\elementaryE_{\lambda(\theta)}(\xvec).
+\qedhere
+\]
+\end{proof}
+
+Thus the coefficient of $q^k\elementaryE_\lambda$ in $\LLT_\Gamma(\xvec;q+1)$ is the
+number of admissible orientations $\theta$ with $\asc(\theta)=k$ and
+$\lambda(\theta)=\lambda$, and every flip class contributes a sum of such terms.
+Substituting $q-1$ for $q$, we also have
+$\LLT_\Gamma(\xvec;q)=\sum_\theta(q-1)^{\asc(\theta)}\elementaryE_{\lambda(\theta)}(\xvec)$,
+which is the form in which the expansion was stated
+in~\cite{AlexanderssonSulzgruber2022}.
+For ordinary graphs, Corollary~\ref{cor:circularExpansion} is
+Theorem~\ref{thm:AS}, and the proof above does not use the recursion
+of~\cite{AlexanderssonSulzgruber2022}.
+For circular graphs it answers the question
+of~\cite[Sec.~6.8]{AlexanderssonSulzgruber2022}.
+
+\subsection{LLT cumulants}
+
+We now refine the elementary expansion of LLT cumulants of M.~Dołęga and
+M.~Kowalski~\cite{DolegaKowalski2021x} to flip classes, for circular graphs.
+Let $\Gamma$ be a circular decorated unit-interval graph and $U$ a nonempty set of
+residues.
+List the lifts of the elements of $U$ increasingly as $(u_j)_{j\in\setZ}$, so that
+$u_{j+m}=u_j+n$ with $m=|U|$, and put $b'(j)=\min\{k:u_k\geq b(u_j)\}$.
+Then $b'$ is weakly increasing, $j-m<b'(j)\leq j$, and $b'(j+m)=b'(j)+m$, so it
+defines a circular unit-interval graph on $U$ whose lifted natural edges are the
+pairs $u_ku_j$ with $b(u_j)\leq u_k<u_j$.
+A strict edge $u_ku_j$ of $\Gamma$ remains a corner, since $b(u_j)=u_k<b(u_j+1)$ gives
+$b'(j)=k<b'(j+1)$.
+We call the resulting graph the \defin{induced} graph $\Gamma[U]$.
+Its natural edges are exactly the natural edges of $\Gamma$ with both endpoints in
+$U$, and its strict edges are the strict edges of $\Gamma$ inside $U$.
+
+Let $r\geq1$, and let $f:\setZ/n\setZ\to[r]$ be surjective and constant on the
+endpoints of every strict edge.
+For nonempty $B\subseteq[r]$ write $\Gamma_B=\Gamma[f^{-1}(B)]$.
+Let $\Pi_r$ be the lattice of set partitions of $[r]$, with maximum $\hat1=\{[r]\}$.
+Following~\cite{DolegaKowalski2021x}, the \defin{LLT cumulant} is
+\[
+ \defin{\kappa_{\Gamma,f}(\xvec;q)}\coloneqq(q-1)^{1-r}\sum_{\pi\in\Pi_r}
+ (-1)^{|\pi|-1}(|\pi|-1)!\prod_{B\in\pi}\LLT_{\Gamma_B}(\xvec;q).
+\]
+For an admissible orientation $\theta$, let $\sigma_f(\theta)$ be the set partition of
+$[r]$ into the connected components of the undirected multigraph on $[r]$ with an
+edge $f(u)f(v)$ for every edge $uv$ of $\Dplus{\theta}$.
+We call $\theta$ \defin{$f$-connected} if $\sigma_f(\theta)=\hat1$.
+
+\begin{proposition}[{\cite[Thm.~3.8]{DolegaKowalski2021x}}]\label{prop:cumulant}
+We have
+\[
+ \kappa_{\Gamma,f}(\xvec;q+1)=\sum_{\theta}q^{\asc(\theta)+1-r}\,\Kp_{\Pplus{\theta}}(\xvec),
+\]
+the sum ranging over the $f$-connected admissible orientations of $\Gamma$, and all
+exponents are nonnegative.
+\end{proposition}
+
+\begin{proof}
+For $\pi\in\Pi_r$, the orientations of $\Gamma$ without ascending edges between
+different blocks of $\pi$ are the tuples of orientations of the graphs $\Gamma_B$,
+$B\in\pi$, since no strict edge joins different blocks.
+By Lemma~\ref{lem:stateExpansion} for each $\Gamma_B$,
+\[
+ \prod_{B\in\pi}\LLT_{\Gamma_B}(\xvec;q+1)
+ =\sum_{\sigma_f(\theta)\leq\pi}q^{\asc(\theta)}\Kp_{\Pplus{\theta}}(\xvec).
+\]
+Inserting this in the definition, the coefficient of a fixed $\theta$ is
+$q^{\asc(\theta)+1-r}$ times
+$\sum_{\sigma_f(\theta)\leq\pi}(-1)^{|\pi|-1}(|\pi|-1)!$.
+Since $(-1)^{|\pi|-1}(|\pi|-1)!$ is the Möbius function of $\Pi_r$ from $\pi$ to
+$\hat1$, this sum is $[\sigma_f(\theta)=\hat1]$.
+An $f$-connected orientation has at least $r-1$ ascending edges, since strict edges
+become loops.
+\end{proof}
+
+By Lemma~\ref{lem:flipInvariants}, being $f$-connected is constant on flip classes.
+Grouping Proposition~\ref{prop:cumulant} by flip classes and applying
+Theorem~\ref{thm:main}, we obtain the following.
+
+\begin{corollary}\label{cor:cumulant}
+With the notation above,
+\[
+ \kappa_{\Gamma,f}(\xvec;q+1)=\sum_Cq^{\asc(C)+1-r}\sum_{\theta\in C}
+ \elementaryE_{\lambda(\theta)}(\xvec),
+\]
+where $C$ ranges over the flip classes of $f$-connected admissible orientations.
+In particular, every flip class contributes an elementary-positive summand.
+\end{corollary}
+
+For ordinary graphs, summing over the classes recovers the elementary expansion
+of~\cite[Thm.~3.17]{DolegaKowalski2021x}.
+
+\subsection{Questions}
+
+For a unit-interval graph without strict edges, the chromatic quasisymmetric
+function and the unicellular LLT polynomial are related by a
+plethysm, see~\cite[Lem.~6.17]{AlexanderssonSulzgruber2022}, and B.-H.~Hwang
+conjectured that the flip classes of acyclic orientations contribute
+elementary-positive summands to the chromatic quasisymmetric
+function~\cite[Conj.~3.10]{Hwang2022x}.
+The plethystic relation does not preserve elementary positivity term by term:
+already $(q-1)^{-1}\elementaryE_2[(q-1)\xvec]=(q+1)\elementaryE_2-\elementaryE_{11}$.
+
+\begin{question}
+Is there a relation between Hwang's flip classes of acyclic orientations and the
+flip classes of Definition~\ref{def:flip} which explains both positivity
+phenomena?
+\end{question}
+
+\begin{question}
+Give a bijective proof of Theorem~\ref{thm:main}, that is, a bijection between the
+strict $\Pplus{\theta}$-partitions for $\theta\in C$ and the strict partitions of the
+chains of the highest reachable fibres for $\theta\in C$, preserving the multiset of
+colors.
+\end{question}

@@ -1,0 +1,146 @@
+\RequirePackage[l2tabu, orthodox]{nag}
+\documentclass[reqno]{amsart}
+
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathrsfs,mathtools,mathdots}
+\usepackage{enumerate,booktabs,bm}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing,arrows.meta}
+\usepackage[centertableaux]{ytableau}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+%--------------------------------------------------
+%  Theorem environments
+%--------------------------------------------------
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{question}[theorem]{Question}
+
+\newtheorem*{theoremA}{Theorem A}
+\newtheorem*{theoremB}{Theorem B}
+\newtheorem*{corollaryC}{Corollary C}
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+%--------------------------------------------------
+%  Macros
+%--------------------------------------------------
+
+\newcommand{\defin}[1]{%
+\relax\ifmmode\textcolor{blue}{#1}%
+\else\textcolor{blue}{\emph{#1}}\fi}
+
+\newcommand{\setN}{\mathbb{N}}
+\newcommand{\setNN}{\mathbb{N}^{+}}
+\newcommand{\setZ}{\mathbb{Z}}
+\newcommand{\setQ}{\mathbb{Q}}
+
+\newcommand{\xvec}{\mathbf{x}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\elementaryE}{\mathrm{e}}
+\newcommand{\LLT}{\mathrm{G}}
+\newcommand{\chrom}{\mathrm{X}}
+\newcommand{\Kp}{\mathrm{K}}
+
+\DeclareMathOperator{\asc}{asc}
+\DeclareMathOperator{\hrvop}{hrv}
+\DeclareMathOperator{\mom}{mom}
+\newcommand{\hrv}[2]{\hrvop(#1,#2)}
+\newcommand{\Pplus}[1]{P_{+}(#1)}
+\newcommand{\Dplus}[1]{D_{+}(#1)}
+\newcommand{\ORIENTS}{\mathcal{O}}
+\newcommand{\Kv}{\mathsf{K}}
+\newcommand{\Ev}{\mathsf{E}}
+\newcommand{\Lay}{\mathcal{L}}
+\newcommand{\Gplus}{\Gamma^{+}}
+
+\newcommand{\estep}{\texttt{e}}
+\newcommand{\dstep}{\texttt{d}}
+\newcommand{\nstep}{\texttt{n}}
+
+\definecolor{lightgray}{gray}{0.82}
+
+\tikzset{
+  every picture/.append style={baseline=(current bounding box.center)},
+  vtx/.style={circle,draw,inner sep=1pt,minimum size=1.3em,font=\small},
+  sel/.style={-{Stealth[length=2mm]},thick},
+  strictedge/.style={-{Stealth[length=2mm]},very thick,red!70!black},
+  unsel/.style={densely dotted,gray},
+}
+
+%--------------------------------------------------
+%  Front matter
+%--------------------------------------------------
+
+\title[Flip components of vertical-strip LLT polynomials]{%
+Flip components of vertical-strip LLT polynomials\\
+and their elementary expansions}
+
+\author{Per Alexandersson}
+\address{Department of Mathematics, Stockholm University,
+  SE-106 91 Stockholm, Sweden}
+\email{per.w.alexandersson@gmail.com}
+
+\author{Lilan Dai}
+\address{Center for Combinatorics, LPMC, Nankai University,
+  Tianjin 300071, P.~R.~China}
+\email{daililan@mail.nankai.edu.cn}
+
+\keywords{LLT polynomials, elementary symmetric functions, unit-interval graphs,
+  orientations, flips}
+\subjclass[2020]{Primary~05E05; Secondary~05A19, 05C20}
+
+\begin{document}
+
+\begin{abstract}
+The vertical-strip LLT polynomials are, after the substitution $q\mapsto q+1$,
+sums of strict $P$-partition generating functions over orientations of
+decorated unit-interval graphs.
+We show that this sum is already elementary-positive on every class of
+orientations under local triangle flips:
+the class contributes the elementary symmetric functions given by the highest
+reachable vertices of its orientations.
+The same holds for circular unit-interval graphs.
+Summing over classes gives the elementary expansion of
+Alexandersson--Sulzgruber with a new proof, and its circular analog,
+which was open.
+The proof completes a flip class to all orientations with the same number of
+ascending edges, applies a local linear relation, and removes the other classes
+using smaller graphs.
+We also obtain a flip-class refinement of the elementary expansion of
+LLT cumulants.
+\end{abstract}
+
+\maketitle
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\input{sections/introduction}
+\input{sections/preliminaries}
+\input{sections/local}
+\input{sections/ordinary}
+\input{sections/connectivity}
+\input{sections/circular}
+\input{sections/consequences}
+
+\subsection*{Acknowledgements}
+% TODO: funding and colleagues.
+
+\bibliographystyle{amsalpha}
+\bibliography{references}
+
+\end{document}
