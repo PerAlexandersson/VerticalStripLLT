@@ -1,5 +1,24 @@
 # Draft and proof correspondence
 
+## Reader's route
+
+The paper has two parts, as requested by the user:
+
+1. **Circular elementary expansion by diagrams.** Define the integer-cover
+   HRV statistic, prove the corner and bounce relations in both models, then
+   handle intersecting paths by terminal reduction and column reversal.
+2. **Component expansions by diagrams.** Reuse the corner and NN/DN diagrams
+   on whole edge layers. Preparation and actual restored flip paths isolate
+   a component; endpoint attachment closes the ordinary induction. The finite
+   companion then reduces each circular component to the same signed sum of
+   unions of ordinary components.
+
+The aggregate theorem alone is not the component proof. Its local identities
+are reused with marked colors and fixed selected-edge counts. The circular
+companion is stated explicitly; we do not assert that every circular bounce
+or reversal preserves a single component.
+
+
 The [introduction](INTRODUCTION.md) presents the two expansion theorems and
 their diagram proofs; `references.bib` records the ordinary formula's source.
 The [circular section](CIRCULAR_E_EXPANSION.md) gives the integer-cover
@@ -9,8 +28,7 @@ now generated from native TeX, rendered and visually inspected. DD-contact elimi
 has explicit child and closing row tables, eligibility and contact-count
 arguments, and a weighted-sum figure. The boundary-swap coloring proof,
 cyclic cases of the HRV diamond, seven separated-ND identities and
-column-reversal boundary checks are now expanded. The combined manuscript remains
-to be assembled. The existing external circular-first manuscript was consulted
+column-reversal boundary checks are now expanded. The combined manuscript is generated from these canonical sections. The existing external circular-first manuscript was consulted
 read-only; this draft explicitly separates terminal contact from interior
 overlap to match the checked Lean decomposition.
 
@@ -30,14 +48,13 @@ interval opening/lifting/closing, outer-chord moves and the four explicit
 five-vertex paths. Last-clique inheritance now includes connected-core
 preparation, sweep/lift/restoration, the fixed spanning tree and both kinds
 of extra-edge exchange. A whole-proof dependency and notation audit has returned; its attachment,
-inheritance and induction clarifications are incorporated. Assembly into
-the combined paper remains. The mathematical source is the
+inheritance and induction clarifications are incorporated. The component section forms the second part of the combined paper. The mathematical source is the
 [assembled proof](../proofs/COMPONENT_DIAGRAM_COMPLETION.md).
 
 The independent diagram formalization is complete, including the final
 induction and weighted positivity consequences. See the
 [completion audit](../DIAGRAM_PROOF_COMPLETION.md) for the verified scope and
-856-query axiom audit. Compiler status and source correspondence stay here
+current 815-query axiom audit, including the circular component consequences. Compiler status and source correspondence stay here
 and in the formalization plan, outside the manuscript prose.
 
 | Draft construction | Lean correspondence | Current scope |
@@ -72,6 +89,22 @@ and in the formalization plan, outside the manuscript prose.
 | Whole-component corrections and marked recurrences | `certifies_of_not_hasCommonWitness`, `certifies_nn`, `certifies_dn` | Checked; integrated into the final induction |
 | First-drop coverage and final expansion | `certifies_firstDrop`, `component_eq_by_diagrams_aux`, `component_strict_eq_elementary_of_forward_by_diagrams` | Checked for every ordinary diagram and every whole component |
 
+The [circular component subsections](CIRCULAR_COMPONENTS.md) finish the second
+part. They give the finite signed expansion, constancy on actual components,
+and the compatible-lift preimage as a union of whole ordinary components.
+Strict markings are removed before arbitrary subset sums. The HRV deletion
+identity is proved by a sign-reversing toggle preserving the entire lifted
+map; it is not inferred just from the aggregate circular theorem.
+
+| Circular component construction | Related Lean | Scope |
+| --- | --- | --- |
+| Simultaneous coloring and entire-HRV expansion | `strictOrderEnumerator_finiteCompanion`, `liftedHRV_value_finiteCompanion` | All acyclic selected states, with undecoration made explicit |
+| Balanced base and coefficient cancellation | `coefficient_eq_delta_of_balanced`, `sum_powerset_coefficient_eq_zero`, `sum_powerset_cyclicNegative_eq_zero_of_gain_excess` | Actual edge instances, negative-cycle gains and weak-component signs |
+| Coefficient constancy under actual circular flips | `componentCoefficient_eq_of_mem_flipComponent` | Tight potentials reconstruct both full cover tests and preserve the original component |
+| Compatible lift sorting and semantic transport | `orientationFromCompatible_injective`, `orientationFromCompatible_hrvMonomial`, `orientationFromCompatible_strictOrderEnumerator` | Injective state transport and exact finite fibre sizes |
+| Group the preimage by whole ordinary components | `compatibleComponentPreimage_closed`, `component_identity_of_forward_components` | A union of components, not an assumed single component |
+| Final circular identity and positivity | `component_strict_eq_elementary_by_diagrams`, `component_weighted_e_positive_by_diagrams` | Every circular diagram, every actual component and every finite alphabet |
+
 The circular source map supplements [the completion audit](../CIRCULAR_COMPLETION.md):
 
 | Draft construction | Related Lean | Scope |
@@ -89,8 +122,9 @@ The circular source map supplements [the completion audit](../CIRCULAR_COMPLETIO
 
 The ordinary section uses greatest reachable vertices in the ordinary order.
 The circular section uses greatest reachable integers followed by reduction
-modulo the period. Its theorem is aggregate; the ordinary section proves the
-component refinement by the diagram route.
+modulo the period. The first part proves the aggregate theorem. The second part proves the
+ordinary component theorem by diagrams and then the circular component
+theorem through the finite companion.
 
 The [diagram macros and usage guide](tex/README.md) implement the user's
 restricted-sum convention. A diagram specifies selected/absent/optional/strict
@@ -106,3 +140,31 @@ figures have been visually inspected. The
 cell figure follows the diagonal-label and selected-cell convention of the
 paper with Robin; its retained arrows indicate corner covers at the two
 displayed endpoints.
+
+## Rebuilding the manuscript
+
+The Markdown sections are the canonical prose. Native figure sources live
+in `tex/`; SVGs in `figures/` are previews. The assembler assigns distinct
+circular/ordinary equation labels, resolves cross-section links and converts
+local figure numbering to a single sequence. It does not alter mathematical
+expressions beyond those labels. No generated build output belongs in Git.
+
+With Python 3, Pandoc and TeX Live (`latexmk`, `pdflatex`, `bibtex`) installed:
+
+```sh
+python3 docs/drafts/build_manuscript.py --output /external/path/llt-draft
+```
+
+Use `--no-compile` to assemble TeX only. Output must be outside the source
+checkout. The command writes `manuscript.pdf`, editable `manuscript.tex`, all
+native vector figures, a SHA256 source manifest and `manuscript-source.zip`.
+The zip contains the complete TeX source and canonical Markdown input. Compile
+its `manuscript.tex` directly with `latexmk -pdf manuscript.tex`, or regenerate
+from the bundled canonical sources. Author names are left for the authors.
+
+Current preview directory:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/manuscript/`.
+The independent reviews approved the aggregate proof, ordinary induction,
+circular companion, and the final theorem scopes. The assembled PDF has
+thirteen vector figures. Its final build and layout checks are recorded in
+`HANDOFF.md`.

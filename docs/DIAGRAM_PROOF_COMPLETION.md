@@ -1,10 +1,29 @@
-# Ordinary component expansion by diagrams: completion audit
+# Component expansions by diagrams: completion audit
 
 The ordinary component expansion is now proved by the diagram argument,
 independently of the earlier word-functional proof. The theorem was completed
 at `f2f396f`, exported and audited at `1b6d13e`, and streamlined at `55cfaf5`.
-This report concerns those committed checkpoints, not subsequent dirty Lean
-work in the shared checkout.
+At `77cabb9`, the finite companion also gives the full circular component
+theorem using this ordinary diagram proof. This report concerns these
+committed checkpoints.
+
+## Current source checkpoint
+
+Cleanup at `98ad880` moves the independent older proof into `WordProof/` and
+removes unused diagram modules. Public theorem contracts and the actual
+circular consequence closure are unchanged. Independent read-only review
+confirmed that no removed module was in that closure.
+
+- The full library build passes, **2367 jobs** (`full-build-4.log`).
+- The remaining **815** dedicated axiom queries match `axioms-5.log` in exact
+  namespace-normalized order; all use only standard Lean axioms or none.
+- Immutable log: `axioms-98ad880.log`, SHA256
+  `6eee3af0725d74a361367ced0b5ef502716d8cb08a0ff4a4dd0a13ac0a50745a`.
+- The circular theorem's **360-file** project import closure contains no
+  `WordProof`, old component-expansion, word/scan or mountain module.
+
+The larger historical inventories below also included unused helper modules;
+the lower current count reflects their removal, not a weaker theorem audit.
 
 ## Scope
 
@@ -24,6 +43,43 @@ weight and give homogeneous elementary positivity. No recurrence certificate,
 common-cover witness or assumed equality is a hypothesis of these statements.
 The project represents positive-size diagrams; the empty-diagram identity is
 the usual empty product.
+
+## Circular component theorem
+
+[CircularConsequences.lean](../VerticalStripLLT/Components/DiagramProof/CircularConsequences.lean)
+adds `component_strict_eq_elementary_by_diagrams` for **every** circular
+`Diagram n`, orientation and finite alphabet, with no forwardness assumption.
+The weighted orientation-sum, evaluated elementary expression and positivity
+forms have the same names with the `_by_diagrams` suffix. No balance,
+connectivity, recurrence or assumed semantic identity is a final hypothesis.
+
+The finite companion reduction `component_identity_of_forward_components`
+receives the ordinary diagram theorem as its input. For each balanced circular
+class, compatible lift sorting produces a forward diagram. The preimage of
+the chosen circular component is a finite union of complete ordinary flip
+components, possibly several. Applying the ordinary theorem to each component
+and summing proves the balanced identity. The finite companion combines these
+identities with the same integer coefficients for both valuations.
+
+`BalancedHRVTransport` now imports `ForwardHRVBasic` instead of the unnecessarily
+strong `ForwardHRV`. The circular theorem's 360-file project import closure
+contains no old ordinary word/scan theorem. An independent semantic review
+checked the public scope, the union-of-components argument, this import change
+and the merge of the duplicate natural-edge relation into `DiagramProof.Basic`.
+
+Verification at the circular-extension checkpoint `77cabb9`:
+
+- The full library build passed, 2365 jobs (`full-build-3.log`).
+- The dedicated inventory and `axioms-4.log` match all **860** queries in exact
+  namespace-normalized order. Eleven declarations use no axioms; the other
+  849 use only `propext`, `Classical.choice`, `Quot.sound`.
+- An immutable copy is `axioms-77cabb9.log`, SHA256
+  `157ccffa799595d35c9748be954636fc713ab52741fcd21f3997c538ba46ae6c`.
+  The working name `axioms-4.log` was reused after the earlier 856-query audit.
+- The broad audit in `verification-2.log` reports 2814 quoted results, including
+  2809 axiom reports, without errors. The manifest-path warning is unchanged.
+- The owner reports source guards passed for all 238 diagram modules and
+  `BalancedHRVTransport`.
 
 ## The diagram proof
 
@@ -56,7 +112,8 @@ source, proof contracts, dependency closure and resulting logs.
   `full-build-2.log`.
 - The post-refactor focused build passed through `Consequences`: 1921 jobs in
   `clean-4.log`.
-- Both `axioms-3.log` and the refreshed `axioms-4.log` contain all 856 dedicated
+- At the earlier ordinary checkpoint, `axioms-3.log` and the then-current
+  `axioms-4.log` contained all 856 dedicated
   queries in exact order, allowing Lean's namespace qualification of printed
   names. All declarations use only `propext`, `Classical.choice`, `Quot.sound`,
   or no axioms. In particular there is no `sorryAx` or `Lean.ofReduceBool`.

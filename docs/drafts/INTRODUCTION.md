@@ -1,16 +1,17 @@
 ---
-title: Elementary expansions of circular LLT polynomials and ordinary flip components
+title: Elementary expansions of circular LLT polynomials and flip components
 abstract: |
   We prove an elementary expansion for circular LLT polynomials after the
   substitution $q\mapsto q+1$. The terms are indexed by acyclic selections
   of edges, and their elementary factors record highest reachable vertices
-  on the integer cover. For ordinary diagrams, we prove that the expansion
-  holds separately on each component under triangle flips. Both arguments
+  on the integer cover. We also prove that the expansion holds separately
+  on every circular component under triangle flips. Both arguments
   use local diagram relations. In the circular case, intersecting bounce
   paths are reduced by reversing intervals in a strict chain. In the
   ordinary case, actual flip paths connect the states in which every
   corner is a cover, and an endpoint attachment extends the component
-  recurrence across articulations.
+  recurrence across articulations. A finite signed expansion then reduces
+  circular components to unions of ordinary components.
 ---
 
 # Introduction
@@ -40,9 +41,10 @@ where $\lambda(A)$ consists of the sizes of the fibres of this highest
 reachable map. Thus the circular polynomials also have nonnegative
 elementary coefficients after the shift.
 
-Our second result refines the ordinary expansion. A triangle flip
-exchanges one short selected edge for the other, retaining the long
-edge, when the indicated edges are covers. Such flips partition the
+Our second result refines the expansion component by component, for
+ordinary and circular diagrams alike. A triangle flip exchanges one
+short selected edge for the other, retaining the long edge, when the
+indicated edges are covers on the integer lift. Such flips partition the
 selected states into components. For a selected state $A$, let $K(A;X)$
 be the sum of monomials over colorings that increase strictly along
 every selected edge. We prove, for each whole flip component $C$,
@@ -77,9 +79,19 @@ to a full edge layer, apply a diagram relation, and subtract the other
 components using smaller diagrams. Fixing the color at an endpoint
 allows the recurrence to be attached to the rest of the diagram.
 
-We first prove the circular expansion, including the reductions for
-intersecting contact paths. We then give the ordinary component proof,
-with its flip constructions and endpoint attachment. Throughout we use
+To pass to circular components, we expand a selected graph into balanced
+subgraphs, whose edge lengths are differences of a vertex potential.
+The same signed coefficients work for the coloring and HRV values, and
+remain constant along whole flip components. Sorting compatible lifts
+then represents each balanced circular component by a union of ordinary
+components. This reduces the circular statement to the ordinary diagram
+proof.
+
+We organize the paper in two parts. We first prove the circular expansion
+through its diagram relations, including intersecting contact paths.
+We then pass the local relations to whole components: first in ordinary
+diagrams, using the flip constructions and endpoint attachment, and then
+in circular diagrams by the finite signed expansion. Throughout we use
 a finite alphabet $X=(x_1,\dotsc,x_m)$ and write
 
 \[

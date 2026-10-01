@@ -18,7 +18,8 @@ local picture imposes no restriction on its incident edges.
 Labels are mathematical expressions. Cell arguments are **positions** in
 the ordered label list, starting at one; cell `(i,j)` represents the edge
 from label `i` to label `j`, with `i<j`. The macro checks these bounds.
-All unspecified off-diagonal cells are optional natural edges. Use an
+Display every strict edge between shown vertices with an arrow. All remaining
+unspecified off-diagonal cells are optional normal natural edges. Use an
 explicit forbidden cell for each displayed pair which is not natural.
 
 For a whole ordinary diagram, supply its area sequence to cross out those
@@ -90,7 +91,10 @@ the accompanying caption specifies the coloring or admissible HRV valuation.
 `initial-crossing.tex` uses the same cells for the crossing-slide endpoints.
 `circular-reversal.tex` and `right-attachment.tex` give native TikZ sources
 for the column permutation and fibre concatenation. Every manuscript figure
-now has a native TeX source.
+now has a native TeX source. `circular-companion.tex` illustrates a finite
+companion deletion and the same balanced path in compatible lift order.
+Its two pictures specify individual selections, the singleton case of the
+restricted-sum convention.
 An equation between diagrams means equality of the indicated sums. A
 flip-path arrow is stated separately as a correspondence between endpoint
 states; it does not assert equality of their individual valuations.

@@ -184,9 +184,11 @@ DN for the coloring sum.
 
 ### The four selected triangles
 
-For the orientation calculation, consider a lifted triangle $P<Y<T$ with
-$P\to T$ mandatory. With all other selected edges fixed, let $M_U$
-be the HRV elementary monomial after adding
+For the orientation calculation, consider the local triangle
+$P<Y<T<P+n$ in an NN or DN contact. The long edge $P\to T$ is
+mandatory and the two shorts are permitted normal edges. Fix the exterior
+selection and first leave both shorts absent. Let $M_U$ be the HRV
+elementary monomial after adding
 $U\subseteq\{P\to Y,Y\to T\}$, taking value zero for a cycle.
 The four selections satisfy
 
@@ -234,8 +236,9 @@ After inserting weights, (3) becomes
 
 The bottom terms in (2) correspond under the periodic exchange of the
 contact vertices; the top terms have the same transitive closure.
-The exchange preserves order on sinks: its only inverted pairs are
-$x+kn,x+1+kn$, and the first vertex has a mandatory outgoing edge.
+Here the exchanged vertices are $P=x$ and $Y=x+1$. The exchange
+preserves order on sinks: its only inverted pairs are $x+kn,x+1+kn$,
+and the first vertex has the mandatory outgoing edge to $T+kn$.
 Every reachable vertex extends to a sink. Thus the exchange transports
 the highest reachable map and preserves its fibre sizes.
 
@@ -543,8 +546,9 @@ At a strict head in $C_c$, $c>0$, the transported edge has length
 $H_c+\ell_c-\ell_{c-1}$. At a strict head in $C_0$, its length is
 $H_0+\ell_0-\ell_{j-1}-1$. These are the prescribed new areas:
 consecutive column lengths agree except at $c=s$ when $s>0$.
-Every new area is positive, since $H_c\geq\ell_{c-1}\geq2$,
-and no area increases. In particular the bound $a_i<n$ is preserved.
+Every new area is positive, since $H_c\geq\ell_{c-1}\geq2$.
+In particular, when $s=0$, a row with decrement two had old area
+$H_0+1\geq3$ and now has area $H_0-1\geq1$. No area increases. In particular the bound $a_i<n$ is preserved.
 
 We check the boundary inequalities at the ends of the columns. Write
 $\delta(v)=a_v-a'_v$, so $b'(v)=b(v)+\delta(v)$. Inside a column,
@@ -623,12 +627,17 @@ that column. The only changed incidences are again internal. We have
 proved the required correspondence for every pair with at least one
 exterior endpoint, and the strict edges correspond by construction.
 
-Relabeling colors now identifies the residual coloring sums. For the
-orientation sums, every selected sink is a strict sink. The moved
-component has just one strict sink, which stays in its column; all
-other strict sinks are fixed. Consequently $\sigma$ preserves the
-order of integer sink lifts and transports highest reachable vertices.
-It identifies the residual HRV sums as well.
+Relabeling colors now identifies the residual coloring sums, including
+each normal-edge ascent and the product of vertex variables. The same
+edge correspondence gives a bijection on residual selections and
+preserves directed paths and acyclicity. A selected sink must be the
+terminal vertex of its strict chain, with isolated vertices counted as
+one-vertex chains. The moved component has just one such terminal vertex,
+which stays in its column; all exterior selected sinks are fixed. No
+exterior vertex lies inside that column. Consequently $\sigma$ preserves
+the order of integer sink lifts. Every reachable vertex extends to a sink,
+so the correspondence transports highest reachable vertices and preserves
+their fibre sizes. It identifies the residual HRV sums as well.
 
 Let $f_D,f_Q$ be the numbers of deleted edges following strict-chain
 order in the respective diagrams. There are common residual expressions
@@ -655,7 +664,8 @@ Set
 \]
 
 where $\ell(e)$ is the positive circular length of $e$ and $d(v)$
-is the number of proper strict ancestors of $v$. We induct lexicographically
+counts vertices from which a nonempty path of strict edges reaches $v$.
+We induct lexicographically
 on $(A_2(D),J(D))$, treating strict cycles as zero cases.
 
 A non-strict corner gives (1); deletion decreases $A_2$ by two,

@@ -10,8 +10,11 @@ authorized the circular development; its aggregate HRV formula is also proved.
 See `docs/CIRCULAR_COMPLETION.md`. Ordinary and all circular flip-component
 expansions, their shifted q-weights,
 and elementary positivity are also Lean-verified. See `docs/COMPONENT_COMPLETION.md`.
-The proof uses the ordinary word functional and signed-sink extraction, then the
+The earlier proof uses the ordinary word functional and signed-sink extraction, then the
 finite circular companion and a union of compatible ordinary components.
+An independent diagram proof now covers the ordinary and circular component
+identities, weights and positivity; see `docs/DIAGRAM_PROOF_COMPLETION.md`.
+The current paper follows this route and its same finite circular companion.
 The bounded-face source remains in `docs/proofs/COMPONENT_CIRCULAR_FACE_PROOF.md`;
 the checked finite replacement is `docs/proofs/COMPONENT_FINITE_COMPANION.md`.
 Retain the faithful finite-degree model; do not build a general

@@ -1,5 +1,10 @@
 # Complete flip-component expansion
 
+An independent proof by diagrams now covers both ordinary and circular
+components at `77cabb9`; see the
+[diagram completion audit](DIAGRAM_PROOF_COMPLETION.md). The word-functional
+route and its historical verification are recorded below.
+
 The ordinary and full circular component identities are Lean theorems, committed
 in `f355a28`. After subsequent proof streamlining, the current
 library build passes **2074 jobs**, and **2803 axiom inventory entries** use only
@@ -19,9 +24,9 @@ In namespace `VerticalStripLLT.Circular`:
 | `component_weighted_e_positive` | One elementary expression works for every finite alphabet, has nonnegative q-coefficients, and has elementary weighted degree n. |
 
 The ordinary theorem is in
-[OrdinaryComponentExpansion](../VerticalStripLLT/Components/OrdinaryComponentExpansion.lean).
+[OrdinaryComponentExpansion](../VerticalStripLLT/Components/WordProof/OrdinaryComponentExpansion.lean).
 The general theorem and corollaries are in
-[ComponentExpansion](../VerticalStripLLT/Components/ComponentExpansion.lean).
+[ComponentExpansion](../VerticalStripLLT/Components/WordProof/ComponentExpansion.lean).
 All declarations are imported by the main library and listed in `Verification.lean`.
 
 The component is the existing `flipComponent D θ`, defined by full global flip

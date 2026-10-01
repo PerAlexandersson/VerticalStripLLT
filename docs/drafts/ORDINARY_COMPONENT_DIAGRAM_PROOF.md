@@ -1,11 +1,14 @@
-# Elementary expansions of ordinary flip components
+# Component expansions by diagrams
 
-We prove the component expansion by applying the local diagram relations to
-whole components. The main step is to connect the states in which every
+We now refine the expansion to whole flip components. We first treat ordinary
+diagrams, applying the corner and NN/DN relations from the
+[circular proof](CIRCULAR_E_EXPANSION.md#the-local-reductions) to complete edge
+layers and then isolating one component. The main step is to connect the states in which every
 maximal corner is a cover. We then complete such a component to an entire
 edge layer, apply the local relation, and remove the additional components by
 induction. An endpoint attachment extends this construction to diagrams with
-articulations.
+articulations. The final subsections pass from ordinary to circular components
+by a finite signed expansion.
 
 ## Selected diagrams and their two values
 
@@ -594,7 +597,7 @@ left chord set and ends with $P_4$ plus the right chord set.
 | --- | --- |
 | $\{13\}\longrightarrow\{14\}$ | $034,023,013,014,023,034$ |
 | $\{14\}\longrightarrow\{24\}$ | $034,124,014,023,012,023,034$ |
-| $\{13,24\}\longrightarrow\{14,24\}$ | $034,024,012,014,024,013,023,012,023,034$ |
+| $\{13,24\}\longrightarrow\{14,24\}$ | $034,024,012,014,024,\allowbreak 013,023,012,023,034$ |
 | $\{14,24\}\longrightarrow\{13,14\}$ | $034,023,012,013,023,124,034$ |
 
 Inspection of these selected diagrams verifies the short and long covers
@@ -864,8 +867,10 @@ terminal vertices.
 It follows that
 
 \[
- A^*(G)=\{0a\}\,\sqcup\,A^*(G')\,\sqcup\,\{0v:v\in J\},
- \qquad J\coloneqq\{v:0<v<a,\ r(a)<r(v)\}.
+ \begin{gathered}
+ A^*(G)=\{0a\}\,\sqcup\,A^*(G')\,\sqcup\,\{0v:v\in J\},\\
+ J\coloneqq\{v:0<v<a,\ r(a)<r(v)\}.
+ \end{gathered}
  \tag{1}
 \]
 
@@ -1341,8 +1346,10 @@ in the source; increasing $a_y$ by one makes it natural in the target.
 Thus
 
 \[
- a_y\longmapsto a_y+1,\qquad a_t\longmapsto a_t-1,
- \qquad A(R)=A(D),\qquad M(R)=M(D)-(t-y)<M(D).       \tag{8}
+ \begin{gathered}
+ a_y\longmapsto a_y+1,\qquad a_t\longmapsto a_t-1,\\
+ A(R)=A(D),\qquad M(R)=M(D)-(t-y)<M(D).
+ \end{gathered}                                                \tag{8}
 \]
 
 The source corrections in (L) decrease natural area. If the prefix on

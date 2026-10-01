@@ -1,7 +1,8 @@
 # Formalizing the ordinary component theorem by diagrams
 
 **Completed:** the independent diagram theorem and weighted consequences were
-verified at `1b6d13e`, then streamlined and rechecked at `55cfaf5`. See the
+verified at `1b6d13e`, then streamlined and rechecked at `55cfaf5`. The
+circular component extension by the same route is checked at `77cabb9`. See the
 [completion audit](DIAGRAM_PROOF_COMPLETION.md). The detailed plan below is
 retained as the implementation history and paper correspondence.
 
@@ -58,8 +59,9 @@ uniqueness, initial-path extension, whole-component corrections, NN/DN layer
 recurrences, first-drop coverage, endpoint attachment, prefix selection and
 strong induction on `(n,A,M)`. The final theorem identifies the existing
 strict-coloring enumerator with the existing HRV elementary sum for every
-whole component of every ordinary diagram. All 856 dedicated axiom queries
-match the post-refactor log and use only standard Lean axioms. The following
+whole component of every ordinary diagram. The circular consequences were audited in the 860-query inventory at
+`77cabb9`. After unused-helper cleanup, the 815-query inventory at `98ad880`
+also matches exactly and uses only standard Lean axioms. The following
 paragraphs record the earlier implementation checkpoints.
 
 P0 and the
