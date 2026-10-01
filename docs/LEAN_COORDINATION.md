@@ -143,9 +143,9 @@ None of these changes the mathematics. They may help the exposition.
   `CircularFromOrdinaryComponents` imports word-route modules
   (`BlockCancellation`, `BlockExtractor`, `ComponentCoefficient`), so it was not
   used.
-- Possible cleanups:
-  - `attachDiagram` could be rebuilt on `ofRelations`;
-  - `naturalRel` duplicates `CornerFamily.naturalEdgeRelation` (they are
-    definitionally equal);
-  - the NN and DN contact lemmas share swap/exterior arguments that could be
-    factored further.
+- Done at `55cfaf5`: `attachDiagram` is now built on `ofRelations`, the NN and
+  DN recurrences share one sink-order lemma, and one symmetric closure lemma
+  replaces the two helpers.
+- Possible further cleanup: `naturalRel` duplicates `CornerFamily.naturalEdgeRelation`
+  (they are definitionally equal); merging them would touch many earlier P1–P6
+  modules, so it is left as a suggestion.
