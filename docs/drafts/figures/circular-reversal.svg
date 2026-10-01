@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="340" viewBox="0 0 880 340">
+<title>Reverse each consecutive column of the merged strict chain</title>
+<desc>For r equals five and j equals two, column zero has four positions and
+column one has three. The entries reverse within each column, while area values
+change from H zero, H zero plus one, H zero plus one, H zero plus one to all H zero,
+and from three H one values to three H one minus one values.</desc>
+<rect width="880" height="340" fill="white"/>
+<style>
+text{font-family:Georgia,serif;font-size:19px;fill:#17212b;text-anchor:middle}
+.label{font-family:Arial,sans-serif;font-size:14px}
+.vertex{fill:#fff0ab;stroke:#525960;stroke-width:1.2}
+</style>
+<text class="label" x="225" y="28">original positions</text>
+<text class="label" x="670" y="28">images under σ</text>
+<text x="438" y="142" style="font-size:34px">→</text>
+<text class="label" x="438" y="170">reverse</text>
+<text x="42" y="85">C₀</text><text x="42" y="213">C₁</text>
+<rect class="vertex" x="85" y="53" width="70" height="52"/>
+<text x="120" y="86">w<tspan font-size="13" baseline-shift="sub">0</tspan></text>
+<text x="120" y="131" font-size="16">H₀</text>
+<rect class="vertex" x="155" y="53" width="70" height="52"/>
+<text x="190" y="86">w<tspan font-size="13" baseline-shift="sub">2</tspan></text>
+<text x="190" y="131" font-size="16">H₀+1</text>
+<rect class="vertex" x="225" y="53" width="70" height="52"/>
+<text x="260" y="86">w<tspan font-size="13" baseline-shift="sub">4</tspan></text>
+<text x="260" y="131" font-size="16">H₀+1</text>
+<rect class="vertex" x="295" y="53" width="70" height="52"/>
+<text x="330" y="86">w<tspan font-size="13" baseline-shift="sub">6</tspan></text>
+<text x="330" y="131" font-size="16">H₀+1</text>
+<rect class="vertex" x="85" y="181" width="70" height="52"/>
+<text x="120" y="214">w<tspan font-size="13" baseline-shift="sub">1</tspan></text>
+<text x="120" y="259" font-size="16">H₁</text>
+<rect class="vertex" x="155" y="181" width="70" height="52"/>
+<text x="190" y="214">w<tspan font-size="13" baseline-shift="sub">3</tspan></text>
+<text x="190" y="259" font-size="16">H₁</text>
+<rect class="vertex" x="225" y="181" width="70" height="52"/>
+<text x="260" y="214">w<tspan font-size="13" baseline-shift="sub">5</tspan></text>
+<text x="260" y="259" font-size="16">H₁</text>
+<rect class="vertex" x="530" y="53" width="70" height="52"/>
+<text x="565" y="86">w<tspan font-size="13" baseline-shift="sub">6</tspan></text>
+<text x="565" y="131" font-size="16">H₀</text>
+<rect class="vertex" x="600" y="53" width="70" height="52"/>
+<text x="635" y="86">w<tspan font-size="13" baseline-shift="sub">4</tspan></text>
+<text x="635" y="131" font-size="16">H₀</text>
+<rect class="vertex" x="670" y="53" width="70" height="52"/>
+<text x="705" y="86">w<tspan font-size="13" baseline-shift="sub">2</tspan></text>
+<text x="705" y="131" font-size="16">H₀</text>
+<rect class="vertex" x="740" y="53" width="70" height="52"/>
+<text x="775" y="86">w<tspan font-size="13" baseline-shift="sub">0</tspan></text>
+<text x="775" y="131" font-size="16">H₀</text>
+<rect class="vertex" x="530" y="181" width="70" height="52"/>
+<text x="565" y="214">w<tspan font-size="13" baseline-shift="sub">5</tspan></text>
+<text x="565" y="259" font-size="16">H₁−1</text>
+<rect class="vertex" x="600" y="181" width="70" height="52"/>
+<text x="635" y="214">w<tspan font-size="13" baseline-shift="sub">3</tspan></text>
+<text x="635" y="259" font-size="16">H₁−1</text>
+<rect class="vertex" x="670" y="181" width="70" height="52"/>
+<text x="705" y="214">w<tspan font-size="13" baseline-shift="sub">1</tspan></text>
+<text x="705" y="259" font-size="16">H₁−1</text>
+<text class="label" x="440" y="310">Rows show circular intervals; labels beneath the cells give the areas.</text>
+</svg>

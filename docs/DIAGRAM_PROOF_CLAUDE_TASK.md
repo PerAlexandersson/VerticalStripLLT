@@ -5,7 +5,7 @@ The written ordinary component proof is complete; its independent Lean route
 is not. The older completed word/scan component theorem is not an input.
 
 The recommended independent task is the right-attachment part of P9. It can
-proceed while the primary worker completes P6's common-cover uniqueness.
+be implemented before P6's remaining common-cover induction is assembled.
 It must not assume that an arbitrary attachment already satisfies K = E.
 
 ## Read first
@@ -22,29 +22,33 @@ It must not assume that an arbitrary attachment already satisfies K = E.
 
 ## Current division of work
 
-The primary worker owns P6 and all existing `DiagramProof/` files, the focused
-verification entry point and HANDOFF. The latest P6 increment implements the
-missing-edge witness and the actual crossing slide connecting adjacent initial
-extra sets. The subset-band assembly and global vertex-count induction remain.
+At pushed checkpoint `b78312c` (2026-10-01), the Codex worker completed and
+verified the two pending P6 lemmas and explicitly released all `DiagramProof/`
+Lean sources, `DiagramProofVerification.lean` and the sole project build slot
+to the persistent Claude worker `agent-verticalstri-motzki-c-001af720`.
+The current [HANDOFF](../HANDOFF.md) is authoritative.
 
-Suggested new files for this independent task:
+Claude begins with the attachment task below, then continues the remaining
+formalization. Codex retains mathematical prose, figures, source maps and the
+top-level handoff. Claude reports progress, checks and blockers in
+`docs/LEAN_COORDINATION.md`, which it owns. The prepared attachment drafts in
+the external request cache are uncompiled candidates until checked locally.
+
+Proposed attachment files:
 
 1. `VerticalStripLLT/Components/DiagramProof/RightAttachmentDiagram.lean`;
 2. `VerticalStripLLT/Components/DiagramProof/RightAttachmentPaths.lean`;
 3. `VerticalStripLLT/Components/DiagramProof/RightAttachmentValues.lean`;
 4. `VerticalStripLLT/Components/DiagramProof/RightAttachment.lean`.
 
-These are proposed names, not existing declarations. No Claude run is active
-or source ownership transferred merely by opening this issue. On starting,
-read the current HANDOFF and claim the new files there or report the proposed
-claim to the primary. Use an isolated source lane if the shared checkout is
-dirty. Existing files and P6 remain with primary. Return snippets for any
-needed edits outside the assigned files.
+**Only Claude holds the project build slot after this transfer.** Builds must
+still serialize with other Lean projects, use `lake-workspace` and focus on
+needed targets. Separate worktrees do not make concurrent builds safe.
 
-**Only one local Lean build owner.** While primary is active, return source
-and requested focused targets to primary for compilation. A later explicit
-build-slot transfer may replace this arrangement; separate worktrees alone
-do not make concurrent builds safe. Do not launch broad Lake builds.
+P6 now includes all feasible-extra-set paths, conditional initial-vertex
+inheritance, preserved chain count, matching-edge removability, canonical
+last-clique short edges and the two-chain cardinal base. Its global vertex-count
+induction remains unfinished. P7–P10 are still open.
 
 ## Exact mathematical input
 

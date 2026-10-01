@@ -26,9 +26,31 @@ P0–P5 are complete under their contracts; P6 is partial and P7–P10 are open.
 The complete mathematical diagram proof and the independent Lean theorem
 remain distinct. The older word/scan proof is not imported by this route.
 
+### Writing progress after the transfer
+
+Source/build release is pushed as `b78312c`. The independent issue #8 task
+now records the new division. Claude's claim proposal and approximately
+1,450 lines of scratchpad candidates remain unverified; its proposal is in
+`suggestions/claude-right-attachment-claim.md` (Claude-owned). A read-only
+pane inspection showed its bounded handoff watcher and an unsent user prompt;
+Codex left the prompt untouched. No acknowledgement of the transfer was
+inferred from that queued text.
+
+The new circular section `docs/drafts/CIRCULAR_E_EXPANSION.md` follows the
+checked aggregate proof. It separately treats the terminal-contact reduction
+(factor `1+q`, doubled area down six) and interior column reversal; the
+external manuscript had grouped their geometry. The rank definition is the
+sum of proper-ancestor counts times strict-edge lengths, exactly Lean's
+`strictRank`. A new column-reversal SVG was rendered in the external cache
+and visually inspected. The local boundary checks and DD-contact elimination
+remain compressed, and the combined manuscript remains unfinished.
+Independent review approved the terminal-pair count, both contact branches,
+and the exact rank definition. Local Markdown links and SVG XML pass; issue
+#8 was refreshed to match the tracked task.
+
 ### Latest verified P6 checkpoint
 
-`LastCliqueNaturalEdges.lastClique_induced_short_naturalEdges` preserves
+`lastClique_induced_short_naturalEdges` in `LastCliqueNaturalEdges` preserves
 short natural edges in the canonical core on `0,...,c,e`; interior pairs
 lift identically, and final pairs lie inside the given crossing edge.
 `CornerFamily.commonCover_connected_of_terminal_card_le_two` derives the
