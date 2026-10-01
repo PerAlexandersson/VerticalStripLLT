@@ -1,10 +1,8 @@
 # Archive completed diagram implementation history
 
-HANDOFF.md now contains many superseded descriptions of the same P1/P5
-obligations. Loading it in full is expensive, and historical statements such
-as "order reversal remains open" can be mistaken for current blockers.
-
-After this checkpoint, move the chronological implementation sections into
-one linked archive. Keep the current theorem contracts, ownership, verification,
-next proof obligations and recovery hashes in the handoff. Preserve every old
-proved/unfinished distinction in the archive and repair its relative links.
+Implemented during the initial-vertex continuation after `607c84e`.
+HANDOFF.md now carries current ownership, verification and next obligations.
+The full prior handoff is preserved in
+`docs/archive/diagram-implementation-through-first-clique.md`, with relative
+links relocated. Keep future completed chronology there rather than repeatedly
+loading superseded blocker descriptions from the active handoff.

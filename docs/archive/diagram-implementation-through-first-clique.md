@@ -1,0 +1,889 @@
+# Archived handoff through first-clique checkpoint 607c84e
+
+This is the complete handoff at `607c84e`, with relative links relocated.
+Current status and ownership are in [HANDOFF.md](../../HANDOFF.md).
+
+# VerticalStripLLT handoff
+
+## Active implementation — P0/P2/P3/P4/P5 complete, P1 partial
+
+Continuation from clean pushed `aeeba18` completed order reversal and the
+first-clique consequence of last-clique inheritance. The actual decorated
+diagram, every selected state, cover tests and complete flip components now
+correspond under reflection. `commonCover_connected_of_firstClique_core`
+reflects the diagram, applies the same last-clique moves, and reflects the path
+back. Its only uniqueness assumption is on the explicitly reflected retained
+core. P6 must still establish strict vertex-count decrease when applying its
+induction hypothesis. Initial-vertex inheritance and global path uniqueness
+remain unfinished. P0/P2/P3/P4/P5 are complete under their planned conditional
+contracts; P1 remains partial for initial-vertex core interfaces; P6--P10 remain open. The
+independent diagram formalization and illustrated circular/ordinary draft are
+unfinished. The full goal is unchanged.
+
+User reaffirmed that the paper must retain the diagram-style proof and that
+this same proof must be formalized. Preserve the written move sequence; graph
+lemmas only justify its displayed edge configurations. The formalization plan
+now records the correspondence for the last-clique diagrams. Do not substitute
+another abstract component argument when writing the draft.
+
+Primary owns all `DiagramProof/` sources, `DiagramProofVerification.lean`, this
+handoff, the formalization plan, the restriction-consolidation suggestion, and
+`docs/proofs/COMPONENT_LAST_CLIQUE_RESTORATION.md`, and retains the sole serialized
+build slot. Ownership for the active continuation is recorded below. Previously Terra supplied
+`CompleteStar` and `LastCliqueBlockPaths`; Luna supplied `BlockReplacement`,
+`SubsetEmbedding` and `CliqueBlockEmbedding`; `semantic_extract` supplied
+`CliqueBlockReplacement` and completed a read-only audit. Primary integrated
+and verified all candidates and wrote `LowerConnectivity`,
+`CliqueLowerConnectivity`, `CliqueAnchorReplacement`, `CliqueStar`, and the
+lower-path restriction lemma in `LastCliqueCoreConnectivity`. Historical proof-note prefixes and unrelated ownership remain unchanged.
+
+### Ownership and independent review
+
+All current source ownership has returned to primary, who retains strategy,
+integration, documentation and the only build slot. Terra supplied
+`ReversedDiagram`; Luna supplied `ReversedRelations` and `ReversedEmbedding`.
+Primary repaired and verified these build-free candidates and wrote
+`OrderReversal`, `ReversedPaths` and `FirstCliqueInheritance`.
+The independent reviewer `semantic_extract` approved the directed-flip
+direction, exact whole-component correspondence, reflected corner/core geometry
+and explicit core-only uniqueness assumption. No anchor, chain-terminal or
+valuation invariance under reflection is used. No subagent or compiler remains
+active. An unrelated RealRooted check was allowed to finish before local builds.
+
+Primary owns all new/returned sources, verification, handoff, formalization
+plan and Aristotle ledger, and retains the sole serialized build slot. Luna
+supplied `LastCliqueCrossingCopies` and `LastCliqueSharedPosition`; Terra
+supplied `SelectedCoreTree` and ported Aristotle's `TreeLeaves`. Primary repaired
+and verified the candidates and wrote `LastCliqueFixedEdges`,
+`LastCliqueFullTree`, and `LastCliqueInheritance`. All delegated source ownership
+has returned. `semantic_extract` independently approved the assembled proof:
+one fixed core tree, exact two-pool exchanges, smaller-core uniqueness only,
+and preparation/reverse preparation. Anchor and tree guarantees are at completed
+local exchange endpoints; intermediate flips may have redundant corners.
+
+Aristotle project `4012e914-b7f9-4452-b627-c9c59a325166`, task
+`6d06c437-1875-4705-bd52-da468662d263`, completed. Native watcher `39847` exited 0.
+The returned isolated tree-with-leaves proof was downloaded, ported from 4.28.0,
+and checked locally under 4.34.0. Its application to the actual fixed graph is
+also verified. `docs/ARISTOTLE.md` records request/result hashes and checks.
+No subagent, compiler, remote task, or CLI watcher remains running.
+
+The preceding `b0d0254` checkpoint integrated Luna's `LastCliqueCorePaths` and
+`LastCliqueExchange`, Terra's `LastCliqueStarExchange`, and primary's
+extra-position definitions, finite-subset glue, star repair and shared exchange.
+The independent source review approved all temporary-edge cases and reversals.
+
+Checkpoint `1e8feaa` integrated Terra's `TreeOmissions`, Luna's `TreeAnchors`,
+and `semantic_extract`'s `LastCliqueStarConnectivity`. Primary wrote
+`LastCliqueTree`, `LastCliqueTreeReplacement`, and `LastCliqueTreePath`.
+Terra approved that composition's endpoint-only fixed-tree guarantee.
+
+The preceding checkpoint `86c5867` integrated Terra's `LastCliquePreparation`,
+Luna's `CliqueBlockBounds` and `CornerStarForest`, and primary's
+`LastCliqueConnectedCore`. `semantic_extract` independently approved
+connected-core preparation. Historical ownership below is unchanged.
+
+The user's additional Claude consultation completed successfully, native
+session `76378`, after about 284 seconds under its 20-minute timeout. Claude
+Opus 5.5 independently reviewed the NEXT fixed-tree step without tools, edits
+or builds. It identified the same chains-and-star forest justification and
+useful remaining tree/exterior obligations. Its proposed code is unverified;
+the ledger records the missing hypotheses in its core-tree path sketch.
+See `docs/ARISTOTLE.md`, section "Auxiliary Claude last-clique tree review".
+No Claude child or remote task remains active.
+
+### Verified P1/P5 increment — reflection and first-clique inheritance
+
+- `ReversedDiagram` constructs an actual forward diagram from reflected
+  natural edges and inherits exactly the reflected strict corners. Corners
+  correspond by their extremal endpoint characterization.
+- `ReversedRelations` reverses directed paths and cover tests and preserves
+  weak connections. `OrderReversal` maps full selections through an edge
+  bijection, retaining total counts and giving an orientation equivalence.
+  Reflecting a directed triangle flip reverses its direction. This supplies
+  both directions of the actual undirected path correspondence.
+- `ReversedPaths.reversedOrientation_map_flipComponent` identifies the image
+  with the whole reflected component, not just a subset or a one-way lift.
+  Common-cover and connectedness hypotheses transport exactly.
+- `ReversedEmbedding` reflects an increasing embedding by reversing both its
+  domain and range. Its image theorem takes the first retained vertex and
+  final interval to the last-clique retained initial interval and final vertex.
+- `commonCover_connected_of_firstClique_core` applies last-clique inheritance
+  with the reversed second/first corners, then pulls the actual path back.
+  Its induction hypothesis names the reflected induced diagram explicitly;
+  no uniqueness for the original core is silently substituted. P6's global
+  vertex-count induction can supply this hypothesis once decrease is proved.
+- All six new modules pass focused checks. The verification file has 590
+  axiom queries, with only the standard three axioms or none. Independent
+  imports contain 259 project files and exclude the old word/scan proof;
+  all 185 DiagramProof source modules pass the source and 100-column guards.
+  Logs: `p5-first-clique-build.log`, `p1-reversal-path-build.log`,
+  `p1-reversal-axioms.log`, `p1-reversal-imports.txt` in the external
+  diagram-formalization request directory. Earlier repair logs can contain
+  superseded failures. No broad build or dependency update ran.
+
+### Previous P5 increment — assembled last-clique inheritance (`aeeba18`)
+
+- `LastCliqueFixedEdges` defines T_V lifted to the ambient diagram together with
+  ve for c<v<e. It proves its exact core restriction, corner inclusion, full
+  star, and containment in the normalized path endpoint. `SelectedCoreTree`
+  gives connectedness of every core restriction containing the fixed tree.
+- `LastCliqueCrossingCopies` constructs the two copies ba and ce from bc/ae,
+  their `CopyLink`, and the needed good-edge inequality.
+  `LastCliqueSharedPosition` excludes ba from the fixed selection by the
+  actual core path b-c-e-a, without any ambient uniqueness assumption.
+- `lastClique_fixed_anchors_connected` instantiates both exact exchange
+  hypotheses of the finite-subset glue. Core exchanges retain the fixed
+  core tree, hence have connected restrictions, and restore the exterior.
+  Right-pool exchanges use the proved local clique/temporary-edge paths.
+- `anchors_connected_of_lastClique_core` chooses ONE core tree, normalizes both
+  anchors to contain the corresponding fixed selection, and connects their
+  equal-size extras. `commonCover_connected_of_lastClique_core` adds the
+  preparation paths and reverses the target path. All inherited corner facts
+  are derived from the bound on earlier corner heads. Its only uniqueness
+  assumption concerns `inducedDiagram hD ι`.
+- `tree_with_attached_leaves` is Aristotle's locally checked finite graph lemma.
+  The proof maps core paths, attaches omitted vertices, and counts core edges
+  plus leaves through an explicit bijection. `lastCliqueFixedEdges_isTree`
+  identifies the diagram's fixed graph with that graph and proves the full
+  displayed tree property. This is structural verification of the same diagram,
+  not a replacement for its local flip paths.
+- Last-clique inheritance is complete under its intended retained-core
+  hypothesis. P5's order-dual first-clique application awaits P1 reversal;
+  global path uniqueness and the general component recurrence are not yet proved.
+
+### Previous P5 increment — extra-position paths and the restricted right pool (`b0d0254`)
+
+- `lastClique_reachable_of_same_exterior` connects prescribed equal-size
+  ambient anchors when both core restrictions are connected and the exterior
+  agrees. The core counts agree by subtraction. Smaller-core uniqueness is
+  explicit, and the restored endpoint is identified with the target.
+- `lastCliqueCoreExtraPositions` and `lastCliqueRightExtraPositions` are P_C
+  and P_R from the written proof. Their union covers all extras. The shared
+  ba position is constructed from bc and ae, proved good, excluded from the
+  acyclic fixed graph by b-c-e-a, and placed in both pools. Once the corner
+  and full star are fixed, every other right-pool extra is strictly internal.
+- `fixed_card_connectivity_in_overlapping_positions` applies the existing
+  exact finite-subset exchange argument to a specified pool.
+  `anchors_connected_of_overlapping_extra_positions` uses the extra selection
+  outside fixed edges, which determines the whole anchor. This is a proved
+  conditional glue theorem; the final local-hypothesis instantiation is open.
+- `clique_reachable_of_exchange` proves the actual path for an exact swap
+  inside a connected clique, with connected source/target blocks and restored
+  exterior. It has no global terminal or capacity assumption.
+  `exists_last_clique_extra_exchange` supplies this path for ordinary extra
+  edges with the complete terminal star at both endpoints.
+- `LastCliqueStarRepair` proves local connectivity for the full star and for
+  a star missing ce when an edge cd connects c to another internal vertex.
+  `exists_last_clique_star_exchange` realizes the corresponding ce replacement.
+- `exists_last_clique_shared_exchange` exchanges selected ba for an absent
+  right-clique extra x. Choose an internal cd (c is the tail of ce). If cd is
+  already selected, exchange ce for x, then slide ba to ce. Otherwise exchange
+  ce for cd, slide ba to ce, and exchange cd for x; omit the last move when
+  cd=x. Every other selected edge is restored exactly. The reverse theorem
+  uses the same path backwards; `exists_last_clique_right_exchange` combines
+  all cases. The terminal star is restored at endpoints, not claimed fixed
+  throughout intermediate moves. CopyLink and terminal-increase hypotheses
+  remain explicit until instantiated with the concrete bc/ae corners.
+- The source review of global terminal APIs found they cannot be used here
+  unchanged: their capacities count other copies and their paths may move
+  exterior copies. The explicit local repair proves exactly the same diagram
+  step within the required pool, without a general restricted-capacity library.
+
+### Previous P5 increment — prescribed tree and full last star (`1e8feaa`)
+
+- `TreeOmissions` proves the exclusions using the explicit triangle and
+  b-c-e-a paths. `LastCliqueTree` constructs the displayed good tree containing
+  every retained corner and the terminal star, and specializes the exclusions.
+- `exists_lastClique_core_tree` applies this construction to the actual induced
+  core, transporting its last corner and retaining all ambient corners.
+- `exists_tree_anchor_replacement` extends a prescribed good tree to the source
+  anchor's count. Source connectedness supplies the lower bound, and membership
+  in the good-edge pool supplies the upper bound.
+- `exists_lastClique_tree_replacement` invokes the explicit smaller-core
+  common-cover uniqueness hypothesis, then lifts that actual path and restores
+  the original exterior. It selects the prescribed tree with allowable extras.
+- `lastClique_block_connected_of_star` joins every right-clique block to the
+  last vertex through a retained vertex. Actual ambient connectivity gives the
+  needed retained vertex; no extra assumption on exterior pieces is introduced.
+- `exists_reachable_lastClique_tree` composes connected-core preparation,
+  replacement, and complete last-star normalization. All core-tree edges remain
+  selected at the endpoint: edges before the last-corner tail are restored by
+  the local path; any tree edge in the clique must belong to its terminal star,
+  since an additional edge would form a triangle.
+- The final theorem accepts a fixed core tree, so it can be reused unchanged
+  for both endpoints of the eventual component comparison. It does not choose
+  a new tree depending on each source. Core uniqueness is still a hypothesis,
+  and the final general component theorem is not yet proved by this route.
+
+### Previous P5 increment — connected retained core (`86c5867`)
+
+- `exists_last_clique_preparation` composes the special-block star path with
+  a finite sweep over all vertices. Eligible vertices lie below the cutoff
+  and in a different clique block from the last corner. Repeated visits to a
+  block are harmless. The exact exterior protects the special star, while
+  each lower path preserves all previously established lower connections.
+- `selectedConnected_inducedRestrict_of_prepared_lastClique` joins retained
+  vertices in the special block through the last vertex; the other blocks
+  use their preserved lower paths. `CliqueBlockBounds` handles trivial paths
+  at vertices outside the clique and relates the two restricted-edge formulas.
+- `exists_reachable_connected_lastClique_core` combines the actual preparation
+  path and the endpoint argument. It returns an ambient anchor, connected
+  actual core restriction, the selected special-block star and unchanged
+  clique partition. No smaller-core uniqueness hypothesis is used here.
+- `CornerStarForest` verifies the next displayed edge configuration: retained
+  corner chains plus any of the specified terminal-star edges form a forest
+  of good edges. The forest extends to a tree inside a connected good-edge
+  graph. The verification uses uniqueness of outgoing edges, which is exactly
+  the chains-and-star structure of the diagram. The subsequent increment above
+  supplies the core specialization, omissions, and actual tree-reaching path.
+
+### Previous P5 increment — actual local block rearrangements (`baa56e2`)
+
+- `exists_connected_lower_part` iterates the previously verified reachability
+  forcing over a finite set. It preserves every lower weak connection present
+  at the source; it does not assert simultaneous directed reachability after
+  later moves.
+- `clique_exists_connected_lower_part` lifts this path to a selected clique
+  block, restoring exact exterior and preserving every ambient lower weak
+  connection. `CliqueBlockReplacement` proves equality of the entire selected
+  block partition inside the clique, not merely global connectedness.
+- `CompleteStar` constructs a same-size endpoint between the terminal star
+  and the allowed edge pool with the least vertex pendant. The count bounds
+  come from source connectedness and source pool membership; no binomial
+  formula or unproved capacity assumption is needed.
+- `CornerFamily.exists_last_clique_block_star` combines that endpoint with
+  complete-diagram connectivity and the actual block lift. The endpoint is an
+  ambient anchor and every exterior edge is restored. Its star contains every
+  vertex of this selected block, including vertices above the core cutoff.
+- `CliqueAnchorReplacement` proves that preserving rows at or before the last
+  corner tail preserves the anchor property. Every natural edge starting
+  strictly after that tail is good. Thus an arbitrary internal replacement of
+  a block disjoint from that tail preserves the anchor.
+- `SubsetEmbedding` and `CliqueBlockEmbedding` enumerate a nonempty actual
+  block and identify its retained initial segment. `LastCliqueBlockPaths`
+  removes embedding inputs from both local path theorems. The star wrapper
+  needs the last corner retained. The lower wrapper needs a block vertex
+  below the cutoff and separation from the last-corner block. Both return
+  actual paths, anchors, exact source-block exterior and block equivalence;
+  the lower wrapper also preserves all previous lower weak paths.
+- `weakReach_inducedRestrict_of_lower` transports each such lower weak path
+  into the actual induced core when all lower vertices are retained.
+- Independent review approved the local contracts and count bounds. For the
+  remaining iteration, processing every retained vertex is sufficient; repeated
+  visits to a block are harmless because earlier lower connections persist.
+  There is no need to construct a quotient of distinct blocks. Global selected
+  connectivity is preserved by the actual flip path. The natural-edge split
+  permits crossings between the clique and core when both endpoints survive;
+  do not replace it with a claim excluding all crossings.
+
+### Previous P1/P5 increment — anchors and core connectivity (`d549b15`)
+
+- `InducedCornerFamily` restricts any retained corner family. If every retained
+  corner has both endpoints in the image, its corner steps are closed there.
+  `induced_allCorners` identifies the induced family with all core corners
+  when every ambient corner survives. The assumption is explicit.
+- `InducedTerminals` transports terminal labels under corresponding steps and
+  image closure. `InducedAnchors` specializes this to the actual core, proves
+  exact good-edge correspondence and preserves anchors under restriction.
+- `anchor_of_induced_replacement` proves the ambient anchor property from an
+  anchor core and exact restoration of the original exterior. The actual path
+  theorem `exists_lastClique_anchor_replacement_preserving_anchor` supplies
+  all these properties at its endpoint. Global connectedness also persists
+  along this actual path by `selectedConnected_iff_of_reachable`.
+- `InducedCounts` identifies the image of the full core selection with the
+  ambient selection on retained endpoints, then splits the total selected
+  count into the core count and exterior count.
+- `LastCliqueEdges` places each natural edge either below the last corner or
+  entirely in the prefix core. `CoreConnectivity` proves two general graph
+  facts: every ambient block meets the nonempty core when all other edges
+  have core endpoints, and connected core intersections imply full core
+  connectedness. `LastCliqueCoreConnectivity` specializes these facts to the
+  actual decorated restriction. Its `hblock` hypothesis remains to be
+  established by local rearrangement paths; this is not yet the theorem
+  that every source can be rearranged to have connected core.
+- Independent read-only review found the contracts aligned with P5. The
+  corner-endpoint hypothesis for the actual image is already supplied by
+  `lastClique_corner_endpoints`. No extra global-connectivity reconstruction
+  is needed after replacement: use preservation along the returned flip path.
+
+### Current P1/P5 increment — decorated core and restored replacement
+
+- `isCorner_iff_extremal` and `isCorner_iff_maximal` identify corners with maximal
+  natural intervals. `exists_corner_containing` puts every natural edge inside
+  a corner. The finite interval maximum is separate in `MaximalIntervals`.
+- `isCorner_of_inducedEdge_isCorner` proves surviving ambient corners remain
+  corners under arbitrary increasing restriction. `inducedEdge_isCorner_iff`
+  proves the converse when every ambient corner survives. The latter condition
+  excludes newly created corners and is not silently dropped.
+- `InducedDecorations.inducedDiagram` now unconditionally constructs the
+  decorated induced diagram. Its strict edges are precisely the original
+  strict edges whose endpoints survive; natural/strict endpoint equivalences
+  supply the exact `InducedRestriction` inputs. There is no unproved corner
+  preservation argument in the constructor.
+- `LastCliqueDiagram` specializes to `{0,...,c} ∪ {e}`. If the designated last
+  corner starts at or below `c` and every other corner ends at or below `c`,
+  all corner endpoints survive and no new corners appear. The vertex count
+  strictly decreases when the deleted gap is nonempty.
+- `LastCornerRow` proves an anchor's only selected edge from the last corner
+  tail is that corner. `LastCliqueRestoration` proves that the final outgoing
+  sweep leaves the replacement core unchanged and restores every original
+  exterior relation pair.
+- `exists_lastClique_core_replacement` composes the actual incoming sweep,
+  actual core-path lift, and actual outgoing sweep. It returns the exact target
+  core and original exterior, not merely the swept exterior. Its endpoint row
+  and cover hypotheses are explicit; no intermediate core-cover hypothesis
+  is imposed.
+- `exists_lastClique_anchor_replacement` derives these row/cover conditions
+  from actual source and target core anchors, using a globally last corner.
+  It still takes the actual smaller-core path as input. The stronger wrapper
+  above now also proves the ambient anchor property when all corners survive.
+
+The [short restoration proof](../../docs/proofs/COMPONENT_LAST_CLIQUE_RESTORATION.md)
+records the simplification for the draft. Use the existing outgoing sweep with
+both cutoff and final vertex `e`; do not reverse the original incoming trace
+through changed core states. Terra independently approved this argument and
+the final actual path composition.
+
+Next prove corner-chain terminal and good-edge transport for a restriction
+retaining all corner endpoints. This should identify the restricted source as
+a core anchor and the restored endpoint as an ambient anchor. Then implement
+making the selected core connected, the fixed spanning tree, and the final
+extra-position rearrangement. Last-clique inheritance is not yet complete.
+
+For the final rearrangement, count only terminal copies in the last clique
+plus the crossing-slide copy `ba`. Copies elsewhere stay fixed and do not count
+toward capacity. The terminal-star tree edges lie in this mutable pool: the tree
+is required only at endpoints. Existing `RepresentativePacking`,
+`fixed_label_connectivity`, and noninjective count descent supply the finite
+interfaces; the actual restricted local paths remain to be assembled.
+
+### Earlier core interfaces — `2a94504`
+
+`LastCliqueEmbedding` enumerates the nonconvex core. `InducedDiagram` constructs
+its undecorated natural graph. `InducedRestriction` gives actual restriction
+and extension with fixed exterior. `LastCliquePaths` proves path closure after
+the sweep, and `LastCliqueLift` derives every intermediate core cover test.
+These interfaces were verified with 438 axiom queries/203 project files. Their
+former decorated-core and exterior-restoration obligations are now discharged
+as described above; full inheritance and anchor transport remain unfinished.
+
+### Verified P5 checkpoint `f08d1a5` — terminal-clique connectivity
+
+- `TerminalCapacity` realizes every distinct terminal pair by a good terminal
+  copy and proves positive capacity. `OccupancySupport` identifies the exact
+  graph after a unit transfer: the donor remains precisely when another copy
+  remains, and the receiver is inserted.
+- `RepairedTerminalTransfer.exists_terminal_transfer` uses the locally verified
+  Aristotle repair theorem. An absent temporary class has positive capacity;
+  two actual direct transfers through that class compose to the required
+  occupancy change, with the temporary count restored.
+- `TerminalReceiver` chooses a deficit receiver preserving connected support.
+  For a single-copy bridge it uses a reconnecting edge from the target graph.
+  `OccupancyCounts` proves the total count identity, fixed diagonal counts,
+  capacity bounds, and realization of differing classes by terminal copies.
+- `OccupancyTransfers.reflTransGen_of_occupancy_descent_of_equal_counts` closes
+  finite deficit descent with an actual equal-count path. The earlier
+  injectivity-based interface remains a wrapper; occupancy is not assumed
+  injective on anchors. `EqualSumCounts` supplies a surplus and a deficit.
+- `TerminalConnectivity.anchors_connected_of_total_last_clique` connects actual
+  connected anchors of equal total size when all chain terminals lie in the
+  last clique. `commonCover_connected_of_total_last_clique` adds preparation
+  and its reverse, giving the analogous result for common-cover states.
+
+The direct transfer from `2e8f9ff` uses terminal packing and the complete-clique
+path with exact exterior and exact selected-to-vacant exchange. The repaired
+transfer and descent now discharge its former application obligations.
+Last-/first-clique inheritance is still open. These are actual path theorems;
+no general signed recurrence or semantic expansion is claimed yet.
+
+### Earlier P5 checkpoints — packing and graph repair
+
+Packing and descent helpers were pushed in `6f16377`; the Aristotle graph
+repair was locally verified and pushed in `ea5d895`.
+
+Aristotle project `515b9f61-1e1a-43bf-99b7-9e05cbff2124`, task
+`84ef24e0-68a0-41fa-becb-c58e46b183d6`, is **COMPLETE** and returned a proof
+candidate for the exact one-temporary-edge repair lemma, without extra
+hypotheses. Terra ported `TerminalRepair.lean` build-free, primary verified it
+under local Lean 4.34.0 with the narrow graph import, and `semantic_extract`
+independently approved its contract and proof. The exact requested theorem is
+now locally proved. It does not require finiteness or a separate three-vertex
+hypothesis. The caller still supplies positive capacity for every terminal pair
+using `exists_terminalEdge_of_last_clique`.
+[The ledger](../../docs/ARISTOTLE.md) records the exact target and external directory.
+The final theorem passes the local axiom and independent-import guards.
+
+### Earlier P5 increment — terminal copies and packing
+
+- `LabelPacking` constructs subsets with prescribed per-label counts between
+  a required subset and an allowed pool. `RepresentativePacking` specializes
+  it to one representative per occupied class, omitting a specified receiver
+  whose class has a vacancy. All capacity bounds are derived internally.
+- `TerminalClique` proves terminal copies are good non-corner edges, unique
+  in their classes, and have labels distinct from retained corners. When
+  all chain terminals lie in the last clique, its selected edges are exactly
+  the last corner and selected terminal copies.
+- `TerminalPacking.exists_terminal_packing` returns an actual anchor and an
+  actual flip path with unchanged occupancies. Exactly the occupied terminal
+  copies other than the receiver are selected at the endpoint.
+- `ConnectedExchange.exists_reconnecting_edge` finds a receiver in a connected
+  target across a deleted bridge. The receiver is absent from the source.
+  `exists_connected_edge_exchange` handles equal-size connected graphs too.
+- `OccupancyTransfers.reflTransGen_of_occupancy_descent` proves termination of
+  exact surplus-to-deficit unit transfers, deriving sum preservation and strict
+  decrease of the total deficit. The current increment supplies the actual
+  transfer hypothesis; arbitrary transfers are not assumed to preserve
+  connectivity.
+- `TerminalRepair.one_temporary_edge_repair`, from the Aristotle candidate,
+  realizes the exact graph statement: either both direct-transfer tests hold,
+  or an absent third pair makes them hold for both consecutive transfers.
+  The Boolean distinguishes whether the donor retains another copy.
+
+### Earlier P5 increment — separators and removable edges
+
+The [short separator proof](../../docs/proofs/COMPONENT_CHAIN_SEPARATOR_LEMMA.md)
+records a simplification for the later draft. In a connected ordinary
+natural graph with no articulation, every edge of length one or two is
+natural. For `n≥3`, no corner chain contains consecutive vertices. Deleting
+one chain leaves paths with gaps of at most two. Replacing natural edges
+by good paths preserves avoidance of that chain.
+
+- `NaturalSeparators` proves the short-edge consequence of connectedness
+  after each vertex deletion, and the converse connectivity statements.
+- `IntervalDeletion` supplies the finite path after deleting a set with
+  no consecutive vertices; `ChainSeparators` specializes it to retained
+  corner chains, for any `CornerFamily` containing the strict edges.
+- `QuotientSeparators` proves the induced chain quotient remains connected
+  after deletion of any terminal, including the required nonemptiness.
+- `RemovableGoodEdges` connects the endpoints of a good non-corner edge
+  around that edge through a third chain. It proves actual graph deletion
+  preserves connectedness. `exists_third_terminal` gets the third chain
+  from the hypothesis that the terminal subtype has cardinality at least 3.
+- `exists_connected_anchor_card_avoiding_of_no_articulation` constructs an
+  actual connected anchor omitting that edge at every size `n≤k+1` and
+  `k+1≤|A*|`. This discharges the previously explicit deletion-connectedness
+  hypothesis in the no-articulation case with at least three chains.
+
+The `n≥3` and third-chain qualifications are retained. The two-chain base
+is separate. These are graph paths and actual anchor-existence results;
+terminal-clique transfers are now verified; component inheritance is unfinished.
+No coloring or HRV contraction identity is asserted.
+
+### Verified P5 checkpoints `584d931` / `e45e107` — contraction and sizes
+
+- `ChainQuotient` uses the subtype of actual chain terminals, retaining
+  isolated chains. Good copies induce exactly all natural quotient
+  adjacencies. Contraction preserves every weak block for edge selections
+  containing the retained corners, including actual orientations.
+- `GoodEdgeConnectivity` replaces each natural edge by a weak path of good
+  edges. The full good-edge and natural graphs have the same weak blocks.
+- `CornerForest` proves retained-corner acyclicity. Its small general lemma
+  needs only forwardness and unique predecessors: rotate a hypothetical
+  cycle to its greatest vertex and compare its two incoming neighbors.
+- `EdgeSetGraph` identifies a finite set of natural edges with its simple
+  graph, preserves edge counts exactly, and reconstructs any spanning
+  subgraph by filtering the original edge set.
+- `AnchorSizes.exists_connected_anchor_card_iff` gives actual connected
+  anchors of exactly the feasible sizes `n ≤ k+1` and `k ≤ |A*|` when
+  `n>0` and the natural graph is connected. Every such anchor retains the
+  corner family and therefore has all its corners covering.
+- `exists_connected_anchor_card_avoiding` also omits a specified good
+  non-corner edge, assuming its deletion leaves the full good-edge graph
+  connected and `k+1 ≤ |A*|`. This supplies an actual orientation with
+  exact count and absence. The separator result above supplies its deletion
+  hypothesis when the natural graph has no articulation and has at least
+  three retained corner chains.
+
+These results hold for any retained corner family containing the strict
+edges. The quotient is for connectivity; no coloring or HRV contraction
+identity is asserted. Terminal-clique transfers and last-/first-clique
+inheritance remain unfinished.
+
+The independent component theorem is unfinished. The active goal also
+requires a new illustrated draft combining the circular e-expansion and the
+ordinary diagram-based component proof in the authors' style; writing has
+not started. No old word/scan proof or fundamental-basis route is imported.
+
+The user explicitly invoked the
+[combinatorics paper-writing skill](/home/dev/.codex/skills/combinatorics-paper-writing/SKILL.md).
+Primary read it and its notation/author-style references. The user also
+asked us not to invent terminology without strong motivation. Use established
+terms or state the condition itself, follow Robin and the author's diagram
+reasoning, and keep implementation/audit details out of the manuscript.
+No fundamental-basis or old word/scan argument is used.
+
+### Verified P4 checkpoint `46107c6` — local complete blocks
+
+- `CliqueEdges` proves that every ordered pair of vertices inside a natural
+  edge is itself natural, including pairs touching either endpoint.
+- `BlockPaths` proves path closure for updated relations with fixed exterior
+  and weak-reachability restriction for an image closed under both ends of
+  the source relation. No order-convexity of the selected block is assumed.
+- `CliqueRestriction` builds the actual complete restriction and the exact
+  ambient extension. Core paths lift in `D.undecorated`; existing exact
+  marking transport recovers actual orientations and flips in `D`.
+  `clique_lift_core_reachable` supplies the actual endpoint with exact
+  inside and outside selections, including the original strict markings.
+- `CompleteBlock.clique_reachable_of_block` connects two configurations of
+  one selected weak block inside a natural clique. The source image is
+  exactly one induced weak block; the target core is connected; both
+  extreme edges cover; the local selected counts agree; and all exterior
+  selected edges agree. Every ambient cover test is derived from source
+  block closure, not assumed as an extra unresolved interface.
+- `CliquePaths.clique_lift_core_of_block` lifts any actual complete-core
+  endpoint. `clique_exists_reachable_of_block` forces reachability between
+  an ordered pair in the chosen block, returning exact endpoint exterior.
+  These are path and endpoint statements, not whole-component equalities
+  or claims that the extreme edge covers at all intermediate states.
+
+Terra independently audited the geometry, path restriction, local theorem
+and final endpoint interfaces. All reviews passed. P4 is complete under
+its plan's contracts. P5's star/anchor constructions must still supply the
+explicit target connectedness, extreme covers, local count and exterior
+conditions; those constructions are not claimed here.
+
+P4's earlier checked obligations are: `ForestExtension` (feasible connected
+sizes and removable-edge avoidance), `SubsetBands` / `OverlappingPositions`
+(subset and sector connectivity), `TwoChainBase.commonCover_connected_of_two_terminals`,
+`CompleteConnectivity.complete_reachable` and its strict-corner version,
+and `ReachabilityForcing` with adjacent-edge and lower-interval consequences.
+The [path implementation history](../../docs/archive/diagram-reachability-implementation.md)
+preserves the detailed `c1e2e8e`, `7b9f5de`, `7d76087` records; the
+[earlier complete-diagram history](../../docs/archive/diagram-complete-clique-implementation.md)
+retains CC1--CC6 and interval/chord checkpoints.
+
+### Earlier verified interfaces
+
+- `9d8c4bc`: independent imports, full selections/layers, finite/lifted covers
+  and weak-block invariance; affected old consumers compile.
+- `3bbb1e4`: source-cover short flips and exact corner marking of whole
+  components, both directions/surjectivity, HRV and coloring values.
+- `15ec74b`: actual state/component marked K/E bridges and both marked diamonds.
+- `bb86b82`: convex restriction and fixed-exterior actual core path lifting.
+  The lift is injective, NOT a whole-component equivalence.
+- `98f226c`: marked-E fibre signature by nonempty sizes, increasing fibre
+  bijections, sink-order relabelings and closure invariance. P0/P2 complete.
+- `0871d38`: restored crossing slide for `a<b<c<d`, replacing exactly `ab`
+  by `cd` with only `ac,bd` covering initially. User-authorized Claude audit
+  led to right-before-left restoration through the shared replay interface.
+- `da01755`: ordered corner-chain preparation by actual flips, retaining
+  already-good edges, component, total selected count and weak blocks.
+- `03c05c4`: P3 complete. Auxiliary short-edge/copy geometry, neighboring and
+  arbitrary parallel exchanges, and anchor connectivity at equal occupancies.
+  Exact endpoint selection is `A-e+f`; every other edge is restored.
+- `8fbbe84`: two-terminal-chain connectivity, forest extension to all feasible
+  sizes, removable-edge avoidance, connected-position subset exchanges,
+  subset bands and additive feasible-sector connectivity.
+
+The sorted `chainPair` labels all non-retained auxiliary-path positions;
+ordered `copyLabel` labels actual anchor copies. Do not conflate them.
+Occupancy is NOT asserted invariant on a whole component. Equal occupancies
+are a sufficient connectivity condition for anchors. The terminal packing result supplies the last-clique representatives
+when the receiver class has a vacancy. Families may retain any maximal corners containing the
+strict edges; specialize to `allCorners D` for the proof note's multigraph H.
+
+P1 remains partial: other induced-core geometry and order reversal remain.
+The complete-interval and selected-clique-block path lifts are verified.
+P4 is complete. P5 is partial; P6--P10 remain open. General component recurrences, endpoint
+attachment and the final independent theorem are NOT yet Lean-proved by
+this route. The mathematical diagram proof is complete.
+
+### Previous verification and current next step
+
+At `aeeba18`, focused builds of all seven new modules pass without source warnings. All 558
+queries in `DiagramProofVerification.lean` use only `propext`, `Classical.choice`,
+`Quot.sound` (or none). The independent import closure contains 253 project
+files including verification and excludes the old word/scan/expansion routes.
+Source guards (including no `native_decide`), 100-column and whitespace checks
+pass. Current logs are `p5-inheritance-build.log`, `p5-fixed-edges-build.log`,
+`p5-tree-leaves-build.log`, `p5-full-tree-build.log`,
+`p5-inheritance-axioms.log`, and `p5-inheritance-imports.txt`, under the usual
+external diagram-formalization request directory. Earlier repair logs may
+contain superseded errors. The preceding extra-path checkpoint had 543
+queries/246 project files (`p5-extra-*`); tree-path had 524/239
+(`p5-tree-path-*`); connected-core had 514/233 (`p5-connected-core-*`). The preceding local-path checkpoint had
+505 queries/229 project files (`p5-local-paths-*`). The anchor-transport checkpoint had
+484 queries/219 project files (`p5-core-anchor-*`). The
+preceding restored-core checkpoint had 461 queries/212 project files
+(`p5-restored-core-*`). The preceding core-interface checkpoint had
+438 queries/203 project files (`p5-last-core-*`). The terminal-clique checkpoint had
+408 queries/197 project files (`p5-terminal-complete-*`). The direct-transfer checkpoint had
+393 queries/190 project files (`p5-direct-*`). The repair checkpoint had 374 queries/183 project
+files (`p5-repair-*`). The preceding packing checkpoint had 373 queries/182
+project files (`p5-terminal-*`). The separator checkpoint had 359 queries/176
+project files (`p5-separator-*`). Prior P5 checkpoints have
+323 queries/168 project files (`p5-connectivity-*`) and
+340 queries/171 project files (`p5-sizes-*`). No compiler, remote task or
+subagent remains running.
+
+No broad build, dependency update or mathematical computation ran. Aristotle
+was used for the exact graph repair lemma, as requested.
+Runtime discovery and `codex mcp list` were refreshed in the preceding turn.
+Aristotle is available through its CLI rather than a registered MCP. The new
+leaf request completed and its proof is locally verified. Only primary invokes
+`lake-workspace`. Lean MCP remains rooted at RealRooted, so focused compiler
+diagnostics are used. The wrapper's existing package-path warning is unchanged.
+
+Next: P6 initial-vertex inheritance, followed by global vertex-count
+induction. First-clique reflection and last-clique inheritance are now checked.
+Use `commonCover_connected_of_firstClique_core` with its explicitly reflected
+retained-core hypothesis. Prove the size decrease and the no-articulation
+geometry needed to invoke the global IH. Do not assume reflection preserves
+anchors, chain terminals, good-edge sets, K or E; none is needed here.
+
+For deletion of the first vertex, begin with the actual induced core and its
+corner-family correspondence: exactly the first corner disappears when the
+first two corner tails are 0 and 1. Then transport the remaining terminals,
+construct the matching good core edges, and implement the sector argument
+from the written proof. Reuse the checked crossing slides and subset-band
+lemmas. All last-clique pool geometry, paths, fixed-tree facts and both clique
+inheritance wrappers should not be reproved. General component recurrences,
+endpoint attachment, independent e-expansion and illustrated draft remain open.
+
+For clique reachability, use `clique_lift_core_of_block` to transport the
+actual core endpoint and its selected relation. The general lower-interval
+preservation theorem remains `ReachabilityForcing.exists_reachable_preserving_lower_weakReach`;
+transport its one-way connection guarantee through the concrete core image
+when needed. Do not claim equality of induced blocks during hull shrinking.
+The written uses are in `COMPONENT_NN_REDISTRIBUTION.md` around 4081--4089
+and 4334--4342. P1's remaining induced-core interfaces and P5--P10 are open.
+The optional later consolidation of the prefix/general restriction APIs is
+recorded in `suggestions/complete-subdiagram-consolidation.md`.
+
+The required independent Astra architecture review was completed before
+implementation. Earlier verification logs remain under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/`.
+`p3-packing-*` records 107 axiom checks/106 project files;
+`p4-helpers-*` records 120 axiom checks/111 project files;
+`p4-prefix-*` records 148 axiom checks/121 project files;
+`p4-chain-*` records 164 axiom checks/124 project files;
+`p4-interval-*` records 195 axiom checks/131 project files;
+`p4-rearrangement-*` records 222 axiom checks/138 project files;
+`p4-outer-*` records 234 axiom checks/141 project files;
+`p4-chord-step-*` records 244 axiom checks/147 project files;
+`p4-complete-*` records 262 axiom checks/152 project files;
+`p4-interval-reach-*` records 280 axiom checks/156 project files;
+`p4-forcing-*` records 297 axiom checks/161 project files;
+`p4-block-*` records 315 axiom checks/166 project files.
+
+## Detailed formalization plan — completed before implementation
+
+The user requested a detailed formalization plan after cleanup checkpoint
+`61ff6f8`. The checkout was clean at that HEAD. Read the
+[detailed plan](../../docs/COMPONENT_DIAGRAM_FORMALIZATION_PLAN.md): exact semantic
+target, existing source interfaces, proposed modules, theorem obligations,
+P0--P10 checkpoints, dependencies, acceptance criteria and focused checks.
+At that planning checkpoint, all new Lean checkpoints were unimplemented.
+The active implementation status above supersedes that historical status.
+The mathematical proof remains complete.
+
+Reuse `Circular.Diagram` with forwardness and actual orientations/flips/
+components, keeping vertex-count path induction separate from the final
+valuation induction. The review identified necessary small extractions from
+`ComponentScalars` and `ForwardHRV` to keep the new imports independent of
+word machinery. Component partitioning should also avoid importing
+`ComponentCoefficient`. Marked E uses a fibre-coloring relation, not a new
+natural diagram. Reduction terms are whole components on the same vertex
+set, with common integer coefficients, forwardness and strict decrease.
+
+Independent Astra reviewer `diagram_audit` approved the detailed architecture
+after two ordering clarifications: auxiliary short-edge/copy-order geometry
+is proved in P3 before the two-chain base; local target-decrease lemmas are
+proved in P8 before reduction certificates and reused by P9. Its review
+also covers endpoint semantics, corner validity, core lifting and component
+multiplicities. It owns no files and is finished.
+
+Primary owns the plan and this handoff. Only these two documentation files
+change in the planning checkpoint. Source/interface/import inspection,
+27 plan links and `git diff --check` pass. Existing proof notes and Lean
+sources are unchanged. No builds or mathematical experiments ran; Lean MCP
+is still rooted at RealRooted and was not used. No verification jobs remain.
+At implementation start, recheck shared build ownership and begin P0/P1;
+the plan proposes early crossing-slide and marked-semantics checks before
+the longer path inductions.
+
+## Cleanup audit before formalization — complete
+
+The user requested one cleanup/optimization audit of the completed diagram
+proof before Lean formalization. Starting HEAD is `8ccde0e`; the checkout
+was clean. Read the [audit and extracted lemmas](../../docs/proofs/COMPONENT_DIAGRAM_AUDIT.md)
+alongside the [assembled proof](../../docs/proofs/COMPONENT_DIAGRAM_COMPLETION.md).
+
+The mathematical conclusion remains complete. The audit found no gap in
+the reviewed completion argument. The assembled proof now chooses its
+initial-path/first-block prefix directly from the area sequence: internal
+v is an articulation iff a_(v+1)=1. This avoids general block-decomposition
+infrastructure for the final recurrence. We also state the required
+re-marking before alternating deletion and distinguish total selected-edge
+layers from the original normal-edge exponent.
+
+The audit note extracts proved finite forest-extension and subset-band
+lemmas, the area-prefix lemma, component isolation by subtraction, and
+attachment from a right-marked equality. It records the proposed two-stage
+formalization (vertex-count path induction, then valuation induction),
+existing Lean interfaces and import-boundary cautions. These are paper
+lemmas and implementation guidance; no new Lean formalization is claimed.
+
+Primary owns this handoff, the assembled completion, the new audit note,
+and `suggestions/diagram-proof-import-boundary.md`. Existing chronological
+proof-note prefixes remain unchanged. Independent Astra reviewer
+`diagram_audit` owns no files; it reviewed recurrence, attachment, first-drop
+and induction interfaces and approved the final cleanup and extracted lemmas.
+This supplies the independent decomposition review required by the project
+guide. Primary audited the path-induction side. No builds or mathematical
+computations ran; no finite-check replay is claimed for this documentation
+audit. Formalization remains the next implementation task.
+
+Final cleanup checks: independent review approved the edited proof and
+extracted statements; 21 local links and six Lean file breadcrumbs resolve;
+the NN, DN, endpoint and coverage historical files are byte-for-byte
+unchanged from `8ccde0e`; `git diff --check` passes. Only the four owned
+documentation files listed above enter this checkpoint on `main`.
+The reviewer is finished and no verification/build jobs remain running.
+
+## Completed — ordinary component expansion by diagram recurrences
+
+The mathematical goal is complete. The general first-drop NN and forward DN
+recurrences now collect whole components with the same signed coefficients
+for K and E. DD/ND inherit the same whole component by the proved unmarking
+step. The resulting decreasing induction proves the general component
+e-expansion for ordinary, non-circular Motzkin/Dyck-path diagrams.
+
+Read the [assembled proof](../../docs/proofs/COMPONENT_DIAGRAM_COMPLETION.md).
+It is independent of the separate word-functional proof and uses no
+fundamental-basis calculation. This is a mathematical proof; no new Lean
+formalization is claimed. The next requested step is preparation for
+formalization through the cleanup audit recorded above.
+
+### What closes the last gap
+
+The new [initial-vertex inheritance](../../docs/proofs/COMPONENT_NN_REDISTRIBUTION.md#initial-vertex-inheritance-through-extra-edge-sectors)
+applies when the first corner tails are 0,1. Delete vertex 0. The core loses
+exactly the first corner and all remaining chain terminals stay unchanged.
+A prepared source state is a core anchor, the retained corner 0a, and a
+subset of good extra edges 0v. Each extra has a matching good core edge
+ah_v. Their proved crossing slide restores arbitrary exterior.
+
+First slide extras into the core until it is connected. For a fixed extra
+set S, all same-size core anchors connect by the smaller-core theorem;
+core flips lift because no forward core path can visit 0. Neighboring
+extra sets connect by a crossing slide through a core witness omitting
+its matching edge. Such witnesses exist when that edge can be removed
+from the full good core without disconnecting it. The feasible extra
+sets form a connected band of subset sizes.
+
+This supplies a decreasing vertex-count induction for EVERY connected
+ordinary natural graph without articulation. If the second corner tail
+is greater than 1, use order-dual last-clique inheritance to remove the
+initial private vertices. Otherwise use initial-vertex inheritance. Both
+cores have fewer vertices and no articulation. Outside the complete and
+two-chain bases, the good core quotient has at least three vertices and
+no articulation, hence no bridge: every matching edge is removable.
+
+Arbitrary initial paths preserve uniqueness by forced pendant deletion.
+For a general connected non-path source, take the prefix consisting of
+the initial path and first nontrivial block. It has the required uniqueness.
+Use its right-marked full-layer recurrence and attach the arbitrary whole
+component to its right. All products are whole; no expansion for the
+attachment is assumed. Its first-drop contact is the full source's first
+drop. Thus articulations do not require false global uniqueness at a
+fixed total edge count or an unproved two-end attachment assertion.
+
+### Whole-component recurrence and final theorem
+
+For the unique connected common-cover component C in prefix layer k,
+complete that source layer. Every extra source component reduces
+independently by an absent corner, weak-block reordering, or alternating
+corner deletion. Subtract these smaller expressions from the full-layer
+NN or DN identity. All targets and correction terms are whole components.
+The same integer coefficients work for K and E.
+
+The first-drop coverage theorem and DD/ND inheritance supply the contact;
+every final output decreases (n, natural area, area moment). Saturated
+paths and disjoint natural components give the bases/factorization.
+Consequently K(C)=sum_(A in C) e_lambda(A) for every ordinary component,
+and restoring its constant normal-edge weight gives t^k(C) times this sum.
+
+The construction chooses the required first-drop contact. It does not
+claim a one-to-one correspondence of source and target components, nor
+that the uncorrected local image is already a union of whole components.
+Those stronger assertions were never needed and earlier counterexamples
+remain valid. All former general NN/DN, higher-clique and three-corner
+open statuses in the chronological notes are superseded by this proof.
+
+## Verified evidence
+
+All four final source-identical replays passed with exit 0 and empty stderr.
+Frozen sources, commands, logs and hashes:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/general-diagram-completion-20260930/`.
+
+- Structural audit: all 6916 connected ordinary diagrams on 3..10 vertices,
+  including all 2055 without articulation. The decreasing branches are
+  8 complete, 618 initial-clique trims, 7 small-chain bases and 1422
+  initial-vertex cases. All 6908 non-path prefix/first-drop choices pass.
+  Also 1308 actual crossing slides, 6238 flips, up to four extras.
+- Initial-vertex audit: all 37 applicable diagrams through seven vertices,
+  plus the fourth power of an eight-vertex path (three extras). All 13474
+  connected anchors, 1427 core joins / 3944 flips, 200 sector bands and
+  214 sector links / 902 flips pass. Exact lift comparison covers 344211
+  states and 1420896 directed actual-flip incidences, including states
+  where other retained corners are redundant.
+- General first-drop audit: 41 feasible layers in seven fixtures, covering
+  NN, DN, ND-to-NN, DD-to-DN, three-/four-corner sources and an initial
+  path prefix. 20274 survivor states; 2089 whole targets / 42054 states;
+  275 block corrections / 1943 states; 948 absent-corner corrections /
+  18051 states; 287 alternating sources / 1786 states, giving 6967 whole
+  deletion terms. Signed marked HRV identities, whole-output and strict
+  induction-order checks pass (5429 positive terms, 4850 negative terms,
+  24358 redundancy witnesses).
+- Right-attachment audit: all six initial-prefix layers with the two-state
+  triangle attached to every term. All 3555 product-component checks pass,
+  with 46844 product state visits and exact endpoint fibre data.
+
+These are checks of the stated finite scopes. The unbounded proof is the
+written path induction, sector argument, component correction and attachment
+argument; it is not extrapolated from enumeration. No computational coloring
+identity or basis calculation is claimed. Both K and E identities follow
+from the proved common local diagrams and marked maps.
+
+The existing 20000-state component guard is unchanged. Cargo runs were
+serialized and reduced-priority; no Lean/Lake build ran. The maintained
+Rust workspace is clean and unchanged at
+`24559ad73d209077a58eef08278c425301468cdc`. The external consumer reuses the
+existing Graph/Poset, actual-flip, crossing-slide and component-correction
+APIs. Python only handled files, commands and diagnostic log summaries.
+
+## Ownership, scope and recovery
+
+Primary owns this handoff, `docs/proofs/COMPONENT_DIAGRAM_COMPLETION.md`, the
+recurrence outline, APPEND-ONLY continuations of NN redistribution and DN
+joint-repair notes, the authorized endpoint/source-addition continuations,
+handoff archives and existing external consumers under
+`/lake-cache/ai-projects/requests/VerticalStripLLT/diamond-exploration/hrv-bridge/`.
+Preserve other ownership and the proof-note prefixes at `a3d076b`.
+
+The original completion used no extra worker/subagent/Claude consultation,
+manuscript TeX/PDF/Overleaf edit, maintained Rust edit or Lean build. The
+subsequent cleanup's read-only review is recorded above. No account/profile/model
+assignment changed. Runtime tools, `codex mcp list`, Cargo metadata, the
+Rust guide and relevant existing APIs were inspected. Lean MCP remains rooted
+at RealRooted and was unused. There is no external blocker or unfinished
+requirement of this mathematical goal.
+
+The [previous handoff](../../docs/archive/component-handoff-before-general-completion-20260930.md)
+preserves `49cb610` with relative links relocated. All earlier proofs and
+counterexamples remain intact. The outline now routes to the assembled
+completion; dated notes, including the former conditional coverage theorem,
+retain their historical wording and should be read with that completion.
+The new proof discharges the coverage theorem's explicit NN/DN hypothesis.
+
+The replacement began at account-swap `2511182`. Recent proof checkpoints
+were `cf5451e` (pendant inheritance) and `d7da9ab` (last-clique inheritance),
+followed by metadata `49cb610`. Completion proof checkpoint `a3d076b` is
+committed and pushed to `origin/main`. All four frozen replays, receipt
+hashes, preserved prefixes, historical outline body, relocated archive,
+new file/heading links, ownership and whitespace checks pass. No verification
+jobs remain running. The completion audit verifies the full ordinary scope,
+whole smaller outputs, both valuations, well-founded induction and shifted
+elementary positivity; no required work remains on this mathematical goal.

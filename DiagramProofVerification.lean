@@ -1,3 +1,6 @@
+import VerticalStripLLT.Components.DiagramProof.InitialVertexConnectedCore
+import VerticalStripLLT.Components.DiagramProof.InitialVertexCorePaths
+import VerticalStripLLT.Components.DiagramProof.InitialVertexMatching
 import VerticalStripLLT.Components.DiagramProof.FirstCliqueInheritance
 import VerticalStripLLT.Components.DiagramProof.LastCliqueInheritance
 import VerticalStripLLT.Components.DiagramProof.LastCliqueFullTree
@@ -703,5 +706,31 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms reversedOrientation_reachable_iff
 #print axioms reversedOrientation_map_flipComponent
 #print axioms commonCover_connected_of_firstClique_core
+
+#print axioms CornerFamily.terminal_induced_of_closed
+#print axioms CornerFamily.goodEdge_induced_iff_of_closed
+#print axioms CornerFamily.anchor_inducedRestrict_of_closed
+#print axioms CornerFamily.anchor_of_induced_replacement_of_closed
+#print axioms mem_range_succOrderEmb_iff
+#print axioms inducedEdge_isCorner_iff_initialVertex
+#print axioms induced_allCorners_initialVertex
+#print axioms CornerFamily.exists_initial_matching_edge
+#print axioms initialVertexRestrict
+#print axioms initialVertexRestrict_selected
+#print axioms convex_succOrderEmb
+#print axioms CornerFamily.initialVertex_step_closed
+#print axioms CornerFamily.initialVertex_terminal
+#print axioms initialVertex_anchor_restrict
+#print axioms initialVertex_lift_reachable
+#print axioms exists_initial_vertex_obstruction
+#print axioms CornerFamily.exists_initial_core_join
+#print axioms CornerFamily.exists_reachable_connected_initialVertex_core
+#print axioms initialVertex_edge_retained_iff
+#print axioms initialVertex_corner_retained_iff
+#print axioms initialVertex_totalSelected
+#print axioms initialVertex_core_count_eq
+#print axioms initialVertex_reachable_of_same_initial_row
+#print axioms CornerFamily.initialVertex_good_edge_iff
+#print axioms CornerFamily.exists_initial_matching_core_edge
 
 end VerticalStripLLT.Circular.DiagramProof

@@ -40,15 +40,17 @@ paper retains the chains-and-star explanation. The draft must link each move
 to its corresponding verified declaration and must distinguish assumed
 smaller-core uniqueness from conclusions proved without it.
 
-Implementation status: P0, P2, P3, P4 and P5 are verified under their planned
-contracts; P1 remains partial for the initial-vertex core interfaces. P0 and the
+Implementation status: P0–P5 are verified under their planned contracts,
+including P1's final initial-vertex restriction, corner and path interfaces.
+P6's connected-core preparation and fixed-extra-edge paths are checked. P0 and the
 semantic import extractions are in `9d8c4bc`. P1 includes finite/lifted covers,
 weak-block invariance, exact corner marking, source-only short flips
 (`3bbb1e4`), convex path/cover restriction and an injective fixed-exterior
 actual core-path lift (`bb86b82`). Path-closed nonconvex lifts now cover the
 complete interval and a selected clique block. Order reversal now constructs
 the actual decorated diagram and an orientation equivalence carrying whole
-components onto whole components. Initial-vertex core geometry remains open.
+components onto whole components. Deleting the initial vertex now has exact
+corner/terminal/good-edge transport and an actual convex path lift.
 
 P2 includes the state/component marked semantic bridge and both marked
 diamonds with arbitrary exterior (`15ec74b`), closure invariance between
@@ -191,8 +193,8 @@ and restores every strict marking through the previously proved exact
 component transport. `CliquePaths` also lifts arbitrary core endpoints
 with exact inside/outside selections and localizes reachability forcing.
 No whole-component equality or intermediate cover preservation is asserted
-by these local path-lifting interfaces. P4 is complete;
-P5--P10 remain open. The independent component
+by these local path-lifting interfaces. P0–P5 are complete under their
+contracts; P6 is partial and P7--P10 remain open. The independent component
 theorem is not yet formalized. See `HANDOFF.md` and `DiagramProofVerification.lean`
 for ownership and exact verification.
 
@@ -635,6 +637,28 @@ The clique transfer argument is a prerequisite, not an unproved black box.
 ### P6. Initial-vertex inheritance and general path uniqueness
 
 Modules: `InitialVertex.lean`, `CommonCoverUniqueness.lean`.
+
+The first parts are now verified, following the same written diagrams:
+
+| Written step | Lean declaration | Status |
+| --- | --- | --- |
+| Delete zero; lose exactly its corner and create no new maximal corner | `initialVertex_corner_retained_iff`, `induced_allCorners_initialVertex` | Verified |
+| Retain every remaining chain terminal and restrict an anchor | `CornerFamily.initialVertex_terminal`, `initialVertex_anchor_restrict` | Verified |
+| Identify good initial extras and their matching normal good core edges | `CornerFamily.initialVertex_good_edge_iff`, `CornerFamily.exists_initial_matching_core_edge` | Verified |
+| Find a selected extra into a different core block with vacant matching edge | `exists_initial_vertex_obstruction`, `CornerFamily.exists_initial_core_join` | Verified |
+| Slide extras into the core until it is connected | `CornerFamily.exists_reachable_connected_initialVertex_core` | Verified by decreasing the selected zero-row count |
+| Lift a core path with the initial row fixed | `initialVertex_lift_reachable` | Verified, given the actual core path |
+| Connect equal-size anchors with the same extra set | `initialVertex_reachable_of_same_initial_row` | Verified, assuming smaller-core uniqueness and connected endpoint restrictions |
+| Construct the missing-edge witness and join adjacent extra sets | Not yet assembled | Open |
+| Assemble the feasible subset band and global vertex-count induction | Not yet assembled | Open |
+
+`ClosedInducedAnchors` extracts the precise restriction condition: retained
+vertices are closed under corner successors. Requiring every ambient corner
+to survive would incorrectly exclude this deletion. Corner covers are required
+at the completed anchor endpoints; intermediate lifted core states may make the
+old corner at zero redundant. Restriction is not claimed to identify whole
+components. The existing crossing-slide theorem supplies every actual join,
+with exact restoration of all other edges.
 
 For first corners 0a,1b, prove deletion of 0 loses exactly 0a and preserves
 all remaining chain terminals. Establish the disjoint decomposition
