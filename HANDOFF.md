@@ -38,10 +38,10 @@ have returned to primary, which repaired and verified them. Primary wrote
 `InitialVertexExchange`, `InitialVertexAdjacent` and `InitialVertexAdjacentPaths`.
 All delegates remained build-free. The independent review approved the exact
 row/core equations, witness construction and use of target capacity, with no
-hidden global uniqueness assumption. The focused build passes. The queued
-axiom check `67389` waits for the other project's compiler to release the slot.
-The five new Lean sources and their verification queries remain task-owned
-working changes until that check completes; the writing checkpoint is separate.
+hidden global uniqueness assumption. The focused build and all 633 axiom
+queries pass. The axiom check `67389` completed after waiting for the other
+project's compiler to release the slot. No task compiler, queued check or
+delegated task remains active. The writing checkpoint is separate.
 
 Primary owns all DiagramProof source files, verification, this handoff, the
 formalization plan and the Aristotle ledger, and retains the sole serialized
@@ -185,8 +185,11 @@ component-recursion induction; the circular section and combined manuscript
 are not yet assembled. Independent mathematical review approved the core
 and fibre-merger arguments; its endpoint and figure clarifications were
 incorporated. The [Claude task](docs/DIAGRAM_PROOF_CLAUDE_TASK.md) gives the
-exact independent P9 attachment contracts and proposed new files. No Claude
-run is active and no source ownership has yet transferred. The invoked writing skill is
+exact independent P9 attachment contracts and proposed new files.
+[GitHub issue #8](https://github.com/PerAlexandersson/VerticalStripLLT/issues/8)
+contains the same detailed task with repository links; its body was read back
+and checked. Writing checkpoint `ebb02aa` is pushed. No Claude run is active
+and no source ownership has yet transferred. The invoked writing skill is
 [combinatorics-paper-writing](/home/dev/.codex/skills/combinatorics-paper-writing/SKILL.md);
 its instructions and author-style references have been read. Use first-person
 plural mathematical prose and established terminology. Keep audit and compiler
@@ -198,7 +201,9 @@ corresponding verified lemma in the supporting source map.
 Starting checkpoint: `69612d1` on `main`, clean and pushed at continuation start.
 The five new modules pass focused builds. The independent import closure now
 has 273 project files; all 199 DiagramProof modules pass source/100-column
-guards. The 633-query axiom check is queued behind the other project's build.
+guards. All 633 axiom queries pass in order, using only the standard three
+axioms or none. Local Markdown links, whitespace and both figure previews
+were also checked.
 Logs: `p6-initial-exchange-build.log` (contains the superseded first repair),
 `p6-initial-adjacent-build.log`, `p6-initial-adjacent-axioms.log` and
 `p6-initial-adjacent-imports.txt`. The previous 615-query checkpoint and its

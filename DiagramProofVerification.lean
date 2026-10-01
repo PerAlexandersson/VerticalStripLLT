@@ -1,6 +1,8 @@
 import VerticalStripLLT.Components.DiagramProof.InitialVertexConnectedCore
 import VerticalStripLLT.Components.DiagramProof.InitialVertexCorePaths
 import VerticalStripLLT.Components.DiagramProof.InitialVertexMatching
+import VerticalStripLLT.Components.DiagramProof.InitialVertexAdjacentPaths
+import VerticalStripLLT.Components.DiagramProof.InitialVertexExtras
 import VerticalStripLLT.Components.DiagramProof.FirstCliqueInheritance
 import VerticalStripLLT.Components.DiagramProof.LastCliqueInheritance
 import VerticalStripLLT.Components.DiagramProof.LastCliqueFullTree
@@ -732,5 +734,24 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms initialVertex_reachable_of_same_initial_row
 #print axioms CornerFamily.initialVertex_good_edge_iff
 #print axioms CornerFamily.exists_initial_matching_core_edge
+
+#print axioms initialVertexExtend
+#print axioms initialVertexExtend_inside
+#print axioms initialVertexExtend_selected_zero_iff
+#print axioms initialVertexRestrict_extend
+#print axioms initialVertexExtend_row
+#print axioms initialVertexExtend_totalSelected
+#print axioms CornerFamily.initialVertex_anchor_extend
+#print axioms initialVertex_selected_row_iff
+#print axioms initialVertex_row_of_exchange
+#print axioms initialVertex_restrict_of_exchange
+#print axioms initialVertex_connected_of_exchange
+#print axioms CornerFamily.exists_initialVertex_adjacent
+#print axioms initialVertex_reachable_of_erase_initial_row
+#print axioms CornerFamily.initialVertexExtras
+#print axioms CornerFamily.selectedInitialVertexExtras
+#print axioms CornerFamily.row_eq_insert_selectedInitialVertexExtras
+#print axioms CornerFamily.selectedInitialVertexExtras_subset
+#print axioms CornerFamily.totalSelected_eq_initialVertex_core_add_one_add_extras
 
 end VerticalStripLLT.Circular.DiagramProof
