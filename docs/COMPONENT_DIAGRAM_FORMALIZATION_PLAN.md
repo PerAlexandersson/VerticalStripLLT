@@ -45,7 +45,9 @@ including P1's final initial-vertex restriction, corner and path interfaces.
 P6's conditional initial-vertex inheritance is checked, including all feasible
 extra sets and common-cover preparation. Retained short edges and corner-chain
 count now discharge matching-edge removability in the three-chain branch.
-Global vertex-count induction remains. At `26b2d97`, P9's independent
+Claude reports the no-articulation vertex-count induction checked at `fb68ff5`.
+The initial-path extension's focused build passed at `58b8b4b`; its axiom audit
+is not yet recorded. At `26b2d97`, P9's independent
 right-attachment lemma is checked, including whole product components and
 transfer of the two marked recurrences; prefix and first-drop coverage remain.
 P0 and the
@@ -412,6 +414,13 @@ witnesses. Sweep induction uses a finite ordered list, not search through
 the entire flip component. Extract unrestricted fixed-count rearrangement
 of parallel copies as a corollary.
 
+The draft's preparation and crossing-slide sections now give these proofs
+in detail. Its six-flip illustration restores the right sweep before the
+left, matching `exists_crossingSlide`; the historical source used the other
+valid order. The draft claims the checked preparation interface (actual path,
+anchor endpoint and retention of good edges), without requiring an explicit
+formula for the entire endpoint map.
+
 ### P4. Complete-clique paths and the finite connectivity helpers
 
 Modules: `FiniteConnectivity.lean`, `CompleteClique.lean`.
@@ -667,7 +676,7 @@ The first parts are now verified, following the same written diagrams:
 | Retain short edges and connectivity after one further vertex deletion | `initialVertex_induced_short_naturalEdges`, `initialVertex_induced_naturalEdges_delete_of_short` | Verified |
 | Derive matching-edge removability and apply inheritance | `CornerFamily.initialVertex_goodEdgeGraph_delete_connected`, `commonCover_connected_of_initialVertex_short` | Verified, with three chains, short edges and smaller-core uniqueness |
 | Supply those hypotheses by vertex-count induction without articulation | `commonCoverUnique_of_shortEdges` | Claude reports verified at `fb68ff5`, with 724 standard-axiom checks |
-| Extend uniqueness through a forced initial path | Not yet assembled | Open |
+| Extend uniqueness through a forced initial path | `commonCoverUnique_of_initialPathBlock` | Focused build passed at `58b8b4b`; new axiom audit not yet recorded |
 
 `ClosedInducedAnchors` extracts the precise restriction condition: retained
 vertices are closed under corner successors. Requiring every ambient corner

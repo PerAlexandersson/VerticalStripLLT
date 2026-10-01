@@ -233,9 +233,133 @@ cover. Let $M$ be the set of these corners. They form disjoint
 directed chains. We write $r(u)$ for the last vertex in the chain containing
 $u$. An anchor consists of all edges in $M$ and any additional natural
 edges $uv$ satisfying $r(u)<r(v)$. Denote the union of all these allowed
-edges by $A^*(G)$. The preparation lemma connects every state in which all
-corners are covers to an anchor. Its paths retain the corners; a corner
-may become redundant at an intermediate state.
+edges by $A^*(G)$. A natural edge joining two vertices of the same corner
+chain is itself a corner: any longer interval would contain the first
+corner on that chain. Thus every normal edge has distinct terminal labels.
+We call it good when these labels increase.
+
+Every anchor is a common-cover state. Along a selected path the terminal
+label increases at each normal edge and is unchanged at each corner.
+A bypass of a corner would therefore use only corners, which cannot
+bypass a single step of their chain.
+
+**Preparation lemma.** Every common-cover state is joined by actual flips
+to an anchor. We may retain every originally selected good edge throughout.
+The path preserves the total selected size and the selected weak blocks.
+
+*Proof.* We process the corner chains in decreasing order of their terminal
+vertices. Let $U$ be the union of the chains already processed. We maintain
+that no selected edge leaves $U$, and that all corners are covers at the
+start of each chain. Initially $U$ is empty.
+
+Let $B$ be the next chain, with terminal vertex $t$. We remove its selected
+exits $vy$ with $r(y)<t$. Such an exit has $v<t$, since $v<y\leq r(y)<t$.
+Let $h$ be the corner successor of $v$ in $B$. Maximality of the corner
+$vh$ forces $v<y<h$: the edge $vy$ cannot properly contain $vh$.
+
+Fix a vertex $v$ with an exit and choose its least exit head $y$.
+Then $vy$ covers. Indeed, an alternate path from $v$ to $y$ cannot enter
+$U$ and return. Its first edge cannot be the chain edge $vh$, since
+$h>y$. Any other first edge staying outside $U$ would be an exit from
+$v$ with a smaller head. Since $vh$ also covers, we can flip
+
+\[
+                       vy\longmapsto yh\qquad[vh].
+                       \tag{P}
+\]
+
+Here and below, brackets give the retained edge. The new edge lies inside
+$vh$, so it is natural and normal; its terminal labels increase.
+The flip retains the cover of $vh$. Other corners of $B$ have intervals
+with disjoint interiors, so their cover tests are unchanged. No selected
+edge from $U$ changes. Each flip removes one exit and inserts none, so
+the process terminates.
+
+At the end no edge leaves $U\cup B$. Every inserted edge enters $B$.
+An alternate path bypassing a corner outside $U\cup B$ therefore cannot
+use an inserted edge: it would enter this union and never leave. Such
+a bypass would already have existed before the chain was processed.
+Corner covers inside $U$ are unchanged, and those in $B$ were retained
+throughout. Thus all corner covers hold again, and we can continue with
+the next chain.
+
+When every chain has been processed, all selected normal edges are good.
+Only edges with decreasing terminal labels were removed, so every original
+good edge remains. Size and weak blocks are preserved by every actual flip.
+
+## Crossing slides with the exterior restored
+
+We next exchange selected edges across two crossing covers. This will allow
+us to change the extra edges of an anchor while retaining all the others
+at the endpoint of the path.
+
+**Crossing-slide lemma.** Let $a<b<c<d$. Suppose $ac$ and $bd$ cover
+in $A$, while $ab$ is selected and $cd$ is absent. Then actual flips join
+$A$ to $A-ab+cd$, with every other selected edge restored. Both $ac$
+and $bd$ cover at the endpoint.
+
+*Proof.* Put
+
+\[
+ L=\{v:a<v<b,\ av\in A\},\qquad
+ R=\{v:c<v<d,\ vd\in A\}.
+\]
+
+First sweep the edges $av$ for $v\in L$ in increasing order, replacing
+$av$ by $vc$ across $ac$. At the time of its move, $av$ covers:
+an alternate path would start with an edge from $a$ to a smaller vertex,
+and these edges have already been removed. The retained $ac$ remains
+a cover after each flip. Every changed edge has its smaller endpoint below
+$b$, so the changes
+do not affect any path inside $[b,d]$; hence $bd$ continues to cover.
+
+Next sweep $vd$ for $v\in R$ in decreasing order, replacing $vd$ by
+$bv$ across $bd$. An alternate path from $v$ to $d$ would end with
+an edge from a larger vertex, already removed. These are actual flips
+retaining $bd$. Every changed edge has its larger endpoint above $c$, leaving all
+paths in $[a,c]$ unchanged, so $ac$ continues to cover as well.
+
+Now $ab$ covers, since there is no selected edge from $a$ into $(a,b)$.
+The edge $bc$ is absent: if it had been selected originally, $ab,bc$
+would bypass $ac$, and neither sweep inserts it. We perform the two flips
+
+\[
+              ab\longmapsto bc\quad[ac],\qquad
+              bc\longmapsto cd\quad[bd].                       \tag{S}
+\]
+
+After the first, $bd$ still covers. A newly created bypass would have
+to start with $bc$, but there is no path from $c$ to $d$: the edge
+$cd$ is absent, and the right sweep has removed all incoming edges
+to $d$ from $(c,d)$. Thus the second flip is actual. It leaves $bd$
+covering and preserves the cover of $ac$, since it removes $bc$ and
+inserts an edge leaving $c$.
+
+We restore the right sweep first, in reverse order. For $v\in R$, the
+net change $ab\mapsto cd$ affects no edge wholly inside $[b,v]$:
+$ab$ starts below $b$, and $cd$ ends above $v$. Hence the cover test
+for each $bv$ agrees with its cover test when we reverse the original
+right sweep. Starting with the cover $bd$, each reverse flip is actual
+and keeps $bd$ covering. These changes affect no path in $[a,c]$.
+
+Finally restore the left sweep in reverse order. For $v\in L$, the net
+change affects no edge wholly inside $[v,c]$, so the cover test for $vc$
+agrees with its test in the reversed left sweep. Starting with the cover
+$ac$, these reverse flips are actual. They do not change paths in $[b,d]$.
+Every exchanged edge lies properly inside $ac$ or $bd$, so it is normal
+throughout. We obtain exactly $A-ab+cd$ in $2+2|L|+2|R|$ flips.
+
+![Sweeping and restoring the exterior of a crossing slide](figures/crossing-sweeps.svg)
+
+*Figure 2.* We take $a=0,b=2,c=3,d=5$ and retain the strict corners
+$03,14,25$. The two sweeps exchange $01\mapsto13$ and $45\mapsto24$.
+The central flips give $02\mapsto23\mapsto35$, after which we restore
+$24\mapsto45$ and $13\mapsto01$. Underlines mark the retained covers
+$03$ and $25$. The corner $14$ may be redundant between the two endpoint
+states. Each picture specifies one selected state; the arrows denote paths
+of flips, and do not assert equality of individual state values.
+
+## Initial-vertex inheritance
 
 We first treat the case in which the first two maximal corners are
 $0a$ and $1b$, with $1<a<b$. Let $G'$ be the induced diagram on
@@ -264,7 +388,7 @@ exchanges $0v$ and $d_v$, with the corners $0a$ and $vh_v$ retained.
 
 ![The initial crossing slide](figures/initial-crossing.svg)
 
-*Figure 2.* The diagonal lists the ordered vertices $0<v<a<h=h_v$.
+*Figure 3.* The diagonal lists the ordered vertices $0<v<a<h=h_v$.
 The cell in column $u$ and row $w$ represents the edge $uw$.
 Arrows denote the two retained corner covers, and $1$ and $0$ denote
 selected and absent normal edges. The edge $va$ is natural because it
@@ -288,7 +412,7 @@ enters a different core component. Otherwise all selected neighbors of
 zero would lie in $B$, contradicting connectedness of $A$. The edge
 $0v$ is an extra, since $0a$ enters $B$. The selected corner $vh_v$
 puts $h_v$ in the same core component as $v$. Hence $ah_v$ is absent.
-We apply the crossing slide in Figure 2. The core gains $ah_v$ and loses
+We apply the crossing slide in Figure 3. The core gains $ah_v$ and loses
 no edge, while the initial row loses $0v$. Repeating this operation
 terminates because the number of selected initial extras decreases.
 
@@ -448,7 +572,7 @@ all exterior selections of each size. Thus
 
 ![NN and DN as sums over restricted selections](figures/layer-relations.svg)
 
-*Figure 3.* The blank cells and permitted exterior edges are summed over.
+*Figure 4.* The blank cells and permitted exterior edges are summed over.
 Arrows require strict edges, and crosses remove natural edges. The condition
 $|A|=s$ counts all selected edges, including strict edges. Each diagram is
 an entire layer sum for $V=K$ or $V=E$ at an eligible contact.
@@ -531,7 +655,7 @@ unions of one state of $P$ and one state of $T$.
 
 ![Right attachment and the merged fibre](figures/right-attachment.svg)
 
-*Figure 4.* The upper dashed line indicates the vertex intervals, not a
+*Figure 5.* The upper dashed line indicates the vertex intervals, not a
 natural edge. The diagrams share just $c$. Below, the canonical HRV chain
 ending at $c$ and the chain beginning at $c$ concatenate. Their common
 vertex, colored $\beta$, contributes one weight $x_\beta$.
@@ -642,7 +766,7 @@ All earlier comparisons agree, so their first strict decreases agree.
 
 ![A prefix and its right attachment as restricted sums](figures/prefix-attachment.svg)
 
-*Figure 5.* The source areas are $(0,1,1,2,3,2,1,2,1)$.
+*Figure 6.* The source areas are $(0,1,1,2,3,2,1,2,1)$.
 The first area at least two occurs at $j=3$, so $b=1$ and $c=5$.
 The prefix has the initial edge $01$ followed by the block $[1,5]$;
 the attachment is $[5,8]$. The first strict area decrease is at $t=4$

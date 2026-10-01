@@ -73,6 +73,8 @@ the two short bits fixed as supplied.
 `prefix-attachment.tex` shows component-restricted sums glued at a fixed
 endpoint color. Its right factor omits the shared vertex weight, as indicated
 by `\widehat V`; the surrounding statement defines this valuation.
+`crossing-sweeps.tex` shows four fully specified selected states and the six
+actual flips between them, including the restoration of the exterior.
 An equation between diagrams means equality of the indicated sums. A
 flip-path arrow is stated separately as a correspondence between endpoint
 states; it does not assert equality of their individual valuations.
@@ -87,6 +89,8 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error layer-relations.tex
 pdftocairo -svg layer-relations.pdf layer-relations.svg
 latexmk -pdf -interaction=nonstopmode -halt-on-error prefix-attachment.tex
 pdftocairo -svg prefix-attachment.pdf prefix-attachment.svg
+latexmk -pdf -interaction=nonstopmode -halt-on-error crossing-sweeps.tex
+pdftocairo -svg crossing-sweeps.pdf crossing-sweeps.svg
 ```
 
 The previous external `LLTCells` macro was inspected for the diagonal-label

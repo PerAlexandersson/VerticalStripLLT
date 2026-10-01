@@ -24,7 +24,8 @@ its scratchpad and waiting for this explicit transfer. No input guards were
 bypassed. This paragraph is the durable release the worker was instructed to read.
 
 P0–P5 are complete under their contracts. Claude reports the no-articulation
-P6 induction checked at `fb68ff5`; its initial-path extension remains open.
+P6 induction checked at `fb68ff5`. Its initial-path extension was committed
+as `58b8b4b`; the focused build passed, and its axiom audit is not yet recorded.
 P7/P8/P10 are open,
 and P9 has its attachment lemma checked; prefix and first-drop coverage remain.
 The complete mathematical diagram proof and the independent Lean theorem
@@ -69,7 +70,7 @@ lift identically, and final pairs lie inside the given crossing edge.
 `CornerFamily.commonCover_connected_of_terminal_card_le_two` derives the
 existing two-terminal base from the bound on terminal fixed points.
 Terra supplied the former and Luna the latter; Codex repaired and verified
-both. They remain auxiliary lemmas: the global induction is unfinished.
+both. These were auxiliary lemmas for the subsequent global induction below.
 
 Checks: 649 axiom queries in exact order, only standard axioms; independent
 closure 283 project files; 209 DiagramProof modules pass source/100-column
@@ -81,8 +82,12 @@ Claude completed the no-articulation integration in `fb68ff5` after this
 earlier P6 checkpoint: `commonCoverUnique_of_shortEdges` assembles strong
 induction with the complete-diagram bridge and reversed first-clique branch.
 Its coordination note reports 724 passing standard-axiom checks. Codex has
-not rerun those checks and retains no build ownership. The next P6 obligation
-is the initial-path extension.
+not rerun those checks and retains no build ownership. Claude subsequently
+implemented `commonCoverUnique_of_initialPathBlock` at `58b8b4b`. Codex read
+`claude-right-attachment/logs/initpath-2.log`: the focused build passed, with
+one unused-simp warning. Its new queries are not yet in
+`DiagramProofVerification.lean`, so the earlier 724-query report does not
+cover this extension. Claude continues to own verification and its next P7 work.
 
 ## Current writing increment
 
@@ -103,9 +108,9 @@ approved the diamond, whole-component corrections and layer calculation;
 its requests to spell out exterior disjointness, strict decorations and the
 original shifted normal-edge exponent were incorporated.
 The diagrams themselves denote sums with the selected-edge count shown below.
-Preparation, restored-exterior crossing slides, complete/two-chain bases,
-last-clique inheritance, and the chain-quotient lemma still need detailed
-manuscript proofs. The final first-drop/prefix induction is now expanded:
+Complete/two-chain bases, last-clique inheritance, and the chain-quotient
+lemma still need detailed manuscript proofs. The final first-drop/prefix
+induction is now expanded:
 articulation test, first nontrivial prefix, strict-corner preservation, all
 four contact cases, marking changes, area/moment decrease and final induction.
 The new prefix-attachment figure uses restricted sums with a fixed endpoint
@@ -116,6 +121,22 @@ Independent read-only review found no new flaw in prefix selection or the
 final induction. Its clarifications about local area indexing, the new DN
 edge and the retained unmarked corner were incorporated. Local Markdown links,
 SVG XML, exact rendered-source correspondence and `git diff --check` pass.
+
+Writing checkpoint `5014939` is pushed. The next writing increment supplies
+full preparation and crossing-slide proofs: process chains in decreasing
+terminal order, recover all corner covers after each chain, sweep both
+obstructions, perform the two central flips, then restore right before left.
+That restoration order agrees with `exists_crossingSlide`; the historical
+research note uses the other valid order and remains unchanged. The new
+four-state figure records all six actual flips and fixes every natural cell.
+The preparation statement follows the checked existence/retention interface;
+it does not add an unformalized exact endpoint formula.
+Independent read-only review approved both new proofs and the exact four
+displayed states. The figure compiled without TeX or box warnings and was
+visually inspected; local links, SVG XML and exact source correspondence pass.
+Claude's source-only checkpoint `cdac9cc` appeared during this writing pass,
+adding relational transport and extracting the measures. Its ongoing Lean
+edits remain Claude-owned and are excluded from this writing checkpoint.
 The circular section and combined manuscript have the remaining limits already
 recorded above. The full user goal is unchanged and unfinished.
 
