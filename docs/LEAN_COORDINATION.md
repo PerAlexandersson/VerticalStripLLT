@@ -30,6 +30,18 @@ and the positivity statements `component_weighted_e_positive_of_forward` and
 the finite circular companion reduction `component_identity_of_forward_components`
 (`Components/CircularFromOrdinaryComponents.lean`), which uses no word module.
 
+### The circular expansion from components
+
+`DiagramProof/CircularConsequences.lean` also proves
+`Circular.coloringLLT_shifted_eq_eval_shiftedOrientationExpansion_by_components`:
+summing the circular component theorem over all flip components gives the
+circular expansion for every diagram. Its closure does not contain
+`Circular.Expansion` or any module of the direct bounce proof, so the circular
+expansion is a corollary of the component theorem. The new manuscript in
+`paper/` is organized this way (user decision, 2026-10-01). Axiom audits: 816
+diagram queries (`axioms-8.log`) and 2830 `Verification.lean` queries
+(`verification-6.log`), all standard.
+
 ### Bridge to the ordinary expansion of AS22
 
 `VerticalStripLLT/Bridge/` derives the ordinary expansion of AS22 from the new

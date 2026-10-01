@@ -815,6 +815,7 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_orientation_sum
 #print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_eval
 #print axioms VerticalStripLLT.Circular.component_weighted_e_positive
+#print axioms Circular.coloringLLT_shifted_eq_eval_shiftedOrientationExpansion_by_components
 #print axioms naturalRel_forward
 #print axioms component_eq_by_diagrams_aux
 #print axioms component_eq_of_path

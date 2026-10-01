@@ -1,5 +1,7 @@
 import VerticalStripLLT.Components.DiagramProof.Consequences
 import VerticalStripLLT.Components.CircularFromOrdinaryComponents
+import VerticalStripLLT.Components.FlipClosedSums
+import VerticalStripLLT.Circular.OrientationSum
 
 /-!
 # The circular component theorem by diagrams
@@ -57,6 +59,32 @@ theorem component_weighted_e_positive (θ : Orientation D) :
       MvPolynomial.IsWeightedHomogeneous (fun k : ℕ+ => k.val) f n :=
   ⟨weightedComponentHRV D θ, component_weighted_strict_eq_eval θ,
     weightedComponentHRV_coeff_nonneg D θ, weightedComponentHRV_isWeightedHomogeneous_degree D θ⟩
+
+/-- **The circular expansion from components.** Summing the component theorem over
+all flip components gives the shifted HRV expansion of every circular diagram. -/
+theorem coloringLLT_shifted_eq_eval_shiftedOrientationExpansion_by_components
+    (D : Diagram n) (m : ℕ) :
+    xQShift m (D.coloringLLT m) = evalElementary m (shiftedOrientationExpansion D) := by
+  rw [Diagram.coloringLLT, EdgeData.xQShift_coloringLLT_eq_orientation_sum]
+  have hre : (∑ θ : Orientation D, MvPolynomial.C (Polynomial.X ^ θ.val.card) *
+        D.edgeData.strictOrderEnumerator θ.val m) =
+      ∑ A ∈ D.edgeData.normalEdges.powerset.filter D.edgeData.Admissible,
+        MvPolynomial.C (Polynomial.X ^ A.card) * D.edgeData.strictOrderEnumerator A m := by
+    apply Finset.sum_bij (fun θ _ => θ.val)
+    · intro θ _
+      exact Finset.mem_filter.mpr ⟨Finset.mem_powerset.mpr θ.property.1, θ.property.2⟩
+    · intro θ _ η _ h
+      exact Subtype.ext h
+    · intro A hA
+      obtain ⟨h1, h2⟩ := Finset.mem_filter.mp hA
+      exact ⟨⟨A, Finset.mem_powerset.mp h1, h2⟩, Finset.mem_univ _, rfl⟩
+    · intro θ _
+      rfl
+  rw [← hre]
+  simp only [shiftedOrientationExpansion, map_sum, map_mul, evalElementary_C]
+  exact sum_eq_of_flipComponent_sum_eq_of_closed Finset.univ
+    (fun _ _ _ _ => Finset.mem_univ _) _ _
+    fun θ => component_weighted_strict_eq_orientation_sum θ m
 
 /-! ### Deprecated names (renamed 2026-10-01) -/
 
