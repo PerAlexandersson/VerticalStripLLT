@@ -13,6 +13,14 @@ The paper has two parts, as requested by the user:
    companion then reduces each circular component to the same signed sum of
    unions of ordinary components.
 
+The second part ends with [LLT cumulants](CUMULANTS.md): set-partition
+cancellation retains connected selections, which are unions of whole flip
+components. The final corollary applies the component theorem to them.
+This deduction is written and reviewed mathematically, but is not part of
+the Lean formalization. The author information is restored from the earlier
+Alexandersson--Dai draft in `tex/manuscript-authors.tex`; the closing
+[AI statement](AI_STATEMENT.md) records assistance and that scope distinction.
+
 The aggregate theorem alone is not the component proof. Its local identities
 are reused with marked colors and fixed selected-edge counts. The circular
 companion is stated explicitly; we do not assert that every circular bounce
@@ -20,7 +28,24 @@ or reversal preserves a single component.
 
 
 The [introduction](INTRODUCTION.md) presents the two expansion theorems and
-their diagram proofs; `references.bib` records the ordinary formula's source.
+their diagram proofs, and compares the LLT and chromatic coloring sums.
+The ordinary plethystic identity, common Dyck-path relations and circular
+limitation are checked against AS22, Lemma 6.17, Corollary 6.18 and Section 6.8.
+The four shifted recurrences (corner, NN, DN, ND) appear together in
+`prop:fourRecurrences`, with the circular ND separation hypothesis explicit.
+`references.bib` records the source. Paper-cache entry **496** contains
+arXiv **2004.09198v2**, its exact-version PDF, source archive and extracted
+text; PDF SHA256 is
+`bb56b53c5efc3c2cd5bdbc243d354db84143eaf43adcbe22879e0fbeae826513`.
+The introduction also compares Hwang's heap components with the present
+LLT components, citing his Proposition 3.7, Theorems 3.8 and 4.19,
+Conjecture 3.10, and Section 5.3. Paper-cache entry **497** contains
+arXiv **2208.09857v2**. Entry **498**, arXiv **2112.12676v2**, supplies
+Dołęga--Kowalski's connected expansion (Theorem 3.8) and ordinary cumulant
+elementary expansion (Theorem 3.17). All three exact-version PDFs and source
+archives are cached. The existing earlier draft was read only; its weak
+coloring notation has been translated to the present strict `K` convention,
+so the new cumulant argument requires no involution.
 The [circular section](CIRCULAR_E_EXPANSION.md) gives the integer-cover
 definition, aggregate expansion, local reductions, terminal-contact reduction,
 interior column reversal and the area/rank induction. Its reversal figure is
@@ -129,7 +154,7 @@ theorem through the finite companion.
 The [diagram macros and usage guide](tex/README.md) implement the user's
 restricted-sum convention. A diagram specifies selected/absent/optional/strict
 edges, forbidden natural pairs, cover conditions, total-size layers and endpoint
-colors. Gray/white cells distinguish unweighted and normal-edge-weighted sums.
+colors. Gray/white ambient regions distinguish unweighted and normal-edge-weighted sums.
 The two-page `diagram-examples.tex` preview and the diamond and NN/DN figures
 compile without warnings or box overflows and were visually inspected.
 
@@ -149,6 +174,25 @@ circular/ordinary equation labels, resolves cross-section links and converts
 local figure numbering to a single sequence. It does not alter mathematical
 expressions beyond those labels. No generated build output belongs in Git.
 
+Use semantic fenced divisions for mathematical statements and proofs:
+
+```markdown
+::: {.lemma #lem:stableLabel title="Descriptive title"}
+The statement, with its hypotheses.
+:::
+
+::: {.proof}
+The proof.
+:::
+```
+
+The assembler emits actual `amsthm` environments, sharing a counter within
+each section. Supported classes are `theorem`, `lemma`, `proposition`,
+`corollary`, `definition`, `example`, `remark` and `proof`. Titles are
+optional. Use `\ref{lem:stableLabel}` for numbered references and `\defin`
+at first definitions. Figures can occur inside proofs. The assembler checks
+environment conversion, unique labels and reference targets before compiling.
+
 With Python 3, Pandoc and TeX Live (`latexmk`, `pdflatex`, `bibtex`) installed:
 
 ```sh
@@ -160,10 +204,11 @@ checkout. The command writes `manuscript.pdf`, editable `manuscript.tex`, all
 native vector figures, a SHA256 source manifest and `manuscript-source.zip`.
 The zip contains the complete TeX source and canonical Markdown input. Compile
 its `manuscript.tex` directly with `latexmk -pdf manuscript.tex`, or regenerate
-from the bundled canonical sources. Author names are left for the authors.
+from the bundled canonical sources. The bundle includes the authors and AI statement.
 
-Current preview directory:
-`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/manuscript/`.
+Current revised preview directory:
+`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/manuscript-revision/`.
+The tagged baseline remains in the sibling `manuscript/` directory.
 The independent reviews approved the aggregate proof, ordinary induction,
 circular companion, and the final theorem scopes. The assembled PDF has
 thirteen vector figures. Its final build and layout checks are recorded in

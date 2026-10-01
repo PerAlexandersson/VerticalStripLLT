@@ -7,8 +7,13 @@
 % A diagram denotes a sum over the selections satisfying its restrictions.
 % The surrounding text specifies the ambient diagram, exterior, and valuation.
 % Positions in the ordered label list are numbered from 1, independently of labels.
-\definecolor{lltLabelYellow}{RGB}{255,240,171}
-\definecolor{lltUnweightedGray}{RGB}{231,231,231}
+% The original LLT figures use one shaded ambient region with a few emphatic
+% local marks.  Do not turn every possible edge into a heavy table cell: the
+% entries below are restrictions imposed on that ambient region.
+\definecolor{lltLabelYellow}{RGB}{255,243,184}
+\definecolor{lltUnweightedGray}{RGB}{238,238,238}
+\definecolor{lltCellGray}{RGB}{224,224,224}
+\definecolor{lltSelectionBlue}{RGB}{226,238,248}
 \newif\ifllt@weighted
 \pgfkeys{/llt/.is family,/llt/.cd,
   cell size/.store in=\llt@unit,
@@ -37,8 +42,8 @@
   \ifnum#2>\llt@count
     \PackageError{llt-diagrams}{Cell row exceeds the label count}{}%
   \fi
-  \path[draw=black!75,line width=.35pt,fill=#3]
-    (#1-1,#2-1) rectangle +(1,1);
+  \path[draw=black!55,line width=.3pt,rounded corners=.45pt,fill=#3]
+    (#1-.87,#2-.87) rectangle +( .74,.74);
   \node[font=\llt@entryfont,inner sep=0pt]
     at (#1-.5,#2-.5) {$#4$};%
 }
@@ -51,20 +56,20 @@
 }
 % Selected normal edge; a star additionally requires it to be a cover.
 \NewDocumentCommand{\LLTSelected}{s m m}{%
-  \llt@cell{#2}{#3}{\llt@normalfill}{\IfBooleanTF{#1}{\underline{1}}{1}}%
+  \llt@cell{#2}{#3}{lltSelectionBlue}{\IfBooleanTF{#1}{\underline{1}}{1}}%
 }
 % Natural normal edge present in the diagram but absent from the selection.
 \NewDocumentCommand{\LLTAbsent}{m m}{%
-  \llt@cell{#1}{#2}{lltUnweightedGray}{0}%
+  \llt@cell{#1}{#2}{lltCellGray}{0}%
 }
 % No natural edge. This changes the ambient diagram, not just the selection.
 \NewDocumentCommand{\LLTForbidden}{m m}{%
-  \llt@cell{#1}{#2}{lltUnweightedGray}{\times}%
+  \llt@cell{#1}{#2}{lltCellGray}{\times}%
 }
 % Strict natural edge: required selected, with no factor q.
 % A star additionally requires it to be a cover in the full selected relation.
 \NewDocumentCommand{\LLTStrict}{s m m}{%
-  \llt@cell{#2}{#3}{lltUnweightedGray}
+  \llt@cell{#2}{#3}{lltCellGray}
     {\IfBooleanTF{#1}{\underline{\rightarrow}}{\rightarrow}}%
 }
 % Custom mathematical restriction; its meaning must be defined in the text.
@@ -81,15 +86,17 @@
   \ifnum\llt@count<1
     \PackageError{llt-diagrams}{A diagram needs at least one vertex label}{}%
   \fi
+  \pgfmathsetlengthmacro{\llt@labelsize}{.72*\llt@unit}%
   \begin{tikzpicture}[x=\llt@unit,y=\llt@unit,baseline=(lltcenter)]
     \coordinate (lltcenter) at (\llt@count/2,\llt@count/2);
+    \path[fill=\llt@normalfill] (0,0) -- (0,\llt@count)
+      -- (\llt@count,\llt@count) -- cycle;
+    \draw[black!48,line width=.42pt,line join=round]
+      (0,0) -- (0,\llt@count) -- (\llt@count,\llt@count);
+    \draw[black!25,line width=.24pt] (0,0) -- (\llt@count,\llt@count);
     \foreach \lab [count=\row] in {#2} {
-      \foreach \col in {1,...,\row}
-        \path[draw=black!75,line width=.35pt,fill=\llt@normalfill]
-          (\col-1,\row-1) rectangle +(1,1);
-      \path[draw=black!75,line width=.35pt,fill=lltLabelYellow]
-        (\row-1,\row-1) rectangle +(1,1);
-      \node[font=\llt@labelfont,inner sep=0pt]
+      \node[circle,draw=black!62,line width=.32pt,fill=lltLabelYellow,
+        minimum size=\llt@labelsize,font=\llt@labelfont,inner sep=0pt]
         at (\row-.5,\row-.5) {$\lab$};
     }
     #3%

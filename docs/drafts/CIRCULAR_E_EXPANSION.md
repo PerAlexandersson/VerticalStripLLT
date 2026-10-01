@@ -8,9 +8,10 @@ strict chain and reduce the area.
 
 ## Circular diagrams and highest reachable vertices
 
+::: {.definition #def:circularDiagram title="Circular decorated diagram"}
 Let $n\geq1$, and let $(a_0,\ldots,a_{n-1})$ satisfy
 $0\leq a_i<n$ and $a_{i+1}\leq a_i+1$, with subscripts modulo $n$.
-We extend the sequence periodically and put $b(i)\coloneqq i-a_i$.
+We extend the sequence periodically and put $\defin{b(i)}\coloneqq i-a_i$.
 The natural edges in row $i$ are
 
 \[
@@ -21,24 +22,28 @@ We identify integer translates by $n$. A natural edge retains its positive
 lift, of length less than $n$. In particular, opposite edges between two
 residues are distinct. The first edge in row $i$ is a corner when
 $a_i>0$ and $b(i+1)>b(i)$. We may mark any subset $S$ of the corners
-strict. We denote the resulting decorated diagram by $D$.
+strict. We denote the resulting \defin{circular decorated diagram} by $D$.
+:::
 
+::: {.definition #def:circularLLT title="Coloring LLT polynomial"}
 For a finite alphabet $X=(x_1,\ldots,x_m)$, define
 
 \[
- G_D(X;q)\coloneqq
+ \defin{G_D(X;q)}\coloneqq
  \sum_{\substack{\kappa:\mathbb Z/n\mathbb Z\to\{1,\ldots,m\}\\
        uv\in S\Rightarrow\kappa(u)<\kappa(v)}}
  q^{\#\{uv\notin S:\kappa(u)<\kappa(v)\}}
  \prod_u x_{\kappa(u)}.
 \]
+:::
 
-A selected state $A$ contains all strict edges and any subset of the
-remaining natural edges. We call $A$ admissible when its directed graph
+::: {.definition #def:circularHRV title="Selected states and highest reachable vertices"}
+A \defin{selected state} $A$ contains all strict edges and any subset of the
+remaining natural edges. We call $A$ \defin{admissible} when its directed graph
 on residues is acyclic. For an integer $u$, let
 
 \[
- \widetilde H_A(u)\coloneqq
+ \defin{\widetilde H_A(u)}\coloneqq
  \max\{v\in\mathbb Z:v\text{ is reachable from }u\text{ in the lift of }A\}.
 \]
 
@@ -49,10 +54,12 @@ Let $\lambda(A)$ be the partition of the sizes of its nonempty fibres,
 and put
 
 \[
- \widehat G_D(X;q)\coloneqq
+ \defin{\widehat G_D(X;q)}\coloneqq
  \sum_{A\text{ admissible}}q^{|A\setminus S|}e_{\lambda(A)}(X).
 \]
+:::
 
+::: {.example #ex:directedCycle title="A directed three-cycle"}
 For example, take $(a_0,a_1,a_2)=(1,1,1)$ with no strict corners.
 The natural edges form the directed cycle $0\to1\to2\to0$.
 The selected path $2\to0\to1$ lifts to $2\to3\to4$.
@@ -63,8 +70,10 @@ paths give
 \[
  \widehat G_D(X;q)=e_1(X)^3+3q e_2(X)e_1(X)+3q^2e_3(X).
 \]
+:::
 
-**Circular expansion theorem.** For every circular decorated diagram,
+::: {.theorem #thm:circularExpansion title="Circular elementary expansion"}
+For every circular decorated diagram,
 
 \[
                  G_D(X;q+1)=\widehat G_D(X;q).
@@ -73,63 +82,120 @@ paths give
 Thus the shifted polynomial has nonnegative coefficients in the elementary
 basis. The identity holds for every finite alphabet and hence
 coefficientwise in infinitely many variables.
+:::
+
+We prove Theorem~\ref{thm:circularExpansion} by showing that its two sides
+satisfy the same local relations and initial values. The four relations
+are stated together below; the remaining subsections prove them and treat
+the additional contact configurations that arise on a circle.
 
 ## The local reductions
 
 Throughout the proof, $F_D$ denotes either of the two expressions in the
-theorem. If a non-strict corner is deleted or marked strict, write the
-result as $D^-$ or $D^{\mathrm s}$, respectively. We have
+theorem, with the shifted parameter as written there.
 
-\[
-                   F_D=F_{D^-}+qF_{D^{\mathrm s}}.                 \tag{1}
-\]
-
-For colorings, this is the expansion of the corner weight
-$1+q\,\mathbf1_{\kappa(u)<\kappa(v)}$. For selected states, we split
-according to whether the corner is selected. In the selected term its
-strict marking preserves reachability and removes one factor $q$.
-
-Every vertex has at most one incoming and one outgoing strict edge.
-Consequently the strict graph consists of chains and cycles. A strict
-cycle makes both expressions zero. If every natural edge is strict and
-there is no cycle, both expressions are the product of $e_{|B|}(X)$
-over the strict chains, including isolated vertices.
-
+::: {.definition #def:bounceContacts title="Bounce contacts"}
 Write $s(i)$ for the strict flag in row $i$ and
 $g(i)\coloneqq b(i+1)-b(i)-s(i)$ for the number of east steps after
 that row. A bounce starts at a strict row $t$ with $a_t\geq2$ and
 $g(t)>0$. Its first lower contact is $x=b(t)$. At a contact with
 $g(x)=0$, the flags $s(x),s(x+1)$ specify NN, DN, ND or DD.
 A DD contact continues the bounce backwards along the strict path.
+We write $\mathrm n,\mathrm d,\mathrm e$ for north, diagonal and east
+steps of the boundary path in the integer lift.
+:::
 
-The NN relation shortens the original terminal strict edge by one and
-has coefficient $1+q$. The DN relation additionally moves the initial
-strict head from $x$ to $x+1$ and has coefficient $1$. In path notation,
+For corner resolution, let $D^-$ delete a non-strict corner and let
+$D^{\mathrm s}$ mark it strict. For a bounce with $k$ intervening DD
+contacts, let $x=b^{k+1}(t)$ be its final lower contact. The NN target
+shortens the terminal strict edge by one. The DN target also moves the
+initial strict head from $x$ to $x+1$, increasing $a_{x+1}$ by one.
+For ND, let $Q$ only shorten the terminal strict edge; let $R$ also
+move the initial strict head from $x+1$ to $x$, decreasing $a_{x+1}$
+by one. All changes are periodic, and all exterior data remain fixed.
+
+::: {.proposition #prop:fourRecurrences title="The four local recurrences"}
+Both $F_D=G_D(X;q+1)$ and $F_D=\widehat G_D(X;q)$ satisfy corner
+resolution and the following three bounce relations:
 
 \[
  \begin{aligned}
+ F_D&=F_{D^-}+qF_{D^{\mathrm s}}
+       &&\text{(corner)},\\
  F_{U\mathrm{nn}V\mathrm{de}W}
-   &=(1+q)F_{U\mathrm{nn}V\mathrm{ed}W},\\
+    &=(1+q)F_{U\mathrm{nn}V\mathrm{ed}W}
+       &&\text{(NN)},\\
  F_{U\mathrm{dn}V\mathrm{de}W}
-   &=F_{U\mathrm{nd}V\mathrm{ed}W}.
- \end{aligned}                                                   \tag{2}
+    &=F_{U\mathrm{nd}V\mathrm{ed}W}
+       &&\text{(DN)},\\
+ F_D&=qF_Q+(1+q)F_R
+       &&\text{(ND)}.
+ \end{aligned}                                                   \tag{R}
 \]
 
-Here the displayed steps specify the contact and terminal changes in the
-integer lift; all periodic exterior data remain in place.
+For the bounce relations the terminal row is strict with $a_t\geq2$
+and $g(t)>0$, the intervening contacts are DD, and the final contact
+has the indicated flags. The strict graph of the source is acyclic.
+For ND we additionally require
+$b^i(t)\not\equiv x+1\pmod n$ for $0\leq i\leq k$.
+In ordinary diagrams this separation is automatic. Circular ND contacts
+that fail it are treated by Propositions~\ref{prop:terminalContact}
+and~\ref{prop:columnReversal}.
+:::
 
-![The direct NN and DN relations as weighted sums](figures/circular-direct-relations.svg)
+Their ordinary one-contact specializations are the shifted corner and
+bounce relations of [@AS22, Theorem 2.5]. We retain their diagram interpretation on the integer
+cover. The extra separation condition records where circular contact
+paths can meet. We prove corner resolution immediately, then NN and DN,
+and finally derive ND from those relations.
 
-*Figure 1.* These are the direct contacts in (2), with $y=p+1$.
-Each picture sums over
-its optional natural edges with weight $q^{|A\setminus S|}$. The
-labels denote integer lifts; the periodic exterior is summed over and
-satisfies the contact conditions. The equations hold for the corresponding
-weighted sums of strict-coloring values and of admissible HRV values.
-We prove these two identities separately below.
+![The four local recurrences as boundary-path diagrams](figures/circular-direct-relations.svg)
+
+*Figure 1.* Examples of all four recurrences in (R). Each boundary path
+represents the weighted sum over its edge selections. A north--east
+corner permits a normal edge; a diagonal step requires a strict edge.
+The strict steps are also colored blue. Vertex labels lie on the main
+diagonal, and every other natural edge in the enclosed region is optional.
+The bottom row has $x=1$, $t=3$: its areas are $(0,1,2,2,1)$,
+$(0,1,2,1,1)$ and $(0,1,1,1,1)$, respectively. These are examples
+of the general identities, whose unchanged exterior may be arbitrary
+subject to the contact conditions. For the HRV sum we retain admissible
+selections; for the coloring sum cyclic selections have value zero.
+
+### Corner resolution and initial values
+
+::: {.proof title="Proof of corner resolution"}
+For colorings, the corner identity in (R) is the expansion of the corner weight
+$1+q\,\mathbf1_{\kappa(u)<\kappa(v)}$. For selected states, we split
+according to whether the corner is selected. In the selected term its
+strict marking preserves reachability and removes one factor $q$.
+:::
+
+::: {.lemma #lem:circularInitialValues title="Initial values"}
+A strict cycle makes both values of $F_D$ zero. If every natural edge
+is strict and there is no cycle, both values equal
+$\prod_B e_{|B|}(X)$, where $B$ runs through the strict chains,
+including isolated vertices.
+:::
+
+::: {.proof}
+Every vertex has at most one incoming and one outgoing strict edge.
+Consequently the strict graph consists of chains and cycles. A strict
+cycle forbids both a strict coloring and an admissible selected state.
+On a chain the strict-coloring sum is $e_{|B|}$, and the highest
+reachable map has that whole chain as one fibre. Distinct chains
+contribute independently, giving the product.
+:::
+
 
 ### Boundary symmetry and the coloring relations
 
+::: {.lemma #lem:directColoringBounce title="Direct coloring relations"}
+For a bounce with no intervening DD contacts, the coloring value
+$G_D(X;q+1)$ satisfies the NN and DN identities in (R).
+:::
+
+::: {.proof}
 Let $p=b(t)$ and write $\sigma$ for the periodic exchange of $p$ and
 $p+1$. Thus $\sigma(p+kn)=p+1+kn$ and
 $\sigma(p+1+kn)=p+kn$, and every other integer is fixed. The terminal
@@ -181,9 +247,11 @@ by the target ascent on $p(p+1)$. If $c\geq d$, the source ascent
 on $p(p+1)$ is replaced by the target ascent on $up$. Thus the total
 normal ascent count is unchanged. The exchange is invertible and proves
 DN for the coloring sum.
+:::
 
 ### The four selected triangles
 
+::: {.lemma #lem:circularDiamond title="The four selected triangles"}
 For the orientation calculation, consider the local triangle
 $P<Y<T<P+n$ in an NN or DN contact. The long edge $P\to T$ is
 mandatory and the two shorts are permitted normal edges. Fix the exterior
@@ -197,6 +265,9 @@ The four selections satisfy
        =M_\varnothing+M_{\{P\to Y,Y\to T\}}.                     \tag{3}
 \]
 
+:::
+
+::: {.proof}
 We first note that adding $u\to v$ preserves the entire lifted HRV
 map whenever $\widetilde H(v)\leq\widetilde H(u)$. The old HRV
 function is nonincreasing along every old edge and along every periodic
@@ -225,7 +296,9 @@ $T$ cannot reach a lift of $P$, since the mandatory edge back to the
 residue of $T$ would make a cycle. The HRV at $Y$ can only increase,
 so $Y\to T$ remains ineffective. This gives the other pairing and
 proves (3), including all cyclic cases.
+:::
 
+::: {.proof title="The direct NN and DN relations for highest reachable vertices"}
 After inserting weights, (3) becomes
 
 \[
@@ -234,17 +307,19 @@ After inserting weights, (3) becomes
  =(1+q)(M_\varnothing+qM_{\{P\to Y,Y\to T\}}).
 \]
 
-The bottom terms in (2) correspond under the periodic exchange of the
+The bottom terms in (R) correspond under the periodic exchange of the
 contact vertices; the top terms have the same transitive closure.
 Here the exchanged vertices are $P=x$ and $Y=x+1$. The exchange
 preserves order on sinks: its only inverted pairs are $x+kn,x+1+kn$,
 and the first vertex has the mandatory outgoing edge to $T+kn$.
 Every reachable vertex extends to a sink. Thus the exchange transports
 the highest reachable map and preserves its fibre sizes.
+:::
 
 ### Removing intervening DD contacts
 
-We prove (2) by induction on the number of intervening DD contacts,
+::: {.proof title="The NN and DN relations with intervening DD contacts"}
+We prove the NN and DN identities in (R) by induction on the number of intervening DD contacts,
 for both values of $F$ simultaneously. We assume the strict graph is
 acyclic; strict cycles have already been treated. The case of no DD
 contact is the local calculation above.
@@ -315,7 +390,7 @@ graph is a subgraph of the source. The resolved strict graph is obtained
 from the source with $e'$ removed by exchanging $p,p+1$ periodically;
 it too is acyclic. The induction therefore applies to both children.
 
-Let $T$ be the target required by (2) for $D$, and put $\gamma=1+q$
+Let $T$ be the target required by (R) for $D$, and put $\gamma=1+q$
 in the NN case and $\gamma=1$ in the DN case. In $T$, the old edge
 $e$ is still a strict corner. Let $U$ unmark this corner of $T$, and
 let $W$ delete it. The target for the child $R$ is exactly $U$.
@@ -352,13 +427,15 @@ gives
        qF_D=\gamma(F_U-F_W)=q\gamma F_T.
 \]
 
-We cancel $q$ in the polynomial ring and obtain (2). This is an
+We cancel $q$ in the polynomial ring and obtain the required identity in (R). This is an
 induction on the number of contacts. In fact $R$ has the same area
 sum as $D$ but one fewer strict edge, so its doubled area is one
 larger; the outer area induction is not used for this intermediate.
+:::
 
 ### Separated ND contacts
 
+::: {.proof title="The separated ND relation"}
 Suppose the final contact is ND. If the bounce has $k$ intervening
 DD contacts, its initial vertex is $x=b^{k+1}(t)$, with $s(x)=0$
 and $s(x+1)=1$. We first assume
@@ -434,17 +511,16 @@ Substituting the first two rows into the last two gives
 \end{aligned}
 \]
 
-Cancelling $q$ proves
-
-\[
-                        F_D=qF_Q+(1+q)F_R.                       \tag{4}
-\]
+Cancelling $q$ proves the ND identity in (R).
 
 Both targets preserve the strict-edge count. Their area sums are smaller
 by one and two, respectively, so their doubled areas decrease by two
 and four. We use outer induction only on these final targets; the
 auxiliary relations in (ND) have already been proved by contact-count
-induction. We next treat contacts for which (S) fails.
+induction.
+:::
+
+We next treat contacts for which (S) fails.
 
 ## A contact at the terminal vertex
 
@@ -465,6 +541,18 @@ replace the strict corner into $q_0$ by the new corner into $p_0$,
 and retain every other strict edge. The initial equal boundaries and
 the terminal east gap give a valid diagram $Q$.
 
+::: {.proposition #prop:terminalContact title="An ND contact at the terminal vertex"}
+In the terminal ND configuration just described, the diagrams $D,Q$
+satisfy, for both values of $F$,
+
+\[
+                            F_D=(1+q)F_Q.                       \tag{5}
+\]
+
+The strict-edge count is unchanged and the area sum decreases by three.
+:::
+
+::: {.proof}
 The exceptional non-strict pairs are
 
 \[
@@ -482,14 +570,9 @@ After these pairs are removed, the periodic exchange identifies the
 remaining lifted graphs and preserves sink order. Relabeling colorings
 and highest reachable vertices therefore identifies the residual sums.
 Following edges contribute $1+q$ and opposing edges contribute $1$,
-which gives
-
-\[
-                            F_D=(1+q)F_Q.                       \tag{5}
-\]
-
-The strict-edge count is unchanged and the area decreases by three.
-Thus this case reduces the doubled area by six.
+which gives (5). The prescribed changes retain the strict-edge count
+and decrease the area by three. Thus the doubled area decreases by six.
+:::
 
 ## Reversing the columns of a strict chain
 
@@ -542,6 +625,22 @@ drawn in circular order. The permutation reverses the entries within
 each row. The rows need not be adjacent on the circle. Strict edges
 in the new diagram are the images of the original chain edges.
 
+::: {.proposition #prop:columnReversal title="Column reversal"}
+In the overlapping ND configuration (6), with $2\leq j<r$ and the
+whole strict chain and terminal east gap specified above, the prescribed
+areas and transported strict edges define a circular
+decorated diagram $Q$ with the same number of strict edges as $D$.
+Its area sum is smaller by $2d+1$ when $s=0$ and by $2d+2$ otherwise.
+Moreover,
+
+\[
+ G_D(X;q+1)=\widehat G_D(X;q)
+ \quad\Longleftrightarrow\quad
+ G_Q(X;q+1)=\widehat G_Q(X;q).
+\]
+:::
+
+::: {.proof}
 At a strict head in $C_c$, $c>0$, the transported edge has length
 $H_c+\ell_c-\ell_{c-1}$. At a strict head in $C_0$, its length is
 $H_0+\ell_0-\ell_{j-1}-1$. These are the prescribed new areas:
@@ -651,10 +750,13 @@ $C,E$ with
 \]
 
 The equality for $Q$ gives $C=E$ by cancellation of $(1+q)^{f_Q}$,
-and hence gives the equality for $D$.
+and hence gives the equality for $D$. Conversely, cancellation of
+$(1+q)^{f_D}$ gives the reverse implication.
+:::
 
 ## Completing the induction
 
+::: {.proof title="Proof of Theorem \ref{thm:circularExpansion}"}
 Set
 
 \[
@@ -668,7 +770,7 @@ counts vertices from which a nonempty path of strict edges reaches $v$.
 We induct lexicographically
 on $(A_2(D),J(D))$, treating strict cycles as zero cases.
 
-A non-strict corner gives (1); deletion decreases $A_2$ by two,
+A non-strict corner gives the first identity in (R); deletion decreases $A_2$ by two,
 and strict marking decreases it by one. We may therefore suppose
 all corners are strict. If no non-strict edge remains, the chain
 product proves the theorem.
@@ -681,13 +783,14 @@ contact continue backwards. Every step follows an actual strict edge
 backwards and decreases the number of strict ancestors. The search
 therefore ends at NN, DN or ND.
 
-For NN, (2) decreases $A_2$ by two. For DN it preserves $A_2$ and
+For NN, (R) decreases $A_2$ by two. For DN it preserves $A_2$ and
 decreases $J$: the exchange conjugates the strict paths and preserves
 ancestor depths, while the initial edge length increases by one and
 the terminal edge length decreases by one. Thus the change in $J$ is
 $d(p_0)-d(t)<0$, where $p_0$ and $t$ are the initial and terminal
 vertices on the longer strict path. For separated ND, the targets in
-(4) decrease $A_2$ by two and four. An ND contact at the terminal vertex
+(R) decrease $A_2$ by two and four. An ND contact at the terminal vertex
 uses (5), decreasing $A_2$ by six. For an interior intersection, column
 reversal strictly decreases $A_2$, and the residual comparison transfers
 the identity from the smaller diagram. These cases prove the theorem.
+:::

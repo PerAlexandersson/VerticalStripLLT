@@ -55,11 +55,13 @@ Use `condition={...}` for layer size, connectedness, a component, endpoint
 colors or other global restrictions. Use `name={...}` for a mathematical
 label above the diagram. These annotations describe the set being summed.
 
-The default is an unweighted sum of state values; all off-diagonal cells
-are gray. With `weighted=true`, selections have weight
-`q^{|A\setminus S|}`. Optional and selected normal cells are then white;
-strict, absent and forbidden cells remain gray. The surrounding statement
-must specify the mode, so its meaning does not rely on color alone.
+The default is an unweighted sum of state values, drawn on a pale gray
+triangular region. With `weighted=true`, selections have weight
+`q^{|A\setminus S|}` and the region is white. Fixed restrictions have
+small outlined markers; selected normal edges are pale blue and the other
+restrictions gray. Vertex labels are yellow circles. The entries and the
+stated convention determine the sum, so its meaning does not rely on color.
+The renderer uses TikZ paths and nodes without a surrounding cell grid.
 
 Style keys are `cell size`, `label font` and `entry font`. Set defaults with
 `\LLTDiagramSetup{cell size=6mm}`; per-diagram options are local. The
@@ -87,7 +89,11 @@ in the accompanying proof.
 `circular-dd-elimination.tex` displays the weighted restricted-sum identity
 `q F(D) = F(R) - F(E)` for a DD contact. Its blank cells remain optional;
 the accompanying caption specifies the coloring or admissible HRV valuation.
-`circular-direct-relations.tex` gives the weighted NN/DN identities.
+`circular-direct-relations.tex` collects all four weighted recurrences as
+boundary paths, following the TikZ style of the paper with Robin. North/east
+steps bound normal cells and diagonal steps mark strict corners. Its local
+`LocalPathPanel` macro takes the size, name, boundary and strict segments;
+every panel denotes the full restricted selection sum, not a single state.
 `initial-crossing.tex` uses the same cells for the crossing-slide endpoints.
 `circular-reversal.tex` and `right-attachment.tex` give native TikZ sources
 for the column permutation and fibre concatenation. Every manuscript figure

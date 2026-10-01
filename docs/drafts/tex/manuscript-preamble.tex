@@ -7,9 +7,21 @@
 \usepackage[export]{adjustbox}
 \usepackage{microtype}
 \usepackage{xcolor}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\defin}[1]{%
+  \relax\ifmmode\textcolor{blue}{#1}%
+  \else\textcolor{blue}{\emph{#1}}\fi}
 \usepackage[colorlinks=true,linkcolor=blue!55!black,citecolor=blue!55!black]{hyperref}
 \newcommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\newcommand{\citep}[1]{\cite{#1}}
+\let\citep\cite
 \setcounter{tocdepth}{1}
 \raggedbottom
 \emergencystretch=1em

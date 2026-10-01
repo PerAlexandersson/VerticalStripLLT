@@ -1,12 +1,81 @@
 \documentclass[border=6pt]{standalone}
 \usepackage{llt-diagrams}
+
+% Boundary paths use north/east steps for normal cells and a diagonal step
+% through each strict corner. A panel denotes its full weighted selection sum.
+\tikzset{
+  llt local grid/.style={draw=black!18,line width=.18pt},
+  llt local path/.style={draw=black!85,line width=.7pt,line join=round},
+  llt local strict/.style={draw=blue!65!black,line width=1pt},
+  llt local vertex/.style={circle,draw=black!50,fill=lltLabelYellow,
+    minimum size=3mm,inner sep=0pt,font=\scriptsize}}
+
+% Size, name, boundary path, and highlighted strict diagonal steps.
+\newcommand{\LocalPathPanel}[4]{%
+  \begin{tikzpicture}[x=3.4mm,y=3.4mm,baseline=(current bounding box.center)]
+    \fill[black!6] #3 -- cycle;
+    \begin{scope}
+      \clip #3 -- cycle;
+      \draw[llt local grid,step=1] (0,0) grid (#1,#1);
+    \end{scope}
+    \draw[black!30,line width=.25pt] (0,0) -- (#1,#1);
+    \draw[llt local path] #3;
+    #4%
+    \pgfmathtruncatemacro{\lastvertex}{#1-1}%
+    \foreach \i in {0,...,\lastvertex}
+      \node[llt local vertex] at (\i+.5,\i+.5) {$\i$};
+    \node[font=\scriptsize,anchor=north] at (#1/2,-.45) {$#2$};
+  \end{tikzpicture}%
+}
+
+% Corner 02: (0,1,2) resolves into deletion (0,1,1) and strict marking.
+\newcommand{\CornerSource}{%
+  \LocalPathPanel{3}{D}{(0,0)--(0,3)--(3,3)}{}}
+\newcommand{\CornerDelete}{%
+  \LocalPathPanel{3}{D^-}{(0,0)--(0,2)--(1,2)--(1,3)--(3,3)}{}}
+\newcommand{\CornerStrict}{%
+  \LocalPathPanel{3}{D^{\mathrm s}}{(0,0)--(0,2)--(1,3)--(3,3)}
+    {\draw[llt local strict] (0,2)--(1,3);}}
+
+% NN: (0,1,2,2,1), strict 13, becomes (0,1,2,1,1), strict 23.
+\newcommand{\NNSource}{%
+  \LocalPathPanel{5}{D}
+    {(0,0)--(0,3)--(1,3)--(2,4)--(3,4)--(3,5)--(5,5)}
+    {\draw[llt local strict] (1,3)--(2,4);}}
+\newcommand{\NNTarget}{%
+  \LocalPathPanel{5}{D_{\mathrm{nn}}}
+    {(0,0)--(0,3)--(2,3)--(3,4)--(3,5)--(5,5)}
+    {\draw[llt local strict] (2,3)--(3,4);}}
+
+% DN: (0,1,1,2), strict 01,13, becomes (0,1,2,1), strict 02,23.
+\newcommand{\DNSource}{%
+  \LocalPathPanel{4}{D}{(0,0)--(0,1)--(1,2)--(1,3)--(2,4)--(4,4)}
+    {\draw[llt local strict] (0,1)--(1,2) (1,3)--(2,4);}}
+\newcommand{\DNTarget}{%
+  \LocalPathPanel{4}{D_{\mathrm{dn}}}
+    {(0,0)--(0,2)--(1,3)--(2,3)--(3,4)--(4,4)}
+    {\draw[llt local strict] (0,2)--(1,3) (2,3)--(3,4);}}
+
+% ND: (0,1,2,2,1), strict 02,13; Q=(0,1,2,1,1), strict 02,23;
+% R=(0,1,1,1,1), strict 01,23. The final contact is x=1, t=3.
+\newcommand{\NDSource}{%
+  \LocalPathPanel{5}{D}
+    {(0,0)--(0,2)--(1,3)--(2,4)--(3,4)--(3,5)--(5,5)}
+    {\draw[llt local strict] (0,2)--(1,3) (1,3)--(2,4);}}
+\newcommand{\NDShorten}{%
+  \LocalPathPanel{5}{Q}
+    {(0,0)--(0,2)--(1,3)--(2,3)--(3,4)--(3,5)--(5,5)}
+    {\draw[llt local strict] (0,2)--(1,3) (2,3)--(3,4);}}
+\newcommand{\NDMove}{%
+  \LocalPathPanel{5}{R}
+    {(0,0)--(0,1)--(1,2)--(1,3)--(2,3)--(3,4)--(3,5)--(5,5)}
+    {\draw[llt local strict] (0,1)--(1,2) (2,3)--(3,4);}}
+
 \begin{document}
 \(\begin{array}{r@{\quad}c}
- \mathrm{NN}: &
- \LLTNNSource[weighted=true]{p,y,t}
- =(1+q)\LLTNNTarget[weighted=true]{p,y,t}\\[24pt]
- \mathrm{DN}: &
- \LLTDNSource[weighted=true]{u,p,y,t}
- =\LLTDNTarget[weighted=true]{u,p,y,t}
- \end{array}\)
+ \text{corner} & \CornerSource=\CornerDelete+q\,\CornerStrict\\[12pt]
+ \text{NN} & \NNSource=(1+q)\,\NNTarget\\[12pt]
+ \text{DN} & \DNSource=\DNTarget\\[12pt]
+ \text{ND} & \NDSource=q\,\NDShorten+(1+q)\,\NDMove
+\end{array}\)
 \end{document}

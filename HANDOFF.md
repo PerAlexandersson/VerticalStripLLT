@@ -2,6 +2,21 @@
 
 ## Current status and ownership
 
+The requested author revision is complete. The manuscript now explains the
+LLT/chromatic comparison and Hwang's component refinement in its introduction,
+collects all four recurrences in Proposition 2.7 and one TikZ boundary-path
+figure, and uses numbered mathematical environments. It ends with the circular
+LLT cumulant corollary, restores Per Alexandersson and Lilan Dai as authors,
+and includes an AI-assistance statement. The cumulant deduction is a written
+consequence of the component theorem, **not a new Lean formalization**.
+The earlier coauthored draft was consulted read-only.
+
+All bounded writing agents have released their files. Codex remains the
+manuscript/figure owner; Claude's Lean ownership and build slot below are
+unchanged. No Codex Lean build was started. The revised PDF and source bundle
+are in the external `manuscript-revision/` directory described below; the
+pre-author-edit tag and its original PDF remain intact.
+
 The diagram formalization and the requested new manuscript draft are complete.
 The paper has the user's two-part layout: circular LLT–HRV expansion through
 diagram relations, then component expansions through those relations. The
@@ -72,11 +87,14 @@ HRV deletion cancellation, the full finite coefficient argument, actual
 cover-preserving flips and the compatible-lift union of ordinary components.
 We do not claim each circular bounce/reversal restricts to a single component.
 
-The manuscript is **35 pages with 13 vector figures**. The general
+The revised manuscript is **41 pages with 13 vector figures**. The original
+tagged baseline was 35 pages. The general
 [llt-diagrams.sty](docs/drafts/tex/llt-diagrams.sty) and its
 [usage guide](docs/drafts/tex/README.md) implement diagrams as restricted sums:
-optional/selected/absent/forbidden/strict cells, cover conditions, fixed-size
-layers, component restrictions and endpoint colors. Individual path states
+optional/selected/absent/forbidden/strict edge restrictions, cover conditions,
+fixed-size layers, component restrictions and endpoint colors. The four-recurrence
+figure uses actual north/east/diagonal boundary paths; other restricted sums
+use the shared sparse TikZ renderer. Individual path states
 are the fully specified special case. Native TeX sources generate all SVGs.
 No external Overleaf manuscript was edited.
 
@@ -85,21 +103,32 @@ Python performs document conversion only. The assembler creates a PDF,
 self-contained TeX source bundle and SHA256 input manifest. Build products
 remain external:
 
-`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/manuscript/`
+`/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/manuscript-revision/`
 
 Files: `manuscript.pdf`, `manuscript.tex`, `manuscript-source.zip`,
-`source-manifest.json`; figure previews are in the sibling `tex-preview/`.
-The PDF is a new review draft; author names are intentionally not assigned.
+`source-manifest.json`. Figure inspection images are in `figure-review/`;
+PDF page previews are alongside the manuscript. The author metadata matches
+the earlier Alexandersson--Dai draft.
 
-Verification: all four prose sections and their theorem scopes were reviewed
-independently. Root incorporated corrections, including undecoration before
-arbitrary subsets, the explicit HRV-preserving toggle, and the union-of-components
-qualification. All figure pages and the full manuscript layout were visually
-inspected. Final TeX log has no warnings or box overflows; all 94 labels are
-unique, all 83 equation/figure references resolve, all local draft links and
-SVG XML pass, and all 21 bundled source inputs match their manifest hashes.
-The two-page macro guide also compiles without warnings. No Codex Lean build
-ran during writing.
+Verification: 41-page PDF and two-page macro guide compile without warnings
+or box overflows. The 152 labels are unique, all 111 equation/theorem/figure
+references resolve, and all 24 bundled source inputs match their manifest.
+There are 5 theorem, 27 lemma, 9 proposition, 12 definition, 2 corollary,
+1 example and 43 proof environments. The introduction, grouped-recurrence
+pages and final corollary/AI statement were visually inspected, as were all
+13 vector figures. Independent reviews checked the new comparison, recurrence
+scope and cumulant deduction. Root corrected the concrete ND target and drew
+actual north/east/diagonal steps in the recurrence figure. All SVG previews
+were regenerated from the current native sources.
+
+The revision PDF SHA256 is
+`caeba63c595cfa02dd012b365ce8b9297b8c06a415a43a53229909ccbedd7529`.
+Paper-cache entries 496 (AS22), 497 (Hwang) and 498 (Dołęga--Kowalski)
+contain exact-version PDFs, source archives and extracted text; precise
+locators are in the draft README. The paper-cache database discovery call
+`query_arxiv_sf` was unavailable because `pymysql` is missing; a web metadata
+lookup located Hwang's arXiv ID, after which all source reading used the cache.
+
 
 ## Baseline for author revisions
 
@@ -109,8 +138,9 @@ Preserve this tag for comparison with the user's revisions and later skill
 improvements. Compare tracked prose and figures with
 `git diff draft-v1-before-author-edits -- docs/drafts/`.
 If revisions are made to exported TeX, rebuild the tagged canonical sources
-to recover the baseline TeX before comparing. The tag excludes subsequent
-uncommitted Lean refactoring owned by Claude.
+to recover the baseline TeX before comparing. The tag precedes the subsequent Lean refactoring and this author-requested
+revision. The baseline 35-page PDF was submitted to R211 under receipt
+`20261001T094755-e431ded0d3cb`; this revision has not been printed.
 
 ## Follow-up
 

@@ -6,6 +6,7 @@ Requires pandoc, latexmk, pdflatex and bibtex on PATH.
 """
 
 import argparse
+from collections import Counter
 import hashlib
 import json
 from pathlib import Path
@@ -22,7 +23,13 @@ SECTIONS = [
     ("c", "CIRCULAR_E_EXPANSION.md"),
     ("o", "ORDINARY_COMPONENT_DIAGRAM_PROOF.md"),
     ("cc", "CIRCULAR_COMPONENTS.md"),
+    ("k", "CUMULANTS.md"),
+    ("a", "AI_STATEMENT.md"),
 ]
+STATEMENT_ENVIRONMENTS = {
+    "theorem", "lemma", "proposition", "corollary", "definition", "example",
+    "remark", "proof",
+}
 
 
 def run(args, *, text=None, cwd=None):
@@ -68,28 +75,36 @@ def assemble_section(prefix, filename):
     equations = {tag: f"eq:{prefix}:{tag.replace(chr(39), 'prime')}" for tag in tags}
     figure_numbers = {}
     figure_sources = []
-    blocks = []
-    iterator = iter(ast["blocks"])
-    for block in iterator:
-        if block["t"] == "Para" and len(block["c"]) == 1 and block["c"][0]["t"] == "Image":
-            picture = block["c"][0]["c"][2][0]
-            stem = Path(picture).stem
-            caption = next(iterator)
-            if caption["t"] != "Para" or caption["c"][0]["t"] != "Emph":
-                raise ValueError(f"Missing figure caption after {picture}")
-            match = re.fullmatch(r"Figure (\d+)\.", stringify(caption["c"][0]["c"]))
-            if not match:
-                raise ValueError(f"Unrecognised caption for {picture}")
-            label = f"fig:{prefix}:{stem}"
-            number = match[1]
-            if number in figure_numbers:
-                raise ValueError(f"Duplicate figure number {number} in {filename}")
-            figure_numbers[number] = label
-            figure_sources.append(stem)
-            caption["c"] = caption["c"][2:]
-            blocks.append({"t": "DraftFigure", "c": [stem, label, caption]})
-        else:
-            blocks.append(block)
+    def collect_figures(source_blocks):
+        blocks = []
+        iterator = iter(source_blocks)
+        for block in iterator:
+            if block["t"] == "Div":
+                block["c"][1] = collect_figures(block["c"][1])
+            if (block["t"] == "Para" and len(block["c"]) == 1
+                    and block["c"][0]["t"] == "Image"):
+                picture = block["c"][0]["c"][2][0]
+                stem = Path(picture).stem
+                caption = next(iterator, None)
+                if (not caption or caption["t"] != "Para" or not caption["c"]
+                        or caption["c"][0]["t"] != "Emph"):
+                    raise ValueError(f"Missing figure caption after {picture}")
+                match = re.fullmatch(r"Figure (\d+)\.", stringify(caption["c"][0]["c"]))
+                if not match:
+                    raise ValueError(f"Unrecognised caption for {picture}")
+                label = f"fig:{prefix}:{stem}"
+                number = match[1]
+                if number in figure_numbers:
+                    raise ValueError(f"Duplicate figure number {number} in {filename}")
+                figure_numbers[number] = label
+                figure_sources.append(stem)
+                caption["c"] = caption["c"][2:]
+                blocks.append({"t": "DraftFigure", "c": [stem, label, caption]})
+            else:
+                blocks.append(block)
+        return blocks
+
+    blocks = collect_figures(ast["blocks"])
 
     def convert(value):
         kind = value.get("t")
@@ -100,6 +115,8 @@ def assemble_section(prefix, filename):
                 + r"}\label{" + equations[match[1]] + "}", value["c"][1],
             )
         elif kind == "Str":
+            if re.fullmatch(r"[A-Za-z]+~", value["c"]):
+                return raw_inline(value["c"])
             # References live in prose, so function arguments in math are untouched.
             match = re.fullmatch(r"\(([^)]+)\)([.,;:]?)", value["c"])
             if match and match[1] in equations:
@@ -123,20 +140,43 @@ def assemble_section(prefix, filename):
                     value["c"][2][0] = "#" + matches[0] + "-" + anchor
         elif kind == "Header":
             value["c"][1][0] = prefix + "-" + value["c"][1][0]
-        return value
-
-    blocks = walk(blocks, convert)
-    for index, block in enumerate(blocks):
-        if block["t"] == "DraftFigure":
-            stem, label, caption = block["c"]
+        elif kind == "DraftFigure":
+            stem, label, caption = value["c"]
             caption_tex = latex_fragment(ast, [caption]).strip()
-            blocks[index] = {"t": "RawBlock", "c": ["latex", (
+            return {"t": "RawBlock", "c": ["latex", (
                 "\\begin{figure}[htbp]\n\\centering\n"
                 + r"\includegraphics[max width=.98\linewidth]{figures/" + stem + ".pdf}\n"
                 + r"\caption{" + caption_tex + "}\n"
                 + r"\label{" + label + "}\n\\end{figure}"
             )]}
-    return ast, latex_fragment(ast, blocks), figure_sources
+        elif kind == "Div":
+            (label, classes, attributes), contents = value["c"]
+            environments = STATEMENT_ENVIRONMENTS.intersection(classes)
+            if len(environments) != 1:
+                raise ValueError(f"Expected one mathematical environment in {filename}: {classes}")
+            environment = environments.pop()
+            title = dict(attributes).get("title")
+            # Titles are plain text. Pandoc supplies the necessary TeX escaping.
+            title_tex = run(["pandoc", "-f", "markdown", "-t", "latex"], text=title).strip() if title else ""
+            opening = "\\begin{" + environment + "}"
+            if title_tex:
+                opening += "[{" + title_tex + "}]"
+            if label:
+                opening += r"\label{" + label + "}"
+            return {"t": "RawBlock", "c": ["latex", (
+                opening + "\n" + latex_fragment(ast, contents)
+                + "\n\\end{" + environment + "}"
+            )]}
+        return value
+
+    blocks = walk(blocks, convert)
+    body = latex_fragment(ast, blocks)
+    expected = Counter(re.findall(r"^:{3,}\s+\{\.([a-z]+)\b", source, re.MULTILINE))
+    actual = Counter(environment for environment in re.findall(r"\\begin\{([^}]+)\}", body)
+                     if environment in STATEMENT_ENVIRONMENTS)
+    if expected != actual or re.search(r"^:{3,}\s*$", body, re.MULTILINE):
+        raise ValueError(f"Unparsed mathematical environment in {filename}")
+    return ast, body, figure_sources
 
 
 def compile_tex(path):
@@ -170,17 +210,26 @@ def main():
     title = latex_fragment(intro, [{"t": "Plain", "c": intro["meta"]["title"]["c"]}]).strip()
     abstract = latex_fragment(intro, intro["meta"]["abstract"]["c"]).strip()
     header = (SOURCE / "tex/manuscript-preamble.tex").read_text()
+    authors = (SOURCE / "tex/manuscript-authors.tex").read_text()
     manuscript = (header + "\n\\hypersetup{pdftitle={" + title + "}}\n"
-                  + "\\title[Elementary expansions of LLT polynomials]{" + title + "}\n\\author{}\n\\date{}\n"
+                  + "\\title[Elementary expansions of LLT polynomials]{" + title + "}\n"
+                  + authors + "\n\\date{}\n"
                   + "\\begin{document}\n\\begin{abstract}\n" + abstract
                   + "\n\\end{abstract}\n\\maketitle\n"
                   + "\n".join(sections)
                   + "\n\\bibliographystyle{alpha}\n\\bibliography{references}\n"
                   + "\\end{document}\n")
+    labels = re.findall(r"\\label\{([^}]+)\}", manuscript)
+    if len(labels) != len(set(labels)):
+        raise ValueError("Duplicate manuscript label")
+    references = set(re.findall(r"\\(?:eqref|ref)\{([^}]+)\}", manuscript))
+    if references - set(labels):
+        raise ValueError(f"Missing manuscript labels: {sorted(references - set(labels))}")
     (output / "manuscript.tex").write_text(manuscript)
     inputs = [SOURCE / name for _, name in SECTIONS]
     inputs += [SOURCE / "references.bib", SOURCE / "tex/manuscript-preamble.tex",
-               SOURCE / "tex/llt-diagrams.sty", Path(__file__).resolve()]
+               SOURCE / "tex/manuscript-authors.tex", SOURCE / "tex/llt-diagrams.sty",
+               Path(__file__).resolve()]
     shutil.copy2(SOURCE / "references.bib", output)
     shutil.copy2(SOURCE / "tex/llt-diagrams.sty", figures)
     for stem in figure_sources:
@@ -215,7 +264,6 @@ def main():
                 "The canonical Markdown sections and assembler are in canonical/.\n"
                 "Regenerate with Python 3, Pandoc and TeX Live:\n"
                 "python3 canonical/build_manuscript.py --output /external/output/path\n"
-                "The manuscript omits author names pending the authors' choice.\n"
             ))
     print(output / ("manuscript.tex" if args.no_compile else "manuscript.pdf"))
 

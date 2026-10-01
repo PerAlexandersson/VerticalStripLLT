@@ -12,6 +12,8 @@ by a finite signed expansion.
 
 ## Selected diagrams and their two values
 
+::: {.definition #def:ordinarySelectedDiagrams title="Selected diagrams and their values"}
+
 Let $G$ be an ordinary decorated natural diagram on $0,\ldots,n-1$.
 Its area sequence satisfies $a_0=0$, $0\leq a_j\leq j$ and
 $a_{j+1}\leq a_j+1$. The natural edges ending at $j$ are $ij$ with
@@ -34,32 +36,46 @@ sizes of $H_A$, and put $E(A;X)\coloneqq e_{\lambda(A)}(X)$.
 Equivalently, we obtain $E(A;X)$ by replacing every fibre by its increasing
 chain and enumerating its strict colorings. We use this chain description
 when a vertex color is fixed.
+:::
 
+::: {.definition #def:ordinaryFlip title="Flips and flip components"}
 A selected edge $uv$ is a cover if there is no selected path from $u$
 to $v$ with an intermediate vertex. For $i<j<k$, a flip exchanges
 $ij$ and $jk$, retaining $ik$ and every other selected edge. We require
 $ij,ik$ to be covers before the exchange and $ik,jk$ to be covers
 afterwards. Both exchanged edges are non-strict. The flip components
 are the connected components under these moves.
+:::
 
+::: {.lemma #lem:flipInvariants title="Flip invariants"}
 A flip preserves the number of selected edges and the selected weak
-blocks. In fact, the retained long edge joins $i$ to $k$, and either
+blocks.
+:::
+
+::: {.proof}
+The retained long edge joins $i$ to $k$, and either
 short edge joins $j$ to that same block. A maximal natural corner
 cannot be exchanged as a short edge, since it would then lie properly
 inside the retained long edge. Its selected status is therefore
 constant on each whole component.
+:::
 
+::: {.definition #def:ordinaryComponentValues title="Component values"}
 For a whole flip component $C$, we sum either value over its states:
 $K(C;X)=\sum_{A\in C}K(A;X)$ and
 $E(C;X)=\sum_{A\in C}E(A;X)$.
+:::
 
-**Theorem.** For every ordinary decorated natural diagram and every whole
+::: {.theorem #thm:ordinaryComponent title="Ordinary component identity"}
+For every ordinary decorated natural diagram and every whole
 flip component $C$, we have
 
 \[
                      K(C;X)=E(C;X).
 \]
+:::
 
+::: {.corollary #cor:ordinaryComponentShift title="Shifted component contribution"}
 Expanding each normal-edge weight after the shift gives
 
 \[
@@ -75,6 +91,7 @@ $q\mapsto q+1$ is
 \[
                 q^{k(C)}\sum_{A\in C}e_{\lambda(A)}(X).
 \]
+:::
 
 ## Local moves and the diamond identity
 
@@ -97,7 +114,8 @@ selected relation $B$ containing $ik$ and omitting $ij,jk$, and put
  B_{01}=B\cup\{jk\},\qquad B_{11}=B\cup\{ij,jk\}.
 \]
 
-**Diamond lemma.** For $V=K,E$, we have
+::: {.lemma #lem:ordinaryDiamond title="Diamond identity"}
+For $V=K,E$, we have
 
 \[
                   V(B_{10})+V(B_{01})=V(B_{00})+V(B_{11}).
@@ -106,6 +124,7 @@ selected relation $B$ containing $ik$ and omitting $ij,jk$, and put
 
 The identity also holds with the color of any specified vertex fixed.
 There are no cover hypotheses, and the exterior selected edges are arbitrary.
+:::
 
 ![Four selected states in the diamond identity](figures/ordinary-diamond.svg)
 
@@ -114,7 +133,8 @@ natural edge is selected. The long edge $ik$ is retained in all four
 states. Equation (D) holds even when the two middle states are not
 joined by a flip.
 
-*Proof.* For a coloring strict on $B$, write its colors at $i,j,k$ as
+::: {.proof}
+For a coloring strict on $B$, write its colors at $i,j,k$ as
 $a,b,c$. Since $a<c$, we have
 
 \[
@@ -150,22 +170,39 @@ We will also delete a redundant selected edge when a selected alternate
 path between its endpoints remains. This preserves the transitive closure,
 so it preserves the coloring constraints, the highest reachable map,
 and their marked values.
+:::
 
 ## Three reductions to smaller components
 
 We write $M$ for the maximal natural corners. The following reductions
 apply to whole components; their coefficients are the same for $K$ and $E$.
 
-**Absent corner.** Suppose a state of a component $C$ omits $f\in M$.
+::: {.lemma #lem:absentCorner title="Absent corner reduction"}
+Suppose a state of a component $C$ omits $f\in M$.
+Then every state of $C$ omits $f$, and $C$ is exactly one whole component
+of the diagram with $f$ deleted; the corresponding $K$ and $E$ values are
+preserved.
+:::
+
+::: {.proof}
 Every state of $C$ then omits $f$. Delete $f$ from the natural diagram.
 The selected relations and their cover tests are unchanged, and no flip
 of $C$ can use the absent edge as its retained long. Conversely, every
 flip of the smaller diagram lifts. Thus $C$ is exactly one whole
 component of a diagram with one fewer natural edge.
+:::
 
-**Disconnected selected graph.** Suppose the natural graph is connected
+::: {.lemma #lem:disconnectedSelectedGraph title="Disconnected selected graph reduction"}
+Suppose the natural graph is connected
 but the selected weak graph of $C$ is disconnected. Its weak blocks are
-constant throughout $C$. Put these blocks in consecutive intervals,
+constant throughout $C$.
+Reordering these blocks into consecutive intervals gives one whole component
+of a diagram with strictly smaller natural area, preserving $K$ and $E$;
+when the greatest vertex has a fixed color, the reordering fixes it.
+:::
+
+::: {.proof}
+Put these blocks in consecutive intervals,
 preserving the vertex order inside each block, and keep the induced
 natural diagram on each block. At least one natural edge between blocks
 is lost, so natural area strictly decreases.
@@ -178,10 +215,27 @@ Color relabeling preserves $K$. Since the order inside every block is
 preserved, the sizes of all highest reachable fibres are unchanged, so
 $E$ is preserved too. When the greatest vertex has a fixed color, we
 put its weak block last. The relabeling then fixes that vertex.
+:::
 
-**No simultaneous corner covers.** Suppose every corner in $M$ is
+::: {.lemma #lem:noSimultaneousCornerCovers title="No simultaneous corner covers"}
+Suppose every corner in $M$ is
 selected throughout $C$, but no state has all of them covering
-simultaneously. First mark all corners in $M$ strict. This preserves
+simultaneously.
+After marking all corners strict, for every $T\subseteq M$ the image of
+$C$ is a disjoint union of whole components in the diagram with $T$ deleted;
+write this partition as $\mathcal P_T(C)$. For $V=K,E$,
+
+\[
+ V(C)=\sum_{\varnothing\ne T\subseteq M}(-1)^{|T|+1}
+                   \sum_{C'\in\mathcal P_T(C)}V(C').              \tag{C}
+\]
+
+Every component on the right has strictly smaller natural area, and the
+identity remains valid with a fixed vertex color.
+:::
+
+::: {.proof}
+First mark all corners in $M$ strict. This preserves
 the whole component: corners cannot be exchanged, and their strict
 marking changes neither the full selected relations nor their cover tests.
 
@@ -204,20 +258,24 @@ For $V=K,E$, pair subsets $T$ and $T\cup\{f\}$ to obtain
 \]
 
 The redundant corner may depend on $A$. Summing over $C$ and isolating
-the empty deletion gives
-
-\[
- V(C)=\sum_{\varnothing\ne T\subseteq M}(-1)^{|T|+1}
-                   \sum_{C'\in\mathcal P_T(C)}V(C').              \tag{C}
-\]
+the empty deletion gives (C).
 
 Each component on the right belongs to a diagram with strictly fewer
 natural edges. The cancellation preserves the full highest reachable
 map and all coloring constraints, so (C) also holds with a fixed vertex
 color. We keep this identity unweighted: the original normal-edge exponent
 is restored only after the component identity, since remarking changes it.
+:::
 
-We also normalize the ambient diagram using the absent-corner reduction.
+::: {.lemma #lem:selectedIntervalEnvelope title="Selected-interval envelope"}
+Let $H$ consist of every natural interval contained in some selected
+interval. Repeated deletion of absent maximal corners transforms the
+ambient diagram to $H$ while preserving the whole component. The resulting
+diagram is valid, every maximal interval of $H$ is selected, and its corners
+may be marked strict; each proper deletion lowers natural area.
+:::
+
+::: {.proof}
 Let $H$ consist of every natural interval contained in some selected
 interval. A flip exchanges shorts inside a retained long, so $H$ is
 constant on $C$. If the ambient diagram has an edge outside $H$, choose
@@ -228,6 +286,7 @@ every step. Every maximal interval of $H$ is selected, since an interval
 generating it must equal it by maximality. We may therefore mark all
 its corners strict. Proper deletion reduces natural area; changing the
 strict markings is only a new representation of the same selected states.
+:::
 
 ## Connecting the states with corner covers
 
@@ -249,11 +308,14 @@ label increases at each normal edge and is unchanged at each corner.
 A bypass of a corner would therefore use only corners, which cannot
 bypass a single step of their chain.
 
-**Preparation lemma.** Every common-cover state is joined by actual flips
+::: {.lemma #lem:preparation title="Preparation to an anchor"}
+Every common-cover state is joined by actual flips
 to an anchor. We may retain every originally selected good edge throughout.
 The path preserves the total selected size and the selected weak blocks.
+:::
 
-*Proof.* We process the corner chains in decreasing order of their terminal
+::: {.proof}
+We process the corner chains in decreasing order of their terminal
 vertices. Let $U$ be the union of the chains already processed. We maintain
 that no selected edge leaves $U$, and that all corners are covers at the
 start of each chain. Initially $U$ is empty.
@@ -292,6 +354,7 @@ the next chain.
 When every chain has been processed, all selected normal edges are good.
 Only edges with decreasing terminal labels were removed, so every original
 good edge remains. Size and weak blocks are preserved by every actual flip.
+:::
 
 ## Crossing slides with the exterior restored
 
@@ -299,12 +362,15 @@ We next exchange selected edges across two crossing covers. This will allow
 us to change the extra edges of an anchor while retaining all the others
 at the endpoint of the path.
 
-**Crossing-slide lemma.** Let $a<b<c<d$. Suppose $ac$ and $bd$ cover
+::: {.lemma #lem:crossingSlide title="Crossing slide"}
+Let $a<b<c<d$. Suppose $ac$ and $bd$ cover
 in $A$, while $ab$ is selected and $cd$ is absent. Then actual flips join
 $A$ to $A-ab+cd$, with every other selected edge restored. Both $ac$
 and $bd$ cover at the endpoint.
+:::
 
-*Proof.* Put
+::: {.proof}
+Put
 
 \[
  L=\{v:a<v<b,\ av\in A\},\qquad
@@ -355,6 +421,7 @@ $ac$, these reverse flips are actual. They do not change paths in $[b,d]$.
 Every exchanged edge lies properly inside $ac$ or $bd$, so it cannot
 be a maximal natural corner and is normal throughout. We obtain exactly
 $A-ab+cd$ in $2+2|L|+2|R|$ flips.
+:::
 
 ![Sweeping and restoring the exterior of a crossing slide](figures/crossing-sweeps.svg)
 
@@ -388,29 +455,37 @@ Good and non-good edges alternate on each short-edge path, since a link
 exchanges its two distinct terminal labels. Consecutive good positions
 therefore have the form $ab,cd$ with $a<b<c<d$ and corners $ac,bd$.
 In an anchor, both corners cover. Whenever exactly one of $ab,cd$ is
-selected, the crossing-slide lemma exchanges it for the other, restoring
+selected, Lemma \ref{lem:crossingSlide} exchanges it for the other, restoring
 every exterior edge. The endpoint is another anchor.
 
-**Parallel-edge lemma.** Suppose two anchors select the same number of
+::: {.lemma #lem:parallelEdge title="Parallel edges"}
+Suppose two anchors select the same number of
 good normal edges between each pair of corner chains. Then actual flips
 join them.
+:::
 
-*Proof.* List the good positions for one pair in their short-edge order.
+::: {.proof}
+List the good positions for one pair in their short-edge order.
 We repeatedly exchange an occupied position followed by a vacant one.
 The sum of the occupied position indices strictly increases and is bounded,
 so we reach the configuration occupying the last positions of that list.
 It depends only on the number selected. Each exchange restores every other
 edge, so we can do this separately for every pair of chains. Both anchors
 reach the same selected diagram. We reverse the path from the second.
+:::
 
-**Two-chain lemma.** If there are at most two corner chains, all
+::: {.lemma #lem:twoChain title="Two corner chains"}
+If there are at most two corner chains, all
 common-cover states of a fixed total selected size lie in one flip component.
+:::
 
-*Proof.* Prepare both states to anchors. If there is at most one chain,
+::: {.proof}
+Prepare both states to anchors. If there is at most one chain,
 the only anchor is $M$. With two chains, every selected normal edge joins
 that one pair. Equal total size gives equal numbers of normal edges,
-so the parallel-edge lemma connects the anchors. Reverse the second
+so Lemma \ref{lem:parallelEdge} connects the anchors. Reverse the second
 preparation path.
+:::
 
 ![Rearranging selected edges between two corner chains](figures/two-chain-packing.svg)
 
@@ -428,9 +503,11 @@ $N\geq1$. Its only maximal corner is $0N$. The argument applies whether
 this corner is normal or strict: every exchanged edge is a proper subedge
 of a retained natural edge and hence cannot be strict.
 
-**Complete-diagram lemma.** Connected states in which $0N$ covers belong
-to one flip component at each fixed total selected size.
+::: {.lemma #lem:completeDiagram title="Complete-diagram connectivity"}
+Connected states in which $0N$ covers belong to one flip component at each fixed total selected size.
+:::
 
+::: {.proof}
 We first introduce the selected chain
 
 \[
@@ -604,6 +681,7 @@ Inspection of these selected diagrams verifies the short and long covers
 at each step. The rows connect every one- and two-chord subset; the zero-
 and three-chord subsets are unique. This starts the induction. Finally,
 we reverse the chain construction for the second original state.
+:::
 
 ## Removing one good edge
 
@@ -619,12 +697,15 @@ and good edge $vh$ belong to $A^*(G)$, and the replacement visits only
 the two original corner chains. All other natural edges already belong
 to $A^*(G)$.
 
-**Chain-deletion lemma.** If a connected ordinary natural graph has at
+::: {.lemma #lem:chainDeletion title="Chain deletion"}
+If a connected ordinary natural graph has at
 least three vertices and remains connected after deleting any single vertex,
 then deleting all vertices of one
 corner chain leaves the other vertices connected in $A^*(G)$.
+:::
 
-*Proof.* Every pair of vertices at distance one or two is a natural edge.
+::: {.proof}
+Every pair of vertices at distance one or two is a natural edge.
 An absent adjacent edge would, by closure under subintervals, exclude every
 edge across its cut and disconnect the graph. If $(i-1)(i+1)$ were absent, closure
 under subintervals would exclude every natural edge from below $i$ to
@@ -639,13 +720,17 @@ differ by at most two and hence
 are joined by a natural edge. They form a path through all remaining
 vertices. Replace its non-good edges by the two-edge walks above; these
 walks avoid the removed chain.
+:::
 
-**Removable-edge lemma.** Under the same hypotheses, suppose there are
+::: {.lemma #lem:removableEdge title="Removable good edge"}
+Under the same hypotheses, suppose there are
 at least three corner chains. Deleting any good normal edge from
 $A^*(G)$ leaves it connected.
+:::
 
-*Proof.* Let the edge be $uv$, and choose a vertex $w$ in a third chain.
-By the chain-deletion lemma, a path joins $u$ to $w$ while avoiding the
+::: {.proof}
+Let the edge be $uv$, and choose a vertex $w$ in a third chain.
+By Lemma \ref{lem:chainDeletion}, a path joins $u$ to $w$ while avoiding the
 chain of $v$, and a path joins $w$ to $v$ while avoiding the chain of $u$.
 Neither path uses $uv$, so their concatenation goes around that edge.
 The full graph $A^*(G)$ is connected by the natural-edge replacement
@@ -655,6 +740,7 @@ Equivalently, contraction of the corner chains gives a graph which remains
 connected after deleting any one of its vertices. The explicit avoiding
 paths above also lift directly to the good-edge graph, as needed for the
 initial-vertex construction.
+:::
 
 ## Last-clique inheritance
 
@@ -679,11 +765,14 @@ at or below $c$. Consequently an anchor has no selected edge from $a$
 except $ae$, and every natural edge with both endpoints strictly above
 $a$ is good.
 
-**Last-clique lemma.** Suppose connected common-cover states of each size
+::: {.lemma #lem:lastClique title="Last-clique inheritance"}
+Suppose connected common-cover states of each size
 in the core belong to one flip component. Then the same holds in the
 original diagram.
+:::
 
-*Proof.* We first make the selected core connected, then select a fixed
+::: {.proof}
+We first make the selected core connected, then select a fixed
 tree. The remaining edges can be rearranged using core paths and paths
 in the last clique.
 
@@ -699,7 +788,7 @@ the vertices of the block are not consecutive.
 
 Prepare the source to a connected anchor. In the selected clique block
 $B$ containing $a,e$, the least vertex $a$ has only its edge to $e$.
-Apply the complete-diagram lemma to replace this block by a star at $e$,
+Apply Lemma \ref{lem:completeDiagram} to replace this block by a star at $e$,
 with additional edges among $B\setminus\{a\}$ preserving the count.
 Such a target exists: if $|B|=q$, connectedness gives at least $q-1$
 edges, while the pendant vertex $a$ gives at most
@@ -780,7 +869,7 @@ The whole selected last clique is now connected. Each omitted vertex
 had a selected path to its first retained vertex inside $[a,e]$; the
 edges before that first retained vertex are exterior to the core and
 have stayed fixed. All retained vertices of the last clique now join
-$e$ through $T_V$. Apply the complete-diagram lemma in $[a,e]$ to
+$e$ through $T_V$. Apply Lemma \ref{lem:completeDiagram} in $[a,e]$ to
 select its full terminal star, with additional internal edges preserving
 the count and with $a$ still pendant. The part of $T_V$ outside the
 clique stays fixed, and its part inside is in the final star. We have
@@ -827,7 +916,7 @@ $q=ce$. Choose an endpoint $d$ of $x$ different from $c$, and let $r$
 be the natural edge between $c$ and $d$. If $r$ is selected, the clique
 remains connected after replacing $q$ by $x$: the vertex $c$ joins $d$
 through $r$, and $d$ still joins $e$ through the star. Both source and
-target are anchors with $a$ pendant, so the complete-diagram lemma
+target are anchors with $a$ pendant, so Lemma \ref{lem:completeDiagram}
 realizes this replacement while fixing the exterior. Now $q$ is absent.
 The crossing slide across $bc,ae$ exchanges $p$ for $q$, restoring the
 full star and giving exactly $A-p+x$.
@@ -854,6 +943,7 @@ to finish the proof.
 Reversing the vertex order gives the first-clique version of the lemma.
 This reverses the actual paths and their cover tests; no equality of
 coloring or elementary values under order reversal is used.
+:::
 
 ## Initial-vertex inheritance
 
@@ -895,13 +985,16 @@ The displayed change is a path of flips; every
 other edge, including edges on vertices omitted from the figure, is
 restored at its endpoint.
 
-**Initial-vertex lemma.** Suppose that connected common-cover states of
+::: {.lemma #lem:initialVertex title="Initial-vertex inheritance"}
+Suppose that connected common-cover states of
 each size in $G'$ belong to one flip component. Suppose also that
 $A^*(G')\setminus\{d_v\}$ is connected for every $v\in J$.
 Then connected common-cover states of each size in $G$ belong to one
 flip component.
+:::
 
-*Proof.* We prepare the two states to anchors. We first make each selected
+::: {.proof}
+We prepare the two states to anchors. We first make each selected
 core connected, then change its extra edges at zero.
 
 Let $A$ be a connected anchor whose selected core is disconnected, and
@@ -953,12 +1046,16 @@ If $J$ is nonempty, the removable-edge hypothesis gives $m\geq r+1$,
 which excludes this obstruction: a one-size band is then either
 $\{\varnothing\}$ or $\{J\}$. If $J$ is empty there is only one set.
 We concatenate these paths and reverse the preparation of the target.
+:::
 
-**Common-cover uniqueness.** If the ordinary natural graph is connected
+::: {.lemma #lem:commonCoverUniqueness title="Common-cover uniqueness"}
+If the ordinary natural graph is connected
 and has no articulation, then connected common-cover states of the same
 total selected size belong to one flip component.
+:::
 
-*Proof.* We induct on the number of vertices. We use the complete-diagram
+::: {.proof}
+We induct on the number of vertices. We use the complete-diagram
 and two-corner-chain path lemmas for the base cases. Otherwise write the
 first two corners as $0a$ and $bc$. Consecutive maximal cliques overlap
 in at least two vertices, so $0<b<a<c$.
@@ -976,21 +1073,44 @@ Deleting zero removes one vertex and one corner edge; hence the number of
 corner chains is unchanged. Outside the two-chain base case, at least
 three chains remain, so the core has at least three vertices. The removable-edge
 lemma therefore applies to every matching edge $d_v$, verifying the
-remaining hypothesis of the initial-vertex lemma.
+remaining hypothesis of Lemma \ref{lem:initialVertex}.
 
 An initial path may be adjoined to this graph. We remove its pendant
 vertices one at a time. Each has just one natural edge, which must be
 selected in a connected state, and every core flip lifts. Reversing
 these restrictions gives the same uniqueness statement for the graph
 with its initial path.
+:::
 
 ## Completing one component to an edge layer
 
+::: {.definition #def:ordinaryLayer title="Selected edge layers"}
 Let $\mathcal L_s(D)$ denote all states with exactly $s$ selected edges,
 including the strict edges. Each layer is a disjoint union of whole
-components. We first apply the diagram relations to the entire layer,
-then use the smaller-component reductions to isolate the required component.
+components.
+:::
 
+We first apply the diagram relations to the entire layer, then use the
+smaller-component reductions to isolate the required component.
+
+::: {.proposition #prop:layerRelations title="NN and DN layer relations"}
+Let $D\longmapsto R$ be an eligible NN or DN reduction in
+Proposition~\ref{prop:fourRecurrences}. For every integer $s$ and
+$V=K,E$, the respective layer identities are
+
+\[
+ V(\mathcal L_s(D))
+   =V(\mathcal L_s(R))+V(\mathcal L_{s-1}(R)).          \tag{LNN}
+\]
+
+and
+
+\[
+                    V(\mathcal L_s(D))=V(\mathcal L_s(R)).       \tag{LDN}
+\]
+:::
+
+::: {.proof}
 At an eligible NN contact, write $w<x=w+1<z$, with $wz$ strict.
 The target $R$ deletes $wz$ and marks $xz$ strict. An exterior selection
 $Q$ contains the required strict exterior edges and is disjoint from all
@@ -1034,12 +1154,7 @@ when $t<0$. Reindexing the bottom sum by $\sigma$, we obtain
  \end{aligned}
 \]
 
-Consequently
-
-\[
- V(\mathcal L_s(D))
-   =V(\mathcal L_s(R))+V(\mathcal L_{s-1}(R)).          \tag{LNN}
-\]
+This proves the NN identity (LNN).
 
 For a DN contact, let $u<w<x=w+1<z$. The source strict edges are
 $uw,wz$, and the target strict edges are $ux,xz$. Again $Q$ is disjoint
@@ -1060,11 +1175,7 @@ The top states have the same transitive closure: both contain the chain
 $u\to w\to x\to z$, and their additional edges $wz$ or $ux$ are
 redundant. Apply the diamond to the source triangle $w,x,z$ and the
 target triangle $u,w,x$. The paired middle sums agree after summing over
-all exterior selections of each size. Thus
-
-\[
-                    V(\mathcal L_s(D))=V(\mathcal L_s(R)).       \tag{LDN}
-\]
+all exterior selections of each size, proving (LDN).
 
 ![NN and DN as sums over restricted selections](figures/layer-relations.svg)
 
@@ -1072,6 +1183,7 @@ all exterior selections of each size. Thus
 Arrows require strict edges, and crosses remove natural edges. The condition
 $|A|=s$ counts all selected edges, including strict edges. Each diagram is
 an entire layer sum for $V=K$ or $V=E$ at an eligible contact.
+:::
 
 Now suppose $D$ has the common-cover uniqueness proved above, including
 the case of an initial path followed by a graph without articulation.
@@ -1083,8 +1195,11 @@ In the last case we first mark all selected maximal corners strict and
 apply (C). Let $B_V(C')$ denote the resulting signed sum of whole
 smaller components.
 
-We add all these other source components to $C$, use (LNN) or (LDN),
-and subtract their reductions. This gives
+::: {.proposition #prop:componentLayerRecurrence title="Component layer recurrence"}
+Assume Lemma \ref{lem:commonCoverUniqueness}. Let $C$ be a component
+in layer $s$ containing a state in which every maximal corner is a cover,
+and let $B_V(C')$ be the signed sum supplied by (C) for each other source
+component $C'$. Then, for $V=K,E$, the target layer components satisfy
 
 \[
  \begin{aligned}
@@ -1093,16 +1208,20 @@ and subtract their reductions. This gives
       -\sum_{C'\ne C}B_V(C'),\\
  \mathrm{DN}:\quad V(C)
   &=V(\mathcal L_s(R))-\sum_{C'\ne C}B_V(C').
- \end{aligned}                                                   \tag{L}
+\end{aligned}                                                   \tag{L}
 \]
+The same integer coefficients occur for $K$ and $E$; each target term is
+a whole component, and NN lowers natural area while forward DN lowers the
+area moment.
+:::
 
-Each target layer is itself partitioned into its whole components.
-The source corrections and these target components give exactly the
-same integer coefficients for $K$ and $E$. No other source component's
-expansion was used: each correction was obtained directly from one of
-the three reductions. In NN the target has one fewer natural edge.
-In forward DN its area is unchanged, but its area moment decreases.
-We verify the latter decrease when choosing the contact below.
+::: {.proof}
+Add all other source components to $C$, apply (LNN) or (LDN), and subtract
+their reductions. Partition each target layer into whole components. The
+source corrections and target components give the displayed coefficients
+for both values. In NN the target has one fewer natural edge; in forward DN
+its area is unchanged and its area moment decreases.
+:::
 
 ## Keeping the right endpoint through a recurrence
 
@@ -1157,17 +1276,20 @@ natural edge. The diagrams share just $c$. Below, the canonical HRV chain
 ending at $c$ and the chain beginning at $c$ concatenate. Their common
 vertex, colored $\beta$, contributes one weight $x_\beta$.
 
-**Attachment lemma.** The set $P*T$ is a whole flip component. Every
+::: {.lemma #lem:attachment title="Attachment"}
+The set $P*T$ is a whole flip component. Every
 paired marked recurrence (4) gives the following identities, provided
 each target prefix likewise forms an ordinary decorated diagram with the
 same right factor by this union of natural and strict edges:
 
 \[
  V(P*T)=\sum_i z_i V(P_i*T),\qquad V=K,E.
- \tag{5}
+\tag{5}
 \]
+:::
 
-*Proof.* Restrictions and unions are inverse bijections on selected
+::: {.proof}
+Restrictions and unions are inverse bijections on selected
 states. A triangle lies on one side of the cut, since its long edge
 cannot cross the two interiors. Moreover, a forward path with endpoints
 on one side cannot leave that side and return. Its cover tests are
@@ -1213,6 +1335,7 @@ We sum (6) and (7) over the product components, multiply the corresponding
 identity (4) by $\widehat V(T)[\beta]$, and sum over $\beta$. This gives
 (5) with exactly the coefficients $z_i$. The one-vertex attachment has
 omitted weight $1$ for each allowed fixed color, so it is included.
+:::
 
 ## Choosing the prefix and the first contact
 
@@ -1226,15 +1349,18 @@ These inequalities supply the adjacent-edge spanning path. Conversely,
 if $a_i=0$, every later boundary is at least $i$, so no natural edge
 crosses the cut between $i-1$ and $i$.
 
-**Prefix lemma.** In a connected ordinary diagram, suppose some $a_j\geq2$.
+::: {.lemma #lem:prefix title="Prefix decomposition"}
+In a connected ordinary diagram, suppose some $a_j\geq2$.
 Choose the least such $j$, put $b=j-2$, and choose the least $c\geq j$
 such that $c=n-1$ or $a_{c+1}=1$. The induced prefix on $[0,c]$
 consists of the path $[0,b]$ followed by a graph on $[b,c]$ without
 articulation. The rest of the diagram is a right attachment at $c$.
 The prefix and original diagram have the same first strict decrease in
 area, with terminal area zero appended to each.
+:::
 
-*Proof.* For an internal vertex $v$, the equality $a_{v+1}=1$ makes
+::: {.proof}
+For an internal vertex $v$, the equality $a_{v+1}=1$ makes
 $b_{v+1}=v$. Every later boundary is at least $v$, so no natural edge
 joins a vertex below $v$ to a vertex above $v$. Thus $v$ is an articulation.
 If $a_{v+1}\geq2$, the edge $(v-1)(v+1)$ bypasses $v$ in the
@@ -1262,6 +1388,7 @@ Finally, $a_c\geq2$. At $c$, the original diagram compares $a_c$
 with $1$ when the attachment is proper, whereas the prefix compares
 it with its appended $0$. Both comparisons are strict decreases.
 All earlier comparisons agree, so their first strict decreases agree.
+:::
 
 ![A prefix and its right attachment as restricted sums](figures/prefix-attachment.svg)
 
@@ -1278,13 +1405,16 @@ We now choose the local relation in the prefix. Rows are called N or D
 according as their incoming corner is not strict or is strict. In
 particular, row zero is N.
 
-**First-contact lemma.** Let a connected saturated ordinary diagram have
+::: {.lemma #lem:firstContact title="First contact"}
+Let a connected saturated ordinary diagram have
 at least one non-adjacent natural edge. Let $t$ be the first index with
 $a_{t+1}<a_t$, and set $x=b_t$, $y=x+1$. Then $xt$ is a strict
 corner of length at least two, and $x,y$ form an eligible NN, ND, DN
 or DD contact at that corner.
+:::
 
-*Proof.* The appended zero guarantees a strict decrease. Before $t$ the
+::: {.proof}
+The appended zero guarantees a strict decrease. Before $t$ the
 areas are nondecreasing. If $a_t=1$, connectedness would force $t=n-1$
 and all positive areas would be one, contrary to the non-adjacent edge.
 Thus $a_t\geq2$ and $0\leq x<y<t<n$. The strict decrease makes
@@ -1332,6 +1462,7 @@ The change of marking preserves its full selected relations and its
 unweighted values; it invokes no induction hypothesis.
 We retain this unmarked decoration in the prefix and its recurrence;
 we do not mark it strict again before applying NN or DN.
+:::
 
 For the induction measure, put
 
@@ -1369,6 +1500,7 @@ after the same attachment is glued on.
 
 ## Proof of the ordinary component expansion
 
+::: {.proof}
 We induct on $(n,A(D),M(D))$ in lexicographic order. The empty selected
 diagram has value $1$, and the single vertex has value $e_1(X)$.
 All equalities below are unweighted and hold for every finite alphabet.
@@ -1390,7 +1522,7 @@ induction proves the result.
 Suppose the natural graph is connected. If it is a path, saturation
 requires every adjacent edge. There is one selected state, the increasing
 chain; its strict colorings and its single HRV fibre both give $e_n(X)$.
-Otherwise the prefix lemma supplies an initial path followed by the first
+Otherwise Lemma \ref{lem:prefix} supplies an initial path followed by the first
 block without articulation, and a right attachment $T$.
 
 If the selected graph is disconnected, use weak-block reordering. If the
@@ -1432,3 +1564,4 @@ We finally restore the original normal-edge weight $q^{k(C)}$, which is
 constant on the component before any change of marking. The elementary
 coefficient of its unweighted value counts states having the corresponding
 HRV fibre partition, as asserted.
+:::

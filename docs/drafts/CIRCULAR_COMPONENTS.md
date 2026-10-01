@@ -38,17 +38,22 @@ sends the second notation to the elementary value of the state.  It will be
 useful that the construction below first proves an identity for the entire
 map \(H_R\).
 
-Every natural edge has a positive integer length.  A selected set \(F\) is
-*balanced* if, on every weak component of \(F\), there is an integer function
-\(p\) such that
+Every natural edge has a positive integer length.
+
+::: {.definition #def:balancedSelectedSet title="Balanced selected set"}
+A selected set \(F\) is \defin{balanced} if, on every weak component of \(F\),
+there is an integer function \(p\) such that
 
 \[
                     \ell(u,v)=p(v)-p(u) \qquad ((u,v)\in F).
 \tag{1}
 \]
 
-Weak components include isolated vertices.  Once \(F\subseteq X\) is
-balanced, contract the weak components of \(F\), retaining the individual
+Weak components include isolated vertices.
+:::
+
+Once \(F\subseteq X\) is balanced, contract the weak components of \(F\),
+retaining the individual
 edges of \(X\setminus F\), including loops and parallel edges.  Give a
 remaining edge \(u\to v\) the gain
 
@@ -58,7 +63,10 @@ remaining edge \(u\to v\) the gain
 \]
 
 Changing $p$ by a constant on a weak component leaves every cycle gain
-unchanged. If $F\subseteq X$ is balanced, set
+unchanged.
+
+::: {.definition #def:companionCoefficient title="Companion coefficient"}
+If $F\subseteq X$ is balanced, set the \defin{companion coefficient}
 
 \[
                     \kappa_X(F)=(-1)^{c(F)-c(X)}                 \tag{3}
@@ -76,6 +84,7 @@ edge set \(Y\).  The second condition says equivalently that every
 remaining edge belongs to a directed cycle.  We retain edge instances in this
 statement: two natural edges with the same contracted endpoints are still two
 choices in every subset sum.
+:::
 
 A three-vertex example already displays the reduction.  Take the complete
 circular diagram with area sequence \((2,2,2)\), no strict edges, and selected
@@ -108,8 +117,10 @@ labels retain these residues in the order of their lifts.
 ### The finite deletion identity
 
 We begin with the only two semantic facts used by the companion expansion.
-Suppose that a finite acyclic selected graph contains a closed undirected
-cycle.  Traverse it so that its forward edges form a nonempty list \(P\), its
+
+::: {.lemma #lem:finiteDeletion title="Finite deletion"}
+Let \(R\) be a finite acyclic selected graph containing a closed undirected
+cycle. Traverse the cycle so that its forward edges form a nonempty list \(P\), its
 backward edges form a list \(N\), and
 
 \[
@@ -126,7 +137,9 @@ $\sum_{P}(z_v-z_u)=\sum_{N}(z_v-z_u)$.  Put \(B=R\setminus N\).  For either valu
              \sum_{J\subseteq N}(-1)^{|J|}W(B\cup J)=0.
 \tag{5}
 \]
+:::
 
+::: {.proof}
 For $K$, fix a coloring.  If it fails one of the comparisons in \(B\), all
 of its terms in (5) vanish.  Otherwise every edge in \(P\) is a strict color
 ascent.  Summing those strict inequalities and using the endpoint
@@ -164,16 +177,44 @@ with nonzero signed length; reverse its traversal if necessary to obtain
 (4).  Both \(P\) and \(N\) are nonempty: otherwise the acyclic graph would
 contain a directed cycle.  Thus every proper deletion child in (5) has fewer
 edges.
+:::
 
 ### The companion coefficients
 
-We prove that, for either \(W=K\) or \(W=[H]\),
+::: {.lemma #lem:orderedPartition title="Compatible ordered partitions"}
+For a finite directed graph \(G\), let an ordered partition of its vertices be
+compatible when every edge is weakly increasing in block number. Then
+
+\[
+ \sum_{\omega\text{ compatible with }G}(-1)^{|\omega|}
+ =(-1)^{c(G)}
+ [\,\text{every edge of }G\text{ lies on a directed cycle}\,].
+\tag{11}
+\]
+:::
+
+::: {.proof}
+To prove (11), first collapse each strong component.  It is enough to prove
+that the compatible ordered-partition sum of a finite directed acyclic graph
+\(Q\) is \((-1)^{|Q|}\) when \(Q\) has no edge and is zero otherwise.  Peel
+off the final block.  It is a nonempty up-closed subset \(U\), so the sum is
+minus the sum over such \(U\) of the corresponding sum for \(Q\setminus U\).
+Induction leaves an alternating sum over subsets containing every head of an
+edge.  This sum vanishes if \(Q\) has an edge, because a nonempty directed
+acyclic graph has a source; it has the single desired value when $Q$ has no
+edge.  This proves (11), including loops and isolated vertices.
+:::
+
+::: {.proposition #prop:companionFormula title="Finite companion formula"}
+For either \(W=K\) or \(W=[H]\),
 
 \[
                     W(R)=\sum_{F\subseteq R}\kappa_R(F)W(F).
 \tag{6}
 \]
+:::
 
+::: {.proof}
 The proof is induction on \(|R|\).  The balanced case is immediate from the
 following observation.  If \(R\) has a potential satisfying (1), then
 
@@ -227,27 +268,6 @@ excess is positive:
               =\sum_P\ell-\sum_N\ell>0.
 \tag{10}
 \]
-
-We next express the last condition in (9) as an alternating sum.  For a finite directed graph
-\(G\), let an ordered partition of its vertices be compatible when every edge
-is weakly increasing in block number.  Then
-
-\[
- \sum_{\omega\text{ compatible with }G}(-1)^{|\omega|}
- =(-1)^{c(G)}
- [\,\text{every edge of }G\text{ lies on a directed cycle}\,].
-\tag{11}
-\]
-
-To prove (11), first collapse each strong component.  It is enough to prove
-that the compatible ordered-partition sum of a finite directed acyclic graph
-\(Q\) is \((-1)^{|Q|}\) when \(Q\) has no edge and is zero otherwise.  Peel
-off the final block.  It is a nonempty up-closed subset \(U\), so the sum is
-minus the sum over such \(U\) of the corresponding sum for \(Q\setminus U\).
-Induction leaves an alternating sum over subsets containing every head of an
-edge.  This sum vanishes if \(Q\) has an edge, because a nonempty directed
-acyclic graph has a source; it has the single desired value when $Q$ has no
-edge.  This proves (11), including loops and isolated vertices.
 
 Insert (11) in (9) and interchange the two finite sums.  Fix a compatible
 ordered partition \(\omega\).  If some optional edge is compatible and goes
@@ -307,23 +327,32 @@ sign-reversing involution of the surviving subsets in (12).  This proves
 
 Applying the linear map \([H]\mapsto E(H)\) to the HRV version of (6) gives
 the same companion expansion for the elementary value.
+:::
 
 ### Constancy on a complete circular component
 
 Let \(C\) be the complete component in the undecorated diagram obtained above.
-For a state \(\theta\), set
+
+::: {.definition #def:componentCoefficientSum title="Component coefficient sum"}
+For a state \(\theta\), set the \defin{component coefficient sum}
 
 \[
                   a_C(\theta)=\sum_{\alpha\in C}
                   \kappa_{\alpha}(\theta).
 \tag{14}
 \]
+:::
 
 The companion expansion for every \(\alpha\in C\), summed over \(C\), may be
 grouped by complete flip components only after proving that (14) is constant
 on a flip component.  This is the point at which the full cover conditions in
 the definition of a circular flip are needed.
 
+::: {.lemma #lem:componentConstancy title="Constancy on a complete component"}
+The function \(a_C\) is constant on every complete flip component.
+:::
+
+::: {.proof}
 Suppose first that \(\theta\leftrightarrow\eta\) is one actual flip, exchanging
 \(ab\) for \(bc\) while retaining \(ac\), in a lifted cyclic window
 \(a<b<c<a+n\).  Consider an \(\alpha\in C\) with nonzero summand in (14).
@@ -364,11 +393,13 @@ coefficient-preserving bijection between the nonzero terms in (14) for
 \(\theta\) and those for \(\eta\).  Along a path of actual flips we conclude
 that \(a_C(\theta)\) depends only on the complete component containing
 \(\theta\).
+:::
 
-For a set of states $C$, write $K(C)=\sum_{R\in C}K(R)$ and
-$E(C)=\sum_{R\in C}E(R)$. Summing (6) over \(C\) and using this
-constancy gives common integer
-coefficients \(a_{C,B}\) such that
+::: {.proposition #prop:componentGrouping title="Grouping by complete components"}
+For a complete circular flip component \(C\), write
+\(K(C)=\sum_{R\in C}K(R)\) and \(E(C)=\sum_{R\in C}E(R)\). There are common
+integer coefficients \(a_{C,B}\), indexed by complete balanced circular flip
+components \(B\), such that
 
 \[
  \begin{aligned}
@@ -377,12 +408,28 @@ coefficients \(a_{C,B}\) such that
  \end{aligned}
 \tag{16}
 \]
+Unbalanced components have coefficient zero.
+:::
 
-Here \(B\) runs over complete balanced circular components.  An unbalanced
-component has zero coefficient in (16), by definition of (3).
+::: {.proof}
+This follows by summing (6) over \(C\) and using the constancy of
+\(a_C(\theta)\).
+:::
 
 ### Putting a balanced component on a line
 
+::: {.proposition #prop:balancedUnionOrdinary title="Union of ordinary components"}
+For every balanced complete circular component \(B\), there is an ordinary
+diagram \(D_q\) and a set \(P\) of ordinary orientations that is a disjoint
+union of complete ordinary flip components. The map sending an orientation in
+\(P\) to its circular image is a bijection \(P\to B\) preserving \(K\) and
+\(E\) statewise, and
+\[
+K(B)=E(B).
+\]
+:::
+
+::: {.proof}
 Let \(B\) be a balanced complete circular component.  Choose a potential
 \(q:V\to\mathbb Z\) for one state of \(B\), changing it by constants on weak
 components so that \(q\) is injective and \(q(v)\equiv v\pmod n\).  The
@@ -416,21 +463,29 @@ ordinary component theorem, applied separately to these components, gives
 \]
 
 Transporting the two sides back along the injective map gives $K(B)=E(B)$.
+:::
 
 ### The circular component theorem
 
-Combining (16) with (17) proves the desired statement.
-
-**Theorem.** For every circular diagram and every complete flip component
-\(C\),
+::: {.theorem #thm:circularComponent title="Circular component theorem"}
+For every circular diagram and every complete flip component \(C\) of
+admissible states,
 
 \[
                               K(C)=E(C).
 \tag{18}
 \]
+:::
+
+::: {.proof}
+Equation (16) groups the circular component by balanced components \(B\);
+equation (17), obtained from the union of ordinary components, identifies
+their \(K\)- and \(E\)-values, while unbalanced terms vanish. Thus (16) and
+(17) prove the displayed identity.
 
 The number of selected normal edges is unchanged by an actual flip.  Hence it
 is constant on \(C\).  Multiplying (18) by the corresponding power of \(q\)
 restores the shifted weighted component identity.  Since the elementary side
 is a sum of elementary monomials with nonnegative coefficients, this also
 gives the componentwise elementary positivity statement.
+:::
