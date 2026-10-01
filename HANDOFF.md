@@ -1,15 +1,17 @@
 # VerticalStripLLT handoff
 
-## Active implementation — P0/P2/P3/P4 complete, P1/P5 partial
+## Active implementation — P0/P2/P3/P4/P5 complete, P1 partial
 
-Continuation from clean pushed `b0d0254` completed last-clique path inheritance.
-`commonCover_connected_of_lastClique_core` now connects equal-size connected
-common-cover states by the written diagram proof, assuming uniqueness only in
-the retained core. Both endpoints use the same fixed tree and the two exact
-extra-position pools. The full fixed graph is also proved to be the displayed
-core tree with the omitted vertices attached as leaves. The first-clique
-transport, initial-vertex inheritance and global vertex-count induction remain.
-P0/P2/P3/P4 are complete; P1/P5 remain partial; P6--P10 remain open. The
+Continuation from clean pushed `aeeba18` completed order reversal and the
+first-clique consequence of last-clique inheritance. The actual decorated
+diagram, every selected state, cover tests and complete flip components now
+correspond under reflection. `commonCover_connected_of_firstClique_core`
+reflects the diagram, applies the same last-clique moves, and reflects the path
+back. Its only uniqueness assumption is on the explicitly reflected retained
+core. P6 must still establish strict vertex-count decrease when applying its
+induction hypothesis. Initial-vertex inheritance and global path uniqueness
+remain unfinished. P0/P2/P3/P4/P5 are complete under their planned conditional
+contracts; P1 remains partial for initial-vertex core interfaces; P6--P10 remain open. The
 independent diagram formalization and illustrated circular/ordinary draft are
 unfinished. The full goal is unchanged.
 
@@ -31,6 +33,17 @@ and verified all candidates and wrote `LowerConnectivity`,
 lower-path restriction lemma in `LastCliqueCoreConnectivity`. Historical proof-note prefixes and unrelated ownership remain unchanged.
 
 ### Ownership and independent review
+
+All current source ownership has returned to primary, who retains strategy,
+integration, documentation and the only build slot. Terra supplied
+`ReversedDiagram`; Luna supplied `ReversedRelations` and `ReversedEmbedding`.
+Primary repaired and verified these build-free candidates and wrote
+`OrderReversal`, `ReversedPaths` and `FirstCliqueInheritance`.
+The independent reviewer `semantic_extract` approved the directed-flip
+direction, exact whole-component correspondence, reflected corner/core geometry
+and explicit core-only uniqueness assumption. No anchor, chain-terminal or
+valuation invariance under reflection is used. No subagent or compiler remains
+active. An unrelated RealRooted check was allowed to finish before local builds.
 
 Primary owns all new/returned sources, verification, handoff, formalization
 plan and Aristotle ledger, and retains the sole serialized build slot. Luna
@@ -74,7 +87,37 @@ the ledger records the missing hypotheses in its core-tree path sketch.
 See `docs/ARISTOTLE.md`, section "Auxiliary Claude last-clique tree review".
 No Claude child or remote task remains active.
 
-### Verified P5 increment — assembled last-clique inheritance
+### Verified P1/P5 increment — reflection and first-clique inheritance
+
+- `ReversedDiagram` constructs an actual forward diagram from reflected
+  natural edges and inherits exactly the reflected strict corners. Corners
+  correspond by their extremal endpoint characterization.
+- `ReversedRelations` reverses directed paths and cover tests and preserves
+  weak connections. `OrderReversal` maps full selections through an edge
+  bijection, retaining total counts and giving an orientation equivalence.
+  Reflecting a directed triangle flip reverses its direction. This supplies
+  both directions of the actual undirected path correspondence.
+- `ReversedPaths.reversedOrientation_map_flipComponent` identifies the image
+  with the whole reflected component, not just a subset or a one-way lift.
+  Common-cover and connectedness hypotheses transport exactly.
+- `ReversedEmbedding` reflects an increasing embedding by reversing both its
+  domain and range. Its image theorem takes the first retained vertex and
+  final interval to the last-clique retained initial interval and final vertex.
+- `commonCover_connected_of_firstClique_core` applies last-clique inheritance
+  with the reversed second/first corners, then pulls the actual path back.
+  Its induction hypothesis names the reflected induced diagram explicitly;
+  no uniqueness for the original core is silently substituted. P6's global
+  vertex-count induction can supply this hypothesis once decrease is proved.
+- All six new modules pass focused checks. The verification file has 590
+  axiom queries, with only the standard three axioms or none. Independent
+  imports contain 259 project files and exclude the old word/scan proof;
+  all 185 DiagramProof source modules pass the source and 100-column guards.
+  Logs: `p5-first-clique-build.log`, `p1-reversal-path-build.log`,
+  `p1-reversal-axioms.log`, `p1-reversal-imports.txt` in the external
+  diagram-formalization request directory. Earlier repair logs can contain
+  superseded failures. No broad build or dependency update ran.
+
+### Previous P5 increment — assembled last-clique inheritance (`aeeba18`)
 
 - `LastCliqueFixedEdges` defines T_V lifted to the ambient diagram together with
   ve for c<v<e. It proves its exact core restriction, corner inclusion, full
@@ -541,9 +584,9 @@ P4 is complete. P5 is partial; P6--P10 remain open. General component recurrence
 attachment and the final independent theorem are NOT yet Lean-proved by
 this route. The mathematical diagram proof is complete.
 
-### Verification and next step
+### Previous verification and current next step
 
-Focused builds of all seven new modules pass without source warnings. All 558
+At `aeeba18`, focused builds of all seven new modules pass without source warnings. All 558
 queries in `DiagramProofVerification.lean` use only `propext`, `Classical.choice`,
 `Quot.sound` (or none). The independent import closure contains 253 project
 files including verification and excludes the old word/scan/expansion routes.
@@ -577,25 +620,21 @@ leaf request completed and its proof is locally verified. Only primary invokes
 `lake-workspace`. Lean MCP remains rooted at RealRooted, so focused compiler
 diagnostics are used. The wrapper's existing package-path warning is unchanged.
 
-Next: P1 order reversal and the first-clique consequence of the now-proved
-last-clique inheritance. A read-only audit found no concrete reversed Diagram
-or Orientation API. Reuse `Fin.rev`, `Fin.revPerm`, `Fin.rev_rev`,
-`Fin.rev_lt_rev`, `Fin.rev_le_rev`, and `Fin.revOrderIso`, plus generic
-`relationCover_dual` in `SweepCovers`. Construct the reversed ordinary natural
-diagram and exact edge/orientation correspondence, then transport covers,
-actual flips/paths, selected connectedness and total selected counts. The
-inheritance theorem needs CommonCover transport. Do NOT assume order reversal
-preserves anchors, chain terminals, good-edge sets, K or E; that stronger
-claim is neither needed nor supplied by the audit. `flip_symm` reverses time,
-not vertex order, and cannot replace the missing diagram correspondence.
+Next: P6 initial-vertex inheritance, followed by global vertex-count
+induction. First-clique reflection and last-clique inheritance are now checked.
+Use `commonCover_connected_of_firstClique_core` with its explicitly reflected
+retained-core hypothesis. Prove the size decrease and the no-articulation
+geometry needed to invoke the global IH. Do not assume reflection preserves
+anchors, chain terminals, good-edge sets, K or E; none is needed here.
 
-Then prove the first-clique inheritance wrapper, followed by P6's
-initial-vertex inheritance and global vertex-count induction. The canonical
-last-clique size lemma already proves strict decrease when an omitted gap
-vertex exists. All last-clique pool geometry, paths, fixed-tree facts, and
-common-cover inheritance are now available and should not be reproved.
-The recurrences, endpoint attachment, independent e-expansion and illustrated
-draft remain unfinished.
+For deletion of the first vertex, begin with the actual induced core and its
+corner-family correspondence: exactly the first corner disappears when the
+first two corner tails are 0 and 1. Then transport the remaining terminals,
+construct the matching good core edges, and implement the sector argument
+from the written proof. Reuse the checked crossing slides and subset-band
+lemmas. All last-clique pool geometry, paths, fixed-tree facts and both clique
+inheritance wrappers should not be reproved. General component recurrences,
+endpoint attachment, independent e-expansion and illustrated draft remain open.
 
 For clique reachability, use `clique_lift_core_of_block` to transport the
 actual core endpoint and its selected relation. The general lower-interval

@@ -30,6 +30,8 @@ We retain the following correspondence when drafting and illustrating P5:
 | Supply every exchange in the restricted right pool, with exact endpoint selection | `exists_last_clique_right_exchange` | Verified, given the crossing-copy geometry |
 | Identify the full fixed tree with the retained tree plus omitted leaves | `lastCliqueFixedEdges_isTree` | Verified; Aristotle leaf lemma checked locally |
 | Assemble both pools and reverse normalization, then undo preparation | `anchors_connected_of_lastClique_core`, `commonCover_connected_of_lastClique_core` | Verified, assuming retained-core uniqueness |
+| Reflect the diagram, strict edges, cover tests and complete flip component | `reversedOrientation_reachable_iff`, `reversedOrientation_map_flipComponent` | Verified in both directions |
+| Apply the same moves at the first clique by reflection | `commonCover_connected_of_firstClique_core` | Verified, assuming uniqueness in the explicitly reflected retained core |
 
 Source: [last-clique inheritance](proofs/COMPONENT_NN_REDISTRIBUTION.md#extending-the-last-clique-from-a-connected-core).
 The observation that the displayed chains and star have at most one outgoing
@@ -38,13 +40,15 @@ paper retains the chains-and-star explanation. The draft must link each move
 to its corresponding verified declaration and must distinguish assumed
 smaller-core uniqueness from conclusions proved without it.
 
-Implementation status: P0, P2, P3 and P4 are verified; P1 remains partial. P0 and the
+Implementation status: P0, P2, P3, P4 and P5 are verified under their planned
+contracts; P1 remains partial for the initial-vertex core interfaces. P0 and the
 semantic import extractions are in `9d8c4bc`. P1 includes finite/lifted covers,
 weak-block invariance, exact corner marking, source-only short flips
 (`3bbb1e4`), convex path/cover restriction and an injective fixed-exterior
 actual core-path lift (`bb86b82`). Path-closed nonconvex lifts now cover the
-complete interval and a selected clique block. Other induced-core geometry
-and order reversal remain open.
+complete interval and a selected clique block. Order reversal now constructs
+the actual decorated diagram and an orientation equivalence carrying whole
+components onto whole components. Initial-vertex core geometry remains open.
 
 P2 includes the state/component marked semantic bridge and both marked
 diamonds with arbitrary exterior (`15ec74b`), closure invariance between
@@ -597,15 +601,27 @@ The isolated leaf lemma was returned by Aristotle and checked locally after
 small API updates; it verifies the same displayed tree, independently of the
 path construction.
 
-Remaining: P1 order reversal to obtain first-clique inheritance, then P6's
-initial-vertex inheritance and vertex-count induction. The existing canonical
-core size lemma supplies strict decrease when the last gap contains an omitted
-vertex. The present last-clique theorem keeps core uniqueness explicit; it does
-not assert uniqueness for arbitrary diagrams at a fixed total count.
-The last operation counts only its specified pool of copies and fixes the
-other copies of the same classes. Tree edges in the terminal clique may move
-during packing; the fixed tree is required only at endpoints. Obtain
-first-clique inheritance by the order-reversal path theorem from P1.
+Order reversal and first-clique inheritance are now verified.
+`ReversedDiagram` gives the exact natural/strict edge bijection and corner
+correspondence. `OrderReversal` reflects selections and directed triangle flips
+(the latter reverse direction), and proves both directions of actual path
+transport. `ReversedPaths` specializes these maps to the actual reflected
+diagram and identifies whole components exactly. `ReversedEmbedding` turns the
+first retained vertex plus a final interval into the last-clique core image.
+`commonCover_connected_of_firstClique_core` then invokes the last-clique theorem
+and reflects its path back. Its uniqueness hypothesis names the reflected
+induced core; it does not silently assume uniqueness for a different core.
+Neither anchors, chain terminals nor K/E values are asserted invariant under
+reflection. The paper uses the same reflected diagram and same local moves.
+
+P5 is complete under its planned core-uniqueness contracts. Remaining: P6's
+initial-vertex inheritance and vertex-count induction. The caller must prove
+strict decrease when an initial private vertex is removed. The existing last
+core size lemma supplies the corresponding final-gap decrease. The present
+inheritance theorems do not assert uniqueness for arbitrary diagrams at a fixed
+count. The last operation counts only its specified pool of copies and fixes
+the other copies of the same classes. Tree edges in the terminal clique may
+move during packing; the fixed tree is required only at endpoints.
 
 Sources: [chain quotient](proofs/COMPONENT_NN_REDISTRIBUTION.md#the-interval-graph-of-corner-chains),
 [terminal clique](proofs/COMPONENT_NN_REDISTRIBUTION.md#complete-recurrences-when-the-last-clique-contains-every-chain-terminal),

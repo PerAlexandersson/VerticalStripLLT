@@ -1,3 +1,4 @@
+import VerticalStripLLT.Components.DiagramProof.FirstCliqueInheritance
 import VerticalStripLLT.Components.DiagramProof.LastCliqueInheritance
 import VerticalStripLLT.Components.DiagramProof.LastCliqueFullTree
 import VerticalStripLLT.Components.DiagramProof.LastCliqueSharedExchange
@@ -669,5 +670,38 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms commonCover_connected_of_lastClique_core
 #print axioms tree_with_attached_leaves
 #print axioms lastCliqueFixedEdges_isTree
+
+#print axioms reflTransGen_rev_iff
+#print axioms relationCover_rev_iff
+#print axioms eqvGen_rev_iff
+#print axioms reversedDiagram
+#print axioms reversedDiagram_forward
+#print axioms reversedDiagram_naturalEdge_iff
+#print axioms reverseEdgeEquiv
+#print axioms reverseEdgeEquiv_tail
+#print axioms reverseEdgeEquiv_head
+#print axioms reverseEdgeEquiv_strict_iff
+#print axioms reverseEdgeEquiv_isCorner_iff
+#print axioms reverseOrientationEquiv
+#print axioms reverseOrientation_inverse
+#print axioms reverseOrientation_selected
+#print axioms reverseOrientation_cover
+#print axioms reverseOrientation_commonCover
+#print axioms reverseOrientation_connected
+#print axioms reverseDirectedFlip
+#print axioms reverseOrientation_reachable_iff
+#print axioms reverseOrderEmbedding
+#print axioms reverseOrderEmbedding_involutive
+#print axioms exists_reverseOrderEmbedding_iff
+#print axioms reverseOrderEmbedding_prefix_image
+#print axioms reversedOrientation
+#print axioms reversedOrientation_totalSelected
+#print axioms reversedOrientation_selected
+#print axioms reversedOrientation_cover
+#print axioms reversedOrientation_connected
+#print axioms reversedOrientation_commonCover
+#print axioms reversedOrientation_reachable_iff
+#print axioms reversedOrientation_map_flipComponent
+#print axioms commonCover_connected_of_firstClique_core
 
 end VerticalStripLLT.Circular.DiagramProof
