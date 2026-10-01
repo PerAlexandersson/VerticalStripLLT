@@ -32,7 +32,8 @@ def MaximalPair (N : Fin n → Fin n → Prop) (s t : Fin n) : Prop :=
 
 theorem ordinaryRelation_naturalRel {D : Diagram n} (hD : Forward D) :
     OrdinaryRelation (naturalRel D) :=
-  ⟨fun _ _ h => naturalRel_forward hD h, fun _ _ _ h huv hvw => naturalRel_interval hD h huv hvw⟩
+  ⟨fun _ _ h => naturalRel_forward hD h,
+    fun _ _ _ h huv hvw => naturalRel_interval hD h huv hvw⟩
 
 theorem maximalPair_of_strictRel {D : Diagram n} (hD : Forward D) {s t : Fin n}
     (h : strictRel D s t) : MaximalPair (naturalRel D) s t :=

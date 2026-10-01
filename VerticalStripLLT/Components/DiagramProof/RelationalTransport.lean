@@ -32,7 +32,8 @@ def swapRel (R : Fin n → Fin n → Prop) (a b c : Fin n) (u v : Fin n) : Prop 
   (u = b ∧ v = c) ∨ (R u v ∧ ¬ (u = a ∧ v = b))
 
 /-- The target of a directed flip is the source with its two shorts exchanged. -/
-theorem target_selected_iff {θ η : Orientation D} (w : DirectedFlipWitness D θ η) (u v : Fin n) :
+theorem target_selected_iff {θ η : Orientation D} (w : DirectedFlipWitness D θ η)
+    (u v : Fin n) :
     D.edgeData.selected η.val u v ↔
       swapRel (D.edgeData.selected θ.val) w.eab.tail w.eab.head w.ebc.head u v := by
   rw [w.target_eq_source_swap]
@@ -43,7 +44,8 @@ theorem target_selected_iff {θ η : Orientation D} (w : DirectedFlipWitness D �
 /-- A directed flip of a forward diagram is exactly a cover-supported short exchange. -/
 theorem directedFlip_iff (hD : Forward D) (θ η : Orientation D) :
     DirectedFlip D θ η ↔ ∃ a b c : Fin n, b < c ∧ Cover θ a b ∧ Cover θ a c ∧
-      ∀ u v, D.edgeData.selected η.val u v ↔ swapRel (D.edgeData.selected θ.val) a b c u v := by
+      ∀ u v, D.edgeData.selected η.val u v ↔
+        swapRel (D.edgeData.selected θ.val) a b c u v := by
   constructor
   · rintro ⟨w⟩
     let wn := w.normalizeForward hD
@@ -137,7 +139,8 @@ theorem cover_iff (h : Corresponds π θ θ') (a c : Fin n) :
       ((h.order w c (weakReach_of_reachable h2')).mpr hwc) ⟨h1', h2'⟩
 
 /-- A state corresponding to `θ` is unique. -/
-theorem unique {θ₁ θ₂ : Orientation E} (h₁ : Corresponds π θ θ₁) (h₂ : Corresponds π θ θ₂) :
+theorem unique {θ₁ θ₂ : Orientation E} (h₁ : Corresponds π θ θ₁)
+    (h₂ : Corresponds π θ θ₂) :
     θ₁ = θ₂ := by
   apply orientation_eq_of_selected_iff
   intro x y
@@ -287,7 +290,8 @@ theorem Corresponds.sum_flipComponent (hD : Forward D) (hE : Forward E)
       ∃ η : Orientation D, η ∈ flipComponent D θ ∧ Corresponds π.symm η' η := by
     obtain ⟨η, hp, hc⟩ := h.symm.reachable hE hD (mem_flipComponent_iff.mp hη')
     exact ⟨η, mem_flipComponent_iff.mpr hp, hc⟩
-  refine Finset.sum_bij' (fun η hη => (hfwd η hη).choose) (fun η' hη' => (hbwd η' hη').choose)
+  refine Finset.sum_bij' (fun η hη => (hfwd η hη).choose)
+    (fun η' hη' => (hbwd η' hη').choose)
     ?_ ?_ ?_ ?_ ?_
   · intro η hη
     exact (hfwd η hη).choose_spec.1
