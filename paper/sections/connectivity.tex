@@ -110,15 +110,15 @@ and $bd$ are again covers.
 \begin{proof}
 All edges below are natural, since they lie inside $ac$ or $bd$, and normal,
 since they lie strictly inside them.
-Let $L$ be the set of $v$ with $a<v<b$ and $av\in\theta$, and let $R$ be the set
+Let $Y_a$ be the set of $v$ with $a<v<b$ and $av\in\theta$, and let $Y_d$ be the set
 of $v$ with $c<v<d$ and $vd\in\theta$.
 
-First we perform the flips $av\mapsto vc\ [ac]$ for $v\in L$ in increasing order.
+First we perform the flips $av\mapsto vc\ [ac]$ for $v\in Y_a$ in increasing order.
 When $av$ is moved, it is a cover, since the edges from $a$ to smaller vertices
 have already been moved, and $ac$ remains a cover after each flip.
 These flips only change edges whose tails are smaller than $b$, so they do not
 affect paths inside $[b,d]$, and $bd$ remains a cover.
-Next we perform the flips $vd\mapsto bv\ [bd]$ for $v\in R$ in decreasing order.
+Next we perform the flips $vd\mapsto bv\ [bd]$ for $v\in Y_d$ in decreasing order.
 By the symmetric argument these are flips, and $ac$ remains a cover since only
 edges with heads larger than $c$ change.
 
@@ -135,12 +135,12 @@ After the second flip, $bd$ and $cd$ are covers, and $ac$ is still a cover since
 we removed $bc$ and added an edge leaving $c$.
 
 Finally we undo the flips across $bd$ in reverse order, replacing $bv$ by $vd$.
-For $v\in R$, the net change from $ab$ to $cd$ does not affect edges inside
+For $v\in Y_d$, the net change from $ab$ to $cd$ does not affect edges inside
 $[b,v]$, so $bv$ is a cover when it is moved back, as it was after the
 corresponding flip; and $bd$ remains a cover by
 Lemma~\ref{lem:flipCriterion}.
 Then we undo the flips across $ac$ in the same way, using that the edges inside
-$[v,c]$ are as they were after the corresponding flip, for $v\in L$.
+$[v,c]$ are as they were after the corresponding flip, for $v\in Y_a$.
 We obtain $\theta-ab+cd$, see Figure~\ref{fig:crossingSlide}.
 \end{proof}
 
@@ -149,10 +149,9 @@ We obtain $\theta-ab+cd$, see Figure~\ref{fig:crossingSlide}.
 \LLTpic[cell=0.85em]{nnndddeee}{\LLTasc{1/2,1/3,5/6}}$\;\longrightarrow\;$\LLTpic[cell=0.85em]{nnndddeee}{\LLTasc{1/3,2/4,5/6}}$\;\longrightarrow\;$\LLTpic[cell=0.85em]{nnndddeee}{\LLTasc{1/3,2/4,3/5}}$\;\longrightarrow\;$\LLTpic[cell=0.85em]{nnndddeee}{\LLTasc{2/4,3/4,3/5}}
 \\[1.2em]
 $\;\longrightarrow\;$\LLTpic[cell=0.85em]{nnndddeee}{\LLTasc{2/4,3/5,4/6}}$\;\longrightarrow\;$\LLTpic[cell=0.85em]{nnndddeee}{\LLTasc{2/4,4/6,5/6}}$\;\longrightarrow\;$\LLTpic[cell=0.85em]{nnndddeee}{\LLTasc{1/2,4/6,5/6}}
-\caption{The flips in the proof of Lemma~\ref{lem:crossingSlide} for the area
-sequence $(0,1,2,3,3,3)$, whose corners
-$14$, $25$ and $36$ are strict, with $a=1$, $b=3$, $c=4$ and $d=6$, so that $L=\{2\}$
-and $R=\{5\}$.
+\caption{The flips in the proof of Lemma~\ref{lem:crossingSlide} for the path
+$\mathtt{nnndddeee}$, whose corners $14$, $25$ and $36$ are strict, with $a=1$,
+$b=3$, $c=4$ and $d=6$, so that $Y_a=\{2\}$ and $Y_d=\{5\}$.
 The flips are $12\mapsto24$, $56\mapsto35$, $13\mapsto34$, $34\mapsto46$,
 $35\mapsto56$ and $24\mapsto12$.
 The third and fourth move $13$ to $46$ through $34$, and the last two undo the
@@ -251,15 +250,15 @@ same number of chords lie in one flip class.
 Here $r(0)=r(N)=N$ and $r(v)=v$ otherwise, so $\Gplus$ consists of $0N$ and all
 edges on $1,\dotsc,N$.
 By Lemma~\ref{lem:preparation} we may assume that $0N$ is the only edge at $0$.
-Since $\theta$ is connected, the remaining edges form a connected graph $H$ on
+Since $\theta$ is connected, the remaining edges form a connected graph $D'$ on
 $1,\dotsc,N$.
-Whenever a vertex $i$ has two outgoing covers $ij$ and $ik$ in $H$, with $j<k$,
+Whenever a vertex $i$ has two outgoing covers $ij$ and $ik$ in $D'$, with $j<k$,
 we perform the flip $ij\mapsto jk\ [ik]$.
 The sum of the tails of the edges increases, so this terminates.
 Then every vertex has at most one outgoing cover.
 The covers form a connected graph, and a cycle in it would have a least vertex
 with two outgoing covers, so they form a tree, with unique sink $N$.
-Every edge of $H$ joins a vertex to one of its ancestors in this tree.
+Every edge of $D'$ joins a vertex to one of its ancestors in this tree.
 
 If $i<j$ are two children of $N$, their only outgoing edges are $iN$ and $jN$,
 and the four flips
@@ -526,8 +525,8 @@ $T=T'\cup\{ve:c<v<e\}$, see Figure~\ref{fig:lastCliqueTree}.
 \centering
 \LLTpic[cell=0.9em]{nnnnddenndeeeee}{\LLTasc{3/5,5/9,6/9}\LLTmark{2/4}{$\circ$}}\qquad\qquad
 \LLTpic[cell=0.9em]{nnnnddenndeeeee}{\LLTasc{3/5,5/9,6/9,7/9,8/9}\LLTmark{2/4}{$\circ$}}
-\caption{The trees $T'$ (left) and $T$ (right) for the area sequence
-$(0,1,2,3,4,4,3,4,5)$ with corners $15$, $26$ and $49$, so that $b=2$, $a=4$,
+\caption{The trees $T'$ (left) and $T$ (right) for the path
+$\mathtt{nnnnddenndeeeee}$, with corners $15$, $26$ and $49$, so that $b=2$, $a=4$,
 $c=6$, $e=9$ and $Z=[1,6]\cup\{9\}$.
 The diagonal steps cross the corners, which are tree edges, and the arrows
 are the remaining tree edges; $T$ adds the leaves $7$ and $8$ at $9$.
@@ -536,13 +535,13 @@ The position $ba=24$, marked $\circ$, lies in neither tree.}
 \end{figure}
 
 \smallskip\noindent\textbf{Step 4: moving the remaining edges.}
-Let $P=\Gplus\setminus T$, let $P_Z$ be the positions in $P$ inside $Z$, and let
-$P_C$ be the set of pairs $uv$ with $a<u<v<e$, together with $ba$.
-Then $P=P_Z\cup P_C$, and $ba\in P_Z\cap P_C$.
-Step~2 exchanges any two positions of $P_Z$, and Lemma~\ref{lem:complete} on the
-component $[a,e]$ exchanges any two positions of $P_C\setminus\{ba\}$, restoring all
+Let $M=\Gplus\setminus T$, let $M_Z$ be the positions in $M$ inside $Z$, and let
+$M_C$ be the set of pairs $uv$ with $a<u<v<e$, together with $ba$.
+Then $M=M_Z\cup M_C$, and $ba\in M_Z\cap M_C$.
+Step~2 exchanges any two positions of $M_Z$, and Lemma~\ref{lem:complete} on the
+component $[a,e]$ exchanges any two positions of $M_C\setminus\{ba\}$, restoring all
 other edges.
-Suppose $ba\in\theta$ and $x\in P_C\setminus\{ba\}$ is vacant.
+Suppose $ba\in\theta$ and $x\in M_C\setminus\{ba\}$ is vacant.
 Let $d\neq c$ be an endpoint of $x$, and let $y$ be the edge joining $c$ and $d$.
 If $y\in\theta$, the component stays connected when we replace $ce$ by $x$, so
 Lemma~\ref{lem:complete} performs this replacement.
@@ -552,7 +551,7 @@ and we obtain $\theta-ba+x$.
 If $y\notin\theta$, the same construction with $y$ in place of $x$ gives
 $\theta-ba+y$, and then we exchange $y$ and $x$.
 Reversing these paths exchanges in the other direction.
-Finally, a position of $P_Z\setminus P_C$ and one of $P_C\setminus P_Z$ are
+Finally, a position of $M_Z\setminus M_C$ and one of $M_C\setminus M_Z$ are
 exchanged by routing through $ba$, as in Step~3 of Lemma~\ref{lem:complete}.
 Thus all orientations containing $T$ with the same number of edges lie in one flip
 class, and with Lemma~\ref{lem:preparation} this proves the lemma.
@@ -597,9 +596,9 @@ Lemma~\ref{lem:crossingSlide} replaces $1v$ by $d_v$, and the number of edges at
 decreases.
 Hence we may assume that the edges inside $[2,n]$ form a connected graph.
 
-Fix the set $S\subseteq J$ of vertices $v$ with $1v\in\theta$.
+Fix the set $I\subseteq J$ of vertices $v$ with $1v\in\theta$.
 Paths between vertices of $[2,n]$ avoid $1$, so flips of $\Gamma'$ lift with the
-edges at $1$ fixed, and by assumption all such orientations with the same $S$
+edges at $1$ fixed, and by assumption all such orientations with the same $I$
 and the same number of edges lie in one flip class.
 
 Let $m$ be the number of edges of $(\Gamma')^{+}$, and let $s$ be the number of
@@ -607,27 +606,27 @@ edges of $\theta$.
 The corners of $\Gamma'$ form a forest, which extends to a spanning tree of
 $(\Gamma')^{+}$, so connected orientations of $\Gamma'$ in $(\Gamma')^{+}$ exist
 with any number of edges between $n-2$ and $m$.
-Hence the possible sets are exactly the $S\subseteq J$ with
+Hence the possible sets are exactly the $I\subseteq J$ with
 \begin{equation}\label{eq:initialBand}
- \max(0,s-1-m)\leq|S|\leq\min(|J|,s-1-(n-2)).
+ \max(0,s-1-m)\leq|I|\leq\min(|J|,s-1-(n-2)).
 \end{equation}
-Suppose that $S$ and $S\setminus\{v\}$ both satisfy~\eqref{eq:initialBand}.
+Suppose that $I$ and $I\setminus\{v\}$ both satisfy~\eqref{eq:initialBand}.
 The corresponding orientations of $\Gamma'$ have $t$ and $t+1$ edges, with
 $n-2\leq t<m$.
 Since $(\Gamma')^{+}\setminus\{d_v\}$ is connected, there is a connected
 orientation of $\Gamma'$ in $(\Gamma')^{+}$ with $t$ edges avoiding $d_v$.
-Together with the edges $1w$, $w\in S$, Lemma~\ref{lem:crossingSlide} moves it
+Together with the edges $1w$, $w\in I$, Lemma~\ref{lem:crossingSlide} moves it
 to an
-orientation with the set $S\setminus\{v\}$.
-Thus the classes for $S$ and $S\setminus\{v\}$ agree.
+orientation with the set $I\setminus\{v\}$.
+Thus the classes for $I$ and $I\setminus\{v\}$ agree.
 
 Any two sets satisfying~\eqref{eq:initialBand} are joined by such insertions and
-deletions: to exchange two elements we delete first if $|S|$ is above its lower
+deletions: to exchange two elements we delete first if $|I|$ is above its lower
 bound, and insert first otherwise.
 This fails only if~\eqref{eq:initialBand} allows a single cardinality and more
 than one set.
 If $J\neq\emptyset$, the hypothesis gives $m\geq n-1$, and then a single allowed
-cardinality forces $S=\emptyset$ or $S=J$.
+cardinality forces $I=\emptyset$ or $I=J$.
 Hence all connected orientations in $\Gplus$ with $s$ edges lie in one flip
 class, and Lemma~\ref{lem:preparation} proves the lemma.
 \end{proof}
