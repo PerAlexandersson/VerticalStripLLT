@@ -22,7 +22,13 @@ We retain the following correspondence when drafting and illustrating P5:
 | Exclude the shared edge by the path b-c-e-a and other internal edges by triangles | `last_clique_tree_omits_shared_edge`, `last_clique_tree_no_internal_edge` | Verified |
 | Select the prescribed core tree, restoring exterior edges | `exists_lastClique_tree_replacement` | Verified, assuming smaller-core uniqueness |
 | Connect the whole right clique and normalize its star, retaining the same core tree at the endpoint | `lastClique_block_connected_of_star`, `exists_reachable_lastClique_tree` | Verified, assuming smaller-core uniqueness |
-| Move the extra edges through the shared position | Final inheritance construction | Open |
+| Rearrange core extras with the exterior fixed | `lastClique_reachable_of_same_exterior` | Verified, assuming smaller-core uniqueness and connected endpoint cores |
+| Cover all extra positions by the two pools, with ba in their intersection | `lastClique_extra_positions_cover`, `lastClique_exists_shared_extra_position` | Verified, for the displayed fixed-edge configuration |
+| Exchange ordinary clique extras with the terminal star restored | `exists_last_clique_extra_exchange` | Verified |
+| Route fixed-size extra subsets through the shared position | `anchors_connected_of_overlapping_extra_positions` | Verified, assuming both pools supply exact local exchanges |
+| Exchange ba with a clique extra using cd temporarily, then reverse the path | `exists_last_clique_shared_exchange`, `exists_last_clique_reverse_shared_exchange` | Verified |
+| Supply every exchange in the restricted right pool, with exact endpoint selection | `exists_last_clique_right_exchange` | Verified, given the crossing-copy geometry |
+| Assemble these paths with the full fixed tree | Final inheritance construction | Open |
 
 Source: [last-clique inheritance](proofs/COMPONENT_NN_REDISTRIBUTION.md#extending-the-last-clique-from-a-connected-core).
 The observation that the displayed chains and star have at most one outgoing
@@ -541,8 +547,41 @@ composes connected-core preparation, replacement, and full-star normalization.
 It retains the same prescribed core tree at the endpoint. Intermediate states
 may lose its edges, just as allowed in the written path construction.
 
+The extra-position argument now has its finite-set and core-side interfaces.
+`LastCliqueExtraPositions` defines P_C and P_R exactly as in the written proof,
+proves their union covers every extra, and constructs the shared ba position
+from the crossing corners and the fixed graph's forced omission.
+`lastClique_reachable_of_same_exterior` proves the core-side rearrangement
+between prescribed ambient anchors, using equal full counts and the exact
+exterior to establish equal core counts. `ExtraPositionPaths` applies the
+existing finite-subset exchange proof to anchors containing fixed edges.
+It remains conditional on the two pools' actual exchange paths.
+
+`LastCliqueExchange.clique_reachable_of_exchange` removes the global terminal
+hypothesis from the local complete-clique path: its source and target clique
+blocks are explicitly connected. `exists_last_clique_extra_exchange` uses it
+for ordinary extras while restoring the full terminal star. The corresponding
+full-star and one-missing-star-edge connectivity statements are in
+`LastCliqueStarRepair`.
+
+The restricted right pool has one exceptional copy, ba, parallel to ce.
+We can specialize the written temporary-edge repair: for a wanted extra x,
+choose an internal edge cd with d an endpoint of x distinct from c. If cd is
+already selected, exchange ce for x inside the clique and then slide ba to ce.
+If cd is absent, exchange ce for cd, slide ba to ce, and exchange cd for x.
+The case cd=x omits the last exchange. The edge de supplies the needed local
+connection when ce is absent. `LastCliqueStarExchange` verifies this repaired
+clique path; `LastCliqueSharedExchange` now verifies the full composition,
+its reverse, and the combined restricted right-pool exchange. Every endpoint
+is the exact deletion/insertion in the original full selection. It uses the
+same diagram moves and does not appeal to global capacities. Intermediate
+local paths may move star edges; the terminal star is restored at endpoints.
+
 Remaining: package the full tree as the core tree with the omitted leaves;
-rearrange extra positions using the shared edge.
+instantiate the two pool exchange hypotheses using the prescribed core tree,
+the concrete bc/ae crossing-copy geometry, and the full-star endpoint theorem.
+The ba exchange and its reverse are now proved. The full inheritance theorem
+and the vertex-count induction are still open.
 The last operation counts only its specified pool of copies and fixes the
 other copies of the same classes. Tree edges in the terminal clique may move
 during packing; the fixed tree is required only at endpoints. Obtain

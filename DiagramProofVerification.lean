@@ -1,3 +1,8 @@
+import VerticalStripLLT.Components.DiagramProof.LastCliqueSharedExchange
+import VerticalStripLLT.Components.DiagramProof.LastCliqueCorePaths
+import VerticalStripLLT.Components.DiagramProof.LastCliqueExtraPositions
+import VerticalStripLLT.Components.DiagramProof.ExtraPositionPaths
+import VerticalStripLLT.Components.DiagramProof.LastCliqueExchange
 import VerticalStripLLT.Components.DiagramProof.LastCliqueTreePath
 import VerticalStripLLT.Components.DiagramProof.LastCliqueDiagram
 import VerticalStripLLT.Components.DiagramProof.LastCliqueCoreConnectivity
@@ -625,5 +630,26 @@ namespace VerticalStripLLT.Circular.DiagramProof
 #print axioms exists_lastClique_tree_replacement
 #print axioms lastClique_block_connected_of_star
 #print axioms exists_reachable_lastClique_tree
+
+#print axioms fixed_card_connectivity_in_overlapping_positions
+#print axioms CornerFamily.anchors_connected_of_overlapping_extra_positions
+#print axioms lastClique_reachable_of_same_exterior
+#print axioms lastCliqueCoreExtraPositions
+#print axioms lastCliqueRightExtraPositions
+#print axioms lastClique_extra_positions_cover
+#print axioms lastClique_shared_extra_position
+#print axioms lastClique_exists_shared_extra_position
+#print axioms selected_of_exchange_of_ne
+#print axioms cliqueBlock_connected_of_terminal_star
+#print axioms cliqueBlock_connected_of_repaired_star
+#print axioms CornerFamily.clique_reachable_of_exchange
+#print axioms CornerFamily.exists_last_clique_extra_exchange
+
+#print axioms lastClique_right_extra_position_cases
+#print axioms CornerFamily.exists_last_clique_star_exchange
+#print axioms CornerFamily.exists_shared_exchange_of_clique_join
+#print axioms CornerFamily.exists_last_clique_shared_exchange
+#print axioms CornerFamily.exists_last_clique_reverse_shared_exchange
+#print axioms CornerFamily.exists_last_clique_right_exchange
 
 end VerticalStripLLT.Circular.DiagramProof
