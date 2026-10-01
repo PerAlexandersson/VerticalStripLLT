@@ -1,10 +1,14 @@
 # The circular elementary expansion
 
-We first prove the elementary expansion for a circular diagram. The
-highest reachable vertex is defined on its integer cover. This allows the
-local relations to pass through the chosen cut of the circle. When two
-contact paths meet, we reverse consecutive intervals in their common
-strict chain and reduce the area.
+We prove the circular expansion by showing that the coloring sum and the
+highest-reachable sum satisfy the same recurrences and the same initial
+values. The argument has three steps. We recall the ordinary relations of
+Alexandersson--Sulzgruber and put them in the shifted form used here. We then
+prove those relations directly on the integer cover, including the extra
+cases in which circular bounce paths intersect. Finally, we orient the
+relations so that every final term is smaller in a specified induction
+order. The initial diagrams are disjoint strict chains, for which both sums
+are products of elementary symmetric functions.
 
 ## Circular diagrams and highest reachable vertices
 
@@ -91,9 +95,6 @@ the additional contact configurations that arise on a circle.
 
 ## The local reductions
 
-Throughout the proof, $F_D$ denotes either of the two expressions in the
-theorem, with the shifted parameter as written there.
-
 ::: {.definition #def:bounceContacts title="Bounce contacts"}
 Write $s(i)$ for the strict flag in row $i$ and
 $g(i)\coloneqq b(i+1)-b(i)-s(i)$ for the number of east steps after
@@ -101,9 +102,56 @@ that row. A bounce starts at a strict row $t$ with $a_t\geq2$ and
 $g(t)>0$. Its first lower contact is $x=b(t)$. At a contact with
 $g(x)=0$, the flags $s(x),s(x+1)$ specify NN, DN, ND or DD.
 A DD contact continues the bounce backwards along the strict path.
-We write $\mathrm n,\mathrm d,\mathrm e$ for north, diagonal and east
+We write $\mathtt n,\mathtt d,\mathtt e$ for north, diagonal and east
 steps of the boundary path in the integer lift.
 :::
+
+### The relations of Alexandersson--Sulzgruber
+
+We first recall the relations before shifting the parameter. In the
+following display, $G_P$ means $G_P(X;q)$, and $U,V,W$ are unchanged
+path words. We first display the one-contact ordinary cases: the indicated
+occurrences form the bounce decomposition of a Schröder path, with just one
+bounce point. The two contact vertices are consecutive and distinct from
+the terminal vertex. Theorem 2.5 of [@AS22] also gives the extension to
+several bounce points. Below we prove the extension needed on the circle.
+
+::: {.proposition #prop:originalRecurrences title="Alexandersson--Sulzgruber relations"}
+The ordinary LLT polynomials satisfy [@AS22, Theorems 2.1 and 2.5]
+\[
+\begin{aligned}
+ G_{U\mathtt{ne}V}-G_{U\mathtt{en}V}
+   &=(q-1)G_{U\mathtt dV}, &&\text{(corner)},\\
+ G_{U\mathtt{nn}V\mathtt{de}W}
+   &=qG_{U\mathtt{nn}V\mathtt{ed}W}, &&\text{(NN)},\\
+ G_{U\mathtt{dn}V\mathtt{de}W}
+   &=G_{U\mathtt{nd}V\mathtt{ed}W}, &&\text{(DN)},\\
+ G_{U\mathtt{nd}V\mathtt{de}W}
+   &=(q-1)G_{U\mathtt{nd}V\mathtt{ed}W}
+     +qG_{U\mathtt{dn}V\mathtt{ed}W}, &&\text{(ND)}.
+\end{aligned}                                                    \tag{AS}
+\]
+Their initial values and product rule are
+\[
+ G_{\mathtt n\mathtt d^k\mathtt e}=e_{k+1}(X),
+ \qquad G_{PQ}=G_PG_Q.
+\]
+:::
+
+In the presence of corner resolution, the NN and DN relations are
+equivalent to the NN and ND relations [@AS22, Proposition 3.1]. This lets
+us choose the relation in the direction needed for induction. The original
+uniqueness proof inducts on the path size, the number of east steps, and
+the height of the first east step. We use an order suited to the circular
+extension and, later, a separate order for component reductions.
+
+### Shifted relations and the induction order
+
+From now on, $F_D$ denotes either $G_D(X;q+1)$ or the proposed elementary
+sum $\widehat G_D(X;q)$. Substituting $q+1$ for $q$ in (AS) gives the
+ordinary one-contact instances of the four relations below. The change of
+parameter is reversible; extending the relations across a circular cut and
+dealing with intersecting contact paths still require proof.
 
 For corner resolution, let $D^-$ delete a non-strict corner and let
 $D^{\mathrm s}$ mark it strict. For a bounce with $k$ intervening DD
@@ -122,11 +170,11 @@ resolution and the following three bounce relations:
  \begin{aligned}
  F_D&=F_{D^-}+qF_{D^{\mathrm s}}
        &&\text{(corner)},\\
- F_{U\mathrm{nn}V\mathrm{de}W}
-    &=(1+q)F_{U\mathrm{nn}V\mathrm{ed}W}
+ F_{U\mathtt{nn}V\mathtt{de}W}
+    &=(1+q)F_{U\mathtt{nn}V\mathtt{ed}W}
        &&\text{(NN)},\\
- F_{U\mathrm{dn}V\mathrm{de}W}
-    &=F_{U\mathrm{nd}V\mathrm{ed}W}
+ F_{U\mathtt{dn}V\mathtt{de}W}
+    &=F_{U\mathtt{nd}V\mathtt{ed}W}
        &&\text{(DN)},\\
  F_D&=qF_Q+(1+q)F_R
        &&\text{(ND)}.
@@ -151,16 +199,47 @@ and finally derive ND from those relations.
 
 ![The four local recurrences as boundary-path diagrams](figures/circular-direct-relations.svg)
 
-*Figure 1.* Examples of all four recurrences in (R). Each boundary path
-represents the weighted sum over its edge selections. A north--east
-corner permits a normal edge; a diagonal step requires a strict edge.
-The strict steps are also colored blue. Vertex labels lie on the main
-diagonal, and every other natural edge in the enclosed region is optional.
-The bottom row has $x=1$, $t=3$: its areas are $(0,1,2,2,1)$,
-$(0,1,2,1,1)$ and $(0,1,1,1,1)$, respectively. These are examples
-of the general identities, whose unchanged exterior may be arbitrary
-subject to the contact conditions. For the HRV sum we retain admissible
-selections; for the coloring sum cyclic selections have value zero.
+*Figure 1.* The four local recurrences. Gray lies outside the path;
+zigzags stand for arbitrary unchanged portions. The vertices $x,y$ are
+consecutive, whereas the interval before $z$ may contain other vertices.
+The red line shows the bounce. Each picture denotes the full weighted sum,
+with a factor $q$ for each selected non-strict edge. The displayed bounce
+relations have one contact; the proof below removes intervening DD contacts.
+For the HRV sum we retain admissible selections; cyclic selections have
+coloring value zero.
+
+The direction of reduction matters. Put
+\[
+ \mu(D)=2\sum_i a_i-|S|,\qquad
+ \nu(D)=\sum_{e\in S}d(\operatorname{head}(e))\ell(e),             \tag{measure}
+\]
+where $\ell(e)$ is the positive length of a strict edge and $d(v)$ counts
+its strict ancestors: vertices with a nonempty strict path to $v$.
+Here $\sum_i a_i$ counts all natural edges, including strict edges.
+We use lexicographic induction on $(\mu(D),\nu(D))$.
+
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Reduction & Change in the induction order \\
+\midrule
+Corner deletion or strict marking & $\mu$ decreases by two or one \\
+NN & $\mu$ decreases by two \\
+Forward DN & $\mu$ is unchanged and $\nu$ decreases \\
+Separated ND & $\mu$ decreases by two and four \\
+Terminal intersection & $\mu$ decreases by six \\
+Interior intersection & Reversal decreases $\mu$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The local proofs below establish the identities first. In particular,
+removing intervening DD contacts uses a separate induction on the number
+of contacts; its temporary diagrams need not have smaller area. Only the
+final targets in this table are used in the outer induction. The last
+subsection verifies that every noninitial diagram admits one of these
+reductions. This is what makes agreement of the two sums on the recurrences
+and strict-chain products sufficient.
 
 ### Corner resolution and initial values
 
@@ -253,16 +332,17 @@ DN for the coloring sum.
 
 ::: {.lemma #lem:circularDiamond title="The four selected triangles"}
 For the orientation calculation, consider the local triangle
-$P<Y<T<P+n$ in an NN or DN contact. The long edge $P\to T$ is
+$x<y<z<x+n$ in an NN or DN contact. The long edge $x\to z$ is
 mandatory and the two shorts are permitted normal edges. Fix the exterior
-selection and first leave both shorts absent. Let $M_U$ be the HRV
-elementary monomial after adding
-$U\subseteq\{P\to Y,Y\to T\}$, taking value zero for a cycle.
+selection and first leave both shorts absent. Write $m$ for its HRV
+elementary monomial, $\ell$
+when only the left short edge is added, $r$ when only the right short edge
+is added, and $b$ when both are added. A cyclic selection has value zero.
 The four selections satisfy
 
 \[
- M_{\{P\to Y\}}+M_{\{Y\to T\}}
-       =M_\varnothing+M_{\{P\to Y,Y\to T\}}.                     \tag{3}
+ \ell+r
+       =m+b.                     \tag{3}
 \]
 
 :::
@@ -271,30 +351,30 @@ The four selections satisfy
 We first note that adding $u\to v$ preserves the entire lifted HRV
 map whenever $\widetilde H(v)\leq\widetilde H(u)$. The old HRV
 function is nonincreasing along every old edge and along every periodic
-copy of the added edge. Hence a new path starting at $z$ still ends at
-or below $\widetilde H(z)$, and the old maximizing path is still
+copy of the added edge. Hence a new path starting at $w$ still ends at
+or below $\widetilde H(w)$, and the old maximizing path is still
 available. This also proves acyclicity: a directed cycle on residues
 could be repeated in the lift to produce arbitrarily large endpoints.
 
 If the bottom selection is cyclic, all four terms are zero. Otherwise
-let $H$ be its lifted HRV map; the mandatory edge gives $H(T)\leq H(P)$.
+let $H$ be its lifted HRV map; the mandatory edge gives $H(z)\leq H(x)$.
 We distinguish two cases.
 
-If $H(Y)\leq H(P)$, adding $P\to Y$ changes nothing. If adding
-$Y\to T$ creates a cycle, the two terms containing that edge both
-vanish. Otherwise a new path from $Y$ either avoids the added edge or
-starts with it: it cannot first return to another lift of $Y$, since
+If $H(y)\leq H(x)$, adding $x\to y$ changes nothing. If adding
+$y\to z$ creates a cycle, the two terms containing that edge both
+vanish. Otherwise a new path from $y$ either avoids the added edge or
+starts with it: it cannot first return to another lift of $y$, since
 that would give a cycle on residues. Its greatest endpoint is therefore
-at most $\max(H(Y),H(T))\leq H(P)$. Thus $P\to Y$ is ineffective
-after adding $Y\to T$ as well. This pairs the bottom with the first
+at most $\max(H(y),H(z))\leq H(x)$. Thus $x\to y$ is ineffective
+after adding $y\to z$ as well. This pairs the bottom with the first
 middle term and the other middle term with the top.
 
-If $H(P)<H(Y)$, the ineffective bottom edge is $Y\to T$. After
-adding $P\to Y$, either both terms containing it vanish, or the
-highest vertex reachable from $T$ stays $H(T)$. Indeed, a path from
-$T$ cannot reach a lift of $P$, since the mandatory edge back to the
-residue of $T$ would make a cycle. The HRV at $Y$ can only increase,
-so $Y\to T$ remains ineffective. This gives the other pairing and
+If $H(x)<H(y)$, the ineffective bottom edge is $y\to z$. After
+adding $x\to y$, either both terms containing it vanish, or the
+highest vertex reachable from $z$ stays $H(z)$. Indeed, a path from
+$z$ cannot reach a lift of $x$, since the mandatory edge back to the
+residue of $z$ would make a cycle. The HRV at $y$ can only increase,
+so $y\to z$ remains ineffective. This gives the other pairing and
 proves (3), including all cyclic cases.
 :::
 
@@ -302,16 +382,16 @@ proves (3), including all cyclic cases.
 After inserting weights, (3) becomes
 
 \[
- M_\varnothing+q(M_{\{P\to Y\}}+M_{\{Y\to T\}})
-       +q^2M_{\{P\to Y,Y\to T\}}
- =(1+q)(M_\varnothing+qM_{\{P\to Y,Y\to T\}}).
+ m+q(\ell+r)
+       +q^2b
+ =(1+q)(m+qb).
 \]
 
 The bottom terms in (R) correspond under the periodic exchange of the
 contact vertices; the top terms have the same transitive closure.
-Here the exchanged vertices are $P=x$ and $Y=x+1$. The exchange
+Here $x,y$ are consecutive contact vertices. The exchange
 preserves order on sinks: its only inverted pairs are $x+kn,x+1+kn$,
-and the first vertex has the mandatory outgoing edge to $T+kn$.
+and the first vertex has the mandatory outgoing edge to $z+kn$.
 Every reachable vertex extends to a sink. Thus the exchange transports
 the highest reachable map and preserves its fibre sizes.
 :::
@@ -451,8 +531,8 @@ propagates backwards along their unique strict predecessors until a main
 contact equals $x+1$. Within either path, a repeated residue would give
 a strict cycle. Thus their rows can be changed independently.
 
-Put $A=a_x$ and $L=a_t$. The zero gap at $x$ gives
-$a_{x+1}=A+1$. We have $A\geq1$: if $A=0$, the strict edge into
+Put $a=a_x$ and $\ell=a_t$. The zero gap at $x$ gives
+$a_{x+1}=a+1$. We have $a\geq1$: if $a=0$, the strict edge into
 $x+1$ starts at $x$, whose outgoing strict edge already belongs to the
 main path. Strict-successor uniqueness would identify their heads,
 contrary to (S). Let $e$ be the strict corner into $x+1$.
@@ -470,9 +550,9 @@ changes. The two final targets are
 
 | Diagram | Row $x$ | Row $x+1$ | Row $t$ |
 | --- | --- | --- | --- |
-| $D$ | $(A,0)$ | $(A+1,1)$ | $(L,1)$ |
-| $Q$ | $(A,0)$ | $(A+1,1)$ | $(L-1,1)$ |
-| $R$ | $(A,1)$ | $(A,0)$ | $(L-1,1)$ |
+| $D$ | $(a,0)$ | $(a+1,1)$ | $(\ell,1)$ |
+| $Q$ | $(a,0)$ | $(a+1,1)$ | $(\ell-1,1)$ |
+| $R$ | $(a,1)$ | $(a,0)$ | $(\ell-1,1)$ |
 
 As before, each entry gives the area and strict flag. All other rows
 are unchanged. Condition (S) separates every intervening contact and the
@@ -480,7 +560,7 @@ terminal eligibility data from the altered initial rows. The same counted
 bounce and terminal eligibility therefore hold in $N,S,J$. The strict
 graphs of $N$ and $J$ are subgraphs of the source and remain acyclic.
 In $N$ both initial flags are non-strict, with equal
-boundaries. In $J$ both contact areas are $A-1$, so their boundaries
+boundaries. In $J$ both contact areas are $a-1$, so their boundaries
 again agree. Hence the full NN relation applies to each. The DN target
 of $S$ is exactly $Q$. If $S$ is strict-acyclic, the full DN relation
 applies. If it has a strict cycle, so does $Q$: exchanging corresponding
@@ -522,7 +602,13 @@ induction.
 
 We next treat contacts for which (S) fails.
 
-## A contact at the terminal vertex
+## Intersecting bounce paths
+
+The preceding recurrences handle disjoint contact paths. On a circle the
+paths may meet; the next two reductions handle an intersection at the
+terminal vertex and an intersection in the interior, respectively.
+
+### A contact at the terminal vertex
 
 First suppose that $x+1$ has the residue of the terminal vertex $t$.
 Write the lower contacts as $p_0,\ldots,p_{r-1}$, in forward strict
@@ -574,7 +660,7 @@ which gives (5). The prescribed changes retain the strict-edge count
 and decrease the area by three. Thus the doubled area decreases by six.
 :::
 
-## Reversing the columns of a strict chain
+### Reversing the columns of a strict chain
 
 At an overlapping ND contact, the two strict paths combine into one
 whole strict chain. We write its vertices in chain order as
@@ -757,20 +843,11 @@ $(1+q)^{f_D}$ gives the reverse implication.
 ## Completing the induction
 
 ::: {.proof title="Proof of Theorem \ref{thm:circularExpansion}"}
-Set
+We use the lexicographic induction (measure), treating strict cycles as
+zero cases. We now check that the previously proved reductions cover
+every remaining diagram.
 
-\[
- A_2(D)\coloneqq2\sum_i a_i-|S|,
- \qquad
- J(D)\coloneqq\sum_{e\in S}d(\operatorname{head}(e))\ell(e),
-\]
-
-where $\ell(e)$ is the positive circular length of $e$ and $d(v)$
-counts vertices from which a nonempty path of strict edges reaches $v$.
-We induct lexicographically
-on $(A_2(D),J(D))$, treating strict cycles as zero cases.
-
-A non-strict corner gives the first identity in (R); deletion decreases $A_2$ by two,
+A non-strict corner gives the first identity in (R); deletion decreases $\mu$ by two,
 and strict marking decreases it by one. We may therefore suppose
 all corners are strict. If no non-strict edge remains, the chain
 product proves the theorem.
@@ -783,14 +860,14 @@ contact continue backwards. Every step follows an actual strict edge
 backwards and decreases the number of strict ancestors. The search
 therefore ends at NN, DN or ND.
 
-For NN, (R) decreases $A_2$ by two. For DN it preserves $A_2$ and
-decreases $J$: the exchange conjugates the strict paths and preserves
+For NN, (R) decreases $\mu$ by two. For DN it preserves $\mu$ and
+decreases $\nu$: the exchange conjugates the strict paths and preserves
 ancestor depths, while the initial edge length increases by one and
-the terminal edge length decreases by one. Thus the change in $J$ is
+the terminal edge length decreases by one. Thus the change in $\nu$ is
 $d(p_0)-d(t)<0$, where $p_0$ and $t$ are the initial and terminal
 vertices on the longer strict path. For separated ND, the targets in
-(R) decrease $A_2$ by two and four. An ND contact at the terminal vertex
-uses (5), decreasing $A_2$ by six. For an interior intersection, column
-reversal strictly decreases $A_2$, and the residual comparison transfers
+(R) decrease $\mu$ by two and four. An ND contact at the terminal vertex
+uses (5), decreasing $\mu$ by six. For an interior intersection, column
+reversal strictly decreases $\mu$, and the residual comparison transfers
 the identity from the smaller diagram. These cases prove the theorem.
 :::

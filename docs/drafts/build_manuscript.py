@@ -22,6 +22,7 @@ SECTIONS = [
     ("i", "INTRODUCTION.md"),
     ("c", "CIRCULAR_E_EXPANSION.md"),
     ("o", "ORDINARY_COMPONENT_DIAGRAM_PROOF.md"),
+    ("f", "ORDINARY_FLIP_CONNECTIVITY.md"),
     ("cc", "CIRCULAR_COMPONENTS.md"),
     ("k", "CUMULANTS.md"),
     ("a", "AI_STATEMENT.md"),
@@ -73,6 +74,8 @@ def assemble_section(prefix, filename):
     if len(tags) != len(set(tags)):
         raise ValueError(f"Duplicate equation tags in {filename}")
     equations = {tag: f"eq:{prefix}:{tag.replace(chr(39), 'prime')}" for tag in tags}
+    section_number = next(i for i, (key, _) in enumerate(SECTIONS, 1) if key == prefix)
+    equation_numbers = {tag: f"{section_number}.{i}" for i, tag in enumerate(tags, 1)}
     figure_numbers = {}
     figure_sources = []
     def collect_figures(source_blocks):
@@ -111,7 +114,7 @@ def assemble_section(prefix, filename):
         if kind == "Math":
             value["c"][1] = re.sub(
                 r"\\tag\{([^}]+)\}",
-                lambda match: r"\tag{" + prefix.upper() + "." + match[1]
+                lambda match: r"\tag{" + equation_numbers[match[1]]
                 + r"}\label{" + equations[match[1]] + "}", value["c"][1],
             )
         elif kind == "Str":

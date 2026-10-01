@@ -1,81 +1,82 @@
 \documentclass[border=6pt]{standalone}
 \usepackage{llt-diagrams}
 
-% Boundary paths use north/east steps for normal cells and a diagonal step
-% through each strict corner. A panel denotes its full weighted selection sum.
+% Generic local paths, following the author's Robin-paper source and the
+% Alexandersson--Dai draft. Zigzags denote arbitrary unchanged path portions.
+% Only the two adjacent contact rows and the terminal strict row are shown.
 \tikzset{
-  llt local grid/.style={draw=black!18,line width=.18pt},
-  llt local path/.style={draw=black!85,line width=.7pt,line join=round},
-  llt local strict/.style={draw=blue!65!black,line width=1pt},
-  llt local vertex/.style={circle,draw=black!50,fill=lltLabelYellow,
-    minimum size=3mm,inner sep=0pt,font=\scriptsize}}
+  local path/.style={line width=.8pt,line join=round},
+  continuation/.style={decorate,decoration={zigzag,
+    segment length=1.1mm,amplitude=.16mm},line width=.5pt},
+  bounce/.style={red!75!black,line width=.55pt,->}}
 
-% Size, name, boundary path, and highlighted strict diagonal steps.
-\newcommand{\LocalPathPanel}[4]{%
-  \begin{tikzpicture}[x=3.4mm,y=3.4mm,baseline=(current bounding box.center)]
-    \fill[black!6] #3 -- cycle;
-    \begin{scope}
-      \clip #3 -- cycle;
-      \draw[llt local grid,step=1] (0,0) grid (#1,#1);
-    \end{scope}
-    \draw[black!30,line width=.25pt] (0,0) -- (#1,#1);
-    \draw[llt local path] #3;
-    #4%
-    \pgfmathtruncatemacro{\lastvertex}{#1-1}%
-    \foreach \i in {0,...,\lastvertex}
-      \node[llt local vertex] at (\i+.5,\i+.5) {$\i$};
-    \node[font=\scriptsize,anchor=north] at (#1/2,-.45) {$#2$};
-  \end{tikzpicture}%
-}
+\newcommand{\CornerPanel}[2]{%
+  \begin{tikzpicture}[x=4mm,y=4mm,baseline=(current bounding box.center)]
+    % Gray is outside the path, never a weighting convention.
+    \fill[black!8] (0,0)-- #1 --(3,3)--(0,3)--cycle;
+    \draw[continuation] (0,0)--(1,1) (2,2)--(3,3);
+    \draw[local path] #1;
+    \node[font=\scriptsize,anchor=north] at (1.5,-.35) {$#2$};
+  \end{tikzpicture}}
 
-% Corner 02: (0,1,2) resolves into deletion (0,1,1) and strict marking.
-\newcommand{\CornerSource}{%
-  \LocalPathPanel{3}{D}{(0,0)--(0,3)--(3,3)}{}}
-\newcommand{\CornerDelete}{%
-  \LocalPathPanel{3}{D^-}{(0,0)--(0,2)--(1,2)--(1,3)--(3,3)}{}}
-\newcommand{\CornerStrict}{%
-  \LocalPathPanel{3}{D^{\mathrm s}}{(0,0)--(0,2)--(1,3)--(3,3)}
-    {\draw[llt local strict] (0,2)--(1,3);}}
-
-% NN: (0,1,2,2,1), strict 13, becomes (0,1,2,1,1), strict 23.
-\newcommand{\NNSource}{%
-  \LocalPathPanel{5}{D}
-    {(0,0)--(0,3)--(1,3)--(2,4)--(3,4)--(3,5)--(5,5)}
-    {\draw[llt local strict] (1,3)--(2,4);}}
-\newcommand{\NNTarget}{%
-  \LocalPathPanel{5}{D_{\mathrm{nn}}}
-    {(0,0)--(0,3)--(2,3)--(3,4)--(3,5)--(5,5)}
-    {\draw[llt local strict] (2,3)--(3,4);}}
-
-% DN: (0,1,1,2), strict 01,13, becomes (0,1,2,1), strict 02,23.
-\newcommand{\DNSource}{%
-  \LocalPathPanel{4}{D}{(0,0)--(0,1)--(1,2)--(1,3)--(2,4)--(4,4)}
-    {\draw[llt local strict] (0,1)--(1,2) (1,3)--(2,4);}}
-\newcommand{\DNTarget}{%
-  \LocalPathPanel{4}{D_{\mathrm{dn}}}
-    {(0,0)--(0,2)--(1,3)--(2,3)--(3,4)--(4,4)}
-    {\draw[llt local strict] (0,2)--(1,3) (2,3)--(3,4);}}
-
-% ND: (0,1,2,2,1), strict 02,13; Q=(0,1,2,1,1), strict 02,23;
-% R=(0,1,1,1,1), strict 01,23. The final contact is x=1, t=3.
-\newcommand{\NDSource}{%
-  \LocalPathPanel{5}{D}
-    {(0,0)--(0,2)--(1,3)--(2,4)--(3,4)--(3,5)--(5,5)}
-    {\draw[llt local strict] (0,2)--(1,3) (1,3)--(2,4);}}
-\newcommand{\NDShorten}{%
-  \LocalPathPanel{5}{Q}
-    {(0,0)--(0,2)--(1,3)--(2,3)--(3,4)--(3,5)--(5,5)}
-    {\draw[llt local strict] (0,2)--(1,3) (2,3)--(3,4);}}
-\newcommand{\NDMove}{%
-  \LocalPathPanel{5}{R}
-    {(0,0)--(0,1)--(1,2)--(1,3)--(2,3)--(3,4)--(3,5)--(5,5)}
-    {\draw[llt local strict] (0,1)--(1,2) (2,3)--(3,4);}}
+% Lower path word, upper path word, and label.
+\newcommand{\BouncePanel}[3]{%
+  \begin{tikzpicture}[x=3.6mm,y=3.6mm,baseline=(current bounding box.center)]
+    \def\lowerstart{(0,3)}\def\lowerend{(1,5)}%
+    \def\lowerpath{(0,3)--(0,4)--(1,5)}%
+    \def\lowerreverse{(1,5)--(0,4)--(0,3)}%
+    \def\contact{(0,4)}%
+    \def\word{#1}\def\nn{nn}\def\dn{dn}%
+    \ifx\word\nn
+      \def\lowerstart{(1,3)}\def\lowerpath{(1,3)--(1,5)}%
+      \def\contact{(1,4)}%
+      \def\lowerreverse{(1,5)--(1,3)}%
+    \else\ifx\word\dn
+      \def\lowerpath{(0,3)--(1,4)--(1,5)}%
+      \def\lowerreverse{(1,5)--(1,4)--(0,3)}%
+      \def\contact{(1,4)}%
+    \fi\fi
+    \def\upperpath{(3,7)--(4,8)--(5,8)}%
+    \def\upperreverse{(5,8)--(4,8)--(3,7)}%
+    \def\bouncestart{(4,8)}%
+    \def\word{#2}\def\ed{ed}%
+    \ifx\word\ed
+      \def\upperpath{(3,7)--(4,7)--(5,8)}%
+      \def\upperreverse{(5,8)--(4,7)--(3,7)}%
+      \def\bouncestart{(4,7)}%
+    \fi
+    % The gray side is above/left of the boundary. All normal cells below
+    % it are summed, with q for each selected non-strict edge.
+    \fill[black!8] (-.7,2.3)--(-.7,9)--(6,9)
+      -- \upperreverse -- \lowerreverse --cycle;
+    \draw[continuation] (-.7,2.3)--\lowerstart
+      (1,5)--(3,7) (5,8)--(6,9);
+    \draw[local path] \lowerpath;
+    \draw[local path] \upperpath;
+    % Adjacent x,y share consecutive steps. The gap before z is arbitrary.
+    \draw[local path] (3,3)--(3,4)--(4,4)--(4,5)--(5,5)
+      (7,7)--(7,8)--(8,8);
+    \draw[continuation] (2.3,2.3)--(3,3) (5,5)--(7,7)
+      (8,8)--(8.6,8.6);
+    \node[font=\scriptsize] at (3.5,3.5) {$x$};
+    \node[font=\scriptsize] at (4.5,4.5) {$y$};
+    \node[font=\scriptsize] at (7.5,7.5) {$z$};
+    \draw[bounce] \bouncestart --(4,4)--\contact;
+    \node[font=\scriptsize,anchor=north] at (3.7,1.7) {$#3$};
+  \end{tikzpicture}}
 
 \begin{document}
 \(\begin{array}{r@{\quad}c}
- \text{corner} & \CornerSource=\CornerDelete+q\,\CornerStrict\\[12pt]
- \text{NN} & \NNSource=(1+q)\,\NNTarget\\[12pt]
- \text{DN} & \DNSource=\DNTarget\\[12pt]
- \text{ND} & \NDSource=q\,\NDShorten+(1+q)\,\NDMove
+ \text{corner} &
+ \CornerPanel{(1,1)--(1,2)--(2,2)}{U\mathtt{ne}V}
+ =\CornerPanel{(1,1)--(2,1)--(2,2)}{U\mathtt{en}V}
+ +q\,\CornerPanel{(1,1)--(2,2)}{U\mathtt d V}\\[10pt]
+ \text{NN} & \BouncePanel{nn}{de}{U\mathtt{nn}V\mathtt{de}W}
+ =(1+q)\,\BouncePanel{nn}{ed}{U\mathtt{nn}V\mathtt{ed}W}\\[10pt]
+ \text{DN} & \BouncePanel{dn}{de}{U\mathtt{dn}V\mathtt{de}W}
+ =\BouncePanel{nd}{ed}{U\mathtt{nd}V\mathtt{ed}W}\\[10pt]
+ \text{ND} & \BouncePanel{nd}{de}{U\mathtt{nd}V\mathtt{de}W}
+ =q\,\BouncePanel{nd}{ed}{U\mathtt{nd}V\mathtt{ed}W}
+ +(1+q)\,\BouncePanel{dn}{ed}{U\mathtt{dn}V\mathtt{ed}W}
 \end{array}\)
 \end{document}

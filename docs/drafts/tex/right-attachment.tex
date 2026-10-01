@@ -2,10 +2,8 @@
 \usepackage{llt-diagrams}
 \begin{document}
 \begin{tikzpicture}[x=1cm,y=1cm,
-  vertex/.style={circle,draw=black!75,fill=lltLabelYellow,inner sep=3pt},
-  dot/.style={circle,draw=black!75,fill=lltLabelYellow,inner sep=2pt}]
- \fill[black!6,rounded corners] (-.4,-.3) rectangle (5.15,1.1);
- \fill[blue!6,rounded corners] (5.45,-.3) rectangle (11,1.1);
+  vertex/.style={circle,draw=black!75,fill=white,inner sep=3pt},
+  dot/.style={circle,draw=black!75,fill=white,inner sep=2pt}]
  \node at (2.5,.7) {prefix $P$};
  \node at (8,.7) {attachment $T$};
  \draw[dashed] (0,0) -- (10.6,0);
@@ -21,7 +19,7 @@
  \node[font=\small,align=center] at (2.6,-2.25)
    {$p-1$ vertices\\colors below $\beta$};
  \node[font=\small,align=center] at (8,-2.25)
-   {$q-1$ vertices\\colors above $\beta$};
- \node[font=\small] at (5.3,-3) {merged fibre size $p+q-1$};
+   {$r-1$ vertices\\colors above $\beta$};
+ \node[font=\small] at (5.3,-3) {merged fibre size $p+r-1$};
 \end{tikzpicture}
 \end{document}

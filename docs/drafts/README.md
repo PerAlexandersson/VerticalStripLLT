@@ -2,18 +2,21 @@
 
 ## Reader's route
 
-The paper has two parts, as requested by the user:
+The paper has two stages, as requested by the user. The detailed
+[revision outline](REVISION_OUTLINE.md) records the reader order and dependencies:
 
-1. **Circular elementary expansion by diagrams.** Define the integer-cover
+1. **Circular elementary expansion by diagrams (Section 2).** Define the integer-cover
    HRV statistic, prove the corner and bounce relations in both models, then
    handle intersecting paths by terminal reduction and column reversal.
-2. **Component expansions by diagrams.** Reuse the corner and NN/DN diagrams
+2. **Component expansions by diagrams (Sections 3--5).** Reuse the corner and NN/DN diagrams
    on whole edge layers. Preparation and actual restored flip paths isolate
    a component; endpoint attachment closes the ordinary induction. The finite
    companion then reduces each circular component to the same signed sum of
    unions of ordinary components.
 
-The second part ends with [LLT cumulants](CUMULANTS.md): set-partition
+Section 4 gives the [flip-connectivity proof](ORDINARY_FLIP_CONNECTIVITY.md)
+after Section 3 has explained its role in the component recurrence. Section 5
+passes to the circle. Section 6 ends with [LLT cumulants](CUMULANTS.md): set-partition
 cancellation retains connected selections, which are unions of whole flip
 components. The final corollary applies the component theorem to them.
 This deduction is written and reviewed mathematically, but is not part of
@@ -59,7 +62,8 @@ column-reversal boundary checks are now expanded. The combined manuscript is gen
 read-only; this draft explicitly separates terminal contact from interior
 overlap to match the checked Lean decomposition.
 
-The [ordinary component section](ORDINARY_COMPONENT_DIAGRAM_PROOF.md) now
+The [ordinary component section](ORDINARY_COMPONENT_DIAGRAM_PROOF.md),
+together with its [connectivity proof](ORDINARY_FLIP_CONNECTIVITY.md), now
 includes the local diamond proof, absent-corner deletion, weak-block reordering,
 alternating corner deletion, envelope normalization, and the full NN/DN layer
 calculation with explicit selected-edge counts. It also develops
@@ -116,7 +120,7 @@ and in the formalization plan, outside the manuscript prose.
 | Whole-component corrections and marked recurrences | `certifies_of_not_hasCommonWitness`, `certifies_nn`, `certifies_dn` | Checked; integrated into the final induction |
 | First-drop coverage and final expansion | `certifies_firstDrop`, `component_eq_by_diagrams_aux`, `component_strict_eq_elementary_of_forward` | Checked for every ordinary diagram and every whole component |
 
-The [circular component subsections](CIRCULAR_COMPONENTS.md) finish the second
+The [circular component section](CIRCULAR_COMPONENTS.md) finish the second
 part. They give the finite signed expansion, constancy on actual components,
 and the compatible-lift preimage as a union of whole ordinary components.
 Strict markings are removed before arbitrary subset sums. The HRV deletion
@@ -156,9 +160,11 @@ theorem through the finite companion.
 The [diagram macros and usage guide](tex/README.md) implement the user's
 restricted-sum convention. A diagram specifies selected/absent/optional/strict
 edges, forbidden natural pairs, cover conditions, total-size layers and endpoint
-colors. Gray/white ambient regions distinguish unweighted and normal-edge-weighted sums.
-The three-page `diagram-examples.tex` preview and the diamond and recurrence figures
-compile without warnings or box overflows and were visually inspected.
+colors. Gray denotes the exterior of the path; weights are stated in the
+formula. Consecutive vertices share steps, while zigzags suppress arbitrary
+intervals. The guide and manuscript use typewriter path steps and plain
+vertex labels. The introduction includes the smallest flip component and
+its elementary expansion.
 
 All SVG figures now have native `.tex` sources in `tex/`; the cell figures
 use `llt-diagrams.sty`. Edit those sources rather than the generated SVG

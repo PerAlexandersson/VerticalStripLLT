@@ -1,0 +1,22 @@
+\documentclass[border=6pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{arrows.meta}
+\newcommand{\FlipState}[2]{%
+ \begin{tikzpicture}[x=8mm,y=8mm,baseline=(current bounding box.center),
+   edge/.style={-{Stealth[length=1.5mm]},line width=.6pt}]
+  \foreach \v/\x in {u/0,v/1,w/2} {
+    \coordinate (\v) at (\x,0);
+    \fill (\v) circle (1.2pt);
+    \node[below=3pt] at (\v) {$\v$};}
+  \draw[edge] (u) to[bend left=55] (w);
+  #1
+  \node[anchor=north,font=\small] at (1,-.65) {$#2$};
+ \end{tikzpicture}}
+\begin{document}
+\(\FlipState{\draw[edge] (u) to[bend left=35] (v);}
+   {\{u,w\}\mid\{v\}}
+ \qquad\longleftrightarrow\qquad
+ \FlipState{\draw[edge] (v) to[bend left=35] (w);}
+   {\{u,v,w\}}\)
+\end{document}

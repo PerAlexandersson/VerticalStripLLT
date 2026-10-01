@@ -20,10 +20,12 @@ the ordered label list, starting at one; cell `(i,j)` represents the edge
 from label `i` to label `j`, with `i<j`. The macro checks these bounds.
 Display every strict edge between shown vertices with an arrow. All remaining
 unspecified off-diagonal cells are optional normal natural edges. Use an
-explicit forbidden cell for each displayed pair which is not natural.
+explicit exterior cell for each displayed pair which is not natural.
+Gray always means outside the path; it never denotes an absent selection
+or a choice of weighting.
 
-For a whole ordinary diagram, supply its area sequence to cross out those
-pairs automatically:
+For a whole ordinary diagram, supply its area sequence to draw the boundary and shade
+the exterior automatically:
 
 ```tex
 \LLTAreaDiagram[condition={A\in C}]{0,1,2,3}{0,1,2,1}{
@@ -44,34 +46,41 @@ occupy position one: the area sequence uses positions, not numerical labels.
 | `\LLTOptional{i}{j}` | Natural normal edge, freely selected or absent | Blank |
 | `\LLTSelected{i}{j}` | Selected normal edge | `1` |
 | `\LLTAbsent{i}{j}` | Natural normal edge, absent from the selection | `0` |
-| `\LLTForbidden{i}{j}` | No natural edge | Cross |
+| `\LLTForbidden{i}{j}` | No natural edge | Gray exterior |
 | `\LLTStrict{i}{j}` | Strict edge, always selected | Arrow |
 | `\LLTSelected*{i}{j}` | Selected normal edge which is a cover | Underlined `1` |
 | `\LLTStrict*{i}{j}` | Strict edge which is a cover | Underlined arrow |
-| `\LLTCell[fill]{i}{j}{entry}` | Custom restriction defined in the accompanying text | Supplied entry |
+| `\LLTCell{i}{j}{entry}` | Custom restriction defined in the accompanying text | Supplied entry |
 
 Cover conditions concern the full selected relation, including the exterior.
 Use `condition={...}` for layer size, connectedness, a component, endpoint
 colors or other global restrictions. Use `name={...}` for a mathematical
 label above the diagram. These annotations describe the set being summed.
 
-The default is an unweighted sum of state values, drawn on a pale gray
-triangular region. With `weighted=true`, selections have weight
-`q^{|A\setminus S|}` and the region is white. Fixed restrictions have
-small outlined markers; selected normal edges are pale blue and the other
-restrictions gray. Vertex labels are yellow circles. The entries and the
-stated convention determine the sum, so its meaning does not rely on color.
-The renderer uses TikZ paths and nodes without a surrounding cell grid.
+The surrounding formula specifies whether the sum is weighted. The
+`weighted=true` option records the convention `q^{|A\setminus S|}` but
+changes no shading. Both weighted and unweighted diagrams have white natural
+cells and a gray exterior. Entries and vertex labels are plain, with no
+boxes or colored circles.
 
-Style keys are `cell size`, `label font` and `entry font`. Set defaults with
-`\LLTDiagramSetup{cell size=6mm}`; per-diagram options are local. The
-convenience commands `\LLTSelectionTriangle[options]{labels}{bit}{bit}`,
-`\LLTNNSource`, `\LLTNNTarget`, `\LLTDNSource` and `\LLTDNTarget` all use
+Use `gaps={1,3}` to put a zigzag after the first and third displayed vertex.
+This suppresses an arbitrary intervening interval, which may be empty;
+leave no gap between vertices required to be consecutive. In the NN and DN
+macros the two contact vertices share consecutive steps. In the diamond
+macro neither pair is required to be consecutive, so both gaps are shown.
+Whole area diagrams use the supplied ordered list as their rank order.
+
+Style keys are `cell size`, `label font`, `entry font`, `gaps` and `gap size`.
+Set defaults with `\LLTDiagramSetup{cell size=6mm}`; per-diagram options are
+local. The convenience commands
+`\LLTSelectionTriangle[options]{labels}{bit}{bit}`, `\LLTNNSource`,
+`\LLTNNTarget`, `\LLTDNSource` and `\LLTDNTarget` all use
 the same renderer and restrictions. The NN commands take three ordered
 labels; DN takes four. A triangle's long edge is selected normal, with
 the two short bits fixed as supplied.
 
-`diagram-examples.tex` is a three-page legend and mathematical usage guide.
+`diagram-examples.tex` is a legend and mathematical usage guide.
+`intro-flip.tex` shows the smallest whole flip component and its HRV fibres.
 `ordinary-diamond.tex` and `layer-relations.tex` generate the draft's SVGs.
 `prefix-attachment.tex` shows component-restricted sums glued at a fixed
 endpoint color. Its right factor omits the shared vertex weight, as indicated
@@ -90,10 +99,14 @@ in the accompanying proof.
 `q F(D) = F(R) - F(E)` for a DD contact. Its blank cells remain optional;
 the accompanying caption specifies the coloring or admissible HRV valuation.
 `circular-direct-relations.tex` collects all four weighted recurrences as
-boundary paths, following the TikZ style of the paper with Robin. North/east
-steps bound normal cells and diagonal steps mark strict corners. Its local
-`LocalPathPanel` macro takes the size, name, boundary and strict segments;
-every panel denotes the full restricted selection sum, not a single state.
+generic local boundary paths. The author-supplied Robin source snapshot is
+in `references/alexandersson-sulzgruber-2022/`; its `SOURCE.md` records the
+original host location. The local path pictures in the earlier
+Alexandersson--Dai `Circular Vertical-Strip LLT Polynomials-v9.tex` were also
+consulted read-only. Zigzags denote arbitrary unchanged portions; the adjacent
+contact vertices share steps. Gray is outside the path, and the red line is
+the bounce. No fixed small area sequence is substituted for the general
+contact geometry.
 `initial-crossing.tex` uses the same cells for the crossing-slide endpoints.
 `circular-reversal.tex` and `right-attachment.tex` give native TikZ sources
 for the column permutation and fibre concatenation. Every manuscript figure
@@ -135,7 +148,8 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error right-attachment.tex
 pdftocairo -svg right-attachment.pdf right-attachment.svg
 ```
 
-The previous external `LLTCells` macro was inspected for the diagonal-label
-orientation and gray/white weighting convention. The external manuscript
+The previous external `LLTCells` macro was inspected for diagonal-label
+orientation. Its gray/white weighting convention is superseded here by the
+author's instruction: gray denotes the exterior of the path. The external manuscript
 has not been modified. This package supplies the sum restrictions for the
 new draft and should be loaded independently of the old figure definitions.

@@ -2,48 +2,43 @@
 
 ## Current status and ownership
 
-Following the author's correction after `9225853`, the AI statement no longer
-singles out the cumulant corollary's formalization status. The published
-Dołęga--Kowalski results remain attributed in the cumulant section. This is an
-expository change only; no mathematical claim or Lean source changes. The
-41-page PDF and source bundle were rebuilt successfully, with no TeX warnings
-or box overflows; `git diff --check` passed.
+The author's diagram and exposition revision after `e4c7159` is complete.
+The six-section outline is recorded in
+[REVISION_OUTLINE](docs/drafts/REVISION_OUTLINE.md): introduction and both main
+theorems; circular aggregate expansion; ordinary component recurrence;
+connectivity by flips; circular components; cumulants. The long connectivity
+proof remains in the main text, now in `ORDINARY_FLIP_CONNECTIVITY.md`, after
+its precise statement and role in the ordinary recurrence. Its already-proved
+initial-path extension is explicit in the statement.
 
-The requested author revision is complete at checkpoint `1e9437c`. The manuscript now explains the
-LLT/chromatic comparison and Hwang's component refinement in its introduction,
-collects all four recurrences in Proposition 2.7 and one TikZ boundary-path
-figure, and uses numbered mathematical environments. It ends with the circular
-LLT cumulant corollary, restores Per Alexandersson and Lilan Dai as authors,
-and includes an AI-assistance statement. The cumulant deduction is a written
-consequence of the component theorem, **not a new Lean formalization**.
-The earlier coauthored draft was consulted read-only.
+The manuscript states the original Alexandersson--Sulzgruber four relations,
+then their shifted forms and exact induction orders. The source uniqueness
+proof uses the height of the FIRST east step. The ordinary component proof
+uses vertex count, total natural area and area moment; the circular aggregate
+proof has its separate two-statistic order. Auxiliary DD derivations are
+explicitly distinguished from outer induction calls.
 
-All bounded writing agents have released their files. Codex remains the
-manuscript/figure owner; Claude's Lean ownership and build slot below are
-unchanged. No Codex Lean build was started. The revised PDF and source bundle
-are in the external `manuscript-revision/` directory described below; the
-pre-author-edit tag and its original PDF remain intact.
+Gray denotes the exterior of the path. Generic diagrams use zigzags for
+arbitrary intervening portions and adjacent steps for consecutive vertices.
+The author-supplied Robin-source snapshot and earlier Alexandersson--Dai TikZ
+pictures were consulted read-only. A new three-vertex flip figure explains
+a full component and its elementary contribution in the introduction.
+Path steps use typewriter letters, evaluations use sans-serif K/E, and
+unnecessary indexed states and proof-stage names have been removed.
 
-The diagram formalization and the requested new manuscript draft are complete.
-The paper has the user's two-part layout: circular LLT–HRV expansion through
-diagram relations, then component expansions through those relations. The
-second part proves the ordinary theorem and finishes with the finite
-companion passage to **all circular components**. The aggregate theorem alone
-is not used as a substitute for component refinement.
-
-Ownership transfer at `b78312c` remains in force. Persistent Claude worker
-`agent-verticalstri-motzki-c-001af720` owns all Lean sources, verification entry
-points, [LEAN_COORDINATION](docs/LEAN_COORDINATION.md), and the **sole Lean
-build slot**. Codex owns this handoff, project routing documentation, proof
-maps and all manuscript sources/figures. Subagents `anchor_sizes`,
-`semantic_extract` and `good_edges` have completed their assignments and
-released all file ownership. No Codex compiler, remote request or watcher
-remains active. Do not stop or restart the persistent worker.
+Codex owns this handoff, manuscript/figures and proof maps. Bounded agents
+`diagram_spacing_audit` and `notation_audit` have released their files.
+Persistent Claude worker `agent-verticalstri-motzki-c-001af720` still owns all
+Lean sources, verification entry points, `docs/LEAN_COORDINATION.md`, and the
+sole Lean build slot (transfer at `b78312c`). No Codex Lean build or remote
+proof job was started. Do not stop or restart that worker.
 
 Check Git status and HEAD before edits; Claude commits on shared `main`.
-Stage only task-owned files. Do not run `lake update` for the known
-manifest-path warning. Historical proof-note prefixes at `a3d076b` remain
-preserved; append-only continuations were authorized.
+Stage only owned files. Preserve the pre-author-edit tag and its original PDF.
+No external Overleaf file was edited and the revised PDF has not been printed.
+The author/AI statement correction at `e4c7159` remains: no cumulant
+formalization caveat in the manuscript; the published attribution remains.
+Internal scope is unchanged: no new Lean theorem is claimed for that corollary.
 
 ## Verified mathematical scope
 
@@ -88,13 +83,13 @@ component results concern the actual coloring and integer-cover HRV semantics.
 
 Canonical prose and source correspondence:
 [docs/drafts/README.md](docs/drafts/README.md). The introduction is followed by
-`CIRCULAR_E_EXPANSION.md`, `ORDINARY_COMPONENT_DIAGRAM_PROOF.md` and the final
-Part 2 subsections in `CIRCULAR_COMPONENTS.md`. The latter include explicit
+`CIRCULAR_E_EXPANSION.md`, `ORDINARY_COMPONENT_DIAGRAM_PROOF.md`,
+`ORDINARY_FLIP_CONNECTIVITY.md`, `CIRCULAR_COMPONENTS.md` and `CUMULANTS.md`. The latter include explicit
 HRV deletion cancellation, the full finite coefficient argument, actual
 cover-preserving flips and the compatible-lift union of ordinary components.
 We do not claim each circular bounce/reversal restricts to a single component.
 
-The revised manuscript is **41 pages with 13 vector figures**. The original
+The revised manuscript is **44 pages with 14 vector figures**. The original
 tagged baseline was 35 pages. The general
 [llt-diagrams.sty](docs/drafts/tex/llt-diagrams.sty) and its
 [usage guide](docs/drafts/tex/README.md) implement diagrams as restricted sums:
@@ -117,19 +112,19 @@ Files: `manuscript.pdf`, `manuscript.tex`, `manuscript-source.zip`,
 PDF page previews are alongside the manuscript. The author metadata matches
 the earlier Alexandersson--Dai draft.
 
-Verification: 41-page PDF and three-page macro guide compile without warnings
-or box overflows. The 152 labels are unique, all 111 equation/theorem/figure
-references resolve, and all 24 bundled source inputs match their manifest.
-There are 5 theorem, 27 lemma, 9 proposition, 12 definition, 2 corollary,
-1 example and 43 proof environments. The introduction, grouped-recurrence
-pages and final corollary/AI statement were visually inspected, as were all
-13 vector figures. Independent reviews checked the new comparison, recurrence
-scope and cumulant deduction. Root corrected the concrete ND target and drew
-actual north/east/diagonal steps in the recurrence figure. All SVG previews
-were regenerated from the current native sources.
+Verification: the 44-page manuscript and four-page macro guide compile
+without warnings or box overflows. The 170 labels are unique, all 127
+references resolve, and all 26 source inputs match the bundle manifest.
+There are 5 theorems, 27 lemmas, 10 propositions, 13 definitions, 2 corollaries,
+2 examples and 43 proofs. The new introduction, original and shifted
+recurrences, induction table and ordinary proof strategy were visually
+inspected, as were all 14 figures. All SVG previews were regenerated.
+Independent reviews checked the original-source correspondence, induction
+orders, moved connectivity dependency, diagram spacing and notation changes.
+`git diff --check` passes. The complete Lean proof is unchanged.
 
 The revision PDF SHA256 is
-`fb3eb2de74ad3fee916f4932407c0da666512316fb348d2bcb945f8b432a3ed3`.
+`451554dfa6642da99091b6051955dda543d48658d5a6ae7cb421ac1088a0e238`.
 Paper-cache entries 496 (AS22), 497 (Hwang) and 498 (Dołęga--Kowalski)
 contain exact-version PDFs, source archives and extracted text; precise
 locators are in the draft README. The paper-cache database discovery call

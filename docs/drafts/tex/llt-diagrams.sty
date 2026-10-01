@@ -3,17 +3,14 @@
 \RequirePackage{tikz}
 \RequirePackage{xparse}
 \RequirePackage{amsmath}
+\usetikzlibrary{decorations.pathmorphing}
 
 % A diagram denotes a sum over the selections satisfying its restrictions.
 % The surrounding text specifies the ambient diagram, exterior, and valuation.
 % Positions in the ordered label list are numbered from 1, independently of labels.
-% The original LLT figures use one shaded ambient region with a few emphatic
-% local marks.  Do not turn every possible edge into a heavy table cell: the
-% entries below are restrictions imposed on that ambient region.
-\definecolor{lltLabelYellow}{RGB}{255,243,184}
-\definecolor{lltUnweightedGray}{RGB}{238,238,238}
-\definecolor{lltCellGray}{RGB}{224,224,224}
-\definecolor{lltSelectionBlue}{RGB}{226,238,248}
+% Gray denotes pairs outside the natural path. It never encodes q-weights.
+% Consecutive vertices share steps; a zigzag suppresses an arbitrary interval.
+\definecolor{lltExteriorGray}{RGB}{238,238,238}
 \newif\ifllt@weighted
 \pgfkeys{/llt/.is family,/llt/.cd,
   cell size/.store in=\llt@unit,
@@ -21,6 +18,9 @@
   entry font/.store in=\llt@entryfont,
   condition/.store in=\llt@condition,
   name/.store in=\llt@name,
+  gaps/.store in=\llt@gaps,
+  gap size/.store in=\llt@gapsize,
+  gaps={},gap size=1.2,
   weighted/.is if=llt@weighted,
   weighted/.default=true,
   cell size=5.8mm,
@@ -33,8 +33,8 @@
 \cs_new:Npn \lltcountlabels #1 { \clist_count:n {#1} }
 \ExplSyntaxOff
 
-% Internal cell painter, deliberately shared by all restriction commands.
-\newcommand{\llt@cell}[4]{%
+% Bounds shared by entries and exterior shading.
+\newcommand{\llt@checkcell}[2]{%
   \ifnum#1<1 \PackageError{llt-diagrams}{Cell column must be positive}{}\fi
   \ifnum#1<#2\else
     \PackageError{llt-diagrams}{A cell must have column < row}{}%
@@ -42,39 +42,45 @@
   \ifnum#2>\llt@count
     \PackageError{llt-diagrams}{Cell row exceeds the label count}{}%
   \fi
-  \path[draw=black!55,line width=.3pt,rounded corners=.45pt,fill=#3]
-    (#1-.87,#2-.87) rectangle +( .74,.74);
-  \node[font=\llt@entryfont,inner sep=0pt]
-    at (#1-.5,#2-.5) {$#4$};%
 }
-\newcommand{\llt@normalfill}{%
-  \ifllt@weighted white\else lltUnweightedGray\fi}
+\newcommand{\llt@cell}[3]{%
+  \llt@checkcell{#1}{#2}%
+  \edef\llt@cx{\csname llt@pos@#1\endcsname}%
+  \edef\llt@cy{\csname llt@pos@#2\endcsname}%
+  \path[fill=white] (\llt@cx+.08,\llt@cy+.08) rectangle +(.84,.84);
+  \node[font=\llt@entryfont,inner sep=0pt]
+    at (\llt@cx+.5,\llt@cy+.5) {$#3$};%
+}
 
 % Optional natural edge; selection contributes q only in weighted mode.
 \NewDocumentCommand{\LLTOptional}{m m}{%
-  \llt@cell{#1}{#2}{\llt@normalfill}{}%
+  \llt@cell{#1}{#2}{}%
 }
 % Selected normal edge; a star additionally requires it to be a cover.
 \NewDocumentCommand{\LLTSelected}{s m m}{%
-  \llt@cell{#2}{#3}{lltSelectionBlue}{\IfBooleanTF{#1}{\underline{1}}{1}}%
+  \llt@cell{#2}{#3}{\IfBooleanTF{#1}{\underline{1}}{1}}%
 }
 % Natural normal edge present in the diagram but absent from the selection.
 \NewDocumentCommand{\LLTAbsent}{m m}{%
-  \llt@cell{#1}{#2}{lltCellGray}{0}%
+  \llt@cell{#1}{#2}{0}%
 }
 % No natural edge. This changes the ambient diagram, not just the selection.
 \NewDocumentCommand{\LLTForbidden}{m m}{%
-  \llt@cell{#1}{#2}{lltCellGray}{\times}%
+  \llt@checkcell{#1}{#2}%
+  \edef\llt@cx{\csname llt@pos@#1\endcsname}%
+  \edef\llt@cy{\csname llt@pos@#2\endcsname}%
+  \path[fill=lltExteriorGray]
+    (\llt@cx,\llt@cy) rectangle +(1,1);%
 }
 % Strict natural edge: required selected, with no factor q.
 % A star additionally requires it to be a cover in the full selected relation.
 \NewDocumentCommand{\LLTStrict}{s m m}{%
-  \llt@cell{#2}{#3}{lltCellGray}
+  \llt@cell{#2}{#3}
     {\IfBooleanTF{#1}{\underline{\rightarrow}}{\rightarrow}}%
 }
 % Custom mathematical restriction; its meaning must be defined in the text.
-\NewDocumentCommand{\LLTCell}{O{lltUnweightedGray} m m m}{%
-  \llt@cell{#2}{#3}{#1}{#4}%
+\NewDocumentCommand{\LLTCell}{m m m}{%
+  \llt@cell{#1}{#2}{#3}%
 }
 
 % Unspecified off-diagonal cells are optional NATURAL edges.
@@ -86,33 +92,51 @@
   \ifnum\llt@count<1
     \PackageError{llt-diagrams}{A diagram needs at least one vertex label}{}%
   \fi
-  \pgfmathsetlengthmacro{\llt@labelsize}{.72*\llt@unit}%
-  \begin{tikzpicture}[x=\llt@unit,y=\llt@unit,baseline=(lltcenter)]
-    \coordinate (lltcenter) at (\llt@count/2,\llt@count/2);
-    \path[fill=\llt@normalfill] (0,0) -- (0,\llt@count)
-      -- (\llt@count,\llt@count) -- cycle;
-    \draw[black!48,line width=.42pt,line join=round]
-      (0,0) -- (0,\llt@count) -- (\llt@count,\llt@count);
-    \draw[black!25,line width=.24pt] (0,0) -- (\llt@count,\llt@count);
+  % Coordinates distinguish consecutive vertices from omitted intervals.
+  \def\llt@offset{0}%
+  \foreach \lab [count=\row] in {#2} {%
+    \pgfmathsetmacro{\pos}{\row-1+\llt@offset}%
+    \expandafter\xdef\csname llt@pos@\row\endcsname{\pos}%
+    \foreach \gap in \llt@gaps {%
+      \ifnum\gap=\row
+        \pgfmathparse{\llt@offset+\llt@gapsize}%
+        \xdef\llt@offset{\pgfmathresult}%
+      \fi}%
+  }%
+  \pgfmathsetmacro{\llt@extent}{\csname llt@pos@\llt@count\endcsname+1}%
+  \begin{tikzpicture}[x=\llt@unit,y=\llt@unit,baseline=(lltcenter),
+    llt continuation/.style={decorate,decoration={zigzag,
+      segment length=1.1mm,amplitude=.16mm},line width=.4pt}]
+    \coordinate (lltcenter) at (\llt@extent/2,\llt@extent/2);
     \foreach \lab [count=\row] in {#2} {
-      \node[circle,draw=black!62,line width=.32pt,fill=lltLabelYellow,
-        minimum size=\llt@labelsize,font=\llt@labelfont,inner sep=0pt]
-        at (\row-.5,\row-.5) {$\lab$};
+      \edef\pos{\csname llt@pos@\row\endcsname}%
+      \draw[line width=.55pt] (\pos,\pos) -- (\pos,\pos+1)
+        -- (\pos+1,\pos+1);
+      \node[font=\llt@labelfont,inner sep=0pt]
+        at (\pos+.5,\pos+.5) {$\lab$};
+      \ifnum\row<\llt@count
+        \pgfmathtruncatemacro{\next}{\row+1}%
+        \edef\nextpos{\csname llt@pos@\next\endcsname}%
+        \pgfmathparse{\nextpos>\pos+1.01}%
+        \ifdim\pgfmathresult pt>0pt
+          \draw[llt continuation] (\pos+1,\pos+1) -- (\nextpos,\nextpos);
+        \fi
+      \fi
     }
     #3%
     \ifx\llt@name\empty\else
       \node[anchor=south,font=\small,inner sep=3pt]
-        at (\llt@count/2,\llt@count) {$\llt@name$};
+        at (\llt@extent/2,\llt@extent) {$\llt@name$};
     \fi
     \ifx\llt@condition\empty\else
       \node[anchor=north,font=\scriptsize,inner sep=4pt]
-        at (\llt@count/2,0) {$\llt@condition$};
+        at (\llt@extent/2,0) {$\llt@condition$};
     \fi
   \end{tikzpicture}%
   \endgroup
 }
 
-% Ordinary area sequence: cross out the non-natural pairs automatically.
+% Ordinary area sequence: shade the exterior and draw the path boundary.
 % The final argument imposes additional restrictions with the usual commands.
 \NewDocumentCommand{\LLTAreaDiagram}{O{} m m +m}{%
   \ifnum\lltcountlabels{#2}=\lltcountlabels{#3}\else
@@ -134,29 +158,35 @@
         \foreach \col in {1,...,\lastforbidden} {\LLTForbidden{\col}{\row}}%
       \fi
     }
+    \draw[line width=.6pt]
+      (0,0)
+      \foreach \area [count=\row] in {#3} {
+        -- ({\row-\area-1},\row-1) -- ({\row-\area-1},\row)
+      }
+      -- (\llt@count,\llt@count);
     #4}%
 }
 
 % Convenient fixed restrictions; all rendering still goes through LLTDiagram.
 \NewDocumentCommand{\LLTSelectionTriangle}{O{} m m m}{%
-  \LLTDiagram[#1]{#2}{%
+  \LLTDiagram[gaps={1,2},#1]{#2}{%
     \LLTSelected{1}{3}%
     \ifnum#3=1 \LLTSelected{1}{2}\else\LLTAbsent{1}{2}\fi
     \ifnum#4=1 \LLTSelected{2}{3}\else\LLTAbsent{2}{3}\fi}%
 }
 \NewDocumentCommand{\LLTNNSource}{O{} m}{%
-  \LLTDiagram[#1]{#2}{\LLTStrict{1}{3}}%
+  \LLTDiagram[gaps={2},#1]{#2}{\LLTStrict{1}{3}}%
 }
 \NewDocumentCommand{\LLTNNTarget}{O{} m}{%
-  \LLTDiagram[#1]{#2}{\LLTForbidden{1}{3}\LLTStrict{2}{3}}%
+  \LLTDiagram[gaps={2},#1]{#2}{\LLTForbidden{1}{3}\LLTStrict{2}{3}}%
 }
 \NewDocumentCommand{\LLTDNSource}{O{} m}{%
-  \LLTDiagram[#1]{#2}{%
+  \LLTDiagram[gaps={1,3},#1]{#2}{%
     \LLTStrict{1}{2}\LLTStrict{2}{4}%
     \LLTForbidden{1}{3}\LLTForbidden{1}{4}}%
 }
 \NewDocumentCommand{\LLTDNTarget}{O{} m}{%
-  \LLTDiagram[#1]{#2}{%
+  \LLTDiagram[gaps={1,3},#1]{#2}{%
     \LLTStrict{1}{3}\LLTStrict{3}{4}%
     \LLTForbidden{1}{4}\LLTForbidden{2}{4}}%
 }

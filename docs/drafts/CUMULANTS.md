@@ -1,11 +1,11 @@
-## LLT cumulants
+# LLT cumulants
 
 We record the cumulant consequence of the component identity. The
 set-partition cancellation is the connected-subgraph argument for LLT
 cumulants in [@DK22, Theorem 3.8]; in the ordinary case, the resulting
 connected orientation expansion is the formula of [@DK22, Theorem 3.17].
 We use the same argument for circular diagrams and then group the states by
-complete flip components.
+flip components.
 
 ::: {.lemma #lem:cumulantInducedRestriction title="Induced restriction"}
 Let \(D\) be a circular decorated diagram and let \(U\) be a nonempty subset
@@ -66,7 +66,7 @@ With the notation above,
 \[
 \kappa_{D,f}(X;1+q)
 =\sum_{\substack{A\text{ admissible}\\A\text{ is }f\text{-connected}}}
-q^{|A\setminus S|+1-r}K(A).
+q^{|A\setminus S|+1-r}\mathsf{K}(A).
 \]
 Every exponent on the right is nonnegative.
 :::
@@ -78,7 +78,7 @@ all cross-block non-strict edges inactive, gives
 \[
 \prod_{B\in\pi}G_{D_B}(X;1+q)
 =\sum_{\substack{A\text{ admissible}\\\sigma_f(A)\le\pi}}
-q^{|A\setminus S|}K(A).
+q^{|A\setminus S|}\mathsf{K}(A).
 \]
 The strict-edge hypothesis ensures that no strict edge crosses the blocks.
 After inserting this identity into the cumulant definition, the coefficient
@@ -104,7 +104,7 @@ flip component. The number \(|A\setminus S|\) is constant on such a component.
 :::
 
 ::: {.proof}
-An actual flip preserves the weak-component partition of the selected graph,
+A flip preserves the weak-component partition of the selected graph,
 so passing to the quotient by \(f\) preserves \(\sigma_f(A)\). It also
 exchanges one selected non-strict edge for another, preserving
 \(|A\setminus S|\). Both assertions therefore hold along every flip path.
@@ -131,11 +131,11 @@ by these components gives
 \[
 \kappa_{D,f}(X;1+q)
 =\sum_{C\in\mathfrak C_f(D)}
-q^{d_C+1-r}\sum_{A\in C}K(A).
+q^{d_C+1-r}\sum_{A\in C}\mathsf{K}(A).
 \]
 Apply Theorem~\ref{thm:circularComponent} to each inner sum:
 \[
-\sum_{A\in C}K(A)=\sum_{A\in C}e_{\lambda(A)}(X).
+\sum_{A\in C}\mathsf{K}(A)=\sum_{A\in C}e_{\lambda(A)}(X).
 \]
 The exponents are nonnegative by the connected orientation proposition, and
 each inner sum is an elementary-positive symmetric function.

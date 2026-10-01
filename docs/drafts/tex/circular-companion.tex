@@ -3,7 +3,7 @@
 \usetikzlibrary{arrows.meta}
 \begin{document}
 \begin{tikzpicture}[x=1cm,y=1cm,>=Stealth,
-  vertex/.style={circle,draw=black!75,fill=lltLabelYellow,
+  vertex/.style={circle,draw=black!75,fill=white,
     minimum size=5.5mm,inner sep=0pt,font=\small}]
   \node[vertex] (a) at (0,0) {$0$};
   \node[vertex] (b) at (1.1,1.7) {$1$};
@@ -11,10 +11,10 @@
   \draw[->] (a) -- node[left,font=\scriptsize] {$1$} (b);
   \draw[->] (a) -- node[below,font=\scriptsize] {$2$} (c);
   \draw[->] (c) -- node[right,font=\scriptsize] {$2$} (b);
-  \node[font=\small] at (1.1,2.3) {$R$};
+  \node[font=\small] at (1.1,2.3) {$A$};
   \node[font=\scriptsize] at (1.1,-.65) {selected circular edges};
-  \node at (3.5,.65) {$V(R)=V(F)$};
-  \node[font=\scriptsize] at (3.5,.15) {$V=K,E$};
+  \node at (3.5,.65) {$V(A)=V(F)$};
+  \node[font=\scriptsize] at (3.5,.15) {$V=\mathsf{K},\mathsf{E}$};
   \node at (6,.65) {\LLTDiagram[name={F},cell size=7mm,
     condition={\text{lifts }0<2<4}]{0,2,1}{%
       \LLTSelected{1}{2}\LLTSelected{2}{3}\LLTForbidden{1}{3}}};
