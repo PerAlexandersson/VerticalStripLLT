@@ -3,8 +3,10 @@
 The [circular section](CIRCULAR_E_EXPANSION.md) gives the integer-cover
 definition, aggregate expansion, local reductions, terminal-contact reduction,
 interior column reversal and the area/rank induction. Its reversal figure is
-an editable SVG, rendered and visually inspected. Local boundary checks and
-DD-contact elimination are still compressed; the combined manuscript remains
+an editable SVG, rendered and visually inspected. DD-contact elimination now
+has explicit child and closing row tables, eligibility and contact-count
+arguments, and a weighted-sum figure. Local boundary checks are still
+compressed; the combined manuscript remains
 to be assembled. The existing external circular-first manuscript was consulted
 read-only; this draft explicitly separates terminal contact from interior
 overlap to match the checked Lean decomposition.
@@ -24,8 +26,9 @@ now written in detail. The complete-diagram base now includes chain insertion,
 interval opening/lifting/closing, outer-chord moves and the four explicit
 five-vertex paths. Last-clique inheritance now includes connected-core
 preparation, sweep/lift/restoration, the fixed spanning tree and both kinds
-of extra-edge exchange. These expansions still need a whole-proof dependency
-and notation audit before assembly into the combined paper. The mathematical source is the
+of extra-edge exchange. A whole-proof dependency and notation audit has returned; its attachment,
+inheritance and induction clarifications are incorporated. Assembly into
+the combined paper remains. The mathematical source is the
 [assembled proof](../proofs/COMPONENT_DIAGRAM_COMPLETION.md).
 
 The independent Lean formalization is unfinished. The draft does not claim
@@ -45,8 +48,8 @@ manuscript prose.
 | Figure 5: fixed core tree and omitted leaves | `exists_lastClique_core_tree`, `exists_lastClique_tree_replacement`, `lastCliqueFixedEdges_isTree` | Checked; the figure fixes a concrete selected tree in each diagram |
 | Last-clique extra-edge exchanges and inheritance | `exists_last_clique_shared_exchange`, `anchors_connected_of_overlapping_extra_positions`, `commonCover_connected_of_lastClique_core` | Checked; the draft retains the temporary repair of the missing star edge and restores the full tree at endpoints |
 | Removing one good normal edge | `goodEdge_weakReach_avoiding_terminal`, `weakReach_erase_good_edge`, `goodEdgeGraph_delete_connected` | Checked two-edge replacement, skipped-chain path and third-chain detour |
-| Three smaller corrections and envelope | P7 | Detailed written proof; Lean unfinished |
-| Figure 7: NN/DN layer sums and component isolation | P8 | Explicit size accounting in draft; NN full-layer focused build passed at `3665a3d`; component isolation remains unfinished |
+| Three smaller corrections and envelope | `certifies_of_not_hasCommonWitness` | Source checkpoint `f59bd96`; successful rebuild in `iso-1.log`, new axiom audit pending |
+| Figure 7: NN/DN layer sums and component isolation | `NNContact.layer`, `DNContact.layer`, `certifies_of_layer`, `certifies_nn`, `certifies_dn` | Focused builds passed at `3665a3d`, `e926c75`, `e8bb9dd`; new axiom audit pending |
 | Restrict after deleting zero | `initialVertex_anchor_restrict`, `induced_allCorners_initialVertex` | Checked |
 | Make the selected core connected | `CornerFamily.exists_reachable_connected_initialVertex_core` | Checked actual crossing-slide paths |
 | Keep initial extras fixed along a core path | `initialVertex_lift_reachable`, `initialVertex_reachable_of_same_initial_row` | Checked under smaller-core uniqueness |
@@ -62,7 +65,7 @@ manuscript prose.
 | Endpoint-marked K and E | `markedK`, `markedE`, `markedK_diamond`, `markedE_diamond` | Existing checked semantics; see plan for the P2 interfaces |
 | Figure 8: attachment and fibre merger | `IsRightAttachment.flipComponent_glue`, `hrv_glue_left`, `hrv_glue_right`, `attach_transfer` | Checked at `26b2d97`: whole product components, marked K/E transfer and measure decrease |
 | Figure 9: first nontrivial prefix and fixed attachment | P9 prefix selection; `attach_measure_lt` | Prefix selection written in detail; attachment measure transfer checked |
-| Whole-component corrections and marked recurrences | P7–P8 | Unfinished |
+| Whole-component corrections and marked recurrences | P7–P8 | Certificates have focused build passes; final integration and extended verification remain |
 | First-drop coverage and final expansion | P9–P10 | Unfinished |
 
 The circular source map supplements [the completion audit](../CIRCULAR_COMPLETION.md):
@@ -71,6 +74,7 @@ The circular source map supplements [the completion audit](../CIRCULAR_COMPLETIO
 | --- | --- | --- |
 | Circular expansion theorem | `Circular/Expansion.lean`, `coloringLLT_shifted_eq_orientation_sum` | Checked aggregate theorem |
 | Four selected triangles | `Circular/HRVTriangle.lean`, `tri_local_identity` | Integer-cover HRV identity |
+| Figure 1: DD resolution and contact-count induction | `DDLocalData.coloring_resolution`, `orientation_resolution`, `resolved_dd_child`, `delete_dd_child`, `coloring_closing_nn`, `dnModelsClaim_succ` | Checked; the resolved child's doubled area increases by one, so it is not an outer-induction step |
 | Terminal-contact reduction | `Circular/AliasRecurrences.lean`, `Diagram.exists_nd_alias_reduction`; `AliasReductionForced.lean`, `card_B`, `card_C` | Common factor `1+q`, doubled-area decrease six |
 | Interior column reversal | `Circular/InteriorReversalReduction.lean`, `Diagram.expansion_of_nd_interior_overlap` | Strict interior intersection; terminal contact treated separately |
 | Internal-edge factor cancellation | `Circular/ComponentFactorization.lean`, `Diagram.expansion_iff_component_residual` | Different source/target exponents allowed |
@@ -88,7 +92,8 @@ colors. Gray/white cells distinguish unweighted and normal-edge-weighted sums.
 The two-page `diagram-examples.tex` preview and the diamond and NN/DN figures
 compile without warnings or box overflows and were visually inspected.
 
-The diamond, layer, crossing-sweep, two-chain, child-merge, last-clique-tree
+The diamond, layer, crossing-sweep, two-chain, child-merge, last-clique-tree,
+circular DD-elimination
 and prefix-attachment SVGs are generated
 from their `.tex` sources using
 `llt-diagrams.sty`; edit those sources rather than their generated font paths.

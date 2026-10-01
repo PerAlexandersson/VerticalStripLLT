@@ -349,8 +349,9 @@ Finally restore the left sweep in reverse order. For $v\in L$, the net
 change affects no edge wholly inside $[v,c]$, so the cover test for $vc$
 agrees with its test in the reversed left sweep. Starting with the cover
 $ac$, these reverse flips are actual. They do not change paths in $[b,d]$.
-Every exchanged edge lies properly inside $ac$ or $bd$, so it is normal
-throughout. We obtain exactly $A-ab+cd$ in $2+2|L|+2|R|$ flips.
+Every exchanged edge lies properly inside $ac$ or $bd$, so it cannot
+be a maximal natural corner and is normal throughout. We obtain exactly
+$A-ab+cd$ in $2+2|L|+2|R|$ flips.
 
 ![Sweeping and restoring the exterior of a crossing slide](figures/crossing-sweeps.svg)
 
@@ -420,7 +421,9 @@ these path arrows are not identities of individual state values.
 ## The complete-diagram base
 
 We now work in the complete natural diagram on $0,\ldots,N$, with
-$N\geq1$. Its only maximal corner is $0N$.
+$N\geq1$. Its only maximal corner is $0N$. The argument applies whether
+this corner is normal or strict: every exchanged edge is a proper subedge
+of a retained natural edge and hence cannot be strict.
 
 **Complete-diagram lemma.** Connected states in which $0N$ covers belong
 to one flip component at each fixed total selected size.
@@ -474,6 +477,8 @@ cannot leave through $N$ and return. At the local endpoint, zero has
 only the edges $0(N-1),0N$, and $N-1$ has no outgoing edge. Hence
 both zero-edges cover, and we flip $0(N-1)$ back to $(N-1)N$.
 Starting with $N=1$, this constructs $P_N$ with no other edge at zero.
+This induction only introduces the chain; it does not use the chord
+rearrangement proved below.
 
 ![Four flips merging two children](figures/complete-child-merge.svg)
 
@@ -485,7 +490,9 @@ to $N$. Arbitrary incoming edges at the children are allowed.
 
 **Using a smaller interval.** Consider two chain states which agree
 outside the ordered vertex set $\{0,a,a+1,\ldots,b\}$, where
-$0<a\leq b\leq N$. We can lift a path between their restrictions
+$0<a\leq b\leq N$. Here agreement outside means agreement on every
+selected pair not having both endpoints in this set.
+We can lift a path between their restrictions
 while restoring the entire exterior.
 
 To do so, open the chain in decreasing order $j=N-1,\ldots,b$:
@@ -501,7 +508,8 @@ Thus each flip is actual, regardless of the chords.
 
 The opened zero-row has precisely the heads $b,b+1,\ldots,N$.
 The restriction to $\{0,a,\ldots,b\}$ is a smaller chain state with
-corner $0b$. A forward path testing an edge with both endpoints in
+corner $0b$ covering, and is connected by its retained chain.
+A forward path testing an edge with both endpoints in
 $[a,b]$ stays inside this interval. For an edge from zero, a path cannot
 enter a vertex below $a$, since no zero-edge goes there; it cannot return
 from a zero-edge ending above $b$. These facts remain true during any
@@ -516,6 +524,8 @@ using the chain construction above for both endpoints. For $N\geq5$,
 apply the smaller-interval construction to $[1,N-1]$ and $[2,N]$.
 By induction, within either interval we may rearrange the selected chords
 at fixed count, leaving every other edge fixed at the endpoint.
+Here we use the full strong induction hypothesis on the smaller connected
+complete diagram; the interval construction above supplies the lift.
 
 The two sets of chord positions cover all positions except $1N$, and
 their intersection contains $24$. Thus exchanges within these sets connect
@@ -720,8 +730,9 @@ connects its whole intersection with $S$. All its vertices are strictly
 above $a$, so its endpoint remains an anchor.
 
 The clique-block vertex sets have stayed fixed. Every one now meets $V$
-in a connected selected subgraph. All edges outside $[a,e]$ already have
-both endpoints in $V$. Replacing each excursion of a weak path through
+in a connected selected subgraph. Every natural edge lies below a maximal
+corner. Since all corners except $ae$ end at or below $c$, all edges
+outside $[a,e]$ have both endpoints in $V$. Replacing each excursion of a weak path through
 an omitted vertex by a path in its block's retained part shows that the
 selected core is connected.
 
@@ -954,8 +965,11 @@ unchanged. The core has fewer vertices and no articulation, so induction
 supplies its required path theorem.
 
 If $b=1$, deleting zero removes just $0a$. The remaining graph has fewer
-vertices and no articulation, and the number of corner chains is unchanged.
-It has at least three chains outside the base cases. The removable-edge
+vertices. Its maximal cliques start with $[1,c]$ and thereafter have the
+same overlaps as before, so it stays connected without articulation.
+Deleting zero removes one vertex and one corner edge; hence the number of
+corner chains is unchanged. Outside the two-chain base case, at least
+three chains remain, so the core has at least three vertices. The removable-edge
 lemma therefore applies to every matching edge $d_v$, verifying the
 remaining hypothesis of the initial-vertex lemma.
 
@@ -1124,9 +1138,10 @@ component of a smaller diagram on the same vertex set as the prefix.
 
 ## Attaching an arbitrary component on the right
 
-Let a second ordinary diagram occupy $[c,d]$. Assume that no natural
-edge joins a vertex below $c$ to a vertex above $c$. The glued diagram
-has exactly the natural and strict edges of its two factors. Fix a whole
+Let a second ordinary diagram occupy $[c,d]$. We assume that the glued
+diagram has exactly the unions of the natural and strict edges of its
+two factors. In particular, no natural edge joins a vertex below $c$
+to a vertex above $c$. Fix a whole
 component $T$ of this second diagram. We write $P*T$ for the selected
 unions of one state of $P$ and one state of $T$.
 
@@ -1138,7 +1153,9 @@ ending at $c$ and the chain beginning at $c$ concatenate. Their common
 vertex, colored $\beta$, contributes one weight $x_\beta$.
 
 **Attachment lemma.** The set $P*T$ is a whole flip component. Every
-paired marked recurrence (4) gives
+paired marked recurrence (4) gives the following identities, provided
+each target prefix likewise forms an ordinary decorated diagram with the
+same right factor by this union of natural and strict edges:
 
 \[
  V(P*T)=\sum_i z_i V(P_i*T),\qquad V=K,E.
@@ -1393,7 +1410,12 @@ prefix components $P_i$ such that, for every endpoint color $\beta$,
 \]
 
 All prefixes have the same vertex set. Each target is smaller in $(A,M)$
-by (8) or a source correction. Attach the same $T$ to each term. The
+by (8) or a source correction. Each prefix remains an ordinary decorated
+diagram, and its union with the fixed right diagram is again such a
+diagram: a last prefix corner ends at $c$, whereas a first right corner
+starts at or after $c$, so neither can contain the other. Thus these
+unions retain exactly the strict decorations of their two factors and
+have no edge across the interiors. Attach the same $T$ to each term. The
 attachment lemma gives whole components $P_i*T$ and the two identities
 with these same integers $z_i$. Equation (9) preserves every strict
 decrease, so induction gives $K(P_i*T)=E(P_i*T)$ for every term. Their

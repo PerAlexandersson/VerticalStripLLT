@@ -14,8 +14,8 @@ Codex owns this handoff, mathematical prose, formalization maps and plan,
 `semantic_extract`, `anchor_sizes` and `good_edges` have returned the
 last-clique writing reviews; they own no editable files or build slot.
 Check Git status and HEAD before each edit/checkpoint; Claude commits on the
-shared `main`. Stage only writing-owned files. The current untracked
-`DiagramProof/DNRecurrence.lean` is Claude-owned.
+shared `main`. Stage only writing-owned files. Current dirty or untracked
+`DiagramProof/` sources are Claude-owned; the current lane is first-drop coverage.
 
 The full goal is unfinished: complete the independent diagram formalization
 and assemble a new paper with the circular aggregate expansion and the
@@ -40,14 +40,16 @@ proof-note prefixes at `a3d076b`; append-only continuations remain authorized.
   previous axiom audit does not cover it.
 - `cdac9cc`, `cb723f6`, `f59bd96`: relational transport, alternating deletion
   and whole-component correction certificates. `altcert-2.log` passed.
-  The only inspected `compcorr-1.log` failed before a duplicate declaration
-  was removed; no later successful correction log has yet been identified.
-  Do not infer verification of P7 from its source commit alone.
+  The earlier `compcorr-1.log` failed, but `iso-1.log` now records a successful
+  rebuild of `ComponentCorrections` and its two direct dependencies. The new
+  declarations still await the extended axiom audit.
 - `3665a3d`: NN full-layer recurrence. Codex read successful `nn-5.log`
-  (three deprecated-simp warnings). The DN source also has a successful
-  `dn-3.log`, but remained uncommitted at this writing check. No new NN/DN
-  axiom queries were present. Component isolation, prefix/first-drop coverage
-  and final induction remain to be integrated and independently audited.
+  (three deprecated-simp warnings). `e926c75` gives the DN full-layer
+  recurrence; its final `dn-7.log` passes with unused-section-variable warnings.
+  `e8bb9dd` adds component isolation and NN/DN certificates; `iso-1.log` passes.
+  No new queries for these declarations were present. Prefix/first-drop
+  coverage and final induction remain to be integrated and independently
+  audited, together with the new certificate axioms and import closure.
 
 Logs: `/lake-cache/ai-projects/requests/VerticalStripLLT/claude-right-attachment/logs/`.
 Only Claude may perform the remaining focused builds and axiom checks.
@@ -71,10 +73,11 @@ preparation, restored crossing slides, two-chain paths, removable edges,
 complete-diagram base, last-clique and initial-vertex inheritance, NN/DN
 layers, attachment, prefix selection, four contact cases and final induction.
 This is written mathematical proof, not a claim of completed formalization.
-A whole-proof dependency/notation audit and combined manuscript assembly remain.
+The whole-proof review has returned; its clarifications are incorporated.
+Combined manuscript assembly and final paper/formalization comparison remain.
 
-The latest increment supplies the last-clique proof: connected retained parts
-of selected blocks, sweep/lift/restoration, a fixed core spanning tree,
+Pushed writing checkpoint `c734842` supplies the last-clique proof: connected
+retained parts of selected blocks, sweep/lift/restoration, a fixed core spanning tree,
 omitted leaves and exchanges through the shared edge. The temporary repair
 when removing `ce` is explicit. Three read-only source reviews approved these
 constructions, with geometry/count/endpoint clarifications incorporated.
@@ -84,8 +87,22 @@ rendered and visually inspected. Figure references and source maps are current.
 The [circular draft](docs/drafts/CIRCULAR_E_EXPANSION.md) follows the checked
 aggregate theorem. It separates terminal contact (factor `1+q`, doubled
 area down six) from interior column reversal, and uses exactly Lean's
-strict-edge length times proper-ancestor rank. The local boundary checks and
-DD-contact elimination still need expansion before combined assembly.
+strict-edge length times proper-ancestor rank. DD-contact elimination is now
+expanded with the two child row tables,
+terminal eligibility, preservation of the remaining contacts, closing DN
+move and cancellation. A new weighted restricted-sum figure shows the three
+actual diagrams. Its auxiliary induction is explicitly on contact count,
+since the resolved child has larger doubled area. Local boundary checks
+still need expansion before combined assembly.
+
+The whole ordinary-proof audit clarified the attachment hypothesis for every
+target prefix, justified its preservation in the final induction, and expanded
+the smaller-core overlap and corner-chain count arguments. Independent
+review approved both DD row tables, the figure, child eligibility,
+acyclicity and cancellation; residue-separation and notation clarifications
+were incorporated. The opening/complete-diagram review found no K/E weight
+or path/value confusion. We made the marked/unmarked complete case and its
+two separate inductions explicit, and defined exact exterior agreement.
 
 Writing previews/logs:
 `/lake-cache/ai-projects/requests/VerticalStripLLT/diagram-formalization/tex-preview/`.
@@ -95,9 +112,10 @@ No Codex Lean build or mathematical computation ran during this increment.
 
 ## Next work and recovery
 
-1. Audit the complete ordinary proof for dependencies, notation and match to
-   the actual checked diagram paths; keep compiler status outside the paper.
-2. Expand circular local-boundary and DD-contact arguments, then assemble the
+1. Assemble and edit the ordinary draft after the returned whole-proof audit;
+   retain its correspondence to the actual checked diagram paths and keep
+   compiler status outside the paper.
+2. Expand circular local-boundary arguments, then assemble the
    combined manuscript with native vector figures and sparse TeX builds.
 3. Incorporate Claude's final certificates/coverage/induction once verified;
    audit new theorem axioms, independent import closure and paper correspondence.

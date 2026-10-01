@@ -83,6 +83,9 @@ by an edge between two children, with the common exterior fixed at endpoints.
 full tree obtained by attaching the omitted vertices as leaves. Each picture
 therefore denotes a single selected state; additional good edges are supplied
 in the accompanying proof.
+`circular-dd-elimination.tex` displays the weighted restricted-sum identity
+`q F(D) = F(R) - F(E)` for a DD contact. Its blank cells remain optional;
+the accompanying caption specifies the coloring or admissible HRV valuation.
 An equation between diagrams means equality of the indicated sums. A
 flip-path arrow is stated separately as a correspondence between endpoint
 states; it does not assert equality of their individual valuations.
@@ -105,6 +108,8 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error complete-child-merge.tex
 pdftocairo -svg complete-child-merge.pdf complete-child-merge.svg
 latexmk -pdf -interaction=nonstopmode -halt-on-error last-clique-tree.tex
 pdftocairo -svg last-clique-tree.pdf last-clique-tree.svg
+latexmk -pdf -interaction=nonstopmode -halt-on-error circular-dd-elimination.tex
+pdftocairo -svg circular-dd-elimination.pdf circular-dd-elimination.svg
 ```
 
 The previous external `LLTCells` macro was inspected for the diagonal-label

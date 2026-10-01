@@ -154,15 +154,122 @@ $x+kn,x+1+kn$, and the first vertex has a mandatory outgoing edge.
 Every reachable vertex extends to a sink. Thus the exchange transports
 the highest reachable map and preserves its fibre sizes.
 
-Intervening DD contacts are removed by induction on their number.
-At the last such contact, unmark the parallel strict corner and subtract
-the diagram in which it is deleted. Equation (1) gives $qF_D$.
-A direct DN move and the two shorter-contact relations give
-$\gamma(F_U-F_W)$, where $\gamma=1+q$ for NN and $\gamma=1$ for DN.
-The final pair $U,W$ unmarks and deletes one corner of the required
-target $T$, so $F_U-F_W=qF_T$. Cancelling $q$ proves (2) for the
-whole bounce. This induction uses the number of contacts; its auxiliary
-diagrams need not have smaller area.
+### Removing intervening DD contacts
+
+We prove (2) by induction on the number of intervening DD contacts,
+for both values of $F$ simultaneously. We assume the strict graph is
+acyclic; strict cycles have already been treated. The case of no DD
+contact is the local calculation above.
+
+Suppose there is at least one DD contact. At the contact nearest the
+terminal row $t$, put $p=b(t)$ and $u=b(p)$. Since $g(p)=0$ and both
+$p,p+1$ are strict rows, the three strict edges there are
+
+\[
+             e:u\longrightarrow p,\qquad
+             e':u+1\longrightarrow p+1,\qquad
+             f:p\longrightarrow t.
+\]
+
+Write $h=a_p=a_{p+1}$ and $L=a_t$. We have $h,L\geq2$.
+For $L$ this is terminal eligibility. For $h$, the corner at $p+1$
+gives $b(p+2)>u+1$, while boundary monotonicity and $p+2\leq t$ give
+$b(p+2)\leq b(t)=p$. Hence $u\leq p-2$.
+In particular the five displayed integer vertices
+are ordered $u<u+1<p<p+1<t$.
+
+Unmark $e'$, then apply the direct DN relation to $e,f$; call the result
+$R$. Alternatively, delete the corner $e'$ from $D$; call this diagram
+$E$. Their changed rows are exactly as follows. An entry is the pair
+$(\text{area},\text{strict flag})$; all other rows stay fixed.
+
+| Diagram | Row $p$ | Row $p+1$ | Row $t$ |
+| --- | --- | --- | --- |
+| $D$ | $(h,1)$ | $(h,1)$ | $(L,1)$ |
+| $R$ | $(h,0)$ | $(h+1,1)$ | $(L-1,1)$ |
+| $E$ | $(h,1)$ | $(h-1,0)$ | $(L,1)$ |
+
+Unmarking and deleting $e'$, followed by the direct DN identity, give
+
+\[
+                         qF_D=F_R-F_E.                         \tag{DD1}
+\]
+
+![One DD elimination as a difference of restricted sums](figures/circular-dd-elimination.svg)
+
+*Figure 1.* We illustrate (DD1) with areas $(0,1,2,2,2)$ and strict
+corners $02,13,24$. Thus $p=2$ and $t=4$. The resolved diagram has
+areas $(0,1,2,3,1)$ and strict corners $03,34$; the deletion diagram
+has areas $(0,1,2,1,2)$ and strict corners $02,24$. Each diagram sums
+over all optional cells with weight $q^{|A\setminus S|}$. For the HRV
+value we sum only admissible states; equivalently cyclic states have
+value zero. For the coloring value we use the selected-edge expansion
+of $G_D(X;q+1)$.
+
+The new terminal row is $p+1$ in $R$ and $p$ in $E$. Both have a
+positive east gap. In $E$, deleting $e'$ raises $b(p+1)$ by one, so the
+gap after $p$ becomes positive. In $R$, the new boundary at $p+1$
+is $u$, whereas the following boundary is greater than $u+1$.
+The new terminal areas are $h+1$ and $h$, both at least two.
+Moreover,
+
+\[
+                    b_R(p+1)=u=b_E(p).
+\]
+
+Thus both child bounces resume at the next old contact. Every subsequent
+contact and its two flags stay unchanged, so each child has one fewer
+DD contact and the same final NN or DN contact. Here the final flag
+$s(x+1)=0$ is essential: following the two strict predecessor paths
+cannot identify a later contact with one of the changed rows without
+producing a strict cycle or making $x+1$ strict. The deleted strict
+graph is a subgraph of the source. The resolved strict graph is obtained
+from the source with $e'$ removed by exchanging $p,p+1$ periodically;
+it too is acyclic. The induction therefore applies to both children.
+
+Let $T$ be the target required by (2) for $D$, and put $\gamma=1+q$
+in the NN case and $\gamma=1$ in the DN case. In $T$, the old edge
+$e$ is still a strict corner. Let $U$ unmark this corner of $T$, and
+let $W$ delete it. The target for the child $R$ is exactly $U$.
+The target for $E$ becomes $W$ after one direct DN move at $p,t$.
+We can see both assertions from the rows:
+
+| Diagram | Row $p$ | Row $p+1$ | Row $t$ |
+| --- | --- | --- | --- |
+| $T$ | $(h,1)$ | $(h,1)$ | $(L-1,1)$ |
+| $U$ | $(h,0)$ | $(h,1)$ | $(L-1,1)$ |
+| Target of $E$ | $(h-1,1)$ | $(h-1,0)$ | $(L,1)$ |
+| $W$ | $(h-1,0)$ | $(h,1)$ | $(L-1,1)$ |
+
+In the DN case every diagram in this table also includes the same changes
+at the initial contact: increase $a_{x+1}$ by one and move the strict
+head from $x$ to $x+1$. The strict path from $x$ through $p$ to $t$
+cannot repeat a residue, and $p+1$ has no outgoing strict edge by the
+terminal east gap.
+Thus $x$ differs from all three displayed residues. The non-strict row
+$x+1$ differs from them because all three are strict in the source.
+In the NN case there are no additional changes.
+
+The two shorter-contact relations, and the final direct DN move on the
+deletion side, now give
+
+\[
+             F_R=\gamma F_U,\qquad F_E=\gamma F_W.
+\]
+
+Substitution into (DD1), followed by the corner relation at $e$ in $T$,
+gives
+
+\[
+       qF_D=\gamma(F_U-F_W)=q\gamma F_T.
+\]
+
+We cancel $q$ in the polynomial ring and obtain (2). This is an
+induction on the number of contacts. In fact $R$ has the same area
+sum as $D$ but one fewer strict edge, so its doubled area is one
+larger; the outer area induction is not used for this intermediate.
+
+### Separated ND contacts
 
 For an ND contact whose two strict paths are disjoint, the same
 unmarking and deletion argument gives
@@ -266,7 +373,7 @@ as follows:
 
 ![Reversal inside consecutive intervals](figures/circular-reversal.svg)
 
-*Figure 3.* We take $r=5$ and $j=2$, so the strict chain is
+*Figure 2.* We take $r=5$ and $j=2$, so the strict chain is
 $w_0\to\cdots\to w_6$. Each row is a consecutive circular interval,
 drawn in circular order. The permutation reverses the entries within
 each row. The rows need not be adjacent on the circle. Strict edges
