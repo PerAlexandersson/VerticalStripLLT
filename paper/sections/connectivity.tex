@@ -245,13 +245,13 @@ The covers form a connected graph, and a cycle in it would have a least vertex
 with two outgoing covers, so they form a tree, with unique sink $n$.
 Every edge of $\eta$ joins a vertex to one of its ancestors in this tree.
 
-If $i<j$ are two children of $n$, their only outgoing edges are $iN$ and $jN$,
+If $i<j$ are two children of $n$, their only outgoing edges are $in$ and $jn$,
 and the four flips
 \begin{equation}\label{eq:childMerge}
- iN\mapsto0i\ [0n],\qquad jN\mapsto 0j\ [0n],\qquad
- 0i\mapsto ij\ [0j],\qquad 0j\mapsto jN\ [0n]
+ in\mapsto0i\ [0n],\qquad jn\mapsto 0j\ [0n],\qquad
+ 0i\mapsto ij\ [0j],\qquad 0j\mapsto jn\ [0n]
 \end{equation}
-replace $iN$ by $ij$, see Figure~\ref{fig:childMerge}.
+replace $in$ by $ij$, see Figure~\ref{fig:childMerge}.
 For the first two, the vertex losing its edge to $n$ becomes a sink, so the new
 edge from $0$ is a cover and $0n$ remains one.
 At the third flip, $i$ and $j$ are sinks; afterwards $0$ is adjacent only to
@@ -271,11 +271,13 @@ We have reached an orientation $P_n\cup X$.
 
 \begin{figure}[!ht]
 \centering
-\LLTpic[cell=0.9em,first=0]{nnndeee}{\LLTasc{1/3,2/3}}$\;\longrightarrow\;$\LLTpic[cell=0.9em,first=0]{nnndeee}{\LLTasc{0/1,2/3}}$\;\longrightarrow\;$\LLTpic[cell=0.9em,first=0]{nnndeee}{\LLTasc{0/1,0/2}}$\;\longrightarrow\;$\LLTpic[cell=0.9em,first=0]{nnndeee}{\LLTasc{0/2,1/2}}$\;\longrightarrow\;$\LLTpic[cell=0.9em,first=0]{nnndeee}{\LLTasc{1/2,2/3}}
-\caption{The four flips~\eqref{eq:childMerge} for $n=3$, $i=1$ and $j=2$.
-They are $13\mapsto01$, $23\mapsto02$, $01\mapsto12$ and $02\mapsto23$, and the
-children $1$ and $2$ of $3$ become the chain $1\to2\to3$.
-The diagonal step crosses the strict corner $03$.}
+\begin{gather*}
+ \EdgePic{4}{0,i,j,n}{1/4/c,2/4/b,3/4/b}\longrightarrow\EdgePic{4}{0,i,j,n}{1/4/c,1/2/b,3/4/b}\longrightarrow\EdgePic{4}{0,i,j,n}{1/4/c,1/2/b,1/3/b}\\
+ \longrightarrow\EdgePic{4}{0,i,j,n}{1/4/c,2/3/b,1/3/b}\longrightarrow\EdgePic{4}{0,i,j,n}{1/4/c,2/3/b,3/4/b}
+\end{gather*}
+\caption{The four flips~\eqref{eq:childMerge}, which replace $in$ by $ij$; the
+cover $0n$ (gray) is retained throughout.
+The children $i$ and $j$ of $n$ become the chain $i\to j\to n$.}
 \label{fig:childMerge}
 \end{figure}
 
@@ -336,16 +338,16 @@ status of $1n$.
 
 It remains to change the status of $1n$.
 Suppose $1n\notin\theta$ and $13,2n\in\theta$.
-We perform $iN\mapsto 0i\ [0n]$ for all $iN\in\theta$ with $0<i<n$, in decreasing
+We perform $in\mapsto 0i\ [0n]$ for all $in\in\theta$ with $0<i<n$, in decreasing
 order of $i$.
-When $iN$ is moved, the edges into $n$ with larger tails have been moved.
-Hence $iN$ is a cover, and the vertices other than $n$ adjacent to $0$, which are
+When $in$ is moved, the edges into $n$ with larger tails have been moved.
+Hence $in$ is a cover, and the vertices other than $n$ adjacent to $0$, which are
 larger than $i$, cannot reach $n$, so $0n$ is a cover.
 Now $02\in\theta$ and $01\notin\theta$, so $02$ is a cover, and we perform the
 flip $12\mapsto 01\ [02]$.
 Then we reverse these flips in increasing order of $i$, including the new edge
 $01$.
-When $0i$ is moved back to $iN$, it has the least head among the edges at $0$,
+When $0i$ is moved back to $in$, it has the least head among the edges at $0$,
 and the edges into $n$ restored so far have smaller tails, so $0i$ and $0n$ are
 covers.
 We obtain $\theta-12+1n$.
