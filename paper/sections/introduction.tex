@@ -2,19 +2,31 @@
 
 LLT polynomials were introduced by A.~Lascoux, B.~Leclerc and J.-Y.~Thibon as
 $q$-deformations of products of Schur functions~\cite{LLT1997}.
+I.~Grojnowski and M.~Haiman proved that they are Schur-positive
+\cite{GrojnowskiHaiman2006}.
+LLT polynomials are the building blocks of the combinatorial formula for
+Macdonald polynomials of J.~Haglund, M.~Haiman and
+N.~Loehr~\cite{HaglundHaimanLoehr2005}, and of the Shuffle Theorem, conjectured
+in~\cite{HaglundHaimanLoehrRemmelUlyanov2005} and proved by E.~Carlsson and
+A.~Mellit~\cite{CarlssonMellit2017}; see also~\cite{qtCatalanBook}.
+
 The vertical-strip LLT polynomials form a subfamily which can be described by
-colorings of decorated unit-interval graphs: if $\Gamma$ is such a graph on $[n]$,
-then
+colorings of decorated unit-interval graphs~\cite{AlexanderssonPanova2018}: if
+$\Gamma$ is such a graph on $[n]$, then
 \[
  \LLT_\Gamma(\xvec;q)=\sum_\kappa q^{\asc(\kappa)}x_{\kappa(1)}x_{\kappa(2)}\dotsm x_{\kappa(n)},
 \]
 where $\kappa$ ranges over the colorings which increase strictly along the
 strict edges, and $\asc(\kappa)$ counts the other edges along which $\kappa$
 increases.
-They appear in the work of E.~Carlsson and A.~Mellit on the Shuffle
-Theorem~\cite{CarlssonMellit2017}, and they are closely related to the chromatic
-quasisymmetric functions of J.~Shareshian and
-M.~Wachs~\cite{ShareshianWachs2016}.
+Without strict edges, they are the unicellular LLT polynomials, which are
+related by a plethystic substitution to the chromatic quasisymmetric functions of
+J.~Shareshian and M.~Wachs~\cite{ShareshianWachs2012,ShareshianWachs2016},
+see~\cite{CarlssonMellit2017,GuayPaquet2016x}.
+For chromatic symmetric functions, elementary positivity is the content of the
+Stanley--Stembridge conjecture~\cite{StanleyStembridge1993,Stanley1995}.
+M.~Guay-Paquet reduced it to unit-interval graphs~\cite{GuayPaquet2013}, and
+T.~Hikita proved it~\cite{Hikita2024}.
 
 The first named author and R.~Sulzgruber proved that, after the substitution
 $q\mapsto q+1$, the vertical-strip LLT polynomials expand positively in the
@@ -30,8 +42,12 @@ $\asc(\theta)$ is the number of ascending edges, those oriented from the smaller
 to the larger vertex, and $\lambda(\theta)$ records the sizes of the sets of vertices with the same highest reachable vertex.
 The proof in~\cite{AlexanderssonSulzgruber2022} shows that both sides
 of~\eqref{eq:introAS} satisfy a system of linear relations which determines them.
-The analogous question for circular unit-interval graphs was left open
-in~\cite[Sec.~6.8]{AlexanderssonSulzgruber2022}.
+Local linear relations of this kind go back to the modular law of
+M.~Guay-Paquet~\cite{GuayPaquet2013} and to the relations of
+S.~J.~Lee~\cite{Lee2018x}; see also~\cite{AbreuNigro2020ax}.
+The analogous question for circular unit-interval graphs, whose chromatic
+quasisymmetric functions were studied by B.~Ellzey~\cite{Ellzey2016,Ellzey2017},
+was left open in~\cite[Sec.~6.8]{AlexanderssonSulzgruber2022}.
 
 The same polynomial has a simpler expansion.
 Expanding $(1+q)^{\asc(\kappa)}$ shows that
