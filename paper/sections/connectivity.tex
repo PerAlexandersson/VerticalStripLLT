@@ -72,9 +72,9 @@ If $r(z)=t$, it is the corner $vh$, and $h>y$; if $r(z)<t$, it is one of the
 edges considered, and
 $z\geq y$ by the choice of $vy$.
 So the only path from $v$ to $y$ is the edge $vy$.
-Since $vh$ is a cover as well, we can perform the flip
+Since $vh$ is a cover as well, we can perform the flip $vy\mapsto yh\ [vh]$,
 \[
- vy\mapsto yh\quad[vh],
+ \EdgePic{3}{v,y,h}{1/3/s,1/2/b}\;\longrightarrow\;\EdgePic{3}{v,y,h}{1/3/s,2/3/b}\,,
 \]
 after which $vh$ is still a cover.
 The new edge $yh$ lies inside the corner $vh$, so it is normal, and
@@ -563,7 +563,12 @@ For $v\in J$, let $vh_v$ be the corner leaving $v$.
 Then $h_v>a$, since a corner starting in $(1,a)$ does not end inside $[1,a]$,
 and $d_v=ah_v$ is a normal edge of $(\Gamma')^{+}$.
 Lemma~\ref{lem:crossingSlide} for the corners $1a$ and $vh_v$ exchanges $1v$ and
-$d_v$.
+$d_v$:
+\[
+ \EdgePic{4}{1,v,a,h_v}{1/3/s,2/4/s,1/2/b}
+ \;\longleftrightarrow\;
+ \EdgePic{4}{1,v,a,h_v}{1/3/s,2/4/s,3/4/b}\,.
+\]
 
 \begin{lemma}\label{lem:firstVertex}
 Suppose that Theorem~\ref{thm:connectivity} holds for $\Gamma'$, and that

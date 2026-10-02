@@ -22,8 +22,8 @@
 %   \EdgePic[spacing]{k}{labels}{edges}  k vertices on a line, named by the comma
 %       separated labels, on a dotted line standing for the other vertices and
 %       edges; edges are i/j/s (strict), i/j/a (ascending) or i/j/c (a
-%       retained cover, gray), drawn as arcs above, or i/j/b (ascending,
-%       drawn below).
+%       retained cover, gray) or i/j/p (a directed path, dashed), drawn as
+%       arcs above, or i/j/b (ascending, drawn below).
 %
 % Options: llt/cell (box size, default 1.1em), llt/label font,
 % llt/labels (true/false), llt/first (label of the first vertex, default 1).
@@ -52,6 +52,7 @@
     -{Stealth[length=1.6mm]}},
   llt asc/.style={-{Stealth[length=1mm]},line width=0.5pt},
   llt cover/.style={-{Stealth[length=2.2mm]},line width=1.4pt,black!45},
+  llt dpath/.style={-{Stealth[length=2mm]},thick,densely dashed},
 }
 
 \newcount\llt@x
@@ -114,6 +115,7 @@
     \def\llt@st{sel}%
     \if\s s\def\llt@st{strictedge}\fi
     \if\s c\def\llt@st{llt cover}\fi
+    \if\s p\def\llt@st{llt dpath}\pgfmathsetmacro\llt@ang{\llt@ang+30}\fi
     \if\s b\draw[sel] (v\i) to[out=-\llt@ang,in=180+\llt@ang] (v\j);%
     \else\draw[\llt@st] (v\i) to[out=\llt@ang,in=180-\llt@ang] (v\j);\fi}
   \end{tikzpicture}}

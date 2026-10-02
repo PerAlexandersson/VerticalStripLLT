@@ -420,7 +420,7 @@ Then $\theta$ and $\theta'$ lie in the same flip class.
 
 We shall express flip classes in the form
 \begin{equation}\label{eq:reduction}
- \Psi(C)=\sum_iz_iV(C_i)\qquad\text{for }\Psi\in\{\Kv,\Ev,\Kv[\beta],\Ev[\beta]\},
+ \Psi(C)=\sum_iz_i\Psi(C_i)\qquad\text{for }\Psi\in\{\Kv,\Ev,\Kv[\beta],\Ev[\beta]\},
 \end{equation}
 with the color fixed at $c=n$, where the integers $z_i$ do not depend on $\Psi$,
 and every $C_i$ is a flip class of a graph $\Gamma_i$ on $[n]$ such that
@@ -486,11 +486,7 @@ classes of the two parts.
 \end{tikzpicture}
 \caption{Gluing at $c$.
 A left fibre whose highest reachable vertex is $c$ (hatched) merges with the right
-fibre containing $c$ (dotted); $c$ lies in both.
-In the merged chain, $c$ is the largest left vertex and the smallest right
-vertex, and summing over its color $\beta$ gives
-$\sum_\beta x_\beta\,\elementaryE_{p-1}(x_1,\dotsc,x_{\beta-1})\,
-\elementaryE_{r-1}(x_{\beta+1},\dotsc)=\elementaryE_{p+r-1}$.}
+fibre containing $c$ (dotted); $c$ lies in both.}
 \label{fig:gluing}
 \end{figure}
 
@@ -498,12 +494,12 @@ $\sum_\beta x_\beta\,\elementaryE_{p-1}(x_1,\dotsc,x_{\beta-1})\,
 Let $C_2$ be a flip class of $\Gamma_{\geq c}$, and suppose that, with the
 color fixed at $c$,
 \[
- \Psi(C_1)[\beta]=\sum_iz_iV(C_{1,i})[\beta]
+ \Psi(C_1)[\beta]=\sum_iz_i\Psi(C_{1,i})[\beta]
  \qquad\text{for all $\beta$ and $\Psi\in\{\Kv,\Ev\}$},
 \]
 where $C_{1,i}$ is a flip
 class of a graph $\Gamma_{1,i}$ on $[1,c]$.
-Then $\Psi(C_1\times C_2)=\sum_iz_iV(C_{1,i}\times C_2)$ for $\Psi\in\{\Kv,\Ev\}$, where
+Then $\Psi(C_1\times C_2)=\sum_iz_i\Psi(C_{1,i}\times C_2)$ for $\Psi\in\{\Kv,\Ev\}$, where
 $C_{1,i}\times C_2$ is a flip class of the graph obtained by gluing
 $\Gamma_{1,i}$ and $\Gamma_{\geq c}$ at $c$.
 \end{lemma}
@@ -665,11 +661,11 @@ has an NN or DN contact, possibly after unmarking one corner which is present in
 $C_1$.
 The prefix satisfies the hypothesis of Theorem~\ref{thm:connectivity}, and
 Proposition~\ref{prop:isolation} gives an expansion~\eqref{eq:reduction}
-$\Psi(C_1)[\beta]=\sum_iz_iV(C_{1,i})[\beta]$ on $[1,c]$, with the color fixed at
+$\Psi(C_1)[\beta]=\sum_iz_i\Psi(C_{1,i})[\beta]$ on $[1,c]$, with the color fixed at
 the last vertex $c$ of the prefix.
 By Lemma~\ref{lem:gluing},
 \[
- \Psi(C)=\sum_iz_iV(C_{1,i}\times C_2),\qquad \Psi\in\{\Kv,\Ev\}.
+ \Psi(C)=\sum_iz_i\Psi(C_{1,i}\times C_2),\qquad \Psi\in\{\Kv,\Ev\}.
 \]
 Each $C_{1,i}\times C_2$ is a flip class of a graph on $[n]$ which is smaller in
 $(|E|,\mom)$, by the remark after Lemma~\ref{lem:gluing}.
