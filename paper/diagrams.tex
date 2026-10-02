@@ -17,7 +17,11 @@
 %   \LLTsteps[style]{x}{y}{path}  draw a path from (x,y), for general
 %       pictures; combine with the styles llt arbitrary, llt diagonal and
 %       llt bounce.
-%   \LLTframe{w}{h}          background and diagonal of a general picture
+%   \LLTframe{w}{h}          bounding box and diagonal of a general picture
+%
+%   \EdgePic[spacing]{k}{labels}{edges}  k vertices on a line, named by the comma
+%       separated labels, on a dotted line standing for the other vertices and
+%       edges; edges are i/j/s (strict) or i/j/a (ascending), as arcs above.
 %
 % Options: llt/cell (box size, default 1.1em), llt/label font,
 % llt/labels (true/false), llt/first (label of the first vertex, default 1).
@@ -44,7 +48,6 @@
   llt diagonal/.style={black!45,line width=0.4pt},
   llt bounce/.style={red!75!black,line width=0.9pt,-{Stealth[length=1.6mm]}},
   llt asc/.style={-{Stealth[length=1mm]},line width=0.5pt},
-  llt frame/.style={black!6},
 }
 
 \newcount\llt@x
@@ -94,8 +97,19 @@
   \end{scope}}
 
 \newcommand{\LLTframe}[2]{%
-  \fill[llt frame] (-0.4,-0.4) rectangle (#1+0.4,#2+0.4);%
+  \path (-0.4,-0.4) rectangle (#1+0.4,#2+0.4);%
   \draw[llt diagonal] (-0.4,-0.4)--(#1+0.4,#1+0.4);}
+
+\newcommand{\EdgePic}[4][2em]{%
+  \begin{tikzpicture}[x=#1,y=#1,baseline={([yshift=-0.6ex]v1.center)},
+      every node/.append style={minimum size=1.05em,font=\scriptsize}]
+  \draw[llt arbitrary,line width=0.6pt] (0.4,0)--(#2+0.6,0);
+  \foreach \l [count=\i] in {#3}{\node[vtx,fill=white] (v\i) at (\i,0) {$\l$};}
+  \foreach \i/\j/\s in {#4}{%
+    \pgfmathsetmacro\llt@ang{35+12*(\j-\i)}%
+    \if\s s\def\llt@st{strictedge}\else\def\llt@st{sel}\fi
+    \draw[\llt@st] (v\i) to[out=\llt@ang,in=180-\llt@ang] (v\j);}
+  \end{tikzpicture}}
 
 \newcommand{\LLTasc}[1]{%
   \foreach \u/\v in {#1}{\draw[llt asc] (\u-0.82,\v-0.5)--(\u-0.18,\v-0.5);}}

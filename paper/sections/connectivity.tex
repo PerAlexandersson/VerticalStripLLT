@@ -11,9 +11,9 @@ last clique or the first vertex.
 
 Throughout, $\Gamma$ is an ordinary decorated unit-interval graph, and we only
 consider orientations in which every corner is a cover.
-In particular every corner is an edge of $\Dplus{\theta}$, and by
+In particular every corner is an edge of $\theta\cup S$, and by
 Lemma~\ref{lem:decoration}(i) we may assume that all corners are strict.
-We write $uv\in\theta$ if $uv$ is an edge of $\Dplus{\theta}$, and covers always
+We write $uv\in\theta$ if $uv$ is an edge of $\theta\cup S$, and covers always
 refer to $\Pplus{\theta}$.
 We write
 \[
@@ -24,7 +24,7 @@ $vh$, and similarly when the short edges are exchanged in the other direction.
 By Lemma~\ref{lem:flipCriterion}, such an exchange is a flip as soon as the two
 edges $vy$ and $vh$ are covers before it, and then $vh$ and $yh$ are covers
 after it.
-We repeatedly use the following observation: a directed path in $\Dplus{\theta}$
+We repeatedly use the following observation: a directed path in $\theta\cup S$
 between two vertices of an interval stays in that interval, so the cover test
 of an edge $uv$ only involves edges inside $[u,v]$.
 
@@ -40,7 +40,7 @@ since $v$ comes after $u$ on the chain.
 Let $\Gplus$ be the set of corners together with the normal edges $uv$ with
 $r(u)<r(v)$.
 
-If $\theta\subseteq\Gplus$, that is, every edge of $\Dplus{\theta}$ lies in
+If $\theta\subseteq\Gplus$, that is, every edge of $\theta\cup S$ lies in
 $\Gplus$, then every corner is a cover.
 Indeed, $r$ is constant along corners and increases along the other edges of
 $\Gplus$, so a path between the endpoints $u,h$ of a corner only uses corners,
@@ -250,15 +250,15 @@ same number of chords lie in one flip class.
 Here $r(0)=r(n)=n$ and $r(v)=v$ otherwise, so $\Gplus$ consists of $0n$ and all
 edges on $1,\dotsc,n$.
 By Lemma~\ref{lem:preparation} we may assume that $0n$ is the only edge at $0$.
-Since $\theta$ is connected, the remaining edges form a connected graph $D'$ on
+Since $\theta$ is connected, the set $\eta$ of the remaining edges is connected on
 $1,\dotsc,n$.
-Whenever a vertex $i$ has two outgoing covers $ij$ and $ik$ in $D'$, with $j<k$,
+Whenever a vertex $i$ has two outgoing covers $ij$ and $ik$ in $\eta$, with $j<k$,
 we perform the flip $ij\mapsto jk\ [ik]$.
 The sum of the tails of the edges increases, so this terminates.
 Then every vertex has at most one outgoing cover.
 The covers form a connected graph, and a cycle in it would have a least vertex
 with two outgoing covers, so they form a tree, with unique sink $n$.
-Every edge of $D'$ joins a vertex to one of its ancestors in this tree.
+Every edge of $\eta$ joins a vertex to one of its ancestors in this tree.
 
 If $i<j$ are two children of $n$, their only outgoing edges are $iN$ and $jN$,
 and the four flips
@@ -427,12 +427,12 @@ Neither uses $uv$.
 \subsection{The last clique}
 
 Suppose that the last two corners are $bc$ and $an$, with $b<a<c<n$.
-Let $L=[1,c]\cup\{n\}$, and let $\Gamma_L$ be the graph induced on $L$, with the
+Let $L=[1,c]\cup\{n\}$, and let $\Gamma[L]$ be the graph induced on $L$, with the
 inherited order and strict edges.
-For an orientation $\theta$ we write $\theta_L$ for its edges inside $L$.
+For an orientation $\theta$ we write $\theta[L]$ for its edges inside $L$.
 All corners other than $an$ end at most at $c$, so the vertices in $(c,n)$ lie
 on no corner.
-Hence $\Gamma_L$ has the same corners as $\Gamma$, its corner chains are those of
+Hence $\Gamma[L]$ has the same corners as $\Gamma$, its corner chains are those of
 $\Gamma$ except for the singleton chains of the vertices in $(c,n)$, and its
 set $\Gplus$ consists of the edges of $\Gplus$ inside $L$.
 Every vertex strictly between $a$ and $n$ is the last vertex of its chain.
@@ -441,7 +441,7 @@ every natural edge with both endpoints strictly between $a$ and $n$, or ending
 at $n$ and starting after $a$, lies in $\Gplus$.
 
 \begin{lemma}\label{lem:lastClique}
-If Theorem~\ref{thm:connectivity} holds for $\Gamma_L$, then it holds for
+If Theorem~\ref{thm:connectivity} holds for $\Gamma[L]$, then it holds for
 $\Gamma$.
 \end{lemma}
 
@@ -464,7 +464,7 @@ all other edges.
 The component containing $a$ and $n$ has the extreme edge $an$, which is a cover,
 so Lemma~\ref{lem:complete} applies to it.
 
-\smallskip\noindent\textbf{Step 1: making $\theta_L$ connected.}
+\smallskip\noindent\textbf{Step 1: making $\theta[L]$ connected.}
 In the component containing $a$ and $n$, the vertex $a$ is only adjacent to $n$.
 By Lemma~\ref{lem:complete} we replace the edges of this component by the star of all
 edges to $n$, together with other edges avoiding $a$ to keep their number.
@@ -487,7 +487,7 @@ Every natural edge with an endpoint in $(c,n)$ lies inside $an$, so we can
 replace every part of a path in $\theta$ outside $L$ by a path inside the
 corresponding component, and the edges of $\theta$ inside $L$ form a connected graph.
 
-\smallskip\noindent\textbf{Step 2: changing $\theta_L$.}
+\smallskip\noindent\textbf{Step 2: changing $\theta[L]$.}
 Suppose the edges of $\theta$ inside $L$ form a connected graph.
 We perform $vn\mapsto av\ [an]$ for all $vn\in\theta$ with $c<v<n$, in decreasing
 order of $v$.
@@ -496,22 +496,22 @@ Lemma~\ref{lem:crossingSlide},
 and they do not change edges inside $L$ or the cover tests of other corners.
 Afterwards no vertex outside $L$ has an edge to $n$, so a path leaving $L$
 cannot return to $L$.
-Hence every path of flips in $\Gamma_L$ lifts, with all edges outside $L$ fixed.
-By assumption we can reach any connected orientation of $\Gamma_L$ in $\Gplus$
+Hence every path of flips in $\Gamma[L]$ lifts, with all edges outside $L$ fixed.
+By assumption we can reach any connected orientation of $\Gamma[L]$ in $\Gplus$
 with the same number of edges.
 At its end $a$ has no edge to $(a,n)$ inside $L$, and we reverse the first flips in
 increasing order of $v$.
 
 \smallskip\noindent\textbf{Step 3: a fixed tree.}
-In the set $\Gplus$ of $\Gamma_L$, the corners and the edges $vn$ with $a<v\leq c$
+In the set $\Gplus$ of $\Gamma[L]$, the corners and the edges $vn$ with $a<v\leq c$
 form a forest: every vertex has at most one outgoing edge among them, and all
 edges point upwards.
-Since $\theta_L$ is connected, this forest extends to a spanning tree $T'$ of
-$\Gamma_L$ inside $\Gplus$.
+Since $\theta[L]$ is connected, this forest extends to a spanning tree $T'$ of
+$\Gamma[L]$ inside $\Gplus$.
 Inside $[a,n]$, the tree $T'$ consists of the edges to $n$, and $T'$ does not
 contain $ba$, since $bc,cn,na$ already join $b$ and $a$.
-Adding edges of $\Gplus$ to $T'$ we obtain a connected orientation of $\Gamma_L$
-with the same number of edges as $\theta_L$, and Step~2 reaches it.
+Adding edges of $\Gplus$ to $T'$ we obtain a connected orientation of $\Gamma[L]$
+with the same number of edges as $\theta[L]$, and Step~2 reaches it.
 Now all of $[a,n]$ is one component.
 Indeed, every vertex in $(c,n)$ is joined, inside its component, to a vertex of $L$ by
 a path whose edges are not inside $L$, and these edges were not changed; and
@@ -535,13 +535,13 @@ The position $ba=24$, marked $\circ$, lies in neither tree.}
 \end{figure}
 
 \smallskip\noindent\textbf{Step 4: moving the remaining edges.}
-Let $M=\Gplus\setminus T$, let $M_L$ be the positions in $M$ inside $L$, and let
-$M_C$ be the set of pairs $uv$ with $a<u<v<n$, together with $ba$.
-Then $M=M_L\cup M_C$, and $ba\in M_L\cap M_C$.
-Step~2 exchanges any two positions of $M_L$, and Lemma~\ref{lem:complete} on the
-component $[a,n]$ exchanges any two positions of $M_C\setminus\{ba\}$, restoring all
+Let $M=\Gplus\setminus T$, let $M_1$ be the positions in $M$ inside $L$, and let
+$M_2$ be the set of pairs $uv$ with $a<u<v<n$, together with $ba$.
+Then $M=M_1\cup M_2$, and $ba\in M_1\cap M_2$.
+Step~2 exchanges any two positions of $M_1$, and Lemma~\ref{lem:complete} on the
+component $[a,n]$ exchanges any two positions of $M_2\setminus\{ba\}$, restoring all
 other edges.
-Suppose $ba\in\theta$ and $x\in M_C\setminus\{ba\}$ is vacant.
+Suppose $ba\in\theta$ and $x\in M_2\setminus\{ba\}$ is vacant.
 Let $d\neq c$ be an endpoint of $x$, and let $y$ be the edge joining $c$ and $d$.
 If $y\in\theta$, the component stays connected when we replace $cn$ by $x$, so
 Lemma~\ref{lem:complete} performs this replacement.
@@ -551,7 +551,7 @@ and we obtain $\theta-ba+x$.
 If $y\notin\theta$, the same construction with $y$ in place of $x$ gives
 $\theta-ba+y$, and then we exchange $y$ and $x$.
 Reversing these paths exchanges in the other direction.
-Finally, a position of $M_L\setminus M_C$ and one of $M_C\setminus M_L$ are
+Finally, a position of $M_1\setminus M_2$ and one of $M_2\setminus M_1$ are
 exchanged by routing through $ba$, as in Step~3 of Lemma~\ref{lem:complete}.
 Thus all orientations containing $T$ with the same number of edges lie in one flip
 class, and with Lemma~\ref{lem:preparation} this proves the lemma.
@@ -560,7 +560,7 @@ class, and with Lemma~\ref{lem:preparation} this proves the lemma.
 Reversing the order of the vertices maps flips to flips, since it reverses the
 direction of all edges and preserves covers.
 Hence Lemma~\ref{lem:lastClique} also holds for the first two corners, with the
-graph induced on $\{1\}\cup[b',n]$ in place of $\Gamma_L$ when the first two
+graph induced on $\{1\}\cup[b',n]$ in place of $\Gamma[L]$ when the first two
 corners are $1a'$ and $b'c'$.
 
 \subsection{The first vertex}

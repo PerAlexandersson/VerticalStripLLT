@@ -23,17 +23,17 @@ $|E(\Gamma)|=\sum_ia_i$ denotes its number of natural edges.
 \subsection{Changing the decoration}
 
 The values $\Kv$ and $\Ev$ only depend on the posets $\Pplus{\theta}$, and the
-flip relation only depends on the graphs $\Dplus{\theta}$.
+flip relation only depends on the graphs $\theta\cup S$.
 Hence the following two operations transport flip classes to flip classes and
 preserve both values.
 
 \begin{lemma}\label{lem:decoration}
 Let $C$ be a flip class of $\Gamma$ and let $f$ be a corner.
 \begin{enumerate}[(i)]
-\item If $f$ is an edge of $\Dplus{\theta}$ for all $\theta\in C$, then marking
+\item If $f$ is an edge of $\theta\cup S$ for all $\theta\in C$, then marking
 $f$ strict, or unmarking it if it is strict, gives a graph $\Gamma'$ in which
-$C$ is again a flip class, with the same graphs $\Dplus{\theta}$.
-\item If $f$ is an edge of $\Dplus{\theta}$ for no $\theta\in C$, then deleting
+$C$ is again a flip class, with the same graphs $\theta\cup S$.
+\item If $f$ is an edge of $\theta\cup S$ for no $\theta\in C$, then deleting
 $f$ gives a decorated unit-interval graph $\Gamma\setminus f$ with
 $|E(\Gamma)|-1$ natural edges, in which $C$ is again a flip class.
 \end{enumerate}
@@ -70,9 +70,9 @@ If $c$ is the largest vertex of its fibre, which has $p$ elements, then
   \prod_{B}\elementaryE_{|B|}(\xvec),
 \end{equation}
 the product ranging over the other fibres $B$.
-For a set $X$ of orientations we write $\Kv(X)[\beta]$ and $\Ev(X)[\beta]$ for the
+For a set $\Omega$ of orientations we write $\Kv(\Omega)[\beta]$ and $\Ev(\Omega)[\beta]$ for the
 corresponding sums.
-Summing over $\beta$ gives back $\Kv(X)$ and $\Ev(X)$.
+Summing over $\beta$ gives back $\Kv(\Omega)$ and $\Ev(\Omega)$.
 
 Below, $c$ is always the largest vertex of the graph under consideration, so
 that~\eqref{eq:markedE} applies, and $\elementaryE_\theta[\beta]$ only depends on
@@ -87,7 +87,7 @@ which fix $c$.
 \subsection{Two relations}
 
 For an integer $s$, let $\defin{\Lay_s(\Gamma)}$ be the set of orientations
-$\theta$ such that $\Dplus{\theta}$ has $s$ edges.
+$\theta$ such that $\theta\cup S$ has $s$ edges.
 By Lemma~\ref{lem:flipInvariants}, $\Lay_s(\Gamma)$ is a union of flip
 classes.
 We use two local configurations, see Figure~\ref{fig:contacts}.
@@ -172,68 +172,97 @@ for all $s$.
 \end{proposition}
 
 \begin{proof}
+For an orientation $\theta$ we write $\Psi(\theta)=\Psi(\{\theta\})$.
+Comparing coefficients of $q^s$, the two relations are equivalent to
+\begin{equation}\label{eq:layerGenerating}
+ \sum_{\theta\in\ORIENTS(\Gamma)}q^{|\theta\cup S|}\,\Psi(\theta)
+ =(1+q)\sum_{\theta\in\ORIENTS(R)}q^{|\theta\cup S|}\,\Psi(\theta)
+\end{equation}
+for an NN contact, and to the same identity without the factor $1+q$ for a DN
+contact; here $q$ is a formal variable.
+
 Consider an NN contact $(x,y,t)$, and let $\sigma$ be the transposition of $x$
 and $y$.
 Let $E'$ be the set of natural edges other than $xy$, $yt$ and $xt$.
 It is the same for $\Gamma$ and $R$, and $\sigma$ permutes it: for $p<x$, the
-pair $px$ is natural if and only if $py$ is, since $b(x)=b(y)$; for $y<q<t$, the pairs
-$xq$ and $yq$ are both natural since they lie inside $xt$; and there are no
+pair $px$ is natural if and only if $py$ is, since $b(x)=b(y)$; for $y<p<t$, the
+pairs $xp$ and $yp$ are both natural since they lie inside $xt$; and there are no
 natural edges from $x$ or $y$ to vertices beyond $t$.
 The strict edges in $E'$ avoid $x$ and $y$, so $\sigma$ fixes them.
 
-Fix a set $\eta\subseteq E'$ containing the strict edges in $E'$, and let
-$D_{ij}$ be the graph $\eta+xt$ together with $xy$ if $i=1$ and $yt$ if $j=1$.
-These are the graphs $\Dplus{\theta}$ of the four orientations of $\Gamma$ with
-$\Dplus{\theta}\cap E'=\eta$.
-The orientations of $R$ with $\Dplus{\theta}\cap E'=\eta$ give the graphs $\eta+yt$ and
-$\eta+xy+yt$.
-The edge $xt$ is redundant in $D_{11}$, and deleting it gives $\eta+xy+yt$.
-The permutation $\sigma$ maps $D_{00}$ onto $\sigma(\eta)+yt$.
-Its only inversion is the pair $x<y$, and $x$ is not a sink of $D_{00}$, so
-$\sigma$ is increasing on the sinks and Lemma~\ref{lem:sinkRelabel} applies;
-it fixes $c=n$, and relabelling colorings by $\sigma$ preserves $\Kp$.
-Hence $\Psi(D_{00})=\Psi(\sigma(\eta)+yt)$ and $\Psi(D_{11})=\Psi(\eta+xy+yt)$, and the
-four-term identity gives $\Psi(D_{10})+\Psi(D_{01})=\Psi(D_{00})+\Psi(D_{11})$.
-
-Let $\Sigma_r$ and $\Sigma'_r$ be the sums of $\Psi(\eta+yt)$ and $\Psi(\eta+xy+yt)$ over
-all $\eta$ with $|\eta|=r$.
-Since $\eta\mapsto\sigma(\eta)$ preserves $|\eta|$, the four graphs $D_{ij}$ with
-$|\eta|=r$ contribute $\Sigma_r$, $\Sigma_r+\Sigma'_r$ and $\Sigma'_r$ to $\Lay_{r+1}(\Gamma)$,
-$\Lay_{r+2}(\Gamma)$ and $\Lay_{r+3}(\Gamma)$.
-Thus
+We group the orientations $\theta$ of $\Gamma$ and of $R$ by the set
+$\eta=(\theta\cup S)\cap E'$.
+In the pictures below, the vertices $x<y<t$ are drawn in increasing order, the
+dotted line stands for $\eta$, red arrows are strict edges and black arrows are
+ascending edges, and each picture stands for the value $\Psi$ of the
+corresponding set of edges.
+For fixed $\eta$, the orientations of $\Gamma$ contribute $q^{|\eta|}$ times
 \[
- \Psi(\Lay_s(\Gamma))=\Sigma_{s-1}+\Sigma_{s-2}+\Sigma'_{s-2}+\Sigma'_{s-3},
- \qquad
- \Psi(\Lay_s(R))=\Sigma_{s-1}+\Sigma'_{s-2},
+ q\,\EdgePic{3}{x,y,t}{1/3/s}
+ +q^2\,\EdgePic{3}{x,y,t}{1/3/s,1/2/a}
+ +q^2\,\EdgePic{3}{x,y,t}{1/3/s,2/3/a}
+ +q^3\,\EdgePic{3}{x,y,t}{1/3/s,1/2/a,2/3/a}\,,
 \]
-which proves the first relation.
+and the orientations of $R$ contribute $q^{|\eta|}$ times
+\[
+ q\,\EdgePic{3}{x,y,t}{2/3/s}
+ +q^2\,\EdgePic{3}{x,y,t}{2/3/s,1/2/a}\,.
+\]
+By the four-term identity, and since $xt$ is redundant once $xy$ and $yt$ are
+present,
+\[
+ \EdgePic{3}{x,y,t}{1/3/s,1/2/a}
+ +\EdgePic{3}{x,y,t}{1/3/s,2/3/a}
+ =\EdgePic{3}{x,y,t}{1/3/s}
+ +\EdgePic{3}{x,y,t}{2/3/s,1/2/a}\,.
+\]
+Hence the orientations of $\Gamma$ with fixed $\eta$ contribute $(1+q)\,q^{|\eta|}$
+times
+\[
+ q\,\EdgePic{3}{x,y,t}{1/3/s}
+ +q^2\,\EdgePic{3}{x,y,t}{2/3/s,1/2/a}\,.
+\]
+Finally, $\sigma$ maps $\eta+xt$ onto $\sigma(\eta)+yt$.
+Its only inversion is the pair $x<y$, and $x$ is not a sink of $\eta+xt$, so
+Lemma~\ref{lem:sinkRelabel} applies; $\sigma$ fixes $c=n$, and relabelling
+colorings by $\sigma$ preserves $\Kp$.
+Hence the first picture for $\eta$ has the same value as the first picture of
+$R$ for $\sigma(\eta)$.
+Since $\sigma$ permutes the possible sets $\eta$ and preserves their sizes,
+summing over $\eta$ gives~\eqref{eq:layerGenerating}.
 
-For a DN contact $(u,x,y,t)$, let $E'$ be the set of natural edges of
-$\Gamma$ or $R$ other than $ux$, $uy$, $xy$, $xt$ and $yt$, and again let
-$\sigma$ exchange $x$ and $y$.
-The previous argument shows that $\sigma$ permutes $E'$, now using
-that for $p<x$ with $p\neq u$, the pair $px$ is natural if and only if $py$ is.
-For fixed $\eta$, the source has the strict edges $ux,xt$ and the
-optional edges $xy,yt$, and the target has the strict edges $uy,yt$ and the
-optional edges $ux,xy$.
+For a DN contact $(u,x,y,t)$, let $E'$ be the set of natural edges of $\Gamma$ or
+$R$ other than $ux$, $uy$, $xy$, $xt$ and $yt$, and again let $\sigma$ exchange
+$x$ and $y$.
+The previous argument shows that $\sigma$ permutes $E'$, now using that for
+$p<x$ with $p\neq u$, the pair $px$ is natural if and only if $py$ is.
+With the vertices $u<x<y<t$, the source has the strict edges $ux,xt$ and the
+target the strict edges $uy,yt$, and the two remaining local edges of each may be
+ascending or not.
 We apply the four-term identity to the triangle $x<y<t$ in the source and to the
 triangle $u<x<y$ in the target.
-With both optional edges absent, $\sigma$ maps $\eta+ux+xt$ onto
-$\sigma(\eta)+uy+yt$, and $x$ is not a sink.
-With both present, both graphs contain the path $u\to x\to y\to t$, and their
-remaining local edges $xt$ and $uy$ are redundant.
-Let $\Sigma_r$ and $\Sigma'_r$ be the sums over all $\eta$ with $|\eta|=r$ of the
-values with both optional edges absent and both present, respectively.
-By the two comparisons they are the same for the source and the target, after
-reindexing by $\sigma$.
-By the four-term identity, both $\Psi(\Lay_s(\Gamma))$ and $\Psi(\Lay_s(R))$ equal
-$\Sigma_{s-2}+\Sigma_{s-3}+\Sigma'_{s-3}+\Sigma'_{s-4}$, which proves the second
-relation.
+It remains to compare the terms with no ascending local edge, and with two:
+\begin{gather*}
+ \EdgePic{4}{u,x,y,t}{1/2/s,2/4/s}
+ \;\longleftrightarrow\;
+ \EdgePic{4}{u,x,y,t}{1/3/s,3/4/s}
+ \\[0.6ex]
+ \EdgePic{4}{u,x,y,t}{1/2/s,2/4/s,2/3/a,3/4/a}
+ =\EdgePic{4}{u,x,y,t}{1/3/s,3/4/s,1/2/a,2/3/a}\,.
+\end{gather*}
+In the first line, $\sigma$ maps $\eta+ux+xt$ onto $\sigma(\eta)+uy+yt$, and $x$ is not
+a sink, so the values agree after replacing $\eta$ by $\sigma(\eta)$.
+In the second line, both sets contain the path $u\to x\to y\to t$, and their remaining
+local edges $xt$ and $uy$ are redundant.
+As in the NN case, the source and the target then contribute
+$(1+q)\,q^{|\eta|+2}$ times the same two values, after reindexing by $\sigma$,
+which proves the second relation.
 \end{proof}
 
-Multiplying the relations of Proposition~\ref{prop:layer} by $q^{s-|S|}$ and summing over $s$, the
-NN relation becomes $F_\Gamma=(1+q)F_R$ and the DN relation becomes
-$F_\Gamma=F_R$, for $F_\Gamma=\LLT_\Gamma(\xvec;q+1)$ and for the right-hand side of
+Multiplying~\eqref{eq:layerGenerating} by $q^{-|S|}$, and using that $\Gamma$ and $R$
+have the same number of strict edges, the
+NN relation becomes $F(\Gamma)=(1+q)F(R)$ and the DN relation becomes
+$F(\Gamma)=F(R)$, for $F(\Gamma)=\LLT_\Gamma(\xvec;q+1)$ and for the right-hand side of
 Theorem~\ref{thm:AS}.
 These correspond to the shifted forms of the first two bounce relations
 of~\cite[Thm.~2.1]{AlexanderssonSulzgruber2022} for a single bounce point.
@@ -243,18 +272,18 @@ For comparison, we collect the relations
 of~\cite[Thm.~2.1 and Thm.~2.5]{AlexanderssonSulzgruber2022} after the
 substitution $q\mapsto q+1$.
 There $\Gamma$ is encoded by a Schröder path $P$ in the steps
-$\nstep,\dstep,\estep$, and we write $F_P=\LLT_P(\xvec;q+1)$.
-Then $F_{\nstep\dstep^k\estep}=\elementaryE_{k+1}$, $F$ is multiplicative under
+$\nstep,\dstep,\estep$, and we write $F(P)=\LLT_P(\xvec;q+1)$.
+Then $F(\nstep\dstep^k\estep)=\elementaryE_{k+1}$, $F$ is multiplicative under
 concatenation, and
 \begin{align*}
- F_{U\nstep\estep V}&=F_{U\estep\nstep V}+qF_{U\dstep V}
+ F(U\nstep\estep V)&=F(U\estep\nstep V)+qF(U\dstep V)
  &&\text{(corner)},\\
- F_{U\nstep.\nstep V\dstep.\estep W}&=(1+q)F_{U\nstep.\nstep V\estep.\dstep W}
+ F(U\nstep.\nstep V\dstep.\estep W)&=(1+q)F(U\nstep.\nstep V\estep.\dstep W)
  &&\text{(NN)},\\
- F_{U\dstep.\nstep V\dstep.\estep W}&=F_{U\nstep.\dstep V\estep.\dstep W}
+ F(U\dstep.\nstep V\dstep.\estep W)&=F(U\nstep.\dstep V\estep.\dstep W)
  &&\text{(DN)},\\
- F_{U\nstep.\dstep V\dstep.\estep W}&=qF_{U\nstep.\dstep V\estep.\dstep W}
- +(1+q)F_{U\dstep.\nstep V\estep.\dstep W}
+ F(U\nstep.\dstep V\dstep.\estep W)&=qF(U\nstep.\dstep V\estep.\dstep W)
+ +(1+q)F(U\dstep.\nstep V\estep.\dstep W)
  &&\text{(ND)},
 \end{align*}
 where in the last three relations $V\in\{\nstep,\dstep\}^*$ and the bounce path
@@ -295,7 +324,7 @@ In all three cases the coefficients are the same for $\Kv$ and $\Ev$, and for
 the values with the color fixed at $c=n$.
 
 \begin{lemma}\label{lem:absentCorner}
-If some corner is absent from $\Dplus{\theta}$ for $\theta\in C$, then $C$ is a
+If some corner is absent from $\theta\cup S$ for $\theta\in C$, then $C$ is a
 flip class of a graph with fewer natural edges, with the same values.
 \end{lemma}
 
@@ -305,14 +334,14 @@ This is Lemma~\ref{lem:decoration}(ii).
 
 \begin{lemma}\label{lem:disconnected}
 Suppose that the natural graph of $\Gamma$ is connected, but the underlying
-undirected graph of $\Dplus{\theta}$ is disconnected for $\theta\in C$.
+undirected graph of $\theta\cup S$ is disconnected for $\theta\in C$.
 Then there is a graph $\Gamma'$ with fewer natural edges on the same vertex
 set, and a flip class $C'$ of $\Gamma'$, with the same values, also with the
 color fixed at $c=n$.
 \end{lemma}
 
 \begin{proof}
-The connected components $B_1,\dotsc,B_r$ of $\Dplus{\theta}$ are the same for
+The connected components $B_1,\dotsc,B_r$ of $\theta\cup S$ are the same for
 all $\theta\in C$.
 List them with the component of $n$ last and the others by their least
 elements, and let $\rho$ be the permutation of $[n]$ placing them as consecutive
@@ -324,7 +353,7 @@ order, is again a unit-interval graph, and its strict edges are still corners.
 Since the natural graph of $\Gamma$ is connected, some natural edge joins two
 components, and it is lost; hence $|E(\Gamma')|<|E(\Gamma)|$.
 
-Every edge of $\Dplus{\theta}$, every flip, and every directed path between two
+Every edge of $\theta\cup S$, every flip, and every directed path between two
 vertices of a component lies inside that component.
 Hence $\rho$ maps $C$ bijectively onto a flip class $C'$ of $\Gamma'$, and the
 cover tests agree.
@@ -366,7 +395,7 @@ uses no corner.
 It survives the deletion of any set of corners, so by
 Lemma~\ref{lem:ineffective}(ii) the sets $T$ and $T\cup\{f\}$ give the same
 reachability whenever $f\notin T$.
-Pairing these sets gives $\sum_T(-1)^{|T|}\Psi(\Dplus{\theta}\setminus T)=0$, the
+Pairing these sets gives $\sum_T(-1)^{|T|}\Psi((\theta\cup S)\setminus T)=0$, the
 sum ranging over all sets of corners.
 The corner $f$ may depend on $\theta$, but the identity holds for each $\theta$.
 Summing over $C$ and separating the term $T=\emptyset$ proves the claim.
@@ -383,7 +412,7 @@ Suppose that the natural graph of $\Gamma$ consists of a path $1,2,\dotsc,b$
 followed by a connected graph on $[b,n]$ without articulations, where the path
 may consist of the single vertex $1=b$.
 Let $\theta,\theta'$ be orientations with the same number of ascending edges
-such that the underlying graphs of $\Dplus{\theta}$ and $\Dplus{\theta'}$ are
+such that the underlying graphs of $\theta\cup S$ and $\theta'\cup S$ are
 connected and every corner is a cover of both $\Pplus{\theta}$ and
 $\Pplus{\theta'}$.
 Then $\theta$ and $\theta'$ lie in the same flip class.
@@ -402,12 +431,12 @@ $(|E(\Gamma)|,\mom(\Gamma))$.
 Suppose that $\Gamma$ satisfies the hypothesis of Theorem~\ref{thm:connectivity}
 and has an NN or a DN contact.
 Let $C$ be a flip class containing an orientation $\theta$ such that
-$\Dplus{\theta}$ is connected and every corner is a cover of $\Pplus{\theta}$.
+$\theta\cup S$ is connected and every corner is a cover of $\Pplus{\theta}$.
 Then $C$ has an expansion~\eqref{eq:reduction}.
 \end{proposition}
 
 \begin{proof}
-Let $s$ be the number of edges of $\Dplus{\theta}$.
+Let $s$ be the number of edges of $\theta\cup S$.
 Every other flip class $C'\subseteq\Lay_s(\Gamma)$ omits a corner, or has a
 disconnected graph, or contains no orientation in which all corners are covers;
 otherwise it would contain an orientation as in Theorem~\ref{thm:connectivity},
@@ -619,7 +648,7 @@ consecutive intervals; the flip class is a product of flip classes of these
 graphs, both values are products, and we use induction on $n$.
 If the natural graph is a path, all its edges are strict corners, there is
 only one orientation, and both values equal $\elementaryE_n$.
-If $\Dplus{\theta}$ is disconnected for $\theta\in C$, or no orientation in $C$
+If $\theta\cup S$ is disconnected for $\theta\in C$, or no orientation in $C$
 has all corners as covers, we apply Lemma~\ref{lem:disconnected}
 or~\ref{lem:noCover} and induction.
 

@@ -5,7 +5,7 @@
 \begin{proof}[Proof of Corollary~\ref{cor:circularExpansion}]
 By Lemma~\ref{lem:stateExpansion}, and since $\asc$ is constant on flip classes,
 \[
- \LLT_\Gamma(\xvec;q+1)=\sum_{\theta}q^{\asc(\theta)}\Kp_{\Pplus{\theta}}(\xvec)
+ \LLT_\Gamma(\xvec;q+1)=\sum_{\theta}q^{\asc(\theta)}\Kp_{\theta}(\xvec)
  =\sum_Cq^{\asc(C)}\Kv(C),
 \]
 the second sum ranging over the flip classes.
@@ -48,22 +48,23 @@ $U$, and its strict edges are the strict edges of $\Gamma$ inside $U$.
 
 Let $r\geq1$, and let $f:\setZ/n\setZ\to[r]$ be surjective and constant on the
 endpoints of every strict edge.
-For nonempty $B\subseteq[r]$ write $\Gamma_B=\Gamma[f^{-1}(B)]$.
+For nonempty $B\subseteq[r]$ write $\Gamma[B]$ for the graph induced on
+$f^{-1}(B)$.
 Let $\Pi_r$ be the lattice of set partitions of $[r]$, with maximum $\hat1=\{[r]\}$.
 Following~\cite{DolegaKowalski2021x}, the \defin{LLT cumulant} is
 \[
  \defin{\kappa_{\Gamma,f}(\xvec;q)}\coloneqq(q-1)^{1-r}\sum_{\pi\in\Pi_r}
- (-1)^{|\pi|-1}(|\pi|-1)!\prod_{B\in\pi}\LLT_{\Gamma_B}(\xvec;q).
+ (-1)^{|\pi|-1}(|\pi|-1)!\prod_{B\in\pi}\LLT_{\Gamma[B]}(\xvec;q).
 \]
 For an admissible orientation $\theta$, let $\sigma_f(\theta)$ be the set partition of
 $[r]$ into the connected components of the undirected multigraph on $[r]$ with an
-edge $f(u)f(v)$ for every edge $uv$ of $\Dplus{\theta}$.
+edge $f(u)f(v)$ for every edge $uv$ of $\theta\cup S$.
 We call $\theta$ \defin{$f$-connected} if $\sigma_f(\theta)=\hat1$.
 
 \begin{proposition}[{cf.~\cite[Thm.~3.8]{DolegaKowalski2021x}}]\label{prop:cumulant}
 We have
 \[
- \kappa_{\Gamma,f}(\xvec;q+1)=\sum_{\theta}q^{\asc(\theta)+1-r}\,\Kp_{\Pplus{\theta}}(\xvec),
+ \kappa_{\Gamma,f}(\xvec;q+1)=\sum_{\theta}q^{\asc(\theta)+1-r}\,\Kp_{\theta}(\xvec),
 \]
 the sum ranging over the $f$-connected admissible orientations of $\Gamma$, and all
 exponents are nonnegative.
@@ -71,12 +72,12 @@ exponents are nonnegative.
 
 \begin{proof}
 For $\pi\in\Pi_r$, the orientations of $\Gamma$ without ascending edges between
-different blocks of $\pi$ are the tuples of orientations of the graphs $\Gamma_B$,
+different blocks of $\pi$ are the tuples of orientations of the graphs $\Gamma[B]$,
 $B\in\pi$, since no strict edge joins different blocks.
-By Lemma~\ref{lem:stateExpansion} for each $\Gamma_B$,
+By Lemma~\ref{lem:stateExpansion} for each $\Gamma[B]$,
 \[
- \prod_{B\in\pi}\LLT_{\Gamma_B}(\xvec;q+1)
- =\sum_{\sigma_f(\theta)\leq\pi}q^{\asc(\theta)}\Kp_{\Pplus{\theta}}(\xvec).
+ \prod_{B\in\pi}\LLT_{\Gamma[B]}(\xvec;q+1)
+ =\sum_{\sigma_f(\theta)\leq\pi}q^{\asc(\theta)}\Kp_{\theta}(\xvec).
 \]
 Inserting this in the definition, the coefficient of a fixed $\theta$ is
 $q^{\asc(\theta)+1-r}$ times

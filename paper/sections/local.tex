@@ -2,82 +2,84 @@
 
 This section contains the only local identity used in the proof, together with
 two facts about highest reachable vertices.
-We state them for directed graphs rather than orientations, since later we
-apply them to graphs obtained by adding or deleting single edges.
+We state them for sets of edges rather than orientations, since later we
+apply them to sets obtained by adding or deleting single edges.
 
-Let $D$ be a directed graph on $[n]$ whose edges point upwards, or a periodic
-directed graph on $\setZ$ whose edges point upwards and whose projection to
-$\setZ/n\setZ$ is acyclic.
-In both cases every vertex $z$ has a highest reachable vertex, which we denote by
-$H_D(z)$; in the periodic case, the bound follows as in
-Section~\ref{subs:circularDefinitions}.
-The function $H_D$ is weakly decreasing along every edge of $D$, and $H_D(z)$ is
-the largest sink of $D$ reachable from $z$.
+Let $\eta$ be a set of pairs $uv$ with $u<v$ in $[n]$, regarded as edges directed
+upwards, or a translation-invariant set of such pairs of integers whose
+projection to $\setZ/n\setZ$ is acyclic.
+In both cases every vertex $z$ has a highest reachable vertex $\hrv{\eta}{z}$;
+in the periodic case, the bound follows as in Section~\ref{subs:circularDefinitions}.
+The map $\hrv{\eta}{\cdot}$ is weakly decreasing along every edge of $\eta$, and
+$\hrv{\eta}{z}$ is the largest sink, that is, vertex without outgoing edges,
+which can be reached from $z$.
 
 \begin{lemma}\label{lem:ineffective}
-Let $D$ be as above.
+Let $\eta$ be as above.
 \begin{enumerate}[(i)]
-\item Let $F$ be a set of upward pairs, translation invariant in the periodic
-case, such that $H_D(y)\leq H_D(x)$ for every $xy\in F$.
-Then $H_{D\cup F}=H_D$, and in the periodic case $D\cup F$ still has acyclic
-projection.
-\item If $D$ contains a path from $x$ to $y$ avoiding the edge $xy$, then
-deleting $xy$ does not change reachability in $D$.
+\item Let $\xi$ be a set of upward pairs, translation invariant in the periodic
+case, such that $\hrv{\eta}{y}\leq\hrv{\eta}{x}$ for every $xy\in\xi$.
+Then $\hrv{\eta\cup\xi}{\cdot}=\hrv{\eta}{\cdot}$, and in the periodic case
+$\eta\cup\xi$ still has acyclic projection.
+\item If $\eta$ contains a path from $x$ to $y$ avoiding the edge $xy$, then
+deleting $xy$ does not change reachability.
 \end{enumerate}
 \end{lemma}
 
 \begin{proof}
-For (i), $H_D$ is weakly decreasing along every edge of $D\cup F$.
-Hence every vertex reachable from $z$ in $D\cup F$ is at most $H_D(z)$, and the
-maximizing path in $D$ is still available.
+For (i), $\hrv{\eta}{\cdot}$ is weakly decreasing along every edge of
+$\eta\cup\xi$.
+Hence every vertex reachable from $z$ in $\eta\cup\xi$ is at most
+$\hrv{\eta}{z}$, and the maximizing path in $\eta$ is still available.
 In the periodic case, a directed cycle in the projection would lift to a path
 from $z$ to $z+kn$ for some $k\geq1$, and then
-$H_D(z)+kn=H_D(z+kn)\leq H_D(z)$, which is absurd.
+$\hrv{\eta}{z}+kn=\hrv{\eta}{z+kn}\leq\hrv{\eta}{z}$, which is absurd.
 For (ii), every path using $xy$ can be rerouted along the alternative path.
 \end{proof}
 
 \begin{lemma}\label{lem:sinkRelabel}
-Let $D$ and $D'$ be directed graphs on $[n]$ with upward edges, and let
-$\sigma$ be a permutation of $[n]$ mapping the edges of $D$ bijectively onto the
-edges of $D'$.
-If $\sigma$ is increasing on the set of sinks of $D$, then
-$H_{D'}(\sigma(z))=\sigma(H_D(z))$ for all $z$.
-In particular the fibres of $H_{D'}$ are the images of the fibres of $H_D$.
+Let $\eta$ and $\eta'$ be sets of upward pairs in $[n]$, and let $\sigma$ be a
+permutation of $[n]$ mapping $\eta$ bijectively onto $\eta'$.
+If $\sigma$ is increasing on the sinks of $\eta$, then
+$\hrv{\eta'}{\sigma(z)}=\sigma(\hrv{\eta}{z})$ for all $z$.
+In particular the fibres of $\hrv{\eta'}{\cdot}$ are the images of the fibres of
+$\hrv{\eta}{\cdot}$.
 \end{lemma}
 
 \begin{proof}
-The vertex $H_D(z)$ is the largest sink of $D$ reachable from $z$, and $\sigma$
-maps the sinks reachable from $z$ in $D$ onto the sinks reachable from
-$\sigma(z)$ in $D'$, preserving their order.
+The vertex $\hrv{\eta}{z}$ is the largest sink of $\eta$ reachable from $z$,
+and $\sigma$ maps the sinks of $\eta$ reachable from $z$ onto the sinks of
+$\eta'$ reachable from $\sigma(z)$, preserving their order.
 \end{proof}
 
-
 \begin{lemma}[The four-term identity]\label{lem:fourTerm}
-Let $D$ be a directed graph on $[n]$ with upward edges.
-Let $u<v<w$ be vertices such that $uw$ is an edge of $D$, and $uv$ and $vw$ are
-not.
-Put $D_{00}=D$, $D_{10}=D+uv$, $D_{01}=D+vw$ and $D_{11}=D+uv+vw$, and write
-$\Kp(D_{ij})$ for $\Kp$ of the transitive closure.
+Let $\eta$ be a set of upward pairs in $[n]$.
+Let $u<v<w$ be vertices such that $uw\in\eta$, and $uv,vw\notin\eta$.
+Put $\eta_{00}=\eta$, $\eta_{10}=\eta+uv$, $\eta_{01}=\eta+vw$ and
+$\eta_{11}=\eta+uv+vw$, and write $\Kp(\eta_{ij})$ for $\Kp$ of the transitive
+closure.
 \begin{enumerate}[(i)]
 \item For every coloring $\kappa:[n]\to\setNN$ which increases along the edges
-of $D$,
+of $\eta$,
 \[
- [\kappa \text{ increases on } D_{10}]+[\kappa \text{ increases on } D_{01}]
- =1+[\kappa \text{ increases on } D_{11}].
+ [\kappa \text{ increases on } \eta_{10}]+[\kappa \text{ increases on } \eta_{01}]
+ =1+[\kappa \text{ increases on } \eta_{11}].
 \]
-In particular $\Kp(D_{10})+\Kp(D_{01})=\Kp(D_{00})+\Kp(D_{11})$, and the same
-holds for the sums over colorings with prescribed colors at any set of vertices.
-\item The four graphs can be paired, either as $\{D_{00},D_{01}\}$ and
-$\{D_{10},D_{11}\}$ or as $\{D_{00},D_{10}\}$ and $\{D_{01},D_{11}\}$, so that
-paired graphs have the same function $H$.
-In particular $\Phi(D_{10})+\Phi(D_{01})=\Phi(D_{00})+\Phi(D_{11})$ for every
-function $\Phi$ of the highest reachable vertex map, for example
+In particular $\Kp(\eta_{10})+\Kp(\eta_{01})=\Kp(\eta_{00})+\Kp(\eta_{11})$,
+and the same holds for the sums over colorings with prescribed colors at any set
+of vertices.
+\item The four sets can be paired, either as $\{\eta_{00},\eta_{01}\}$ and
+$\{\eta_{10},\eta_{11}\}$ or as $\{\eta_{00},\eta_{10}\}$ and
+$\{\eta_{01},\eta_{11}\}$, so that paired sets have the same highest reachable
+vertices.
+In particular $\Phi(\eta_{10})+\Phi(\eta_{01})=\Phi(\eta_{00})+\Phi(\eta_{11})$
+for every function $\Phi$ of the highest reachable vertex map, for example
 $\Phi=\elementaryE_{\lambda}$ of its fibre sizes.
 \end{enumerate}
 \end{lemma}
 
-The lemma has no cover hypotheses, and the other edges of $D$ are arbitrary.
-Writing each graph for its value, the identity reads
+The lemma has no cover hypotheses, and the other edges of $\eta$ are arbitrary.
+Writing each set for its value, the identity reads
 \[
 \FTpic{1}{0}\;+\;\FTpic{0}{1}\;=\;\FTpic{0}{0}\;+\;\FTpic{1}{1}\,,
 \]
@@ -87,27 +89,27 @@ same in all four graphs.
 \begin{proof}
 For (i), write $a,b,c$ for the colors at $u,v,w$, so that $a<c$.
 Then $[a<b]+[b<c]=1+[a<b<c]$, which is the displayed identity.
-Summing $x_\kappa$ over all $\kappa$ increasing on $D$, with any colors
+Summing $x_\kappa$ over all $\kappa$ increasing on $\eta$, with any colors
 prescribed, gives the second statement.
 
-For (ii), let $H=H_D$.
-Since $uw$ is an edge, $H(w)\leq H(u)$.
-Suppose first that $H(w)\leq H(v)$.
-Adding $uv$ does not change $H$ at $v$ or at $w$, since no path starting at
-$v$ or $w$ uses an edge leaving $u<v$.
-Hence $H_{D_{10}}(w)\leq H_{D_{10}}(v)$ as well, and
-Lemma~\ref{lem:ineffective}(i) for $F=\{vw\}$ pairs $D_{00}$ with $D_{01}$ and
-$D_{10}$ with $D_{11}$.
-Suppose instead that $H(v)<H(w)$.
-Then $H(v)<H(w)\leq H(u)$.
-In $D_{01}$, a path from $v$ either avoids $vw$ or continues from $w$, so
-$H_{D_{01}}(v)\leq \max(H(v),H(w))=H(w)\leq H_{D_{01}}(u)$.
-Lemma~\ref{lem:ineffective}(i) for $F=\{uv\}$, applied to $D$ and to $D_{01}$,
-gives the second pairing.
+For (ii), write $h(z)=\hrv{\eta}{z}$.
+Since $uw\in\eta$, $h(w)\leq h(u)$.
+Suppose first that $h(w)\leq h(v)$.
+Adding $uv$ does not change the highest reachable vertices of $v$ and $w$, since
+no path starting at $v$ or $w$ uses an edge leaving $u<v$.
+Hence $\hrv{\eta_{10}}{w}\leq\hrv{\eta_{10}}{v}$ as well, and
+Lemma~\ref{lem:ineffective}(i) for $\xi=\{vw\}$ pairs $\eta_{00}$ with $\eta_{01}$
+and $\eta_{10}$ with $\eta_{11}$.
+Suppose instead that $h(v)<h(w)$.
+Then $h(v)<h(w)\leq h(u)$.
+In $\eta_{01}$, a path from $v$ either avoids $vw$ or continues from $w$, so
+$\hrv{\eta_{01}}{v}\leq\max(h(v),h(w))=h(w)\leq\hrv{\eta_{01}}{u}$.
+Lemma~\ref{lem:ineffective}(i) for $\xi=\{uv\}$, applied to $\eta$ and to
+$\eta_{01}$, gives the second pairing.
 \end{proof}
 
 Lemma~\ref{lem:fourTerm} does not say that the two middle terms correspond to
 each other.
-In the first case of the proof, $D_{10}$ has the same highest reachable vertices
-as $D_{11}$, not as $D_{01}$.
+In the first case of the proof, $\eta_{10}$ has the same highest reachable
+vertices as $\eta_{11}$, not as $\eta_{01}$.
 This is why the identity is used for sums over many orientations at once.

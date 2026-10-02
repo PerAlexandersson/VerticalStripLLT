@@ -15,19 +15,19 @@ A strict edge is a corner, so it is never a short edge of a flip, and it is
 present in every orientation.
 Hence forgetting the strict markings, and including the strict edges in every
 orientation, identifies the flip classes of $\Gamma$ with flip classes of the
-undecorated graph, with the same graphs $\Dplus{\theta}$.
+undecorated graph, with the same graphs $\theta\cup S$.
 We therefore assume that $S=\emptyset$, and identify an orientation $\theta$ with
-the edge set of $\Dplus{\theta}$.
+the edge set of $\theta\cup S$.
 Throughout, orientations are admissible, and for a set of edges $Y$ we write
 $c(Y)$ for the number of connected components of the undirected graph on
 $\setZ/n\setZ$ with edges $Y$, isolated vertices included.
 Every edge $e$ has a \defin{length} $\ell(e)\in\{1,\dotsc,n-1\}$.
 
-We write $\Kv(\theta)=\Kp_{\Pplus{\theta}}$, and $H_\theta$ for the whole map
+We write $\Kv(\theta)=\Kp_{\theta}$, and $h_\theta$ for the whole map
 $z\mapsto\widetilde{\hrvop}(\theta,z)$ on $\setZ$.
-We work in the free abelian group on such maps, with basis elements $[H_\theta]$.
-The linear map $[H]\mapsto\elementaryE_\lambda$, where $\lambda$ is the partition
-of the fibre sizes of $H$ modulo $n$, sends $[H_\theta]$ to $\Ev(\theta)$.
+We work in the free abelian group on such maps, with basis elements $[h_\theta]$.
+The linear map $[h]\mapsto\elementaryE_\lambda$, where $\lambda$ is the partition
+of the fibre sizes of $h$ modulo $n$, sends $[h_\theta]$ to $\Ev(\theta)$.
 
 \subsection{Balanced orientations}
 The signed expansion is indexed by subsets of an orientation of the following
@@ -71,7 +71,7 @@ lengths $1$, $2$ and $2$.
 It is not balanced: the path $1\to3\to2$ has length $4$, while $1\to2$ has length
 $1$.
 Lemma~\ref{lem:deletion} below, applied to this cycle, gives
-$\Kv(\theta)=\Kv(F)$ and $[H_\theta]=[H_F]$ for $F=\{1\to3,3\to2\}$.
+$\Kv(\theta)=\Kv(F)$ and $[h_\theta]=[h_F]$ for $F=\{1\to3,3\to2\}$.
 The set $F$ is balanced; its lift is the path $1\to3\to5$, so $1$ and $3$ have the
 highest reachable vertex $5\equiv2$, with or without the edge $1\to2$, and both
 values equal $\elementaryE_3$.
@@ -103,7 +103,7 @@ Then
 \[
  \sum_{J\subseteq Z^-}(-1)^{|J|}\Kv(B\cup J)=0
  \qquad\text{and}\qquad
- \sum_{J\subseteq Z^-}(-1)^{|J|}[H_{B\cup J}]=0.
+ \sum_{J\subseteq Z^-}(-1)^{|J|}[h_{B\cup J}]=0.
 \]
 \end{lemma}
 
@@ -117,21 +117,21 @@ Toggling the first such edge, in a fixed order of $Z^-$, is a sign-reversing
 involution on the sets $J$ for which $\kappa$ increases along $B\cup J$, which
 proves the first identity.
 
-For the second, fix $J$ and let $H=H_{B\cup J}$.
-The function $t(z)=H(z)-z$ is periodic, so it is a function on residues.
+For the second, fix $J$ and let $h=h_{B\cup J}$.
+The function $t(z)=h(z)-z$ is periodic, so it is a function on residues.
 For an edge from $u$ to $v$ in $B\cup J$, its lift ends at $u+\ell$ and
-$H(u)\geq H(u+\ell)$, so $t(u)-t(v)\geq\ell$.
+$h(u)\geq h(u+\ell)$, so $t(u)-t(v)\geq\ell$.
 Telescoping $t$ around $Z$ gives
 \[
  \sum_{Z^-}(t(u)-t(v))=\sum_{Z^+}(t(u)-t(v))\geq\sum_{Z^+}\ell>\sum_{Z^-}\ell.
 \]
-Hence some edge of $Z^-$ satisfies $t(u)-t(v)>\ell$, that is, $H(u)>H(u+\ell)$ for its
+Hence some edge of $Z^-$ satisfies $t(u)-t(v)>\ell$, that is, $h(u)>h(u+\ell)$ for its
 lifts.
-Adding this edge does not change $H$, by Lemma~\ref{lem:ineffective}(i).
-Removing it does not change $H$ either: a path through a lift of this edge ends
-below $H(u+\ell)<H(u)$ and is not maximizing.
+Adding this edge does not change $h$, by Lemma~\ref{lem:ineffective}(i).
+Removing it does not change $h$ either: a path through a lift of this edge ends
+below $h(u+\ell)<h(u)$ and is not maximizing.
 Toggling the first edge of $Z^-$ with this property is therefore a sign-reversing
-involution which preserves $H$.
+involution which preserves $h$.
 \end{proof}
 
 If $\theta$ is not balanced, choose a spanning forest of $\theta$ and a potential
@@ -182,7 +182,7 @@ For every admissible orientation $\theta$,
 \[
  \Kv(\theta)=\sum_{F\subseteq\theta}\chi(\theta,F)\,\Kv(F)
  \qquad\text{and}\qquad
- [H_\theta]=\sum_{F\subseteq\theta}\chi(\theta,F)\,[H_F].
+ [h_\theta]=\sum_{F\subseteq\theta}\chi(\theta,F)\,[h_F].
 \]
 In particular $\Ev(\theta)=\sum_F\chi(\theta,F)\,\Ev(F)$.
 \end{proposition}
@@ -203,11 +203,11 @@ Contract the components of $F$ and let $Q$ be the resulting multigraph with gain
 Its edges are the edges of $B\setminus F$, which we call required, and the
 edges of $Z^-_F=Z^-\setminus F$, which we call optional.
 Only the sets $J$ containing $F\cap Z^-$ contribute.
-Writing $Q_J$ for the required edges together with the optional edges in $J$,
-and using $c(B\cup J)=c(Q_J)$, the identity~\eqref{eq:coefficientCancellation}
+Writing $Q(J)$ for the graph of the required edges together with the optional edges in $J$,
+and using $c(B\cup J)=c(Q(J))$, the identity~\eqref{eq:coefficientCancellation}
 becomes, up to a common sign,
 \begin{equation}\label{eq:gainSum}
- \sum_{J\subseteq Z^-_F}(-1)^{|J|+c(Q_J)}\,\nu(Q_J)\,\zeta(Q_J)=0.
+ \sum_{J\subseteq Z^-_F}(-1)^{|J|+c(Q(J))}\,\nu(Q(J))\,\zeta(Q(J))=0.
 \end{equation}
 The cycle $Z$ projects to a closed walk in $Q$ which follows the required edges
 forwards and the optional edges backwards, and since the potential
@@ -220,7 +220,7 @@ the sums on the left ranging over the edges of the walk.
 
 By Lemma~\ref{lem:orderedPartitions}, the left side of~\eqref{eq:gainSum} equals
 $\sum_\omega(-1)^{k(\omega)}\Sigma_\omega$, where $\Sigma_\omega$ is the sum of $(-1)^{|J|}$
-over the $J$ such that $\omega$ is compatible with $Q_J$ and $\nu(Q_J)=1$.
+over the $J$ such that $\omega$ is compatible with $Q(J)$ and $\nu(Q(J))=1$.
 Fix $\omega$, and assume that the required edges are compatible with $\omega$,
 since otherwise $\Sigma_\omega$ is empty.
 If an optional edge compatible with $\omega$ goes strictly upwards between blocks,
@@ -233,18 +233,18 @@ edges traversed backwards increase it strictly.
 The total change is zero, so the walk lies in a single block, and it remains to
 show that
 \begin{equation}\label{eq:negativeSum}
- \sum_{J}(-1)^{|J|}\,\nu(Q_J)=0,
+ \sum_{J}(-1)^{|J|}\,\nu(Q(J))=0,
 \end{equation}
 the sum ranging over the sets $J$ of compatible optional edges.
 
 Let $M$ exceed both the number of vertices and the number of optional edges of
 $Q$, and put $\gamma(e)=M\delta(e)+1$.
 A simple cycle of length $r$ has $\gamma$-gain $M g+r$, where $g$ is its gain, so
-$\nu(Q_J)=1$ if and only if no cycle has positive $\gamma$-gain.
+$\nu(Q(J))=1$ if and only if no cycle has positive $\gamma$-gain.
 In that case let $\tau(y)$ be the maximum of $0$ and the $\gamma$-gains of the
 directed walks ending at $y$.
 It is the least nonnegative function with $\tau(v)-\tau(u)\geq\gamma(e)$ for all edges
-$e$ from $u$ to $v$ of $Q_J$.
+$e$ from $u$ to $v$ of $Q(J)$.
 Summing $\tau(v)-\tau(u)-\gamma(e)$ around the closed walk,
 by~\eqref{eq:walkGain} the optional edges exceed the required ones by
 $M(\sum\delta-\sum\delta)+(\#\text{required}-\#\text{optional})>0$,
@@ -314,27 +314,27 @@ Then $\Kv(C)=\Ev(C)$.
 \end{proposition}
 
 \begin{proof}
-Let $h$ be a potential of a balanced orientation in $C$.
-On each component, $h(v)-v$ is constant modulo $n$, so changing $h$ by constants
-we may assume that $h(v)\equiv v\pmod n$ and that $h$ is injective.
-The relation $\ell(ac)=\ell(ab)+\ell(bc)$ shows that $h$ is a potential for every
+Let $p$ be a potential of a balanced orientation in $C$.
+On each component, $p(v)-v$ is constant modulo $n$, so changing $p$ by constants
+we may assume that $p(v)\equiv v\pmod n$ and that $p$ is injective.
+The relation $\ell(ac)=\ell(ab)+\ell(bc)$ shows that $p$ is a potential for every
 orientation in $C$.
-Order the vertices by the values of $h$, and let $\Gamma'$ be the ordinary graph on
+Order the vertices by the values of $p$, and let $\Gamma'$ be the ordinary graph on
 these ranks in which a pair is a natural edge if the corresponding lifts
-$h(u)<h(v)$ form a lifted natural edge.
+$p(u)<p(v)$ form a lifted natural edge.
 It is a unit-interval graph since the lifted natural edges are closed under
 subintervals.
 
 An orientation $\xi$ of $\Gamma'$ maps to the circular orientation consisting of the
 residues of its lifted edges.
-A lifted path starting at $h(u)$ only visits the chosen lifts $h(w)$, since
-$h$ is injective modulo $n$.
+A lifted path starting at $p(u)$ only visits the chosen lifts $p(w)$, since
+$p$ is injective modulo $n$.
 Hence the image is admissible, its covers correspond to those of
 $\Pplus{\xi}$, its colorings correspond to those of $\xi$, and its highest
-reachable lifts are the values $h(\hrv{\xi}{u})$.
+reachable lifts are the values $p(\hrv{\xi}{u})$.
 So the map preserves $\Kv$ and $\Ev$, and maps ordinary flips to circular flips;
 the window has length less than $n$ since the long edge is natural.
-Every orientation in $C$ is the image of some $\xi$, since $h$ is a potential for
+Every orientation in $C$ is the image of some $\xi$, since $p$ is a potential for
 it.
 Hence the set of $\xi$ whose image lies in $C$ is closed under ordinary flips,
 and is a union of ordinary flip classes, on which the ordinary case of

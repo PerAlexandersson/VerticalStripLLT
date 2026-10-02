@@ -19,9 +19,9 @@ the sum ranging over all strict $P$-partitions.
 This is a quasisymmetric function, and it is symmetric when $P$ is a disjoint
 union of chains: a chain with $k$ elements contributes $\elementaryE_k$.
 We write $u\lessdot_P v$ when $v$ \defin{covers} $u$ in $P$.
-If $D$ is a directed graph whose transitive closure is a partial order, then
-$\Kp_P$ for this order counts the maps that increase strictly along every edge
-of $D$, and every cover of the order is an edge of $D$.
+If a set of directed edges generates a partial order $P$, then $\Kp_P$ counts
+the maps that increase strictly along every edge, and every cover of $P$ is one
+of the edges.
 
 \subsection{Decorated unit-interval graphs}
 
@@ -87,16 +87,16 @@ from $u$ to $v$, and $\asc(\theta)$ is the number of ascending edges.
 Strict edges are always directed upwards.
 We write $\ORIENTS(\Gamma)$ for the set of orientations, and we identify
 $\theta$ with its set of ascending edges.
-Let $\Dplus{\theta}$ be the directed graph on $[n]$ whose edges are the strict
-edges and the ascending edges of $\theta$.
+We regard the set $\theta\cup S$ of ascending and strict edges as a directed graph
+on $[n]$.
 All its edges point upwards, so its transitive closure is a partial order
-$\Pplus{\theta}$ on $[n]$.
+$\Pplus{\theta}$ on $[n]$, and we write $\defin{\Kp_\theta}\coloneqq\Kp_{\Pplus{\theta}}$.
 
 \begin{lemma}\label{lem:stateExpansion}
 For every decorated unit-interval graph $\Gamma$,
 \[
  \LLT_\Gamma(\xvec;q+1)=\sum_{\theta\in\ORIENTS(\Gamma)}q^{\asc(\theta)}\,
- \Kp_{\Pplus{\theta}}(\xvec).
+ \Kp_{\theta}(\xvec).
 \]
 \end{lemma}
 
@@ -109,15 +109,18 @@ strict edges and on the edges of $A$.
 The claim follows.
 \end{proof}
 
-The \defin{highest reachable vertex} $\hrv{\theta}{u}$ of a vertex $u$ is the
-largest $v$ with $u\leq v$ in $\Pplus{\theta}$.
+For a set $\eta$ of pairs $uv$ with $u<v$, regarded as edges directed upwards,
+the \defin{highest reachable vertex} $\hrv{\eta}{u}$ of a vertex $u$ is the
+largest vertex which can be reached from $u$ along edges of $\eta$.
+For an orientation $\theta$ we write $\hrv{\theta}{u}\coloneqq\hrv{\theta\cup S}{u}$,
+the largest $v$ with $u\leq v$ in $\Pplus{\theta}$.
 The fibres of $\hrv{\theta}{\cdot}$ form a set partition of $[n]$, and
 $\defin{\lambda(\theta)}$ is the partition given by their sizes.
 
 \begin{example}\label{ex:hrv}
 We compute the highest reachable vertices of the orientation $\theta$ of
 Example~\ref{ex:running}.
-The graph $\Dplus{\theta}$ has the strict edges $14$, $25$ and the ascending edges
+The graph $\theta\cup S$ has the strict edges $14$, $25$ and the ascending edges
 $13$, $23$, $24$, $34$, $56$.
 Following its edges upwards, the vertices reachable from each vertex, and the
 largest among them, are
@@ -155,7 +158,7 @@ picture is the Hasse diagram of $\Pplus{\theta}$:
 The vertex $2$ lies below both $4$ and $6$, and $\hrv{\theta}{2}$ is the larger of
 the two.
 The fibres need not be chains of $\Pplus{\theta}$, see
-Example~\ref{ex:largerClass}, and $\Kp_{\Pplus{\theta}}$ is not symmetric.
+Example~\ref{ex:largerClass}, and $\Kp_{\theta}$ is not symmetric.
 \end{example}
 
 The following expansion was conjectured
@@ -172,7 +175,7 @@ For every decorated unit-interval graph $\Gamma$,
 \end{theorem}
 
 Comparing with Lemma~\ref{lem:stateExpansion}, the function
-$\Kp_{\Pplus{\theta}}$ and the elementary function $\elementaryE_{\lambda(\theta)}$
+$\Kp_{\theta}$ and the elementary function $\elementaryE_{\lambda(\theta)}$
 agree after summing over all orientations with a given number of ascending
 edges, although they differ for individual orientations.
 The purpose of this paper is to identify much smaller sets of orientations over
@@ -221,13 +224,13 @@ Figure~\ref{fig:flip}.
 The long edge $uw$ is kept, and the upward short edge moves from $uv$ to $vw$;
 dotted pairs are not upward edges.
 Both drawn edges on each side must be covers, and all other edges of
-$\Dplus{\theta}$ are unchanged.}
+$\theta\cup S$ are unchanged.}
 \label{fig:flip}
 \end{figure}
 
 Since $u\lessdot w$ in $\Pplus{\theta}$, the pair $uw$ is an edge of
-$\Dplus{\theta}$, the \defin{long edge} of the flip.
-It is retained, and so are all other edges of $\Dplus{\theta}$.
+$\theta\cup S$, the \defin{long edge} of the flip.
+It is retained, and so are all other edges of $\theta\cup S$.
 The two exchanged \defin{short edges} $uv$ and $vw$ lie strictly inside $uw$;
 hence they are not corners, and in particular they are normal.
 The definition is symmetric in $\theta$ and $\theta'$, with the roles of the two
@@ -249,13 +252,13 @@ $\theta-vw+uv$ differ by a flip.
 \begin{proof}
 For the first claim, $vw\notin\theta$ since $uw$ is a cover; put
 $\theta'=\theta-uv+vw$.
-A path from $v$ to $w$ in $\Dplus{\theta'}$ other than the edge $vw$ does not use
-$uv$, so it is a path in $\Dplus{\theta}$, and preceded by $uv$ it would bypass
+A path from $v$ to $w$ in $\theta'\cup S$ other than the edge $vw$ does not use
+$uv$, so it is a path in $\theta\cup S$, and preceded by $uv$ it would bypass
 $uw$.
-A path of length at least two from $u$ to $w$ in $\Dplus{\theta'}$ either avoids
-$vw$, and then bypasses $uw$ in $\Dplus{\theta}$, or consists of a path from $u$
+A path of length at least two from $u$ to $w$ in $\theta'\cup S$ either avoids
+$vw$, and then bypasses $uw$ in $\theta\cup S$, or consists of a path from $u$
 to $v$ followed by $vw$; that path from $u$ to $v$ avoids $uv$ and $vw$, so it
-bypasses $uv$ in $\Dplus{\theta}$.
+bypasses $uv$ in $\theta\cup S$.
 Hence $v\lessdot w$ and $u\lessdot w$ in $\Pplus{\theta'}$.
 The second claim follows in the same way.
 \end{proof}
@@ -279,7 +282,7 @@ The vertex $2$ is its own highest reachable vertex in $\theta$, while all
 vertices reach $3$ in $\theta'$.
 Hence
 \[
- \Kp_{\Pplus{\theta}}+\Kp_{\Pplus{\theta'}}
+ \Kp_{\theta}+\Kp_{\theta'}
  =\elementaryE_{21}+\elementaryE_3,
 \]
 which can be checked on the coefficients of $x_1x_2x_3$ and $x_1^2x_2$.
@@ -288,8 +291,8 @@ Neither summand on the left is symmetric.
 
 \begin{lemma}\label{lem:flipInvariants}
 On a flip class, the number of ascending edges, the connected components of the
-underlying undirected graph of $\Dplus{\theta}$, and the set of corners which
-are edges of $\Dplus{\theta}$ are constant.
+underlying undirected graph of $\theta\cup S$, and the set of corners which
+are edges of $\theta\cup S$ are constant.
 \end{lemma}
 
 \begin{proof}
@@ -386,21 +389,21 @@ Colorings $\kappa:\setZ/n\setZ\to\setNN$, ascents and $\LLT_\Gamma(\xvec;q)$ are
 defined as before, with one ascent for every normal edge whose tail has a
 smaller color than its head.
 An orientation $\theta$ is again a set of ascending normal edges, and
-$\Dplus{\theta}$ is the directed multigraph on $\setZ/n\setZ$ with the strict
+$\theta\cup S$ is the directed multigraph on $\setZ/n\setZ$ with the strict
 and ascending edges.
-Now $\Dplus{\theta}$ may contain directed cycles, for example around the whole
+Now $\theta\cup S$ may contain directed cycles, for example around the whole
 circle.
-We call $\theta$ \defin{admissible} if $\Dplus{\theta}$ is acyclic, and we
+We call $\theta$ \defin{admissible} if $\theta\cup S$ is acyclic, and we
 write $\ORIENTS(\Gamma)$ for the set of admissible orientations.
 A directed cycle admits no strictly increasing coloring, so
 Lemma~\ref{lem:stateExpansion} holds verbatim, with the sum over admissible
 orientations.
 
-Let $\theta$ be admissible and let $\widetilde D_{+}(\theta)$ be the periodic
+Let $\theta$ be admissible and let $\widetilde{\theta}$ be the periodic
 graph on $\setZ$ consisting of the lifted strict and ascending edges.
-Its edges point upwards, so reachability in $\widetilde D_{+}(\theta)$ is a
+Its edges point upwards, so reachability in $\widetilde{\theta}$ is a
 partial order on $\setZ$, and we take covers in this order.
-A path in $\widetilde D_{+}(\theta)$ cannot visit two lifts of the same residue,
+A path in $\widetilde{\theta}$ cannot visit two lifts of the same residue,
 since its projection would contain a directed cycle.
 Hence every integer $z$ has a largest reachable integer
 $\widetilde{\hrvop}(\theta,z)$, and
@@ -446,17 +449,17 @@ $\theta,\theta'$ be admissible orientations related as in
 Definition~\ref{def:flip}, exchanging the residue classes of $uv$ and $vw$.
 They differ by a \defin{flip} if the four cover conditions of
 Definition~\ref{def:flip} hold in the reachability orders of
-$\widetilde D_{+}(\theta)$ and $\widetilde D_{+}(\theta')$.
+$\widetilde{\theta}$ and $\widetilde{\theta'}$.
 Lemma~\ref{lem:flipInvariants} holds for circular graphs as well, with the same
 proof.
 
 \subsection{Main results}\label{subs:mainResults}
 
-For a set $X$ of orientations of $\Gamma$ we write
+For a set $\Omega$ of orientations of $\Gamma$ we write
 \[
- \defin{\Kv(X)}\coloneqq\sum_{\theta\in X}\Kp_{\Pplus{\theta}}(\xvec),
+ \defin{\Kv(\Omega)}\coloneqq\sum_{\theta\in\Omega}\Kp_{\theta}(\xvec),
  \qquad
- \defin{\Ev(X)}\coloneqq\sum_{\theta\in X}\elementaryE_{\lambda(\theta)}(\xvec).
+ \defin{\Ev(\Omega)}\coloneqq\sum_{\theta\in\Omega}\elementaryE_{\lambda(\theta)}(\xvec).
 \]
 
 \begin{theorem}\label{thm:main}
