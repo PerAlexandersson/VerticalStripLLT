@@ -13,13 +13,13 @@ Let $P$ be a partial order on a finite set $V$.
 A map $\kappa:V\to\setNN$ is a \defin{strict $P$-partition} if
 $\kappa(u)<\kappa(v)$ whenever $u<_P v$, and we set
 \[
- \defin{\Kp_P(\xvec)}\coloneqq\sum_{\kappa}x_\kappa,
+ \defin{\Kp(P)}\coloneqq\sum_{\kappa}x_\kappa,
 \]
 the sum ranging over all strict $P$-partitions.
 This is a quasisymmetric function, and it is symmetric when $P$ is a disjoint
 union of chains: a chain with $k$ elements contributes $\elementaryE_k$.
 We write $u\lessdot_P v$ when $v$ \defin{covers} $u$ in $P$.
-If a set of directed edges generates a partial order $P$, then $\Kp_P$ counts
+If a set of directed edges generates a partial order $P$, then $\Kp(P)$ counts
 the maps that increase strictly along every edge, and every cover of $P$ is one
 of the edges.
 
@@ -42,7 +42,7 @@ tails and distinct heads.
 A \defin{decorated unit-interval graph} $\Gamma=(\avec,S)$ is an area sequence
 together with a set $S$ of corners, the \defin{strict edges}.
 The other natural edges are \defin{normal}.
-Decorated unit-interval graphs are the graphs $\Gamma_P$ of Schröder paths $P$
+Decorated unit-interval graphs are the graphs of Schröder paths
 in~\cite[Sec.~2.6]{AlexanderssonSulzgruber2022}: the natural edges are the
 cells below the Dyck path obtained by replacing every diagonal step by a north
 step followed by an east step, and the strict edges are the cells of the
@@ -90,7 +90,7 @@ $\theta$ with its set of ascending edges.
 We regard the set $\theta\cup S$ of ascending and strict edges as a directed graph
 on $[n]$.
 All its edges point upwards, so its transitive closure is a partial order
-$\Pplus{\theta}$ on $[n]$, and we write $\defin{\Kp_\theta}\coloneqq\Kp_{\Pplus{\theta}}$.
+$\Pplus{\theta}$ on $[n]$, and we write $\defin{\Kp_\theta}\coloneqq\Kp(\Pplus{\theta})$.
 
 \begin{lemma}\label{lem:stateExpansion}
 For every decorated unit-interval graph $\Gamma$,

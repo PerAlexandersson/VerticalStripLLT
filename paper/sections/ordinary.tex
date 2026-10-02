@@ -272,7 +272,7 @@ For comparison, we collect the relations
 of~\cite[Thm.~2.1 and Thm.~2.5]{AlexanderssonSulzgruber2022} after the
 substitution $q\mapsto q+1$.
 There $\Gamma$ is encoded by a Schröder path $P$ in the steps
-$\nstep,\dstep,\estep$, and we write $F(P)=\LLT_P(\xvec;q+1)$.
+$\nstep,\dstep,\estep$, and we write $F(P)=\LLT_\Gamma(\xvec;q+1)$.
 Then $F(\nstep\dstep^k\estep)=\elementaryE_{k+1}$, $F$ is multiplicative under
 concatenation, and
 \begin{align*}
@@ -312,8 +312,7 @@ with area sequence $(0,1,2,3,2,2)$ and strict edges $14$ and $35$:
 \LLTpic{nnndedneee}{}
 \]
 The graph $\Gamma$ has nine normal edges and $R$ has eight, and
-Proposition~\ref{prop:layer}, summed as above, gives
-$\LLT_\Gamma(\xvec;q+1)=(1+q)\LLT_R(\xvec;q+1)$.
+Proposition~\ref{prop:layer}, summed as above, gives $F(\Gamma)=(1+q)F(R)$.
 \end{example}
 
 \subsection{Three smaller classes}
@@ -369,12 +368,13 @@ is not a cover of $\Pplus{\theta}$.
 For a set $T$ of corners, let $\Gamma\setminus T$ be the graph with the corners
 in $T$ deleted.
 Then the orientations in $C$, viewed as orientations of $\Gamma\setminus T$,
-form a union $\mathcal{P}_T(C)$ of flip classes, and
+form a union of flip classes of $\Gamma\setminus T$, and
 \[
- \Psi(C)=\sum_{\emptyset\neq T}(-1)^{|T|+1}\sum_{C'\in\mathcal{P}_T(C)}\Psi(C')
+ \Psi(C)=\sum_{\emptyset\neq T}(-1)^{|T|+1}\,\Psi(C;\Gamma\setminus T)
 \]
-for each of the values $\Psi$ above, the outer sum ranging over nonempty sets of
-corners.
+for each of the values $\Psi$ above, where $\Psi(C;\Gamma\setminus T)$ is the value
+of $C$ as a set of orientations of $\Gamma\setminus T$, and the sum ranges over
+nonempty sets of corners.
 \end{lemma}
 
 \begin{proof}
