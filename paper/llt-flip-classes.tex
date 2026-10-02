@@ -9,7 +9,8 @@
 \usepackage{amsmath,amssymb,amsthm,mathrsfs,mathtools,mathdots}
 \usepackage{enumerate,booktabs,bm}
 \usepackage{tikz}
-\usetikzlibrary{decorations.pathmorphing,arrows.meta,positioning}
+\usetikzlibrary{decorations.pathmorphing,decorations.pathreplacing,arrows.meta,
+  positioning,patterns}
 \usepackage{xcolor}
 \usepackage{hyperref}
 
@@ -76,7 +77,19 @@
   every picture/.append style={baseline=(current bounding box.center)},
   vtx/.style={circle,draw,inner sep=1pt,minimum size=1.3em,font=\small},
   sel/.style={-{Stealth[length=2mm]},thick},
-  strictedge/.style={-{Stealth[length=2mm]},very thick,red!70!black},
+  strictedge/.style={-{Stealth[length=2.4mm]},line width=1.6pt,red!70!black},
+  % fibres and parts, distinguishable in black and white
+  fibre1/.style={fill=yellow},
+  fibre2/.style={fill=cyan!30,postaction={pattern=north east lines,
+    pattern color=black!55}},
+  fibre3/.style={fill=pink!50,postaction={pattern=dots,pattern color=black!60}},
+  fibre23/.style={fill=cyan!30,postaction={pattern=crosshatch,
+    pattern color=black!55}},
+  part1/.style={fill=green!25,postaction={pattern=dots,pattern color=black!60}},
+  part2/.style={fill=blue!15,postaction={pattern=north east lines,
+    pattern color=black!50}},
+  part3/.style={fill=orange!25,postaction={pattern=crosshatch,
+    pattern color=black!50}},
   unsel/.style={densely dotted,gray},
 }
 \input{diagrams}
@@ -149,7 +162,8 @@ LLT cumulants.
 \input{sections/consequences}
 
 \subsection*{Acknowledgements}
-We thank Robin Sulzgruber for discussions about flips.
+The first named author thanks Robin Sulzgruber for the initial discussions about
+flips.
 
 \subsection*{AI assistance}
 We used OpenAI Codex and Claude for proof development, Lean formalization, and

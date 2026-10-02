@@ -140,18 +140,18 @@ paths.
 The fibres are $\{1,3,4\}$ and $\{2,5,6\}$, so $\lambda(\theta)=(3,3)$, and
 $\theta$ contributes $q^{5}\elementaryE_{33}$ to Theorem~\ref{thm:AS} below,
 see also~\cite[Ex.~2.8]{AlexanderssonSulzgruber2022}.
-Below, the diagonal boxes and the vertices are colored by fibre, and the right
+Below, the diagonal boxes and the vertices are shaded by fibre, and the right
 picture is the Hasse diagram of $\Pplus{\theta}$:
 \[
-\LLTpic{nnnddeneee}{\LLTasc{1/3,2/3,2/4,3/4,5/6}\LLTvertex{2,5,6}{cyan!35}}
+\LLTpic{nnnddeneee}{\LLTasc{1/3,2/3,2/4,3/4,5/6}\LLTvertex{2,5,6}{fibre2}}
 \qquad\qquad
 \begin{tikzpicture}[x=2.6em,y=2.6em]
-\node[vtx,fill=yellow] (1) at (0,0) {1};
-\node[vtx,fill=cyan!35] (2) at (1.6,0) {2};
-\node[vtx,fill=yellow] (3) at (0.8,1) {3};
-\node[vtx,fill=yellow] (4) at (0.8,2) {4};
-\node[vtx,fill=cyan!35] (5) at (2.4,1) {5};
-\node[vtx,fill=cyan!35] (6) at (2.4,2) {6};
+\node[vtx,fibre1] (1) at (0,0) {1};
+\node[vtx,fibre2] (2) at (1.6,0) {2};
+\node[vtx,fibre1] (3) at (0.8,1) {3};
+\node[vtx,fibre1] (4) at (0.8,2) {4};
+\node[vtx,fibre2] (5) at (2.4,1) {5};
+\node[vtx,fibre2] (6) at (2.4,2) {6};
 \draw[thick] (1)--(3)--(4) (2)--(3) (2)--(5)--(6);
 \end{tikzpicture}
 \]
@@ -305,12 +305,12 @@ of a flip.
 \begin{figure}[!ht]
 \centering
 \begin{tikzpicture}[x=5.4em,y=5.4em]
-\node[inner sep=1pt] (s1) at (2, 0) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{1/2,1/3,1/4}\LLTvertex{2}{pink!45}\LLTvertex{3}{cyan!35}}};
-\node[inner sep=1pt] (s2) at (5, -1) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{1/2,2/3,1/4}\LLTvertex{2,3}{cyan!35}}};
-\node[inner sep=1pt] (s3) at (1, 0) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{1/3,2/3,1/4}\LLTvertex{2,3}{cyan!35}}};
-\node[inner sep=1pt] (s4) at (3, 0) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{1/3,1/4,2/4}\LLTvertex{3}{cyan!35}}};
-\node[inner sep=1pt] (s5) at (4, -1) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{2/3,1/4,2/4}\LLTvertex{3}{cyan!35}}};
-\node[inner sep=1pt] (s6) at (2, -1) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{1/2,1/4,3/4}\LLTvertex{2}{pink!45}}};
+\node[inner sep=1pt] (s1) at (2, 0) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{1/2,1/3,1/4}\LLTvertex{2}{fibre3}\LLTvertex{3}{fibre2}}};
+\node[inner sep=1pt] (s2) at (5, -1) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{1/2,2/3,1/4}\LLTvertex{2,3}{fibre2}}};
+\node[inner sep=1pt] (s3) at (1, 0) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{1/3,2/3,1/4}\LLTvertex{2,3}{fibre2}}};
+\node[inner sep=1pt] (s4) at (3, 0) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{1/3,1/4,2/4}\LLTvertex{3}{fibre2}}};
+\node[inner sep=1pt] (s5) at (4, -1) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{2/3,1/4,2/4}\LLTvertex{3}{fibre2}}};
+\node[inner sep=1pt] (s6) at (2, -1) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{1/2,1/4,3/4}\LLTvertex{2}{fibre3}}};
 \node[inner sep=1pt] (s7) at (0, 0) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{2/3,1/4,3/4}}};
 \node[inner sep=1pt] (s8) at (3, -1) {\LLTpic[cell=0.8em,label font=\tiny]{nnnneeee}{\LLTasc{1/4,2/4,3/4}}};
 \draw[gray] (s1) -- (s3);
@@ -324,7 +324,7 @@ of a flip.
 \end{tikzpicture}
 \caption{A flip class of the complete graph on $[4]$, with eight orientations,
 each with three ascending edges.
-Lines are flips, and the diagonal boxes are colored by the fibres of
+Lines are flips, and the diagonal boxes are shaded by the fibres of
 $\hrv{\theta}{\cdot}$.}
 \label{fig:largerClass}
 \end{figure}
@@ -432,8 +432,8 @@ $\elementaryE_{111}+3q\,\elementaryE_{21}+3q^2\elementaryE_3$.
 \foreach \z in {0,...,6}{\node[vtx,fill=white] (z\z) at (\z,0) {$\z$};}
 \draw[sel] (z0) to[bend left=40] (z1);
 \draw[sel] (z1) to[bend left=40] (z2);
-\draw[sel,red!70!black] (z3) to[bend left=40] (z4);
-\draw[sel,red!70!black] (z4) to[bend left=40] (z5);
+\draw[sel,line width=1.6pt] (z3) to[bend left=40] (z4);
+\draw[sel,line width=1.6pt] (z4) to[bend left=40] (z5);
 \draw[sel] (z6) to[bend left=40] (6.6,0.25);
 \end{tikzpicture}
 \caption{The lift to $\setZ$ of the orientation in Example~\ref{ex:threeCycle}

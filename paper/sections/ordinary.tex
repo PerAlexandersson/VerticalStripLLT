@@ -153,7 +153,7 @@ Thick segments are steps of the Schröder path, and dotted segments are
 arbitrary.
 The diagonal steps at the top cross the strict edge $xt$, and $yt$ in the
 targets.
-The red path goes down from there to the diagonal box of $x$ and then left to
+The dashed red path goes down from there to the diagonal box of $x$ and then left to
 the path, between the rows of $x$ and $y=x+1$.
 In the DN contact the diagonal step at the bottom crosses the strict edge $ux$,
 and in its target $uy$.}
@@ -193,8 +193,8 @@ The strict edges in $E'$ avoid $x$ and $y$, so $\sigma$ fixes them.
 We group the orientations $\theta$ of $\Gamma$ and of $R$ by the set
 $\eta=(\theta\cup S)\cap E'$.
 In the pictures below, the vertices $x<y<t$ are drawn in increasing order, the
-dotted line stands for $\eta$, red arrows are strict edges and black arrows are
-ascending edges, and each picture stands for the value $\Psi$ of the
+dotted line stands for $\eta$, thick red arrows are strict edges and thin black
+arrows are ascending edges, and each picture stands for the value $\Psi$ of the
 corresponding set of edges.
 For fixed $\eta$, the orientations of $\Gamma$ contribute $q^{|\eta|}$ times
 \[
@@ -470,21 +470,23 @@ classes of the two parts.
 \begin{figure}[!ht]
 \centering
 \begin{tikzpicture}[x=2.6em,y=2.6em]
-\fill[blue!8] (-0.4,-0.6) rectangle (4.4,0.6);
-\fill[orange!12] (3.6,-0.55) rectangle (7.4,0.55);
-\foreach \i in {0,...,7} \node[vtx] (v\i) at (\i,0) {};
-\node[vtx,fill=red!25] at (1,0) {};
-\node[vtx,fill=red!25] at (2,0) {};
-\node[vtx,fill=red!25!blue!25] at (4,0) {$c$};
-\node[vtx,fill=blue!25] at (6,0) {};
-\draw[sel] (1,0.3) to[bend left=35] (2,0.3);
-\draw[sel] (2,0.3) to[bend left=35] (4,0.3);
-\draw[sel] (4,-0.3) to[bend right=35] (6,-0.3);
+\draw[llt arbitrary,line width=0.6pt] (-0.5,0)--(7.5,0);
+\foreach \i in {0,3,5,7} \node[vtx,fill=white] (v\i) at (\i,0) {};
+\node[vtx,fibre2] (v1) at (1,0) {};
+\node[vtx,fibre2] (v2) at (2,0) {};
+\node[vtx,fibre23] (v4) at (4,0) {$c$};
+\node[vtx,fibre3] (v6) at (6,0) {};
+\draw[sel] (v1) to[bend left=40] (v2);
+\draw[sel] (v2) to[bend left=40] (v4);
+\draw[sel] (v4) to[bend left=40] (v6);
+\draw[decorate,decoration={brace,amplitude=4pt,mirror}] (-0.3,-0.45)--(4.3,-0.45)
+  node[midway,below=4pt] {$[1,c]$};
+\draw[decorate,decoration={brace,amplitude=4pt}] (3.7,0.5)--(7.3,0.5)
+  node[midway,above=4pt] {$[c,n]$};
 \end{tikzpicture}
-\caption{Gluing at $c$, with the left part $[1,c]$ on the light blue background
-and the right part $[c,n]$ on the light orange one.
-A left fibre whose highest reachable vertex is $c$ (red) merges with the right
-fibre containing $c$ (blue).
+\caption{Gluing at $c$.
+A left fibre whose highest reachable vertex is $c$ (hatched) merges with the right
+fibre containing $c$ (dotted); $c$ lies in both.
 In the merged chain, $c$ is the largest left vertex and the smallest right
 vertex, and summing over its color $\beta$ gives
 $\sum_\beta x_\beta\,\elementaryE_{p-1}(x_1,\dotsc,x_{\beta-1})\,
@@ -580,12 +582,12 @@ articulation of the graph induced on $[b,c]$, and $b(c+1)=c$ if $c<n$.
 
 \begin{figure}[!ht]
 \centering
-\LLTpic[cell=0.9em]{nnennneeneenneenee}{\LLTshade{1/2}{green!35}\LLTshade{2/3,2/4,3/4,2/5,3/5,4/5,4/6,5/6}{blue!20}\LLTshade{6/7,6/8,7/8,8/9}{orange!35}}
+\LLTpic[cell=0.9em]{nnennneeneenneenee}{\LLTshade{1/2}{part1}\LLTshade{2/3,2/4,3/4,2/5,3/5,4/5,4/6,5/6}{part2}\LLTshade{6/7,6/8,7/8,8/9}{part3}}
 \caption{The area sequence $\avec=(0,1,1,2,3,2,1,2,1)$, with $j=4$, $b=2$ and $c=6$ in
 Lemma~\ref{lem:prefix}.
-The prefix is the path $1,2$ (green) followed by the graph on $[2,6]$ without
-articulations (blue), and the whole graph is glued at $6$ from the prefix and
-the graph on $[6,9]$ (orange).}
+The prefix is the path $1,2$ (dotted) followed by the graph on $[2,6]$ without
+articulations (hatched), and the whole graph is glued at $6$ from the prefix and
+the graph on $[6,9]$ (cross-hatched).}
 \label{fig:prefix}
 \end{figure}
 
