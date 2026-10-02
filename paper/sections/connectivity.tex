@@ -109,12 +109,10 @@ and $bd$ are again covers.
 
 \begin{proof}
 All edges below lie inside $ac$ or $bd$, so they are natural and normal.
-Let $Y_a$ be the set of $v$ with $a<v<b$ and $av\in\theta$, and let $Y_d$ be the
-set of $w$ with $c<w<d$ and $wd\in\theta$.
 We perform the flips of Figure~\ref{fig:crossingSlide} in four stages:
 \begin{enumerate}[(1)]
-\item $av\mapsto vc\ [ac]$ for $v\in Y_a$, in increasing order;
-\item $wd\mapsto bw\ [bd]$ for $w\in Y_d$, in decreasing order;
+\item $av\mapsto vc\ [ac]$ for all $av\in\theta$ with $a<v<b$, in increasing order of $v$;
+\item $wd\mapsto bw\ [bd]$ for all $wd\in\theta$ with $c<w<d$, in decreasing order of $w$;
 \item $ab\mapsto bc\ [ac]$ and then $bc\mapsto cd\ [bd]$;
 \item the flips of (2) in reverse, and then those of (1) in reverse.
 \end{enumerate}
@@ -139,7 +137,7 @@ the corresponding flip in (2) or (1).
  \xrightarrow{(3)}\EdgePic[1.55em]{6}{a,v,b,c,w,d}{1/4/c,3/6/c,3/4/b,2/4/b,3/5/b}\xrightarrow{(3)}\EdgePic[1.55em]{6}{a,v,b,c,w,d}{1/4/c,3/6/c,4/6/b,2/4/b,3/5/b}\xrightarrow{(4)}\EdgePic[1.55em]{6}{a,v,b,c,w,d}{1/4/c,3/6/c,4/6/b,1/2/b,5/6/b}
 \end{gather*}
 \caption{The flips in the proof of Lemma~\ref{lem:crossingSlide}, with one
-vertex $v\in Y_a$ and one vertex $w\in Y_d$.
+edge $av$ with $a<v<b$ and one edge $wd$ with $c<w<d$.
 The gray arcs above are the covers $ac$ and $bd$, which are retained
 throughout, the arcs below are the edges which move, and the dotted line stands
 for all other edges, which are restored at the end.}
@@ -520,9 +518,9 @@ The position $ba=24$, marked $\circ$, lies in neither tree.}
 \end{figure}
 
 \smallskip\noindent\textbf{Step 4: moving the remaining edges.}
-Let $M=\Gplus\setminus T$, let $M_1$ be the positions in $M$ inside $L$, and let
-$M_2$ be the set of pairs $uv$ with $a<u<v<n$, together with $ba$.
-Then $M=M_1\cup M_2$, and $ba\in M_1\cap M_2$.
+Let $M_1$ be the positions of $\Gplus\setminus T$ inside $L$, and let $M_2$ be the
+set of pairs $uv$ with $a<u<v<n$, together with $ba$.
+Together they are all positions of $\Gplus\setminus T$, and $ba\in M_1\cap M_2$.
 Step~2 exchanges any two positions of $M_1$, and Lemma~\ref{lem:complete} on the
 component $[a,n]$ exchanges any two positions of $M_2\setminus\{ba\}$, restoring all
 other edges.
@@ -561,9 +559,9 @@ edges $1v$ for $v$ in
 \]
 For $v\in J$, let $vh_v$ be the corner leaving $v$.
 Then $h_v>a$, since a corner starting in $(1,a)$ does not end inside $[1,a]$,
-and $d_v=ah_v$ is a normal edge of $(\Gamma')^{+}$.
+and $ah_v$ is a normal edge of $(\Gamma')^{+}$.
 Lemma~\ref{lem:crossingSlide} for the corners $1a$ and $vh_v$ exchanges $1v$ and
-$d_v$:
+$ah_v$:
 \[
  \EdgePic{4}{1,v,a,h_v}{1/3/s,2/4/s,1/2/b}
  \;\longleftrightarrow\;
@@ -572,7 +570,7 @@ $d_v$:
 
 \begin{lemma}\label{lem:firstVertex}
 Suppose that Theorem~\ref{thm:connectivity} holds for $\Gamma'$, and that
-$(\Gamma')^{+}\setminus\{d_v\}$ is connected for every $v\in J$.
+$(\Gamma')^{+}\setminus\{ah_v\}$ is connected for every $v\in J$.
 Then Theorem~\ref{thm:connectivity} holds for $\Gamma$.
 \end{lemma}
 
@@ -581,8 +579,8 @@ Let $\theta\subseteq\Gplus$ be connected.
 If the edges of $\theta$ inside $[2,n]$ do not form a connected graph, let $B$ be the
 component containing $a$.
 Some edge $1v\in\theta$ ends in another component, and then $v\in J$, the vertices
-$v$ and $h_v$ lie in the same component, and $d_v\notin\theta$.
-Lemma~\ref{lem:crossingSlide} replaces $1v$ by $d_v$, and the number of edges at $1$
+$v$ and $h_v$ lie in the same component, and $ah_v\notin\theta$.
+Lemma~\ref{lem:crossingSlide} replaces $1v$ by $ah_v$, and the number of edges at $1$
 decreases.
 Hence we may assume that the edges inside $[2,n]$ form a connected graph.
 
@@ -603,8 +601,8 @@ Hence the possible sets are exactly the $I\subseteq J$ with
 Suppose that $I$ and $I\setminus\{v\}$ both satisfy~\eqref{eq:initialBand}.
 The corresponding orientations of $\Gamma'$ have $t$ and $t+1$ edges, with
 $n-2\leq t<m$.
-Since $(\Gamma')^{+}\setminus\{d_v\}$ is connected, there is a connected
-orientation of $\Gamma'$ in $(\Gamma')^{+}$ with $t$ edges avoiding $d_v$.
+Since $(\Gamma')^{+}\setminus\{ah_v\}$ is connected, there is a connected
+orientation of $\Gamma'$ in $(\Gamma')^{+}$ with $t$ edges avoiding $ah_v$.
 Together with the edges $1w$, $w\in I$, Lemma~\ref{lem:crossingSlide} moves it
 to an
 orientation with the set $I\setminus\{v\}$.

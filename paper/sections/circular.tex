@@ -48,15 +48,12 @@ $u$ to $v$ the \defin{gain} $\delta(e)=\ell(e)-(p(v)-p(u))$.
 Changing $p$ by a constant on a component does not change the gain of a closed
 walk.
 
-For a directed multigraph $Q$ with gains, let $\nu(Q)=1$ if every directed cycle
-of $Q$ has negative gain, and $\nu(Q)=0$ otherwise.
-Let $\zeta(Q)=1$ if every edge of $Q$ lies on a directed cycle, and
-$\zeta(Q)=0$ otherwise.
-
 \begin{definition}\label{def:coefficient}
-For a balanced $F\subseteq\theta$ with contracted graph $Q$, let
-$\defin{\chi(\theta,F)}=(-1)^{c(F)-c(\theta)}\,\nu(Q)\,\zeta(Q)$.
-For $F$ not balanced, or not contained in $\theta$, we put $\chi(\theta,F)=0$.
+Let $F\subseteq\theta$ be balanced, with contracted graph $Q$.
+If every directed cycle of $Q$ has negative gain and every edge of $Q$ lies on a
+directed cycle, let $\defin{\chi(\theta,F)}=(-1)^{c(F)-c(\theta)}$.
+Otherwise, and for $F$ not balanced or not contained in $\theta$, let
+$\chi(\theta,F)=0$.
 \end{definition}
 
 If $\theta$ itself is balanced, then $\chi(\theta,F)=[F=\theta]$.
@@ -162,35 +159,32 @@ edges than $\theta$.
 
 \subsection{Expansion into balanced orientations}
 
-An \defin{ordered partition} of the vertex set of a directed multigraph $\Delta$ is
+An \defin{ordered partition} of the vertex set of a directed multigraph $Q$ is
 a sequence $\omega=(\omega_1,\dotsc,\omega_k)$ of disjoint nonempty blocks
-covering it; it is \defin{compatible} with $\Delta$ if every edge goes from some
+covering it; it is \defin{compatible} with $Q$ if every edge goes from some
 $\omega_i$ to some $\omega_j$ with $i\leq j$.
 
 \begin{lemma}\label{lem:orderedPartitions}
-For every finite directed multigraph $\Delta$,
-\[
- \sum_{\omega}(-1)^{k(\omega)}
- =(-1)^{c(\Delta)}\,\zeta(\Delta),
-\]
-where $\omega$ ranges over the ordered partitions compatible with $\Delta$, and
-$k(\omega)$ is the number of blocks.
+Let $Q$ be a finite directed multigraph, and let $\omega$ range over the ordered
+partitions compatible with $Q$, with $k(\omega)$ blocks.
+Then $\sum_{\omega}(-1)^{k(\omega)}$ is $(-1)^{c(Q)}$ if every edge of $Q$ lies on
+a directed cycle, and $0$ otherwise.
 \end{lemma}
 
 \begin{proof}
 A strongly connected component lies in one block of a compatible ordered
 partition, so we may contract the strong components and remove the loops.
-The edges of $\Delta$ all lie on directed cycles exactly when the resulting acyclic
-graph $\Delta'$ has no edges, and in that case $c(\Delta)$ is the number of vertices of $\Delta'$.
-We show by induction that the sum for $\Delta'$ is $(-1)^{|\Delta'|}$ if $\Delta'$ has no edges and
+The edges of $Q$ all lie on directed cycles exactly when the resulting acyclic
+graph $Q'$ has no edges, and in that case $c(Q)$ is the number of vertices of $Q'$.
+We show by induction that the sum for $Q'$ is $(-1)^{|Q'|}$ if $Q'$ has no edges and
 $0$ otherwise.
 The last block $U$ of a compatible ordered partition is a nonempty set closed
-under taking heads of edges, so the sum for $\Delta'$ is minus the sum over such $U$ of
-the sums for $\Delta'\setminus U$.
+under taking heads of edges, so the sum for $Q'$ is minus the sum over such $U$ of
+the sums for $Q'\setminus U$.
 By induction only the sets $U$ containing every head of an edge contribute, and
-the sum becomes $-(-1)^{|\Delta'|}\sum_U(-1)^{|U|}$ over the nonempty sets $U$
+the sum becomes $-(-1)^{|Q'|}\sum_U(-1)^{|U|}$ over the nonempty sets $U$
 containing all heads.
-If $\Delta'$ has an edge, it has a source which is not a head, and the sum vanishes;
+If $Q'$ has an edge, it has a source which is not a head, and the sum vanishes;
 otherwise it equals $-1$.
 \end{proof}
 
@@ -218,14 +212,14 @@ $J\subsetneq Z^-$, and by induction it suffices to prove
 Fix $F$; we may assume that $F$ is balanced, with a potential $p$.
 Contract the components of $F$ and let $Q$ be the resulting multigraph with gains.
 Its edges are the edges of $B\setminus F$, which we call required, and the
-edges of $Z^-_F=Z^-\setminus F$, which we call optional.
+edges of $Z^-\setminus F$, which we call optional.
 Only the sets $J$ containing $F\cap Z^-$ contribute.
-Writing $Q(J)$ for the graph of the required edges together with the optional edges in $J$,
-and using $c(B\cup J)=c(Q(J))$, the identity~\eqref{eq:coefficientCancellation}
-becomes, up to a common sign,
-\begin{equation}\label{eq:gainSum}
- \sum_{J\subseteq Z^-_F}(-1)^{|J|+c(Q(J))}\,\nu(Q(J))\,\zeta(Q(J))=0.
-\end{equation}
+Write $Q(J)$ for the graph of the required edges together with the optional
+edges in $J$.
+Since $c(B\cup J)=c(Q(J))$, the identity~\eqref{eq:coefficientCancellation}
+says, up to a common sign, that the sum of $(-1)^{|J|+c(Q(J))}$ over the sets
+$J\subseteq Z^-\setminus F$ for which every directed cycle of $Q(J)$ has negative
+gain and every edge of $Q(J)$ lies on a directed cycle vanishes.
 The cycle $Z$ projects to a closed walk in $Q$ which follows the required edges
 forwards and the optional edges backwards, and since the potential
 telescopes, its gain satisfies
@@ -235,11 +229,12 @@ telescopes, its gain satisfies
 \end{equation}
 the sums on the left ranging over the edges of the walk.
 
-By Lemma~\ref{lem:orderedPartitions}, the left side of~\eqref{eq:gainSum} equals
-$\sum_\omega(-1)^{k(\omega)}\Sigma_\omega$, where $\Sigma_\omega$ is the sum of $(-1)^{|J|}$
-over the $J$ such that $\omega$ is compatible with $Q(J)$ and $\nu(Q(J))=1$.
+By Lemma~\ref{lem:orderedPartitions}, this sum equals the sum over ordered
+partitions $\omega$ of $(-1)^{k(\omega)}$ times the sum of $(-1)^{|J|}$ over the
+sets $J$ such that $\omega$ is compatible with $Q(J)$ and every directed cycle of
+$Q(J)$ has negative gain.
 Fix $\omega$, and assume that the required edges are compatible with $\omega$,
-since otherwise $\Sigma_\omega$ is empty.
+since otherwise the inner sum is empty.
 If an optional edge compatible with $\omega$ goes strictly upwards between blocks,
 it lies on no cycle of a graph compatible with $\omega$, and toggling it is a
 sign-reversing involution.
@@ -248,31 +243,21 @@ Along the closed walk, required edges do not decrease the block index,
 compatible optional edges traversed backwards keep it, and incompatible optional
 edges traversed backwards increase it strictly.
 The total change is zero, so the walk lies in a single block, and it remains to
-show that
-\begin{equation}\label{eq:negativeSum}
- \sum_{J}(-1)^{|J|}\,\nu(Q(J))=0,
-\end{equation}
-the sum ranging over the sets $J$ of compatible optional edges.
+show that the sum of $(-1)^{|J|}$ over the sets $J$ of compatible optional edges
+for which every directed cycle of $Q(J)$ has negative gain vanishes.
 
-Let $M$ exceed both the number of vertices and the number of optional edges of
-$Q$, and put $\gamma(e)=M\delta(e)+1$.
-A simple cycle of length $r$ has $\gamma$-gain $M g+r$, where $g$ is its gain, so
-$\nu(Q(J))=1$ if and only if no cycle has positive $\gamma$-gain.
-In that case let $\tau(y)$ be the maximum of $0$ and the $\gamma$-gains of the
-directed walks ending at $y$.
-It is the least nonnegative function with $\tau(v)-\tau(u)\geq\gamma(e)$ for all edges
-$e$ from $u$ to $v$ of $Q(J)$.
-Summing $\tau(v)-\tau(u)-\gamma(e)$ around the closed walk,
-by~\eqref{eq:walkGain} the optional edges exceed the required ones by
-$M(\sum\delta-\sum\delta)+(\#\text{required}-\#\text{optional})>0$,
-so some optional edge $e$ of the walk, from $u$ to $v$, has
-$\tau(v)-\tau(u)>\gamma(e)$.
-Adding such an edge preserves the inequalities, so $\tau$ does not change, and
-removing it does not change $\tau$ either, since a walk through it is not
-maximizing.
+For such $J$, the gains of directed walks in $Q(J)$ ending at a vertex $y$ are
+bounded, and we let $\tau(y)$ be the maximum of $0$ and these gains.
+Then $\tau(v)-\tau(u)\geq\delta(e)$ for every edge $e$ from $u$ to $v$ of $Q(J)$.
+Summing $\tau(v)-\tau(u)$ around the closed walk gives zero, so
+by~\eqref{eq:walkGain} some optional edge $e$ of the walk, from $u$ to $v$, has
+$\tau(v)-\tau(u)>\delta(e)$.
+A directed cycle through such an edge has gain at most $\delta(e)+\tau(u)-\tau(v)<0$,
+and a walk through it does not attain $\tau$.
+Hence adding or removing $e$ keeps all directed cycles negative and does not change
+$\tau$.
 Toggling the first such edge, in a fixed order of the optional edges, is
-therefore a sign-reversing involution, which proves~\eqref{eq:negativeSum} and
-the proposition.
+therefore a sign-reversing involution, which proves the proposition.
 \end{proof}
 
 \subsection{Constancy on flip classes}
@@ -292,11 +277,13 @@ $ac$, in a window $a<b<c<a+n$ of the lift.
 Let $\alpha\in C$ with $\chi(\alpha,\theta)\neq0$, so $\theta\subseteq\alpha$.
 Choose a potential $p$ of $\theta$ and contract the components of $\theta$.
 In the contracted graph, every directed cycle formed by edges of
-$\alpha\setminus\theta$ has negative gain, so with
-$\gamma=M\delta+1$, where $M$ exceeds the number of vertices, there is a function
-$\tau$ on the contracted vertices with $\tau(v)-\tau(u)\geq\gamma(e)$ for these edges,
-as in the proof of Proposition~\ref{prop:balancedExpansion}.
-Then $z(v)=p(v)+\tau(v)/M$ satisfies $z(v)-z(u)=\ell(e)$ for the edges of $\theta$ and
+$\alpha\setminus\theta$ has negative gain, and since gains are integers, it is at
+most $-1$.
+If $m$ is the number of contracted vertices, the gains $\delta(e)+1/(m+1)$ still
+give every such cycle negative gain, and as in the proof of
+Proposition~\ref{prop:balancedExpansion} there is a function $\tau$ on the
+contracted vertices with $\tau(v)-\tau(u)\geq\delta(e)+1/(m+1)$ for these edges.
+Then $z(v)=p(v)+\tau(v)$ satisfies $z(v)-z(u)=\ell(e)$ for the edges of $\theta$ and
 $z(v)-z(u)>\ell(e)$ for the edges of $\alpha\setminus\theta$.
 The lengths satisfy $\ell(ac)=\ell(ab)+\ell(bc)$, so $bc\notin\alpha$.
 Let $\alpha'=\alpha-ab+bc$.
