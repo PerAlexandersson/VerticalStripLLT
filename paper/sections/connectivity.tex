@@ -435,78 +435,76 @@ $\Gamma$.
 \begin{proof}
 Let $\theta$ be a connected orientation in which all corners are covers, and
 assume $\theta\subseteq\Gplus$ by Lemma~\ref{lem:preparation}.
-We show in four steps that $\theta$ can be joined to an orientation containing a
-fixed spanning tree $T$, and that all such orientations of the same size are
-joined.
+We join $\theta$ to an orientation containing a fixed spanning tree $T$, and then
+join all such orientations of the same size; Figure~\ref{fig:lastCliqueFlips}
+shows the flips used.
 
-\smallskip\noindent\textbf{Components inside the last clique.}
-All pairs in $[a,n]$ are natural.
-Consider the connected components of the graph formed by the edges of $\theta$
-inside $[a,n]$.
-A path between two vertices of such a component stays in $[a,n]$, and hence in
-the component.
-So a flip of the complete graph on a component, with its vertices in increasing
-order, is a flip of $\Gamma$ which changes the edges inside the component and fixes
-all other edges.
-The component containing $a$ and $n$ has the extreme edge $an$, which is a cover,
-so Lemma~\ref{lem:complete} applies to it.
+All pairs in $[a,n]$ are natural, and a path between two vertices of a connected
+component of the edges of $\theta$ inside $[a,n]$ stays in that component.
+So flips of the complete graph on such a component are flips of $\Gamma$, and
+Lemma~\ref{lem:complete} applies to the component containing $a$ and $n$, since
+$an$ is a cover.
 
 \smallskip\noindent\textbf{Step 1: making $\theta[L]$ connected.}
-In the component containing $a$ and $n$, the vertex $a$ is only adjacent to $n$.
-By Lemma~\ref{lem:complete} we replace the edges of this component by the star of all
-edges to $n$, together with other edges avoiding $a$ to keep their number.
-This is possible since a connected graph on $k$ vertices in which one vertex is
-a leaf has between $k-1$ and $1+\binom{k-1}{2}$ edges.
+In the component containing $a$ and $n$, the vertex $a$ is only adjacent to $n$,
+and by Lemma~\ref{lem:complete} we replace its edges by the star of all edges to
+$n$, together with edges avoiding $a$; this is possible since a connected graph
+on $k$ vertices with a leaf has between $k-1$ and $1+\binom{k-1}{2}$ edges.
 Every other component meets $(a,c]$, since otherwise it would be a connected
 component of $\theta$.
-For such a component, let $u$ be its least vertex and $v\leq c$ another vertex.
-Take a path of covers from $u$ to $v$, using the edges in either direction.
-If its largest vertex $z$ exceeds $v$, its neighbours $i<j$ on the path are
-joined to $z$ by covers, and $jz\mapsto ij\ [iz]$ is a flip, which shortens the
-path.
-Replacing an edge of the new path which is no longer a cover by a path of covers
-inside its interval, the largest vertex decreases.
-Repeating, we obtain a path of covers in $[u,v]$, which joins $u$ and $v$ by
-edges inside $L$.
-These flips do not disconnect pairs which were joined inside $[1,c]$ before.
-Repeating this, every component meets $L$ in a connected graph.
-Every natural edge with an endpoint in $(c,n)$ lies inside $an$, so we can
-replace every part of a path in $\theta$ outside $L$ by a path inside the
-corresponding component, and the edges of $\theta$ inside $L$ form a connected graph.
+Join its least vertex $u$ to another vertex $v\leq c$ by a path of covers, using
+edges in either direction.
+If the largest vertex $z$ of the path exceeds $v$, its neighbours $i<j$ give the
+flip $jz\mapsto ij\ [iz]$ of Figure~\ref{fig:lastCliqueFlips}(a), which shortens the
+path; replacing an edge which is no longer a cover by a path of covers inside its
+interval, the largest vertex decreases.
+We end with a path inside $[u,v]$, and these flips keep all pairs joined inside
+$[1,c]$.
+Every natural edge with an endpoint in $(c,n)$ lies inside $an$, so $\theta[L]$
+is now connected.
 
 \smallskip\noindent\textbf{Step 2: changing $\theta[L]$.}
-Suppose the edges of $\theta$ inside $L$ form a connected graph.
-We perform $vn\mapsto av\ [an]$ for all $vn\in\theta$ with $c<v<n$, in decreasing
-order of $v$.
-These are flips by the argument for the first flips in the proof of
-Lemma~\ref{lem:crossingSlide},
-and they do not change edges inside $L$ or the cover tests of other corners.
-Afterwards no vertex outside $L$ has an edge to $n$, so a path leaving $L$
-cannot return to $L$.
-Hence every path of flips in $\Gamma[L]$ lifts, with all edges outside $L$ fixed.
-By assumption we can reach any connected orientation of $\Gamma[L]$ in $\Gplus$
-with the same number of edges.
-At its end $a$ has no edge to $(a,n)$ inside $L$, and we reverse the first flips in
-increasing order of $v$.
+The flips $vn\mapsto av\ [an]$ of Figure~\ref{fig:lastCliqueFlips}(b), for
+$vn\in\theta$ with $c<v<n$ in decreasing order of $v$, are flips as in stage~(1)
+of the proof of Lemma~\ref{lem:crossingSlide}, and they change neither the edges
+inside $L$ nor the cover tests of other corners.
+Afterwards a path leaving $L$ cannot return to $L$, so every path of flips in
+$\Gamma[L]$ lifts, with all edges outside $L$ fixed.
+By assumption we reach any connected orientation of $\Gamma[L]$ in $\Gplus$ with
+the same number of edges, and then we undo the flips of
+Figure~\ref{fig:lastCliqueFlips}(b) in increasing order of $v$.
 
 \smallskip\noindent\textbf{Step 3: a fixed tree.}
 In the set $\Gplus$ of $\Gamma[L]$, the corners and the edges $vn$ with $a<v\leq c$
-form a forest: every vertex has at most one outgoing edge among them, and all
-edges point upwards.
-Since $\theta[L]$ is connected, this forest extends to a spanning tree $T'$ of
-$\Gamma[L]$ inside $\Gplus$.
-Inside $[a,n]$, the tree $T'$ consists of the edges to $n$, and $T'$ does not
-contain $ba$, since $bc,cn,na$ already join $b$ and $a$.
-Adding edges of $\Gplus$ to $T'$ we obtain a connected orientation of $\Gamma[L]$
-with the same number of edges as $\theta[L]$, and Step~2 reaches it.
-Now all of $[a,n]$ is one component.
-Indeed, every vertex in $(c,n)$ is joined, inside its component, to a vertex of $L$ by
-a path whose edges are not inside $L$, and these edges were not changed; and
-the vertices of $L\cap[a,n]$ are joined to $n$ by $T'$.
-Since $an$ is a cover, Lemma~\ref{lem:complete} makes this component a star at $n$
-together with edges avoiding $a$, containing $T'\cap[a,n]$.
-This gives an orientation containing the spanning tree
+form a forest, since every vertex has at most one outgoing edge among them.
+It extends to a spanning tree $T'$ of $\Gamma[L]$ inside $\Gplus$.
+Inside $[a,n]$, the tree $T'$ consists of edges to $n$, and $ba\notin T'$ since
+$bc,cn,na$ already join $b$ and $a$.
+By Step~2 we may assume that $T'\subseteq\theta$.
+Then $[a,n]$ is one component: the vertices in $(c,n)$ are joined to $L$ by
+unchanged edges, and those of $L\cap[a,n]$ are joined to $n$ by $T'$.
+Lemma~\ref{lem:complete} makes it the star of Figure~\ref{fig:lastCliqueFlips}(c)
+together with edges avoiding $a$, and we obtain an orientation containing
 $T=T'\cup\{vn:c<v<n\}$, see Figure~\ref{fig:lastCliqueTree}.
+
+\begin{figure}[!ht]
+\centering
+\begin{gather*}
+ \text{(a)}\quad \EdgePic[2em]{3}{i,j,z}{1/3/c,2/3/b}\longrightarrow\EdgePic[2em]{3}{i,j,z}{1/3/c,1/2/b}
+ \qquad\qquad
+ \text{(c)}\quad \EdgePic[1.6em]{5}{a,c,v,w,n}{1/5/c,2/5/b,3/5/b,4/5/b}\\[1ex]
+ \text{(b)}\quad \EdgePic[2em]{4}{a,c,v,n}{1/4/c,3/4/b}\longrightarrow\EdgePic[2em]{4}{a,c,v,n}{1/4/c,1/3/b}\\[1ex]
+ \text{(d)}\quad \EdgePic[2em]{4}{b,a,c,n}{1/3/c,2/4/c,1/2/b}\longrightarrow\EdgePic[2em]{4}{b,a,c,n}{1/3/c,2/4/c,3/4/b}
+\end{gather*}
+\caption{The flips in the proof of Lemma~\ref{lem:lastClique}, with retained
+covers in gray above the line and moving edges below.
+(a) Shortening a path of covers through its largest vertex $z$ in Step~1.
+(b) Moving an edge $vn$ with $c<v<n$ off $n$ in Step~2.
+(c) The star at $n$ inside $[a,n]$ in Step~3.
+(d) Exchanging $ba$ for $cn$ in Step~4, by Lemma~\ref{lem:crossingSlide} for the
+corners $bc$ and $an$.}
+\label{fig:lastCliqueFlips}
+\end{figure}
 
 \begin{figure}[!ht]
 \centering
@@ -533,7 +531,7 @@ Let $d\neq c$ be an endpoint of $x$, and let $y$ be the edge joining $c$ and $d$
 If $y\in\theta$, the component stays connected when we replace $cn$ by $x$, so
 Lemma~\ref{lem:complete} performs this replacement.
 Then Lemma~\ref{lem:crossingSlide} for the corners $bc$ and $an$ exchanges $ba$
-for $cn$,
+for $cn$, see Figure~\ref{fig:lastCliqueFlips}(d),
 and we obtain $\theta-ba+x$.
 If $y\notin\theta$, the same construction with $y$ in place of $x$ gives
 $\theta-ba+y$, and then we exchange $y$ and $x$.
