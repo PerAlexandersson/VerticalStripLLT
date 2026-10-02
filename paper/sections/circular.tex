@@ -107,6 +107,23 @@ Then
 \]
 \end{lemma}
 
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[x=3em,y=3em]
+\node[vtx,fill=white] (a) at (90:1) {$1$};
+\node[vtx,fill=white] (b) at (210:1) {$2$};
+\node[vtx,fill=white] (c) at (330:1) {$3$};
+\draw[sel] (a) to[bend left=25] node[font=\scriptsize,above right] {$2$} (c);
+\draw[sel] (c) to[bend left=25] node[font=\scriptsize,below] {$2$} (b);
+\draw[sel,densely dashed] (a) to[bend right=25] node[font=\scriptsize,above left] {$1$} (b);
+\end{tikzpicture}
+\caption{The cycle of Example~\ref{ex:deletion}, traversed $1\to3\to2\to1$, with
+the edge lengths.
+The solid edges form $Z^+$, of total length $4$, and the dashed edge $1\to2$
+forms $Z^-$, of length $1$; Lemma~\ref{lem:deletion} removes it.}
+\label{fig:deletionCycle}
+\end{figure}
+
 \begin{proof}
 Let $\kappa$ be a coloring which increases along the edges of $B$.
 The values of $\kappa$ telescope around $Z$, so
@@ -313,8 +330,32 @@ Let $C$ be a flip class containing a balanced orientation.
 Then $\Kv(C)=\Ev(C)$.
 \end{proposition}
 
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[x=3em,y=3em]
+\node[vtx,fill=white] (a) at (90:1) {$1$};
+\node[vtx,fill=white] (b) at (210:1) {$2$};
+\node[vtx,fill=white] (c) at (330:1) {$3$};
+\draw[sel] (a) to[bend left=25] (c);
+\draw[sel] (c) to[bend left=25] (b);
+\begin{scope}[xshift=11em,yshift=-0.5em]
+\draw[llt arbitrary,line width=0.6pt] (0.4,0)--(5.6,0);
+\foreach \z in {1,...,5}{\node[vtx,fill=white,minimum size=1.05em,font=\scriptsize]
+  (z\z) at (\z,0) {$\z$};}
+\draw[sel] (z1) to[bend left=40] (z3);
+\draw[sel] (z3) to[bend left=40] (z5);
+\end{scope}
+\end{tikzpicture}
+\caption{The balanced orientation $F=\{1\to3,3\to2\}$ of Example~\ref{ex:deletion}
+and its potential $p(1)=1$, $p(3)=3$, $p(2)=5$ on $\setZ$.
+Ordering $1,3,2$ by $p$ gives an ordinary graph, the path on three vertices,
+in which $F$ is the orientation with both edges ascending.}
+\label{fig:balancedLine}
+\end{figure}
+
 \begin{proof}
-Let $p$ be a potential of a balanced orientation in $C$.
+Let $p$ be a potential of a balanced orientation in $C$, see
+Figure~\ref{fig:balancedLine}.
 On each component, $p(v)-v$ is constant modulo $n$, so changing $p$ by constants
 we may assume that $p(v)\equiv v\pmod n$ and that $p$ is injective.
 The relation $\ell(ac)=\ell(ab)+\ell(bc)$ shows that $p$ is a potential for every
