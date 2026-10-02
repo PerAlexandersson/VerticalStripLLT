@@ -272,7 +272,7 @@ For comparison, we collect the relations
 of~\cite[Thm.~2.1 and Thm.~2.5]{AlexanderssonSulzgruber2022} after the
 substitution $q\mapsto q+1$.
 There $\Gamma$ is encoded by a Schröder path $P$ in the steps
-$\nstep,\dstep,\estep$, and we write $F(P)=\LLT_\Gamma(\xvec;q+1)$.
+$\nstep,\dstep,\estep$, and we write $F(P)=\LLT_P(\xvec;q+1)$.
 Then $F(\nstep\dstep^k\estep)=\elementaryE_{k+1}$, $F$ is multiplicative under
 concatenation, and
 \begin{align*}
@@ -312,7 +312,8 @@ with area sequence $(0,1,2,3,2,2)$ and strict edges $14$ and $35$:
 \LLTpic{nnndedneee}{}
 \]
 The graph $\Gamma$ has nine normal edges and $R$ has eight, and
-Proposition~\ref{prop:layer}, summed as above, gives $F(\Gamma)=(1+q)F(R)$.
+Proposition~\ref{prop:layer}, summed as above, gives
+$\LLT_\Gamma(\xvec;q+1)=(1+q)\LLT_R(\xvec;q+1)$.
 \end{example}
 
 \subsection{Three smaller classes}
