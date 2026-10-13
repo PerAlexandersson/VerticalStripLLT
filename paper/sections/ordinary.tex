@@ -115,8 +115,12 @@ unit-interval graph.
 In the DN case, $a_y=x-u=a_x$, so the new area sequence is valid at $y$, and
 $a_{t+1}<a_t$ by the condition on $b(t+1)$.
 The target of an NN contact has one natural edge fewer.
-The target of a DN contact has the same number of natural edges, and
-$\mom(\Gamma)\coloneqq\sum_i i\,a_i$ is smaller by $t-y$.
+The target $R$ of a DN contact has the same number of natural edges as $\Gamma$
+and satisfies
+\[
+ \mom(R)=\mom(\Gamma)-(t-y),
+ \qquad \mom(\Gamma)\coloneqq\sum_i i\,a_i.
+\]
 
 \begin{figure}[!ht]
 \centering
@@ -393,9 +397,10 @@ it is a union of flip classes.
 Fix $\theta\in C$ and a corner $f$ which is not a cover of $\Pplus{\theta}$.
 The alternative path between the endpoints of $f$ lies strictly inside $f$ and
 uses no corner.
-It survives the deletion of any set of corners, so by
-Lemma~\ref{lem:ineffective}(ii) the sets $T$ and $T\cup\{f\}$ give the same
-reachability whenever $f\notin T$.
+It survives the deletion of any set of corners.
+Thus, whenever $f\notin T$, Lemma~\ref{lem:ineffective}(ii) shows that
+$(\theta\cup S)\setminus T$ and
+$(\theta\cup S)\setminus(T\cup\{f\})$ have the same reachability relation.
 Pairing these sets gives $\sum_T(-1)^{|T|}\Psi((\theta\cup S)\setminus T)=0$, the
 sum ranging over all sets of corners.
 The corner $f$ may depend on $\theta$, but the identity holds for each $\theta$.
@@ -524,8 +529,8 @@ A left vertex reaches the right part only through $c$.
 Hence the highest reachable vertex of a left vertex $u$ is
 $\hrv{\theta_1}{u}$ if this is smaller than $c$, and $\hrv{\theta_2}{c}$
 otherwise, while the right vertices keep their highest reachable vertices.
-The fibre of $c$ in the left part, of size $p$, merges with the fibre of $c$ in
-the right part, of size $r$, and all other fibres are unchanged, see
+The fibres containing $c$ in the left and right parts, of sizes $p$ and $r$,
+merge into a single fibre of size $p+r-1$; all other fibres are unchanged, see
 Figure~\ref{fig:gluing}.
 In the two chains, $c$ is the largest element of the first and the smallest
 element of the second.
@@ -538,7 +543,14 @@ we obtain $\elementaryE_{\lambda(\theta_1\cup\theta_2)}
 =\sum_\beta\elementaryE_{\theta_1}[\beta]\,\widehat{\elementaryE}_{\theta_2}[\beta]$,
 with $\widehat{\elementaryE}_{\theta_2}[\beta]$ defined in the same way.
 Multiplying the given identity by $\widehat\Psi(C_2)[\beta]$ and summing over
-$\beta$ proves the lemma.
+$\beta$ gives, for $\Psi\in\{\Kv,\Ev\}$,
+\begin{align*}
+ \Psi(C_1\times C_2)
+ &=\sum_{\beta\geq1}\Psi(C_1)[\beta]\,\widehat\Psi(C_2)[\beta] \\
+ &=\sum_{\beta\geq1}\sum_i
+   z_i\Psi(C_{1,i})[\beta]\,\widehat\Psi(C_2)[\beta] \\
+ &=\sum_i z_i\Psi(C_{1,i}\times C_2).
+\end{align*}
 \end{proof}
 
 If $\Gamma$ is glued at $c$ from parts with $e_1$ and $e_2$ natural edges, then
@@ -556,8 +568,8 @@ If no $a_i$ exceeds one, the natural graph is the path $1,2,\dotsc,n$.
 
 \begin{lemma}\label{lem:prefix}
 Suppose that the natural graph of $\Gamma$ is connected and not a path.
-Let $j$ be the least index with $a_j\geq2$, put $b=j-2$, and let $c\geq j$ be the
-least index such that $c=n$ or $a_{c+1}=1$.
+Let $j$ be the least index with $a_j\geq2$, put $b=b(j)=j-2$, and let
+$c\geq j$ be the least index such that $c=n$ or $a_{c+1}=1$.
 Then $\Gamma$ is glued at $c$ from $\Gamma_{\leq c}$ and $\Gamma_{\geq c}$, and
 the natural graph of $\Gamma_{\leq c}$ is the path $1,\dotsc,b$ followed by a
 graph on $[b,c]$ without articulations.
@@ -566,7 +578,8 @@ graph on $[b,c]$ without articulations.
 \begin{proof}
 A vertex $v$ with $1<v<n$ is an articulation of a connected unit-interval graph
 if and only if $a_{v+1}=1$.
-Indeed, if $a_{v+1}=1$ then $b(v+1)=v$, so no natural edge passes over $v$.
+Indeed, if $a_{v+1}=1$ then $b(v+1)=(v+1)-a_{v+1}=v$, so no natural edge passes
+over $v$.
 If $a_{v+1}\geq2$, the natural edge $(v-1)(v+1)$ bypasses $v$ in the path of
 edges $i(i+1)$, which are natural since all $a_i$ are positive.
 By the choice of $j$ we have $a_i=1$ for $1<i<j$ and $a_j=2$, so $b=b(j)$ and
@@ -602,13 +615,17 @@ Then $a_t\geq2$, and after unmarking the strict edge ending at $y$, if there is
 one, $(x,y,t)$ is an NN contact or $(b(x),x,y,t)$ is a DN contact.
 \end{lemma}
 
-For the graph of Example~\ref{ex:NNcontact}, $t=5$ and $(2,3,5)$ is an NN contact;
-the two cases are drawn in Figure~\ref{fig:contacts}.
+For the graph of Example~\ref{ex:NNcontact}, $t=5$ and $(2,3,5)$ is an NN
+contact.  For the graph in Figure~\ref{fig:prefix}, $t=5$ and $(1,2,3,5)$ is a
+DN contact when all corners are marked strict.
+The two cases are drawn in Figure~\ref{fig:contacts}.
 
 \begin{proof}
 The areas $a_1,\dotsc,a_t$ are weakly increasing.
-If $a_t=1$, then all these areas are at most one, and since $a_{t+1}=0$, the
-natural graph would be a path; hence $a_t\geq2$ and $x<y<t$.
+If $a_t=1$, then $a_i\leq1$ for all $i\leq t$ and $a_{t+1}=0$.
+Connectedness forces $t=n$, and the natural graph would then be a path,
+contrary to the hypothesis.
+Hence $a_t\geq2$ and $x<y<t$.
 Since $a_{t+1}<a_t$, the edge $xt$ is a corner, hence strict, and
 $b(t+1)\geq x+2>y$.
 
@@ -656,6 +673,7 @@ or~\ref{lem:noCover} and induction.
 
 In the remaining case, let $\Gamma$ be glued at $c$ from its prefix and
 $\Gamma_{\geq c}$ as in Lemma~\ref{lem:prefix}, and write $C=C_1\times C_2$.
+Indeed, every flip takes place in one of the two parts, which meet only at $c$.
 Let $\theta\in C$ be connected with all corners as covers.
 Its restriction to the prefix is connected, and every corner of the prefix is a
 corner of $\Gamma$ ending at most at $c$, whose cover test only involves
@@ -673,7 +691,11 @@ By Lemma~\ref{lem:gluing},
 \]
 Each $C_{1,i}\times C_2$ is a flip class of a graph on $[n]$ which is smaller in
 $(|E|,\mom)$, by the remark after Lemma~\ref{lem:gluing}.
-By induction $\Kv(C_{1,i}\times C_2)=\Ev(C_{1,i}\times C_2)$ for all $i$, and
-hence $\Kv(C)=\Ev(C)$.
+By induction $\Kv(C_{1,i}\times C_2)=\Ev(C_{1,i}\times C_2)$ for all $i$.
+Since the same coefficients occur on both sides,
+\[
+ \Kv(C)=\sum_i z_i\Kv(C_{1,i}\times C_2)
+ =\sum_i z_i\Ev(C_{1,i}\times C_2)=\Ev(C).
+\]
 This completes the proof of Theorem~\ref{thm:main} for ordinary graphs, given
 Theorem~\ref{thm:connectivity}.

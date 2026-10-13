@@ -239,8 +239,10 @@ Whenever a vertex $i$ has two outgoing covers $ij$ and $ik$ in $\eta$, with $j<k
 we perform the flip $ij\mapsto jk\ [ik]$.
 The sum of the tails of the edges increases, so this terminates.
 Then every vertex has at most one outgoing cover.
-The covers form a connected graph, and a cycle in it would have a least vertex
-with two outgoing covers, so they form a tree, with unique sink $n$.
+The underlying undirected graph of the covers is connected.
+It contains no cycle, since the least vertex of a cycle would have two outgoing
+covers.
+Thus the covers form a tree with unique sink $n$.
 Every edge of $\eta$ joins a vertex to one of its ancestors in this tree.
 
 If $i<j$ are two children of $n$, their only outgoing edges are $in$ and $jn$,
@@ -328,13 +330,19 @@ $W=\{0,2,3,\dotsc,n\}$, we can rearrange the chords inside either set at a fixed
 number, restoring all other edges.
 The two sets of chord positions cover all positions except $1n$, and both
 contain $24$.
-Hence we can exchange any two chords other than $1n$: if no single set contains
-both, we route through $24$, moving the selected chord to $24$ first if $24$ is
-vacant, and moving $24$ to the vacant position first otherwise.
+Hence we can exchange an occupied chord position with a vacant one, provided
+neither is $1n$.
+If no single set contains both positions, we route through $24$.
+When $24$ is vacant, we move the selected chord first to $24$ and then to the
+desired position.
+When $24$ is occupied, we move the chord at $24$ first to the vacant position
+and then move the selected chord to $24$.
 This connects all orientations $P_n\cup X$ with the same number of chords and the same
 status of $1n$.
 
 It remains to change the status of $1n$.
+Since the orientations with each fixed status are already connected, it is
+enough to join the two statuses whenever both occur.
 Suppose $1n\notin\theta$ and $13,2n\in\theta$.
 We perform $in\mapsto 0i\ [0n]$ for all $in\in\theta$ with $0<i<n$, in decreasing
 order of $i$.
@@ -352,6 +360,13 @@ We obtain $\theta-12+1n$.
 To restore $12$, we open the chain down to $3$ by~\eqref{eq:opening}.
 On $0,1,2,3$ the edges are then $03$, $13$ and $23$, and~\eqref{eq:childMerge}
 with $(i,j,n)=(1,2,3)$ replaces $13$ by $12$.
+Explicitly, its four flips are
+\[
+ 13\mapsto01\ [03],\qquad 23\mapsto02\ [03],\qquad
+ 01\mapsto12\ [02],\qquad 02\mapsto23\ [03].
+\]
+They restore $12$ and $23$, remove $13$, and retain $03$; Step~2 carries this
+local sequence out in the whole graph.
 Closing the chain gives
 \begin{equation}\label{eq:outerChord}
  \theta\longmapsto\theta-13+1n\qquad(13,2n\in\theta,\ 1n\notin\theta).
@@ -521,9 +536,10 @@ The position $ba=24$, marked $\circ$, lies in neither tree.}
 Let $M_1$ be the positions of $\Gplus\setminus T$ inside $L$, and let $M_2$ be the
 set of pairs $uv$ with $a<u<v<n$, together with $ba$.
 Together they are all positions of $\Gplus\setminus T$, and $ba\in M_1\cap M_2$.
-Step~2 exchanges any two positions of $M_1$, and Lemma~\ref{lem:complete} on the
-component $[a,n]$ exchanges any two positions of $M_2\setminus\{ba\}$, restoring all
-other edges.
+Step~2 exchanges an occupied position with a vacant one in $M_1$.
+Similarly, Lemma~\ref{lem:complete} on the component $[a,n]$ gives such an
+exchange in $M_2\setminus\{ba\}$.
+Both constructions restore all other edges.
 Suppose $ba\in\theta$ and $x\in M_2\setminus\{ba\}$ is vacant.
 Let $d\neq c$ be an endpoint of $x$, and let $y$ be the edge joining $c$ and $d$.
 If $y\in\theta$, the component stays connected when we replace $cn$ by $x$, so
@@ -598,6 +614,10 @@ Hence the possible sets are exactly the $I\subseteq J$ with
 \begin{equation}\label{eq:initialBand}
  \max(0,s-1-m)\leq|I|\leq\min(|J|,s-1-(n-2)).
 \end{equation}
+Indeed, the edges incident to $1$ are $1a$ and the edges $1v$ with $v\in I$,
+so the restriction to $[2,n]$ has $s-1-|I|$ edges.
+The inequalities $n-2\leq s-1-|I|\leq m$ and $0\leq|I|\leq|J|$ give
+the displayed bounds.
 Suppose that $I$ and $I\setminus\{v\}$ both satisfy~\eqref{eq:initialBand}.
 The corresponding orientations of $\Gamma'$ have $t$ and $t+1$ edges, with
 $n-2\leq t<m$.
@@ -613,8 +633,17 @@ deletions: to exchange two elements we delete first if $|I|$ is above its lower
 bound, and insert first otherwise.
 This fails only if~\eqref{eq:initialBand} allows a single cardinality and more
 than one set.
-If $J\neq\emptyset$, the hypothesis gives $m\geq n-1$, and then a single allowed
-cardinality forces $I=\emptyset$ or $I=J$.
+If $J\neq\emptyset$, the connected graph
+$(\Gamma')^+\setminus\{ah_v\}$ has $n-1$ vertices and $m-1$ edges for every
+$v\in J$, so $m\geq n-1$.
+If the lower and upper bounds in~\eqref{eq:initialBand} were both an integer
+$k$ with $0<k<|J|$, then
+\[
+ k=s-1-m=s-1-(n-2),
+\]
+which would give $m=n-2$, a contradiction.
+Thus the only possible single cardinalities are $0$ and $|J|$, each of which
+determines $I$ uniquely.
 Hence all connected orientations in $\Gplus$ with $s$ edges lie in one flip
 class, and Lemma~\ref{lem:preparation} proves the lemma.
 \end{proof}

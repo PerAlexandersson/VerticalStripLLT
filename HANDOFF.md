@@ -2,10 +2,41 @@
 
 ## Current status and ownership
 
-The active author-directed manuscript is now Claude's **component-first**
-`paper/`, per `paper/PLAN.md` and `docs/LEAN_COORDINATION.md`. Claude owns it;
-the older `docs/drafts/` sources and the aggregate-first descriptions below
-are retained history, not the current manuscript architecture.
+On 2026-10-13, the Lilan revision integration worker adopted the manuscript
+revision after the former Claude owner session was confirmed absent by
+`supervisor-tool report`.  This worker owns `HANDOFF.md`,
+`paper/llt-flip-classes.tex`, `paper/llt-flip-classes.pdf`,
+`paper/references.bib`, and the seven files under `paper/sections/` for the
+bounded task of reconciling Lilan Dai's UID 88 comments with the current
+GitHub manuscript.  The attachments are being inspected only in an external
+`/tmp` directory, and the Overleaf tree is read-only.  No Lean source, Lean
+build slot, deployment, print job, or external correspondence is in scope.
+
+The UID 88 reconciliation is complete.  Comments 1--11 and 13--36 were
+applied or adapted to the current notation and architecture.  Comment 12 was
+already satisfied by the newer GitHub contact figure and caption.  Comment 37
+was not applied: its `geometry` override is presentation-only and predates the
+newer GitHub figures.  The postscript about unspecified recent work was
+deferred because it identifies no paper or citable claim.  In particular, the
+revision keeps the later GitHub figures and notation rather than copying the
+older magenta Overleaf source wholesale.  Section 5 now states the
+occupied/vacant exchanges, the four restoring flips, the edge-count bounds and
+the exceptional-cardinality argument explicitly.
+
+The manuscript was built only in
+`/tmp/verticalstripllt-lilan-uid88-FK61nC/build`.  The 36-page PDF has SHA256
+`253f3e6892f8f79c8ece148a5bad48638e5e8e88b7ebc372491c6541d65a0fff`.
+The final LaTeX log has no LaTeX, reference, overfull or underfull warnings;
+`qpdf --check` passes, `git diff --check` passes, and the revised pages were
+visually inspected.  BibTeX retains eight incomplete-metadata warnings,
+including the page-free electronic Hikita journal record.  No Overleaf file
+was modified and no Lean build was run.
+
+The active author-directed manuscript remains the **component-first** `paper/`,
+per `paper/PLAN.md` and `docs/LEAN_COORDINATION.md`.  The former Claude
+ownership is superseded by the adoption above; the older `docs/drafts/`
+sources and the aggregate-first descriptions below are retained history, not
+the current manuscript architecture.
 
 Codex reviewed `paper/` at `3a28bc1`, including the figures/examples at
 `8af0161`, without editing it. See
@@ -68,10 +99,11 @@ unnecessary indexed states and proof-stage names have been removed.
 
 Codex owns this handoff, manuscript/figures and proof maps. Bounded agents
 `diagram_spacing_audit` and `notation_audit` have released their files.
-Persistent Claude worker `agent-verticalstri-motzki-c-001af720` still owns all
-Lean sources, verification entry points, `docs/LEAN_COORDINATION.md`, and the
-sole Lean build slot (transfer at `b78312c`). No Codex Lean build or remote
-proof job was started. Do not stop or restart that worker.
+At that earlier checkpoint, Claude worker
+`agent-verticalstri-motzki-c-001af720` owned all Lean sources, verification
+entry points, `docs/LEAN_COORDINATION.md`, and the sole Lean build slot
+(transfer at `b78312c`).  The session no longer exists; this manuscript-only
+task did not adopt any of those Lean files or invoke the build slot.
 
 Check Git status and HEAD before edits; Claude commits on shared `main`.
 Stage only owned files. Preserve the pre-author-edit tag and its original PDF.

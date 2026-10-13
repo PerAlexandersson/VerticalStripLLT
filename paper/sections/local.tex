@@ -52,6 +52,9 @@ and $\sigma$ maps the sinks of $\eta$ reachable from $z$ onto the sinks of
 $\eta'$ reachable from $\sigma(z)$, preserving their order.
 \end{proof}
 
+We use the Iverson bracket: $[A]=1$ when the statement $A$ holds, and $[A]=0$
+otherwise.
+
 \begin{lemma}[The four-term identity]\label{lem:fourTerm}
 Let $\eta$ be a set of upward pairs in $[n]$.
 Let $u<v<w$ be vertices such that $uw\in\eta$, and $uv,vw\notin\eta$.
@@ -108,8 +111,8 @@ Lemma~\ref{lem:ineffective}(i) for $\xi=\{uv\}$, applied to $\eta$ and to
 $\eta_{01}$, gives the second pairing.
 \end{proof}
 
-Lemma~\ref{lem:fourTerm} does not say that the two middle terms correspond to
-each other.
+Lemma~\ref{lem:fourTerm} does not assert that $\eta_{10}$ and $\eta_{01}$ have
+the same highest reachable vertex map.
 In the first case of the proof, $\eta_{10}$ has the same highest reachable
 vertices as $\eta_{11}$, not as $\eta_{01}$.
 This is why the identity is used for sums over many orientations at once.

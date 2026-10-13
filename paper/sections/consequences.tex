@@ -46,8 +46,8 @@ We call the resulting graph the \defin{induced} graph $\Gamma[U]$.
 Its natural edges are exactly the natural edges of $\Gamma$ with both endpoints in
 $U$, and its strict edges are the strict edges of $\Gamma$ inside $U$.
 
-Let $r\geq1$, and let $f:\setZ/n\setZ\to[r]$ be surjective and constant on the
-endpoints of every strict edge.
+Let $r\geq1$, and let $f:\setZ/n\setZ\to[r]$ be surjective and satisfy
+$f(u)=f(v)$ for every strict edge $uv$.
 For nonempty $B\subseteq[r]$ write $\Gamma[B]$ for the graph induced on
 $f^{-1}(B)$.
 Let $\Pi_r$ be the lattice of set partitions of $[r]$, with maximum $\hat1=\{[r]\}$.
@@ -72,8 +72,8 @@ exponents are nonnegative.
 
 \begin{proof}
 For $\pi\in\Pi_r$, the orientations of $\Gamma$ without ascending edges between
-different blocks of $\pi$ are the tuples of orientations of the graphs $\Gamma[B]$,
-$B\in\pi$, since no strict edge joins different blocks.
+the sets $f^{-1}(B)$, $B\in\pi$, are the tuples of orientations of the graphs
+$\Gamma[B]$, since no strict edge joins two such sets.
 By Lemma~\ref{lem:stateExpansion} for each $\Gamma[B]$,
 \[
  \prod_{B\in\pi}\LLT_{\Gamma[B]}(\xvec;q+1)
@@ -84,8 +84,10 @@ $q^{\asc(\theta)+1-r}$ times
 $\sum_{\sigma_f(\theta)\leq\pi}(-1)^{|\pi|-1}(|\pi|-1)!$.
 Since $(-1)^{|\pi|-1}(|\pi|-1)!$ is the Möbius function of $\Pi_r$ from $\pi$ to
 $\hat1$, this sum is $[\sigma_f(\theta)=\hat1]$.
-An $f$-connected orientation has at least $r-1$ ascending edges, since strict edges
-become loops.
+Since $f(u)=f(v)$ for every strict edge $uv$, strict edges become loops in the
+multigraph on $[r]$.
+They do not connect different vertices, so an $f$-connected orientation has at
+least $r-1$ ascending edges.
 \end{proof}
 
 By Lemma~\ref{lem:flipInvariants}, being $f$-connected is constant on flip classes.

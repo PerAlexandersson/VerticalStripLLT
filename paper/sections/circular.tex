@@ -5,8 +5,9 @@ reduction to the ordinary case.
 The idea is to expand $\Kv(\theta)$ and $\Ev(\theta)$, for every admissible
 orientation, as the same signed sum over \emph{balanced} sub-orientations, in
 which the lengths of the edges are differences of a potential.
-The coefficients turn out to be constant on flip classes, so the expansion can
-be grouped by flip classes.
+After summing these expansions over a fixed flip class, the resulting
+coefficients are constant on flip classes of suborientations, so we may group
+the expansion by those classes.
 Finally, the orientations of a balanced flip class can be drawn on a line, where
 they form a union of ordinary flip classes.
 
@@ -69,9 +70,14 @@ It is not balanced: the path $1\to3\to2$ has length $4$, while $1\to2$ has lengt
 $1$.
 Lemma~\ref{lem:deletion} below, applied to this cycle, gives
 $\Kv(\theta)=\Kv(F)$ and $[h_\theta]=[h_F]$ for $F=\{1\to3,3\to2\}$.
-The set $F$ is balanced; its lift is the path $1\to3\to5$, so $1$ and $3$ have the
-highest reachable vertex $5\equiv2$, with or without the edge $1\to2$, and both
-values equal $\elementaryE_3$.
+The set $F$ is balanced, and one component of its lift is the path
+$1\to3\to5$.
+Whether or not $1\to2$ is present, the highest reachable lifts of $1$, $3$ and
+$2$ are $5$, $5$ and $2$, respectively.
+They have the same residue modulo $3$, so $\Ev(\theta)=\Ev(F)=\elementaryE_3$.
+Moreover, $F$ gives the chain $1\to3\to2$, and the extra edge $1\to2$ imposes
+no additional condition on colorings.
+Hence $\Kv(\theta)=\Kv(F)=\elementaryE_3$ as well.
 In the lift below, the integer $z$ lies over the residue of $z$ modulo $3$, the
 solid edges are the lift of $F$ starting in $\{1,2,3\}$, and the dashed edge is
 the lift of the deleted edge $1\to2$:
@@ -184,8 +190,10 @@ the sums for $Q'\setminus U$.
 By induction only the sets $U$ containing every head of an edge contribute, and
 the sum becomes $-(-1)^{|Q'|}\sum_U(-1)^{|U|}$ over the nonempty sets $U$
 containing all heads.
-If $Q'$ has an edge, it has a source which is not a head, and the sum vanishes;
-otherwise it equals $-1$.
+If $Q'$ has an edge, it has a source which is not a head, and the inner sum
+vanishes.
+If $Q'$ is nonempty and has no edges, the inner sum is $-1$, so the full
+expression is $(-1)^{|Q'|}$.
 \end{proof}
 
 \begin{proposition}\label{prop:balancedExpansion}
@@ -253,7 +261,8 @@ Summing $\tau(v)-\tau(u)$ around the closed walk gives zero, so
 by~\eqref{eq:walkGain} some optional edge $e$ of the walk, from $u$ to $v$, has
 $\tau(v)-\tau(u)>\delta(e)$.
 A directed cycle through such an edge has gain at most $\delta(e)+\tau(u)-\tau(v)<0$,
-and a walk through it does not attain $\tau$.
+and every directed walk ending at a vertex $y$ and containing $e$ has gain
+strictly less than $\tau(y)$.
 Hence adding or removing $e$ keeps all directed cycles negative and does not change
 $\tau$.
 Toggling the first such edge, in a fixed order of the optional edges, is
@@ -280,12 +289,24 @@ In the contracted graph, every directed cycle formed by edges of
 $\alpha\setminus\theta$ has negative gain, and since gains are integers, it is at
 most $-1$.
 If $m$ is the number of contracted vertices, the gains $\delta(e)+1/(m+1)$ still
-give every such cycle negative gain, and as in the proof of
+give every such cycle negative gain: a simple directed cycle has at most $m$
+edges, and
+\[
+ -1+\frac{m}{m+1}<0.
+\]
+As in the proof of
 Proposition~\ref{prop:balancedExpansion} there is a function $\tau$ on the
 contracted vertices with $\tau(v)-\tau(u)\geq\delta(e)+1/(m+1)$ for these edges.
 Then $z(v)=p(v)+\tau(v)$ satisfies $z(v)-z(u)=\ell(e)$ for the edges of $\theta$ and
 $z(v)-z(u)>\ell(e)$ for the edges of $\alpha\setminus\theta$.
-The lengths satisfy $\ell(ac)=\ell(ab)+\ell(bc)$, so $bc\notin\alpha$.
+Since $ab,ac\in\theta$ and $ac$ is a cover, we have $bc\notin\theta$.
+Moreover,
+\[
+ z(c)-z(b)=\ell(ac)-\ell(ab)=\ell(bc),
+\]
+so $bc$ cannot belong to $\alpha\setminus\theta$, where the inequality for $z$
+is strict.
+Thus $bc\notin\alpha$.
 Let $\alpha'=\alpha-ab+bc$.
 
 A lifted path in $\alpha$ between the endpoints of $ab$ has total length
@@ -333,10 +354,13 @@ Then $\Kv(C)=\Ev(C)$.
 \draw[sel] (z3) to[bend left=40] (z5);
 \end{scope}
 \end{tikzpicture}
-\caption{The balanced orientation $F=\{1\to3,3\to2\}$ of Example~\ref{ex:deletion}
-and its potential $p(1)=1$, $p(3)=3$, $p(2)=5$ on $\setZ$.
-Ordering $1,3,2$ by $p$ gives an ordinary graph, the path on three vertices,
-in which $F$ is the orientation with both edges ascending.}
+\caption{The balanced orientation $F=\{1\to3,3\to2\}$ of
+Example~\ref{ex:deletion}, with potential values $p(1)=1$, $p(3)=3$ and
+$p(2)=5$.
+These values select the lifts $1$, $3$ and $5$, which form the path
+$1\to3\to5$.
+Ordering the original vertices by these values gives an ordinary path on three
+vertices, with both edges ascending.}
 \label{fig:balancedLine}
 \end{figure}
 
