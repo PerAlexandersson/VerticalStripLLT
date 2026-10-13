@@ -27,6 +27,7 @@ BibTeX, LaTeX, reference, or box warnings, passes `qpdf --check`, and the
 changed pages were inspected.  The rebuilt `paper/llt-flip-classes.pdf` has
 SHA256
 `875b2d6c1bfa4d2d5967338e06cd0142395dbf640df9ced6376524f654391f18`.
+The verified flip-comparison and readability checkpoint is commit `5131de0`.
 No Lean source or Overleaf file was touched.  The worker has released
 `HANDOFF.md`, `paper/sections/preliminaries.tex`,
 `paper/sections/connectivity.tex`, `paper/sections/consequences.tex`, and
