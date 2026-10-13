@@ -21,6 +21,7 @@ the 37-page PDF passes `qpdf --check`, and the revised introduction and final
 bibliography page were inspected.  The rebuilt `paper/llt-flip-classes.pdf`
 has SHA256
 `9b7636a5eb49decfc36f63f27d0b579f1e3e1670bcd76a99d37db660193a85a6`.
+The verified literature checkpoint is commit `16771e0`.
 No Lean source or Overleaf file was touched.  The worker has released
 `HANDOFF.md`, `paper/sections/introduction.tex`, `paper/references.bib`, and
 `paper/llt-flip-classes.pdf`.
