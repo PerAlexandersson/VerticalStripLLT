@@ -2,6 +2,29 @@
 
 ## Current status and ownership
 
+On 2026-10-13, the Lilan revision integration worker completed the
+user-requested arXiv-index cross-check and literature update in
+`paper/sections/introduction.tex` and `paper/references.bib`.  The registered
+`arxiv-symmetricfunctions` API was current through 2026-10-13 and confirmed
+the metadata and publication status of all eleven arXiv records checked.  This
+supplied missing arXiv identifiers for AS22, the Ellzey FPSAC paper and Hikita,
+and Hwang's published DOI.  The introduction now distinguishes Hikita's
+numerical nonnegativity for each fixed positive real `q` (with `q=0` by
+specialization) from OpenAI's later coefficientwise theorem in `N[q]`, citing
+the exact Corollary 1.2 and Theorem 1.1.
+
+The `paper-cache` full-text archive endpoint was unavailable because its
+archive database is not mounted in this container; the exact cached Hikita v2
+source and OpenAI's official September 24 manuscript were checked instead.
+An external `latexmk` build has zero BibTeX, LaTeX, reference, or box warnings;
+the 37-page PDF passes `qpdf --check`, and the revised introduction and final
+bibliography page were inspected.  The rebuilt `paper/llt-flip-classes.pdf`
+has SHA256
+`9b7636a5eb49decfc36f63f27d0b579f1e3e1670bcd76a99d37db660193a85a6`.
+No Lean source or Overleaf file was touched.  The worker has released
+`HANDOFF.md`, `paper/sections/introduction.tex`, `paper/references.bib`, and
+`paper/llt-flip-classes.pdf`.
+
 On 2026-10-13, the Lilan revision integration worker completed the requested
 bibliography-metadata cleanup in `paper/references.bib`.  The Abreu--Nigro and
 Lee preprints now use their published journal records; the Ellzey FPSAC paper
