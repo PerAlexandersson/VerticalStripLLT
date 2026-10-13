@@ -4,13 +4,13 @@
 
 On 2026-10-13, the Lilan revision integration worker adopted the manuscript
 revision after the former Claude owner session was confirmed absent by
-`supervisor-tool report`.  This worker owns `HANDOFF.md`,
+`supervisor-tool report`.  During this bounded task, the worker owned `HANDOFF.md`,
 `paper/llt-flip-classes.tex`, `paper/llt-flip-classes.pdf`,
 `paper/references.bib`, and the seven files under `paper/sections/` for the
-bounded task of reconciling Lilan Dai's UID 88 comments with the current
-GitHub manuscript.  The attachments are being inspected only in an external
-`/tmp` directory, and the Overleaf tree is read-only.  No Lean source, Lean
-build slot, deployment, print job, or external correspondence is in scope.
+task of reconciling Lilan Dai's UID 88 comments with the current GitHub
+manuscript.  The attachments were inspected only in an external `/tmp`
+directory, and the Overleaf tree remained read-only.  No Lean source, Lean
+build slot, deployment, print job, or external correspondence was in scope.
 
 The UID 88 reconciliation is complete.  Comments 1--11 and 13--36 were
 applied or adapted to the current notation and architecture.  Comment 12 was
@@ -31,6 +31,8 @@ The final LaTeX log has no LaTeX, reference, overfull or underfull warnings;
 visually inspected.  BibTeX retains eight incomplete-metadata warnings,
 including the page-free electronic Hikita journal record.  No Overleaf file
 was modified and no Lean build was run.
+The verified manuscript checkpoint is `8010a2b`; the integration worker has
+released all adopted files.
 
 The active author-directed manuscript remains the **component-first** `paper/`,
 per `paper/PLAN.md` and `docs/LEAN_COORDINATION.md`.  The former Claude
