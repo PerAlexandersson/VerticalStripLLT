@@ -3,6 +3,21 @@
 ## Current status and ownership
 
 On 2026-10-13, the Lilan revision integration worker completed the
+author-approved wider page geometry from Lilan's revision.  The main file now
+uses letter paper with 2 cm top/bottom and 3 cm left/right margins (and a 2 cm
+margin-note width), reducing the manuscript from 37 to 28 pages without any
+prose or mathematical change.  The manuscript was built only in
+`/tmp/verticalstripllt-wide-pages-Dly3PP`; the final build has no BibTeX,
+LaTeX, reference, or box warnings and passes `qpdf --check`.  All pages were
+inspected at thumbnail scale, with the title, dense figure/proof pages,
+Section 7.3, and bibliography additionally inspected at full size.  The
+rebuilt `paper/llt-flip-classes.pdf` has SHA256
+`6e3104e75767ad1b927ab1819d5570a470b18d416eb554ac45b174517c9188ea`.
+The Overleaf tree remained read-only, and no Lean source or Lake command was
+used.  The worker has released `HANDOFF.md`, `paper/llt-flip-classes.tex`, and
+`paper/llt-flip-classes.pdf`.
+
+On 2026-10-13, the Lilan revision integration worker completed the
 author-approved comparison of Hwang's and the LLT flips, Section 5 readability
 pass, and Section 7.3 literature clarification.  The preliminaries now state
 Hwang's local move precisely: it reverses a source or sink fork in an acyclic
