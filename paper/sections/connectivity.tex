@@ -215,6 +215,9 @@ Lemma~\ref{lem:parallel} applies.
 In this subsection we label the vertices $0,1,\dotsc,n$, with $n\geq1$, and
 consider the complete natural graph.
 Its only corner is $0n$.
+The next lemma is both the one-corner base case of
+Theorem~\ref{thm:connectivity} and the local tool used later inside the last
+maximal clique.
 
 \begin{lemma}\label{lem:complete}
 For the complete graph on $0,1,\dotsc,n$, the connected orientations in which
@@ -385,6 +388,9 @@ This completes the induction, and the proof.
 \subsection{Deleting a chain or an edge}
 
 In this subsection, connectivity means connectivity of undirected graphs.
+The final induction removes a corner chain or the first vertex.
+The next two lemmas ensure that the remaining graph in $\Gplus$ stays connected
+and that a prescribed normal edge can be avoided.
 Suppose that the natural graph is connected, has at least three vertices, and
 has no articulation.
 Then every pair $uv$ with $v-u\leq2$ is a natural edge.
@@ -448,9 +454,12 @@ $\Gamma$.
 \begin{proof}
 Let $\theta$ be a connected orientation in which all corners are covers, and
 assume $\theta\subseteq\Gplus$ by Lemma~\ref{lem:preparation}.
-We join $\theta$ to an orientation containing a fixed spanning tree $T$, and then
-join all such orientations of the same size; Figure~\ref{fig:lastCliqueFlips}
-shows the flips used.
+We first make the restriction to $L$ connected, so that the inductive
+hypothesis can change it independently of the remaining vertices.
+We then put a fixed spanning tree $T$ into the orientation.
+The last step routes exchanges between the positions inside and outside $L$
+through their common position $ba$; Figure~\ref{fig:lastCliqueFlips} shows the
+flips used.
 
 All pairs in $[a,n]$ are natural, and a path between two vertices of a connected
 component of the edges of $\theta$ inside $[a,n]$ stays in that component.
@@ -592,6 +601,10 @@ Then Theorem~\ref{thm:connectivity} holds for $\Gamma$.
 
 \begin{proof}
 Let $\theta\subseteq\Gplus$ be connected.
+We first make the restriction to $[2,n]$ connected.
+Once this is done, the set $I$ of edges at $1$ records the remaining choice:
+the inductive hypothesis connects orientations with fixed $I$, and crossing
+slides connect the possible sets $I$.
 If the edges of $\theta$ inside $[2,n]$ do not form a connected graph, let $B$ be the
 component containing $a$.
 Some edge $1v\in\theta$ ends in another component, and then $v\in J$, the vertices

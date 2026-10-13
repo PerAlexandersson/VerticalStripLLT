@@ -3,6 +3,36 @@
 ## Current status and ownership
 
 On 2026-10-13, the Lilan revision integration worker completed the
+author-approved comparison of Hwang's and the LLT flips, Section 5 readability
+pass, and Section 7.3 literature clarification.  The preliminaries now state
+Hwang's local move precisely: it reverses a source or sink fork in an acyclic
+orientation, whose outer vertices are nonadjacent.  The LLT move instead acts
+inside a triangle, retains its long edge, and uses covers in the
+ascending-and-strict-edge posets.  Section 7.3 explains that OpenAI's aggregate
+chromatic theorem does not settle Hwang's classwise conjecture, while this
+paper proves the LLT classwise analogue, and it asks for a relation between the
+two genuinely different component decompositions.
+
+The registered `arxiv-symmetricfunctions` index, Hwang's exact v2 manuscript,
+and the current OpenAI manuscript were checked.  Searches for later work on
+Hwang's local flips and for a bijection matching this paper's highest-reachable
+component theorem found no general resolution; known special cases of Hwang's
+conjecture do not settle the question stated here.  Section 5 received only
+short strategy paragraphs before its complete-graph, deletion, last-clique,
+and first-vertex arguments; no proof step or notation changed.
+
+The manuscript was built only in
+`/tmp/verticalstripllt-section57-9peFpB`.  The final 37-page build has no
+BibTeX, LaTeX, reference, or box warnings, passes `qpdf --check`, and the
+changed pages were inspected.  The rebuilt `paper/llt-flip-classes.pdf` has
+SHA256
+`875b2d6c1bfa4d2d5967338e06cd0142395dbf640df9ced6376524f654391f18`.
+No Lean source or Overleaf file was touched.  The worker has released
+`HANDOFF.md`, `paper/sections/preliminaries.tex`,
+`paper/sections/connectivity.tex`, `paper/sections/consequences.tex`, and
+`paper/llt-flip-classes.pdf`.
+
+On 2026-10-13, the Lilan revision integration worker completed the
 user-requested arXiv-index cross-check and literature update in
 `paper/sections/introduction.tex` and `paper/references.bib`.  The registered
 `arxiv-symmetricfunctions` API was current through 2026-10-13 and confirmed
