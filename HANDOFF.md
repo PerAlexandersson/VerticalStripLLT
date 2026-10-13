@@ -2,6 +2,19 @@
 
 ## Current status and ownership
 
+On 2026-10-13, the Lilan revision integration worker completed the requested
+bibliography-metadata cleanup in `paper/references.bib`.  The Abreu--Nigro and
+Lee preprints now use their published journal records; the Ellzey FPSAC paper
+uses its official SLC citation; genuine arXiv/preprint items use suitable entry
+types; and the Hikita paper is recorded as electronically published, without
+inventing volume or page data.  An external `latexmk` build has zero BibTeX,
+LaTeX, reference, or box warnings; the 36-page PDF passes `qpdf --check`, and
+the bibliography pages were inspected.  The rebuilt
+`paper/llt-flip-classes.pdf` has SHA256
+`1366c6e313fa65c8e5e0f7b21cb78a184e9b3e24fae137e903d91d62dad85310`.
+No Lean source or Overleaf file was touched.  The worker has released
+`HANDOFF.md`, `paper/references.bib`, and `paper/llt-flip-classes.pdf`.
+
 On 2026-10-13, the Lilan revision integration worker adopted the manuscript
 revision after the former Claude owner session was confirmed absent by
 `supervisor-tool report`.  During this bounded task, the worker owned `HANDOFF.md`,
