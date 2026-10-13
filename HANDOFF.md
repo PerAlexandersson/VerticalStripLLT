@@ -13,7 +13,8 @@ the bibliography pages were inspected.  The rebuilt
 `paper/llt-flip-classes.pdf` has SHA256
 `1366c6e313fa65c8e5e0f7b21cb78a184e9b3e24fae137e903d91d62dad85310`.
 No Lean source or Overleaf file was touched.  The worker has released
-`HANDOFF.md`, `paper/references.bib`, and `paper/llt-flip-classes.pdf`.
+`HANDOFF.md`, `paper/references.bib`, and `paper/llt-flip-classes.pdf`.  The
+verified bibliography checkpoint is `53af2c9`.
 
 On 2026-10-13, the Lilan revision integration worker adopted the manuscript
 revision after the former Claude owner session was confirmed absent by
