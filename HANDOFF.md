@@ -3,6 +3,20 @@
 ## Current status and ownership
 
 On 2026-10-13, the Lilan revision integration worker completed the
+author-requested Overleaf upload and email notification.  The current main TeX
+file, bibliography, seven section files, and verified PDF were synchronized to
+`/home/paxinum/Dropbox/Apps/Overleaf/LLT flip/paper/`; byte comparisons confirm
+that they match GitHub.  Older Overleaf drafts, archives, project notes, and
+already-identical manuscript files were untouched.  A fresh external build
+from the synchronized snapshot in
+`/tmp/verticalstripllt-overleaf-verify-Z4Vveb` produced the same 28-page PDF,
+with no TeX, bibliography, reference, citation, or box warnings, and passed
+`qpdf --check`.  An email summarizing the revision and linking GitHub was
+successfully delivered to the Nankai address Lilan used for UID 88, with the
+current PDF attached.  The worker has released `HANDOFF.md` and all external
+manuscript files.
+
+On 2026-10-13, the Lilan revision integration worker completed the
 author-approved wider page geometry from Lilan's revision.  The main file now
 uses letter paper with 2 cm top/bottom and 3 cm left/right margins (and a 2 cm
 margin-note width), reducing the manuscript from 37 to 28 pages without any
