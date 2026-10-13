@@ -15,7 +15,7 @@ rebuilt `paper/llt-flip-classes.pdf` has SHA256
 `6e3104e75767ad1b927ab1819d5570a470b18d416eb554ac45b174517c9188ea`.
 The Overleaf tree remained read-only, and no Lean source or Lake command was
 used.  The worker has released `HANDOFF.md`, `paper/llt-flip-classes.tex`, and
-`paper/llt-flip-classes.pdf`.
+`paper/llt-flip-classes.pdf`.  The verified layout checkpoint is `b3fe6b5`.
 
 On 2026-10-13, the Lilan revision integration worker completed the
 author-approved comparison of Hwang's and the LLT flips, Section 5 readability
