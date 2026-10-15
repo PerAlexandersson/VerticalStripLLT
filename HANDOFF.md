@@ -2,6 +2,18 @@
 
 ## Current status and ownership
 
+On 2026-10-15, at the user's request, the Chromatic P-array RSK worker
+reclaimed only `docs/chromatic-p-array-rsk/`,
+`experiments/chromatic-p-array-rsk/`, and its focused `HANDOFF.md` entry in
+the isolated `chromatic-p-array-rsk` worktree.  The task is to recover and
+prototype a genuinely different reverse inverse-Kostka endpoint map from
+Loehr--Mendes's bijective matrix algebra, then compare its induced coloring
+bijection and transported type-A crystal with the current
+Allen--Celano--Mason map through the smallest feasible ranks.  The exact
+primary-source algorithm must be fixed before coding; no guessed substitute
+may be labeled Loehr--Mendes.  All Lean builds and sources, marked-coloring or
+HRV work, circular LLTs, and manuscript files remain excluded.
+
 On 2026-10-15, the Chromatic P-array RSK worker and an Astra reviewer audited
 alternative inverse-Kostka proofs without changing code.  Mason's
 noncommutative tunnel-hook formula (Allen--Mason, arXiv:2207.05903) is already
