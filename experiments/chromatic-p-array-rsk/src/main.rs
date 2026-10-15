@@ -1,4 +1,4 @@
-use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
+use std::collections::{BTreeMap, BTreeSet, HashSet};
 
 #[derive(Clone, Debug)]
 struct Poset {
@@ -59,6 +59,30 @@ enum TraceEvent {
         nu: Vec<usize>,
         from: Triple,
         to: Triple,
+        local: Vec<InverseKostkaEvent>,
+    },
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+struct AcmState {
+    /// An immaculate tableau, with positive entries, stored row by row.
+    rows: Vec<Vec<usize>>,
+    /// The tunnel-hook permutation in zero-based one-line notation.
+    sigma: Vec<usize>,
+}
+
+#[derive(Clone, Debug)]
+enum InverseKostkaEvent {
+    Psi {
+        k: usize,
+        source_row: usize,
+        target_row: usize,
+        inserted_row: bool,
+        deleted_row: bool,
+    },
+    Theta {
+        row: usize,
+        col: usize,
     },
 }
 
@@ -66,50 +90,6 @@ enum TraceEvent {
 struct Catalog {
     positive: Vec<Triple>,
     negative: Vec<Triple>,
-    exceptional: bool,
-}
-
-impl Catalog {
-    fn partner(&self, triple: &Triple) -> Option<Triple> {
-        if permutation_sign(&triple.pi) > 0 {
-            let index = self
-                .positive
-                .binary_search(triple)
-                .expect("positive triple missing from catalog");
-            if self.exceptional && index == 0 {
-                None
-            } else {
-                let negative_index = if self.exceptional { index - 1 } else { index };
-                Some(self.negative[negative_index].clone())
-            }
-        } else {
-            let index = self
-                .negative
-                .binary_search(triple)
-                .expect("negative triple missing from catalog");
-            let positive_index = if self.exceptional { index + 1 } else { index };
-            Some(self.positive[positive_index].clone())
-        }
-    }
-
-    fn canonical_fixed(&self) -> Triple {
-        assert!(self.exceptional);
-        self.positive[0].clone()
-    }
-}
-
-#[derive(Default)]
-struct Catalogs {
-    map: HashMap<(usize, Vec<usize>, Vec<usize>), Catalog>,
-}
-
-impl Catalogs {
-    fn get(&mut self, n: usize, nu: &[usize], mu: &[usize]) -> &Catalog {
-        let key = (n, nu.to_vec(), mu.to_vec());
-        self.map
-            .entry(key)
-            .or_insert_with(|| build_catalog(n, nu, mu))
-    }
 }
 
 fn natural_unit_interval_orders(n: usize) -> Vec<Poset> {
@@ -143,6 +123,23 @@ fn partitions(n: usize) -> Vec<Vec<usize>> {
     }
     let mut out = Vec::new();
     recurse(n, n, &mut Vec::new(), &mut out);
+    out
+}
+
+fn compositions(n: usize) -> Vec<Vec<usize>> {
+    fn recurse(remaining: usize, current: &mut Vec<usize>, out: &mut Vec<Vec<usize>>) {
+        if remaining == 0 {
+            out.push(current.clone());
+            return;
+        }
+        for part in 1..=remaining {
+            current.push(part);
+            recurse(remaining - part, current, out);
+            current.pop();
+        }
+    }
+    let mut out = Vec::new();
+    recurse(n, &mut Vec::new(), &mut out);
     out
 }
 
@@ -525,6 +522,339 @@ fn ssyts(lambda: &[usize], mu: &[usize]) -> Vec<Vec<usize>> {
     out
 }
 
+fn inverse_permutation(permutation: &[usize]) -> Vec<usize> {
+    let mut inverse = vec![0; permutation.len()];
+    for (index, &value) in permutation.iter().enumerate() {
+        inverse[value] = index;
+    }
+    inverse
+}
+
+fn entries_to_rows(lambda: &[usize], entries: &[usize], add_one: bool) -> Vec<Vec<usize>> {
+    let mut rows = Vec::with_capacity(lambda.len());
+    let mut offset = 0;
+    for &length in lambda {
+        let mut row = entries[offset..offset + length].to_vec();
+        if add_one {
+            for value in &mut row {
+                *value += 1;
+            }
+        }
+        rows.push(row);
+        offset += length;
+    }
+    assert_eq!(offset, entries.len());
+    rows
+}
+
+fn rows_to_entries(rows: &[Vec<usize>], subtract_one: bool) -> Vec<usize> {
+    rows.iter()
+        .flatten()
+        .map(|&value| if subtract_one { value - 1 } else { value })
+        .collect()
+}
+
+fn bender_knuth(lambda: &[usize], entries: &[usize], value: usize) -> Vec<usize> {
+    let mut rows = entries_to_rows(lambda, entries, false);
+    let mut paired: Vec<Vec<bool>> = rows.iter().map(|row| vec![false; row.len()]).collect();
+    for row in 0..rows.len().saturating_sub(1) {
+        for col in 0..rows[row + 1].len() {
+            if rows[row][col] == value && rows[row + 1][col] == value + 1 {
+                paired[row][col] = true;
+                paired[row + 1][col] = true;
+            }
+        }
+    }
+    for row in 0..rows.len() {
+        let free: Vec<usize> = (0..rows[row].len())
+            .filter(|&col| {
+                !paired[row][col] && (rows[row][col] == value || rows[row][col] == value + 1)
+            })
+            .collect();
+        let smaller = free.iter().filter(|&&col| rows[row][col] == value).count();
+        let larger = free.len() - smaller;
+        for (index, &col) in free.iter().enumerate() {
+            rows[row][col] = if index < larger { value } else { value + 1 };
+        }
+    }
+    rows_to_entries(&rows, false)
+}
+
+fn normalize_ssyt_content(entries: &[usize], lambda: &[usize], mu: &[usize]) -> Vec<usize> {
+    let mut result = entries.to_vec();
+    for value in normalization_swaps(mu) {
+        result = bender_knuth(lambda, &result, value);
+    }
+    result
+}
+
+fn denormalize_ssyt_content(entries: &[usize], lambda: &[usize], mu: &[usize]) -> Vec<usize> {
+    let mut result = entries.to_vec();
+    for &value in normalization_swaps(mu).iter().rev() {
+        result = bender_knuth(lambda, &result, value);
+    }
+    result
+}
+
+fn acm_delta(state: &AcmState) -> Vec<usize> {
+    assert_eq!(state.rows.len(), state.sigma.len());
+    state
+        .rows
+        .iter()
+        .enumerate()
+        .map(|(row, entries)| {
+            let value = entries.len() as isize + state.sigma[row] as isize - row as isize;
+            assert!(value >= 0, "negative tunnel-hook content");
+            value as usize
+        })
+        .collect()
+}
+
+fn flattened_delta(state: &AcmState) -> Vec<usize> {
+    acm_delta(state)
+        .into_iter()
+        .filter(|&part| part > 0)
+        .collect()
+}
+
+fn is_immaculate(rows: &[Vec<usize>]) -> bool {
+    !rows.is_empty()
+        && rows
+            .iter()
+            .all(|row| !row.is_empty() && row.windows(2).all(|pair| pair[0] <= pair[1]))
+        && rows.windows(2).all(|pair| pair[0][0] < pair[1][0])
+}
+
+fn bad_tableau_cell(rows: &[Vec<usize>]) -> Option<(usize, usize)> {
+    let max_col = rows.iter().map(Vec::len).max().unwrap_or(0);
+    for col in 1..max_col {
+        for row in (1..rows.len()).rev() {
+            if col < rows[row].len()
+                && (col >= rows[row - 1].len() || rows[row - 1][col] >= rows[row][col])
+            {
+                return Some((row, col));
+            }
+        }
+    }
+    None
+}
+
+fn is_semistandard_rows(rows: &[Vec<usize>]) -> bool {
+    is_immaculate(rows)
+        && rows.windows(2).all(|pair| pair[0].len() >= pair[1].len())
+        && bad_tableau_cell(rows).is_none()
+}
+
+fn swap_permutation_values(permutation: &mut [usize], smaller: usize) {
+    for value in permutation {
+        if *value == smaller {
+            *value = smaller + 1;
+        } else if *value == smaller + 1 {
+            *value = smaller;
+        }
+    }
+}
+
+fn insert_fixed_point(permutation: &[usize], position: usize) -> Vec<usize> {
+    let mut result: Vec<usize> = permutation
+        .iter()
+        .map(|&value| if value >= position { value + 1 } else { value })
+        .collect();
+    result.insert(position, position);
+    result
+}
+
+fn remove_fixed_point(permutation: &[usize], position: usize) -> Vec<usize> {
+    assert_eq!(permutation[position], position);
+    permutation
+        .iter()
+        .enumerate()
+        .filter(|&(index, _)| index != position)
+        .map(|(_, &value)| if value > position { value - 1 } else { value })
+        .collect()
+}
+
+fn acm_psi(state: &AcmState) -> Option<(AcmState, InverseKostkaEvent)> {
+    assert!(is_immaculate(&state.rows));
+    let ell = state.rows.len();
+    let maximum = *state.rows.iter().flatten().max().unwrap();
+    let settled_suffix =
+        |k: usize| {
+            (k..ell).all(|row| {
+                let target = maximum as isize - ell as isize + row as isize + 1;
+                target > 0
+                    && state.sigma[row] == row
+                    && state.rows[row]
+                        .iter()
+                        .all(|&entry| entry as isize == target)
+                    && state.rows.iter().enumerate().all(|(other, entries)| {
+                        other == row || !entries.contains(&(target as usize))
+                    })
+            })
+        };
+    let k = (0..ell)
+        .find(|&candidate| settled_suffix(candidate))
+        .unwrap_or(ell);
+    if k == 0 {
+        return None;
+    }
+    let moved = (maximum as isize - ell as isize + k as isize) as usize;
+    assert!(moved > 0);
+    let source_row = (0..ell)
+        .filter(|&row| state.rows[row].contains(&moved))
+        .min_by_key(|&row| state.sigma[row])
+        .expect("Algorithm 4.2 selected value must occur");
+    let old_content = flattened_delta(state);
+    let old_sign = permutation_sign(&state.sigma);
+    let mut rows = state.rows.clone();
+    assert_eq!(rows[source_row].pop(), Some(moved));
+
+    let (sigma, target_row, inserted_row, deleted_row) = if state.sigma[source_row] + 1 == k {
+        rows.insert(k, vec![moved]);
+        let mut sigma = insert_fixed_point(&state.sigma, k);
+        swap_permutation_values(&mut sigma, k - 1);
+        (sigma, k, true, false)
+    } else {
+        let q = state.sigma[source_row];
+        let target_row = state
+            .sigma
+            .iter()
+            .position(|&value| value == q + 1)
+            .expect("q+1 must occur in a permutation");
+        rows[target_row].push(moved);
+        let mut sigma = state.sigma.clone();
+        swap_permutation_values(&mut sigma, q);
+        let deleted_row = rows[source_row].is_empty();
+        if deleted_row {
+            assert_eq!(source_row, k - 1);
+            rows.remove(source_row);
+            sigma = remove_fixed_point(&sigma, source_row);
+        }
+        (sigma, target_row, false, deleted_row)
+    };
+    let result = AcmState { rows, sigma };
+    assert!(is_immaculate(&result.rows));
+    assert_eq!(flattened_delta(&result), old_content);
+    assert_eq!(permutation_sign(&result.sigma), -old_sign);
+    Some((
+        result,
+        InverseKostkaEvent::Psi {
+            k,
+            source_row,
+            target_row,
+            inserted_row,
+            deleted_row,
+        },
+    ))
+}
+
+fn acm_theta(state: &AcmState) -> (AcmState, InverseKostkaEvent) {
+    assert!(is_immaculate(&state.rows));
+    let (row, col) = bad_tableau_cell(&state.rows).expect("theta requires a bad cell");
+    let old_partition = decreasing_rearrangement(&acm_delta(state));
+    let old_sign = permutation_sign(&state.sigma);
+    let upper = state.rows[row - 1].clone();
+    let lower = state.rows[row].clone();
+    let mut rows = state.rows.clone();
+    rows[row - 1] = upper[..col]
+        .iter()
+        .chain(lower[col + 1..].iter())
+        .copied()
+        .collect();
+    rows[row] = lower[..=col]
+        .iter()
+        .chain(upper[col..].iter())
+        .copied()
+        .collect();
+    let mut sigma = state.sigma.clone();
+    sigma.swap(row - 1, row);
+    let result = AcmState { rows, sigma };
+    assert!(is_immaculate(&result.rows));
+    assert_eq!(bad_tableau_cell(&result.rows), Some((row, col)));
+    assert_eq!(decreasing_rearrangement(&acm_delta(&result)), old_partition);
+    assert_eq!(permutation_sign(&result.sigma), -old_sign);
+    (result, InverseKostkaEvent::Theta { row, col })
+}
+
+fn triple_to_acm(triple: &Triple, mu: &[usize]) -> AcmState {
+    let ell = triple.lambda.len();
+    assert!(triple
+        .pi
+        .iter()
+        .enumerate()
+        .skip(ell)
+        .all(|(index, &value)| index == value));
+    let short_pi = triple.pi[..ell].to_vec();
+    assert!(short_pi.iter().all(|&value| value < ell));
+    let sigma = inverse_permutation(&short_pi);
+    let normalized_q = normalize_ssyt_content(&triple.q, &triple.lambda, mu);
+    let rows = entries_to_rows(&triple.lambda, &normalized_q, true);
+    let result = AcmState { rows, sigma };
+    assert!(is_semistandard_rows(&result.rows));
+    result
+}
+
+fn acm_to_triple(state: &AcmState, mu: &[usize], n: usize) -> Triple {
+    assert!(is_semistandard_rows(&state.rows));
+    let lambda: Vec<usize> = state.rows.iter().map(Vec::len).collect();
+    let short_pi = inverse_permutation(&state.sigma);
+    let mut pi = short_pi;
+    pi.extend(lambda.len()..n);
+    let normalized_q = rows_to_entries(&state.rows, true);
+    let q = denormalize_ssyt_content(&normalized_q, &lambda, mu);
+    Triple { lambda, pi, q }
+}
+
+fn canonical_fixed_triple(n: usize, mu: &[usize]) -> Triple {
+    let lambda = decreasing_rearrangement(mu);
+    let normalized_q: Vec<usize> = lambda
+        .iter()
+        .enumerate()
+        .flat_map(|(row, &length)| std::iter::repeat_n(row, length))
+        .collect();
+    let q = denormalize_ssyt_content(&normalized_q, &lambda, mu);
+    Triple {
+        lambda,
+        pi: (0..n).collect(),
+        q,
+    }
+}
+
+fn inverse_kostka_local(
+    triple: &Triple,
+    nu: &[usize],
+    mu: &[usize],
+) -> Option<(Triple, Vec<InverseKostkaEvent>)> {
+    if decreasing_rearrangement(nu) == decreasing_rearrangement(mu) {
+        assert_eq!(*triple, canonical_fixed_triple(triple.pi.len(), mu));
+        return None;
+    }
+    let start = triple_to_acm(triple, mu);
+    assert_eq!(decreasing_rearrangement(&acm_delta(&start)), nu);
+    let mut state = start.clone();
+    let mut events = Vec::new();
+    for _ in 0..100_000 {
+        let (after_psi, psi_event) =
+            acm_psi(&state).expect("Algorithm 4.2 cannot fix a non-diagonal inverse-Kostka state");
+        assert_eq!(acm_psi(&after_psi).unwrap().0, state);
+        events.push(psi_event);
+        if is_semistandard_rows(&after_psi.rows) {
+            let result = acm_to_triple(&after_psi, mu, triple.pi.len());
+            assert_eq!(
+                decreasing_rearrangement(&alpha(&result.lambda, &result.pi).unwrap()),
+                nu
+            );
+            assert_eq!(permutation_sign(&result.pi), -permutation_sign(&triple.pi));
+            return Some((result, events));
+        }
+        let (after_theta, theta_event) = acm_theta(&after_psi);
+        assert_eq!(acm_theta(&after_theta).0, after_psi);
+        events.push(theta_event);
+        state = after_theta;
+    }
+    panic!("Allen--Celano--Mason path exceeded safety bound");
+}
+
 fn build_catalog(n: usize, nu: &[usize], mu: &[usize]) -> Catalog {
     let nu_partition = decreasing_rearrangement(nu);
     let mut positive = Vec::new();
@@ -560,11 +890,7 @@ fn build_catalog(n: usize, nu: &[usize], mu: &[usize]) -> Catalog {
     negative.sort();
     let exceptional = nu_partition == decreasing_rearrangement(mu);
     assert_eq!(positive.len(), negative.len() + usize::from(exceptional));
-    Catalog {
-        positive,
-        negative,
-        exceptional,
-    }
+    Catalog { positive, negative }
 }
 
 fn p_tableaux(poset: &Poset, lambda: &[usize]) -> Vec<Vec<usize>> {
@@ -602,21 +928,27 @@ fn inv_g(poset: &Poset, tableau: &[usize]) -> usize {
     des(poset, tableau)
 }
 
-fn forward(
+fn forward_with_alphabet(
     poset: &Poset,
     coloring: &[usize],
-    catalogs: &mut Catalogs,
+    alphabet: usize,
 ) -> (Target, Vec<TraceEvent>) {
-    let k = 1 + *coloring.iter().max().unwrap();
-    let mu = shape(coloring, k);
-    let oriented = orient_asc_to_des(poset, coloring, k);
-    assert_eq!(shape(&oriented, k), mu);
+    assert!(coloring.iter().all(|&color| color < alphabet));
+    let mu = shape(coloring, alphabet);
+    let oriented = orient_asc_to_des(poset, coloring, alphabet);
+    assert_eq!(shape(&oriented, alphabet), mu);
     assert_eq!(des(poset, &oriented), asc(poset, coloring));
     let mut padded_mu = mu.clone();
-    padded_mu.resize(poset.n(), 0);
+    if padded_mu.len() < poset.n() {
+        padded_mu.resize(poset.n(), 0);
+    }
     let (normalized, _) = normalize(poset, &oriented, &padded_mu);
-    let mu_plus = decreasing_rearrangement(&mu);
-    let triple = catalogs.get(poset.n(), &mu_plus, &mu).canonical_fixed();
+    assert!(
+        normalized.iter().all(|&row| row < poset.n()),
+        "normalization left a nonzero empty-row gap: P={:?}, mu={mu:?}, coloring={coloring:?}, oriented={oriented:?}, normalized={normalized:?}",
+        poset.code()
+    );
+    let triple = canonical_fixed_triple(poset.n(), &mu);
     let mut state = State {
         a: normalized,
         triple,
@@ -646,21 +978,30 @@ fn forward(
         state = new_state;
         let nu = decreasing_rearrangement(&shape(&state.a, poset.n()));
         let old = state.triple.clone();
-        let catalog = catalogs.get(poset.n(), &nu, &mu);
-        state.triple = catalog
-            .partner(&state.triple)
+        let (partner, local) = inverse_kostka_local(&state.triple, &nu, &mu)
             .expect("negative state cannot be fixed by inverse-Kostka involution");
-        assert_eq!(catalog.partner(&state.triple), Some(old.clone()));
+        state.triple = partner;
+        assert_eq!(
+            inverse_kostka_local(&state.triple, &nu, &mu)
+                .expect("local inverse-Kostka move must reverse itself")
+                .0,
+            old
+        );
         trace.push(TraceEvent::InverseKostka {
             nu,
             from: old,
             to: state.triple.clone(),
+            local,
         });
     }
     panic!("Garsia--Milne forward path exceeded safety bound");
 }
 
-fn reverse(poset: &Poset, target: &Target, mu: &[usize], catalogs: &mut Catalogs) -> Vec<usize> {
+fn forward(poset: &Poset, coloring: &[usize]) -> (Target, Vec<TraceEvent>) {
+    forward_with_alphabet(poset, coloring, 1 + *coloring.iter().max().unwrap())
+}
+
+fn reverse(poset: &Poset, target: &Target, mu: &[usize]) -> Vec<usize> {
     let n = poset.n();
     let mut pi: Vec<usize> = (0..n).collect();
     let mut state = State {
@@ -673,9 +1014,11 @@ fn reverse(poset: &Poset, target: &Target, mu: &[usize], catalogs: &mut Catalogs
     };
     for _ in 0..100_000 {
         let nu = decreasing_rearrangement(&shape(&state.a, n));
-        let Some(partner) = catalogs.get(n, &nu, mu).partner(&state.triple) else {
+        let Some((partner, _)) = inverse_kostka_local(&state.triple, &nu, mu) else {
             let mut padded_mu = mu.to_vec();
-            padded_mu.resize(n, 0);
+            if padded_mu.len() < n {
+                padded_mu.resize(n, 0);
+            }
             let oriented = denormalize(poset, &state.a, &padded_mu);
             return undo_asc_to_des(poset, &oriented, mu.len());
         };
@@ -704,13 +1047,112 @@ fn target_fiber(poset: &Poset, mu: &[usize]) -> Vec<Target> {
     out
 }
 
+fn crystal_on_target(target: &Target, color: usize, raising: bool) -> Option<Target> {
+    let mut minus = Vec::new();
+    let mut plus = Vec::new();
+    let mut row_offsets = Vec::with_capacity(target.lambda.len());
+    let mut offset = 0;
+    for &length in &target.lambda {
+        row_offsets.push(offset);
+        offset += length;
+    }
+    for row in (0..target.lambda.len()).rev() {
+        for col in 0..target.lambda[row] {
+            let position = row_offsets[row] + col;
+            if target.q[position] == color + 1 {
+                minus.push(position);
+            } else if target.q[position] == color && minus.pop().is_none() {
+                plus.push(position);
+            }
+        }
+    }
+    let position = if raising {
+        *minus.first()?
+    } else {
+        *plus.last()?
+    };
+    let mut result = target.clone();
+    if raising {
+        result.q[position] -= 1;
+    } else {
+        result.q[position] += 1;
+    }
+    assert!(is_semistandard_rows(&entries_to_rows(
+        &result.lambda,
+        &result.q,
+        true
+    )));
+    Some(result)
+}
+
+fn is_proper_coloring(poset: &Poset, coloring: &[usize]) -> bool {
+    (0..poset.n()).all(|left| {
+        (left + 1..poset.n())
+            .all(|right| !poset.edge(left, right) || coloring[left] != coloring[right])
+    })
+}
+
+fn verify_transported_crystal(poset: &Poset, source: &[usize], target: &Target, alphabet: usize) {
+    for color in 0..alphabet.saturating_sub(1) {
+        for raising in [false, true] {
+            let Some(moved_target) = crystal_on_target(target, color, raising) else {
+                continue;
+            };
+            let moved_mu = shape(&moved_target.q, alphabet);
+            let mut expected_mu = shape(&target.q, alphabet);
+            if raising {
+                expected_mu[color] += 1;
+                expected_mu[color + 1] -= 1;
+            } else {
+                expected_mu[color] -= 1;
+                expected_mu[color + 1] += 1;
+            }
+            assert_eq!(moved_mu, expected_mu);
+            let moved_source = reverse(poset, &moved_target, &moved_mu);
+            assert!(is_proper_coloring(poset, &moved_source));
+            assert_eq!(asc(poset, &moved_source), asc(poset, source));
+            assert_eq!(
+                forward_with_alphabet(poset, &moved_source, alphabet).0,
+                moved_target
+            );
+            assert_eq!(
+                crystal_on_target(&moved_target, color, !raising),
+                Some(target.clone())
+            );
+        }
+    }
+}
+
 fn trace_checksum(trace: &[TraceEvent]) -> usize {
     trace
         .iter()
         .map(|event| match event {
             TraceEvent::Sw(event) => event.row + event.col + event.normalize_swaps.len(),
-            TraceEvent::InverseKostka { nu, from, to } => {
-                nu.iter().sum::<usize>() + from.lambda.len() + to.lambda.len()
+            TraceEvent::InverseKostka {
+                nu,
+                from,
+                to,
+                local,
+            } => {
+                let local_sum: usize = local
+                    .iter()
+                    .map(|event| match event {
+                        InverseKostkaEvent::Psi {
+                            k,
+                            source_row,
+                            target_row,
+                            inserted_row,
+                            deleted_row,
+                        } => {
+                            k + source_row
+                                + target_row
+                                + usize::from(*inserted_row)
+                                + usize::from(*deleted_row)
+                        }
+                        InverseKostkaEvent::Theta { row, col } => row + col,
+                    })
+                    .sum();
+                nu.iter().sum::<usize>() + from.lambda.len() + to.lambda.len() + local_sum
             }
         })
         .sum()
@@ -767,6 +1209,46 @@ fn verify_all_tail_q_obstruction() {
     assert_eq!(des(&poset, &all_tail), 1);
 }
 
+fn verify_inverse_kostka_n(n: usize) -> (usize, usize) {
+    let mut endpoint_states = 0;
+    let mut max_local_events = 0;
+    for mu in compositions(n) {
+        let mu_plus = decreasing_rearrangement(&mu);
+        for nu in partitions(n) {
+            let catalog = build_catalog(n, &nu, &mu);
+            let triples: Vec<Triple> = catalog
+                .positive
+                .iter()
+                .chain(&catalog.negative)
+                .cloned()
+                .collect();
+            if nu == mu_plus {
+                assert_eq!(triples, vec![canonical_fixed_triple(n, &mu)]);
+            }
+            let fiber: BTreeSet<Triple> = triples.iter().cloned().collect();
+            for triple in triples {
+                endpoint_states += 1;
+                let partner = inverse_kostka_local(&triple, &nu, &mu);
+                if nu == mu_plus {
+                    assert!(partner.is_none());
+                    continue;
+                }
+                let (partner, events) = partner.expect("off-diagonal fiber has no fixed points");
+                assert!(fiber.contains(&partner));
+                assert_eq!(permutation_sign(&partner.pi), -permutation_sign(&triple.pi));
+                assert_eq!(
+                    inverse_kostka_local(&partner, &nu, &mu)
+                        .expect("local partner must reverse")
+                        .0,
+                    triple
+                );
+                max_local_events = max_local_events.max(events.len());
+            }
+        }
+    }
+    (endpoint_states, max_local_events)
+}
+
 #[derive(Default)]
 struct Summary {
     posets: usize,
@@ -793,7 +1275,6 @@ fn verify_n(n: usize) -> Summary {
                 .or_default()
                 .push(coloring);
         }
-        let mut catalogs = Catalogs::default();
         for (mu, sources) in by_weight {
             let targets = target_fiber(&poset, &mu);
             let source_polynomial: BTreeMap<usize, usize> = {
@@ -819,11 +1300,18 @@ fn verify_n(n: usize) -> Summary {
 
             let mut images = BTreeSet::new();
             for source in &sources {
-                let (target, trace) = forward(&poset, source, &mut catalogs);
+                let (target, trace) = forward(&poset, source);
                 assert_eq!(asc(&poset, source), inv_g(&poset, &target.t));
-                assert_eq!(reverse(&poset, &target, &mu, &mut catalogs), *source);
+                assert_eq!(reverse(&poset, &target, &mu), *source);
                 assert!(images.insert(target));
-                summary.max_trace_events = summary.max_trace_events.max(trace.len());
+                let event_count: usize = trace
+                    .iter()
+                    .map(|event| match event {
+                        TraceEvent::Sw(_) => 1,
+                        TraceEvent::InverseKostka { local, .. } => local.len(),
+                    })
+                    .sum();
+                summary.max_trace_events = summary.max_trace_events.max(event_count);
                 summary.trace_checksum =
                     summary.trace_checksum.wrapping_add(trace_checksum(&trace));
             }
@@ -844,6 +1332,40 @@ fn verify_n(n: usize) -> Summary {
     summary
 }
 
+fn verify_one_empty_color_n(n: usize) -> usize {
+    let mut checked = 0;
+    for poset in natural_unit_interval_orders(n) {
+        let mut by_weight: BTreeMap<Vec<usize>, Vec<Vec<usize>>> = BTreeMap::new();
+        for coloring in packed_proper_colorings(&poset) {
+            let support = 1 + *coloring.iter().max().unwrap();
+            for gap in 0..=support {
+                let embedded: Vec<usize> = coloring
+                    .iter()
+                    .map(|&color| color + usize::from(color >= gap))
+                    .collect();
+                let mu = shape(&embedded, support + 1);
+                assert_eq!(mu.iter().filter(|&&part| part == 0).count(), 1);
+                by_weight.entry(mu).or_default().push(embedded);
+            }
+        }
+        for (mu, sources) in by_weight {
+            let expected: BTreeSet<Target> = target_fiber(&poset, &mu).into_iter().collect();
+            let mut images = BTreeSet::new();
+            for source in sources {
+                let (target, _) = forward_with_alphabet(&poset, &source, mu.len());
+                assert_eq!(shape(&target.q, mu.len()), mu);
+                assert_eq!(asc(&poset, &source), inv_g(&poset, &target.t));
+                assert_eq!(reverse(&poset, &target, &mu), source);
+                verify_transported_crystal(&poset, &source, &target, mu.len());
+                assert!(images.insert(target));
+                checked += 1;
+            }
+            assert_eq!(images, expected);
+        }
+    }
+    checked
+}
+
 fn main() {
     verify_lgv_obstruction();
     verify_all_tail_q_obstruction();
@@ -851,14 +1373,19 @@ fn main() {
     println!("all-tail q obstruction: n=4, m=(1,3,3,4), G={{2,3}}, q changes 0 -> 1");
     let mut total = Summary::default();
     for n in 1..=5 {
+        let (inverse_kostka_states, max_local_events) = verify_inverse_kostka_n(n);
         let summary = verify_n(n);
+        let weak_colorings = verify_one_empty_color_n(n);
         println!(
-            "n={n}: posets={} (KP {}), packed proper colorings={} (KP {}), targets={}, max_trace_events={}, checksum={}",
+            "n={n}: posets={} (KP {}), packed proper colorings={} (KP {}), one-empty-color maps={}, targets={}, inverse-Kostka endpoints={}, max_local_events={}, max_trace_events={}, checksum={}",
             summary.posets,
             summary.kp_posets,
             summary.colorings,
             summary.kp_colorings,
+            weak_colorings,
             summary.targets,
+            inverse_kostka_states,
+            max_local_events,
             summary.max_trace_events,
             summary.trace_checksum
         );
@@ -904,7 +1431,9 @@ mod tests {
     #[test]
     fn exhaustive_through_four() {
         for n in 1..=4 {
+            verify_inverse_kostka_n(n);
             verify_n(n);
+            verify_one_empty_color_n(n);
         }
     }
 

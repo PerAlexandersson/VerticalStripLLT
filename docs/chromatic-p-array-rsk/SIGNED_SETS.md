@@ -1,6 +1,7 @@
 # Chromatic generalized RSK: signed sets and involutions
 
-This note fixes the finite objects needed for a Garsia--Milne prototype.  It
+This note specifies the finite objects and local involutions used by the
+chromatic Garsia--Milne bijection.  It
 uses the conventions of Shareshian--Wachs, arXiv:1405.4629v2, Section 6.
 The Kim--Pylyavskyy tableaux are conjugated relative to these tableaux, so we
 do not mix the two conventions below.
@@ -18,9 +19,9 @@ summaries:
   6.1, and its proof in Section 9 for the avoidance-class oracle.
 
 The inverse-Kostka direction was also checked against Eğecioğlu--Remmel's
-1990 inverse-Kostka paper and Allen--Celano--Mason, arXiv:2511.18156; these
-distinguish the two matrix orders that a formal symmetric-function identity
-alone can easily conceal.
+1990 inverse-Kostka paper and the full official arXiv text of
+Allen--Celano--Mason, arXiv:2511.18156.  The implementation follows their
+Theorem 2.4 and Algorithms 4.2, 5.1, and 5.4.
 
 ## 1. Posets, arrays, and the two statistics
 
@@ -186,25 +187,31 @@ This form removes any ambiguity about which matrix order the cancellation
 must realize.
 
 Consequently, the ordinary LGV tail switch proving Jacobi--Trudi is not
-by itself the second involution needed below.  Importing the full
-inverse-Kostka involution is one option.  For a bounded experiment, we
-can instead pair the positive and negative elements of
+by itself the second involution needed below.  We use
+Allen--Celano--Mason Algorithm 5.4 on
 
 \[
   \bigsqcup_{\lambda\vdash n}
   \mathcal J_{\lambda,\nu}
-  \times\operatorname{SSYT}(\lambda,\mu)
+  \times\operatorname{SSYT}(\lambda,\mu).
 \]
 
-in lexicographic order, leaving one canonical positive fixed point
-when (\nu=\mu^+).  This finite matching is explicit and reversible,
-although it is not a local tableau algorithm.
+For composition content (\mu), first use ordinary Bender--Knuth
+involutions to change the tableau content to (\mu^+).  Replace (\pi) by
+(\sigma=\pi^{-1}) and regard ((\lambda,\sigma,Q)) as the tunnel-hook
+covering and semistandard tableau used in their construction.  Algorithm
+4.2 moves one entry between rows of the corresponding immaculate tableau,
+possibly inserting or deleting a row.  When the result is not
+semistandard, Algorithm 5.1 applies its bad-cell tail switch.  Alternating
+these two local involutions reaches the other semistandard endpoint.
+Finally invert (\sigma) and undo the ordinary Bender--Knuth maps.  When
+(\nu=\mu^+), the unique positive state is fixed.
 
 ## 5. The common signed set
 
-Fix a packed weight (\mu\vDash n), and write (\bar\mu=\mu^+) for its
-decreasing rearrangement.  Its positive parts need not be weakly decreasing;
-the Bender--Knuth maps identify its Kostka number with that of
+Fix a weak weight (\mu=(\mu_1,\dotsc,\mu_k)) of total size (n), and write
+(\bar\mu=\mu^+) for its decreasing rearrangement with zero parts removed.
+The Bender--Knuth maps identify its Kostka number with that of
 (\bar\mu).  The common signed set is
 
 \[
@@ -236,14 +243,15 @@ There are two sign-reversing involutions on this same finite set.
 
 Starting at a fixed point of the first involution and alternating the
 two involutions until reaching a fixed point of the second is the
-Garsia--Milne map.  Every step is reversible.  A trace needs only the
-signed states, the selected bad cell or inverse-Kostka matching rank,
-and the adjacent-swap words used by the normalizations.
+Garsia--Milne map.  Every step is reversible.  A trace records the signed
+states, the selected Shareshian--Wachs bad cell, the local Algorithm 4.2
+row move or Algorithm 5.1 bad cell, and the adjacent-swap words used by the
+normalizations.
 
 ## 6. Converting ascent to the array inversion statistic
 
 The array involution preserves descent number, while the requested map
-starts with ascent number.  For a packed coloring of weight
+starts with ascent number.  For a coloring in the fixed alphabet ([k]) of weight
 (\mu=(\mu_1,\dotsc,\mu_k)), complement the colors by
 (r\mapsto k+1-r).  This changes the weight to
 ((\mu_k,\dotsc,\mu_1)) and changes ascent number into descent number.
@@ -317,19 +325,50 @@ precomposition by (R_\mu) gives the requested ascent orientation.  It is
 an oracle rather than a general solution because Kim--Pylyavskyy's pattern
 avoidance hypothesis is essential.
 
-## 8. First computational questions
+## 8. The bijection and transported crystal
 
-The bounded prototype should answer the following questions for every natural
-unit interval order with (n\leq5).
+Let (\Phi_{P,k}) be the following composition on proper colorings
+(\kappa:[n]\to[k]).
 
-1. Do the source and target fibers agree for every packed weight and every
-   (q)-degree?
-2. Does the conjugated Shareshian--Wachs involution close on
-   (\mathcal S_\mu) and preserve its recorded degree?
-3. How long are the alternating paths when the reverse inverse-Kostka
-   involution is the canonical finite matching?
-4. What is the first state for which a naive attempt to replace that matching
-   by a synchronized LGV tail switch fails to close?
-5. On the Kim--Pylyavskyy avoidance class, does standardizing a packed
-   coloring and destandardizing the recording tableau reproduce the same
-   fibers?  Any failure must be retained as an exact counterexample.
+1. Apply (R_\mu) to replace ascent number by descent number.
+2. Apply (\Theta_\mu) and attach the unique positive fixed state of the
+   reverse inverse-Kostka involution.
+3. Alternate the conjugated Shareshian--Wachs involution and the local
+   Allen--Celano--Mason involution until the former is fixed.
+
+The inverse starts at ((T,Q)), alternates the same involutions in the opposite
+order, and then applies (\Theta_\mu^{-1}) and (R_\mu^{-1}).  The involution
+principle therefore gives a bijection
+
+\[
+  \Phi_{P,k}:\{\text{proper colorings }[n]\to[k]\}
+  \longrightarrow
+  \bigsqcup_{\lambda\vdash n}
+  \operatorname{PTab}_P(\lambda)
+  \times\operatorname{SSYT}_k(\lambda)
+\]
+
+such that
+
+\[
+  \operatorname{wt}(Q)=\operatorname{wt}(\kappa),\qquad
+  \operatorname{asc}(\kappa)=\operatorname{inv}_G(T).
+\]
+
+Zero parts of (\mu) cause no difficulty: both kinds of Bender--Knuth maps
+allow empty adjacent color classes.  Hence the source and target are stable
+under the ordinary type-A Kashiwara operators.  Define
+
+\[
+  e_i^P=\Phi_{P,k}^{-1}e_i\Phi_{P,k},\qquad
+  f_i^P=\Phi_{P,k}^{-1}f_i\Phi_{P,k}.
+\]
+
+These are genuine normal type-A crystal operators.  They preserve
+(\operatorname{asc}) because they change (Q) while leaving (T) fixed.
+
+The Rust implementation exhausts all natural unit interval orders with
+(n\leq5), all packed source fibers, every reverse inverse-Kostka endpoint,
+and every placement of one empty color class.  It also checks both transported
+operators wherever they are defined.  The exact counts and the two minimal
+failed LGV variants are recorded in `COMPUTATION.md`.

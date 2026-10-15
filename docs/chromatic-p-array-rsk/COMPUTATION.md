@@ -1,4 +1,4 @@
-# Bounded chromatic P-array RSK experiment
+# Constructive chromatic P-array RSK map
 
 ## Result
 
@@ -8,19 +8,19 @@ order through rank five.  For every packed content and every q-degree it
 checks both the coefficient identity and the explicit alternating-path map.
 Every produced image reverses to the original coloring.
 
-| rank | orders (KP-eligible) | packed colorings (KP-eligible) | target pairs | longest trace |
-|---:|---:|---:|---:|---:|
-| 1 | 1 (1) | 1 (1) | 1 | 0 |
-| 2 | 2 (2) | 5 (5) | 5 | 2 |
-| 3 | 5 (5) | 47 (47) | 47 | 8 |
-| 4 | 14 (14) | 671 (671) | 671 | 26 |
-| 5 | 42 (41) | 12,977 (12,713) | 12,977 | 64 |
+| rank | orders (KP-eligible) | packed maps | one-empty-color maps | inverse-Kostka endpoints | longest trace |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 1 (1) | 1 | 2 | 1 | 0 |
+| 2 | 2 (2) | 5 | 14 | 4 | 2 |
+| 3 | 5 (5) | 47 | 170 | 16 | 10 |
+| 4 | 14 (14) | 671 | 2,966 | 76 | 30 |
+| 5 | 42 (41) | 12,977 | 67,682 | 376 | 120 |
 
 Here a trace event is one application of either signed involution.  The
 totals are 64 posets and 13,701 source colorings.  Of these, 63 posets and
 13,437 colorings are in the Kim--Pylyavskyy avoidance class.  The unique
 excluded rank-five order is `P_(3,1,1),5`.  The deterministic trace checksum
-is 345,657; this is only a regression fingerprint, not a mathematical
+is 659,062; this is only a regression fingerprint, not a mathematical
 invariant.
 
 Run the complete check with
@@ -31,37 +31,68 @@ CARGO_TARGET_DIR=/cargo-target/ai-projects \
   --manifest-path experiments/chromatic-p-array-rsk/Cargo.toml
 ```
 
-The unit tests exhaust ranks at most four and separately assert the minimal
-LGV obstruction.  The rank-five check remains in the executable so the usual
-test loop stays short.
+The unit tests exhaust ranks at most four, including weak contents and the
+transported crystal operators, and separately assert the minimal LGV
+obstruction.  The rank-five check remains in the executable so the usual test
+loop stays short.
 
 ## Implemented map and certificate
 
-For a coloring of packed content `mu`, the program performs the following
-reversible steps.
+For a coloring of weak content `mu` in a fixed finite alphabet, the program
+performs the following reversible steps.
 
 1. Color complement changes `asc` into `des`; odd-component color switches
    restore the original ordered content.
 2. Odd-component switches normalize `mu` to `mu+`.
-3. The canonical positive fixed state of the finite reverse-inverse-Kostka
-   matching is attached.
-4. The conjugated Shareshian--Wachs involution and that matching alternate
-   until the state is fixed by Shareshian--Wachs.
+3. The canonical positive fixed state of the reverse-inverse-Kostka
+   involution is attached.
+4. The conjugated Shareshian--Wachs involution and the local
+   Allen--Celano--Mason involution alternate until the state is fixed by
+   Shareshian--Wachs.
 5. The final state is a P-tableau and an ordinary semistandard tableau of
    content `mu`.
 
 A state stores `(A, lambda, pi, Q)`.  A Shareshian--Wachs event stores its
 selected row and column and the subsequent normalization word.  An
-inverse-Kostka event stores `nu` and both endpoint triples.  These data are a
-reversible certificate: the executable applies every Shareshian--Wachs move
-twice as an assertion, applies every matching move twice as an assertion, and
-runs the whole trace backwards from every target.
+inverse-Kostka event stores `nu`, both endpoint triples, and every local
+Algorithm 4.2 or Algorithm 5.1 move.  These data form a reversible trace: the
+executable applies each local involution twice, applies every
+Shareshian--Wachs move twice, and runs the whole map backwards from every
+target.
 
-The bounded prototype deliberately uses lexicographic matching in the
-reverse-inverse-Kostka fiber.  This is an explicit finite bijection, but it is
-not presented as a satisfactory local generalized RSK.  Allen--Celano--Mason
-Algorithm 5.4 can replace this oracle using the variable change recorded in
-`SIGNED_SETS.md`; that import is the next algorithmic step.
+The inverse-Kostka move first applies ordinary Bender--Knuth involutions to
+change the tableau content from `mu` to `mu+`.  It then sets `sigma=pi^-1`
+and uses
+
+```text
+Delta_j = lambda_j - j + sigma(j),
+Delta_pi(i) = alpha(lambda,pi)_i.
+```
+
+Algorithm 4.2 moves one entry between rows of the resulting immaculate
+tableau, inserting or deleting a row when required.  If the result is not
+semistandard, Algorithm 5.1 applies its bad-cell tail switch, and the two
+moves alternate as in Algorithm 5.4.  At the next semistandard endpoint we
+invert `sigma`, undo the ordinary Bender--Knuth involutions, and return a
+triple of the original kind.  Tunnel-hook diagrams are not extra state:
+their shape and permutation determine them uniquely.
+
+## Weak contents and classical crystal operators
+
+Allowing zero parts is necessary for a crystal on a fixed alphabet.  The
+color complement, odd-component switches, and ordinary Bender--Knuth maps all
+remain valid with empty color classes.  The implementation therefore accepts
+a specified alphabet size rather than inferring it from the support.
+
+The finite check inserts an empty color class in every possible position of
+every packed coloring, giving 67,682 additional rank-five maps.  For every
+such state it also applies the ordinary tableau Kashiwara operators to `Q`
+and transports them through the bijection.  The transported operators are
+partial inverses, preserve properness and `asc`, change the weight by the
+corresponding simple root, and map forward to the same `T` with the altered
+`Q`.  Hence these are the ordinary normal type-A operators transported by
+the constructed bijection, rather than Ehrhard's weaker partial-inverse
+operators.
 
 ## Smallest obstruction to a bare LGV tail switch
 

@@ -17,7 +17,7 @@ natural unit interval orders beginning with `n <= 5`.  It does not own or
 touch the marked-coloring/HRV e-positivity project, Lean sources, circular LLT
 work, or manuscript files, and it holds no Lean build slot.
 
-The mathematical audit has now fixed the candidate common signed set in
+The mathematical audit has fixed the common signed set in
 `docs/chromatic-p-array-rsk/SIGNED_SETS.md`.  The source-side `asc` statistic is
 first converted to the Shareshian--Wachs array `des` statistic by color
 complement followed by their odd-component Bender--Knuth switches; a second
@@ -25,10 +25,11 @@ such normalization sends an arbitrary packed content `mu` to the partition
 `mu^+`.  On the common signed set, the first involution must realize the
 historically harder reverse inverse-Kostka identity, while the second is the
 Shareshian--Wachs array involution conjugated by those normalizations.  Thus a
-bare LGV tail switch is not yet enough: it proves Jacobi--Trudi locally, but
-does not itself supply the required `K^{-1}K` cancellation.  A deterministic
-finite matching will serve as the exact bounded oracle before any claim of a
-local algorithm.  The note also records explicitly that Ehrhard's operators
+bare LGV tail switch is not enough: it proves Jacobi--Trudi locally, but does
+not itself supply the required `K^{-1}K` cancellation.  The implemented
+replacement is Allen--Celano--Mason Algorithm 5.4, translated by
+`sigma=pi^{-1}` and conjugated by ordinary tableau Bender--Knuth maps.  The
+note also records explicitly that Ehrhard's operators
 are only weight-shifting partial inverses, not normal type-A Kashiwara
 crystals.  Astra's completed read-only audit confirmed the inverse-Kostka
 orientation and conjugated-involution closure, supplied the exact import of
@@ -40,26 +41,29 @@ The bounded Rust prototype and its durable report are now in
 `docs/chromatic-p-array-rsk/COMPUTATION.md`.  It exhaustively verifies all 64
 natural unit interval orders through `n=5`, all 13,701 packed proper
 colorings, every weight/q fiber, both involutions, all forward and reverse
-alternating paths, and exact target coverage.  The longest certificate has 64
-events.  The Kim--Pylyavskyy avoidance test identifies 63 eligible orders and
+alternating paths, and exact target coverage.  It separately verifies all 376
+reverse inverse-Kostka endpoints through rank five.  The longest fully local
+trace has 120 events.  The Kim--Pylyavskyy avoidance test identifies 63
+eligible orders and
 13,437 eligible colorings; the sole excluded rank-five order has Hessenberg
 code `(2,4,4,5,5)`, namely `P_(3,1,1),5`.  The smallest fixed-shape LGV and
 same-cut obstruction is the exact `n=2`, `mu=(1,1)`, `nu=(2)` fiber; a naive
 all-tail exchange first changes q at `n=4` for `m=(1,3,3,4)` and
-`G={{2,3}}`.  The prototype still uses a finite lexicographic
-reverse-inverse-Kostka matching, so the next honest milestone is to import the
-local 2025 algorithm rather than call the current oracle a natural RSK.
+`G={{2,3}}`.  The map also handles weak contents in a fixed alphabet: 67,682
+rank-five cases with one inserted empty color class were checked.  Transported
+ordinary Kashiwara operators on `Q` were verified to be partial inverses that
+preserve properness and `asc`, with the expected simple-root weight changes.
 No Lean source, Lean build, marked-coloring/HRV file, circular LLT file, or
 manuscript file was touched.
 
 The signed-set checkpoint is `1ec0ea3`; the verified Rust/report checkpoint
 is `f77cd34`.  The branch is `chromatic-p-array-rsk`, pushed to `origin`.
 On 2026-10-15 the user asked this worker to resume ownership of the same three
-paths until the finite lexicographic matching has been replaced by a full
-constructive bijection.  The active milestone is an exact implementation of
-the Allen--Celano--Mason reverse-inverse-Kostka involution, including its local
-trace and integration into every forward and inverse Garsia--Milne path.  The
-same exclusions and absence of a Lean build slot remain in force.
+paths until the finite lexicographic matching had been replaced by a full
+constructive bijection.  That milestone is complete: the local
+Allen--Celano--Mason trace is integrated into every forward and inverse
+Garsia--Milne path, and no global fiber matching remains.  The same exclusions
+and absence of a Lean build slot remained in force.
 
 On 2026-10-13, the Lilan revision integration worker completed the
 author-requested Overleaf upload and email notification.  The current main TeX
