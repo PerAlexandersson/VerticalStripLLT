@@ -4,6 +4,15 @@
 
 On 2026-10-15, the Chromatic P-array RSK worker reclaimed only
 `docs/chromatic-p-array-rsk/`, `experiments/chromatic-p-array-rsk/`, and its
+focused `HANDOFF.md` entry to study the weight- and ascent-preserving
+correction `C_i=S_i^P R_i` between the genuine transported reflection and the
+natural component-signature/Ehrhard reflection.  The goal is an exact finite
+census of its support, order, locality, and relation to braid and
+inverse-Kostka defects.  All previous exclusions and the absence of a Lean
+build slot remain in force.
+
+On 2026-10-15, the Chromatic P-array RSK worker reclaimed only
+`docs/chromatic-p-array-rsk/`, `experiments/chromatic-p-array-rsk/`, and its
 focused `HANDOFF.md` entry to study the total simple-reflection action
 transported from the SSYT crystal.  The immediate tasks are to implement the
 Lusztig/Kashiwara string reflections on colorings, verify involution,
