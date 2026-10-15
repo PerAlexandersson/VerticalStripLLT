@@ -2,6 +2,15 @@
 
 ## Current status and ownership
 
+On 2026-10-15, the Chromatic P-array RSK worker reclaimed only
+`docs/chromatic-p-array-rsk/`, `experiments/chromatic-p-array-rsk/`, and its
+focused `HANDOFF.md` entry to study the total simple-reflection action
+transported from the SSYT crystal.  The immediate tasks are to implement the
+Lusztig/Kashiwara string reflections on colorings, verify involution,
+weight-swap, commutation, and braid relations through rank five, and compare
+them exactly with the Shareshian--Wachs odd-component color switches.  All
+previous exclusions and the absence of a Lean build slot remain in force.
+
 On 2026-10-15, at the user's request, the Chromatic P-array RSK worker
 reclaimed only `docs/chromatic-p-array-rsk/`,
 `experiments/chromatic-p-array-rsk/`, and its focused `HANDOFF.md` entry to
