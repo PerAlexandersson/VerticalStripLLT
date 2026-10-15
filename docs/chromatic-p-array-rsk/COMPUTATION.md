@@ -94,6 +94,119 @@ corresponding simple root, and map forward to the same `T` with the altered
 the constructed bijection, rather than Ehrhard's weaker partial-inverse
 operators.
 
+The coloring-level functions are `coloring_e` and `coloring_f`.  They compute
+`Phi`, apply the ordinary signature rule to `Q`, and run the reversible map
+backward.  The check now also computes every `epsilon_i` and `phi_i`, verifies
+
+```text
+phi_i - epsilon_i = wt_i - wt_(i+1),
+```
+
+and identifies every highest-weight state with the row-constant
+highest-weight tableau.  The finite totals are:
+
+| rank | checked weak states | `f_i` edges | string checks | highest-weight states |
+|---:|---:|---:|---:|---:|
+| 1 | 2 | 1 | 2 | 1 |
+| 2 | 14 | 11 | 26 | 4 |
+| 3 | 170 | 189 | 458 | 23 |
+| 4 | 2,966 | 4,277 | 10,418 | 188 |
+| 5 | 67,682 | 120,659 | 292,322 | 1,849 |
+
+For every natural unit interval order through rank five, the program also
+constructs the complete fixed-alphabet graph with `k=n`.  It checks that an
+edge never changes `(lambda,T)`, that every fixed-`T` fiber is connected, and
+that it has a unique highest-weight vertex.  Thus the computed graph has the
+component decomposition
+
+```text
+Col_k(P) = disjoint union over (lambda,T) of B_k(lambda).
+```
+
+| rank | full graph vertices | directed edges | components |
+|---:|---:|---:|---:|
+| 1 | 1 | 0 | 1 |
+| 2 | 6 | 2 | 4 |
+| 3 | 81 | 68 | 23 |
+| 4 | 1,780 | 2,322 | 188 |
+| 5 | 55,125 | 96,968 | 1,849 |
+
+There is a direct formula for every component anchor.  If `T` is regarded as
+its row coloring, the highest-weight coloring is `R_lambda^{-1}(T)`, where
+`R_lambda` is the ascent-to-descent orientation map.  At this endpoint the
+inverse-Kostka state is already fixed, so the reverse map does not traverse an
+alternating path.  The complete graph check verifies this formula for all
+1,849 rank-five components.
+
+To export a graph in Graphviz DOT format, pass a one-based Hessenberg code and
+an alphabet size.  For example:
+
+```text
+CARGO_TARGET_DIR=/cargo-target/ai-projects \
+  cargo run --release \
+  --manifest-path experiments/chromatic-p-array-rsk/Cargo.toml \
+  -- --dot 1,2,3 2 > /tmp/chain3-k2.dot
+```
+
+## What the first graphs say about an intrinsic rule
+
+The current transport is genuinely global.  The exhaustive miner gives the
+following smallest examples, written here with ordinary one-based colors.
+
+- On the three-element chain, `f_1(112)=221`; one operator changes all three
+  vertices.
+- On the same chain with three colors, `f_1(132)=322`; a vertex carrying the
+  third color moves, so the operation is not confined to colors 1 and 2.
+- On the four-element chain, `1134` and `1143` have weight `(2,0,1,1)`, ascent
+  zero, and the same labeled restriction to colors 1 and 2, but
+  `f_1(1134)=2134` whereas `f_1(1143)=4321`.
+
+The last pair rules out any description based only on the induced subgraph on
+the two active colors, even after weight and ascent are supplied.  It does not
+rule out a useful intrinsic global description.  The promising candidates are
+a word-level bracketing on a canonical global reading word, a growth diagram,
+or a compressed version of the signed alternating-path certificate.  Any such
+proposal must reproduce these three examples.
+
+The obvious standardization shortcut also fails.  Splitting equal colors into
+consecutive labels in increasing vertex order first fails for the two-element
+chain and the coloring `11`.  Decreasing vertex order survives rank two but
+first fails for the three-element chain: `111` standardizes to `321`, while
+its image changes from shape `(3)` to shape `(2,1)` rather than retaining `T`
+and merely standardizing `Q`.  Thus the present map is not obtained by
+destandardizing a permutation-level correspondence.
+
+The exact source of the global behavior can be narrowed further.  Let `F_i`
+act only on `Q` in the common signed set.  It commutes with the conjugated
+Shareshian--Wachs involution: that involution leaves `Q` unchanged, and its
+move is determined by `(A,lambda,pi)`.  It need not commute with the
+reverse-inverse-Kostka involution `I`.  A census over all positive contents
+through rank five gives:
+
+| rank | `(state,i)` tests | defects | definedness defects | unequal-value defects |
+|---:|---:|---:|---:|---:|
+| 1 | 0 | 0 | 0 | 0 |
+| 2 | 3 | 2 | 2 | 0 |
+| 3 | 24 | 10 | 10 | 0 |
+| 4 | 170 | 55 | 46 | 9 |
+| 5 | 1,120 | 309 | 226 | 83 |
+
+The first defect is the rank-two inverse-Kostka cancellation with
+`nu=(2)` and `mu=(1,1)`.  For the positive state
+
+```text
+u = (lambda=(2), pi=id, Q=[1 2]),
+```
+
+`F_1(I(u))` is undefined, whereas `F_1(u)` has `Q=[2 2]` and is fixed by
+`I` in the new content `(0,2)`.  Thus the most focused candidate for a
+compressed intrinsic algorithm is a marked trace: carry the unmatched cell
+of `Q` backward freely across Shareshian--Wachs events, and expand only at
+inverse-Kostka events where `F_i` and `I` fail to commute.  The next finite
+classification should sort these defects by their Allen--Celano--Mason
+`psi/theta` event words and test whether the required correction has bounded
+local support.
+
 ## Smallest obstruction to a bare LGV tail switch
 
 The failure occurs already at rank two, independently of the poset.  Take

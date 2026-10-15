@@ -1085,6 +1085,65 @@ fn crystal_on_target(target: &Target, color: usize, raising: bool) -> Option<Tar
     Some(result)
 }
 
+/// The transported Kashiwara operator on proper colorings.
+///
+/// Colors are zero-based, so `color` denotes the simple root joining
+/// `color` and `color + 1`.  The Boolean `raising` chooses `e_color` when
+/// true and `f_color` when false.
+fn coloring_crystal_operator(
+    poset: &Poset,
+    coloring: &[usize],
+    alphabet: usize,
+    color: usize,
+    raising: bool,
+) -> Option<Vec<usize>> {
+    assert!(color + 1 < alphabet);
+    assert!(is_proper_coloring(poset, coloring));
+    let (target, _) = forward_with_alphabet(poset, coloring, alphabet);
+    let moved_target = crystal_on_target(&target, color, raising)?;
+    let moved_mu = shape(&moved_target.q, alphabet);
+    let moved = reverse(poset, &moved_target, &moved_mu);
+    assert!(is_proper_coloring(poset, &moved));
+    assert_eq!(asc(poset, &moved), asc(poset, coloring));
+    Some(moved)
+}
+
+fn coloring_e(
+    poset: &Poset,
+    coloring: &[usize],
+    alphabet: usize,
+    color: usize,
+) -> Option<Vec<usize>> {
+    coloring_crystal_operator(poset, coloring, alphabet, color, true)
+}
+
+fn coloring_f(
+    poset: &Poset,
+    coloring: &[usize],
+    alphabet: usize,
+    color: usize,
+) -> Option<Vec<usize>> {
+    coloring_crystal_operator(poset, coloring, alphabet, color, false)
+}
+
+fn target_string_length(target: &Target, color: usize, raising: bool) -> usize {
+    let mut length = 0;
+    let mut current = target.clone();
+    while let Some(next) = crystal_on_target(&current, color, raising) {
+        current = next;
+        length += 1;
+    }
+    length
+}
+
+fn highest_weight_q(lambda: &[usize]) -> Vec<usize> {
+    lambda
+        .iter()
+        .enumerate()
+        .flat_map(|(row, &length)| std::iter::repeat_n(row, length))
+        .collect()
+}
+
 fn is_proper_coloring(poset: &Poset, coloring: &[usize]) -> bool {
     (0..poset.n()).all(|left| {
         (left + 1..poset.n())
@@ -1092,12 +1151,523 @@ fn is_proper_coloring(poset: &Poset, coloring: &[usize]) -> bool {
     })
 }
 
-fn verify_transported_crystal(poset: &Poset, source: &[usize], target: &Target, alphabet: usize) {
-    for color in 0..alphabet.saturating_sub(1) {
-        for raising in [false, true] {
-            let Some(moved_target) = crystal_on_target(target, color, raising) else {
+fn proper_colorings(poset: &Poset, alphabet: usize) -> Vec<Vec<usize>> {
+    fn recurse(
+        poset: &Poset,
+        alphabet: usize,
+        vertex: usize,
+        coloring: &mut Vec<usize>,
+        out: &mut Vec<Vec<usize>>,
+    ) {
+        if vertex == poset.n() {
+            out.push(coloring.clone());
+            return;
+        }
+        for color in 0..alphabet {
+            if (0..vertex)
+                .any(|other| poset.edge(other, vertex) && coloring.get(other) == Some(&color))
+            {
+                continue;
+            }
+            coloring.push(color);
+            recurse(poset, alphabet, vertex + 1, coloring, out);
+            coloring.pop();
+        }
+    }
+
+    let mut out = Vec::new();
+    recurse(poset, alphabet, 0, &mut Vec::new(), &mut out);
+    out
+}
+
+#[derive(Clone, Debug)]
+struct CrystalVertex {
+    coloring: Vec<usize>,
+    image: Target,
+}
+
+#[derive(Clone, Debug)]
+struct CrystalEdge {
+    from: usize,
+    to: usize,
+    color: usize,
+}
+
+#[derive(Clone, Debug)]
+struct ColoringCrystalGraph {
+    vertices: Vec<CrystalVertex>,
+    edges: Vec<CrystalEdge>,
+}
+
+#[derive(Default)]
+struct GraphSummary {
+    vertices: usize,
+    edges: usize,
+    components: usize,
+}
+
+impl GraphSummary {
+    fn absorb(&mut self, other: Self) {
+        self.vertices += other.vertices;
+        self.edges += other.edges;
+        self.components += other.components;
+    }
+}
+
+fn coloring_crystal_graph(poset: &Poset, alphabet: usize) -> ColoringCrystalGraph {
+    let colorings = proper_colorings(poset, alphabet);
+    let indices: BTreeMap<Vec<usize>, usize> = colorings
+        .iter()
+        .cloned()
+        .enumerate()
+        .map(|(index, coloring)| (coloring, index))
+        .collect();
+    let vertices: Vec<CrystalVertex> = colorings
+        .into_iter()
+        .map(|coloring| CrystalVertex {
+            image: forward_with_alphabet(poset, &coloring, alphabet).0,
+            coloring,
+        })
+        .collect();
+    let mut edges = Vec::new();
+    for (from, vertex) in vertices.iter().enumerate() {
+        for color in 0..alphabet.saturating_sub(1) {
+            let Some(moved_target) = crystal_on_target(&vertex.image, color, false) else {
                 continue;
             };
+            let mu = shape(&moved_target.q, alphabet);
+            let moved_coloring = reverse(poset, &moved_target, &mu);
+            let to = *indices
+                .get(&moved_coloring)
+                .expect("transported crystal edge must end at a proper coloring");
+            edges.push(CrystalEdge { from, to, color });
+        }
+    }
+    ColoringCrystalGraph { vertices, edges }
+}
+
+fn verify_coloring_crystal_graph(poset: &Poset, alphabet: usize) -> GraphSummary {
+    let graph = coloring_crystal_graph(poset, alphabet);
+    let mut fibers: BTreeMap<(Vec<usize>, Vec<usize>), Vec<usize>> = BTreeMap::new();
+    for (index, vertex) in graph.vertices.iter().enumerate() {
+        fibers
+            .entry((vertex.image.lambda.clone(), vertex.image.t.clone()))
+            .or_default()
+            .push(index);
+    }
+    let mut neighbors = vec![Vec::new(); graph.vertices.len()];
+    for edge in &graph.edges {
+        let from = &graph.vertices[edge.from].image;
+        let to = &graph.vertices[edge.to].image;
+        assert_eq!(
+            (from.lambda.as_slice(), from.t.as_slice()),
+            (to.lambda.as_slice(), to.t.as_slice())
+        );
+        neighbors[edge.from].push(edge.to);
+        neighbors[edge.to].push(edge.from);
+    }
+    let summary = GraphSummary {
+        vertices: graph.vertices.len(),
+        edges: graph.edges.len(),
+        components: fibers.len(),
+    };
+    for ((lambda, t), fiber) in fibers {
+        let highest: Vec<usize> = fiber
+            .iter()
+            .copied()
+            .filter(|&index| {
+                (0..alphabet.saturating_sub(1)).all(|color| {
+                    crystal_on_target(&graph.vertices[index].image, color, true).is_none()
+                })
+            })
+            .collect();
+        assert_eq!(highest.len(), 1);
+        assert_eq!(
+            graph.vertices[highest[0]].image.q,
+            highest_weight_q(&lambda)
+        );
+        assert_eq!(
+            graph.vertices[highest[0]].coloring,
+            undo_asc_to_des(poset, &t, alphabet),
+            "highest-weight coloring is not the inverse orientation of T"
+        );
+
+        let fiber_set: BTreeSet<usize> = fiber.iter().copied().collect();
+        let mut reached = BTreeSet::from([highest[0]]);
+        let mut stack = vec![highest[0]];
+        while let Some(index) = stack.pop() {
+            for &next in &neighbors[index] {
+                if fiber_set.contains(&next) && reached.insert(next) {
+                    stack.push(next);
+                }
+            }
+        }
+        assert_eq!(reached, fiber_set, "disconnected crystal fiber for T={t:?}");
+    }
+    summary
+}
+
+fn crystal_graph_dot(poset: &Poset, alphabet: usize) -> String {
+    let graph = coloring_crystal_graph(poset, alphabet);
+    let mut dot = String::from("digraph coloring_crystal {\n  rankdir=LR;\n");
+    for (index, vertex) in graph.vertices.iter().enumerate() {
+        let weight = shape(&vertex.coloring, alphabet);
+        dot.push_str(&format!(
+            "  v{index} [label=\"{:?}\\nwt={weight:?}, asc={}\\nshape={:?}, T={:?}\"];\n",
+            vertex.coloring,
+            asc(poset, &vertex.coloring),
+            vertex.image.lambda,
+            vertex.image.t
+        ));
+    }
+    for edge in graph.edges {
+        dot.push_str(&format!(
+            "  v{} -> v{} [label=\"{}\"];\n",
+            edge.from,
+            edge.to,
+            edge.color + 1
+        ));
+    }
+    dot.push_str("}\n");
+    dot
+}
+
+#[derive(Clone, Debug)]
+struct MoveWitness {
+    code: Vec<usize>,
+    alphabet: usize,
+    color: usize,
+    source: Vec<usize>,
+    target: Vec<usize>,
+    changed_vertices: Vec<usize>,
+}
+
+#[derive(Clone, Debug)]
+struct ContextWitness {
+    code: Vec<usize>,
+    alphabet: usize,
+    color: usize,
+    weight: Vec<usize>,
+    asc: usize,
+    local_restriction: Vec<Option<usize>>,
+    first_source: Vec<usize>,
+    first_target: Option<Vec<usize>>,
+    second_source: Vec<usize>,
+    second_target: Option<Vec<usize>>,
+}
+
+#[derive(Default, Debug)]
+struct LocalityStudy {
+    first_multiple_change: Option<MoveWitness>,
+    first_outside_pair_change: Option<MoveWitness>,
+    first_context_dependence: Option<ContextWitness>,
+}
+
+type LocalSignature = (Vec<usize>, usize, Vec<Option<usize>>);
+type LocalOutcome = (Vec<usize>, Option<Vec<usize>>);
+
+fn two_color_restriction(coloring: &[usize], color: usize) -> Vec<Option<usize>> {
+    coloring
+        .iter()
+        .map(|&entry| {
+            if entry == color {
+                Some(0)
+            } else if entry == color + 1 {
+                Some(1)
+            } else {
+                None
+            }
+        })
+        .collect()
+}
+
+fn study_crystal_locality(max_n: usize) -> LocalityStudy {
+    let mut study = LocalityStudy::default();
+    for n in 1..=max_n {
+        for poset in natural_unit_interval_orders(n) {
+            for alphabet in 2..=usize::min(n + 1, 4) {
+                let graph = coloring_crystal_graph(&poset, alphabet);
+                let edge_targets: BTreeMap<(usize, usize), usize> = graph
+                    .edges
+                    .iter()
+                    .map(|edge| ((edge.from, edge.color), edge.to))
+                    .collect();
+                for color in 0..alphabet - 1 {
+                    let mut local_outcomes: BTreeMap<LocalSignature, LocalOutcome> =
+                        BTreeMap::new();
+                    for (index, vertex) in graph.vertices.iter().enumerate() {
+                        let target = edge_targets
+                            .get(&(index, color))
+                            .map(|&to| graph.vertices[to].coloring.clone());
+                        if let Some(moved) = &target {
+                            let changed_vertices: Vec<usize> =
+                                (0..n).filter(|&v| vertex.coloring[v] != moved[v]).collect();
+                            let witness = MoveWitness {
+                                code: poset.code(),
+                                alphabet,
+                                color,
+                                source: vertex.coloring.clone(),
+                                target: moved.clone(),
+                                changed_vertices: changed_vertices.clone(),
+                            };
+                            if changed_vertices.len() > 1 && study.first_multiple_change.is_none() {
+                                study.first_multiple_change = Some(witness.clone());
+                            }
+                            let changes_outside_pair = changed_vertices.iter().any(|&v| {
+                                ![color, color + 1].contains(&vertex.coloring[v])
+                                    || ![color, color + 1].contains(&moved[v])
+                            });
+                            if changes_outside_pair && study.first_outside_pair_change.is_none() {
+                                study.first_outside_pair_change = Some(witness);
+                            }
+                        }
+
+                        let local_restriction = two_color_restriction(&vertex.coloring, color);
+                        let key = (
+                            shape(&vertex.coloring, alphabet),
+                            asc(&poset, &vertex.coloring),
+                            local_restriction.clone(),
+                        );
+                        if let Some((first_source, first_target)) = local_outcomes.get(&key) {
+                            let first_local_target = first_target
+                                .as_ref()
+                                .map(|value| two_color_restriction(value, color));
+                            let second_local_target = target
+                                .as_ref()
+                                .map(|value| two_color_restriction(value, color));
+                            if first_local_target != second_local_target
+                                && study.first_context_dependence.is_none()
+                            {
+                                study.first_context_dependence = Some(ContextWitness {
+                                    code: poset.code(),
+                                    alphabet,
+                                    color,
+                                    weight: key.0.clone(),
+                                    asc: key.1,
+                                    local_restriction,
+                                    first_source: first_source.clone(),
+                                    first_target: first_target.clone(),
+                                    second_source: vertex.coloring.clone(),
+                                    second_target: target.clone(),
+                                });
+                            }
+                        } else {
+                            local_outcomes.insert(key, (vertex.coloring.clone(), target));
+                        }
+                    }
+                }
+                if study.first_multiple_change.is_some()
+                    && study.first_outside_pair_change.is_some()
+                    && study.first_context_dependence.is_some()
+                {
+                    return study;
+                }
+            }
+        }
+    }
+    study
+}
+
+fn print_locality_study(study: &LocalityStudy) {
+    if let Some(witness) = &study.first_multiple_change {
+        println!(
+            "first multi-vertex f_{} move: P={:?}, k={}, {:?} -> {:?}, changed={:?}",
+            witness.color + 1,
+            witness.code,
+            witness.alphabet,
+            witness.source,
+            witness.target,
+            witness.changed_vertices
+        );
+    }
+    if let Some(witness) = &study.first_outside_pair_change {
+        println!(
+            "first f_{} move touching a color outside its pair: P={:?}, k={}, {:?} -> {:?}, changed={:?}",
+            witness.color + 1,
+            witness.code,
+            witness.alphabet,
+            witness.source,
+            witness.target,
+            witness.changed_vertices
+        );
+    }
+    if let Some(witness) = &study.first_context_dependence {
+        println!(
+            "first two-color-context obstruction for f_{}: P={:?}, k={}, wt={:?}, asc={}, restriction={:?}; {:?} -> {:?}, but {:?} -> {:?}",
+            witness.color + 1,
+            witness.code,
+            witness.alphabet,
+            witness.weight,
+            witness.asc,
+            witness.local_restriction,
+            witness.first_source,
+            witness.first_target,
+            witness.second_source,
+            witness.second_target
+        );
+    }
+}
+
+fn standardize_coloring(coloring: &[usize], decreasing_ties: bool) -> Vec<usize> {
+    let alphabet = 1 + *coloring.iter().max().expect("a coloring is nonempty");
+    let mut standardized = vec![0; coloring.len()];
+    let mut next_label = 0;
+    for color in 0..alphabet {
+        let mut vertices: Vec<usize> = coloring
+            .iter()
+            .enumerate()
+            .filter_map(|(vertex, &entry)| (entry == color).then_some(vertex))
+            .collect();
+        if decreasing_ties {
+            vertices.reverse();
+        }
+        for vertex in vertices {
+            standardized[vertex] = next_label;
+            next_label += 1;
+        }
+    }
+    standardized
+}
+
+fn standardize_tableau_entries(entries: &[usize]) -> Vec<usize> {
+    let alphabet = 1 + *entries.iter().max().expect("a tableau is nonempty");
+    let mut standardized = vec![0; entries.len()];
+    let mut next_label = 0;
+    for color in 0..alphabet {
+        for (position, &entry) in entries.iter().enumerate() {
+            if entry == color {
+                standardized[position] = next_label;
+                next_label += 1;
+            }
+        }
+    }
+    standardized
+}
+
+#[derive(Clone, Debug)]
+struct StandardizationFailure {
+    code: Vec<usize>,
+    source: Vec<usize>,
+    standardized_source: Vec<usize>,
+    image: Target,
+    standardized_image: Target,
+    expected_q: Vec<usize>,
+}
+
+fn first_standardization_failure(
+    max_n: usize,
+    decreasing_ties: bool,
+) -> Option<StandardizationFailure> {
+    for n in 1..=max_n {
+        for poset in natural_unit_interval_orders(n) {
+            for source in packed_proper_colorings(&poset) {
+                let image = forward(&poset, &source).0;
+                let standardized_source = standardize_coloring(&source, decreasing_ties);
+                let standardized_image = forward_with_alphabet(&poset, &standardized_source, n).0;
+                let expected_q = standardize_tableau_entries(&image.q);
+                if standardized_image.lambda != image.lambda
+                    || standardized_image.t != image.t
+                    || standardized_image.q != expected_q
+                {
+                    return Some(StandardizationFailure {
+                        code: poset.code(),
+                        source,
+                        standardized_source,
+                        image,
+                        standardized_image,
+                        expected_q,
+                    });
+                }
+            }
+        }
+    }
+    None
+}
+
+fn print_standardization_result(
+    max_n: usize,
+    decreasing_ties: bool,
+    failure: Option<&StandardizationFailure>,
+) {
+    let convention = if decreasing_ties {
+        "decreasing"
+    } else {
+        "increasing"
+    };
+    if let Some(failure) = failure {
+        println!(
+            "{convention}-tie standardization fails first at P={:?}, source={:?}, standardized={:?}: image={:?}, standardized image={:?}, expected standardized Q={:?}",
+            failure.code,
+            failure.source,
+            failure.standardized_source,
+            failure.image,
+            failure.standardized_image,
+            failure.expected_q
+        );
+    } else {
+        println!("{convention}-tie standardization is compatible through n={max_n}");
+    }
+}
+
+#[derive(Default)]
+struct CrystalSummary {
+    states: usize,
+    f_edges: usize,
+    string_checks: usize,
+    highest_weight_states: usize,
+}
+
+impl CrystalSummary {
+    fn absorb(&mut self, other: Self) {
+        self.states += other.states;
+        self.f_edges += other.f_edges;
+        self.string_checks += other.string_checks;
+        self.highest_weight_states += other.highest_weight_states;
+    }
+}
+
+fn verify_transported_crystal(
+    poset: &Poset,
+    source: &[usize],
+    target: &Target,
+    alphabet: usize,
+) -> CrystalSummary {
+    let mut summary = CrystalSummary {
+        states: 1,
+        ..CrystalSummary::default()
+    };
+    let weight = shape(&target.q, alphabet);
+    let mut highest_weight = true;
+    for color in 0..alphabet.saturating_sub(1) {
+        let epsilon = target_string_length(target, color, true);
+        let phi = target_string_length(target, color, false);
+        assert_eq!(
+            phi as isize - epsilon as isize,
+            weight[color] as isize - weight[color + 1] as isize
+        );
+        summary.string_checks += 1;
+        for raising in [false, true] {
+            let moved_target = crystal_on_target(target, color, raising);
+            if poset.n() <= 3 {
+                let moved_by_api = if raising {
+                    coloring_e(poset, source, alphabet, color)
+                } else {
+                    coloring_f(poset, source, alphabet, color)
+                };
+                let expected = moved_target.as_ref().map(|image| {
+                    let moved_mu = shape(&image.q, alphabet);
+                    reverse(poset, image, &moved_mu)
+                });
+                assert_eq!(moved_by_api, expected);
+            }
+            let Some(moved_target) = moved_target else {
+                continue;
+            };
+            if raising {
+                highest_weight = false;
+            } else {
+                summary.f_edges += 1;
+            }
             let moved_mu = shape(&moved_target.q, alphabet);
             let mut expected_mu = shape(&target.q, alphabet);
             if raising {
@@ -1121,6 +1691,11 @@ fn verify_transported_crystal(poset: &Poset, source: &[usize], target: &Target, 
             );
         }
     }
+    if highest_weight {
+        assert_eq!(target.q, highest_weight_q(&target.lambda));
+        summary.highest_weight_states = 1;
+    }
+    summary
 }
 
 fn trace_checksum(trace: &[TraceEvent]) -> usize {
@@ -1249,6 +1824,61 @@ fn verify_inverse_kostka_n(n: usize) -> (usize, usize) {
     (endpoint_states, max_local_events)
 }
 
+fn crystal_on_triple(triple: &Triple, color: usize, raising: bool) -> Option<Triple> {
+    let target = Target {
+        lambda: triple.lambda.clone(),
+        t: Vec::new(),
+        q: triple.q.clone(),
+    };
+    let moved = crystal_on_target(&target, color, raising)?;
+    Some(Triple {
+        lambda: triple.lambda.clone(),
+        pi: triple.pi.clone(),
+        q: moved.q,
+    })
+}
+
+fn inverse_kostka_total(triple: &Triple, nu: &[usize], mu: &[usize]) -> Triple {
+    inverse_kostka_local(triple, nu, mu).map_or_else(|| triple.clone(), |(partner, _)| partner)
+}
+
+#[derive(Default)]
+struct InverseKostkaCrystalDefects {
+    tests: usize,
+    defects: usize,
+    definedness_defects: usize,
+    value_defects: usize,
+}
+
+fn inverse_kostka_crystal_defects_n(n: usize) -> InverseKostkaCrystalDefects {
+    let mut summary = InverseKostkaCrystalDefects::default();
+    for mu in compositions(n) {
+        for nu in partitions(n) {
+            let catalog = build_catalog(n, &nu, &mu);
+            for triple in catalog.positive.iter().chain(&catalog.negative) {
+                for color in 0..mu.len().saturating_sub(1) {
+                    summary.tests += 1;
+                    let after_inverse = inverse_kostka_total(triple, &nu, &mu);
+                    let inverse_then_f = crystal_on_triple(&after_inverse, color, false);
+                    let f_then_inverse = crystal_on_triple(triple, color, false).map(|moved| {
+                        let moved_mu = shape(&moved.q, mu.len());
+                        inverse_kostka_total(&moved, &nu, &moved_mu)
+                    });
+                    if inverse_then_f != f_then_inverse {
+                        summary.defects += 1;
+                        if inverse_then_f.is_some() == f_then_inverse.is_some() {
+                            summary.value_defects += 1;
+                        } else {
+                            summary.definedness_defects += 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    summary
+}
+
 #[derive(Default)]
 struct Summary {
     posets: usize,
@@ -1332,8 +1962,8 @@ fn verify_n(n: usize) -> Summary {
     summary
 }
 
-fn verify_one_empty_color_n(n: usize) -> usize {
-    let mut checked = 0;
+fn verify_one_empty_color_n(n: usize) -> CrystalSummary {
+    let mut crystal_summary = CrystalSummary::default();
     for poset in natural_unit_interval_orders(n) {
         let mut by_weight: BTreeMap<Vec<usize>, Vec<Vec<usize>>> = BTreeMap::new();
         for coloring in packed_proper_colorings(&poset) {
@@ -1356,35 +1986,92 @@ fn verify_one_empty_color_n(n: usize) -> usize {
                 assert_eq!(shape(&target.q, mu.len()), mu);
                 assert_eq!(asc(&poset, &source), inv_g(&poset, &target.t));
                 assert_eq!(reverse(&poset, &target, &mu), source);
-                verify_transported_crystal(&poset, &source, &target, mu.len());
+                crystal_summary.absorb(verify_transported_crystal(
+                    &poset,
+                    &source,
+                    &target,
+                    mu.len(),
+                ));
                 assert!(images.insert(target));
-                checked += 1;
             }
             assert_eq!(images, expected);
         }
     }
-    checked
+    crystal_summary
 }
 
 fn main() {
+    let args: Vec<String> = std::env::args().collect();
+    if args.get(1).map(String::as_str) == Some("--dot") {
+        assert_eq!(args.len(), 4, "usage: --dot h_1,...,h_n alphabet");
+        let code: Vec<usize> = args[2]
+            .split(',')
+            .map(|part| {
+                part.parse::<usize>()
+                    .expect("Hessenberg code must be numeric")
+            })
+            .collect();
+        let n = code.len();
+        let h: Vec<usize> = code
+            .iter()
+            .map(|&entry| {
+                entry
+                    .checked_sub(1)
+                    .expect("Hessenberg entries are one-based")
+            })
+            .collect();
+        assert!(
+            h.iter()
+                .enumerate()
+                .all(|(i, &entry)| i <= entry && entry < n)
+                && h.windows(2).all(|window| window[0] <= window[1]),
+            "invalid natural-unit-interval-order Hessenberg code"
+        );
+        let alphabet = args[3]
+            .parse::<usize>()
+            .expect("alphabet size must be numeric");
+        print!("{}", crystal_graph_dot(&Poset { h }, alphabet));
+        return;
+    }
     verify_lgv_obstruction();
     verify_all_tail_q_obstruction();
     println!("LGV obstruction: n=2, mu=(1,1), nu=(2), lambda changes (2) <-> (1,1)");
     println!("all-tail q obstruction: n=4, m=(1,3,3,4), G={{2,3}}, q changes 0 -> 1");
+    let locality_study = study_crystal_locality(5);
+    print_locality_study(&locality_study);
+    let increasing_standardization = first_standardization_failure(5, false);
+    let decreasing_standardization = first_standardization_failure(5, true);
+    print_standardization_result(5, false, increasing_standardization.as_ref());
+    print_standardization_result(5, true, decreasing_standardization.as_ref());
     let mut total = Summary::default();
     for n in 1..=5 {
         let (inverse_kostka_states, max_local_events) = verify_inverse_kostka_n(n);
+        let inverse_kostka_defects = inverse_kostka_crystal_defects_n(n);
         let summary = verify_n(n);
-        let weak_colorings = verify_one_empty_color_n(n);
+        let crystal = verify_one_empty_color_n(n);
+        let mut graph_summary = GraphSummary::default();
+        for poset in natural_unit_interval_orders(n) {
+            graph_summary.absorb(verify_coloring_crystal_graph(&poset, n));
+        }
         println!(
-            "n={n}: posets={} (KP {}), packed proper colorings={} (KP {}), one-empty-color maps={}, targets={}, inverse-Kostka endpoints={}, max_local_events={}, max_trace_events={}, checksum={}",
+            "n={n}: posets={} (KP {}), packed proper colorings={} (KP {}), one-empty-color maps={}, crystal f-edges={}, string checks={}, highest weights={}, full k=n graph vertices={}, edges={}, components={}, targets={}, inverse-Kostka endpoints={}, IK/F tests={}, defects={} (definedness {}, value {}), max_local_events={}, max_trace_events={}, checksum={}",
             summary.posets,
             summary.kp_posets,
             summary.colorings,
             summary.kp_colorings,
-            weak_colorings,
+            crystal.states,
+            crystal.f_edges,
+            crystal.string_checks,
+            crystal.highest_weight_states,
+            graph_summary.vertices,
+            graph_summary.edges,
+            graph_summary.components,
             summary.targets,
             inverse_kostka_states,
+            inverse_kostka_defects.tests,
+            inverse_kostka_defects.defects,
+            inverse_kostka_defects.definedness_defects,
+            inverse_kostka_defects.value_defects,
             max_local_events,
             summary.max_trace_events,
             summary.trace_checksum

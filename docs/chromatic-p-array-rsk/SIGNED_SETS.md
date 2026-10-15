@@ -357,7 +357,11 @@ such that
 
 Zero parts of (\mu) cause no difficulty: both kinds of Bender--Knuth maps
 allow empty adjacent color classes.  Hence the source and target are stable
-under the ordinary type-A Kashiwara operators.  Define
+under the ordinary type-A Kashiwara operators.  Read (Q) from the bottom row
+to the top row and from left to right within each row.  For the letters
+(i,i+1), cancel pairs ((i+1)i).  Then (e_i) changes the first unmatched
+(i+1) into (i), while (f_i) changes the last unmatched (i) into (i+1).
+Define
 
 \[
   e_i^P=\Phi_{P,k}^{-1}e_i\Phi_{P,k},\qquad
@@ -366,6 +370,87 @@ under the ordinary type-A Kashiwara operators.  Define
 
 These are genuine normal type-A crystal operators.  They preserve
 (\operatorname{asc}) because they change (Q) while leaving (T) fixed.
+More precisely, there is an isomorphism of colored directed graphs
+
+\[
+  \operatorname{Col}_k(P)
+  \cong
+  \bigsqcup_{\lambda\vdash n}
+  \bigsqcup_{T\in\operatorname{PTab}_P(\lambda)} B_k(\lambda).
+\]
+
+Thus each component is indexed by one (P)-tableau (T), has a unique
+highest-weight coloring, and is an ordinary highest-weight crystal of shape
+(\lambda).  If (\varepsilon_i) and (\varphi_i) are the two string lengths,
+then
+
+\[
+  \varphi_i(\kappa)-\varepsilon_i(\kappa)
+  =\operatorname{wt}_i(\kappa)-\operatorname{wt}_{i+1}(\kappa).
+\]
+
+The value of (\operatorname{asc}) is constant on this component and equals
+(\operatorname{inv}_G(T)).  In particular, the fixed-ascent character is a
+sum of Schur characters, one for each (P)-tableau with the corresponding
+inversion number.
+
+The component anchor does have a direct description.  For the highest tableau
+(Q_\lambda^{\mathrm{high}}), the reverse inverse-Kostka involution is already
+fixed and no alternating path is traversed.  Consequently the highest-weight
+coloring in the component indexed by (T) is
+
+\[
+  \kappa_T^{\mathrm{high}}=R_\lambda^{-1}(T),
+\]
+
+where (T) is regarded as its row coloring and (R_\lambda) is the
+ascent-to-descent orientation map from Section 6.  This identity was checked
+for every component through rank five.
+
+This transport does not make the operators local on the coloring.  Already
+for the chain on three elements, the constructed map gives
+(f_1(112)=221); all three positions change.  With three colors it gives
+(f_1(132)=322), so even a color outside the active pair can move.  The
+chain on four elements gives a stronger obstruction.  The colorings (1134)
+and (1143) have the same weight ((2,0,1,1)), the same ascent number, and the
+same labeled restriction to colors (1,2), but
+
+\[
+  f_1(1134)=2134,
+  \qquad
+  f_1(1143)=4321.
+\]
+
+Consequently no rule depending only on the induced two-color subgraph can
+describe these transported operators.  A possible intrinsic description must
+retain global word, growth-diagram, or signed-trace information.  This is a
+property of the present explicit bijection, not a claim that every possible
+chromatic RSK bijection has nonlocal crystal operators.
+
+Nor does ordinary standardization compress the global information.  Increasing
+tie order fails on the two-element chain and the constant coloring, while
+decreasing tie order first fails on the three-element chain: standardizing
+(111) to (321) changes the insertion shape from ((3)) to ((2,1)).  Hence this
+(\Phi_{P,k}) is not the destandardization of its restriction to permutation
+colorings.
+
+There is nevertheless a useful compression of the obstruction.  On the union
+of common signed sets over all contents, let (F_i) act only on (Q).  If (J)
+is the conjugated Shareshian--Wachs involution, then
+
+\[
+  JF_i=F_iJ
+\]
+
+with equality of definedness, since (J) leaves (Q) unchanged and its decision
+uses only ((A,\lambda,\pi)).  The failure is concentrated in the source
+normalization and the reverse-inverse-Kostka involution (I).  Already for
+(n=2), (\nu=(2)), (\mu=(1,1)), and
+(u=((2),\mathrm{id},[1\ 2])), the expression (F_1I(u)) is undefined, whereas
+(IF_1(u))=F_1(u) is the diagonal state with recording row ([2\ 2]).  This
+suggests carrying the marked unmatched cell freely across (J)-events and
+expanding the trace only at the critical Allen--Celano--Mason events where
+(F_i) and (I) do not commute.
 
 The Rust implementation exhausts all natural unit interval orders with
 (n\leq5), all packed source fibers, every reverse inverse-Kostka endpoint,
