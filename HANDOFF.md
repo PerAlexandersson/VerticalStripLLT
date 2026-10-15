@@ -2,6 +2,29 @@
 
 ## Current status and ownership
 
+On 2026-10-15, the Chromatic P-array RSK worker and an Astra reviewer audited
+alternative inverse-Kostka proofs without changing code.  Mason's
+noncommutative tunnel-hook formula (Allen--Mason, arXiv:2207.05903) is already
+the foundation of the implemented Allen--Celano--Mason `psi/theta`
+construction; the positive dual-immaculate-to-Young-quasisymmetric-Schur
+insertion instead adds composition-tableau/DIRT recording data and does not
+give the required reverse `K^{-1}K` cancellation.  The best genuinely
+different full endpoint involution is Loehr--Mendes's bijective-matrix-algebra
+conversion of the Egecioglu--Remmel `KK^{-1}` map.  It is a useful candidate
+for a second finite oracle, but no improved locality follows from that proof.
+
+There is also a universal rank-two obstruction to repairing crystal locality
+by merely replacing this cancellation.  For `nu=(2)` and `mu=(1,1)`, the
+signed fiber consists only of the positive row tableau `12` and negative
+column tableau `1/2`, so every cancellation must pair them.  Ordinary
+Kashiwara `f_1` sends the row tableau to `22` but is undefined on the column
+tableau.  Thus no sign-reversing involution on the present common signed set
+can commute strictly with the ordinary crystal operators.  A different
+inverse-Kostka proof may change the transported coloring gauge, but an
+intrinsic crystal construction needs either an enlarged state space or a
+different target correspondence.  The audited paths remain released; no
+Lean, Rust, HRV, circular-LLT, or manuscript file was touched.
+
 On 2026-10-15, the Chromatic P-array RSK worker reclaimed only
 `docs/chromatic-p-array-rsk/`, `experiments/chromatic-p-array-rsk/`, and its
 focused `HANDOFF.md` entry to study the weight- and ascent-preserving
