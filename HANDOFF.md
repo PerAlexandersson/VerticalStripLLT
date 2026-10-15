@@ -2,13 +2,14 @@
 
 ## Current status and ownership
 
-On 2026-10-15, the Chromatic P-array RSK bijection worker claimed a separate
+On 2026-10-15, the Chromatic P-array RSK bijection worker completed a separate
 research lane for an explicit weight- and ascent/inversion-preserving map from
 proper colorings/P-arrays of natural unit interval orders to pairs of a
-P-tableau and an ordinary semistandard tableau.  This worker owns only
+P-tableau and an ordinary semistandard tableau.  During the task it owned only
 `docs/chromatic-p-array-rsk/`, `experiments/chromatic-p-array-rsk/`, and its
 focused updates to `HANDOFF.md`, on branch `chromatic-p-array-rsk` in an
-isolated worktree.  The first milestone is mathematical: identify the exact
+isolated worktree; those paths are now released.  The first milestone was
+mathematical: identify the exact
 Shareshian--Wachs/Gasharov and LGV signed sets, involutions, and any
 Garsia--Milne alternating-path certificate before writing executable code.
 Only after that audit may the worker add the bounded Rust prototype and test
