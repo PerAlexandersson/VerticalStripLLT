@@ -10,6 +10,33 @@ Lusztig/Kashiwara string reflections on colorings, verify involution,
 weight-swap, commutation, and braid relations through rank five, and compare
 them exactly with the Shareshian--Wachs odd-component color switches.  All
 previous exclusions and the absence of a Lean build slot remain in force.
+This task is complete at checkpoint `21ee7d2`, and the three paths are
+released again.
+
+The prototype now implements the total transported crystal reflections
+`S_i^P=Phi^{-1} S_i Phi`.  On all fixed-alphabet graphs through rank five it
+checks 226,008 state/root pairs, 169,016 adjacent braid identities, and
+167,155 distant commutations, as well as involution, weight swap, properness,
+and ascent preservation.  The reflections agree with SW odd-component
+switches in 169,220 cases; the SW switches themselves have 7,236 braid
+failures.  Classical tableau Bender--Knuth agrees with the crystal reflection
+in 199,316 cases but has 13,330 braid failures after transport, so neither
+content switch should be identified with the genuine Weyl action.
+
+The natural signature repair—order odd two-color components, cancel their
+majority signs, and flip only the excess unmatched components—passes every
+rank-five braid test only for structural reasons.  Astra identified rank-six
+content `(3,2,1)` as the first genuine test.  Across all 132 natural unit
+interval orders, every basic order/cancellation convention has 38 failures
+among 1,296 colorings of that content and 228 among 16,020 total braid tests.
+For Hessenberg code `(1,2,4,5,6,6)`, increasing order and `+-` cancellation
+give the exact certificate `121321 -> 133232` under `S_1 S_2 S_1` but
+`121321 -> 233231` under `S_2 S_1 S_2`.  Astra's independent implementation
+of Ehrhard's alignment agrees with this signature reflection on all 2,592
+single-reflection checks in that orbit; the witness is therefore also a
+concrete braid failure for Ehrhard's weak operators.  The 18.7-second release
+census, four unit tests, Clippy with warnings denied, formatting, and
+`git diff --check` pass.
 
 On 2026-10-15, at the user's request, the Chromatic P-array RSK worker
 reclaimed only `docs/chromatic-p-array-rsk/`,
