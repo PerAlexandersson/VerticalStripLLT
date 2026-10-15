@@ -54,6 +54,12 @@ manuscript file was touched.
 
 The signed-set checkpoint is `1ec0ea3`; the verified Rust/report checkpoint
 is `f77cd34`.  The branch is `chromatic-p-array-rsk`, pushed to `origin`.
+On 2026-10-15 the user asked this worker to resume ownership of the same three
+paths until the finite lexicographic matching has been replaced by a full
+constructive bijection.  The active milestone is an exact implementation of
+the Allen--Celano--Mason reverse-inverse-Kostka involution, including its local
+trace and integration into every forward and inverse Garsia--Milne path.  The
+same exclusions and absence of a Lean build slot remain in force.
 
 On 2026-10-13, the Lilan revision integration worker completed the
 author-requested Overleaf upload and email notification.  The current main TeX
