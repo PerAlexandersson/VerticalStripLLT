@@ -2,6 +2,17 @@
 
 ## Current status and ownership
 
+On 2026-10-15, at the user's request, the Chromatic P-array RSK worker
+reclaimed only `docs/chromatic-p-array-rsk/`,
+`experiments/chromatic-p-array-rsk/`, and its focused `HANDOFF.md` entry to
+expose the conjugated Kashiwara operators as explicit coloring-level
+functions and verify their normal type-A structure.  The insertion tableau
+must remain fixed, ascent must remain constant, and the finite checks must
+cover string parameters and highest-weight/component behavior, not merely
+partial inverse identities.  The marked-coloring/HRV, circular LLT, Lean,
+and manuscript lanes remain excluded, and this worker still holds no Lean
+build slot.
+
 On 2026-10-15, the Chromatic P-array RSK bijection worker completed a separate
 research lane for an explicit weight- and ascent/inversion-preserving map from
 proper colorings/P-arrays of natural unit interval orders to pairs of a
