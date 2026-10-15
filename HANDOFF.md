@@ -16,6 +16,24 @@ natural unit interval orders beginning with `n <= 5`.  It does not own or
 touch the marked-coloring/HRV e-positivity project, Lean sources, circular LLT
 work, or manuscript files, and it holds no Lean build slot.
 
+The mathematical audit has now fixed the candidate common signed set in
+`docs/chromatic-p-array-rsk/SIGNED_SETS.md`.  The source-side `asc` statistic is
+first converted to the Shareshian--Wachs array `des` statistic by color
+complement followed by their odd-component Bender--Knuth switches; a second
+such normalization sends an arbitrary packed content `mu` to the partition
+`mu^+`.  On the common signed set, the first involution must realize the
+historically harder reverse inverse-Kostka identity, while the second is the
+Shareshian--Wachs array involution conjugated by those normalizations.  Thus a
+bare LGV tail switch is not yet enough: it proves Jacobi--Trudi locally, but
+does not itself supply the required `K^{-1}K` cancellation.  A deterministic
+finite matching will serve as the exact bounded oracle before any claim of a
+local algorithm.  The note also records explicitly that Ehrhard's operators
+are only weight-shifting partial inverses, not normal type-A Kashiwara
+crystals, and that Kim--Pylyavskyy is only a standard/permutation oracle on its
+avoidance class.  An independent Astra read-only audit of the inverse-Kostka
+orientation and conjugated-involution closure is in progress.  No Rust or
+Lean source has yet been changed.
+
 On 2026-10-13, the Lilan revision integration worker completed the
 author-requested Overleaf upload and email notification.  The current main TeX
 file, bibliography, seven section files, and verified PDF were synchronized to
