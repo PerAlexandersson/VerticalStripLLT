@@ -11,7 +11,33 @@ must remain fixed, ascent must remain constant, and the finite checks must
 cover string parameters and highest-weight/component behavior, not merely
 partial inverse identities.  The marked-coloring/HRV, circular LLT, Lean,
 and manuscript lanes remain excluded, and this worker still holds no Lean
-build slot.
+build slot.  This task is now complete and those paths are released.
+
+The checkpoint `4b906e3` adds explicit coloring-level `e_i` and `f_i`, a
+complete fixed-alphabet crystal-graph constructor and DOT exporter, string and
+highest-weight checks, and an inverse-Kostka/Kashiwara defect census.  For all
+64 natural unit interval orders through rank five, the complete `k=n` graphs
+have 56,993 vertices, 99,360 directed edges, and 2,065 components in total;
+every component is a fixed-`T` copy of `B_k(lambda)`.  At rank five alone the
+counts are 55,125 vertices, 96,968 edges, and 1,849 components.  The highest
+coloring in the component indexed by `T` is exactly
+`R_lambda^{-1}(T)`.  The one-empty-color census checks 292,322 rank-five
+string identities and 120,659 lowering edges.
+
+Astra independently assessed the locality data.  This particular transported
+crystal is global even for a chain: in one-based colors
+`f_1(112)=221`, `f_1(132)=322`, and the colorings `1134`, `1143` have the same
+weight, ascent, and labeled `1/2` restriction but map to `2134`, `4321`.
+Thus fixed reading-word signatures, Ehrhard-style two-row moves, active-pair
+component switches, and naive standardization are all excluded for this map.
+The Shareshian--Wachs involution commutes with the recording-tableau operator;
+the first obstruction is the rank-two failure to commute with the reverse
+inverse-Kostka involution.  Through rank five, 309 of 1,120 tested
+inverse-Kostka/operator pairs are defects (226 definedness, 83 unequal value).
+The next focused experiment is a marked-trace classification of those defects
+by Allen--Celano--Mason `psi/theta` event words.  Tests, Clippy with warnings
+denied, the 12.9-second full release census, DOT smoke output, and
+`git diff --check` all passed.
 
 On 2026-10-15, the Chromatic P-array RSK bijection worker completed a separate
 research lane for an explicit weight- and ascent/inversion-preserving map from
