@@ -400,8 +400,10 @@ recorded row moves and tail switches.  This reconstructs the terminal
 `(lambda,Q)` because intervening SW moves change only the permutation
 coordinate; undoing content normalization gives `Q`, and `(T,Q)` determines
 the coloring.  The Rust implementation asserts this replay identity for all
-56,993 tested colorings.  What remains unknown is an intrinsic update rule for
-the word under `S_i`.
+56,993 tested colorings.  Thus the detailed word is a generally redundant
+encoding of `Q`, not a new intrinsic coloring invariant, and the absence of a
+nontrivial correction preserving both `T` and the word is formal.  What
+remains unknown is an intrinsic update rule for the word under `S_i`.
 
 The obvious standardization shortcut also fails.  Splitting equal colors into
 consecutive labels in increasing vertex order first fails for the two-element

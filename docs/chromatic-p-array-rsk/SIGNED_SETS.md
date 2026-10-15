@@ -638,8 +638,11 @@ Together with (T), the inverse bijection recovers (\kappa).
 The implementation asserts this replay identity on all 56,993 full-alphabet
 proper colorings through rank five.  Among the 28,796 nontrivial correction
 states, 5,780 preserve the detailed word (2,520 with a nonempty word), but none
-preserve both (T) and the word.  The certificate is therefore reversible, but
-an intrinsic rule for updating it under (S_i^P) remains to be found.
+preserve both (T) and the word.  The latter fact is formal: the transcript is
+a generally redundant encoding of (Q), not a new coloring invariant.  The
+certificate is therefore reversible, but an intrinsic rule for updating it
+under (S_i^P) remains to be found.  By contrast, the singleton position in the
+path family above is intrinsic to the weak action and detects its holonomy.
 
 The component anchor does have a direct description.  For the highest tableau
 (Q_\lambda^{\mathrm{high}}), the reverse inverse-Kostka involution is already

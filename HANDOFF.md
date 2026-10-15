@@ -9,7 +9,35 @@ correction `C_i=S_i^P R_i` between the genuine transported reflection and the
 natural component-signature/Ehrhard reflection.  The goal is an exact finite
 census of its support, order, locality, and relation to braid and
 inverse-Kostka defects.  All previous exclusions and the absence of a Lean
-build slot remain in force.
+build slot remained in force.  This task is complete at checkpoint `e5a2bb5`,
+and the three paths are released again.
+
+The correction is a content- and ascent-preserving fiber permutation, with
+`C_i^{-1}=R_iS_i^P` and `R_iC_iR_i=S_i^PC_iS_i^P=C_i^{-1}`.  Through rank
+five it fixes 197,212 of 226,008 state/root pairs; nontrivial cycle lengths
+range from 2 through 20 with gaps.  Of the 28,796 nontrivial states, 3,036
+retain the source insertion tableau and 25,760 cross insertion tableaux, so
+inverse-Kostka traversal is a major but not exclusive source of the gauge.
+The flattened detailed inverse-Kostka `psi/theta` word is now replayable:
+content plus the word reconstructs `(lambda,Q)`, and adding `T` gives a formal
+reversible certificate.  Replay was asserted on all 56,993 full-alphabet
+colorings through rank five.
+
+For adjacent roots the weak braid holonomy is `D=(R_iR_j)^3`, and the exact
+correction identity is `LD=M`, where `L` and `M` are the three appropriately
+conjugated correction factors.  On all 1,296 rank-six `(3,2,1)` cases the
+cycle inventory of `D` is 1,258 fixed points, eleven 3-cycles, and one
+5-cycle.  More generally, on the path with `n=2a`, the content/ascent fiber
+`(a,a-1,1),a-1` is explicitly indexed by the position of its unique color
+three.  The induced holonomy is one `(2a-1)`-cycle for odd `a`, and has cycle
+lengths `a/2,a-1,a/2` for even `a`; hence weak braid-defect order is
+unbounded.  The exact formula and its reversal/color-complement proof are in
+`SIGNED_SETS.md`, with Rust checks through `a=10`.  Two colorings can also
+have identical complete ordered colored component words for both roots but
+different holonomy, so separate odd-component signatures omit essential
+cross-root interleaving.  Four unit tests, Clippy with warnings denied,
+formatting, `git diff --check`, and the 22.8-second full release census pass.
+No Lean, marked-coloring/HRV, circular LLT, or manuscript file was touched.
 
 On 2026-10-15, the Chromatic P-array RSK worker reclaimed only
 `docs/chromatic-p-array-rsk/`, `experiments/chromatic-p-array-rsk/`, and its
