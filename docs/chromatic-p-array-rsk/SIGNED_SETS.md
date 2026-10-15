@@ -534,6 +534,58 @@ Its weak rank-two orbit is a 30-cycle, hence a five-sheeted cover of the
 Coxeter hexagon.  Thus no universal (\mathbb Z/3\mathbb Z)-valued sheet charge
 can repair the weak action.
 
+In fact the weak holonomy has unbounded order on paths.  Let (n=2a), with
+(a\geq3), and let (G=P_n).  Write (A_0) for the empty word and (A_m) for the
+alternating word on ((1,2)) of length (m) ending in (1).  The colorings
+
+\[
+  w_j=A_{j-1}\,3\,A_{n-j},
+  \qquad 1\leq j\leq n-1,
+\]
+
+are exactly the proper colorings of weight ((a,a-1,1)) and ascent (a-1).
+Indeed, deleting the unique (3) leaves two alternating blocks, one odd and
+one even.  The content forces the odd block to begin and end in (1), while
+the smaller ascent forces the even block to end in (1).  The missing endpoint
+(j=n) has ascent (a).
+
+Let (K) reverse the vertices and interchange colors (1) and (3), fixing color
+(2).  This is an ascent-preserving involution and
+(KR_1K=R_2).  Put
+
+\[
+  H=R_2R_1R_2,
+  \qquad F=KH.
+\]
+
+Then (F^2=(KHK)H=D_{12}).  Tracking the unique color through the three
+component reflections gives (F(w_j)=w_{f(j)}), where
+
+\[
+\begin{aligned}
+ f(1)&=2, & f(3)&=n-1,\\
+ f(j)&=n+3-j &&\text{for odd }j\geq5,\\
+ f(j)&=n-1-j &&\text{for even }j.
+\end{aligned}
+\]
+
+Consequently (D_{12}(w_j)=w_{d(j)}) with
+
+\[
+\begin{aligned}
+ d(1)&=n-3, &d(3)&=4,\\
+ d(j)&=j-4 &&\text{for odd }j\geq5,\\
+ d(j)&=j+4 &&\text{for even }2\leq j\leq n-6,\\
+ d(n-4)&=n-1, &d(n-2)&=2.
+\end{aligned}
+\]
+
+These clauses are disjoint for (a\geq3), allowing empty ranges at (a=3).
+If (a) is odd, this is one cycle of length (2a-1).  If (a) is even, its
+cycle lengths are (a/2), (a-1), and (a/2).  Hence the order of the weak braid
+defect is unbounded.  This statement concerns (D_{12}), not the order of the
+signed-bijection correction (C_i).
+
 Through rank five, (C_i) fixes 197,212 of 226,008 state/root pairs.  Its
 nontrivial cycles have lengths from 2 through 20, with gaps, and it can change
 both insertion shape and insertion tableau.  Inverse-Kostka traversal is

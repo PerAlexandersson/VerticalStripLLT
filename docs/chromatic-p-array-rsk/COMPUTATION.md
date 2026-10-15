@@ -279,6 +279,32 @@ Its full weak rank-two orbit is a 30-cycle, five points over each vertex of
 the Coxeter hexagon.  In particular, a universal mod-three sheet label cannot
 repair the weak action.
 
+This five-cycle is the first member of an unbounded path family.  For the path
+on `n=2a` vertices, let `A_m` be the alternating `1/2` word of length `m`
+ending in `1`.  The fixed-content/ascent fiber
+
+```text
+weight=(a,a-1,1), asc=a-1
+```
+
+consists exactly of `w_j=A_(j-1) 3 A_(2a-j)` for `1 <= j < 2a`.  On this
+fiber `D(w_j)=w_(d(j))`, where
+
+```text
+d(1)=2a-3,                         d(3)=4,
+d(j)=j-4       for odd j>=5,
+d(j)=j+4       for even 2<=j<=2a-6,
+d(2a-4)=2a-1,                      d(2a-2)=2.
+```
+
+For odd `a`, this is one cycle of length `2a-1`.  For even `a`, the cycle
+lengths are `a/2,a-1,a/2`.  A short proof uses vertex reversal followed by
+the color complement `1<->3`: this involution conjugates `R_1` to `R_2`, so
+the displayed permutation is the square of its composition with
+`R_2 R_1 R_2`.  Direct Rust checks verify both the exact fiber and every
+clause of the formula for `3 <= a <= 10`.  Thus weak braid holonomy has
+unbounded order, although this does not assert unbounded order for `C_i`.
+
 ### The correction between the two reflections
 
 Write `R_i` for the increasing-order, `+-`-cancellation component reflection

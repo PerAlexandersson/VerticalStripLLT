@@ -3251,6 +3251,62 @@ mod tests {
 
     #[test]
     fn transported_reflections_and_signature_braid_obstruction() {
+        fn alternating_ending_in_one(length: usize) -> Vec<usize> {
+            (0..length).map(|index| (length - 1 - index) % 2).collect()
+        }
+
+        fn path_sheet_word(a: usize, position: usize) -> Vec<usize> {
+            let n = 2 * a;
+            let mut word = alternating_ending_in_one(position - 1);
+            word.push(2);
+            word.extend(alternating_ending_in_one(n - position));
+            word
+        }
+
+        fn path_fiber(a: usize) -> BTreeSet<Vec<usize>> {
+            fn recurse(
+                n: usize,
+                target_asc: usize,
+                remaining: &mut [usize; 3],
+                word: &mut Vec<usize>,
+                current_asc: usize,
+                out: &mut BTreeSet<Vec<usize>>,
+            ) {
+                if word.len() == n {
+                    if current_asc == target_asc {
+                        out.insert(word.clone());
+                    }
+                    return;
+                }
+                for color in 0..3 {
+                    if remaining[color] == 0 || word.last() == Some(&color) {
+                        continue;
+                    }
+                    let new_asc =
+                        current_asc + usize::from(word.last().is_some_and(|&last| last < color));
+                    if new_asc > target_asc {
+                        continue;
+                    }
+                    remaining[color] -= 1;
+                    word.push(color);
+                    recurse(n, target_asc, remaining, word, new_asc, out);
+                    word.pop();
+                    remaining[color] += 1;
+                }
+            }
+
+            let mut out = BTreeSet::new();
+            recurse(
+                2 * a,
+                a - 1,
+                &mut [a, a - 1, 1],
+                &mut Vec::new(),
+                0,
+                &mut out,
+            );
+            out
+        }
+
         let reflection_study = study_reflections(4);
         assert!(reflection_study.transported_braid_tests > 0);
 
@@ -3422,5 +3478,72 @@ mod tests {
             }
         }
         assert_eq!(defect_cycles, BTreeMap::from([(1, 1258), (3, 11), (5, 1)]));
+
+        for a in 3..=10 {
+            let n = 2 * a;
+            let path = Poset {
+                h: (0..n).map(|vertex| (vertex + 1).min(n - 1)).collect(),
+            };
+            let expected_fiber: BTreeSet<Vec<usize>> = (1..n)
+                .map(|position| path_sheet_word(a, position))
+                .collect();
+            assert_eq!(path_fiber(a), expected_fiber);
+            let defect = |coloring: &[usize]| {
+                defect_word
+                    .iter()
+                    .fold(coloring.to_vec(), |current, &color| {
+                        component_signature_reflection(&path, &current, color, false, true)
+                    })
+            };
+            for position in 1..n {
+                let expected_position = if position == 1 {
+                    n - 3
+                } else if position == 3 {
+                    4
+                } else if position >= 5 && position % 2 == 1 {
+                    position - 4
+                } else if position <= n - 6 && position % 2 == 0 {
+                    position + 4
+                } else if position == n - 4 {
+                    n - 1
+                } else {
+                    assert_eq!(position, n - 2);
+                    2
+                };
+                assert_eq!(
+                    defect(&path_sheet_word(a, position)),
+                    path_sheet_word(a, expected_position)
+                );
+            }
+            let mut seen_positions = BTreeSet::new();
+            let mut cycle_lengths = Vec::new();
+            for start in 1..n {
+                if seen_positions.contains(&start) {
+                    continue;
+                }
+                let mut current = path_sheet_word(a, start);
+                let mut length = 0;
+                loop {
+                    let position = (1..n)
+                        .find(|&position| path_sheet_word(a, position) == current)
+                        .expect("the defect must preserve the path sheet family");
+                    if !seen_positions.insert(position) {
+                        assert_eq!(position, start);
+                        break;
+                    }
+                    length += 1;
+                    current = defect(&current);
+                }
+                cycle_lengths.push(length);
+            }
+            cycle_lengths.sort_unstable();
+            let mut expected_lengths = if a % 2 == 1 {
+                vec![2 * a - 1]
+            } else {
+                vec![a / 2, a / 2, a - 1]
+            };
+            expected_lengths.sort_unstable();
+            assert_eq!(cycle_lengths, expected_lengths);
+        }
     }
 }
