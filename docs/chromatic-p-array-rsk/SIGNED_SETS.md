@@ -424,6 +424,171 @@ Shareshian--Wachs odd-component switch (\psi_i).  For the two-element chain,
 169,220 of 226,008 transported reflections agree with (\psi_i), while
 (\psi_i) fails 7,236 of 169,016 adjacent braid tests.
 
+Let (R_i) denote the increasing-order component-signature reflection obtained
+from Ehrhard's alignment, and use right-to-left composition.  The correction
+
+\[
+  C_i=S_i^P R_i
+\]
+
+preserves weight and ascent.  It is the post-correction in
+(S_i^P\kappa=C_i(R_i\kappa)); equivalently,
+(S_i^P=R_iC_i^{-1}).  Since both factors are involutions,
+
+\[
+  C_i^{-1}=R_iS_i^P,
+  \qquad
+  R_iC_iR_i=S_i^PC_iS_i^P=C_i^{-1}.
+\]
+
+The correction is not itself an involution.  Even for the three-element
+chain, on words with two (1)'s and one (2), it has the cycle
+
+\[
+  112\longmapsto121\longmapsto211\longmapsto112,
+\]
+
+and it similarly cycles (122,212,221).  Thus (C_i) measures both the gauge
+chosen by the signed bijection (which does not specialize to ordinary RSK on
+a chain) and the genuine failure of the weak component reflections to satisfy
+rank-two compatibility.
+
+There is an exact rank-two bookkeeping identity.  For adjacent (i,j), put
+
+\[
+  D_{ij}=(R_iR_j)^3,
+\]
+
+and write ({}^gH=gHg^{-1}).  If
+
+\[
+\begin{split}
+  L_{ij}&=C_i({}^{R_i}C_j)({}^{R_iR_j}C_i),\\
+  M_{ij}&=C_j({}^{R_j}C_i)({}^{R_jR_i}C_j),
+\end{split}
+\]
+
+then the braid relation for the transported reflections is precisely
+
+\[
+  L_{ij}D_{ij}=M_{ij},
+  \qquad\text{or equivalently}\qquad
+  D_{ij}=L_{ij}^{-1}M_{ij}.
+\]
+
+Thus (D_{ij}) is the weak reflection's rank-two holonomy and the correction
+cocycle cancels it.  On the first rank-six obstruction above, (D_{12}) has
+the three-cycle
+
+\[
+  233231\longmapsto133232\longmapsto233213\longmapsto233231
+\]
+
+and fixes the other 19 proper colorings of weight ((1,2,3)).  Among these 22
+colorings, 11 have ascent one and 11 have ascent two; the moved three-cycle
+has ascent one.  The full (R_1,R_2)-orbit is an 18-cycle of ascent one
+containing three colorings over each of the six permutations of ((3,2,1)).
+It is therefore a three-sheeted cover of the Coxeter hexagon rather than a
+genuine symmetric group orbit.
+
+In particular, there is no single global relabeling (H) with
+(S_i^P=HR_iH^{-1}) for every (i): simultaneous conjugation would preserve the
+failed braid relation.  Any remedy must therefore be root-dependent, as the
+cocycle (C_i) is, or enrich the state by sheet data.
+
+Even the complete ordered component words for both simple roots do not
+determine the sheet.  For the same order, the colorings (132121) and (312121)
+have weight ((3,2,1)), ascent one, and identical ordered colored component
+words
+
+\[
+  1\mid2121 \quad\text{for }(1,2),
+  \qquad
+  3\mid2\mid2 \quad\text{for }(2,3).
+\]
+
+Nevertheless,
+
+\[
+  D_{12}(132121)=123121,
+  \qquad
+  D_{12}(312121)=312121.
+\]
+
+The two colorings differ only by interchanging colors (1) and (3) on the two
+isolated initial vertices.  Hence the separate component lists lose essential
+cross-root interleaving information; any intrinsic rule needs vertex labels or
+an equivalent compatibility datum linking the two root decompositions.
+
+The sheet number is not uniformly three.  Across every rank-six order and all
+1,296 proper colorings of content ((3,2,1)), the cycle inventory of (D_{12})
+is 1,258 fixed points, eleven 3-cycles, and one 5-cycle.  The 5-cycle occurs
+for the connected path, with Hessenberg code ((2,3,4,5,6,6)):
+
+\[
+  121321\mapsto132121\mapsto212131\mapsto312121
+  \mapsto213121\mapsto121321.
+\]
+
+Its weak rank-two orbit is a 30-cycle, hence a five-sheeted cover of the
+Coxeter hexagon.  Thus no universal (\mathbb Z/3\mathbb Z)-valued sheet charge
+can repair the weak action.
+
+Through rank five, (C_i) fixes 197,212 of 226,008 state/root pairs.  Its
+nontrivial cycles have lengths from 2 through 20, with gaps, and it can change
+both insertion shape and insertion tableau.  Inverse-Kostka traversal is
+strongly correlated with nontrivial correction but is not necessary: 3,260
+nontrivial corrections occur when none of the source, its (R_i)-image, or its
+(C_i)-image uses an inverse-Kostka edge.  The first is the displayed chain
+cycle.  Hence inverse Kostka is a bottleneck, but not the sole source of the
+nonlocal gauge.
+
+The four observed presence/absence masks are not an additional empirical
+phenomenon.  A forward Garsia--Milne path uses an inverse-Kostka edge exactly
+when its terminal shape differs from the decreasing rearrangement of its
+content.  One implication is immediate from the canonical initial triple.
+For the converse, a terminal fixed point with canonical shape has canonical
+(nu), hence is fixed by the inverse-Kostka involution; being fixed by both
+alternating involutions makes its path isolated.  Since (R_i) and (C_i)
+preserve sorted content and (T(C_i\kappa)=T(R_i\kappa)), the latter two
+endpoints necessarily have the same inverse-Kostka presence bit.
+
+There is nevertheless an exact component statement:
+
+\[
+  T(C_i\kappa)=T(R_i\kappa).
+\]
+
+Indeed, (C_i\kappa=S_i^P(R_i\kappa)) and the transported crystal reflection
+preserves the insertion tableau.  Hence (C_i) compares the original coloring
+with a point in the weakly reflected insertion component; its remaining
+motion inside that component is the signed-bijection gauge.
+
+There is, however, an exact reversible trace certificate.  Flatten the local
+inverse-Kostka events into a single ordered (psi/theta) word.  A (psi) letter
+retains its source and target rows and its row-insertion/deletion flags; a
+(theta) letter retains its row and column.  We discard the intermediate
+partitions, the inverse-Kostka edge boundaries, and all Shareshian--Wachs
+events.  Then, for each fixed order, the triple
+
+\[
+  (\operatorname{wt}(\kappa),T(\kappa),
+    \text{detailed inverse-Kostka word of }\kappa)
+\]
+
+determines (\kappa).  Indeed, start with the row-constant normalized tableau
+of shape (\operatorname{sort}(\operatorname{wt}(\kappa))).  Replay each
+recorded row move or tail switch, then undo the fixed content normalization.
+This reconstructs the final ((\lambda,Q)); intervening Shareshian--Wachs moves
+change only the permutation coordinate and therefore do not affect the replay.
+Together with (T), the inverse bijection recovers (\kappa).
+
+The implementation asserts this replay identity on all 56,993 full-alphabet
+proper colorings through rank five.  Among the 28,796 nontrivial correction
+states, 5,780 preserve the detailed word (2,520 with a nonempty word), but none
+preserve both (T) and the word.  The certificate is therefore reversible, but
+an intrinsic rule for updating it under (S_i^P) remains to be found.
+
 The component anchor does have a direct description.  For the highest tableau
 (Q_\lambda^{\mathrm{high}}), the reverse inverse-Kostka involution is already
 fixed and no alternating path is traversed.  Consequently the highest-weight

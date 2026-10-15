@@ -226,6 +226,157 @@ with this component-signature rule in all 2,592 single-reflection checks on
 the rank-six `(3,2,1)` orbit.  Thus the same witness is also a concrete braid
 failure for Ehrhard's weak, non-normal operators.
 
+For involutions, the braid relation is equivalent to
+`D=(R_1 R_2)^3=id`.  On this witness the defect has the exact cycle
+
+```text
+233231 -> 133232 -> 233213 -> 233231
+```
+
+and fixes the other 19 proper colorings of weight `(1,2,3)`.  Of these 22
+colorings, 11 have ascent one and 11 have ascent two; the moved three-cycle
+has ascent one.  The orbit generated from `121321` by `R_1,R_2` is an
+18-cycle of ascent one, with three colorings at each of the six permutations
+of weight `(3,2,1)`.
+Thus the weak action is a three-sheeted cover of the Coxeter hexagon at the
+first obstruction.
+
+Consequently there is no single global conjugation taking every `R_i` to the
+corresponding genuine `S_i`: conjugation would preserve the failed braid
+relation.  A repair must be root-dependent or must enlarge the state by a
+sheet label.
+
+Component data for the two roots separately does not identify the sheet.  On
+the same order, `132121` and `312121` have weight `(3,2,1)`, ascent one, and
+identical complete ordered colored component words for both pairs:
+
+```text
+colors 1/2:  1 | 2121
+colors 2/3:  3 | 2 | 2
+```
+
+Nevertheless `D(132121)=123121`, while `D(312121)=312121`.  The inputs differ
+only by swapping colors 1 and 3 on the two isolated initial vertices.  Thus a
+rule built from separate component sizes, majorities, or even their full
+colored words misses the cross-root interleaving needed to control holonomy.
+
+Nor is the sheet number uniformly three.  Over all rank-six orders and all
+1,296 proper colorings of content `(3,2,1)`, the cycle inventory of `D` is
+
+```text
+fixed points: 1,258
+3-cycles:        11
+5-cycles:         1
+```
+
+The 5-cycle belongs to the connected path `P=(2,3,4,5,6,6)`:
+
+```text
+121321 -> 132121 -> 212131 -> 312121 -> 213121 -> 121321.
+```
+
+Its full weak rank-two orbit is a 30-cycle, five points over each vertex of
+the Coxeter hexagon.  In particular, a universal mod-three sheet label cannot
+repair the weak action.
+
+### The correction between the two reflections
+
+Write `R_i` for the increasing-order, `+-`-cancellation component reflection
+and define `C_i=S_i R_i`, with the rightmost map applied first.  Then `C_i`
+preserves weight and ascent, and
+
+```text
+S_i(x) = C_i(R_i(x)),
+C_i^(-1) = R_i S_i,
+R_i C_i R_i = S_i C_i S_i = C_i^(-1).
+```
+
+The correction is sparse, is not an involution, and already has cycles of
+length up to 20.  Its complete rank-five census is:
+
+```text
+fixed states:          197,212 / 226,008
+same insertion shape: 207,046 / 226,008
+same insertion T:     200,248 / 226,008
+cycle lengths:        1,2,3,4,5,6,7,8,9,10,11,12,13,15,16,20
+```
+
+The first nontrivial example is already the three-element chain.  In
+one-based colors,
+
+```text
+C_1: (112 121 211)(122 212 221).
+```
+
+Thus this correction measures not only a poset-specific braid defect but also
+the gauge of the chosen signed bijection: the present `Phi` does not reduce to
+ordinary RSK on a chain.
+
+More precisely, for adjacent roots `i,j`, set `D=(R_i R_j)^3`, use
+`^g H=g H g^(-1)`, and put
+
+```text
+L = C_i (^R_i C_j) (^(R_i R_j) C_i),
+M = C_j (^R_j C_i) (^(R_j R_i) C_j).
+```
+
+Expanding `S_i=C_i R_i` shows that the genuine braid relation is exactly
+`L D=M`, or `D=L^(-1) M`.  The correction cocycle therefore cancels the weak
+rank-two holonomy.  Also `T(C_i(x))=T(R_i(x))` exactly, because `S_i`
+preserves the insertion tableau.  This separates crossing to the weakly
+reflected insertion component from gauge motion within that component.
+
+To test whether inverse-Kostka traversal completely explains the correction,
+the program records whether the forward traces of `x`, `R_i(x)`, and `C_i(x)`
+contain an inverse-Kostka event:
+
+| IK on `x` | IK on `R_i(x)` | IK on `C_i(x)` | states | nontrivial `C_i` |
+|:--:|:--:|:--:|--:|--:|
+| no | no | no | 87,090 | 3,260 |
+| yes | no | no | 4,906 | 4,906 |
+| no | yes | yes | 4,906 | 4,906 |
+| yes | yes | yes | 129,106 | 15,724 |
+
+No other mask occurs through rank five.  In particular, changing the recorded
+presence/absence of an inverse-Kostka event always accompanies a correction
+in this census, but 3,260 corrections occur with no inverse-Kostka event at
+any endpoint.  The smallest is `001 -> 010` on the three-element chain.
+Therefore inverse Kostka is a major bottleneck, but the orientation,
+normalization, and nonclassical chain gauge also contribute.
+
+The restriction to four masks is forced rather than a separate experimental
+pattern.  A forward path contains an inverse-Kostka step exactly when its
+terminal shape is not the decreasing rearrangement of its content.  Moreover,
+`R_i(x)` and `C_i(x)` have the same sorted content and the same insertion
+tableau, so their two flags agree.  A more discriminating experiment must use
+the ordered local `psi/theta` word, not merely the presence of such a step.
+
+The refined certificate needs less data than that experiment initially
+recorded.  Flatten all inverse-Kostka edges to the detailed ordered
+`psi/theta` word: a `psi` letter stores its source and target rows and
+insertion/deletion flags, while a `theta` letter stores its row and column.
+Discard intermediate shapes, edge boundaries, and all SW events.  Its
+rank-five census gives:
+
+```text
+full-alphabet colorings tested:                         56,993
+collisions of (weight, T, detailed IK word):                  0
+nontrivial C_i preserving the detailed IK word:           5,780
+  of which the word is nonempty:                          2,520
+nontrivial C_i preserving both T and that word:                0
+```
+
+For comparison, 3,036 of the 28,796 nontrivial correction states preserve
+`T`, while 25,760 cross to another insertion tableau.  Neither coordinate
+alone determines a correction, but their pair is formally reversible.  Start
+from the row-constant normalized tableau for the sorted content and replay the
+recorded row moves and tail switches.  This reconstructs the terminal
+`(lambda,Q)` because intervening SW moves change only the permutation
+coordinate; undoing content normalization gives `Q`, and `(T,Q)` determines
+the coloring.  The Rust implementation asserts this replay identity for all
+56,993 tested colorings.  What remains unknown is an intrinsic update rule for
+the word under `S_i`.
+
 The obvious standardization shortcut also fails.  Splitting equal colors into
 consecutive labels in increasing vertex order first fails for the two-element
 chain and the coloring `11`.  Decreasing vertex order survives rank two but

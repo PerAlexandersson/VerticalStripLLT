@@ -86,6 +86,54 @@ enum InverseKostkaEvent {
     },
 }
 
+#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
+enum InverseKostkaTraceLetter {
+    Psi {
+        k: usize,
+        source_row: usize,
+        target_row: usize,
+        inserted_row: bool,
+        deleted_row: bool,
+    },
+    Theta {
+        row: usize,
+        col: usize,
+    },
+}
+
+type TraceCoordinate = (Vec<usize>, Vec<usize>, Vec<InverseKostkaTraceLetter>);
+
+fn inverse_kostka_word(trace: &[TraceEvent]) -> Vec<InverseKostkaTraceLetter> {
+    trace
+        .iter()
+        .filter_map(|event| {
+            let TraceEvent::InverseKostka { local, .. } = event else {
+                return None;
+            };
+            Some(local.iter().map(|event| match event {
+                InverseKostkaEvent::Psi {
+                    k,
+                    source_row,
+                    target_row,
+                    inserted_row,
+                    deleted_row,
+                } => InverseKostkaTraceLetter::Psi {
+                    k: *k,
+                    source_row: *source_row,
+                    target_row: *target_row,
+                    inserted_row: *inserted_row,
+                    deleted_row: *deleted_row,
+                },
+                InverseKostkaEvent::Theta { row, col } => InverseKostkaTraceLetter::Theta {
+                    row: *row,
+                    col: *col,
+                },
+            }))
+        })
+        .flatten()
+        .collect()
+}
+
 #[derive(Clone, Debug)]
 struct Catalog {
     positive: Vec<Triple>,
@@ -820,6 +868,64 @@ fn canonical_fixed_triple(n: usize, mu: &[usize]) -> Triple {
     }
 }
 
+fn replay_inverse_kostka_word(
+    mu: &[usize],
+    word: &[InverseKostkaTraceLetter],
+) -> (Vec<usize>, Vec<usize>) {
+    let initial_lambda = decreasing_rearrangement(mu);
+    let mut rows: Vec<Vec<usize>> = initial_lambda
+        .iter()
+        .enumerate()
+        .map(|(row, &length)| vec![row + 1; length])
+        .collect();
+    for letter in word {
+        match *letter {
+            InverseKostkaTraceLetter::Psi {
+                k,
+                source_row,
+                target_row,
+                inserted_row,
+                deleted_row,
+            } => {
+                let moved = rows[source_row]
+                    .pop()
+                    .expect("a recorded psi source row must be nonempty");
+                if inserted_row {
+                    assert!(!deleted_row);
+                    assert_eq!(target_row, k);
+                    rows.insert(target_row, vec![moved]);
+                } else {
+                    rows[target_row].push(moved);
+                    if deleted_row {
+                        assert_eq!(source_row, k - 1);
+                        assert!(rows[source_row].is_empty());
+                        rows.remove(source_row);
+                    }
+                }
+            }
+            InverseKostkaTraceLetter::Theta { row, col } => {
+                let upper = rows[row - 1].clone();
+                let lower = rows[row].clone();
+                rows[row - 1] = upper[..col]
+                    .iter()
+                    .chain(lower[col + 1..].iter())
+                    .copied()
+                    .collect();
+                rows[row] = lower[..=col]
+                    .iter()
+                    .chain(upper[col..].iter())
+                    .copied()
+                    .collect();
+            }
+        }
+    }
+    assert!(is_semistandard_rows(&rows));
+    let lambda: Vec<usize> = rows.iter().map(Vec::len).collect();
+    let normalized_q = rows_to_entries(&rows, true);
+    let q = denormalize_ssyt_content(&normalized_q, &lambda, mu);
+    (lambda, q)
+}
+
 fn inverse_kostka_local(
     triple: &Triple,
     nu: &[usize],
@@ -1212,6 +1318,8 @@ fn proper_colorings(poset: &Poset, alphabet: usize) -> Vec<Vec<usize>> {
 struct CrystalVertex {
     coloring: Vec<usize>,
     image: Target,
+    has_inverse_kostka_step: bool,
+    inverse_kostka_word: Vec<InverseKostkaTraceLetter>,
 }
 
 #[derive(Clone, Debug)]
@@ -1252,9 +1360,19 @@ fn coloring_crystal_graph(poset: &Poset, alphabet: usize) -> ColoringCrystalGrap
         .collect();
     let vertices: Vec<CrystalVertex> = colorings
         .into_iter()
-        .map(|coloring| CrystalVertex {
-            image: forward_with_alphabet(poset, &coloring, alphabet).0,
-            coloring,
+        .map(|coloring| {
+            let (image, trace) = forward_with_alphabet(poset, &coloring, alphabet);
+            let inverse_kostka_word = inverse_kostka_word(&trace);
+            let (replayed_lambda, replayed_q) =
+                replay_inverse_kostka_word(&shape(&coloring, alphabet), &inverse_kostka_word);
+            assert_eq!(replayed_lambda, image.lambda);
+            assert_eq!(replayed_q, image.q);
+            CrystalVertex {
+                coloring,
+                image,
+                has_inverse_kostka_step: !inverse_kostka_word.is_empty(),
+                inverse_kostka_word,
+            }
         })
         .collect();
     let mut edges = Vec::new();
@@ -2074,6 +2192,318 @@ fn component_signature_reflection(
     result
 }
 
+#[derive(Clone, Debug)]
+struct CorrectionWitness {
+    code: Vec<usize>,
+    alphabet: usize,
+    color: usize,
+    source: Vec<usize>,
+    target: Vec<usize>,
+    source_lambda: Vec<usize>,
+    target_lambda: Vec<usize>,
+    source_t: Vec<usize>,
+    target_t: Vec<usize>,
+}
+
+#[derive(Default)]
+struct CorrectionStudy {
+    coordinate_states: usize,
+    coordinate_collision_excess: usize,
+    coordinate_max_fiber: usize,
+    states: usize,
+    fixed_states: usize,
+    same_shape_states: usize,
+    same_insertion_states: usize,
+    nontrivial_same_inverse_kostka_word: usize,
+    nontrivial_same_nonempty_inverse_kostka_word: usize,
+    nontrivial_same_insertion_and_inverse_kostka_word: usize,
+    trace_classes: [usize; 8],
+    nontrivial_trace_classes: [usize; 8],
+    cycles_by_length: BTreeMap<usize, usize>,
+    first_nontrivial: Option<CorrectionWitness>,
+    first_shape_change: Option<CorrectionWitness>,
+    first_insertion_change: Option<CorrectionWitness>,
+    first_outside_pair_change: Option<CorrectionWitness>,
+    first_without_inverse_kostka: Option<CorrectionWitness>,
+}
+
+impl CorrectionStudy {
+    fn absorb(&mut self, other: Self) {
+        self.coordinate_states += other.coordinate_states;
+        self.coordinate_collision_excess += other.coordinate_collision_excess;
+        self.coordinate_max_fiber = self.coordinate_max_fiber.max(other.coordinate_max_fiber);
+        self.states += other.states;
+        self.fixed_states += other.fixed_states;
+        self.same_shape_states += other.same_shape_states;
+        self.same_insertion_states += other.same_insertion_states;
+        self.nontrivial_same_inverse_kostka_word += other.nontrivial_same_inverse_kostka_word;
+        self.nontrivial_same_nonempty_inverse_kostka_word +=
+            other.nontrivial_same_nonempty_inverse_kostka_word;
+        self.nontrivial_same_insertion_and_inverse_kostka_word +=
+            other.nontrivial_same_insertion_and_inverse_kostka_word;
+        for class in 0..8 {
+            self.trace_classes[class] += other.trace_classes[class];
+            self.nontrivial_trace_classes[class] += other.nontrivial_trace_classes[class];
+        }
+        for (length, count) in other.cycles_by_length {
+            *self.cycles_by_length.entry(length).or_default() += count;
+        }
+        if self.first_nontrivial.is_none() {
+            self.first_nontrivial = other.first_nontrivial;
+        }
+        if self.first_shape_change.is_none() {
+            self.first_shape_change = other.first_shape_change;
+        }
+        if self.first_insertion_change.is_none() {
+            self.first_insertion_change = other.first_insertion_change;
+        }
+        if self.first_outside_pair_change.is_none() {
+            self.first_outside_pair_change = other.first_outside_pair_change;
+        }
+        if self.first_without_inverse_kostka.is_none() {
+            self.first_without_inverse_kostka = other.first_without_inverse_kostka;
+        }
+    }
+}
+
+fn correction_witness(
+    poset: &Poset,
+    alphabet: usize,
+    color: usize,
+    graph: &ColoringCrystalGraph,
+    source: usize,
+    target: usize,
+) -> CorrectionWitness {
+    CorrectionWitness {
+        code: poset.code(),
+        alphabet,
+        color,
+        source: graph.vertices[source].coloring.clone(),
+        target: graph.vertices[target].coloring.clone(),
+        source_lambda: graph.vertices[source].image.lambda.clone(),
+        target_lambda: graph.vertices[target].image.lambda.clone(),
+        source_t: graph.vertices[source].image.t.clone(),
+        target_t: graph.vertices[target].image.t.clone(),
+    }
+}
+
+fn study_corrections_for_poset(poset: &Poset, alphabet: usize) -> CorrectionStudy {
+    let graph = coloring_crystal_graph(poset, alphabet);
+    let indices: BTreeMap<Vec<usize>, usize> = graph
+        .vertices
+        .iter()
+        .enumerate()
+        .map(|(index, vertex)| (vertex.coloring.clone(), index))
+        .collect();
+    let roots = alphabet.saturating_sub(1);
+    let mut study = CorrectionStudy::default();
+    let mut coordinate_fibers: BTreeMap<TraceCoordinate, usize> = BTreeMap::new();
+    for vertex in &graph.vertices {
+        *coordinate_fibers
+            .entry((
+                shape(&vertex.coloring, alphabet),
+                vertex.image.t.clone(),
+                vertex.inverse_kostka_word.clone(),
+            ))
+            .or_default() += 1;
+    }
+    study.coordinate_states = graph.vertices.len();
+    study.coordinate_collision_excess = coordinate_fibers
+        .values()
+        .map(|&size| size.saturating_sub(1))
+        .sum();
+    study.coordinate_max_fiber = coordinate_fibers.values().copied().max().unwrap_or(0);
+    for color in 0..roots {
+        let mut transported = vec![0; graph.vertices.len()];
+        let mut signature = vec![0; graph.vertices.len()];
+        for (index, vertex) in graph.vertices.iter().enumerate() {
+            let reflected_target = crystal_reflection_on_target(&vertex.image, alphabet, color);
+            let reflected_weight = shape(&reflected_target.q, alphabet);
+            let reflected = reverse(poset, &reflected_target, &reflected_weight);
+            transported[index] = *indices
+                .get(&reflected)
+                .expect("a transported reflection must remain in the graph");
+
+            let local = component_signature_reflection(poset, &vertex.coloring, color, false, true);
+            signature[index] = *indices
+                .get(&local)
+                .expect("a signature reflection must remain in the graph");
+        }
+        let correction: Vec<usize> = (0..graph.vertices.len())
+            .map(|index| transported[signature[index]])
+            .collect();
+        let inverse_correction: Vec<usize> = (0..graph.vertices.len())
+            .map(|index| signature[transported[index]])
+            .collect();
+        for index in 0..graph.vertices.len() {
+            assert_eq!(correction[inverse_correction[index]], index);
+            assert_eq!(inverse_correction[correction[index]], index);
+            assert_eq!(
+                signature[correction[signature[index]]],
+                inverse_correction[index]
+            );
+
+            let target = correction[index];
+            let source_vertex = &graph.vertices[index];
+            let target_vertex = &graph.vertices[target];
+            let signature_vertex = &graph.vertices[signature[index]];
+            for vertex in [source_vertex, signature_vertex, target_vertex] {
+                let sorted_weight = decreasing_rearrangement(&shape(&vertex.coloring, alphabet));
+                assert_eq!(
+                    vertex.has_inverse_kostka_step,
+                    vertex.image.lambda != sorted_weight
+                );
+            }
+            // Since C_i = S_i R_i and S_i preserves the insertion tableau,
+            // C_i(x) and R_i(x) lie in the same transported crystal component.
+            assert_eq!(target_vertex.image.lambda, signature_vertex.image.lambda);
+            assert_eq!(target_vertex.image.t, signature_vertex.image.t);
+            assert_eq!(
+                shape(&source_vertex.coloring, alphabet),
+                shape(&target_vertex.coloring, alphabet)
+            );
+            assert_eq!(
+                asc(poset, &source_vertex.coloring),
+                asc(poset, &target_vertex.coloring)
+            );
+            let weight = shape(&source_vertex.coloring, alphabet);
+            if weight[color] == weight[color + 1] {
+                assert_eq!(target, index);
+            }
+
+            study.states += 1;
+            study.fixed_states += usize::from(target == index);
+            let trace_class = usize::from(source_vertex.has_inverse_kostka_step)
+                + 2 * usize::from(signature_vertex.has_inverse_kostka_step)
+                + 4 * usize::from(target_vertex.has_inverse_kostka_step);
+            study.trace_classes[trace_class] += 1;
+            study.nontrivial_trace_classes[trace_class] += usize::from(target != index);
+            let same_shape = source_vertex.image.lambda == target_vertex.image.lambda;
+            let same_insertion = same_shape && source_vertex.image.t == target_vertex.image.t;
+            let same_inverse_kostka_word =
+                source_vertex.inverse_kostka_word == target_vertex.inverse_kostka_word;
+            study.same_shape_states += usize::from(same_shape);
+            study.same_insertion_states += usize::from(same_insertion);
+            study.nontrivial_same_inverse_kostka_word +=
+                usize::from(target != index && same_inverse_kostka_word);
+            study.nontrivial_same_nonempty_inverse_kostka_word += usize::from(
+                target != index
+                    && same_inverse_kostka_word
+                    && !source_vertex.inverse_kostka_word.is_empty(),
+            );
+            study.nontrivial_same_insertion_and_inverse_kostka_word +=
+                usize::from(target != index && same_insertion && same_inverse_kostka_word);
+            let witness = correction_witness(poset, alphabet, color, &graph, index, target);
+            if target != index && study.first_nontrivial.is_none() {
+                study.first_nontrivial = Some(witness.clone());
+            }
+            if target != index && trace_class == 0 && study.first_without_inverse_kostka.is_none() {
+                study.first_without_inverse_kostka = Some(witness.clone());
+            }
+            if !same_shape && study.first_shape_change.is_none() {
+                study.first_shape_change = Some(witness.clone());
+            }
+            if !same_insertion && study.first_insertion_change.is_none() {
+                study.first_insertion_change = Some(witness.clone());
+            }
+            if (0..poset.n()).any(|vertex| {
+                source_vertex.coloring[vertex] != target_vertex.coloring[vertex]
+                    && (![color, color + 1].contains(&source_vertex.coloring[vertex])
+                        || ![color, color + 1].contains(&target_vertex.coloring[vertex]))
+            }) && study.first_outside_pair_change.is_none()
+            {
+                study.first_outside_pair_change = Some(witness);
+            }
+        }
+
+        let mut seen = vec![false; graph.vertices.len()];
+        for start in 0..graph.vertices.len() {
+            if seen[start] {
+                continue;
+            }
+            let mut length = 0;
+            let mut current = start;
+            loop {
+                assert!(!seen[current] || current == start);
+                if seen[current] {
+                    break;
+                }
+                seen[current] = true;
+                length += 1;
+                current = correction[current];
+            }
+            assert_eq!(current, start);
+            *study.cycles_by_length.entry(length).or_default() += 1;
+        }
+    }
+    study
+}
+
+fn study_corrections(max_n: usize) -> CorrectionStudy {
+    let mut study = CorrectionStudy::default();
+    for n in 1..=max_n {
+        for poset in natural_unit_interval_orders(n) {
+            study.absorb(study_corrections_for_poset(&poset, n));
+        }
+    }
+    study
+}
+
+fn print_correction_witness(label: &str, witness: &CorrectionWitness) {
+    println!(
+        "{label} for index {}: P={:?}, k={}, {:?} -> {:?}, shape {:?}->{:?}, T {:?}->{:?}",
+        witness.color + 1,
+        witness.code,
+        witness.alphabet,
+        witness.source,
+        witness.target,
+        witness.source_lambda,
+        witness.target_lambda,
+        witness.source_t,
+        witness.target_t
+    );
+}
+
+fn print_correction_study(study: &CorrectionStudy) {
+    println!(
+        "coordinates (weight,T,detailed IK word): states={}, collision excess={}, max fiber={}",
+        study.coordinate_states, study.coordinate_collision_excess, study.coordinate_max_fiber
+    );
+    println!(
+        "reflection correction C=S R: fixed={}/{}, same shape={}, same insertion={}, cycles={:?}",
+        study.fixed_states,
+        study.states,
+        study.same_shape_states,
+        study.same_insertion_states,
+        study.cycles_by_length
+    );
+    println!(
+        "correction by IK trace mask [source, R-source, C-target bits]: totals={:?}, nontrivial={:?}",
+        study.trace_classes, study.nontrivial_trace_classes
+    );
+    println!(
+        "nontrivial corrections preserving detailed IK word: {} (nonempty {}), preserving both insertion T and IK word: {}",
+        study.nontrivial_same_inverse_kostka_word,
+        study.nontrivial_same_nonempty_inverse_kostka_word,
+        study.nontrivial_same_insertion_and_inverse_kostka_word
+    );
+    if let Some(witness) = &study.first_nontrivial {
+        print_correction_witness("first nontrivial correction", witness);
+    }
+    if let Some(witness) = &study.first_shape_change {
+        print_correction_witness("first shape-changing correction", witness);
+    }
+    if let Some(witness) = &study.first_insertion_change {
+        print_correction_witness("first insertion-changing correction", witness);
+    }
+    if let Some(witness) = &study.first_outside_pair_change {
+        print_correction_witness("first correction touching an outside color", witness);
+    }
+    if let Some(witness) = &study.first_without_inverse_kostka {
+        print_correction_witness("first nontrivial correction with no IK trace", witness);
+    }
+}
+
 #[derive(Default)]
 struct SignatureReflectionVariant {
     tests: usize,
@@ -2725,6 +3155,8 @@ fn main() {
     print_standardization_result(5, true, decreasing_standardization.as_ref());
     let reflection_study = study_reflections(5);
     print_reflection_study(&reflection_study);
+    let correction_study = study_corrections(5);
+    print_correction_study(&correction_study);
     print_component_signature_studies(6);
     let mut total = Summary::default();
     for n in 1..=5 {
@@ -2826,12 +3258,169 @@ mod tests {
             h: vec![0, 1, 3, 4, 5, 5],
         };
         let source = vec![0, 1, 0, 2, 1, 0];
-        let apply_word = |word: &[usize]| {
-            word.iter().fold(source.clone(), |coloring, &color| {
+        let apply_word = |start: &[usize], word: &[usize]| {
+            word.iter().fold(start.to_vec(), |coloring, &color| {
                 component_signature_reflection(&poset, &coloring, color, false, true)
             })
         };
-        assert_eq!(apply_word(&[0, 1, 0]), vec![0, 2, 2, 1, 2, 1]);
-        assert_eq!(apply_word(&[1, 0, 1]), vec![1, 2, 2, 1, 2, 0]);
+        assert_eq!(apply_word(&source, &[0, 1, 0]), vec![0, 2, 2, 1, 2, 1]);
+        assert_eq!(apply_word(&source, &[1, 0, 1]), vec![1, 2, 2, 1, 2, 0]);
+
+        let defect_word = [1, 0, 1, 0, 1, 0];
+        let first = vec![1, 2, 2, 1, 2, 0];
+        let second = vec![0, 2, 2, 1, 2, 1];
+        let third = vec![1, 2, 2, 1, 0, 2];
+        assert_eq!(apply_word(&first, &defect_word), second);
+        assert_eq!(apply_word(&second, &defect_word), third);
+        assert_eq!(apply_word(&third, &defect_word), first);
+
+        let fixed_weight = vec![1, 2, 3];
+        let weight_fiber: Vec<Vec<usize>> = proper_colorings(&poset, 3)
+            .into_iter()
+            .filter(|coloring| shape(coloring, 3) == fixed_weight)
+            .collect();
+        assert_eq!(weight_fiber.len(), 22);
+        assert_eq!(
+            weight_fiber
+                .iter()
+                .filter(|coloring| apply_word(coloring, &defect_word) != **coloring)
+                .count(),
+            3
+        );
+        assert_eq!(
+            weight_fiber
+                .iter()
+                .filter(|coloring| asc(&poset, coloring) == 1)
+                .count(),
+            11
+        );
+        assert_eq!(
+            weight_fiber
+                .iter()
+                .filter(|coloring| asc(&poset, coloring) == 2)
+                .count(),
+            11
+        );
+
+        let mut orbit = BTreeSet::from([source.clone()]);
+        let mut frontier = vec![source];
+        while let Some(coloring) = frontier.pop() {
+            for color in 0..2 {
+                let neighbor = apply_word(&coloring, &[color]);
+                if orbit.insert(neighbor.clone()) {
+                    frontier.push(neighbor);
+                }
+            }
+        }
+        assert_eq!(orbit.len(), 18);
+        let mut weights = BTreeMap::new();
+        for coloring in &orbit {
+            assert_eq!(asc(&poset, coloring), 1);
+            let neighbors: BTreeSet<Vec<usize>> =
+                (0..2).map(|color| apply_word(coloring, &[color])).collect();
+            assert_eq!(neighbors.len(), 2);
+            assert!(!neighbors.contains(coloring));
+            *weights.entry(shape(coloring, 3)).or_insert(0) += 1;
+        }
+        assert_eq!(weights.len(), 6);
+        assert!(weights.values().all(|&multiplicity| multiplicity == 3));
+
+        let component_words = |coloring: &[usize], color: usize| {
+            two_color_components(&poset, coloring, color)
+                .into_iter()
+                .map(|component| {
+                    component
+                        .into_iter()
+                        .map(|vertex| coloring[vertex])
+                        .collect::<Vec<_>>()
+                })
+                .collect::<Vec<_>>()
+        };
+        let context_x = vec![0, 2, 1, 0, 1, 0];
+        let context_y = vec![2, 0, 1, 0, 1, 0];
+        assert_eq!(shape(&context_x, 3), vec![3, 2, 1]);
+        assert_eq!(shape(&context_y, 3), vec![3, 2, 1]);
+        assert_eq!(asc(&poset, &context_x), 1);
+        assert_eq!(asc(&poset, &context_y), 1);
+        assert_eq!(
+            component_words(&context_x, 0),
+            component_words(&context_y, 0)
+        );
+        assert_eq!(
+            component_words(&context_x, 1),
+            component_words(&context_y, 1)
+        );
+        assert_eq!(apply_word(&context_x, &defect_word), vec![0, 1, 2, 0, 1, 0]);
+        assert_eq!(apply_word(&context_y, &defect_word), context_y);
+
+        let path_poset = Poset {
+            h: vec![1, 2, 3, 4, 5, 5],
+        };
+        let apply_path_word = |start: &[usize], word: &[usize]| {
+            word.iter().fold(start.to_vec(), |coloring, &color| {
+                component_signature_reflection(&path_poset, &coloring, color, false, true)
+            })
+        };
+        let five_cycle = [
+            vec![0, 1, 0, 2, 1, 0],
+            vec![0, 2, 1, 0, 1, 0],
+            vec![1, 0, 1, 0, 2, 0],
+            vec![2, 0, 1, 0, 1, 0],
+            vec![1, 0, 2, 0, 1, 0],
+        ];
+        for index in 0..five_cycle.len() {
+            assert_eq!(
+                apply_path_word(&five_cycle[index], &defect_word),
+                five_cycle[(index + 1) % five_cycle.len()]
+            );
+        }
+        let mut path_orbit = BTreeSet::from([five_cycle[0].clone()]);
+        let mut path_frontier = vec![five_cycle[0].clone()];
+        while let Some(coloring) = path_frontier.pop() {
+            for color in 0..2 {
+                let neighbor = apply_path_word(&coloring, &[color]);
+                if path_orbit.insert(neighbor.clone()) {
+                    path_frontier.push(neighbor);
+                }
+            }
+        }
+        assert_eq!(path_orbit.len(), 30);
+        let mut path_weights = BTreeMap::new();
+        for coloring in path_orbit {
+            *path_weights.entry(shape(&coloring, 3)).or_insert(0) += 1;
+        }
+        assert_eq!(path_weights.len(), 6);
+        assert!(path_weights.values().all(|&multiplicity| multiplicity == 5));
+
+        let mut defect_cycles = BTreeMap::new();
+        for order in natural_unit_interval_orders(6) {
+            let fiber: Vec<Vec<usize>> = proper_colorings(&order, 3)
+                .into_iter()
+                .filter(|coloring| shape(coloring, 3) == vec![3, 2, 1])
+                .collect();
+            let fiber_set: BTreeSet<Vec<usize>> = fiber.iter().cloned().collect();
+            let mut seen = BTreeSet::new();
+            for start in fiber {
+                if seen.contains(&start) {
+                    continue;
+                }
+                let mut current = start.clone();
+                let mut length = 0;
+                loop {
+                    assert!(fiber_set.contains(&current));
+                    if !seen.insert(current.clone()) {
+                        assert_eq!(current, start);
+                        break;
+                    }
+                    length += 1;
+                    for &color in &defect_word {
+                        current =
+                            component_signature_reflection(&order, &current, color, false, true);
+                    }
+                }
+                *defect_cycles.entry(length).or_insert(0) += 1;
+            }
+        }
+        assert_eq!(defect_cycles, BTreeMap::from([(1, 1258), (3, 11), (5, 1)]));
     }
 }
