@@ -29,10 +29,27 @@ does not itself supply the required `K^{-1}K` cancellation.  A deterministic
 finite matching will serve as the exact bounded oracle before any claim of a
 local algorithm.  The note also records explicitly that Ehrhard's operators
 are only weight-shifting partial inverses, not normal type-A Kashiwara
-crystals, and that Kim--Pylyavskyy is only a standard/permutation oracle on its
-avoidance class.  An independent Astra read-only audit of the inverse-Kostka
-orientation and conjugated-involution closure is in progress.  No Rust or
-Lean source has yet been changed.
+crystals.  Astra's completed read-only audit confirmed the inverse-Kostka
+orientation and conjugated-involution closure, supplied the exact import of
+Allen--Celano--Mason Algorithm 5.4, and showed that Kim--Pylyavskyy extends to
+repeated colors by block standardization on its avoidance class.
+
+The bounded Rust prototype and its durable report are now in
+`experiments/chromatic-p-array-rsk/` and
+`docs/chromatic-p-array-rsk/COMPUTATION.md`.  It exhaustively verifies all 64
+natural unit interval orders through `n=5`, all 13,701 packed proper
+colorings, every weight/q fiber, both involutions, all forward and reverse
+alternating paths, and exact target coverage.  The longest certificate has 64
+events.  The Kim--Pylyavskyy avoidance test identifies 63 eligible orders and
+13,437 eligible colorings; the sole excluded rank-five order has Hessenberg
+code `(2,4,4,5,5)`, namely `P_(3,1,1),5`.  The smallest fixed-shape LGV and
+same-cut obstruction is the exact `n=2`, `mu=(1,1)`, `nu=(2)` fiber; a naive
+all-tail exchange first changes q at `n=4` for `m=(1,3,3,4)` and
+`G={{2,3}}`.  The prototype still uses a finite lexicographic
+reverse-inverse-Kostka matching, so the next honest milestone is to import the
+local 2025 algorithm rather than call the current oracle a natural RSK.
+No Lean source, Lean build, marked-coloring/HRV file, circular LLT file, or
+manuscript file was touched.
 
 On 2026-10-13, the Lilan revision integration worker completed the
 author-requested Overleaf upload and email notification.  The current main TeX

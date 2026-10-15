@@ -152,8 +152,38 @@ With the conventional row-shape, column-content indexing of (K),
 this is the transpose of (K^{-1}K=I).  It is the historically harder
 order of the inverse-Kostka identity.  Eğecioğlu--Remmel gave an
 involution for (KK^{-1}=I) and explicitly left (K^{-1}K=I) open.
-Allen--Celano--Mason, arXiv:2511.18156, gave a full construction for
-the reverse identity using the Garsia--Milne involution principle.
+Loehr--Mendes gave the first full proof of the reverse identity in 2006.
+Allen--Celano--Mason, arXiv:2511.18156, subsequently gave an independent
+construction using the Garsia--Milne involution principle.
+
+Allen--Celano--Mason's Theorem 2.4 gives the exact change of variables
+needed here.  Set (\sigma=\pi^{-1}) and
+(\Delta_j=\lambda_j-j+\sigma(j)).  Then
+(\Delta_{\pi(i)}=\alpha(\lambda,\pi)_i), and the two permutations have
+the same sign.  A nonnegative determinant term fixes every zero-padding
+position, so trailing zeros can be stripped.  Their Algorithm 5.4 on a
+special rim-hook tabloid and a semistandard tableau therefore transfers to
+our triples ((\lambda,\pi,Q)) while preserving (\nu).  The tabloid is
+reconstructible from (\sigma), so it need not be stored as extra certificate
+state.
+
+Equivalently, if
+
+\[
+  D_{\lambda,\nu}
+  =\sum_{\pi\in\mathcal J_{\lambda,\nu}}\operatorname{sgn}(\pi),
+\]
+
+then (D_{\lambda,\nu}=(K^{-1})_{\nu,\lambda}) and the required
+entrywise identity is
+
+\[
+  \sum_\lambda D_{\lambda,\nu}K_{\lambda,\mu}
+  =(K^{-1}K)_{\nu,\mu}.
+\]
+
+This form removes any ambiguity about which matrix order the cancellation
+must realize.
 
 Consequently, the ordinary LGV tail switch proving Jacobi--Trudi is not
 by itself the second involution needed below.  Importing the full
@@ -167,7 +197,7 @@ can instead pair the positive and negative elements of
 \]
 
 in lexicographic order, leaving one canonical positive fixed point
-when (\nu=\mu).  This finite matching is explicit and reversible,
+when (\nu=\mu^+).  This finite matching is explicit and reversible,
 although it is not a local tableau algorithm.
 
 ## 5. The common signed set
@@ -263,9 +293,29 @@ Kim--Pylyavskyy construct a bijection
 when (P) avoids (P_{(3,1,1),5}) and (P_{(4,2,1,1),6}).
 Their tableaux are conjugated relative to the Shareshian--Wachs
 convention.  Theorem 6.1 preserves the relevant descent data, and
-P-Knuth equivalence preserves the fake (P)-inversion statistic.  We
-shall use this correspondence as an oracle on its avoidance class; it
-does not supply a generalized correspondence for repeated colors.
+P-Knuth equivalence preserves the fake (P)-inversion statistic.
+
+Their map extends to a repeated-color oracle as follows.  Write every color
+class as a decreasing (P)-chain and concatenate the blocks in increasing
+color order to obtain a permutation (w).  Internal block positions are
+(P)-descents.  If (P\text{-}RS(w)=(U,V)), put
+(T=U^{\mathsf t}) in the Shareshian--Wachs convention and
+(W=(\operatorname{evac}V)^{\mathsf t}).  Theorem 6.1(B) gives
+
+\[
+  \operatorname{Des}(W)=[n-1]\setminus\operatorname{Des}_P(w),
+\]
+
+so every descent of (W) is a block boundary and (W) uniquely
+destandardizes to an ordinary semistandard tableau (Q) of content (\mu).
+The inverse standardizes (Q), transposes and evacuates, applies inverse
+(P)-RS, and checks that the recovered blocks are decreasing (P)-chains.
+Moreover the fake inversion statistic of (w) equals
+(\operatorname{des}(\kappa)=\operatorname{inv}_G(T)).  This is a genuine
+repeated-color weight/descent correspondence on the avoidance class;
+precomposition by (R_\mu) gives the requested ascent orientation.  It is
+an oracle rather than a general solution because Kim--Pylyavskyy's pattern
+avoidance hypothesis is essential.
 
 ## 8. First computational questions
 
