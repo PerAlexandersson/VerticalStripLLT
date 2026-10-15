@@ -63,7 +63,8 @@ paths until the finite lexicographic matching had been replaced by a full
 constructive bijection.  That milestone is complete: the local
 Allen--Celano--Mason trace is integrated into every forward and inverse
 Garsia--Milne path, and no global fiber matching remains.  The same exclusions
-and absence of a Lean build slot remained in force.
+and absence of a Lean build slot remained in force.  The verified constructive
+checkpoint is `e9b44d4`; the worker has released its three owned paths again.
 
 On 2026-10-13, the Lilan revision integration worker completed the
 author-requested Overleaf upload and email notification.  The current main TeX
