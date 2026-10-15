@@ -51,6 +51,9 @@ local 2025 algorithm rather than call the current oracle a natural RSK.
 No Lean source, Lean build, marked-coloring/HRV file, circular LLT file, or
 manuscript file was touched.
 
+The signed-set checkpoint is `1ec0ea3`; the verified Rust/report checkpoint
+is `f77cd34`.  The branch is `chromatic-p-array-rsk`, pushed to `origin`.
+
 On 2026-10-13, the Lilan revision integration worker completed the
 author-requested Overleaf upload and email notification.  The current main TeX
 file, bibliography, seven section files, and verified PDF were synchronized to
