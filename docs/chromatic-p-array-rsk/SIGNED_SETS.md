@@ -394,6 +394,36 @@ The value of (\operatorname{asc}) is constant on this component and equals
 sum of Schur characters, one for each (P)-tableau with the corresponding
 inversion number.
 
+The total crystal reflection is an especially useful invariant.  Put
+(d_i(\kappa)=\operatorname{wt}_i(\kappa)-
+\operatorname{wt}_{i+1}(\kappa)) and define
+
+\[
+  S_i^P(\kappa)=
+  \begin{cases}
+    (f_i^P)^{d_i(\kappa)}\kappa,&d_i(\kappa)\geq0,\\
+    (e_i^P)^{-d_i(\kappa)}\kappa,&d_i(\kappa)<0.
+  \end{cases}
+\]
+
+Equivalently, (S_i^P=\Phi_{P,k}^{-1}S_i\Phi_{P,k}), where (S_i) reverses
+the (i)-string of (Q).  These maps are total involutions, preserve ascent,
+interchange the two relevant weight entries, and satisfy
+
+\[
+  (S_i^P)^2=1,\qquad
+  S_i^PS_j^P=S_j^PS_i^P\quad(|i-j|>1),\qquad
+  S_i^PS_{i+1}^PS_i^P=S_{i+1}^PS_i^PS_{i+1}^P.
+\]
+
+This crystal reflection must not be conflated with the classical
+Bender--Knuth involution on semistandard tableaux.  The latter swaps content
+but does not in general satisfy the braid relation.  Nor is (S_i^P) the
+Shareshian--Wachs odd-component switch (\psi_i).  For the two-element chain,
+(S_1^P(12)=12) whereas (\psi_1(12)=21).  Exhaustively through rank five,
+169,220 of 226,008 transported reflections agree with (\psi_i), while
+(\psi_i) fails 7,236 of 169,016 adjacent braid tests.
+
 The component anchor does have a direct description.  For the highest tableau
 (Q_\lambda^{\mathrm{high}}), the reverse inverse-Kostka involution is already
 fixed and no alternating path is traversed.  Consequently the highest-weight
@@ -426,6 +456,36 @@ describe these transported operators.  A possible intrinsic description must
 retain global word, growth-diagram, or signed-trace information.  This is a
 property of the present explicit bijection, not a claim that every possible
 chromatic RSK bijection has nonlocal crystal operators.
+
+The reflections are somewhat less nonlocal than the individual Kashiwara
+edges, but they are still global.  On the four-element chain, in one-based
+colors,
+
+\[
+  S_2^P(1223)=2331,
+\]
+
+so a color outside the active pair moves.  A natural attempt is to order the
+odd components of the two-color induced graph, cancel their majority-color
+signs, and flip only the excess unmatched components.  All four basic choices
+of increasing/decreasing order and cancellation orientation satisfy braid
+through rank five, but this range is structurally vacuous.  The first
+constraining content is ((3,2,1)) at rank six, where every choice fails.  For
+the increasing-order, (i(i+1))-cancellation convention, the first failure has
+Hessenberg code ((1,2,4,5,6,6)) and coloring (121321):
+
+\[
+  S_1S_2S_1(121321)=133232,
+  \qquad
+  S_2S_1S_2(121321)=233231.
+\]
+
+Thus the obvious signature pairing of odd components does not provide a Weyl
+group action, despite every rank-five test passing.  An independent
+implementation of Ehrhard's alignment and weak operators agrees with this
+signature reflection on all 2,592 single-reflection checks in the rank-six
+((3,2,1)) orbit.  The braid failure therefore also gives an exact small
+certificate that Ehrhard's operators are not a normal type-A crystal.
 
 Nor does ordinary standardization compress the global information.  Increasing
 tie order fails on the two-element chain and the constant coloring, while

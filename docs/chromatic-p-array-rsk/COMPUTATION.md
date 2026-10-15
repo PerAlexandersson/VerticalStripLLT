@@ -168,6 +168,64 @@ a word-level bracketing on a canonical global reading word, a growth diagram,
 or a compressed version of the signed alternating-path certificate.  Any such
 proposal must reproduce these three examples.
 
+## Crystal reflections and braid relations
+
+The prototype also exposes the total simple reflection
+
+```text
+S_i = f_i^(wt_i-wt_(i+1))  if wt_i >= wt_(i+1),
+S_i = e_i^(wt_(i+1)-wt_i)  otherwise.
+```
+
+Equivalently, it reverses the `i`-string of `Q` and transports the result back
+to the coloring.  Through rank five, all 169,016 adjacent braid tests and all
+167,155 distant-commutation tests pass.  Involution, weight swap, properness,
+and ascent preservation are checked at every one of the 226,008
+`(coloring,i)` states.
+
+Three superficially similar operations are distinct:
+
+| comparison through rank five | agreements | total |
+|:--|--:|--:|
+| crystal reflection versus SW odd-component switch | 169,220 | 226,008 |
+| crystal reflection versus tableau Bender--Knuth | 199,316 | 226,008 |
+| transported tableau Bender--Knuth versus SW switch | 176,690 | 226,008 |
+
+The first reflection/SW difference is the two-element chain: the reflection
+fixes `12`, whereas the odd-component switch gives `21`.  The SW switches fail
+7,236 of 169,016 adjacent braid tests.  Transported tableau Bender--Knuth
+switches fail 13,330; this is why content-swapping Bender--Knuth involutions
+must not be identified with the genuine crystal Weyl action.
+
+The transported reflections are still global.  The first move involving an
+outside color is, on the four-element chain,
+`S_2(1223)=2331`.  At rank five there are colorings with the same content,
+ascent, and active two-color restriction but different reflected restrictions.
+
+We also tested the most immediate intrinsic replacement.  Order the odd
+components of the active two-color graph, record the majority color in each,
+cancel opposite signs, and flip only the excess unmatched components.  The
+four combinations of increasing/decreasing component order and the two
+cancellation orientations have no braid failure through rank five.  This is
+misleading: as Astra's independent audit observed, the first genuinely
+constraining three-color content is `(3,2,1)` at rank six.  Every variant then
+has 38 failures among the 1,296 proper colorings of that content over all 132
+orders, and 228 failures among all 16,020 rank-six braid tests.  For increasing
+component order and `+-` cancellation, the first certificate is
+
+```text
+121321 --S_1--> 122321 --S_2--> 133231 --S_1--> 133232,
+121321 --S_2--> 131321 --S_1--> 232321 --S_2--> 233231,
+P=(1,2,4,5,6,6).
+```
+
+This exact delayed obstruction explains why low-rank experimentation with
+odd-component pairings is unusually deceptive.  Astra independently
+implemented Ehrhard's alignment and weak operators; their reflections agree
+with this component-signature rule in all 2,592 single-reflection checks on
+the rank-six `(3,2,1)` orbit.  Thus the same witness is also a concrete braid
+failure for Ehrhard's weak, non-normal operators.
+
 The obvious standardization shortcut also fails.  Splitting equal colors into
 consecutive labels in increasing vertex order first fails for the two-element
 chain and the coloring `11`.  Decreasing vertex order survives rank two but

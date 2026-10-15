@@ -1126,6 +1126,34 @@ fn coloring_f(
     coloring_crystal_operator(poset, coloring, alphabet, color, false)
 }
 
+fn crystal_reflection_on_target(target: &Target, alphabet: usize, color: usize) -> Target {
+    assert!(color + 1 < alphabet);
+    let weight = shape(&target.q, alphabet);
+    let difference = weight[color] as isize - weight[color + 1] as isize;
+    let raising = difference < 0;
+    let mut result = target.clone();
+    for _ in 0..difference.unsigned_abs() {
+        result = crystal_on_target(&result, color, raising)
+            .expect("a crystal reflection cannot leave its i-string");
+    }
+    result
+}
+
+fn coloring_reflection(
+    poset: &Poset,
+    coloring: &[usize],
+    alphabet: usize,
+    color: usize,
+) -> Vec<usize> {
+    let (target, _) = forward_with_alphabet(poset, coloring, alphabet);
+    let reflected_target = crystal_reflection_on_target(&target, alphabet, color);
+    let reflected_weight = shape(&reflected_target.q, alphabet);
+    let reflected = reverse(poset, &reflected_target, &reflected_weight);
+    assert!(is_proper_coloring(poset, &reflected));
+    assert_eq!(asc(poset, &reflected), asc(poset, coloring));
+    reflected
+}
+
 fn target_string_length(target: &Target, color: usize, raising: bool) -> usize {
     let mut length = 0;
     let mut current = target.clone();
@@ -1505,6 +1533,658 @@ fn print_locality_study(study: &LocalityStudy) {
             witness.second_source,
             witness.second_target
         );
+    }
+}
+
+#[derive(Clone, Debug)]
+struct ReflectionDifference {
+    code: Vec<usize>,
+    alphabet: usize,
+    color: usize,
+    source: Vec<usize>,
+    transported: Vec<usize>,
+    odd_component_switch: Vec<usize>,
+}
+
+#[derive(Clone, Debug)]
+struct BraidFailure {
+    code: Vec<usize>,
+    alphabet: usize,
+    color: usize,
+    source: Vec<usize>,
+    left: Vec<usize>,
+    right: Vec<usize>,
+}
+
+#[derive(Default)]
+struct ReflectionStudy {
+    comparisons: usize,
+    matches_odd_component_switch: usize,
+    bender_knuth_comparisons: usize,
+    bender_knuth_matches: usize,
+    bender_knuth_switch_matches: usize,
+    transported_braid_tests: usize,
+    transported_commutation_tests: usize,
+    odd_component_braid_tests: usize,
+    odd_component_braid_failures: usize,
+    bender_knuth_braid_failures: usize,
+    first_difference: Option<ReflectionDifference>,
+    first_crystal_bender_knuth_difference: Option<ReflectionDifference>,
+    first_bender_knuth_switch_difference: Option<ReflectionDifference>,
+    first_odd_component_braid_failure: Option<BraidFailure>,
+    first_bender_knuth_braid_failure: Option<BraidFailure>,
+    first_multiple_change: Option<MoveWitness>,
+    first_outside_pair_change: Option<MoveWitness>,
+    first_context_dependence: Option<ContextWitness>,
+}
+
+impl ReflectionStudy {
+    fn absorb(&mut self, other: Self) {
+        self.comparisons += other.comparisons;
+        self.matches_odd_component_switch += other.matches_odd_component_switch;
+        self.bender_knuth_comparisons += other.bender_knuth_comparisons;
+        self.bender_knuth_matches += other.bender_knuth_matches;
+        self.bender_knuth_switch_matches += other.bender_knuth_switch_matches;
+        self.transported_braid_tests += other.transported_braid_tests;
+        self.transported_commutation_tests += other.transported_commutation_tests;
+        self.odd_component_braid_tests += other.odd_component_braid_tests;
+        self.odd_component_braid_failures += other.odd_component_braid_failures;
+        self.bender_knuth_braid_failures += other.bender_knuth_braid_failures;
+        if self.first_difference.is_none() {
+            self.first_difference = other.first_difference;
+        }
+        if self.first_crystal_bender_knuth_difference.is_none() {
+            self.first_crystal_bender_knuth_difference =
+                other.first_crystal_bender_knuth_difference;
+        }
+        if self.first_bender_knuth_switch_difference.is_none() {
+            self.first_bender_knuth_switch_difference = other.first_bender_knuth_switch_difference;
+        }
+        if self.first_odd_component_braid_failure.is_none() {
+            self.first_odd_component_braid_failure = other.first_odd_component_braid_failure;
+        }
+        if self.first_bender_knuth_braid_failure.is_none() {
+            self.first_bender_knuth_braid_failure = other.first_bender_knuth_braid_failure;
+        }
+        if self.first_multiple_change.is_none() {
+            self.first_multiple_change = other.first_multiple_change;
+        }
+        if self.first_outside_pair_change.is_none() {
+            self.first_outside_pair_change = other.first_outside_pair_change;
+        }
+        if self.first_context_dependence.is_none() {
+            self.first_context_dependence = other.first_context_dependence;
+        }
+    }
+}
+
+fn apply_reflection_word(maps: &[Vec<usize>], start: usize, word: &[usize]) -> usize {
+    word.iter().fold(start, |state, &color| maps[color][state])
+}
+
+fn study_reflections_for_poset(poset: &Poset, alphabet: usize) -> ReflectionStudy {
+    let graph = coloring_crystal_graph(poset, alphabet);
+    let indices: BTreeMap<Vec<usize>, usize> = graph
+        .vertices
+        .iter()
+        .enumerate()
+        .map(|(index, vertex)| (vertex.coloring.clone(), index))
+        .collect();
+    let roots = alphabet.saturating_sub(1);
+    let mut transported = vec![vec![0; graph.vertices.len()]; roots];
+    let mut odd_component = vec![vec![0; graph.vertices.len()]; roots];
+    let mut tableau_bender_knuth = vec![vec![0; graph.vertices.len()]; roots];
+    let mut study = ReflectionStudy::default();
+    for color in 0..roots {
+        for (index, vertex) in graph.vertices.iter().enumerate() {
+            let reflected_target = crystal_reflection_on_target(&vertex.image, alphabet, color);
+            let reflected_weight = shape(&reflected_target.q, alphabet);
+            let reflected_coloring = reverse(poset, &reflected_target, &reflected_weight);
+            let reflected_index = *indices
+                .get(&reflected_coloring)
+                .expect("a transported reflection must remain in the coloring set");
+            transported[color][index] = reflected_index;
+            if poset.n() <= 3 {
+                assert_eq!(
+                    coloring_reflection(poset, &vertex.coloring, alphabet, color),
+                    reflected_coloring
+                );
+            }
+
+            let mut switched = vertex.coloring.clone();
+            psi(poset, &mut switched, color);
+            let switched_index = *indices
+                .get(&switched)
+                .expect("an odd-component switch must remain a proper coloring");
+            odd_component[color][index] = switched_index;
+
+            study.comparisons += 1;
+            if reflected_index == switched_index {
+                study.matches_odd_component_switch += 1;
+            } else if study.first_difference.is_none() {
+                study.first_difference = Some(ReflectionDifference {
+                    code: poset.code(),
+                    alphabet,
+                    color,
+                    source: vertex.coloring.clone(),
+                    transported: reflected_coloring,
+                    odd_component_switch: switched.clone(),
+                });
+            }
+
+            let bender_q = bender_knuth(&vertex.image.lambda, &vertex.image.q, color);
+            study.bender_knuth_comparisons += 1;
+            if reflected_target.q == bender_q {
+                study.bender_knuth_matches += 1;
+            }
+            let mut bender_target = vertex.image.clone();
+            bender_target.q = bender_q;
+            let bender_weight = shape(&bender_target.q, alphabet);
+            let bender_coloring = reverse(poset, &bender_target, &bender_weight);
+            let bender_index = *indices
+                .get(&bender_coloring)
+                .expect("a transported Bender--Knuth switch must remain in the coloring set");
+            tableau_bender_knuth[color][index] = bender_index;
+            if reflected_index != bender_index
+                && study.first_crystal_bender_knuth_difference.is_none()
+            {
+                study.first_crystal_bender_knuth_difference = Some(ReflectionDifference {
+                    code: poset.code(),
+                    alphabet,
+                    color,
+                    source: vertex.coloring.clone(),
+                    transported: graph.vertices[reflected_index].coloring.clone(),
+                    odd_component_switch: bender_coloring.clone(),
+                });
+            }
+            if bender_index == switched_index {
+                study.bender_knuth_switch_matches += 1;
+            } else if study.first_bender_knuth_switch_difference.is_none() {
+                study.first_bender_knuth_switch_difference = Some(ReflectionDifference {
+                    code: poset.code(),
+                    alphabet,
+                    color,
+                    source: vertex.coloring.clone(),
+                    transported: bender_coloring,
+                    odd_component_switch: switched,
+                });
+            }
+
+            let old_weight = shape(&vertex.coloring, alphabet);
+            let mut expected_weight = old_weight.clone();
+            expected_weight.swap(color, color + 1);
+            assert_eq!(
+                shape(&graph.vertices[reflected_index].coloring, alphabet),
+                expected_weight
+            );
+            assert_eq!(
+                asc(poset, &graph.vertices[reflected_index].coloring),
+                asc(poset, &vertex.coloring)
+            );
+        }
+    }
+
+    for color in 0..roots {
+        for index in 0..graph.vertices.len() {
+            assert_eq!(transported[color][transported[color][index]], index);
+            assert_eq!(odd_component[color][odd_component[color][index]], index);
+            assert_eq!(
+                tableau_bender_knuth[color][tableau_bender_knuth[color][index]],
+                index
+            );
+        }
+    }
+    for (color, transported_map) in transported.iter().enumerate() {
+        let mut local_outcomes: BTreeMap<LocalSignature, LocalOutcome> = BTreeMap::new();
+        for (index, vertex) in graph.vertices.iter().enumerate() {
+            let reflected = graph.vertices[transported_map[index]].coloring.clone();
+            let changed_vertices: Vec<usize> = (0..poset.n())
+                .filter(|&v| vertex.coloring[v] != reflected[v])
+                .collect();
+            let witness = MoveWitness {
+                code: poset.code(),
+                alphabet,
+                color,
+                source: vertex.coloring.clone(),
+                target: reflected.clone(),
+                changed_vertices: changed_vertices.clone(),
+            };
+            if changed_vertices.len() > 1 && study.first_multiple_change.is_none() {
+                study.first_multiple_change = Some(witness.clone());
+            }
+            if changed_vertices.iter().any(|&v| {
+                ![color, color + 1].contains(&vertex.coloring[v])
+                    || ![color, color + 1].contains(&reflected[v])
+            }) && study.first_outside_pair_change.is_none()
+            {
+                study.first_outside_pair_change = Some(witness);
+            }
+
+            let local_restriction = two_color_restriction(&vertex.coloring, color);
+            let key = (
+                shape(&vertex.coloring, alphabet),
+                asc(poset, &vertex.coloring),
+                local_restriction.clone(),
+            );
+            if let Some((first_source, first_target)) = local_outcomes.get(&key) {
+                let first_local_target = first_target
+                    .as_ref()
+                    .map(|value| two_color_restriction(value, color));
+                let reflected_local_target = two_color_restriction(&reflected, color);
+                if first_local_target.as_ref() != Some(&reflected_local_target)
+                    && study.first_context_dependence.is_none()
+                {
+                    study.first_context_dependence = Some(ContextWitness {
+                        code: poset.code(),
+                        alphabet,
+                        color,
+                        weight: key.0.clone(),
+                        asc: key.1,
+                        local_restriction,
+                        first_source: first_source.clone(),
+                        first_target: first_target.clone(),
+                        second_source: vertex.coloring.clone(),
+                        second_target: Some(reflected.clone()),
+                    });
+                }
+            } else {
+                local_outcomes.insert(key, (vertex.coloring.clone(), Some(reflected)));
+            }
+        }
+    }
+    for left_color in 0..roots {
+        for right_color in left_color + 2..roots {
+            for index in 0..graph.vertices.len() {
+                study.transported_commutation_tests += 1;
+                assert_eq!(
+                    apply_reflection_word(&transported, index, &[left_color, right_color]),
+                    apply_reflection_word(&transported, index, &[right_color, left_color])
+                );
+            }
+        }
+    }
+    for color in 0..roots.saturating_sub(1) {
+        for (index, vertex) in graph.vertices.iter().enumerate() {
+            let left_word = [color, color + 1, color];
+            let right_word = [color + 1, color, color + 1];
+            study.transported_braid_tests += 1;
+            assert_eq!(
+                apply_reflection_word(&transported, index, &left_word),
+                apply_reflection_word(&transported, index, &right_word)
+            );
+
+            study.odd_component_braid_tests += 1;
+            let left = apply_reflection_word(&odd_component, index, &left_word);
+            let right = apply_reflection_word(&odd_component, index, &right_word);
+            if left != right {
+                study.odd_component_braid_failures += 1;
+                if study.first_odd_component_braid_failure.is_none() {
+                    study.first_odd_component_braid_failure = Some(BraidFailure {
+                        code: poset.code(),
+                        alphabet,
+                        color,
+                        source: vertex.coloring.clone(),
+                        left: graph.vertices[left].coloring.clone(),
+                        right: graph.vertices[right].coloring.clone(),
+                    });
+                }
+            }
+
+            let bender_left = apply_reflection_word(&tableau_bender_knuth, index, &left_word);
+            let bender_right = apply_reflection_word(&tableau_bender_knuth, index, &right_word);
+            if bender_left != bender_right {
+                study.bender_knuth_braid_failures += 1;
+                if study.first_bender_knuth_braid_failure.is_none() {
+                    study.first_bender_knuth_braid_failure = Some(BraidFailure {
+                        code: poset.code(),
+                        alphabet,
+                        color,
+                        source: vertex.coloring.clone(),
+                        left: graph.vertices[bender_left].coloring.clone(),
+                        right: graph.vertices[bender_right].coloring.clone(),
+                    });
+                }
+            }
+        }
+    }
+    study
+}
+
+fn study_reflections(max_n: usize) -> ReflectionStudy {
+    let mut study = ReflectionStudy::default();
+    for n in 1..=max_n {
+        for poset in natural_unit_interval_orders(n) {
+            study.absorb(study_reflections_for_poset(&poset, n));
+        }
+    }
+    study
+}
+
+fn print_reflection_study(study: &ReflectionStudy) {
+    println!(
+        "crystal reflections: {}/{} agree with odd-component switches; {}/{} agree with tableau Bender-Knuth; braid tests={}, distant-commutation tests={}",
+        study.matches_odd_component_switch,
+        study.comparisons,
+        study.bender_knuth_matches,
+        study.bender_knuth_comparisons,
+        study.transported_braid_tests,
+        study.transported_commutation_tests
+    );
+    if let Some(witness) = &study.first_difference {
+        println!(
+            "first reflection/switch difference for s_{}: P={:?}, k={}, source={:?}, transported={:?}, odd-component={:?}",
+            witness.color + 1,
+            witness.code,
+            witness.alphabet,
+            witness.source,
+            witness.transported,
+            witness.odd_component_switch
+        );
+    }
+    if let Some(witness) = &study.first_crystal_bender_knuth_difference {
+        println!(
+            "first crystal-reflection/Bender--Knuth difference for index {}: P={:?}, k={}, source={:?}, reflection={:?}, Bender--Knuth={:?}",
+            witness.color + 1,
+            witness.code,
+            witness.alphabet,
+            witness.source,
+            witness.transported,
+            witness.odd_component_switch
+        );
+    }
+    println!(
+        "transported tableau Bender--Knuth agrees with odd-component switch in {}/{} cases",
+        study.bender_knuth_switch_matches, study.comparisons
+    );
+    if let Some(witness) = &study.first_bender_knuth_switch_difference {
+        println!(
+            "first transported-Bender--Knuth/switch difference for t_{}: P={:?}, k={}, source={:?}, transported={:?}, odd-component={:?}",
+            witness.color + 1,
+            witness.code,
+            witness.alphabet,
+            witness.source,
+            witness.transported,
+            witness.odd_component_switch
+        );
+    }
+    println!(
+        "odd-component braid failures: {}/{}",
+        study.odd_component_braid_failures, study.odd_component_braid_tests
+    );
+    if let Some(witness) = &study.first_odd_component_braid_failure {
+        println!(
+            "first odd-component braid failure for s_{},s_{}: P={:?}, k={}, source={:?}, left={:?}, right={:?}",
+            witness.color + 1,
+            witness.color + 2,
+            witness.code,
+            witness.alphabet,
+            witness.source,
+            witness.left,
+            witness.right
+        );
+    }
+    println!(
+        "transported Bender--Knuth braid failures: {}/{}",
+        study.bender_knuth_braid_failures, study.odd_component_braid_tests
+    );
+    if let Some(witness) = &study.first_bender_knuth_braid_failure {
+        println!(
+            "first Bender--Knuth braid failure for s_{},s_{}: P={:?}, k={}, source={:?}, left={:?}, right={:?}",
+            witness.color + 1,
+            witness.color + 2,
+            witness.code,
+            witness.alphabet,
+            witness.source,
+            witness.left,
+            witness.right
+        );
+    }
+    if let Some(witness) = &study.first_multiple_change {
+        println!(
+            "first multi-vertex crystal reflection s_{}: P={:?}, k={}, {:?} -> {:?}, changed={:?}",
+            witness.color + 1,
+            witness.code,
+            witness.alphabet,
+            witness.source,
+            witness.target,
+            witness.changed_vertices
+        );
+    }
+    if let Some(witness) = &study.first_outside_pair_change {
+        println!(
+            "first crystal reflection touching a color outside pair {}: P={:?}, k={}, {:?} -> {:?}, changed={:?}",
+            witness.color + 1,
+            witness.code,
+            witness.alphabet,
+            witness.source,
+            witness.target,
+            witness.changed_vertices
+        );
+    }
+    if let Some(witness) = &study.first_context_dependence {
+        println!(
+            "first crystal-reflection two-color-context obstruction for s_{}: P={:?}, k={}, wt={:?}, asc={}, restriction={:?}; {:?} -> {:?}, but {:?} -> {:?}",
+            witness.color + 1,
+            witness.code,
+            witness.alphabet,
+            witness.weight,
+            witness.asc,
+            witness.local_restriction,
+            witness.first_source,
+            witness.first_target,
+            witness.second_source,
+            witness.second_target
+        );
+    }
+}
+
+fn two_color_components(poset: &Poset, coloring: &[usize], color: usize) -> Vec<Vec<usize>> {
+    let eligible: BTreeSet<usize> = (0..poset.n())
+        .filter(|&vertex| coloring[vertex] == color || coloring[vertex] == color + 1)
+        .collect();
+    let mut unseen = eligible.clone();
+    let mut components = Vec::new();
+    while let Some(&start) = unseen.first() {
+        unseen.remove(&start);
+        let mut stack = vec![start];
+        let mut component = vec![start];
+        while let Some(vertex) = stack.pop() {
+            let neighbors: Vec<usize> = unseen
+                .iter()
+                .copied()
+                .filter(|&other| poset.edge(vertex, other))
+                .collect();
+            for other in neighbors {
+                unseen.remove(&other);
+                stack.push(other);
+                component.push(other);
+            }
+        }
+        component.sort_unstable();
+        components.push(component);
+    }
+    components
+}
+
+fn component_signature_reflection(
+    poset: &Poset,
+    coloring: &[usize],
+    color: usize,
+    reverse_components: bool,
+    cancel_plus_minus: bool,
+) -> Vec<usize> {
+    let components = two_color_components(poset, coloring, color);
+    let mut odd_components: Vec<(usize, bool)> = components
+        .iter()
+        .enumerate()
+        .filter_map(|(index, component)| {
+            let smaller = component
+                .iter()
+                .filter(|&&vertex| coloring[vertex] == color)
+                .count();
+            let larger = component.len() - smaller;
+            assert!(smaller.abs_diff(larger) <= 1);
+            (smaller != larger).then_some((index, smaller > larger))
+        })
+        .collect();
+    if reverse_components {
+        odd_components.reverse();
+    }
+
+    let opener_is_plus = cancel_plus_minus;
+    let mut open = Vec::new();
+    let mut unmatched_closers = Vec::new();
+    for &(component, is_plus) in &odd_components {
+        if is_plus == opener_is_plus {
+            open.push(component);
+        } else if open.pop().is_none() {
+            unmatched_closers.push(component);
+        }
+    }
+    let (unmatched_plus, unmatched_minus) = if opener_is_plus {
+        (open, unmatched_closers)
+    } else {
+        (unmatched_closers, open)
+    };
+    let to_flip: Vec<usize> = if unmatched_plus.len() > unmatched_minus.len() {
+        let excess = unmatched_plus.len() - unmatched_minus.len();
+        if cancel_plus_minus {
+            unmatched_plus.into_iter().take(excess).collect()
+        } else {
+            unmatched_plus.into_iter().rev().take(excess).collect()
+        }
+    } else {
+        let excess = unmatched_minus.len() - unmatched_plus.len();
+        if cancel_plus_minus {
+            unmatched_minus.into_iter().rev().take(excess).collect()
+        } else {
+            unmatched_minus.into_iter().take(excess).collect()
+        }
+    };
+    let mut result = coloring.to_vec();
+    for component in to_flip {
+        for &vertex in &components[component] {
+            result[vertex] = if result[vertex] == color {
+                color + 1
+            } else {
+                color
+            };
+        }
+    }
+    result
+}
+
+#[derive(Default)]
+struct SignatureReflectionVariant {
+    tests: usize,
+    braid_tests: usize,
+    braid_failures: usize,
+    critical_content_tests: usize,
+    critical_content_failures: usize,
+    first_braid_failure: Option<BraidFailure>,
+}
+
+fn study_component_signature_variant(
+    max_n: usize,
+    reverse_components: bool,
+    cancel_plus_minus: bool,
+) -> SignatureReflectionVariant {
+    let mut study = SignatureReflectionVariant::default();
+    for n in 1..=max_n {
+        for poset in natural_unit_interval_orders(n) {
+            let alphabet = usize::min(n, 3);
+            let colorings = proper_colorings(&poset, alphabet);
+            let indices: BTreeMap<Vec<usize>, usize> = colorings
+                .iter()
+                .cloned()
+                .enumerate()
+                .map(|(index, coloring)| (coloring, index))
+                .collect();
+            let roots = alphabet.saturating_sub(1);
+            let mut maps = vec![vec![0; colorings.len()]; roots];
+            for (color, map) in maps.iter_mut().enumerate() {
+                for (index, coloring) in colorings.iter().enumerate() {
+                    let reflected = component_signature_reflection(
+                        &poset,
+                        coloring,
+                        color,
+                        reverse_components,
+                        cancel_plus_minus,
+                    );
+                    assert!(is_proper_coloring(&poset, &reflected));
+                    assert_eq!(asc(&poset, &reflected), asc(&poset, coloring));
+                    let mut expected_weight = shape(coloring, alphabet);
+                    expected_weight.swap(color, color + 1);
+                    assert_eq!(shape(&reflected, alphabet), expected_weight);
+                    map[index] = *indices
+                        .get(&reflected)
+                        .expect("a component-signature reflection must stay in the graph");
+                    study.tests += 1;
+                }
+            }
+            for map in &maps {
+                for index in 0..colorings.len() {
+                    assert_eq!(map[map[index]], index);
+                }
+            }
+            for color in 0..roots.saturating_sub(1) {
+                for (index, source) in colorings.iter().enumerate() {
+                    let left_word = [color, color + 1, color];
+                    let right_word = [color + 1, color, color + 1];
+                    let left = apply_reflection_word(&maps, index, &left_word);
+                    let right = apply_reflection_word(&maps, index, &right_word);
+                    study.braid_tests += 1;
+                    let critical_content = shape(source, alphabet) == [3, 2, 1];
+                    study.critical_content_tests += usize::from(critical_content);
+                    if left != right {
+                        study.braid_failures += 1;
+                        study.critical_content_failures += usize::from(critical_content);
+                        if study.first_braid_failure.is_none() {
+                            study.first_braid_failure = Some(BraidFailure {
+                                code: poset.code(),
+                                alphabet,
+                                color,
+                                source: source.clone(),
+                                left: colorings[left].clone(),
+                                right: colorings[right].clone(),
+                            });
+                        }
+                    }
+                }
+            }
+        }
+    }
+    study
+}
+
+fn print_component_signature_studies(max_n: usize) {
+    for reverse_components in [false, true] {
+        for cancel_plus_minus in [false, true] {
+            let study =
+                study_component_signature_variant(max_n, reverse_components, cancel_plus_minus);
+            println!(
+                "component-signature reflection (order={}, cancel={}): tests={}, braid failures={}/{}, content (3,2,1) failures={}/{}",
+                if reverse_components { "decreasing" } else { "increasing" },
+                if cancel_plus_minus { "+-" } else { "-+" },
+                study.tests,
+                study.braid_failures,
+                study.braid_tests,
+                study.critical_content_failures,
+                study.critical_content_tests
+            );
+            if let Some(witness) = study.first_braid_failure {
+                println!(
+                    "  first failure for indices {},{}: P={:?}, k={}, source={:?}, left={:?}, right={:?}",
+                    witness.color + 1,
+                    witness.color + 2,
+                    witness.code,
+                    witness.alphabet,
+                    witness.source,
+                    witness.left,
+                    witness.right
+                );
+            }
+        }
     }
 }
 
@@ -2043,6 +2723,9 @@ fn main() {
     let decreasing_standardization = first_standardization_failure(5, true);
     print_standardization_result(5, false, increasing_standardization.as_ref());
     print_standardization_result(5, true, decreasing_standardization.as_ref());
+    let reflection_study = study_reflections(5);
+    print_reflection_study(&reflection_study);
+    print_component_signature_studies(6);
     let mut total = Summary::default();
     for n in 1..=5 {
         let (inverse_kostka_states, max_local_events) = verify_inverse_kostka_n(n);
@@ -2132,5 +2815,23 @@ mod tests {
             .map(|poset| poset.code())
             .collect();
         assert_eq!(excluded, vec![vec![2, 4, 4, 5, 5]]);
+    }
+
+    #[test]
+    fn transported_reflections_and_signature_braid_obstruction() {
+        let reflection_study = study_reflections(4);
+        assert!(reflection_study.transported_braid_tests > 0);
+
+        let poset = Poset {
+            h: vec![0, 1, 3, 4, 5, 5],
+        };
+        let source = vec![0, 1, 0, 2, 1, 0];
+        let apply_word = |word: &[usize]| {
+            word.iter().fold(source.clone(), |coloring, &color| {
+                component_signature_reflection(&poset, &coloring, color, false, true)
+            })
+        };
+        assert_eq!(apply_word(&[0, 1, 0]), vec![0, 2, 2, 1, 2, 1]);
+        assert_eq!(apply_word(&[1, 0, 1]), vec![1, 2, 2, 1, 2, 0]);
     }
 }
