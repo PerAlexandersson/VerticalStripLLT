@@ -605,3 +605,12 @@ implemented probe now reports unmatched sources and targets rather than
 asserting completeness, uses the true reversed input descent set, and handles
 recording-only defects. These changes fix correctness of the experiment;
 they do not claim an intrinsic rank-eight bijection.
+
+The four observed ties can be separated by the sum of shortest P-Knuth
+distances: the two matching totals are 60 and 63 in every case. This is only
+an empirical refinement, not yet a canonical rule. Lexicographically minimal
+shortest paths are direction-dependent and therefore do not give a reversible
+tie-breaker. Lexicographic cell-action order is symmetric on these four
+components, but has no all-rank justification. The global Garsia--Milne map
+selects neither tied matching, so the present local graph is not a
+localization of that particular global baseline.

@@ -32,6 +32,9 @@ but nonstandard `Q`.  Exact regressions use code `(1,2,4,6,6,7,7,8)`, word
 and has four exact ties even after the old total-cost/profile tie-breaker.
 Thus the rank-seven local rule is not canonical in rank eight.  The CLI
 `--kp-uniform-code` reports these failures without asserting completeness.
+Shortest P-Knuth distance separates the four sampled ties (total 60 versus
+63), whereas lexicographically minimal shortest paths depend on direction;
+the global Garsia--Milne endpoints lie outside both tied matchings.
 
 On the crystal side, no uniformly bounded-support intrinsic rule is possible:
 on every odd path with alphabet two, normality forces `f_1` to exchange the
