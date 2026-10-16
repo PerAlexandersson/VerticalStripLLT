@@ -2,17 +2,39 @@
 
 ## Current status and ownership
 
-On 2026-10-15, at the user's request, the Chromatic P-array RSK worker
-reclaimed only `docs/chromatic-p-array-rsk/`,
-`experiments/chromatic-p-array-rsk/`, and its focused `HANDOFF.md` entry in
-the isolated `chromatic-p-array-rsk` worktree.  The task is to recover and
-prototype a genuinely different reverse inverse-Kostka endpoint map from
-Loehr--Mendes's bijective matrix algebra, then compare its induced coloring
-bijection and transported type-A crystal with the current
-Allen--Celano--Mason map through the smallest feasible ranks.  The exact
-primary-source algorithm must be fixed before coding; no guessed substitute
-may be labeled Loehr--Mendes.  All Lean builds and sources, marked-coloring or
-HRV work, circular LLTs, and manuscript files remain excluded.
+On 2026-10-16, the Chromatic P-array RSK worker implemented the exact
+Loehr--Mendes reverse inverse-Kostka involution as a second oracle and threaded
+it through the complete Garsia--Milne coloring bijection.  The source is now
+paper-cache 353, *Bijective matrix algebra*, with searchable full text.  The
+implementation uses the Section 7.3 palindromic Bender--Knuth normalization,
+the modified Egecioglu--Remmel move, and the Section 7.5 carrier.  It asserts
+the carrier's strict-dominance-chain invariant and checks that every reverse
+run has the reversed primitive trace with pushes and pops interchanged.
+
+Astra independently reviewed the representation and proof decomposition and
+reproduced the published rank-six endpoint without using repository code.  Its
+review caught the essential architectural point: the existing stable
+bubble-sort normalization has the right content but can give a different
+tableau, so the Loehr--Mendes word remains a separate map.  The regression
+suite includes this discrepancy, the rank-two fiber, Example 54, and the
+published rank-six distinction from Allen--Celano--Mason.
+
+The resulting coloring map is an explicit weight- and
+ascent/inversion-preserving bijection onto the same pairs `(T,Q)`.  Exact full
+fixed-alphabet checks through rank five cover 55,125 rank-five colorings.  At
+rank five, 210 of 376 inverse-Kostka endpoints, 4,211 coloring images, 15,655
+of 220,500 lowering-operator tests, and 2,780 of 220,500 simple reflections
+differ from the Allen--Celano--Mason gauge.  The first map and `f_i`
+differences occur at rank four; the first `S_i` difference occurs at rank five.
+Thus replacing inverse Kostka produces another normal type-A coloring crystal,
+but does not select a canonical or more local one.
+
+The verified checkpoint is `fc004bd`.  All five unit tests, Clippy with
+warnings denied, formatting, `git diff --check`, and the 27.8-second full
+release census pass.  No Lean source or build, marked-coloring/HRV file,
+circular LLT file, or manuscript file was touched.  The worker has released
+`docs/chromatic-p-array-rsk/`, `experiments/chromatic-p-array-rsk/`, and its
+focused `HANDOFF.md` entry.
 
 On 2026-10-15, the Chromatic P-array RSK worker and an Astra reviewer audited
 alternative inverse-Kostka proofs without changing code.  Mason's
