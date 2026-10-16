@@ -136,8 +136,7 @@ sealing profile `[934,354,0,144]`, zero optimum ties, and zero fallback pairs.
 The rank-six adaptive regression exhaustively checks forward/inverse
 reconstruction and exact target coverage.  No Lean source or build,
 marked-coloring/HRV file, circular-LLT file, or manuscript file was touched.
-The preceding implementation checkpoint is `982e013`; the rank-six carrier
-and adaptive-crystal extension is the active checkpoint.
+The verified rank-six carrier and adaptive-crystal checkpoint is `446cd9b`.
 The worker retains its three owned paths for the next carrier/ownership
 experiment.
 
