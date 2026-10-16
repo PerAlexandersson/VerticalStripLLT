@@ -71,6 +71,89 @@ struct AcmState {
     sigma: Vec<usize>,
 }
 
+#[derive(Clone, Debug, Eq, PartialEq)]
+struct TableauState {
+    lambda: Vec<usize>,
+    entries: Vec<usize>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+struct HookState {
+    /// Shape of the special rim-hook tabloid.
+    lambda: Vec<usize>,
+    /// Its Allen--Celano--Mason permutation, in zero-based one-line notation.
+    sigma: Vec<usize>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+struct LmState {
+    /// The adjoint carrier, keyed by the partition content of each tableau.
+    carrier: BTreeMap<Vec<usize>, TableauState>,
+    b: TableauState,
+    c: HookState,
+    d: TableauState,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+enum LoehrMendesEvent {
+    AdjointSwap {
+        content: Vec<usize>,
+        used_carrier: bool,
+        parked_old_d: bool,
+    },
+    Er {
+        row: usize,
+        largest: usize,
+    },
+    CarrierSwap {
+        content: Vec<usize>,
+        used_carrier: bool,
+        parked_old_b: bool,
+    },
+}
+
+#[derive(Clone, Debug)]
+enum LoehrMendesTraceEvent {
+    Sw(SwEvent),
+    InverseKostka {
+        nu: Vec<usize>,
+        from: Triple,
+        to: Triple,
+        local: Vec<LoehrMendesEvent>,
+    },
+}
+
+fn reversed_loehr_mendes_events(events: &[LoehrMendesEvent]) -> Vec<LoehrMendesEvent> {
+    events
+        .iter()
+        .rev()
+        .map(|event| match event {
+            LoehrMendesEvent::AdjointSwap {
+                content,
+                used_carrier,
+                parked_old_d,
+            } => LoehrMendesEvent::AdjointSwap {
+                content: content.clone(),
+                used_carrier: *parked_old_d,
+                parked_old_d: *used_carrier,
+            },
+            LoehrMendesEvent::Er { row, largest } => LoehrMendesEvent::Er {
+                row: *row,
+                largest: *largest,
+            },
+            LoehrMendesEvent::CarrierSwap {
+                content,
+                used_carrier,
+                parked_old_b,
+            } => LoehrMendesEvent::CarrierSwap {
+                content: content.clone(),
+                used_carrier: *parked_old_b,
+                parked_old_b: *used_carrier,
+            },
+        })
+        .collect()
+}
+
 #[derive(Clone, Debug)]
 enum InverseKostkaEvent {
     Psi {
@@ -628,6 +711,255 @@ fn bender_knuth(lambda: &[usize], entries: &[usize], value: usize) -> Vec<usize>
     rows_to_entries(&rows, false)
 }
 
+/// The precise iterated Bender--Knuth word in Loehr--Mendes Section 7.3.
+///
+/// Starting from the decreasing rearrangement of `composition`, the word
+/// places the desired part in each position by their palindromic
+/// transposition `BK_{r,j}`.  This is deliberately separate from
+/// `normalization_swaps`: different reduced/nonreduced words have the same
+/// effect on content but need not have the same effect on a tableau.
+fn loehr_mendes_normalization_swaps(composition: &[usize]) -> Vec<usize> {
+    let mut counts = composition.to_vec();
+    counts.sort_unstable_by(|a, b| b.cmp(a));
+    let mut swaps = Vec::new();
+    for (position, &target) in composition.iter().enumerate() {
+        let source = (position..counts.len())
+            .find(|&index| counts[index] == target)
+            .expect("target composition must permute its decreasing rearrangement");
+        if source == position {
+            continue;
+        }
+        swaps.extend(position..source);
+        swaps.extend((position..source - 1).rev());
+        counts.swap(position, source);
+    }
+    assert_eq!(counts, composition);
+    swaps
+}
+
+fn loehr_mendes_to_composition(
+    entries: &[usize],
+    lambda: &[usize],
+    composition: &[usize],
+) -> Vec<usize> {
+    let mut result = entries.to_vec();
+    for value in loehr_mendes_normalization_swaps(composition) {
+        result = bender_knuth(lambda, &result, value);
+    }
+    result
+}
+
+fn loehr_mendes_to_partition(
+    entries: &[usize],
+    lambda: &[usize],
+    composition: &[usize],
+) -> Vec<usize> {
+    let mut result = entries.to_vec();
+    for &value in loehr_mendes_normalization_swaps(composition).iter().rev() {
+        result = bender_knuth(lambda, &result, value);
+    }
+    result
+}
+
+fn tableau_content(tableau: &TableauState, alphabet: usize) -> Vec<usize> {
+    let mut content = tableau_weak_content(tableau, alphabet);
+    while content.last() == Some(&0) {
+        content.pop();
+    }
+    content
+}
+
+fn tableau_weak_content(tableau: &TableauState, alphabet: usize) -> Vec<usize> {
+    assert!(tableau.entries.iter().all(|&value| value < alphabet));
+    let mut content = vec![0; alphabet];
+    for &value in &tableau.entries {
+        content[value] += 1;
+    }
+    content
+}
+
+fn superstandard_tableau(lambda: &[usize]) -> TableauState {
+    TableauState {
+        lambda: lambda.to_vec(),
+        entries: lambda
+            .iter()
+            .enumerate()
+            .flat_map(|(row, &length)| std::iter::repeat_n(row, length))
+            .collect(),
+    }
+}
+
+fn is_superstandard(tableau: &TableauState) -> bool {
+    tableau
+        .lambda
+        .iter()
+        .enumerate()
+        .flat_map(|(row, &length)| std::iter::repeat_n(row, length))
+        .eq(tableau.entries.iter().copied())
+}
+
+fn hook_content(hook: &HookState) -> Vec<usize> {
+    decreasing_rearrangement(&hook_terminal_content(hook))
+}
+
+fn hook_terminal_content(hook: &HookState) -> Vec<usize> {
+    assert_eq!(hook.lambda.len(), hook.sigma.len());
+    let delta: Vec<usize> = hook
+        .lambda
+        .iter()
+        .enumerate()
+        .map(|(row, &length)| {
+            let value = length as isize + hook.sigma[row] as isize - row as isize;
+            assert!(value >= 0, "negative special-rim-hook length");
+            value as usize
+        })
+        .collect();
+    inverse_permutation(&hook.sigma)
+        .into_iter()
+        .map(|row| delta[row])
+        .collect()
+}
+
+fn is_superspecial(hook: &HookState) -> bool {
+    hook.sigma
+        .iter()
+        .enumerate()
+        .all(|(row, &value)| row == value)
+}
+
+fn partition_strictly_dominates(lambda: &[usize], mu: &[usize]) -> bool {
+    let length = lambda.len().max(mu.len());
+    let mut lambda_sum = 0;
+    let mut mu_sum = 0;
+    let mut strict = false;
+    for index in 0..length {
+        lambda_sum += lambda.get(index).copied().unwrap_or(0);
+        mu_sum += mu.get(index).copied().unwrap_or(0);
+        if lambda_sum < mu_sum {
+            return false;
+        }
+        strict |= lambda_sum > mu_sum;
+    }
+    strict && lambda_sum == mu_sum
+}
+
+fn assert_loehr_mendes_carrier_chain(state: &LmState, nu: &[usize], n: usize) {
+    for (content, tableau) in &state.carrier {
+        assert!(!is_superstandard(tableau));
+        assert_eq!(*content, tableau_content(tableau, n));
+        assert!(partition_strictly_dominates(&tableau.lambda, content));
+    }
+    let mut shape = nu.to_vec();
+    let mut used = BTreeSet::new();
+    while shape != state.b.lambda {
+        let candidates: Vec<(&Vec<usize>, &TableauState)> = state
+            .carrier
+            .iter()
+            .filter(|(_, tableau)| tableau.lambda == shape)
+            .collect();
+        assert_eq!(
+            candidates.len(),
+            1,
+            "carrier is not a single dominance chain"
+        );
+        let (content, _) = candidates[0];
+        assert!(
+            used.insert(content.clone()),
+            "carrier chain contains a cycle"
+        );
+        shape = content.clone();
+    }
+    assert_eq!(used.len(), state.carrier.len());
+}
+
+fn er_local(
+    tableau: &TableauState,
+    hook: &HookState,
+) -> Option<(TableauState, HookState, LoehrMendesEvent)> {
+    let n: usize = tableau.lambda.iter().sum();
+    assert_eq!(tableau.entries.len(), n);
+    assert_eq!(tableau_content(tableau, n), hook_content(hook));
+    if is_superstandard(tableau) && is_superspecial(hook) {
+        return None;
+    }
+
+    // Loehr--Mendes use the modified Egecioglu--Remmel map: first apply
+    // their deterministic iterated Bender--Knuth map from partition content
+    // to the terminal-row composition content of the rim-hook tabloid, make
+    // the raw ER move, and then normalize the new composition content back to
+    // a partition.  Algorithm 3.6 of Allen--Celano--Mason is precisely the
+    // middle raw move in the permutation encoding.
+    let old_terminal_content = hook_terminal_content(hook);
+    let raw_entries =
+        loehr_mendes_to_composition(&tableau.entries, &tableau.lambda, &old_terminal_content);
+    let raw_tableau = TableauState {
+        lambda: tableau.lambda.clone(),
+        entries: raw_entries,
+    };
+    assert_eq!(
+        tableau_weak_content(&raw_tableau, hook.sigma.len()),
+        old_terminal_content
+    );
+    let rows = entries_to_rows(&raw_tableau.lambda, &raw_tableau.entries, false);
+    let row = rows
+        .iter()
+        .enumerate()
+        .find_map(|(row, entries)| {
+            let largest = *entries.last().expect("tableau rows are nonempty");
+            (largest != row).then_some(row)
+        })
+        .expect("Egecioglu--Remmel nonfixed state must have a nonconstant row");
+    let largest = *rows[row].last().unwrap();
+    assert!(largest > row);
+    assert!(largest > 0);
+    assert!(largest < hook.sigma.len());
+
+    let offset: usize = tableau.lambda[..row].iter().sum();
+    let col = rows[row]
+        .iter()
+        .position(|&entry| entry == largest)
+        .expect("largest row entry must occur");
+    let mut changed = raw_tableau.entries.clone();
+    changed[offset + col] = largest - 1;
+    let transformed_raw = TableauState {
+        lambda: raw_tableau.lambda.clone(),
+        entries: bender_knuth(&raw_tableau.lambda, &changed, largest - 1),
+    };
+
+    let mut sigma = hook.sigma.clone();
+    swap_permutation_values(&mut sigma, largest - 1);
+    let transformed_hook = HookState {
+        lambda: hook.lambda.clone(),
+        sigma,
+    };
+    let new_terminal_content = hook_terminal_content(&transformed_hook);
+    assert_eq!(
+        tableau_weak_content(&transformed_raw, transformed_hook.sigma.len()),
+        new_terminal_content
+    );
+    let transformed = TableauState {
+        lambda: transformed_raw.lambda.clone(),
+        entries: loehr_mendes_to_partition(
+            &transformed_raw.entries,
+            &transformed_raw.lambda,
+            &new_terminal_content,
+        ),
+    };
+    assert_eq!(
+        tableau_content(&transformed, n),
+        hook_content(&transformed_hook)
+    );
+    assert_eq!(
+        permutation_sign(&transformed_hook.sigma),
+        -permutation_sign(&hook.sigma)
+    );
+    Some((
+        transformed,
+        transformed_hook,
+        LoehrMendesEvent::Er { row, largest },
+    ))
+}
+
 fn normalize_ssyt_content(entries: &[usize], lambda: &[usize], mu: &[usize]) -> Vec<usize> {
     let mut result = entries.to_vec();
     for value in normalization_swaps(mu) {
@@ -961,6 +1293,137 @@ fn inverse_kostka_local(
     panic!("Allen--Celano--Mason path exceeded safety bound");
 }
 
+fn triple_to_hook(triple: &Triple) -> HookState {
+    let ell = triple.lambda.len();
+    assert!(triple
+        .pi
+        .iter()
+        .enumerate()
+        .skip(ell)
+        .all(|(index, &value)| index == value));
+    let short_pi = triple.pi[..ell].to_vec();
+    assert!(short_pi.iter().all(|&value| value < ell));
+    HookState {
+        lambda: triple.lambda.clone(),
+        sigma: inverse_permutation(&short_pi),
+    }
+}
+
+fn hook_to_pi(hook: &HookState, n: usize) -> Vec<usize> {
+    let mut pi = inverse_permutation(&hook.sigma);
+    pi.extend(hook.lambda.len()..n);
+    pi
+}
+
+fn inverse_kostka_loehr_mendes_local(
+    triple: &Triple,
+    nu: &[usize],
+    mu: &[usize],
+) -> Option<(Triple, Vec<LoehrMendesEvent>)> {
+    let n = triple.pi.len();
+    let nu_partition = decreasing_rearrangement(nu);
+    let mu_partition = decreasing_rearrangement(mu);
+    if nu_partition == mu_partition {
+        assert_eq!(*triple, canonical_fixed_triple(n, mu));
+        return None;
+    }
+
+    let normalized_q = normalize_ssyt_content(&triple.q, &triple.lambda, mu);
+    let d = TableauState {
+        lambda: triple.lambda.clone(),
+        entries: normalized_q,
+    };
+    assert_eq!(tableau_content(&d, n), mu_partition);
+    let c = triple_to_hook(triple);
+    assert_eq!(hook_content(&c), nu_partition);
+    let mut state = LmState {
+        carrier: BTreeMap::new(),
+        b: superstandard_tableau(&nu_partition),
+        c,
+        d,
+    };
+    let input_sign = permutation_sign(&triple.pi);
+    let mut events = Vec::new();
+
+    for _ in 0..100_000 {
+        assert_loehr_mendes_carrier_chain(&state, &nu_partition, n);
+        if is_superstandard(&state.b) && is_superspecial(&state.c) {
+            let used_carrier = state.carrier.contains_key(&mu_partition);
+            let z = state
+                .carrier
+                .remove(&mu_partition)
+                .unwrap_or_else(|| superstandard_tableau(&mu_partition));
+            let old_d = std::mem::replace(&mut state.d, z.clone());
+            state.b = superstandard_tableau(&z.lambda);
+            state.c = HookState {
+                lambda: z.lambda,
+                sigma: (0..state.b.lambda.len()).collect(),
+            };
+            let parked_old_d = !is_superstandard(&old_d);
+            if parked_old_d {
+                let content = tableau_content(&old_d, n);
+                assert_ne!(content, nu_partition);
+                assert!(state.carrier.insert(content, old_d).is_none());
+            }
+            assert_ne!(used_carrier, parked_old_d);
+            events.push(LoehrMendesEvent::AdjointSwap {
+                content: mu_partition.clone(),
+                used_carrier,
+                parked_old_d,
+            });
+        } else {
+            let (b, c, event) = er_local(&state.b, &state.c)
+                .expect("nonfixed Loehr--Mendes (B,C) pair must move under ER");
+            state.b = b;
+            state.c = c;
+            events.push(event);
+        }
+
+        assert_loehr_mendes_carrier_chain(&state, &nu_partition, n);
+
+        if is_superstandard(&state.b) && tableau_content(&state.b, n) == nu_partition {
+            assert!(state.carrier.is_empty());
+            assert_eq!(hook_content(&state.c), nu_partition);
+            assert_eq!(state.c.lambda, state.d.lambda);
+            assert_eq!(permutation_sign(&state.c.sigma), -input_sign);
+            let q = denormalize_ssyt_content(&state.d.entries, &state.d.lambda, mu);
+            let result = Triple {
+                lambda: state.c.lambda.clone(),
+                pi: hook_to_pi(&state.c, n),
+                q,
+            };
+            assert_eq!(
+                decreasing_rearrangement(&alpha(&result.lambda, &result.pi).unwrap()),
+                nu_partition
+            );
+            assert_eq!(permutation_sign(&result.pi), -input_sign);
+            return Some((result, events));
+        }
+
+        let content = tableau_content(&state.b, n);
+        let used_carrier = state.carrier.contains_key(&content);
+        let z = state
+            .carrier
+            .remove(&content)
+            .unwrap_or_else(|| superstandard_tableau(&content));
+        let old_b = std::mem::replace(&mut state.b, z);
+        let parked_old_b = !is_superstandard(&old_b);
+        if parked_old_b {
+            let old_content = tableau_content(&old_b, n);
+            assert_ne!(old_content, nu_partition);
+            assert!(state.carrier.insert(old_content, old_b).is_none());
+        }
+        assert_ne!(used_carrier, parked_old_b);
+        events.push(LoehrMendesEvent::CarrierSwap {
+            content,
+            used_carrier,
+            parked_old_b,
+        });
+        assert_loehr_mendes_carrier_chain(&state, &nu_partition, n);
+    }
+    panic!("Loehr--Mendes path exceeded safety bound");
+}
+
 fn build_catalog(n: usize, nu: &[usize], mu: &[usize]) -> Catalog {
     let nu_partition = decreasing_rearrangement(nu);
     let mut positive = Vec::new();
@@ -1134,6 +1597,92 @@ fn reverse(poset: &Poset, target: &Target, mu: &[usize]) -> Vec<usize> {
             .0;
     }
     panic!("Garsia--Milne reverse path exceeded safety bound");
+}
+
+fn forward_loehr_mendes_with_alphabet(
+    poset: &Poset,
+    coloring: &[usize],
+    alphabet: usize,
+) -> (Target, Vec<LoehrMendesTraceEvent>) {
+    assert!(coloring.iter().all(|&color| color < alphabet));
+    let mu = shape(coloring, alphabet);
+    let oriented = orient_asc_to_des(poset, coloring, alphabet);
+    assert_eq!(shape(&oriented, alphabet), mu);
+    assert_eq!(des(poset, &oriented), asc(poset, coloring));
+    let mut padded_mu = mu.clone();
+    padded_mu.resize(poset.n(), 0);
+    let (normalized, _) = normalize(poset, &oriented, &padded_mu);
+    assert!(normalized.iter().all(|&row| row < poset.n()));
+    let mut state = State {
+        a: normalized,
+        triple: canonical_fixed_triple(poset.n(), &mu),
+    };
+    let mut trace = Vec::new();
+    for _ in 0..100_000 {
+        let Some((new_state, event)) = sw_conjugate(poset, &state) else {
+            assert_eq!(permutation_sign(&state.triple.pi), 1);
+            assert_eq!(state.triple.pi, (0..poset.n()).collect::<Vec<_>>());
+            return (
+                Target {
+                    lambda: state.triple.lambda,
+                    t: state.a,
+                    q: state.triple.q,
+                },
+                trace,
+            );
+        };
+        assert_eq!(des(poset, &new_state.a), des(poset, &state.a));
+        assert_eq!(
+            sw_conjugate(poset, &new_state)
+                .expect("SW conjugate must reverse its own nonfixed move")
+                .0,
+            state
+        );
+        trace.push(LoehrMendesTraceEvent::Sw(event));
+        state = new_state;
+        let nu = decreasing_rearrangement(&shape(&state.a, poset.n()));
+        let old = state.triple.clone();
+        let (partner, local) = inverse_kostka_loehr_mendes_local(&state.triple, &nu, &mu)
+            .expect("negative state cannot be fixed by inverse-Kostka involution");
+        state.triple = partner;
+        let (reversed, reverse_local) = inverse_kostka_loehr_mendes_local(&state.triple, &nu, &mu)
+            .expect("local inverse-Kostka move must reverse itself");
+        assert_eq!(reversed, old);
+        assert_eq!(reverse_local, reversed_loehr_mendes_events(&local));
+        trace.push(LoehrMendesTraceEvent::InverseKostka {
+            nu,
+            from: old,
+            to: state.triple.clone(),
+            local,
+        });
+    }
+    panic!("Loehr--Mendes Garsia--Milne forward path exceeded safety bound");
+}
+
+fn reverse_loehr_mendes(poset: &Poset, target: &Target, mu: &[usize]) -> Vec<usize> {
+    let n = poset.n();
+    let mut state = State {
+        a: target.t.clone(),
+        triple: Triple {
+            lambda: target.lambda.clone(),
+            pi: (0..n).collect(),
+            q: target.q.clone(),
+        },
+    };
+    for _ in 0..100_000 {
+        let nu = decreasing_rearrangement(&shape(&state.a, n));
+        let Some((partner, _)) = inverse_kostka_loehr_mendes_local(&state.triple, &nu, mu) else {
+            let mut padded_mu = mu.to_vec();
+            padded_mu.resize(n, 0);
+            let oriented = denormalize(poset, &state.a, &padded_mu);
+            return undo_asc_to_des(poset, &oriented, mu.len());
+        };
+        state.triple = partner;
+        state = sw_conjugate(poset, &state)
+            .expect("nonfixed inverse-Kostka state must move under SW")
+            .0;
+    }
+    panic!("Loehr--Mendes Garsia--Milne reverse path exceeded safety bound");
 }
 
 fn target_fiber(poset: &Poset, mu: &[usize]) -> Vec<Target> {
@@ -2843,6 +3392,47 @@ fn trace_checksum(trace: &[TraceEvent]) -> usize {
         .sum()
 }
 
+fn loehr_mendes_trace_checksum(trace: &[LoehrMendesTraceEvent]) -> usize {
+    trace
+        .iter()
+        .map(|event| match event {
+            LoehrMendesTraceEvent::Sw(event) => event.row + event.col + event.normalize_swaps.len(),
+            LoehrMendesTraceEvent::InverseKostka {
+                nu,
+                from,
+                to,
+                local,
+            } => {
+                let local_sum: usize = local
+                    .iter()
+                    .map(|event| match event {
+                        LoehrMendesEvent::AdjointSwap {
+                            content,
+                            used_carrier,
+                            parked_old_d,
+                        } => {
+                            content.iter().sum::<usize>()
+                                + usize::from(*used_carrier)
+                                + usize::from(*parked_old_d)
+                        }
+                        LoehrMendesEvent::Er { row, largest } => row + largest,
+                        LoehrMendesEvent::CarrierSwap {
+                            content,
+                            used_carrier,
+                            parked_old_b,
+                        } => {
+                            content.iter().sum::<usize>()
+                                + usize::from(*used_carrier)
+                                + usize::from(*parked_old_b)
+                        }
+                    })
+                    .sum();
+                nu.iter().sum::<usize>() + from.lambda.len() + to.lambda.len() + local_sum
+            }
+        })
+        .sum()
+}
+
 fn verify_lgv_obstruction() {
     // For n=2, mu=(1,1), nu=(2), the reverse inverse-Kostka fiber has
     // exactly the following opposite-signed elements.  Any ordinary LGV
@@ -2934,6 +3524,47 @@ fn verify_inverse_kostka_n(n: usize) -> (usize, usize) {
     (endpoint_states, max_local_events)
 }
 
+fn verify_loehr_mendes_inverse_kostka_n(n: usize) -> (usize, usize, usize) {
+    let mut endpoint_states = 0;
+    let mut differing_endpoints = 0;
+    let mut max_local_events = 0;
+    for mu in compositions(n) {
+        let mu_plus = decreasing_rearrangement(&mu);
+        for nu in partitions(n) {
+            let catalog = build_catalog(n, &nu, &mu);
+            let triples: Vec<Triple> = catalog
+                .positive
+                .iter()
+                .chain(&catalog.negative)
+                .cloned()
+                .collect();
+            let fiber: BTreeSet<Triple> = triples.iter().cloned().collect();
+            for triple in triples {
+                endpoint_states += 1;
+                let partner = inverse_kostka_loehr_mendes_local(&triple, &nu, &mu);
+                if nu == mu_plus {
+                    assert!(partner.is_none());
+                    continue;
+                }
+                let (partner, events) = partner.expect("off-diagonal fiber has no fixed points");
+                assert!(fiber.contains(&partner));
+                assert_eq!(permutation_sign(&partner.pi), -permutation_sign(&triple.pi));
+                let (reversed, reverse_events) =
+                    inverse_kostka_loehr_mendes_local(&partner, &nu, &mu)
+                        .expect("Loehr--Mendes partner must reverse");
+                assert_eq!(reversed, triple);
+                assert_eq!(reverse_events, reversed_loehr_mendes_events(&events));
+                let acm_partner = inverse_kostka_local(&triple, &nu, &mu)
+                    .expect("off-diagonal ACM fiber has no fixed points")
+                    .0;
+                differing_endpoints += usize::from(partner != acm_partner);
+                max_local_events = max_local_events.max(events.len());
+            }
+        }
+    }
+    (endpoint_states, differing_endpoints, max_local_events)
+}
+
 fn crystal_on_triple(triple: &Triple, color: usize, raising: bool) -> Option<Triple> {
     let target = Target {
         lambda: triple.lambda.clone(),
@@ -2998,6 +3629,142 @@ struct Summary {
     targets: usize,
     max_trace_events: usize,
     trace_checksum: usize,
+}
+
+#[derive(Clone, Debug)]
+struct OracleMapDifference {
+    code: Vec<usize>,
+    source: Vec<usize>,
+    acm: Target,
+    loehr_mendes: Target,
+}
+
+#[derive(Clone, Debug)]
+struct OracleOperatorDifference {
+    code: Vec<usize>,
+    color: usize,
+    source: Vec<usize>,
+    acm: Option<Vec<usize>>,
+    loehr_mendes: Option<Vec<usize>>,
+}
+
+#[derive(Default)]
+struct OracleComparisonSummary {
+    colorings: usize,
+    differing_images: usize,
+    lowering_tests: usize,
+    differing_lowering: usize,
+    lowering_definedness_differences: usize,
+    lowering_value_differences: usize,
+    reflection_tests: usize,
+    differing_reflections: usize,
+    max_trace_events: usize,
+    trace_checksum: usize,
+    first_image_difference: Option<OracleMapDifference>,
+    first_lowering_difference: Option<OracleOperatorDifference>,
+    first_reflection_difference: Option<OracleOperatorDifference>,
+}
+
+fn verify_loehr_mendes_coloring_map_n(n: usize) -> OracleComparisonSummary {
+    let mut summary = OracleComparisonSummary::default();
+    for poset in natural_unit_interval_orders(n) {
+        let colorings = proper_colorings(&poset, n);
+        let mut records = Vec::with_capacity(colorings.len());
+        let mut acm_inverse = BTreeMap::new();
+        let mut loehr_mendes_inverse = BTreeMap::new();
+        for source in colorings {
+            let mu = shape(&source, n);
+            let acm = forward_with_alphabet(&poset, &source, n).0;
+            let (loehr_mendes, trace) = forward_loehr_mendes_with_alphabet(&poset, &source, n);
+            assert_eq!(shape(&loehr_mendes.q, n), mu);
+            assert_eq!(asc(&poset, &source), inv_g(&poset, &loehr_mendes.t));
+            assert_eq!(reverse_loehr_mendes(&poset, &loehr_mendes, &mu), source);
+            assert!(acm_inverse.insert(acm.clone(), source.clone()).is_none());
+            assert!(loehr_mendes_inverse
+                .insert(loehr_mendes.clone(), source.clone())
+                .is_none());
+            if acm != loehr_mendes {
+                summary.differing_images += 1;
+                if summary.first_image_difference.is_none() {
+                    summary.first_image_difference = Some(OracleMapDifference {
+                        code: poset.code(),
+                        source: source.clone(),
+                        acm: acm.clone(),
+                        loehr_mendes: loehr_mendes.clone(),
+                    });
+                }
+            }
+            let event_count: usize = trace
+                .iter()
+                .map(|event| match event {
+                    LoehrMendesTraceEvent::Sw(_) => 1,
+                    LoehrMendesTraceEvent::InverseKostka { local, .. } => local.len(),
+                })
+                .sum();
+            summary.max_trace_events = summary.max_trace_events.max(event_count);
+            summary.trace_checksum = summary
+                .trace_checksum
+                .wrapping_add(loehr_mendes_trace_checksum(&trace));
+            records.push((source, acm, loehr_mendes));
+        }
+        assert_eq!(
+            acm_inverse.keys().collect::<Vec<_>>(),
+            loehr_mendes_inverse.keys().collect::<Vec<_>>(),
+            "the two coloring maps must cover the same target set for P={:?}",
+            poset.code()
+        );
+
+        for (source, acm, loehr_mendes) in records {
+            summary.colorings += 1;
+            for color in 0..n.saturating_sub(1) {
+                let acm_lowered = crystal_on_target(&acm, color, false)
+                    .map(|target| acm_inverse.get(&target).unwrap().clone());
+                let loehr_mendes_lowered = crystal_on_target(&loehr_mendes, color, false)
+                    .map(|target| loehr_mendes_inverse.get(&target).unwrap().clone());
+                summary.lowering_tests += 1;
+                if acm_lowered != loehr_mendes_lowered {
+                    summary.differing_lowering += 1;
+                    if acm_lowered.is_some() != loehr_mendes_lowered.is_some() {
+                        summary.lowering_definedness_differences += 1;
+                    } else {
+                        summary.lowering_value_differences += 1;
+                    }
+                    if summary.first_lowering_difference.is_none() {
+                        summary.first_lowering_difference = Some(OracleOperatorDifference {
+                            code: poset.code(),
+                            color,
+                            source: source.clone(),
+                            acm: acm_lowered,
+                            loehr_mendes: loehr_mendes_lowered,
+                        });
+                    }
+                }
+
+                let acm_reflected = acm_inverse
+                    .get(&crystal_reflection_on_target(&acm, n, color))
+                    .unwrap()
+                    .clone();
+                let loehr_mendes_reflected = loehr_mendes_inverse
+                    .get(&crystal_reflection_on_target(&loehr_mendes, n, color))
+                    .unwrap()
+                    .clone();
+                summary.reflection_tests += 1;
+                if acm_reflected != loehr_mendes_reflected {
+                    summary.differing_reflections += 1;
+                    if summary.first_reflection_difference.is_none() {
+                        summary.first_reflection_difference = Some(OracleOperatorDifference {
+                            code: poset.code(),
+                            color,
+                            source: source.clone(),
+                            acm: Some(acm_reflected),
+                            loehr_mendes: Some(loehr_mendes_reflected),
+                        });
+                    }
+                }
+            }
+        }
+    }
+    summary
 }
 
 fn verify_n(n: usize) -> Summary {
@@ -3161,8 +3928,11 @@ fn main() {
     let mut total = Summary::default();
     for n in 1..=5 {
         let (inverse_kostka_states, max_local_events) = verify_inverse_kostka_n(n);
+        let (lm_inverse_kostka_states, lm_differing_endpoints, lm_max_local_events) =
+            verify_loehr_mendes_inverse_kostka_n(n);
         let inverse_kostka_defects = inverse_kostka_crystal_defects_n(n);
         let summary = verify_n(n);
+        let lm_comparison = verify_loehr_mendes_coloring_map_n(n);
         let crystal = verify_one_empty_color_n(n);
         let mut graph_summary = GraphSummary::default();
         for poset in natural_unit_interval_orders(n) {
@@ -3191,6 +3961,48 @@ fn main() {
             summary.max_trace_events,
             summary.trace_checksum
         );
+        println!(
+            "  Loehr--Mendes: IK endpoints={} ({} differ from ACM), full-alphabet colorings={}, differing images={}, f differences={}/{} (definedness {}, value {}), S differences={}/{}, max local events={}, max full trace events={}, checksum={}",
+            lm_inverse_kostka_states,
+            lm_differing_endpoints,
+            lm_comparison.colorings,
+            lm_comparison.differing_images,
+            lm_comparison.differing_lowering,
+            lm_comparison.lowering_tests,
+            lm_comparison.lowering_definedness_differences,
+            lm_comparison.lowering_value_differences,
+            lm_comparison.differing_reflections,
+            lm_comparison.reflection_tests,
+            lm_max_local_events,
+            lm_comparison.max_trace_events,
+            lm_comparison.trace_checksum
+        );
+        if let Some(witness) = &lm_comparison.first_image_difference {
+            println!(
+                "    first image difference: P={:?}, source={:?}, ACM={:?}, LM={:?}",
+                witness.code, witness.source, witness.acm, witness.loehr_mendes
+            );
+        }
+        if let Some(witness) = &lm_comparison.first_lowering_difference {
+            println!(
+                "    first f difference: P={:?}, root={}, source={:?}, ACM={:?}, LM={:?}",
+                witness.code,
+                witness.color + 1,
+                witness.source,
+                witness.acm,
+                witness.loehr_mendes
+            );
+        }
+        if let Some(witness) = &lm_comparison.first_reflection_difference {
+            println!(
+                "    first S difference: P={:?}, root={}, source={:?}, ACM={:?}, LM={:?}",
+                witness.code,
+                witness.color + 1,
+                witness.source,
+                witness.acm,
+                witness.loehr_mendes
+            );
+        }
         total.posets += summary.posets;
         total.kp_posets += summary.kp_posets;
         total.colorings += summary.colorings;
@@ -3216,6 +4028,103 @@ mod tests {
     use super::*;
 
     #[test]
+    fn loehr_mendes_published_regressions() {
+        let lambda = vec![4, 2];
+        let tableau = vec![0, 0, 0, 1, 1, 2];
+        let composition = vec![1, 3, 2];
+        assert_eq!(
+            loehr_mendes_normalization_swaps(&composition),
+            vec![0, 1, 0, 1]
+        );
+        let composition_tableau = loehr_mendes_to_composition(&tableau, &lambda, &composition);
+        assert_eq!(composition_tableau, vec![0, 1, 1, 1, 2, 2]);
+        assert_eq!(
+            loehr_mendes_to_partition(&composition_tableau, &lambda, &composition),
+            tableau
+        );
+        // The older stable bubble word has the same target content but a
+        // different tableau, so this test distinguishes the exact LM map.
+        assert_eq!(
+            denormalize_ssyt_content(&tableau, &lambda, &composition),
+            vec![0, 1, 1, 2, 1, 2]
+        );
+
+        let rank_two = Triple {
+            lambda: vec![2],
+            pi: vec![0, 1],
+            q: vec![0, 1],
+        };
+        let rank_two_partner = Triple {
+            lambda: vec![1, 1],
+            pi: vec![1, 0],
+            q: vec![0, 1],
+        };
+        assert_eq!(
+            inverse_kostka_loehr_mendes_local(&rank_two, &[2], &[1, 1])
+                .unwrap()
+                .0,
+            rank_two_partner
+        );
+        assert_eq!(
+            inverse_kostka_loehr_mendes_local(&rank_two_partner, &[2], &[1, 1])
+                .unwrap()
+                .0,
+            rank_two
+        );
+
+        let example_54 = Triple {
+            lambda: vec![2, 2],
+            pi: vec![0, 1, 2, 3],
+            q: vec![0, 0, 1, 2],
+        };
+        let example_54_partner = Triple {
+            lambda: vec![2, 1, 1],
+            pi: vec![0, 2, 1, 3],
+            q: vec![0, 0, 1, 2],
+        };
+        let (actual, events) =
+            inverse_kostka_loehr_mendes_local(&example_54, &[2, 2], &[2, 1, 1]).unwrap();
+        assert_eq!(actual, example_54_partner);
+        assert_eq!(events.len(), 3);
+        assert_eq!(
+            inverse_kostka_loehr_mendes_local(&example_54_partner, &[2, 2], &[2, 1, 1])
+                .unwrap()
+                .0,
+            example_54
+        );
+
+        // The published example separating Loehr--Mendes from
+        // Allen--Celano--Mason.
+        let published = Triple {
+            lambda: vec![3, 2, 1],
+            pi: vec![1, 2, 0, 3, 4, 5],
+            q: vec![0, 0, 0, 1, 1, 2],
+        };
+        let published_lm_partner = Triple {
+            lambda: vec![4, 2],
+            pi: vec![1, 0, 2, 3, 4, 5],
+            q: vec![0, 0, 0, 1, 1, 2],
+        };
+        let (actual, events) =
+            inverse_kostka_loehr_mendes_local(&published, &[5, 1], &[3, 2, 1]).unwrap();
+        assert_eq!(actual, published_lm_partner);
+        assert_eq!(events.len(), 19);
+        assert_eq!(
+            inverse_kostka_loehr_mendes_local(&published_lm_partner, &[5, 1], &[3, 2, 1])
+                .unwrap()
+                .0,
+            published
+        );
+        assert_eq!(
+            inverse_kostka_local(&published, &[5, 1], &[3, 2, 1])
+                .unwrap()
+                .0
+                .q,
+            vec![0, 0, 0, 2, 1, 1]
+        );
+    }
+
+    #[test]
     fn inverse_kostka_lgv_obstruction_is_minimal() {
         verify_lgv_obstruction();
         verify_all_tail_q_obstruction();
@@ -3234,6 +4143,8 @@ mod tests {
     fn exhaustive_through_four() {
         for n in 1..=4 {
             verify_inverse_kostka_n(n);
+            verify_loehr_mendes_inverse_kostka_n(n);
+            verify_loehr_mendes_coloring_map_n(n);
             verify_n(n);
             verify_one_empty_color_n(n);
         }

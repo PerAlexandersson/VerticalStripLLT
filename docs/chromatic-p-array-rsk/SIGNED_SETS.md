@@ -17,6 +17,9 @@ summaries:
   Jacobi--Trudi cancellation;
 - paper-cache 297, Kim--Pylyavskyy, arXiv:2003.12123: Algorithm 1, Theorem
   6.1, and its proof in Section 9 for the avoidance-class oracle.
+- paper-cache 353, Loehr--Mendes, *Bijective matrix algebra*: Sections
+  7.3 and 7.5--7.6 for their tableau normalization, reverse
+  inverse-Kostka involution, and proof by the confluence lemma.
 
 The inverse-Kostka direction was also checked against Eğecioğlu--Remmel's
 1990 inverse-Kostka paper and the full official arXiv text of
@@ -206,6 +209,87 @@ semistandard, Algorithm 5.1 applies its bad-cell tail switch.  Alternating
 these two local involutions reaches the other semistandard endpoint.
 Finally invert (\sigma) and undo the ordinary Bender--Knuth maps.  When
 (\nu=\mu^+), the unique positive state is fixed.
+
+### The Loehr--Mendes alternative
+
+Loehr--Mendes Section 7.5 gives a second explicit involution on the same
+signed set.  Write a special rim-hook tabloid as ((\lambda,\sigma)), with
+(\sigma=\pi^{-1}), and put
+
+\[
+  \Gamma_j=\lambda_j-j+\sigma(j),
+  \qquad
+  \beta_i=\Gamma_{\sigma^{-1}(i)}.
+\]
+
+Thus (\beta_i=\alpha(\lambda,\pi)_i).  The partition content of the
+tabloid is (\beta^+), whereas the raw Eğecioğlu--Remmel move uses the
+ordered composition (\beta), including its internal zero parts.
+
+For a weak composition (\beta), let (N_\beta) be the iterated
+Bender--Knuth map from partition content (\beta^+) to content (\beta)
+defined in Loehr--Mendes Section 7.3.  Starting with the decreasing list of
+parts, process positions from left to right.  If the desired part in
+position (r) first occurs in position (s\geq r), apply the palindromic word
+
+\[
+  r,r+1,\dotsc,s-1,s-2,\dotsc,r
+\]
+
+of adjacent Bender--Knuth involutions, and interchange those two parts.
+The modified Eğecioğlu--Remmel involution is
+
+\[
+  (B,C)\longmapsto
+  \bigl(N_{\beta(C')}^{-1}(\widetilde B'),C'\bigr),
+  \qquad
+  (\widetilde B',C')=
+  \operatorname{ER}_{\rm raw}(N_{\beta(C)}B,C).
+\]
+
+In the raw move, choose the first row of (N_{\beta(C)}B) which is not
+constant with its row index, let (s) be its largest entry, lower the
+leftmost (s) to (s-1), and apply the Bender--Knuth involution on
+((s-1,s)).  At the same time replace (\sigma) by
+((s-1,s)\sigma).  This is an involution and reverses the sign.
+
+The reverse identity uses intermediate states ((\mathcal B,B,C,D)).  Here
+(\mathcal B) is a finite carrier of nonsuperstandard tableaux, (B) is a
+semistandard tableau, (C) is a special rim-hook tabloid of the same content
+as (B), and (D) is a semistandard tableau of the same shape as (C).  Two
+involutions alternate:
+
+1. If (B) is superstandard and (C) is superspecial, interchange (D) with
+   the unique carrier tableau having its content, using the corresponding
+   superstandard tableau when no such element is present.  Otherwise apply
+   the modified Eğecioğlu--Remmel involution to ((B,C)).
+2. Interchange (B) with the carrier tableau having its content, again using
+   the superstandard tableau when the carrier has no such element.
+
+The carrier is more rigid than its set notation suggests.  Its tableaux
+form one strict dominance chain from the original rim-hook content to the
+shape of (B).  Hence every carrier operation is exactly one push or one pop.
+Reversing the primitive event list, and interchanging the push and pop flags,
+gives the trace of the reverse computation.
+
+This involution can replace Allen--Celano--Mason Algorithm 5.4 in the common
+signed set below.  It has the same unique fixed point but not the same
+off-diagonal pairs.  For example, the rank-six input
+
+\[
+  \lambda=(3,2,1),\quad \sigma=[3,1,2],\quad
+  Q=111/22/3
+\]
+
+is paired by Loehr--Mendes with
+
+\[
+  \lambda'=(4,2),\quad \sigma'=[2,1],\quad
+  Q'=1112/23,
+\]
+
+whereas Allen--Celano--Mason gives (Q'=1113/22).  The Loehr--Mendes trace
+has 19 primitive events and reverses event by event.
 
 ## 5. The common signed set
 

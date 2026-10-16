@@ -77,6 +77,77 @@ invert `sigma`, undo the ordinary Bender--Knuth involutions, and return a
 triple of the original kind.  Tunnel-hook diagrams are not extra state:
 their shape and permutation determine them uniquely.
 
+## A second inverse-Kostka oracle
+
+The program also implements the reverse inverse-Kostka involution of
+Loehr--Mendes, Sections 7.3 and 7.5--7.6.  It uses special rim-hook tabloids,
+the modified Eğecioğlu--Remmel involution, and the auxiliary carrier in their
+bijective-matrix-algebra proof.  This implementation is independent of the
+Allen--Celano--Mason `psi/theta` path.
+
+The ordinary Bender--Knuth normalization inside this involution must use the
+palindromic word specified by Loehr--Mendes.  It cannot reuse the stable
+bubble-sort word used for the external coloring normalization.  For example,
+on the tableau `1112/23` with target content `(1,3,2)`, the Loehr--Mendes word
+is `1,2,1,2` and gives `1222/33`; the reverse bubble-sort word is `2,1` and
+gives `1223/23`.  Both tableaux have the requested content, but they lead to
+different inverse-Kostka endpoints.
+
+The local implementation asserts that the carrier is a single strict
+dominance chain of nonsuperstandard tableaux.  It also checks the complete
+reversibility statement: the return path has the reversed primitive event
+list, with every carrier push changed to a pop.  The regression suite includes
+the two-element fiber, Loehr--Mendes Example 54, and the published rank-six
+example that distinguishes their endpoint from Allen--Celano--Mason.
+
+Replacing the inverse-Kostka involution in the full Garsia--Milne path gives a
+second explicit map from colorings to the same set of pairs `(T,Q)`.  The
+following census uses the full alphabet of size `n`; it includes colorings
+with empty color classes.
+
+| rank | IK states | LM endpoints differing from ACM | colorings | differing images | differing `f_i` | differing `S_i` | longest LM local/full trace |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 1 | 0 | 1 | 0 | 0 / 0 | 0 / 0 | 0 / 0 |
+| 2 | 4 | 0 | 6 | 0 | 0 / 6 | 0 / 6 | 3 / 4 |
+| 3 | 16 | 4 | 81 | 0 | 0 / 162 | 0 / 162 | 9 / 14 |
+| 4 | 76 | 28 | 1,780 | 4 | 20 / 5,340 | 0 / 5,340 | 77 / 142 |
+| 5 | 376 | 210 | 55,125 | 4,211 | 15,655 / 220,500 | 2,780 / 220,500 | 389 / 756 |
+
+For every order and coloring in this table, the Loehr--Mendes map preserves
+weight and ascent/inversion, reverses to the source, and covers exactly the
+same target set as the Allen--Celano--Mason map.  Transporting the ordinary
+tableau operators therefore gives another normal type-A crystal on the
+colorings.
+
+The two crystal structures are different.  The first difference between the
+maps occurs at rank four for the order with Hessenberg code `(2,2,3,4)` and
+the coloring `1243`.  Both images have shape `(3,1)` and P-tableau `234/1`,
+but their recording tableaux are
+
+```text
+ACM: 123/4,     Loehr--Mendes: 134/2.
+```
+
+For the same order, the first lowering-operator difference is
+
+```text
+f_3(1233) = 3412   under ACM,
+f_3(1233) = 1243   under Loehr--Mendes.
+```
+
+The simple reflections happen to agree through rank four.  Their first
+difference occurs on the five-element chain:
+
+```text
+S_2(11233) = 31122   under ACM,
+S_2(11233) = 23211   under Loehr--Mendes.
+```
+
+Thus the reverse inverse-Kostka involution is a choice of gauge for the
+coloring crystal.  Changing that involution can alter both the Kashiwara edges
+and the Weyl-group action, even though the target tableaux and all type-A
+crystal axioms are unchanged.
+
 ## Weak contents and classical crystal operators
 
 Allowing zero parts is necessary for a crystal on a fixed alphabet.  The
