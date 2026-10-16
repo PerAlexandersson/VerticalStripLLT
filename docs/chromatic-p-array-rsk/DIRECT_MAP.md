@@ -234,6 +234,56 @@ reversible Garsia--Milne trace. Hence the crystal operator has now been
 separated into an intrinsic recording carrier and a still-global ownership
 resolution.
 
+### 3.2. Replacing global ownership by the adaptive standard map
+
+The same carrier works for any standard-word bijection preserving the
+P-descent set and P-inversion; it is not specific to the Garsia--Milne
+baseline. In particular, apply the adaptive component-sealing bijection of
+`LOCAL_KP_INSERTION.md` to the standardized block word. Its local components
+and its terminal coarse-fiber fallback preserve precisely these two
+statistics. Transposition, destandardization, and the genuine
+Schuetzenberger--Lusztig involution therefore lift it to a weight- and
+ascent-preserving map from proper colorings to pairs \((T,Q)\).
+
+On this lift, a Kashiwara move still fixes \(T\) and changes the recording
+columns by the interval token of Section 3.1. The inverse recomputes the same
+adaptive catalog: a locally sealed endpoint is owned by its component
+matching, while only a terminal residual uses the lexicographic invariant
+fiber. Thus the global Garsia--Milne trace is no longer needed to resolve an
+endpoint already handled by local sealing.
+
+For the defective rank-six order with Hessenberg code
+\((3,3,5,5,6,6)\), the exhaustive Rust regression checks all 12,000 proper
+colorings on six colors and all 49,040 directed Kashiwara moves. Forward and
+inverse maps agree, ascent equals \(\operatorname{inv}_G(T)\), and every raising
+or lowering move is undone by its opposite. This gives a genuine normal
+type-A crystal on these colorings, not the weak partial-inverse operators of
+Ehrhard.
+
+There is nevertheless a real obstruction to replacing ownership by a tiny
+guard on the moved KP pair. Through rank six, the carrier identity holds on
+10,028,100 directed moves, but 9,925 endpoints require a repaired standard
+owner and 1,750 moves cross the raw/repaired boundary. At rank six all 112
+missing standard endpoints have valid recording tableaux and a defect only in
+the insertion array. A two-row, two-column signature plus the full shape does
+not distinguish repaired from raw-good ownership. The adaptive component
+rule resolves this ambiguity; a uniformly bounded intrinsic rule remains
+open.
+
+At rank six the adaptive ownership certificate can be sharpened completely.
+Of the 112 repaired standard endpoints, 76 are recovered by one transposition
+of \(P\), 20 by a three-cycle, two by two disjoint transpositions, and eight
+by a four-cycle, all with \(Q\) fixed. The remaining six use a three-entry
+move in \(P\) together with one outer-corner move in \(Q\). Every action lies
+in the first two affected rows and four consecutive columns. Requiring actual
+raw deletion/reinsertion, exclusion from the raw image, and the asymmetric
+P-Knuth reading certificate leaves 112 disjoint candidate edges, each equal
+to the Garsia--Milne edge. If raw-image exclusion is omitted, raw-good false
+positives occur. Rust now checks that the adaptive and Garsia--Milne standard
+maps agree on every permutation for all 132 rank-six orders. This is a
+complete finite-rank carrier rule, but not evidence for a rank-independent
+window bound.
+
 ## 4. Exact finite verification
 
 The Rust prototype is in experiments/chromatic-p-array-rsk/src/main.rs. It

@@ -73,6 +73,32 @@ deferred to it.  Its inverse reconstructs the same deterministic catalog,
 recognizes corrected targets there, and otherwise uses checked raw KP
 deletion/replay.  The sampled rank-eight orders use zero fallback pairs.
 
+The adaptive standard map now has a semistandard coloring lift and a genuine
+transported crystal.  The recording interval carrier is independent of the
+choice of standard baseline, so locally sealed adaptive endpoints use the
+adaptive inverse rather than a Garsia--Milne ownership trace.  On defective
+code `335566`, the exhaustive regression checks 12,000 six-color proper
+colorings and 49,040 directed Kashiwara moves, including forward/inverse,
+ascent/inversion, and raising/lowering inverse identities.
+
+The global carrier census now runs through rank six: 2,278,499 colorings and
+10,028,100 directed moves.  Exactly 9,925 moves land in repaired endpoints,
+1,750 cross the raw/repaired boundary, and the longest GM reverse trace is 10.
+There are 114 repaired standard endpoints over 13 affected orders.  At rank
+six all 112 missing endpoints have valid `Q` and only a `P` defect.  A
+two-row/two-column ownership signature plus full shape has a raw/repaired
+collision, so a tiny fixed guard is already insufficient.
+
+The complete rank-six ownership hierarchy is nevertheless local.  Among the
+112 repaired standard endpoints, 76 use one `P` transposition, 20 a
+three-cycle, two a double transposition, eight a four-cycle, and six a
+three-entry `P` move together with one outer-corner `Q` move.  All lie in two
+rows and four consecutive columns.  Actual raw replay, raw-image exclusion,
+and the asymmetric P-Knuth reading certificate leave 112 disjoint edges, all
+equal to the Garsia--Milne edges.  A Rust regression now verifies equality of
+the adaptive and GM standard maps on every permutation for all 132 rank-six
+orders.
+
 The exact Kim--Pylyavskyy Algorithms 1--3 and dualized inverse are now
 implemented with a reversible event trace.  The rank-five repair is
 recording-aware: only the two fibers `125/34` and `135/24` over the repaired
@@ -103,14 +129,15 @@ memoryless growth rule.  KP Example 7.11 at code `(2,4,5,6,6,7,7)` and word
 accept arbitrary column arrays.  Detailed conventions and results are in
 `docs/chromatic-p-array-rsk/LOCAL_KP_INSERTION.md`.
 
-Eighteen unit tests, Clippy with warnings denied, formatting, and the diff
-check pass.  Release `--kp-carrier 5` checks 198,720 directed moves.  The hard
+Twenty unit tests, Clippy with warnings denied, formatting, and the diff
+check pass.  Release `--kp-carrier 6` checks 10,028,100 directed moves.  The hard
 adaptive rank-eight run on code `34666888` matches all 1,432 defects with
 sealing profile `[934,354,0,144]`, zero optimum ties, and zero fallback pairs.
 The rank-six adaptive regression exhaustively checks forward/inverse
 reconstruction and exact target coverage.  No Lean source or build,
 marked-coloring/HRV file, circular-LLT file, or manuscript file was touched.
-The verified implementation checkpoint is `982e013`.
+The preceding implementation checkpoint is `982e013`; the rank-six carrier
+and adaptive-crystal extension is the active checkpoint.
 The worker retains its three owned paths for the next carrier/ownership
 experiment.
 

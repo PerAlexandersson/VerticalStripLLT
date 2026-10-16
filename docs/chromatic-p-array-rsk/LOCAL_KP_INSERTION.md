@@ -662,6 +662,22 @@ The inverse recomputes the same deterministic catalog, looks up corrected
 targets there, and otherwise applies checked raw KP deletion and insertion
 replay.
 
+Because every adaptive edge and fallback pair preserves reversed P-descent
+and P-inversion, this standard map admits the same semistandard lift as the
+global map. The resulting coloring bijection transports the genuine normal
+type-A crystal. On code \((3,3,5,5,6,6)\), exhaustive verification covers
+12,000 six-color proper colorings and 49,040 directed crystal moves. Hence
+component sealing is not merely an insertion census: it supplies the endpoint
+ownership required by the recording-label carrier whenever the component is
+sealed locally.
+
+For all 132 rank-six orders, the adaptive standard map agrees exactly with
+the Garsia--Milne map. The 112 nonraw edges are already isolated by the
+rank-six local certificate: support at most four in \(P\), at most one moved
+outer corner in \(Q\), a two-row/four-column window, raw-image exclusion, and
+the checked asymmetric P-Knuth reading path. Thus no matching choice remains
+at this rank.
+
 Using full-component optimization changes 30 of the existing 5,162
 rank-seven assignments. We therefore keep the current rank-seven map intact
 while treating component sealing as a separate candidate for the all-rank

@@ -4195,6 +4195,25 @@ fn kp_insertion_from_direct_image(image: &DirectStandardImage) -> KpInsertion {
     }
 }
 
+fn kp_adaptive_direct_standard_catalog(
+    poset: &Poset,
+    adaptive: &KpAdaptiveSealingCatalog,
+) -> DirectStandardCatalog {
+    let mut forward = BTreeMap::new();
+    let mut reverse = BTreeMap::new();
+    for word in permutations(poset.n()) {
+        let insertion = kp_adaptive_forward(poset, &word, adaptive);
+        let image = kp_insertion_direct_image(poset, &word, &insertion);
+        assert_eq!(kp_insertion_from_direct_image(&image), insertion);
+        assert!(forward.insert(word.clone(), image.clone()).is_none());
+        assert!(reverse.insert(image, word).is_none());
+    }
+    let factorial: usize = (1..=poset.n()).product();
+    assert_eq!(forward.len(), factorial);
+    assert_eq!(reverse.len(), factorial);
+    DirectStandardCatalog { forward, reverse }
+}
+
 fn kp_direct_standard_catalog(poset: &Poset) -> DirectStandardCatalog {
     let insertion_pairs: Vec<_> = if poset.n() == 7 {
         let uniform = kp_uniform_graph_catalog(poset);
@@ -4989,6 +5008,13 @@ struct RecordingCarrierSummary {
     max_gm_reverse_steps: usize,
     moves_landing_repaired: usize,
     raw_repaired_crossings: usize,
+    repaired_cycle_widths: BTreeMap<usize, usize>,
+    gm_reverse_steps: BTreeMap<usize, usize>,
+    repaired_by_poset: BTreeMap<Vec<usize>, usize>,
+    crossings_by_poset: BTreeMap<Vec<usize>, usize>,
+    repaired_standard_endpoints: BTreeSet<(Vec<usize>, Vec<usize>)>,
+    raw_to_repaired: usize,
+    repaired_to_raw: usize,
 }
 
 impl RecordingCarrierSummary {
@@ -5004,6 +5030,22 @@ impl RecordingCarrierSummary {
         self.max_gm_reverse_steps = self.max_gm_reverse_steps.max(other.max_gm_reverse_steps);
         self.moves_landing_repaired += other.moves_landing_repaired;
         self.raw_repaired_crossings += other.raw_repaired_crossings;
+        for (width, count) in other.repaired_cycle_widths {
+            *self.repaired_cycle_widths.entry(width).or_default() += count;
+        }
+        for (steps, count) in other.gm_reverse_steps {
+            *self.gm_reverse_steps.entry(steps).or_default() += count;
+        }
+        for (code, count) in other.repaired_by_poset {
+            *self.repaired_by_poset.entry(code).or_default() += count;
+        }
+        for (code, count) in other.crossings_by_poset {
+            *self.crossings_by_poset.entry(code).or_default() += count;
+        }
+        self.repaired_standard_endpoints
+            .extend(other.repaired_standard_endpoints);
+        self.raw_to_repaired += other.raw_to_repaired;
+        self.repaired_to_raw += other.repaired_to_raw;
     }
 }
 
@@ -5042,6 +5084,7 @@ fn verify_recording_carrier_n(n: usize) -> RecordingCarrierSummary {
                     };
                     let new_value = if raising { color } else { color + 1 };
                     let token = recording_carrier_token(&target, position, new_value);
+                    let token_width = token.alpha.abs_diff(token.beta) + 1;
                     let Some(moved_target) = crystal_on_target(&target, color, raising) else {
                         unreachable!("a selected crystal position must move")
                     };
@@ -5061,10 +5104,7 @@ fn verify_recording_carrier_n(n: usize) -> RecordingCarrierSummary {
                         moved_insertion.q_columns,
                         semistandard_raw_recording_columns(&moved_target.lambda, &moved_target.q,)
                     );
-                    *summary
-                        .cycle_widths
-                        .entry(token.alpha.abs_diff(token.beta) + 1)
-                        .or_default() += 1;
+                    *summary.cycle_widths.entry(token_width).or_default() += 1;
                     let cycled: KpRecording = insertion
                         .q_columns
                         .iter()
@@ -5106,10 +5146,29 @@ fn verify_recording_carrier_n(n: usize) -> RecordingCarrierSummary {
                         );
                         assert_eq!(gm_owner, moved_word);
                         summary.max_gm_reverse_steps = summary.max_gm_reverse_steps.max(steps);
+                        *summary.gm_reverse_steps.entry(steps).or_default() += 1;
                     }
-                    summary.moves_landing_repaired += usize::from(!target_raw_good);
-                    summary.raw_repaired_crossings +=
-                        usize::from(source_raw_good != target_raw_good);
+                    if !target_raw_good {
+                        let code = poset.code();
+                        summary.moves_landing_repaired += 1;
+                        *summary
+                            .repaired_cycle_widths
+                            .entry(token_width)
+                            .or_default() += 1;
+                        *summary.repaired_by_poset.entry(code.clone()).or_default() += 1;
+                        summary
+                            .repaired_standard_endpoints
+                            .insert((code, moved_word.clone()));
+                    }
+                    if source_raw_good != target_raw_good {
+                        summary.raw_repaired_crossings += 1;
+                        *summary.crossings_by_poset.entry(poset.code()).or_default() += 1;
+                        if source_raw_good {
+                            summary.raw_to_repaired += 1;
+                        } else {
+                            summary.repaired_to_raw += 1;
+                        }
+                    }
                 }
             }
         }
@@ -7421,6 +7480,8 @@ fn main() {
                 assert_eq!(kp_adaptive_forward(&poset, word, &catalog), *target);
                 assert_eq!(kp_adaptive_reverse(&poset, target, &catalog), *word);
             }
+            let standard = kp_adaptive_direct_standard_catalog(&poset, &catalog);
+            assert_eq!(standard.forward.len(), (1..=poset.n()).product());
             println!(
                 "KP adaptive code={}: sources={}, missing-targets={}, matched={}, sealed-by-level={:?}, optimum-ties={:?}, fallback-pairs={}, unmatched-sources={}, unmatched-targets={}",
                 args[2],
@@ -7478,7 +7539,7 @@ fn main() {
         let max_n = args[2]
             .parse::<usize>()
             .expect("maximum rank must be numeric");
-        assert!(max_n <= 5, "the carrier census is bounded to rank five");
+        assert!(max_n <= 6, "the carrier census is bounded to rank six");
         let mut summary = RecordingCarrierSummary::default();
         for n in 1..=max_n {
             summary.absorb(verify_recording_carrier_n(n));
@@ -7494,6 +7555,16 @@ fn main() {
             summary.max_gm_reverse_steps,
             summary.moves_landing_repaired,
             summary.raw_repaired_crossings,
+        );
+        println!(
+            "KP repaired carrier breakdown: widths={:?}, gm-steps={:?}, posets={:?}, crossings={:?}, standard-endpoints={}, raw-to-repaired={}, repaired-to-raw={}",
+            summary.repaired_cycle_widths,
+            summary.gm_reverse_steps,
+            summary.repaired_by_poset,
+            summary.crossings_by_poset,
+            summary.repaired_standard_endpoints.len(),
+            summary.raw_to_repaired,
+            summary.repaired_to_raw,
         );
         return;
     }
@@ -8628,6 +8699,67 @@ mod tests {
             assert!(images.insert(kp_tableau_key(&target)));
         }
         assert_eq!(images, kp_expected_targets(&poset));
+    }
+
+    #[test]
+    fn adaptive_rank_six_map_lifts_to_a_coloring_crystal() {
+        let poset = Poset {
+            h: vec![2, 2, 4, 4, 5, 5],
+        };
+        let alphabet = poset.n();
+        let adaptive = kp_adaptive_sealing_catalog(&poset);
+        let catalog = kp_adaptive_direct_standard_catalog(&poset, &adaptive);
+        let mut states = 0;
+        let mut directed_moves = 0;
+        for coloring in proper_colorings(&poset, alphabet) {
+            states += 1;
+            let target = direct_forward_with_catalog(&poset, &coloring, alphabet, &catalog);
+            let content = shape(&coloring, alphabet);
+            assert_eq!(
+                direct_reverse_with_catalog(&poset, &target, &content, &catalog),
+                coloring
+            );
+            assert_eq!(asc(&poset, &coloring), inv_g(&poset, &target.t));
+            for color in 0..alphabet - 1 {
+                for raising in [false, true] {
+                    let Some(moved) = direct_coloring_crystal_operator(
+                        &poset, &coloring, alphabet, color, raising, &catalog,
+                    ) else {
+                        continue;
+                    };
+                    directed_moves += 1;
+                    let moved_target = crystal_on_target(&target, color, raising).unwrap();
+                    assert_eq!(
+                        direct_forward_with_catalog(&poset, &moved, alphabet, &catalog),
+                        moved_target
+                    );
+                    assert_eq!(asc(&poset, &moved), asc(&poset, &coloring));
+                    assert_eq!(
+                        direct_coloring_crystal_operator(
+                            &poset, &moved, alphabet, color, !raising, &catalog,
+                        ),
+                        Some(coloring.clone())
+                    );
+                }
+            }
+        }
+        println!("adaptive rank-six crystal: states={states}, directed-moves={directed_moves}");
+        assert_eq!(states, 12_000);
+        assert_eq!(directed_moves, 49_040);
+    }
+
+    #[test]
+    fn adaptive_rank_six_standard_map_agrees_with_garsia_milne() {
+        let mut corrected_words = 0;
+        for poset in natural_unit_interval_orders(6) {
+            let adaptive = kp_adaptive_sealing_catalog(&poset);
+            corrected_words += adaptive.source_count;
+            let adaptive_standard = kp_adaptive_direct_standard_catalog(&poset, &adaptive);
+            let gm = kp_garsia_milne_catalog(&poset);
+            assert_eq!(adaptive_standard.forward, gm.standard.forward);
+            assert_eq!(adaptive_standard.reverse, gm.standard.reverse);
+        }
+        assert_eq!(corrected_words, 112);
     }
 
     #[test]
