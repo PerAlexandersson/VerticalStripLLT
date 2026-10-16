@@ -2119,6 +2119,32 @@ struct KpLocalSignature {
     recording_descent_mask: usize,
 }
 
+#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
+struct KpStructuralSignature {
+    column_shape: Vec<usize>,
+    p_relations: Vec<u8>,
+    natural_relations: Option<Vec<bool>>,
+    recording: Option<KpRecording>,
+    recording_descent_mask: usize,
+}
+
+#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
+struct KpBoundarySignature {
+    column_shape: Vec<usize>,
+    boundary: (usize, usize, usize),
+    window_occupancy: Vec<(usize, usize)>,
+    comparison_code: u128,
+    recording_columns: Vec<Vec<usize>>,
+}
+
+#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
+struct KpTargetSignature {
+    column_shape: Vec<usize>,
+    window_occupancy: Vec<(usize, usize)>,
+    comparison_code: u128,
+    recording: KpRecording,
+}
+
 struct KpCorrectionCatalog {
     forward: BTreeMap<Vec<usize>, KpInsertion>,
     reverse: BTreeMap<KpInsertion, Vec<usize>>,
@@ -2205,18 +2231,19 @@ fn kp_pair_action(source: &KpInsertion, target: &KpInsertion) -> KpPairAction {
     }
 }
 
+fn kp_cell_action_cost(action: &KpCellAction) -> (usize, usize) {
+    let distance = action
+        .moves
+        .iter()
+        .map(|&(from, to)| from.0.abs_diff(to.0) + from.1.abs_diff(to.1))
+        .sum();
+    (action.moves.len(), distance)
+}
+
 fn kp_pair_action_cost(source: &KpInsertion, target: &KpInsertion) -> [usize; 4] {
-    fn movement(action: &KpCellAction) -> (usize, usize) {
-        let distance = action
-            .moves
-            .iter()
-            .map(|&(from, to)| from.0.abs_diff(to.0) + from.1.abs_diff(to.1))
-            .sum();
-        (action.moves.len(), distance)
-    }
     let action = kp_pair_action(source, target);
-    let (p_moves, p_distance) = movement(&action.p);
-    let (q_moves, q_distance) = movement(&action.q);
+    let (p_moves, p_distance) = kp_cell_action_cost(&action.p);
+    let (q_moves, q_distance) = kp_cell_action_cost(&action.q);
     [
         p_moves + q_moves,
         p_distance + q_distance,
@@ -2344,12 +2371,29 @@ fn kp_apply_pair_action(insertion: &KpInsertion, action: &KpPairAction) -> KpIns
     }
 }
 
+fn kp_reverse_cell_action(action: &KpCellAction) -> KpCellAction {
+    let mut moves: Vec<_> = action.moves.iter().map(|&(from, to)| (to, from)).collect();
+    moves.sort();
+    KpCellAction {
+        source_column_shape: action.target_column_shape.clone(),
+        target_column_shape: action.source_column_shape.clone(),
+        moves,
+    }
+}
+
+fn kp_reverse_pair_action(action: &KpPairAction) -> KpPairAction {
+    KpPairAction {
+        p: kp_reverse_cell_action(&action.p),
+        q: kp_reverse_cell_action(&action.q),
+    }
+}
+
 fn kp_local_signature(poset: &Poset, insertion: &KpInsertion) -> KpLocalSignature {
-    let rows = kp_columns_to_rows(&insertion.p_columns);
     let mut window = Vec::new();
     let mut occupancy = Vec::new();
-    for (row, entries) in rows.iter().enumerate().take(2) {
-        for (col, &entry) in entries.iter().enumerate().take(4) {
+    for (col, column) in insertion.p_columns.iter().enumerate().take(4) {
+        for row in 0..column.len().min(2) {
+            let entry = column[column.len() - 1 - row];
             occupancy.push((row, col));
             window.push(entry);
         }
@@ -2369,12 +2413,143 @@ fn kp_local_signature(poset: &Poset, insertion: &KpInsertion) -> KpLocalSignatur
             place *= 3;
         }
     }
-    let (lambda, _, q) = kp_tableau_key(insertion);
     KpLocalSignature {
         column_shape: insertion.p_columns.iter().map(Vec::len).collect(),
         window_occupancy: occupancy,
         comparison_code,
-        recording_descent_mask: standard_tableau_descent_mask(&lambda, &q),
+        recording_descent_mask: kp_recording_descent_mask(&insertion.q_columns),
+    }
+}
+
+fn kp_structural_signature(
+    poset: &Poset,
+    insertion: &KpInsertion,
+    include_natural_relations: bool,
+    include_recording: bool,
+) -> KpStructuralSignature {
+    let entries: Vec<usize> = insertion.p_columns.iter().flatten().copied().collect();
+    let mut p_relations = Vec::new();
+    let mut natural_relations = include_natural_relations.then(Vec::new);
+    for left in 0..entries.len() {
+        for right in left + 1..entries.len() {
+            p_relations.push(if poset.lt(entries[left], entries[right]) {
+                1
+            } else if poset.lt(entries[right], entries[left]) {
+                2
+            } else {
+                0
+            });
+            if let Some(relations) = &mut natural_relations {
+                relations.push(entries[left] < entries[right]);
+            }
+        }
+    }
+    KpStructuralSignature {
+        column_shape: insertion.p_columns.iter().map(Vec::len).collect(),
+        p_relations,
+        natural_relations,
+        recording: include_recording.then(|| insertion.q_columns.clone()),
+        recording_descent_mask: kp_recording_descent_mask(&insertion.q_columns),
+    }
+}
+
+fn kp_first_invalid_boundary(
+    poset: &Poset,
+    columns: &[Vec<usize>],
+) -> Option<(usize, usize, usize)> {
+    let mut violations = Vec::new();
+    for boundary in 0..columns.len().saturating_sub(1) {
+        if columns[boundary].len() < columns[boundary + 1].len() {
+            violations.push((boundary, columns[boundary].len(), 0));
+        }
+        let common_height = columns[boundary].len().min(columns[boundary + 1].len());
+        for row in 0..common_height {
+            let left = columns[boundary][columns[boundary].len() - 1 - row];
+            let right = columns[boundary + 1][columns[boundary + 1].len() - 1 - row];
+            if poset.lt(right, left) {
+                violations.push((boundary, row, 1));
+            }
+        }
+    }
+    violations.into_iter().min()
+}
+
+fn kp_boundary_signature_checked(
+    poset: &Poset,
+    insertion: &KpInsertion,
+) -> Option<KpBoundarySignature> {
+    let boundary = kp_first_invalid_boundary(poset, &insertion.p_columns)?;
+    let mut window = Vec::new();
+    let mut occupancy = Vec::new();
+    let first_col = boundary.0.saturating_sub(1);
+    let last_col = (boundary.0 + 4).min(insertion.p_columns.len() - 1);
+    let first_row = boundary.1.saturating_sub(1);
+    let last_row = boundary.1 + 1;
+    for col in first_col..=last_col {
+        let column = &insertion.p_columns[col];
+        for row in first_row..=last_row.min(column.len().saturating_sub(1)) {
+            occupancy.push((row, col));
+            window.push(column[column.len() - 1 - row]);
+        }
+    }
+    let mut comparison_code = 0u128;
+    let mut place = 1u128;
+    for left in 0..window.len() {
+        for right in left + 1..window.len() {
+            let relation = if poset.lt(window[left], window[right]) {
+                1
+            } else if poset.lt(window[right], window[left]) {
+                2
+            } else {
+                0
+            };
+            comparison_code += place * relation;
+            place *= 3;
+        }
+    }
+    Some(KpBoundarySignature {
+        column_shape: insertion.p_columns.iter().map(Vec::len).collect(),
+        boundary,
+        window_occupancy: occupancy,
+        comparison_code,
+        recording_columns: insertion.q_columns[boundary.0..=boundary.0 + 1].to_vec(),
+    })
+}
+
+fn kp_boundary_signature(poset: &Poset, insertion: &KpInsertion) -> KpBoundarySignature {
+    kp_boundary_signature_checked(poset, insertion)
+        .expect("a bad KP output has a shape or row violation")
+}
+
+fn kp_target_signature(poset: &Poset, insertion: &KpInsertion) -> KpTargetSignature {
+    let mut window = Vec::new();
+    let mut occupancy = Vec::new();
+    for (col, column) in insertion.p_columns.iter().enumerate().take(5) {
+        for row in 0..column.len().min(3) {
+            occupancy.push((row, col));
+            window.push(column[column.len() - 1 - row]);
+        }
+    }
+    let mut comparison_code = 0u128;
+    let mut place = 1u128;
+    for left in 0..window.len() {
+        for right in left + 1..window.len() {
+            let relation = if poset.lt(window[left], window[right]) {
+                1
+            } else if poset.lt(window[right], window[left]) {
+                2
+            } else {
+                0
+            };
+            comparison_code += place * relation;
+            place *= 3;
+        }
+    }
+    KpTargetSignature {
+        column_shape: insertion.p_columns.iter().map(Vec::len).collect(),
+        window_occupancy: occupancy,
+        comparison_code,
+        recording: insertion.q_columns.clone(),
     }
 }
 
@@ -5757,6 +5932,33 @@ fn main() {
         let mut max_height_profile_optima = 0;
         let mut p_actions: BTreeMap<KpCellAction, usize> = BTreeMap::new();
         let mut pair_actions: BTreeMap<KpPairAction, usize> = BTreeMap::new();
+        let mut source_p_actions: BTreeMap<KpLocalSignature, BTreeSet<KpCellAction>> =
+            BTreeMap::new();
+        let mut source_pair_actions: BTreeMap<KpLocalSignature, BTreeSet<KpPairAction>> =
+            BTreeMap::new();
+        let mut target_pair_actions: BTreeMap<KpLocalSignature, BTreeSet<KpPairAction>> =
+            BTreeMap::new();
+        let mut relation_p_actions: BTreeMap<KpStructuralSignature, BTreeSet<KpCellAction>> =
+            BTreeMap::new();
+        let mut ordered_p_actions: BTreeMap<KpStructuralSignature, BTreeSet<KpCellAction>> =
+            BTreeMap::new();
+        let mut recorded_pair_actions: BTreeMap<KpStructuralSignature, BTreeSet<KpPairAction>> =
+            BTreeMap::new();
+        let mut relation_recorded_pair_actions: BTreeMap<
+            KpStructuralSignature,
+            BTreeSet<KpPairAction>,
+        > = BTreeMap::new();
+        let mut trace_pair_actions: BTreeMap<
+            (KpStructuralSignature, Vec<Vec<usize>>),
+            BTreeSet<KpPairAction>,
+        > = BTreeMap::new();
+        let mut boundary_pair_actions: BTreeMap<KpBoundarySignature, BTreeSet<KpPairAction>> =
+            BTreeMap::new();
+        let mut target_signature_data: BTreeMap<
+            KpTargetSignature,
+            (BTreeSet<KpPairAction>, usize, usize),
+        > = BTreeMap::new();
+        let mut p_to_q_actions: BTreeMap<KpCellAction, BTreeSet<KpCellAction>> = BTreeMap::new();
         let mut first_ambiguous = None;
         let mut first_ambiguous_residual = None;
         let mut first_ambiguous_exact_q = None;
@@ -5820,27 +6022,243 @@ fn main() {
                     .clone()
                     .map(|fiber| (poset.code(), fiber));
             }
-            for (_, raw, target) in catalog.defects {
+            let defect_inverse_by_target: BTreeMap<KpInsertion, KpPairAction> = catalog
+                .defects
+                .iter()
+                .map(|(_, raw, target)| (target.clone(), kp_pair_action(target, raw)))
+                .collect();
+            for target in catalog.reverse.keys() {
+                let data = target_signature_data
+                    .entry(kp_target_signature(&poset, target))
+                    .or_default();
+                if let Some(action) = defect_inverse_by_target.get(target) {
+                    data.0.insert(action.clone());
+                    data.1 += 1;
+                } else {
+                    data.2 += 1;
+                }
+            }
+            for (word, raw, target) in catalog.defects {
                 defects += 1;
                 same_recording += usize::from(raw.q_columns == target.q_columns);
                 let raw_shape: Vec<usize> = raw.p_columns.iter().map(Vec::len).collect();
                 let target_shape: Vec<usize> = target.p_columns.iter().map(Vec::len).collect();
                 shape_changes += usize::from(raw_shape != target_shape);
                 malformed_sources += usize::from(!kp_has_partition_shape(&raw.p_columns));
-                *p_actions.entry(kp_cell_action(&raw, &target)).or_default() += 1;
-                *pair_actions
-                    .entry(kp_pair_action(&raw, &target))
-                    .or_default() += 1;
+                let p_action = kp_cell_action(&raw, &target);
+                let pair_action = kp_pair_action(&raw, &target);
+                *p_actions.entry(p_action.clone()).or_default() += 1;
+                *pair_actions.entry(pair_action.clone()).or_default() += 1;
+                source_p_actions
+                    .entry(kp_local_signature(&poset, &raw))
+                    .or_default()
+                    .insert(p_action);
+                source_pair_actions
+                    .entry(kp_local_signature(&poset, &raw))
+                    .or_default()
+                    .insert(pair_action);
+                relation_p_actions
+                    .entry(kp_structural_signature(&poset, &raw, false, false))
+                    .or_default()
+                    .insert(kp_cell_action(&raw, &target));
+                ordered_p_actions
+                    .entry(kp_structural_signature(&poset, &raw, true, false))
+                    .or_default()
+                    .insert(kp_cell_action(&raw, &target));
+                recorded_pair_actions
+                    .entry(kp_structural_signature(&poset, &raw, true, true))
+                    .or_default()
+                    .insert(kp_pair_action(&raw, &target));
+                relation_recorded_pair_actions
+                    .entry(kp_structural_signature(&poset, &raw, false, true))
+                    .or_default()
+                    .insert(kp_pair_action(&raw, &target));
+                let (replayed_raw, trace) = kp_insert(&poset, &word, false);
+                assert_eq!(replayed_raw, raw);
+                let event_kinds = trace
+                    .passes
+                    .iter()
+                    .map(|pass| {
+                        pass.events
+                            .iter()
+                            .map(|event| event.kind as usize)
+                            .collect()
+                    })
+                    .collect();
+                trace_pair_actions
+                    .entry((
+                        kp_structural_signature(&poset, &raw, false, false),
+                        event_kinds,
+                    ))
+                    .or_default()
+                    .insert(kp_pair_action(&raw, &target));
+                boundary_pair_actions
+                    .entry(kp_boundary_signature(&poset, &raw))
+                    .or_default()
+                    .insert(kp_pair_action(&raw, &target));
+                p_to_q_actions
+                    .entry(kp_cell_action(&raw, &target))
+                    .or_default()
+                    .insert(kp_column_cell_action(&raw.q_columns, &target.q_columns));
+                target_pair_actions
+                    .entry(kp_local_signature(&poset, &target))
+                    .or_default()
+                    .insert(kp_pair_action(&target, &raw));
             }
         }
+        let source_p_conflicts = source_p_actions
+            .values()
+            .filter(|actions| actions.len() > 1)
+            .count();
+        let source_pair_conflicts = source_pair_actions
+            .values()
+            .filter(|actions| actions.len() > 1)
+            .count();
+        let target_pair_conflicts = target_pair_actions
+            .values()
+            .filter(|actions| actions.len() > 1)
+            .count();
+        let relation_p_conflicts = relation_p_actions
+            .values()
+            .filter(|actions| actions.len() > 1)
+            .count();
+        let ordered_p_conflicts = ordered_p_actions
+            .values()
+            .filter(|actions| actions.len() > 1)
+            .count();
+        let recorded_pair_conflicts = recorded_pair_actions
+            .values()
+            .filter(|actions| actions.len() > 1)
+            .count();
+        let relation_recorded_pair_conflicts = relation_recorded_pair_actions
+            .values()
+            .filter(|actions| actions.len() > 1)
+            .count();
+        let trace_pair_conflicts = trace_pair_actions
+            .values()
+            .filter(|actions| actions.len() > 1)
+            .count();
+        let boundary_pair_conflicts = boundary_pair_actions
+            .values()
+            .filter(|actions| actions.len() > 1)
+            .count();
+        let target_signature_conflicts = target_signature_data
+            .values()
+            .filter(|(actions, _, _)| actions.len() > 1)
+            .count();
+        let false_target_signatures = target_signature_data
+            .values()
+            .filter(|(actions, _, ordinary)| !actions.is_empty() && *ordinary > 0)
+            .count();
+        let false_target_occurrences: usize = target_signature_data
+            .values()
+            .filter(|(actions, _, _)| !actions.is_empty())
+            .map(|(_, _, ordinary)| ordinary)
+            .sum();
+        let mut actions_by_target_shape: BTreeMap<(Vec<usize>, Vec<usize>), Vec<KpPairAction>> =
+            BTreeMap::new();
+        for action in pair_actions.keys() {
+            actions_by_target_shape
+                .entry((
+                    action.p.target_column_shape.clone(),
+                    action.q.target_column_shape.clone(),
+                ))
+                .or_default()
+                .push(action.clone());
+        }
+        let mut replay_recognized_targets = 0;
+        let mut replay_missing_targets = 0;
+        let mut replay_false_targets = 0;
+        let mut replay_ambiguous_targets = 0;
+        for poset in natural_unit_interval_orders(n) {
+            for key in kp_expected_targets(&poset) {
+                let target = kp_insertion_from_key(&key);
+                let expected = target_signature_data[&kp_target_signature(&poset, &target)]
+                    .0
+                    .iter()
+                    .next()
+                    .cloned();
+                let shapes = (
+                    target.p_columns.iter().map(Vec::len).collect(),
+                    target.q_columns.iter().map(Vec::len).collect(),
+                );
+                let mut recognized = Vec::new();
+                for action in actions_by_target_shape.get(&shapes).into_iter().flatten() {
+                    let raw = kp_apply_pair_action(&target, &kp_reverse_pair_action(action));
+                    if kp_is_p_tableau(&poset, &raw.p_columns) {
+                        continue;
+                    }
+                    let Some(signature) = kp_boundary_signature_checked(&poset, &raw) else {
+                        continue;
+                    };
+                    if !boundary_pair_actions
+                        .get(&signature)
+                        .is_some_and(|actions| actions.contains(action))
+                    {
+                        continue;
+                    }
+                    if kp_apply_pair_action(&raw, action) != target {
+                        continue;
+                    }
+                    let Some(word) = kp_inverse_checked(&poset, &raw, false) else {
+                        continue;
+                    };
+                    if kp_insert(&poset, &word, false).0 == raw {
+                        recognized.push(action.clone());
+                    }
+                }
+                replay_ambiguous_targets += usize::from(recognized.len() > 1);
+                match (expected, recognized.as_slice()) {
+                    (None, []) => {}
+                    (None, _) => replay_false_targets += 1,
+                    (Some(_), []) => replay_missing_targets += 1,
+                    (Some(expected), [actual]) if *actual == kp_reverse_pair_action(&expected) => {
+                        replay_recognized_targets += 1;
+                    }
+                    (Some(_), _) => replay_false_targets += 1,
+                }
+            }
+        }
+        let p_to_q_conflicts = p_to_q_actions
+            .values()
+            .filter(|actions| actions.len() > 1)
+            .count();
         println!(
             "KP corrected n={n}: defects={defects}, same Q={same_recording}, shape changes={shape_changes}, malformed sources={malformed_sources}, P-actions={}, pair-actions={}, max fiber={max_defect_fiber}, ambiguous fibers={ambiguous_defect_fibers}, max exact-Q group={max_exact_q_group}, ambiguous exact-Q groups={ambiguous_exact_q_groups}, movement groups={minimum_movement_groups}, tied movement groups={ambiguous_minimum_movement_groups}, max movement optima={max_minimum_movement_optima}, tied movement profiles={ambiguous_movement_profile_groups}, max profile optima={max_movement_profile_optima}, max height group={max_exact_height_group}, ambiguous height groups={ambiguous_exact_height_groups}, tied height movement={ambiguous_height_movement_groups}, tied height profiles={ambiguous_height_profile_groups}, max height profile optima={max_height_profile_optima}, max residual={max_residual_fiber}, ambiguous residuals={ambiguous_residual_fibers}",
             p_actions.len(),
             pair_actions.len()
         );
+        println!(
+            "  structural signatures: relation-only={}, conflicts={relation_p_conflicts}; with natural order={}, conflicts={ordered_p_conflicts}; with recording={}, pair-conflicts={relation_recorded_pair_conflicts}; natural+recording={}, pair-conflicts={recorded_pair_conflicts}; with trace kinds={}, pair-conflicts={trace_pair_conflicts}; P-to-Q action conflicts={p_to_q_conflicts}",
+            relation_p_actions.len(),
+            ordered_p_actions.len(),
+            relation_recorded_pair_actions.len(),
+            recorded_pair_actions.len(),
+            trace_pair_actions.len(),
+        );
+        println!(
+            "  boundary signatures: {}, pair-conflicts={boundary_pair_conflicts}",
+            boundary_pair_actions.len(),
+        );
+        println!(
+            "  inverse target signatures: {}, action-conflicts={target_signature_conflicts}, false-recognition signatures={false_target_signatures}, false-recognition targets={false_target_occurrences}",
+            target_signature_data
+                .values()
+                .filter(|(actions, _, _)| !actions.is_empty())
+                .count(),
+        );
+        println!(
+            "  inverse replay: recognized={replay_recognized_targets}, missing={replay_missing_targets}, false={replay_false_targets}, ambiguous={replay_ambiguous_targets}",
+        );
         let mut p_multiplicities: Vec<usize> = p_actions.into_values().collect();
         p_multiplicities.sort_unstable_by(|left, right| right.cmp(left));
         println!("  P-action multiplicities: {p_multiplicities:?}");
+        println!(
+            "  local signatures: source P-signatures={}, source P-conflicts={source_p_conflicts}, source pair-signatures={}, source pair-conflicts={source_pair_conflicts}, targets={}, target pair-conflicts={target_pair_conflicts}",
+            source_p_actions.len(),
+            source_pair_actions.len(),
+            target_pair_actions.len(),
+        );
         if let Some((code, fiber)) = first_ambiguous {
             println!(
                 "  first ambiguous fiber: P={code:?}, Des={}, sources={:?}, targets={:?}",
@@ -6609,6 +7027,41 @@ mod tests {
         assert!(tied_total.ambiguous_minimum_movement_groups > 0);
         assert_eq!(tied_total.ambiguous_movement_profile_groups, 0);
         assert_eq!(tied_total.ambiguous_height_profile_groups, 0);
+
+        let recording_poset = Poset {
+            h: vec![2, 2, 4, 4, 5, 5, 6],
+        };
+        let recording_catalog = kp_correction_catalog(&recording_poset);
+        let first_word = vec![3, 2, 6, 5, 4, 0, 1];
+        let second_word = vec![3, 4, 6, 2, 5, 0, 1];
+        let (_, first_raw, first_target) = recording_catalog
+            .defects
+            .iter()
+            .find(|(word, _, _)| *word == first_word)
+            .unwrap();
+        let (_, second_raw, second_target) = recording_catalog
+            .defects
+            .iter()
+            .find(|(word, _, _)| *word == second_word)
+            .unwrap();
+        assert_eq!(first_raw.p_columns, second_raw.p_columns);
+        assert_eq!(
+            kp_recording_descent_mask(&first_raw.q_columns),
+            kp_recording_descent_mask(&second_raw.q_columns)
+        );
+        assert_ne!(
+            kp_pair_action(first_raw, first_target),
+            kp_pair_action(second_raw, second_target)
+        );
+        assert_ne!(
+            kp_boundary_signature(&recording_poset, first_raw),
+            kp_boundary_signature(&recording_poset, second_raw)
+        );
+        let first_action = kp_pair_action(first_raw, first_target);
+        assert_eq!(
+            kp_apply_pair_action(first_target, &kp_reverse_pair_action(&first_action)),
+            *first_raw
+        );
     }
 
     #[test]

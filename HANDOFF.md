@@ -83,6 +83,30 @@ thirteen unit tests, Clippy with warnings denied, formatting, and the diff
 check pass.  The rank-seven raw-census checkpoint is `68318b7`; the
 minimum-motion implementation checkpoint is `aa661f5`.
 
+The 73 minimum-motion pair actions now have bidirectional finite guards.
+The forward guard takes the leftmost, then topmost, row/shape violation and
+reads the centered three-row window from one column left through four columns
+right, together with the two adjacent complete recording columns.  It gives
+2,532 signatures and no action conflicts on all 5,162 defects.  Its normalized
+motions are translation-invariant; global shape, absolute boundary position,
+and `Des(Q)` are unnecessary.  Exact recording gaps remain necessary: keeping
+only relative recording order leaves 132 conflicts.  A same-raw-`P`,
+same-`Des(Q)` witness is recorded in `LOCAL_KP_INSERTION.md` and the tests.
+
+The inverse top-three-row/first-five-column guard with full `Q` gives 2,693
+signatures, no conflicts, and no false recognition among all 2,162,160
+rank-seven targets.  More locally, trying the four observed boundary positions
+gives 5,850 candidates; the forward guard rejects 140 and actual dual KP
+deletion--reinsertion rejects 548, leaving exactly the 5,162 corrected targets,
+with no missed, false, or multiple inverse.  The Rust release census
+independently reproduces `recognized=5162, missing=0, false=0, ambiguous=0`.
+Sixty-two actions preserve shape and eleven change it; every support lies from
+one column left to four columns right of the first bad boundary.  This is an
+explicit reversible finite rule through rank seven, applied without consulting
+the missing-target set.  A uniform case rule and overlap/confluence proof are
+still required for an intrinsic all-rank insertion.  The boundary-guard
+checkpoint is pending commit.
+
 On 2026-10-16, the Chromatic P-array RSK worker completed a direct bijection
 which avoids inverse Kostka.  The new primary source is paper-cache 354,
 Blasiak--Eriksson--Pylyavskyy--Siegl, arXiv:2211.03967v2.  In each standard

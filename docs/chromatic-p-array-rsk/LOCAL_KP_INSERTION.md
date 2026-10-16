@@ -324,13 +324,86 @@ The matching requires the complete sets of bad outputs and missing targets in
 a component and recording-descent fiber.  Its uniqueness therefore gives a
 reversible finite bijection, but not a local insertion recurrence.
 
-## 8. Current boundary
+## 8. Bidirectional boundary guards through rank seven
+
+The minimum-motion actions admit a finite boundary description.  Every raw
+Kim--Pylyavskyy column is a (P)-chain, so a bad array has either a shape
+violation (h_j<h_{j+1}) or a row violation
+
+\[
+  P(r,j+1)<_P P(r,j).
+\]
+
+We choose the leftmost boundary (j), and then the topmost violating row (r).
+For a shape violation we put (r=h_j).  In the rank-seven census, the only
+boundaries are
+
+| type and position | multiplicity |
+|---|---:|
+| row, ((j,r)=(0,0)) | 3,742 |
+| row, ((j,r)=(0,1)) | 987 |
+| row, ((j,r)=(1,0)) | 355 |
+| shape, ((j,r)=(0,2)) | 78 |
+
+The forward guard records the occupied cells and all pairwise (P)-comparisons
+in the window
+
+\[
+  r-1\leq \text{row}\leq r+1,
+  \qquad
+  j-1\leq \text{column}\leq j+4,
+\]
+
+together with the complete recording columns (j) and (j+1).  The window is
+clipped at the edge of the array.  These data give 2,532 signatures and select
+one of the 73 pair actions without conflict on all 5,162 defects.  After
+translating cells and moves relative to ((j,r)), neither the global shape nor
+the absolute position is needed.  Every observed action is supported between
+columns (j-1) and (j+4).
+
+The recording labels cannot be replaced by their relative order: doing so
+leaves 132 conflicting signatures.  For example, for
+(P=(3,3,5,5,6,6,7)), the words (4376512) and (4573612) have the same raw
+insertion array
+
+\[
+  ((4,6,7),(1,5),(3),(2))
+\]
+
+and the same recording descent set ({2,4}).  The recording arrays
+(((1,3,5),(2,4),(6),(7))) and
+(((1,3,5),(2,6),(4),(7))) select different repairs.  Thus the raw insertion
+array and the recording descent set do not determine the forward action.
+
+For the inverse, the pairwise (P)-comparisons in the first three rows and
+first five columns, together with the complete recording array, give 2,693
+signatures.  They have no action conflicts and occur on exactly the 5,162
+corrected targets among all 2,162,160 rank-seven targets.  A more local inverse
+tries the boundary positions above, using five rows and the same six-column
+window together with the two adjacent recording columns.  This gives 5,850
+candidates.  The forward guard rejects 140 candidates, and dual
+Kim--Pylyavskyy deletion followed by reinsertion rejects a further 548.
+Exactly the 5,162 corrected targets remain, each with a unique inverse action.
+
+Of the 73 pair actions, 62 preserve the column shape and 11 change it.  The
+numbers moving (2,3,4,5,6) insertion entries are respectively
+(13,13,26,17,4).  There are 66 pair motions after translating the boundary to
+the origin, and 59 insertion motions up to arbitrary translation.
+
+This gives a bidirectional finite rule through rank seven which no longer
+uses the missing-target set when it is applied.  Its action table was obtained
+from the minimum-motion matching; an all-rank rule still requires a uniform
+description of these actions and a proof that overlapping repairs are
+joinable.
+
+## 9. Current boundary
 
 The code now contains the exact forward column trace, the exact dualized
 inverse, the rank-five insertion/deletion branch, the rank-six target oracle,
 the 77 guarded forward and reverse signatures, and the rank-seven
-minimum-motion matching on arbitrary column arrays.  The next all-rank problem
-is to explain the 73 rank-seven coordinate actions by a boundary rule with a
-decreasing measure and joinable overlaps.  Until such a rule is proved, the
-componentwise map in `DIRECT_MAP.md` remains the all-rank bijection and the
-local construction remains a verified finite prototype.
+minimum-motion matching and boundary guards on arbitrary column arrays.  The
+next all-rank problem is to replace the 73-entry action table by uniform cases
+and prove that their translated overlaps terminate and are joinable.  Until
+such a rule is proved, the componentwise map in `DIRECT_MAP.md` remains the
+all-rank bijection and the local construction remains a verified finite
+prototype.
