@@ -110,6 +110,7 @@ sealing profile `[934,354,0,144]`, zero optimum ties, and zero fallback pairs.
 The rank-six adaptive regression exhaustively checks forward/inverse
 reconstruction and exact target coverage.  No Lean source or build,
 marked-coloring/HRV file, circular-LLT file, or manuscript file was touched.
+The verified implementation checkpoint is `982e013`.
 The worker retains its three owned paths for the next carrier/ownership
 experiment.
 
