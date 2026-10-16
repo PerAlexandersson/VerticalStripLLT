@@ -439,20 +439,120 @@ minimal.  The first example is the two-source fiber for
 (P=(2,4,5,6,7,7,7)) described above: both sources prefer the same target, so
 the decreasing pair-cost profile assigns the other target to one source.
 
-This gives a bidirectional finite rule through rank seven which no longer uses
-the missing-target set when it is applied.  Its remaining action table was
-obtained from the minimum-motion matching; an all-rank rule still requires a
-uniform description of the cycle and path actions and a proof that
-overlapping repairs are joinable.
+These two closed-form branches give table-free rules for 2,857 defects.  The
+next construction removes the remaining rank-seven action table at the cost
+of matching small candidate components rather than applying one sourcewise
+rewrite.
 
-## 9. Current boundary
+## 9. A table-free rank-seven candidate graph
+
+The action table can in fact be removed completely at rank seven.  For a raw
+defect, let \((j,r)\) be its first invalid boundary, where \(r\) is counted
+from the top of its column.  Consider the window
+
+\[
+  j-1\leq c\leq j+4,
+  \qquad
+  r-2\leq s\leq r+2.
+\]
+
+We enumerate candidate pairs by the following conditions.
+
+1.  The target cell set is either unchanged or is obtained by removing one
+    cell and adding one cell.  Every changed cell lies in the displayed
+    window, and the target shape is a partition.
+2.  The target insertion filling is a (P)-tableau and agrees with the source
+    outside the window.
+3.  If the shape is unchanged, (Q) is unchanged.  Otherwise, at most two
+    recording entries move inside the window, the target is standard, and
+    its descent set agrees with that of the source.
+4.  In the two column-reading words, take the interval from the first changed
+    position to the last, add two letters on the left and one on the right
+    when they exist, and require a P-Knuth path between the restricted words.
+5.  Exclude a target when actual Kim--Pylyavskyy deletion followed by raw
+    reinsertion reproduces it.
+
+This is an intrinsic finite search: it uses neither the 73 actions nor a
+precomputed P-Knuth component label.  It produces 6,877 edges, and the union
+of their right endpoints is exactly the set of 5,162 targets needed to repair
+the raw map.  The connected components have at most five source and five
+target vertices.
+
+We process the graph in three stages.  First retain edges with the same entire
+recording tableau and the same first-column height.  Next retain edges with
+the same first-column height, and finally retain all remaining edges.  At
+each stage we remove the vertices matched at earlier stages, split the graph
+into connected components, maximize matching cardinality, and minimize
+lexicographically
+
+\[
+ \left(
+   \sum_e c(e),
+   \operatorname{sort}_{\mathrm{decreasing}}\{c(e):e\text{ is matched}\}
+ \right),
+\]
+
+where
+
+\[
+ c(e)=
+ \bigl(
+   \#P\text{-moves}+\#Q\text{-moves},
+   d_P+d_Q,
+   \#Q\text{-moves},
+   d_Q
+ \bigr).
+\]
+
+The three stages match respectively 4,702, 458, and 2 sources.  There are 28
+components with tied minimum total cost; the decreasing cost profile resolves
+all of them.  Thus every component has a unique selected matching.  The
+result agrees on all 5,162 sources with the earlier fiberwise construction.
+This gives an explicit standard-word bijection through rank seven without an
+action table or an arbitrary choice.
+
+The coloring construction now uses this graph map when the order has rank
+seven.  On the defective order `(2,3,5,5,6,7,7)`, the three-letter regression
+checks both directions, weight preservation, `asc=inv_G`, and every defined
+Kashiwara lowering edge together with its raising inverse.  Thus the ordinary
+type-A crystal transported through the rank-seven table-free map is executable,
+although its intrinsic coloring rule is still unknown.
+
+The inverse recomputes the same finite graph for the fixed order, applies the
+same unique matching, and looks up the source paired with the given target.
+Equivalently, one may close the component by alternating forward candidate
+generation and inverse local predecessor generation.  The implemented
+verifier uses the first description; an on-demand component-closure
+implementation remains to be added.
+
+Every selected edge has a symmetric margin-two P-Knuth certificate.  The
+minimal symmetric margins zero, one, and two occur 210, 4,014, and 938 times,
+and the maximum shortest path lengths are 14, 26, and 38.  The asymmetric
+two-left, one-right margin suffices for every selected edge; reversing those
+margins loses examples.  This rules out treating the cycle cases as short
+isolated swaps.
+
+The recording part also has a small uniform description.  The 460
+shape-changing sources have shapes
+
+\[
+ (2,2,1,1,1),\qquad (2,3,1,1),\qquad (3,2,1,1).
+\]
+
+Standardness and descent preservation leave a unique recording rim slide in
+318 cases and two candidates in the other 142.  The graph matching selects
+between the latter.  In particular, allowing only one moved recording entry
+would lose 150 necessary edges.
+
+## 10. Current boundary
 
 The code now contains the exact forward column trace, the exact dualized
 inverse, the rank-five insertion/deletion branch, the rank-six target oracle,
-the 77 guarded forward and reverse signatures, and the rank-seven
-minimum-motion matching and boundary guards on arbitrary column arrays.  The
-next all-rank problem is to replace the 73-entry action table by uniform cases
-and prove that their translated overlaps terminate and are joinable.  Until
-such a rule is proved, the componentwise map in `DIRECT_MAP.md` remains the
-all-rank bijection and the local construction remains a verified finite
-prototype.
+the 77 guarded forward and reverse signatures, and the rank-seven table-free
+candidate graph on arbitrary column arrays.  The latter is a complete finite
+bijection, not merely a fitted action table.  Its all-rank extension remains
+conjectural: one must prove that the candidate components are balanced, that
+the staged optimum is unique and complete, and that inverse component closure
+terminates.  Until these facts are proved, the componentwise map in
+`DIRECT_MAP.md` remains the proved all-rank bijection and the local
+construction remains a verified rank-seven prototype.

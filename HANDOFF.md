@@ -132,6 +132,42 @@ other 2,383 defects.  Together with the 78 shape-first cases, uniform branches
 now cover 2,857 of 5,162 repairs without a whole-component oracle.  The
 combined uniform-branch checkpoint is `b9645bd`.
 
+The remaining action table has now been removed at rank seven.  From each raw
+defect, the Rust implementation enumerates partition-shaped targets differing
+by at most one cell inside the centered five-row/six-column defect window,
+valid insertion fillings fixed outside that window, and standard recording
+fillings moving at most two entries and preserving `Des(Q)`.  It retains an
+edge exactly when the changed column words have a P-Knuth certificate on the
+changed interval with two preceding and one following letter, and actual KP
+deletion--reinsertion shows that the target is absent from the raw image.  The
+enumerator uses neither the 73 actions nor P-Knuth component labels.
+
+Across all 429 rank-seven orders, the generated graph has 6,877 edges and
+exactly 5,162 target vertices; components have at most five sources and five
+targets.  Three-stage maximum-cardinality matching (same `Q` and first height,
+then first height, then unrestricted) selects 4,702, 458, and 2 pairs.  It
+minimizes total four-coordinate motion cost and then the decreasing list of
+edge costs.  Twenty-eight components tie in total cost, and the profile
+resolves all of them.  The resulting 5,162 assignments agree exactly with the
+earlier fiberwise catalog.  Thus the standard-word bijection through rank
+seven is explicit, reversible, deterministic, and table-free; inversion
+currently recomputes the finite graph rather than using an on-demand local
+component closure.
+
+The rank-seven direct standard catalog now builds from this graph map itself.
+The defective-order three-letter coloring regression therefore transports the
+ordinary semistandard Kashiwara operators through the table-free map and checks
+weight, `asc=inv_G`, both directions, and all lowering/raising inverse pairs.
+
+Every selected edge has a P-Knuth certificate with at most two symmetric
+margin letters: the minimal-margin counts are `(210,4014,938)`, with maximum
+shortest-path lengths `(14,26,38)`.  The asymmetric two-before/one-after rule
+loses no selected edge.  The 460 shape-changing recording moves have 318
+unique descent-preserving rim candidates and 142 two-candidate cases.  The
+release `--kp-correct 7` census, all fourteen tests, Clippy with warnings
+denied, formatting, and the diff check pass.  The table-free graph checkpoint
+is pending commit.
+
 On 2026-10-16, the Chromatic P-array RSK worker completed a direct bijection
 which avoids inverse Kostka.  The new primary source is paper-cache 354,
 Blasiak--Eriksson--Pylyavskyy--Siegl, arXiv:2211.03967v2.  In each standard
