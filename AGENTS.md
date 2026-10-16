@@ -24,6 +24,10 @@ The target mathematical source is arXiv:2004.09198 and its published version.
 Use the local paper cache when available. Record precise theorem/definition
 correspondence in the handoff or dedicated source map.
 
+The chromatic P-array bijection and crystal project has moved to
+`/workspace/projects/chromatic-crystals/`.  Treat it as a separate project;
+do not recreate its notes or Rust prototype here.
+
 ## Ownership and delegation
 
 The primary Astra worker is the strategy, integration, source-ownership, and

@@ -1,6 +1,17 @@
 # VerticalStripLLT handoff
 
-## Current status and ownership
+## Current status and routing
+
+On 2026-10-16, the user moved the chromatic P-array RSK and proper-coloring
+crystal work to `/workspace/projects/chromatic-crystals/`.  Its four research
+notes and standalone Rust crate are canonical there.  This repository retains
+the source history through `d6a14b8`; the chronology below is historical and
+does not authorize new chromatic work under `VerticalStripLLT`.
+
+No Lean source, LLT/HRV computation, circular-LLT file, or manuscript file was
+part of the migration.
+
+## Historical chromatic-crystal chronology (migrated)
 
 On 2026-10-16, at the user's request, the Chromatic P-array RSK worker
 reclaimed `docs/chromatic-p-array-rsk/`,
