@@ -2087,6 +2087,16 @@ type KpInvalidFiber = BTreeMap<KpFiber, Vec<(Vec<usize>, KpInsertion)>>;
 type KpRecording = Vec<Vec<usize>>;
 type KpRecordingHeight = (KpRecording, usize);
 type KpInvalidByRecording = BTreeMap<KpRecordingHeight, Vec<(Vec<usize>, KpInsertion)>>;
+type KpSource = (Vec<usize>, KpInsertion);
+type KpMatchedPair = (KpSource, KpInsertion);
+
+struct KpMinimumMovementMatching {
+    pairs: Vec<KpMatchedPair>,
+    residual_sources: Vec<KpSource>,
+    residual_targets: Vec<KpInsertion>,
+    total_optimum_count: usize,
+    profile_optimum_count: usize,
+}
 
 #[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
 struct KpCellAction {
@@ -2121,8 +2131,20 @@ struct KpCorrectionCatalog {
     first_ambiguous_residual: Option<KpAmbiguousFiber>,
     max_exact_q_group: usize,
     ambiguous_exact_q_groups: usize,
+    first_ambiguous_exact_q: Option<KpAmbiguousFiber>,
+    minimum_movement_groups: usize,
+    ambiguous_minimum_movement_groups: usize,
+    max_minimum_movement_optima: usize,
+    first_ambiguous_minimum_movement: Option<KpAmbiguousFiber>,
+    ambiguous_movement_profile_groups: usize,
+    max_movement_profile_optima: usize,
+    first_ambiguous_movement_profile: Option<KpAmbiguousFiber>,
     max_exact_height_group: usize,
     ambiguous_exact_height_groups: usize,
+    ambiguous_height_movement_groups: usize,
+    ambiguous_height_profile_groups: usize,
+    max_height_profile_optima: usize,
+    first_ambiguous_height_profile: Option<KpAmbiguousFiber>,
 }
 
 #[derive(Clone, Debug)]
@@ -2180,6 +2202,103 @@ fn kp_pair_action(source: &KpInsertion, target: &KpInsertion) -> KpPairAction {
     KpPairAction {
         p: kp_column_cell_action(&source.p_columns, &target.p_columns),
         q: kp_column_cell_action(&source.q_columns, &target.q_columns),
+    }
+}
+
+fn kp_pair_action_cost(source: &KpInsertion, target: &KpInsertion) -> [usize; 4] {
+    fn movement(action: &KpCellAction) -> (usize, usize) {
+        let distance = action
+            .moves
+            .iter()
+            .map(|&(from, to)| from.0.abs_diff(to.0) + from.1.abs_diff(to.1))
+            .sum();
+        (action.moves.len(), distance)
+    }
+    let action = kp_pair_action(source, target);
+    let (p_moves, p_distance) = movement(&action.p);
+    let (q_moves, q_distance) = movement(&action.q);
+    [
+        p_moves + q_moves,
+        p_distance + q_distance,
+        q_moves,
+        q_distance,
+    ]
+}
+
+fn kp_minimum_movement_matching(
+    sources: &[KpSource],
+    targets: &[KpInsertion],
+) -> KpMinimumMovementMatching {
+    assert!(!sources.is_empty() && !targets.is_empty());
+    let mut assignments = BTreeSet::new();
+    if sources.len() <= targets.len() {
+        for permutation in permutations(targets.len()) {
+            assignments.insert(
+                permutation[..sources.len()]
+                    .iter()
+                    .copied()
+                    .map(Some)
+                    .collect::<Vec<_>>(),
+            );
+        }
+    } else {
+        for permutation in permutations(sources.len()) {
+            let mut assignment = vec![None; sources.len()];
+            for (target_index, &source_index) in permutation[..targets.len()].iter().enumerate() {
+                assignment[source_index] = Some(target_index);
+            }
+            assignments.insert(assignment);
+        }
+    }
+    let mut candidates = Vec::new();
+    for assignment in assignments {
+        let mut total = [0; 4];
+        let mut profile = Vec::new();
+        for (source, target_index) in sources.iter().zip(&assignment) {
+            if let Some(target_index) = target_index {
+                let cost = kp_pair_action_cost(&source.1, &targets[*target_index]);
+                for (entry, value) in total.iter_mut().zip(cost) {
+                    *entry += value;
+                }
+                profile.push(cost);
+            }
+        }
+        profile.sort_by(|left, right| right.cmp(left));
+        candidates.push((total, profile, assignment));
+    }
+    candidates.sort();
+    let (best_total, best_profile, best_assignment) = &candidates[0];
+    let total_optimum_count = candidates
+        .iter()
+        .take_while(|(total, _, _)| total == best_total)
+        .count();
+    let profile_optimum_count = candidates
+        .iter()
+        .take_while(|(total, profile, _)| total == best_total && profile == best_profile)
+        .count();
+    let mut used_targets = vec![false; targets.len()];
+    let mut pairs = Vec::new();
+    let mut residual_sources = Vec::new();
+    for (source, target_index) in sources.iter().cloned().zip(best_assignment) {
+        if let Some(target_index) = target_index {
+            used_targets[*target_index] = true;
+            pairs.push((source, targets[*target_index].clone()));
+        } else {
+            residual_sources.push(source);
+        }
+    }
+    let residual_targets = targets
+        .iter()
+        .cloned()
+        .zip(used_targets)
+        .filter_map(|(target, used)| (!used).then_some(target))
+        .collect();
+    KpMinimumMovementMatching {
+        pairs,
+        residual_sources,
+        residual_targets,
+        total_optimum_count,
+        profile_optimum_count,
     }
 }
 
@@ -2314,8 +2433,20 @@ fn kp_correction_catalog(poset: &Poset) -> KpCorrectionCatalog {
     let mut first_ambiguous_residual = None;
     let mut max_exact_q_group = 0;
     let mut ambiguous_exact_q_groups = 0;
+    let mut first_ambiguous_exact_q = None;
+    let mut minimum_movement_groups = 0;
+    let mut ambiguous_minimum_movement_groups = 0;
+    let mut max_minimum_movement_optima = 0;
+    let mut first_ambiguous_minimum_movement = None;
+    let mut ambiguous_movement_profile_groups = 0;
+    let mut max_movement_profile_optima = 0;
+    let mut first_ambiguous_movement_profile = None;
     let mut max_exact_height_group = 0;
     let mut ambiguous_exact_height_groups = 0;
+    let mut ambiguous_height_movement_groups = 0;
+    let mut ambiguous_height_profile_groups = 0;
+    let mut max_height_profile_optima = 0;
+    let mut first_ambiguous_height_profile = None;
     for (fiber, mut invalid) in invalid_by_fiber {
         let mut missing = missing_by_fiber.remove(&fiber).unwrap();
         invalid.sort_by(|left, right| left.0.cmp(&right.0));
@@ -2360,7 +2491,41 @@ fn kp_correction_catalog(poset: &Poset) -> KpCorrectionCatalog {
             let common = sources.len().min(targets.len());
             max_exact_q_group = max_exact_q_group.max(common);
             ambiguous_exact_q_groups += usize::from(common > 1);
-            pairs.extend(sources.drain(..common).zip(targets.drain(..common)));
+            if common > 1 && first_ambiguous_exact_q.is_none() {
+                first_ambiguous_exact_q = Some(KpAmbiguousFiber {
+                    recording_descent_mask: fiber.1,
+                    sources: sources[..common].to_vec(),
+                    targets: targets[..common].to_vec(),
+                });
+            }
+            if common > 0 {
+                let matching = kp_minimum_movement_matching(&sources, &targets);
+                minimum_movement_groups += usize::from(common > 1);
+                let optimum_count = matching.total_optimum_count;
+                let profile_optimum_count = matching.profile_optimum_count;
+                max_minimum_movement_optima = max_minimum_movement_optima.max(optimum_count);
+                ambiguous_minimum_movement_groups += usize::from(optimum_count > 1);
+                if optimum_count > 1 && first_ambiguous_minimum_movement.is_none() {
+                    first_ambiguous_minimum_movement = Some(KpAmbiguousFiber {
+                        recording_descent_mask: fiber.1,
+                        sources: sources.clone(),
+                        targets: targets.clone(),
+                    });
+                }
+                max_movement_profile_optima =
+                    max_movement_profile_optima.max(profile_optimum_count);
+                ambiguous_movement_profile_groups += usize::from(profile_optimum_count > 1);
+                if profile_optimum_count > 1 && first_ambiguous_movement_profile.is_none() {
+                    first_ambiguous_movement_profile = Some(KpAmbiguousFiber {
+                        recording_descent_mask: fiber.1,
+                        sources: sources.clone(),
+                        targets: targets.clone(),
+                    });
+                }
+                pairs.extend(matching.pairs);
+                sources = matching.residual_sources;
+                targets = matching.residual_targets;
+            }
             residual_invalid.extend(sources);
             residual_missing.extend(targets);
         }
@@ -2397,7 +2562,23 @@ fn kp_correction_catalog(poset: &Poset) -> KpCorrectionCatalog {
             let common = sources.len().min(targets.len());
             max_exact_height_group = max_exact_height_group.max(common);
             ambiguous_exact_height_groups += usize::from(common > 1);
-            pairs.extend(sources.drain(..common).zip(targets.drain(..common)));
+            if common > 0 {
+                let matching = kp_minimum_movement_matching(&sources, &targets);
+                ambiguous_height_movement_groups += usize::from(matching.total_optimum_count > 1);
+                ambiguous_height_profile_groups += usize::from(matching.profile_optimum_count > 1);
+                max_height_profile_optima =
+                    max_height_profile_optima.max(matching.profile_optimum_count);
+                if matching.profile_optimum_count > 1 && first_ambiguous_height_profile.is_none() {
+                    first_ambiguous_height_profile = Some(KpAmbiguousFiber {
+                        recording_descent_mask: fiber.1,
+                        sources: sources.clone(),
+                        targets: targets.clone(),
+                    });
+                }
+                pairs.extend(matching.pairs);
+                sources = matching.residual_sources;
+                targets = matching.residual_targets;
+            }
             final_invalid.extend(sources);
             final_missing.extend(targets);
         }
@@ -2413,7 +2594,12 @@ fn kp_correction_catalog(poset: &Poset) -> KpCorrectionCatalog {
                 targets: final_missing.clone(),
             });
         }
-        pairs.extend(final_invalid.into_iter().zip(final_missing));
+        if !final_invalid.is_empty() {
+            let matching = kp_minimum_movement_matching(&final_invalid, &final_missing);
+            assert!(matching.residual_sources.is_empty());
+            assert!(matching.residual_targets.is_empty());
+            pairs.extend(matching.pairs);
+        }
         for ((word, raw), target) in pairs {
             assert!(kp_is_p_tableau(poset, &target.p_columns));
             assert!(kp_is_standard_tableau(&target.q_columns));
@@ -2442,8 +2628,20 @@ fn kp_correction_catalog(poset: &Poset) -> KpCorrectionCatalog {
         first_ambiguous_residual,
         max_exact_q_group,
         ambiguous_exact_q_groups,
+        first_ambiguous_exact_q,
+        minimum_movement_groups,
+        ambiguous_minimum_movement_groups,
+        max_minimum_movement_optima,
+        first_ambiguous_minimum_movement,
+        ambiguous_movement_profile_groups,
+        max_movement_profile_optima,
+        first_ambiguous_movement_profile,
         max_exact_height_group,
         ambiguous_exact_height_groups,
+        ambiguous_height_movement_groups,
+        ambiguous_height_profile_groups,
+        max_height_profile_optima,
+        first_ambiguous_height_profile,
     }
 }
 
@@ -5547,12 +5745,24 @@ fn main() {
         let mut ambiguous_residual_fibers = 0;
         let mut max_exact_q_group = 0;
         let mut ambiguous_exact_q_groups = 0;
+        let mut minimum_movement_groups = 0;
+        let mut ambiguous_minimum_movement_groups = 0;
+        let mut max_minimum_movement_optima = 0;
+        let mut ambiguous_movement_profile_groups = 0;
+        let mut max_movement_profile_optima = 0;
         let mut max_exact_height_group = 0;
         let mut ambiguous_exact_height_groups = 0;
+        let mut ambiguous_height_movement_groups = 0;
+        let mut ambiguous_height_profile_groups = 0;
+        let mut max_height_profile_optima = 0;
         let mut p_actions: BTreeMap<KpCellAction, usize> = BTreeMap::new();
         let mut pair_actions: BTreeMap<KpPairAction, usize> = BTreeMap::new();
         let mut first_ambiguous = None;
         let mut first_ambiguous_residual = None;
+        let mut first_ambiguous_exact_q = None;
+        let mut first_ambiguous_minimum_movement = None;
+        let mut first_ambiguous_movement_profile = None;
+        let mut first_ambiguous_height_profile = None;
         for poset in natural_unit_interval_orders(n) {
             let catalog = kp_correction_catalog(&poset);
             max_defect_fiber = max_defect_fiber.max(catalog.max_defect_fiber);
@@ -5561,8 +5771,19 @@ fn main() {
             ambiguous_residual_fibers += catalog.ambiguous_residual_fibers;
             max_exact_q_group = max_exact_q_group.max(catalog.max_exact_q_group);
             ambiguous_exact_q_groups += catalog.ambiguous_exact_q_groups;
+            minimum_movement_groups += catalog.minimum_movement_groups;
+            ambiguous_minimum_movement_groups += catalog.ambiguous_minimum_movement_groups;
+            max_minimum_movement_optima =
+                max_minimum_movement_optima.max(catalog.max_minimum_movement_optima);
+            ambiguous_movement_profile_groups += catalog.ambiguous_movement_profile_groups;
+            max_movement_profile_optima =
+                max_movement_profile_optima.max(catalog.max_movement_profile_optima);
             max_exact_height_group = max_exact_height_group.max(catalog.max_exact_height_group);
             ambiguous_exact_height_groups += catalog.ambiguous_exact_height_groups;
+            ambiguous_height_movement_groups += catalog.ambiguous_height_movement_groups;
+            ambiguous_height_profile_groups += catalog.ambiguous_height_profile_groups;
+            max_height_profile_optima =
+                max_height_profile_optima.max(catalog.max_height_profile_optima);
             if first_ambiguous.is_none() {
                 first_ambiguous = catalog
                     .first_ambiguous_fiber
@@ -5572,6 +5793,30 @@ fn main() {
             if first_ambiguous_residual.is_none() {
                 first_ambiguous_residual = catalog
                     .first_ambiguous_residual
+                    .clone()
+                    .map(|fiber| (poset.code(), fiber));
+            }
+            if first_ambiguous_exact_q.is_none() {
+                first_ambiguous_exact_q = catalog
+                    .first_ambiguous_exact_q
+                    .clone()
+                    .map(|fiber| (poset.code(), fiber));
+            }
+            if first_ambiguous_minimum_movement.is_none() {
+                first_ambiguous_minimum_movement = catalog
+                    .first_ambiguous_minimum_movement
+                    .clone()
+                    .map(|fiber| (poset.code(), fiber));
+            }
+            if first_ambiguous_movement_profile.is_none() {
+                first_ambiguous_movement_profile = catalog
+                    .first_ambiguous_movement_profile
+                    .clone()
+                    .map(|fiber| (poset.code(), fiber));
+            }
+            if first_ambiguous_height_profile.is_none() {
+                first_ambiguous_height_profile = catalog
+                    .first_ambiguous_height_profile
                     .clone()
                     .map(|fiber| (poset.code(), fiber));
             }
@@ -5589,7 +5834,7 @@ fn main() {
             }
         }
         println!(
-            "KP corrected n={n}: defects={defects}, same Q={same_recording}, shape changes={shape_changes}, malformed sources={malformed_sources}, P-actions={}, pair-actions={}, max fiber={max_defect_fiber}, ambiguous fibers={ambiguous_defect_fibers}, max exact-Q group={max_exact_q_group}, ambiguous exact-Q groups={ambiguous_exact_q_groups}, max height group={max_exact_height_group}, ambiguous height groups={ambiguous_exact_height_groups}, max residual={max_residual_fiber}, ambiguous residuals={ambiguous_residual_fibers}",
+            "KP corrected n={n}: defects={defects}, same Q={same_recording}, shape changes={shape_changes}, malformed sources={malformed_sources}, P-actions={}, pair-actions={}, max fiber={max_defect_fiber}, ambiguous fibers={ambiguous_defect_fibers}, max exact-Q group={max_exact_q_group}, ambiguous exact-Q groups={ambiguous_exact_q_groups}, movement groups={minimum_movement_groups}, tied movement groups={ambiguous_minimum_movement_groups}, max movement optima={max_minimum_movement_optima}, tied movement profiles={ambiguous_movement_profile_groups}, max profile optima={max_movement_profile_optima}, max height group={max_exact_height_group}, ambiguous height groups={ambiguous_exact_height_groups}, tied height movement={ambiguous_height_movement_groups}, tied height profiles={ambiguous_height_profile_groups}, max height profile optima={max_height_profile_optima}, max residual={max_residual_fiber}, ambiguous residuals={ambiguous_residual_fibers}",
             p_actions.len(),
             pair_actions.len()
         );
@@ -5605,6 +5850,41 @@ fn main() {
         if let Some((code, fiber)) = first_ambiguous_residual {
             println!(
                 "  first ambiguous residual: P={code:?}, Des={}, sources={:?}, targets={:?}",
+                fiber.recording_descent_mask, fiber.sources, fiber.targets
+            );
+        }
+        if let Some((code, fiber)) = first_ambiguous_exact_q {
+            println!(
+                "  first ambiguous exact-Q group: P={code:?}, Des={}, sources={:?}, targets={:?}",
+                fiber.recording_descent_mask, fiber.sources, fiber.targets
+            );
+        }
+        if let Some((code, fiber)) = first_ambiguous_minimum_movement {
+            let costs: Vec<Vec<[usize; 4]>> = fiber
+                .sources
+                .iter()
+                .map(|source| {
+                    fiber
+                        .targets
+                        .iter()
+                        .map(|target| kp_pair_action_cost(&source.1, target))
+                        .collect()
+                })
+                .collect();
+            println!(
+                "  first tied minimum-movement group: P={code:?}, Des={}, sources={:?}, targets={:?}, costs={costs:?}",
+                fiber.recording_descent_mask, fiber.sources, fiber.targets,
+            );
+        }
+        if let Some((code, fiber)) = first_ambiguous_movement_profile {
+            println!(
+                "  first tied movement-profile group: P={code:?}, Des={}, sources={:?}, targets={:?}",
+                fiber.recording_descent_mask, fiber.sources, fiber.targets
+            );
+        }
+        if let Some((code, fiber)) = first_ambiguous_height_profile {
+            println!(
+                "  first tied height-profile group: P={code:?}, Des={}, sources={:?}, targets={:?}",
                 fiber.recording_descent_mask, fiber.sources, fiber.targets
             );
         }
@@ -6292,6 +6572,43 @@ mod tests {
             [2, 3, 1, 1]
         );
         assert_eq!(kp_inverse(&poset, &raw, false), word);
+    }
+
+    #[test]
+    fn kim_pylyavskyy_rank_seven_minimum_movement_matching() {
+        let crossed_poset = Poset {
+            h: vec![1, 2, 4, 4, 5, 6, 6],
+        };
+        let crossed = kp_correction_catalog(&crossed_poset);
+        let first_word = vec![0, 3, 4, 6, 5, 2, 1];
+        let second_word = vec![3, 2, 5, 4, 6, 1, 0];
+        assert_eq!(
+            crossed.forward[&first_word].p_columns,
+            [vec![6, 0], vec![5, 2], vec![1], vec![4], vec![3]]
+        );
+        assert_eq!(
+            crossed.forward[&second_word].p_columns,
+            [vec![5, 1], vec![4, 0], vec![2], vec![3], vec![6]]
+        );
+        assert_eq!(crossed.ambiguous_movement_profile_groups, 0);
+
+        let tied_total_poset = Poset {
+            h: vec![1, 3, 4, 5, 6, 6, 6],
+        };
+        let tied_total = kp_correction_catalog(&tied_total_poset);
+        let first_word = vec![4, 3, 2, 6, 5, 1, 0];
+        let second_word = vec![5, 3, 2, 6, 4, 1, 0];
+        assert_eq!(
+            tied_total.forward[&first_word].p_columns,
+            [vec![5, 1], vec![6, 0], vec![4], vec![3], vec![2]]
+        );
+        assert_eq!(
+            tied_total.forward[&second_word].p_columns,
+            [vec![6, 1], vec![4, 0], vec![5], vec![3], vec![2]]
+        );
+        assert!(tied_total.ambiguous_minimum_movement_groups > 0);
+        assert_eq!(tied_total.ambiguous_movement_profile_groups, 0);
+        assert_eq!(tied_total.ambiguous_height_profile_groups, 0);
     }
 
     #[test]

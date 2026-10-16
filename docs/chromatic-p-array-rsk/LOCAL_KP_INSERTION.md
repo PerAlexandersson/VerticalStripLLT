@@ -1,18 +1,20 @@
 # Local Kim--Pylyavskyy insertion and its first corrections
 
 This note records the exact Kim--Pylyavskyy column algorithm, its inverse,
-and the finite corrections found through rank six.  The primary source is
+and the finite corrections found through rank seven.  The primary source is
 paper-cache 297, D.~Kim and P.~Pylyavskyy, *Robinson--Schensted correspondence
 for unit interval orders*, arXiv:2003.12123v2.  We use Algorithms 1--3,
 Proposition 5.6, Theorem 6.1, and Examples 7.9--7.11.
 
-The result has two levels.
+The result has three levels.
 
 - On the avoidance class in Theorem 6.1, the published algorithm is a
   reversible insertion map.
 - For all natural unit interval orders through rank six, a finite guarded
-  correction gives a reversible bijection onto pairs of tableaux.  The
-  rank-six guards do not yet give an all-rank insertion rule.
+  correction gives a reversible bijection onto pairs of tableaux.
+- In rank seven, a symmetric minimum-motion matching gives a reversible
+  bijection without an arbitrary ordering of the defects.  This matching is
+  fiber-global and does not yet give an all-rank insertion rule.
 
 ## 1. Conventions and the column step
 
@@ -268,28 +270,67 @@ compositions and their multiplicities are
 | ((4,2,1)) | 16 |
 
 The missing targets balance the bad outputs in every P-Knuth-component and
-recording-descent fiber.  This produces a deterministic bijection after a
-fixed finite ranking.  It is no longer a forced correction: 541 fibers have
-more than one bad output, with maximum size five.  Even after fixing the
-entire recording array and the first-column height, 352 matched subgroups
-have size greater than one.  The resulting rank-seven ranking keeps (Q) in
-4,702 cases; the remaining 460 cases change both shape and (Q).  It uses
-133 insertion actions and 135 pair actions.  Thus the rank-seven extension is
-a smaller global ranking problem inside the defect set, not a local rule
-deduced from the present invariants.
+recording-descent fiber.  There are 541 fibers with more than one bad output,
+and the maximum size is five.  Even after fixing the entire recording array
+and the first-column height, 352 matched subgroups have size greater than
+one.  A lexicographic ranking gives a bijection, but the ranking is not needed:
+the symmetric matching in the next section determines all these assignments.
 
 Finally, Ehrhard's operators in paper-cache 349 are weak partial inverses.
 They do not define normal type-A crystals.  Their alignments remain useful
 as inspiration for possible guards, but they cannot supply the Kashiwara
 axioms needed here.
 
-## 7. Current boundary
+## 7. A choice-free matching in rank seven
+
+We compare a bad pair ((P_0,Q_0)) with a missing target ((P_1,Q_1)) by the
+entries which change cells.  Let (m_P) and (m_Q) be the numbers of moved
+entries in the two arrays, and let (d_P) and (d_Q) be the corresponding total
+Manhattan distances.  The cost of the pair is
+
+\[
+  (m_P+m_Q,d_P+d_Q,m_Q,d_Q).
+\]
+
+Inside a fixed recording-array and first-column-height group, we first match
+as many sources and targets as possible.  Among these maximum-cardinality
+matchings, we minimize the sum of the four cost coordinates.  If two
+matchings have the same total, we sort their lists of pair costs in decreasing
+order and minimize these lists lexicographically.  This last comparison
+minimizes the worst individual repair after minimizing the total repair.
+
+This rule is symmetric in source and target.  Exhaustively, it has a unique
+optimum in all 352 nontrivial groups in rank seven.  The total cost alone is
+unique in 320 groups and has ties in 32 groups, with at most three optimal
+matchings.  The decreasing cost list resolves every tie.  This also handles
+the nine groups in which the source and target cardinalities differ: their
+unmatched elements pass to the next stage.
+
+We next group the unmatched elements by first-column height and apply the same
+maximum-cardinality minimum-motion rule.  Both nontrivial height groups have a
+unique optimum.  Every final residual fiber has size at most one.  Hence the
+construction has no lexicographic or other ordering choice through rank seven.
+It keeps (Q) in 4,702 of the 5,162 repairs; 460 repairs change both shape and
+(Q).  The minimum-motion assignment uses 73 insertion actions, equal to the
+number of pair actions.
+
+The first ambiguous exact-recording group illustrates the change.  For
+(P=(2,3,5,5,6,7,7)), the old lexicographic pairing moves fourteen entries,
+whereas the unique minimum-motion pairing moves six.  Thus much of the larger
+lexicographic action catalogue came from the ordering rather than the
+Kim--Pylyavskyy defect.
+
+The matching requires the complete sets of bad outputs and missing targets in
+a component and recording-descent fiber.  Its uniqueness therefore gives a
+reversible finite bijection, but not a local insertion recurrence.
+
+## 8. Current boundary
 
 The code now contains the exact forward column trace, the exact dualized
 inverse, the rank-five insertion/deletion branch, the rank-six target oracle,
-the 77 guarded forward and reverse signatures, and the rank-seven defect
-ranking on arbitrary column arrays.  The next all-rank problem is to replace
-the compiled actions and the residual rank-seven rankings by a boundary rule
-with a decreasing measure and joinable overlaps.  Until such a rule is
-proved, the componentwise map in `DIRECT_MAP.md` remains the all-rank
-bijection and the local construction remains a verified finite prototype.
+the 77 guarded forward and reverse signatures, and the rank-seven
+minimum-motion matching on arbitrary column arrays.  The next all-rank problem
+is to explain the 73 rank-seven coordinate actions by a boundary rule with a
+decreasing measure and joinable overlaps.  Until such a rule is proved, the
+componentwise map in `DIRECT_MAP.md` remains the all-rank bijection and the
+local construction remains a verified finite prototype.

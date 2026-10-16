@@ -60,14 +60,28 @@ recording descent gives exact target coverage.  It keeps `Q` on 4,702 defects;
 460 change both shape and `Q`.  The finite rule has 133 insertion actions and
 135 pair actions.
 
-Unlike rank six, rank seven retains genuine ranking ambiguity: 541 defect
-fibers have size greater than one, with maximum five, and 352 subgroups remain
-non-singleton even after fixing the entire recording array and first-column
-height.  This isolates the current locality bottleneck.  Lexicographic rank
-within those subgroups gives a deterministic reversible map, but is not an
-intrinsic insertion rule.
-The release `--kp-raw 7` and `--kp-correct 7` censuses, all twelve unit tests,
-Clippy with warnings denied, formatting, and the diff check pass.
+Unlike rank six, rank seven has 541 defect fibers of size greater than one,
+with maximum five, and 352 nontrivial subgroups after fixing the entire
+recording array and first-column height.  The earlier lexicographic ranking is
+now replaced by a symmetric minimum-motion assignment.  For each source and
+target, it records the number and Manhattan distance of moved entries in
+`P` and `Q`; it minimizes the total cost and then the decreasing list of
+individual pair costs.  The total cost has 32 tied groups, with at most three
+optima, and the individual-cost profile resolves every tie.  The rule also
+uniquely allocates the nine unbalanced exact-`Q` groups and the two nontrivial
+height-only groups.  Final residual fibers have size at most one.  The map is
+therefore choice-free and reverses by the same matching rule through rank
+seven.  It uses 73 insertion and 73 pair actions, down from 133 and 135 for
+lexicographic ranking.  It remains fiber-global: computing it still requires
+the missing-target set rather than a local insertion recurrence.
+
+An independent Astra Python sweep confirmed all 343 balanced exact-`Q`
+groups.  It also showed that shortest P-Knuth distance resolves only eight of
+the 32 total-cost ties, while the decreasing individual-cost profile resolves
+all of them.  The release `--kp-raw 7` and `--kp-correct 7` censuses, all
+thirteen unit tests, Clippy with warnings denied, formatting, and the diff
+check pass.  The rank-seven raw-census checkpoint is `68318b7`; the
+minimum-motion checkpoint is pending commit.
 
 On 2026-10-16, the Chromatic P-array RSK worker completed a direct bijection
 which avoids inverse Kostka.  The new primary source is paper-cache 354,
