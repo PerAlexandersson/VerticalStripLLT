@@ -105,7 +105,7 @@ one column left to four columns right of the first bad boundary.  This is an
 explicit reversible finite rule through rank seven, applied without consulting
 the missing-target set.  A uniform case rule and overlap/confluence proof are
 still required for an intrinsic all-rank insertion.  The boundary-guard
-checkpoint is pending commit.
+implementation checkpoint is `d6961ae`.
 
 On 2026-10-16, the Chromatic P-array RSK worker completed a direct bijection
 which avoids inverse Kostka.  The new primary source is paper-cache 354,
