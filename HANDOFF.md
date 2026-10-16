@@ -164,9 +164,30 @@ margin letters: the minimal-margin counts are `(210,4014,938)`, with maximum
 shortest-path lengths `(14,26,38)`.  The asymmetric two-before/one-after rule
 loses no selected edge.  The 460 shape-changing recording moves have 318
 unique descent-preserving rim candidates and 142 two-candidate cases.  The
-release `--kp-correct 7` census, all fourteen tests, Clippy with warnings
+release `--kp-correct 7` census, all fifteen tests, Clippy with warnings
 denied, formatting, and the diff check pass.  The table-free graph checkpoint
 is `1b2532f`.
+
+There is now also a full all-rank Garsia--Milne repair which extends raw
+Kim--Pylyavskyy insertion.  Let `B` be the proved BEPS component-rank
+bijection and `R` the injective raw KP map on the words where its output is a
+valid pair.  From a bad word `x`, alternate `B(x)` with the unique raw owner
+`R^{-1}(B(x))` until `B(x)` is not raw-occupied.  The partial transition is
+injective and takes values in the raw-good words, so a path starting at a bad
+word cannot enter a cycle; reversing the alternating trace gives the inverse.
+Both maps preserve P-descent and P-inversion, so the hybrid does also.
+Standardization therefore extends it to proper colorings with weight and
+`asc=inv_G` preserved, and genuine type-A crystals transport in the usual
+way.
+
+The Rust `--kp-gm` census covers every order through rank six.  At rank five
+it preserves 5,038 raw pairs and corrects two, with maximum alternating length
+two.  At rank six it preserves 94,928 raw pairs and corrects 112, covers all
+95,040 targets, and has maximum alternating length ten.  The dedicated test
+also transports the coloring crystal through the hybrid.  This completes the
+all-rank bijection requested by the user, but not the stronger all-rank local
+insertion problem: each `B` step still enumerates a full P-Knuth component.
+The Garsia--Milne checkpoint is pending commit.
 
 On 2026-10-16, the Chromatic P-array RSK worker completed a direct bijection
 which avoids inverse Kostka.  The new primary source is paper-cache 354,

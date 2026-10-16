@@ -3744,6 +3744,33 @@ fn direct_standard_catalog(poset: &Poset) -> DirectStandardCatalog {
     DirectStandardCatalog { forward, reverse }
 }
 
+fn kp_insertion_direct_image(
+    poset: &Poset,
+    word: &[usize],
+    insertion: &KpInsertion,
+) -> DirectStandardImage {
+    let (p_shape, p_entries, recording) = kp_tableau_key(insertion);
+    let q = evacuate_standard_tableau(&p_shape, &recording);
+    assert_eq!(
+        p_descent_mask(poset, word),
+        standard_tableau_descent_mask(&p_shape, &q),
+        "KP recording convention mismatch: P={:?}, word={word:?}, shape={p_shape:?}, raw={recording:?}, transformed={q:?}",
+        poset.code()
+    );
+    let (lambda, transposed_entries) = transpose_tableau(&p_shape, &p_entries);
+    let mut t = vec![usize::MAX; poset.n()];
+    for (&entry, &(row, _)) in transposed_entries
+        .iter()
+        .zip(cell_coordinates(&lambda).iter())
+    {
+        t[entry] = row;
+    }
+    assert!(t.iter().all(|&row| row != usize::MAX));
+    assert_eq!(shape(&t, lambda.len()), lambda);
+    assert_eq!(p_word_inversion(poset, word), inv_g(poset, &t));
+    DirectStandardImage { p_shape, t, q }
+}
+
 fn kp_direct_standard_catalog(poset: &Poset) -> DirectStandardCatalog {
     let insertion_pairs: Vec<_> = if poset.n() == 7 {
         let uniform = kp_uniform_graph_catalog(poset);
@@ -3760,25 +3787,7 @@ fn kp_direct_standard_catalog(poset: &Poset) -> DirectStandardCatalog {
     let mut forward = BTreeMap::new();
     let mut reverse = BTreeMap::new();
     for (word, insertion) in insertion_pairs {
-        let (p_shape, p_entries, recording) = kp_tableau_key(&insertion);
-        let q = evacuate_standard_tableau(&p_shape, &recording);
-        assert_eq!(
-            p_descent_mask(poset, &word),
-            standard_tableau_descent_mask(&p_shape, &q),
-            "KP recording convention mismatch: P={:?}, word={word:?}, shape={p_shape:?}, raw={recording:?}, transformed={q:?}",
-            poset.code()
-        );
-        let (lambda, transposed_entries) = transpose_tableau(&p_shape, &p_entries);
-        let mut t = vec![usize::MAX; poset.n()];
-        for (&entry, &(row, _)) in transposed_entries
-            .iter()
-            .zip(cell_coordinates(&lambda).iter())
-        {
-            t[entry] = row;
-        }
-        assert!(t.iter().all(|&row| row != usize::MAX));
-        assert_eq!(shape(&t, lambda.len()), lambda);
-        let image = DirectStandardImage { p_shape, t, q };
+        let image = kp_insertion_direct_image(poset, &word, &insertion);
         assert!(forward.insert(word.clone(), image.clone()).is_none());
         assert!(reverse.insert(image, word).is_none());
     }
@@ -3786,6 +3795,87 @@ fn kp_direct_standard_catalog(poset: &Poset) -> DirectStandardCatalog {
     assert_eq!(forward.len(), factorial);
     assert_eq!(reverse.len(), factorial);
     DirectStandardCatalog { forward, reverse }
+}
+
+struct KpGarsiaMilneCatalog {
+    standard: DirectStandardCatalog,
+    raw_good_words: usize,
+    corrected_words: usize,
+    max_alternating_steps: usize,
+}
+
+fn kp_garsia_milne_reverse_trace(
+    base: &DirectStandardCatalog,
+    raw_good_forward: &BTreeMap<Vec<usize>, DirectStandardImage>,
+    endpoint: &DirectStandardImage,
+) -> (Vec<usize>, usize) {
+    let mut current = base.reverse[endpoint].clone();
+    let mut steps = 1;
+    while let Some(previous_target) = raw_good_forward.get(&current) {
+        current = base.reverse[previous_target].clone();
+        steps += 1;
+    }
+    (current, steps)
+}
+
+fn kp_garsia_milne_catalog(poset: &Poset) -> KpGarsiaMilneCatalog {
+    let base = direct_standard_catalog(poset);
+    let mut raw_good_forward = BTreeMap::new();
+    let mut raw_good_owner = BTreeMap::new();
+    let mut bad_words = Vec::new();
+    for word in permutations(poset.n()) {
+        let (raw, _) = kp_insert(poset, &word, false);
+        if kp_is_p_tableau(poset, &raw.p_columns) && kp_is_standard_tableau(&raw.q_columns) {
+            let image = kp_insertion_direct_image(poset, &word, &raw);
+            assert!(base.reverse.contains_key(&image));
+            assert!(raw_good_forward
+                .insert(word.clone(), image.clone())
+                .is_none());
+            assert!(raw_good_owner.insert(image, word).is_none());
+        } else {
+            bad_words.push(word);
+        }
+    }
+
+    let raw_good_words = raw_good_forward.len();
+    let corrected_words = bad_words.len();
+    let mut forward = raw_good_forward.clone();
+    let mut reverse = raw_good_owner.clone();
+    let mut max_alternating_steps = 0;
+    for source in bad_words {
+        let mut current = source.clone();
+        let mut seen = BTreeSet::from([current.clone()]);
+        let mut steps = 0;
+        loop {
+            let target = base.forward[&current].clone();
+            steps += 1;
+            if let Some(next) = raw_good_owner.get(&target) {
+                current = next.clone();
+                assert!(
+                    seen.insert(current.clone()),
+                    "alternating path must terminate"
+                );
+                continue;
+            }
+            let (recovered, reverse_steps) =
+                kp_garsia_milne_reverse_trace(&base, &raw_good_forward, &target);
+            assert_eq!(recovered, source);
+            assert_eq!(reverse_steps, steps);
+            assert!(forward.insert(source.clone(), target.clone()).is_none());
+            assert!(reverse.insert(target, source.clone()).is_none());
+            max_alternating_steps = max_alternating_steps.max(steps);
+            break;
+        }
+    }
+    let factorial: usize = (1..=poset.n()).product();
+    assert_eq!(forward.len(), factorial);
+    assert_eq!(reverse.len(), factorial);
+    KpGarsiaMilneCatalog {
+        standard: DirectStandardCatalog { forward, reverse },
+        raw_good_words,
+        corrected_words,
+        max_alternating_steps,
+    }
 }
 
 fn transpose_tableau(lambda: &[usize], entries: &[usize]) -> (Vec<usize>, Vec<usize>) {
@@ -6575,6 +6665,28 @@ fn main() {
         print!("{}", crystal_graph_dot(&Poset { h }, alphabet));
         return;
     }
+    if args.get(1).map(String::as_str) == Some("--kp-gm") {
+        assert_eq!(args.len(), 3, "usage: --kp-gm rank");
+        let n = args[2].parse::<usize>().expect("rank must be numeric");
+        assert!(n <= 6, "the Garsia--Milne census is bounded to rank six");
+        let mut posets = 0;
+        let mut targets = 0;
+        let mut raw_good_words = 0;
+        let mut corrected_words = 0;
+        let mut max_alternating_steps = 0;
+        for poset in natural_unit_interval_orders(n) {
+            let catalog = kp_garsia_milne_catalog(&poset);
+            posets += 1;
+            targets += catalog.standard.forward.len();
+            raw_good_words += catalog.raw_good_words;
+            corrected_words += catalog.corrected_words;
+            max_alternating_steps = max_alternating_steps.max(catalog.max_alternating_steps);
+        }
+        println!(
+            "KP Garsia--Milne n={n}: posets={posets}, targets={targets}, raw-good={raw_good_words}, corrected={corrected_words}, max-alternating-steps={max_alternating_steps}",
+        );
+        return;
+    }
     if args.get(1).map(String::as_str) == Some("--kp-correct") {
         assert_eq!(args.len(), 3, "usage: --kp-correct rank");
         let n = args[2].parse::<usize>().expect("rank must be numeric");
@@ -7570,6 +7682,57 @@ mod tests {
                 assert_eq!(census.defective_posets, 0);
                 assert_eq!(census.raw_invalid_p, 2);
                 assert_eq!(census.repaired_words, 2);
+            }
+        }
+    }
+
+    #[test]
+    fn garsia_milne_hybrid_extends_raw_kp() {
+        let poset = Poset {
+            h: vec![1, 3, 3, 4, 4],
+        };
+        let hybrid = kp_garsia_milne_catalog(&poset);
+        assert_eq!(hybrid.raw_good_words, 118);
+        assert_eq!(hybrid.corrected_words, 2);
+        assert!(hybrid.max_alternating_steps > 0);
+        for word in permutations(5) {
+            let image = &hybrid.standard.forward[&word];
+            assert_eq!(hybrid.standard.reverse[image], word);
+            let (raw, _) = kp_insert(&poset, &word, false);
+            if kp_is_p_tableau(&poset, &raw.p_columns) && kp_is_standard_tableau(&raw.q_columns) {
+                assert_eq!(*image, kp_insertion_direct_image(&poset, &word, &raw));
+            }
+        }
+        let alphabet = 3;
+        for coloring in proper_colorings(&poset, alphabet) {
+            let content = shape(&coloring, alphabet);
+            let target = direct_forward_with_catalog(&poset, &coloring, alphabet, &hybrid.standard);
+            assert_eq!(
+                direct_reverse_with_catalog(&poset, &target, &content, &hybrid.standard),
+                coloring
+            );
+            assert_eq!(asc(&poset, &coloring), inv_g(&poset, &target.t));
+            for color in 0..alphabet - 1 {
+                if let Some(lowered) = direct_coloring_crystal_operator(
+                    &poset,
+                    &coloring,
+                    alphabet,
+                    color,
+                    false,
+                    &hybrid.standard,
+                ) {
+                    assert_eq!(
+                        direct_coloring_crystal_operator(
+                            &poset,
+                            &lowered,
+                            alphabet,
+                            color,
+                            true,
+                            &hybrid.standard,
+                        ),
+                        Some(coloring.clone())
+                    );
+                }
             }
         }
     }

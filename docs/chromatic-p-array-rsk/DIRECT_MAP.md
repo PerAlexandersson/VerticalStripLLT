@@ -242,7 +242,69 @@ finite rule is not yet an all-rank insertion.  The algorithms, censuses, and
 exact obstructions are recorded in
 [LOCAL_KP_INSERTION.md](LOCAL_KP_INSERTION.md).
 
-## 6. Closed and secondary avenues
+## 6. A Garsia--Milne extension of raw P-RSK
+
+The global map also gives a canonical all-rank repair of raw
+Kim--Pylyavskyy insertion.  This repair agrees with raw insertion whenever
+the latter already produces a valid pair.
+
+Let \(W=S_n\), let \(Y\) be the set of valid standard pairs, and let
+\(B:W\to Y\) be the component-rank bijection from Section 1.  Let
+\(G\subseteq W\) be the words on which raw Kim--Pylyavskyy insertion gives a
+valid pair, and write \(R:G\to Y\) for that restriction.  The deletion
+algorithm makes \(R\) injective.  Hence every target in \(R(G)\) has a unique
+raw owner.
+
+For \(w\notin G\), set \(x_0=w\).  Given \(x_i\), form \(y_i=B(x_i)\).  If
+\(y_i=R(x_{i+1})\) for a raw-good word \(x_{i+1}\), continue.  Otherwise set
+
+\[
+  H(w)=y_i.
+\]
+
+For a raw-good word, set \(H(w)=R(w)\).  This is the finite
+Garsia--Milne alternating-path construction.
+
+The path always terminates.  Indeed, the partial transition
+
+\[
+  x\longmapsto R^{-1}(B(x))
+\]
+
+is injective and every value lies in \(G\).  A path starting outside \(G\)
+cannot enter a directed cycle: injectivity would propagate the repeated
+vertex backwards and force its initial vertex to lie in \(G\).  Two paths
+from distinct bad words cannot merge for the same reason.  Their endpoints
+lie outside \(R(G)\) and are distinct.  Since
+\(|W\setminus G|=|Y\setminus R(G)|\), they exhaust the missing targets, so
+\(H:W\to Y\) is a bijection.
+
+The trace is reversible without a choice.  Starting at an endpoint \(y\),
+apply \(B^{-1}\).  If the resulting word is raw-good, apply \(R\) and then
+\(B^{-1}\) again.  Stop at the first bad word.  This reverses the forward
+alternation one edge at a time.
+
+Both \(B\) and \(R\) preserve the P-descent set and P-inversion statistic.
+Whenever \(B(x_i)=R(x_{i+1})\), the adjacent words therefore have the same
+two invariants.  The endpoint has the invariants of the initial word.
+Consequently the repeated-color construction of Section 2 applies unchanged:
+it preserves weight and
+\(\operatorname{asc}=\operatorname{inv}_G\), and the ordinary Kashiwara
+operators transport to a normal type-A crystal on colorings.
+
+This is a full all-rank bijection and a reversible certificate algorithm.  It
+does not prove that the alternating trace is insertion-local, because each
+\(B\)-step still enumerates a complete P-Knuth component.  The table-free
+rank-seven candidate graph in `LOCAL_KP_INSERTION.md` is the separate attempt
+to localize these alternating components.
+
+The Rust command `--kp-gm` verifies the construction exhaustively through
+rank six.  At rank five, it preserves 5,038 raw pairs and corrects two, with
+alternating paths of length at most two.  At rank six, it preserves 94,928
+raw pairs and corrects 112, with paths of length at most ten.  The resulting
+95,040 images are all distinct and cover the complete target set.
+
+## 7. Closed and secondary avenues
 
 A standalone inverse-Kostka differential cannot commute with the Kashiwara
 operators. Already
