@@ -250,6 +250,34 @@ Their column heights are ((2,3,1,1)), so the raw output does not even have
 partition shape.  An all-rank correction must therefore act on arbitrary
 column arrays before converting them to tableaux.
 
+The complete rank-seven raw census sharpens this example.  Across all 429
+orders and all (5,040) permutations, the raw map has no pair collisions.
+Exactly the 84 ladder-climbing orders have bad outputs.  There are 5,162 bad
+insertion arrays and 142 bad recording arrays; the latter are exactly the
+142 outputs of column-height composition ((2,3,1,1)).  The seven bad column
+compositions and their multiplicities are
+
+| column heights | multiplicity |
+|---|---:|
+| ((2,2,1,1,1)) | 3,543 |
+| ((2,2,2,1)) | 833 |
+| ((2,3,1,1)) | 142 |
+| ((3,2,1,1)) | 546 |
+| ((3,2,2)) | 14 |
+| ((3,3,1)) | 68 |
+| ((4,2,1)) | 16 |
+
+The missing targets balance the bad outputs in every P-Knuth-component and
+recording-descent fiber.  This produces a deterministic bijection after a
+fixed finite ranking.  It is no longer a forced correction: 541 fibers have
+more than one bad output, with maximum size five.  Even after fixing the
+entire recording array and the first-column height, 352 matched subgroups
+have size greater than one.  The resulting rank-seven ranking keeps (Q) in
+4,702 cases; the remaining 460 cases change both shape and (Q).  It uses
+133 insertion actions and 135 pair actions.  Thus the rank-seven extension is
+a smaller global ranking problem inside the defect set, not a local rule
+deduced from the present invariants.
+
 Finally, Ehrhard's operators in paper-cache 349 are weak partial inverses.
 They do not define normal type-A crystals.  Their alignments remain useful
 as inspiration for possible guards, but they cannot supply the Kashiwara
@@ -259,9 +287,9 @@ axioms needed here.
 
 The code now contains the exact forward column trace, the exact dualized
 inverse, the rank-five insertion/deletion branch, the rank-six target oracle,
-and the 77 guarded forward and reverse signatures.  The next all-rank problem
-is to replace the compiled rank-six signatures by a boundary rule on arbitrary
-column-height compositions, with a decreasing measure and joinable overlaps.
-Until such a rule is proved, the componentwise map in `DIRECT_MAP.md` remains
-the all-rank bijection and the local construction remains a verified finite
-prototype.
+the 77 guarded forward and reverse signatures, and the rank-seven defect
+ranking on arbitrary column arrays.  The next all-rank problem is to replace
+the compiled actions and the residual rank-seven rankings by a boundary rule
+with a decreasing measure and joinable overlaps.  Until such a rule is
+proved, the componentwise map in `DIRECT_MAP.md` remains the all-rank
+bijection and the local construction remains a verified finite prototype.

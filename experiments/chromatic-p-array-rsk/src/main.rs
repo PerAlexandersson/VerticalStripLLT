@@ -1907,6 +1907,12 @@ fn kp_columns_to_rows(columns: &[Vec<usize>]) -> Vec<Vec<usize>> {
     rows
 }
 
+fn kp_has_partition_shape(columns: &[Vec<usize>]) -> bool {
+    columns
+        .windows(2)
+        .all(|pair| pair[0].len() >= pair[1].len())
+}
+
 fn kp_rows_to_columns(rows: &[Vec<usize>]) -> Vec<Vec<usize>> {
     if rows.is_empty() {
         return Vec::new();
@@ -1935,6 +1941,9 @@ fn kp_tableau_key(insertion: &KpInsertion) -> (Vec<usize>, Vec<usize>, Vec<usize
 }
 
 fn kp_is_p_tableau(poset: &Poset, columns: &[Vec<usize>]) -> bool {
+    if !kp_has_partition_shape(columns) {
+        return false;
+    }
     let rows = kp_columns_to_rows(columns);
     rows.iter()
         .all(|row| row.windows(2).all(|pair| !poset.lt(pair[1], pair[0])))
@@ -1947,6 +1956,9 @@ fn kp_is_p_tableau(poset: &Poset, columns: &[Vec<usize>]) -> bool {
 }
 
 fn kp_is_standard_tableau(columns: &[Vec<usize>]) -> bool {
+    if !kp_has_partition_shape(columns) {
+        return false;
+    }
     let rows = kp_columns_to_rows(columns);
     rows.iter()
         .all(|row| row.windows(2).all(|pair| pair[0] < pair[1]))
@@ -1956,6 +1968,22 @@ fn kp_is_standard_tableau(columns: &[Vec<usize>]) -> bool {
                 .zip(&pair[0])
                 .all(|(&lower, &upper)| upper < lower)
         })
+}
+
+fn kp_recording_descent_mask(columns: &[Vec<usize>]) -> usize {
+    let size: usize = columns.iter().map(Vec::len).sum();
+    let mut row_of = vec![usize::MAX; size];
+    for column in columns {
+        for (bottom_offset, &value) in column.iter().enumerate() {
+            assert!(value < size);
+            assert_eq!(row_of[value], usize::MAX);
+            row_of[value] = column.len() - 1 - bottom_offset;
+        }
+    }
+    assert!(row_of.iter().all(|&row| row != usize::MAX));
+    (0..size.saturating_sub(1))
+        .filter(|&value| row_of[value + 1] > row_of[value])
+        .fold(0, |mask, value| mask | (1 << value))
 }
 
 fn kp_expected_targets(poset: &Poset) -> BTreeSet<(Vec<usize>, Vec<usize>, Vec<usize>)> {
@@ -2038,9 +2066,27 @@ struct KpCensus {
     first_defect: Option<KpDefectWitness>,
 }
 
+#[derive(Default)]
+struct KpRawCensus {
+    posets: usize,
+    ineligible_posets: usize,
+    defective_posets: usize,
+    words: usize,
+    invalid_p: usize,
+    invalid_q: usize,
+    nonpartition_p: usize,
+    nonpartition_q: usize,
+    collisions: usize,
+    shape_compositions: BTreeMap<Vec<usize>, usize>,
+    first_defect: Option<KpDefectWitness>,
+}
+
 type KpTableauKey = (Vec<usize>, Vec<usize>, Vec<usize>);
 type KpFiber = (usize, usize);
 type KpInvalidFiber = BTreeMap<KpFiber, Vec<(Vec<usize>, KpInsertion)>>;
+type KpRecording = Vec<Vec<usize>>;
+type KpRecordingHeight = (KpRecording, usize);
+type KpInvalidByRecording = BTreeMap<KpRecordingHeight, Vec<(Vec<usize>, KpInsertion)>>;
 
 #[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
 struct KpCellAction {
@@ -2067,6 +2113,23 @@ struct KpCorrectionCatalog {
     forward: BTreeMap<Vec<usize>, KpInsertion>,
     reverse: BTreeMap<KpInsertion, Vec<usize>>,
     defects: Vec<(Vec<usize>, KpInsertion, KpInsertion)>,
+    max_defect_fiber: usize,
+    ambiguous_defect_fibers: usize,
+    first_ambiguous_fiber: Option<KpAmbiguousFiber>,
+    max_residual_fiber: usize,
+    ambiguous_residual_fibers: usize,
+    first_ambiguous_residual: Option<KpAmbiguousFiber>,
+    max_exact_q_group: usize,
+    ambiguous_exact_q_groups: usize,
+    max_exact_height_group: usize,
+    ambiguous_exact_height_groups: usize,
+}
+
+#[derive(Clone, Debug)]
+struct KpAmbiguousFiber {
+    recording_descent_mask: usize,
+    sources: Vec<(Vec<usize>, KpInsertion)>,
+    targets: Vec<KpInsertion>,
 }
 
 fn kp_insertion_from_key(key: &KpTableauKey) -> KpInsertion {
@@ -2125,41 +2188,34 @@ fn kp_apply_cell_action(columns: &[Vec<usize>], action: &KpCellAction) -> Vec<Ve
         columns.iter().map(Vec::len).collect::<Vec<_>>(),
         action.source_column_shape
     );
-    let source_rows = kp_columns_to_rows(columns);
-    let target_row_count = action.target_column_shape.first().copied().unwrap_or(0);
-    let target_row_lengths: Vec<usize> = (0..target_row_count)
-        .map(|row| {
-            action
-                .target_column_shape
-                .iter()
-                .filter(|&&height| row < height)
-                .count()
-        })
-        .collect();
-    let mut target_rows: Vec<Vec<Option<usize>>> = target_row_lengths
+    let mut target_columns: Vec<Vec<Option<usize>>> = action
+        .target_column_shape
         .iter()
-        .map(|&length| vec![None; length])
+        .map(|&height| vec![None; height])
         .collect();
-    for (row, source_row) in source_rows.iter().enumerate() {
-        for (col, &value) in source_row.iter().enumerate() {
+    for (col, column) in columns.iter().enumerate() {
+        for (bottom_offset, &value) in column.iter().enumerate() {
+            let row = column.len() - 1 - bottom_offset;
             let destination = action
                 .moves
                 .iter()
                 .find_map(|&(from, to)| (from == (row, col)).then_some(to))
                 .unwrap_or((row, col));
-            let slot = &mut target_rows[destination.0][destination.1];
+            let target_height = action.target_column_shape[destination.1];
+            assert!(destination.0 < target_height);
+            let slot = &mut target_columns[destination.1][target_height - 1 - destination.0];
             assert!(slot.replace(value).is_none());
         }
     }
-    let target_rows: Vec<Vec<usize>> = target_rows
+    target_columns
         .into_iter()
-        .map(|row| {
-            row.into_iter()
+        .map(|column| {
+            column
+                .into_iter()
                 .map(|entry| entry.expect("a cell action fills its target shape"))
                 .collect()
         })
-        .collect();
-    kp_rows_to_columns(&target_rows)
+        .collect()
 }
 
 fn kp_apply_pair_action(insertion: &KpInsertion, action: &KpPairAction) -> KpInsertion {
@@ -2218,15 +2274,16 @@ fn kp_correction_catalog(poset: &Poset) -> KpCorrectionCatalog {
     let mut invalid_by_fiber: KpInvalidFiber = BTreeMap::new();
     for word in permutations(poset.n()) {
         let (raw, _) = kp_insert(poset, &word, true);
-        let key = kp_tableau_key(&raw);
-        if expected.contains(&key) {
+        if kp_is_p_tableau(poset, &raw.p_columns)
+            && kp_is_standard_tableau(&raw.q_columns)
+            && expected.contains(&kp_tableau_key(&raw))
+        {
             assert!(forward.insert(word.clone(), raw.clone()).is_none());
             assert!(reverse.insert(raw, word).is_none());
         } else {
-            let (lambda, _, q) = &key;
             let fiber = (
                 component_of[&word],
-                standard_tableau_descent_mask(lambda, q),
+                kp_recording_descent_mask(&raw.q_columns),
             );
             invalid_by_fiber.entry(fiber).or_default().push((word, raw));
         }
@@ -2249,12 +2306,115 @@ fn kp_correction_catalog(poset: &Poset) -> KpCorrectionCatalog {
     );
 
     let mut defects = Vec::new();
+    let mut max_defect_fiber = 0;
+    let mut ambiguous_defect_fibers = 0;
+    let mut first_ambiguous_fiber = None;
+    let mut max_residual_fiber = 0;
+    let mut ambiguous_residual_fibers = 0;
+    let mut first_ambiguous_residual = None;
+    let mut max_exact_q_group = 0;
+    let mut ambiguous_exact_q_groups = 0;
+    let mut max_exact_height_group = 0;
+    let mut ambiguous_exact_height_groups = 0;
     for (fiber, mut invalid) in invalid_by_fiber {
         let mut missing = missing_by_fiber.remove(&fiber).unwrap();
         invalid.sort_by(|left, right| left.0.cmp(&right.0));
         missing.sort();
         assert_eq!(invalid.len(), missing.len());
-        for ((word, raw), target) in invalid.into_iter().zip(missing) {
+        max_defect_fiber = max_defect_fiber.max(invalid.len());
+        ambiguous_defect_fibers += usize::from(invalid.len() > 1);
+        if invalid.len() > 1 && first_ambiguous_fiber.is_none() {
+            first_ambiguous_fiber = Some(KpAmbiguousFiber {
+                recording_descent_mask: fiber.1,
+                sources: invalid.clone(),
+                targets: missing.clone(),
+            });
+        }
+        let mut invalid_by_q: KpInvalidByRecording = BTreeMap::new();
+        for source in invalid {
+            invalid_by_q
+                .entry((source.1.q_columns.clone(), source.1.p_columns[0].len()))
+                .or_default()
+                .push(source);
+        }
+        let mut missing_by_q: BTreeMap<KpRecordingHeight, Vec<KpInsertion>> = BTreeMap::new();
+        for target in missing {
+            missing_by_q
+                .entry((target.q_columns.clone(), target.p_columns[0].len()))
+                .or_default()
+                .push(target);
+        }
+        let q_keys: BTreeSet<KpRecordingHeight> = invalid_by_q
+            .keys()
+            .chain(missing_by_q.keys())
+            .cloned()
+            .collect();
+        let mut pairs = Vec::new();
+        let mut residual_invalid = Vec::new();
+        let mut residual_missing = Vec::new();
+        for q in q_keys {
+            let mut sources = invalid_by_q.remove(&q).unwrap_or_default();
+            let mut targets = missing_by_q.remove(&q).unwrap_or_default();
+            sources.sort_by(|left, right| left.0.cmp(&right.0));
+            targets.sort();
+            let common = sources.len().min(targets.len());
+            max_exact_q_group = max_exact_q_group.max(common);
+            ambiguous_exact_q_groups += usize::from(common > 1);
+            pairs.extend(sources.drain(..common).zip(targets.drain(..common)));
+            residual_invalid.extend(sources);
+            residual_missing.extend(targets);
+        }
+        residual_invalid.sort_by(|left, right| left.0.cmp(&right.0));
+        residual_missing.sort();
+        assert_eq!(residual_invalid.len(), residual_missing.len());
+        let mut invalid_by_height: BTreeMap<usize, Vec<(Vec<usize>, KpInsertion)>> =
+            BTreeMap::new();
+        for source in residual_invalid {
+            invalid_by_height
+                .entry(source.1.p_columns[0].len())
+                .or_default()
+                .push(source);
+        }
+        let mut missing_by_height: BTreeMap<usize, Vec<KpInsertion>> = BTreeMap::new();
+        for target in residual_missing {
+            missing_by_height
+                .entry(target.p_columns[0].len())
+                .or_default()
+                .push(target);
+        }
+        let heights: BTreeSet<usize> = invalid_by_height
+            .keys()
+            .chain(missing_by_height.keys())
+            .copied()
+            .collect();
+        let mut final_invalid = Vec::new();
+        let mut final_missing = Vec::new();
+        for height in heights {
+            let mut sources = invalid_by_height.remove(&height).unwrap_or_default();
+            let mut targets = missing_by_height.remove(&height).unwrap_or_default();
+            sources.sort_by(|left, right| left.0.cmp(&right.0));
+            targets.sort();
+            let common = sources.len().min(targets.len());
+            max_exact_height_group = max_exact_height_group.max(common);
+            ambiguous_exact_height_groups += usize::from(common > 1);
+            pairs.extend(sources.drain(..common).zip(targets.drain(..common)));
+            final_invalid.extend(sources);
+            final_missing.extend(targets);
+        }
+        final_invalid.sort_by(|left, right| left.0.cmp(&right.0));
+        final_missing.sort();
+        assert_eq!(final_invalid.len(), final_missing.len());
+        max_residual_fiber = max_residual_fiber.max(final_invalid.len());
+        ambiguous_residual_fibers += usize::from(final_invalid.len() > 1);
+        if final_invalid.len() > 1 && first_ambiguous_residual.is_none() {
+            first_ambiguous_residual = Some(KpAmbiguousFiber {
+                recording_descent_mask: fiber.1,
+                sources: final_invalid.clone(),
+                targets: final_missing.clone(),
+            });
+        }
+        pairs.extend(final_invalid.into_iter().zip(final_missing));
+        for ((word, raw), target) in pairs {
             assert!(kp_is_p_tableau(poset, &target.p_columns));
             assert!(kp_is_standard_tableau(&target.q_columns));
             assert!(forward.insert(word.clone(), target.clone()).is_none());
@@ -2274,6 +2434,16 @@ fn kp_correction_catalog(poset: &Poset) -> KpCorrectionCatalog {
         forward,
         reverse,
         defects,
+        max_defect_fiber,
+        ambiguous_defect_fibers,
+        first_ambiguous_fiber,
+        max_residual_fiber,
+        ambiguous_residual_fibers,
+        first_ambiguous_residual,
+        max_exact_q_group,
+        ambiguous_exact_q_groups,
+        max_exact_height_group,
+        ambiguous_exact_height_groups,
     }
 }
 
@@ -2325,6 +2495,45 @@ fn verify_kp_insertion_n(n: usize) -> KpCensus {
         if n <= 5 {
             assert_eq!(images.keys().cloned().collect::<BTreeSet<_>>(), expected);
         }
+    }
+    summary
+}
+
+fn verify_kp_raw_n(n: usize) -> KpRawCensus {
+    let mut summary = KpRawCensus::default();
+    for poset in natural_unit_interval_orders(n) {
+        summary.posets += 1;
+        summary.ineligible_posets += usize::from(!is_kim_pylyavskyy_eligible(&poset));
+        let mut images = BTreeSet::new();
+        let mut poset_defective = false;
+        for word in permutations(n) {
+            summary.words += 1;
+            let (raw, _) = kp_insert(&poset, &word, false);
+            let p_shape: Vec<usize> = raw.p_columns.iter().map(Vec::len).collect();
+            let q_shape: Vec<usize> = raw.q_columns.iter().map(Vec::len).collect();
+            assert_eq!(p_shape, q_shape);
+            let p_partition = kp_has_partition_shape(&raw.p_columns);
+            let q_partition = kp_has_partition_shape(&raw.q_columns);
+            summary.nonpartition_p += usize::from(!p_partition);
+            summary.nonpartition_q += usize::from(!q_partition);
+            let p_valid = kp_is_p_tableau(&poset, &raw.p_columns);
+            let q_valid = kp_is_standard_tableau(&raw.q_columns);
+            summary.invalid_p += usize::from(!p_valid);
+            summary.invalid_q += usize::from(!q_valid);
+            if !p_valid || !q_valid {
+                poset_defective = true;
+                *summary.shape_compositions.entry(p_shape).or_default() += 1;
+                if summary.first_defect.is_none() {
+                    summary.first_defect = Some(KpDefectWitness {
+                        code: poset.code(),
+                        word: word.clone(),
+                        insertion: raw.clone(),
+                    });
+                }
+            }
+            summary.collisions += usize::from(!images.insert(raw));
+        }
+        summary.defective_posets += usize::from(poset_defective);
     }
     summary
 }
@@ -5319,6 +5528,112 @@ fn main() {
             .parse::<usize>()
             .expect("alphabet size must be numeric");
         print!("{}", crystal_graph_dot(&Poset { h }, alphabet));
+        return;
+    }
+    if args.get(1).map(String::as_str) == Some("--kp-correct") {
+        assert_eq!(args.len(), 3, "usage: --kp-correct rank");
+        let n = args[2].parse::<usize>().expect("rank must be numeric");
+        assert!(
+            n <= 7,
+            "the correction census is bounded to rank at most seven"
+        );
+        let mut defects = 0;
+        let mut same_recording = 0;
+        let mut shape_changes = 0;
+        let mut malformed_sources = 0;
+        let mut max_defect_fiber = 0;
+        let mut ambiguous_defect_fibers = 0;
+        let mut max_residual_fiber = 0;
+        let mut ambiguous_residual_fibers = 0;
+        let mut max_exact_q_group = 0;
+        let mut ambiguous_exact_q_groups = 0;
+        let mut max_exact_height_group = 0;
+        let mut ambiguous_exact_height_groups = 0;
+        let mut p_actions: BTreeMap<KpCellAction, usize> = BTreeMap::new();
+        let mut pair_actions: BTreeMap<KpPairAction, usize> = BTreeMap::new();
+        let mut first_ambiguous = None;
+        let mut first_ambiguous_residual = None;
+        for poset in natural_unit_interval_orders(n) {
+            let catalog = kp_correction_catalog(&poset);
+            max_defect_fiber = max_defect_fiber.max(catalog.max_defect_fiber);
+            ambiguous_defect_fibers += catalog.ambiguous_defect_fibers;
+            max_residual_fiber = max_residual_fiber.max(catalog.max_residual_fiber);
+            ambiguous_residual_fibers += catalog.ambiguous_residual_fibers;
+            max_exact_q_group = max_exact_q_group.max(catalog.max_exact_q_group);
+            ambiguous_exact_q_groups += catalog.ambiguous_exact_q_groups;
+            max_exact_height_group = max_exact_height_group.max(catalog.max_exact_height_group);
+            ambiguous_exact_height_groups += catalog.ambiguous_exact_height_groups;
+            if first_ambiguous.is_none() {
+                first_ambiguous = catalog
+                    .first_ambiguous_fiber
+                    .clone()
+                    .map(|fiber| (poset.code(), fiber));
+            }
+            if first_ambiguous_residual.is_none() {
+                first_ambiguous_residual = catalog
+                    .first_ambiguous_residual
+                    .clone()
+                    .map(|fiber| (poset.code(), fiber));
+            }
+            for (_, raw, target) in catalog.defects {
+                defects += 1;
+                same_recording += usize::from(raw.q_columns == target.q_columns);
+                let raw_shape: Vec<usize> = raw.p_columns.iter().map(Vec::len).collect();
+                let target_shape: Vec<usize> = target.p_columns.iter().map(Vec::len).collect();
+                shape_changes += usize::from(raw_shape != target_shape);
+                malformed_sources += usize::from(!kp_has_partition_shape(&raw.p_columns));
+                *p_actions.entry(kp_cell_action(&raw, &target)).or_default() += 1;
+                *pair_actions
+                    .entry(kp_pair_action(&raw, &target))
+                    .or_default() += 1;
+            }
+        }
+        println!(
+            "KP corrected n={n}: defects={defects}, same Q={same_recording}, shape changes={shape_changes}, malformed sources={malformed_sources}, P-actions={}, pair-actions={}, max fiber={max_defect_fiber}, ambiguous fibers={ambiguous_defect_fibers}, max exact-Q group={max_exact_q_group}, ambiguous exact-Q groups={ambiguous_exact_q_groups}, max height group={max_exact_height_group}, ambiguous height groups={ambiguous_exact_height_groups}, max residual={max_residual_fiber}, ambiguous residuals={ambiguous_residual_fibers}",
+            p_actions.len(),
+            pair_actions.len()
+        );
+        let mut p_multiplicities: Vec<usize> = p_actions.into_values().collect();
+        p_multiplicities.sort_unstable_by(|left, right| right.cmp(left));
+        println!("  P-action multiplicities: {p_multiplicities:?}");
+        if let Some((code, fiber)) = first_ambiguous {
+            println!(
+                "  first ambiguous fiber: P={code:?}, Des={}, sources={:?}, targets={:?}",
+                fiber.recording_descent_mask, fiber.sources, fiber.targets
+            );
+        }
+        if let Some((code, fiber)) = first_ambiguous_residual {
+            println!(
+                "  first ambiguous residual: P={code:?}, Des={}, sources={:?}, targets={:?}",
+                fiber.recording_descent_mask, fiber.sources, fiber.targets
+            );
+        }
+        return;
+    }
+    if args.get(1).map(String::as_str) == Some("--kp-raw") {
+        assert_eq!(args.len(), 3, "usage: --kp-raw rank");
+        let n = args[2].parse::<usize>().expect("rank must be numeric");
+        assert!(n <= 7, "the raw census is bounded to rank at most seven");
+        let census = verify_kp_raw_n(n);
+        println!(
+            "KP raw n={n}: posets={}, ineligible={}, defective={}, words={}, bad P={}, bad Q={}, nonpartition P={}, nonpartition Q={}, collisions={}, bad shapes={:?}",
+            census.posets,
+            census.ineligible_posets,
+            census.defective_posets,
+            census.words,
+            census.invalid_p,
+            census.invalid_q,
+            census.nonpartition_p,
+            census.nonpartition_q,
+            census.collisions,
+            census.shape_compositions
+        );
+        if let Some(witness) = census.first_defect {
+            println!(
+                "  first defect: P={:?}, word={:?}, output={:?}",
+                witness.code, witness.word, witness.insertion
+            );
+        }
         return;
     }
     if args.get(1).map(String::as_str) == Some("--kp-local") {

@@ -51,6 +51,24 @@ The verified checkpoint is `61c8de5`, merged and pushed to `main`.  The
 worker retains its three owned paths for the next arbitrary-column repair
 experiment.
 
+The rank-seven arbitrary-column experiment is complete.  Across 429 orders
+and 2,162,160 words, exactly the 84 ladder-climbing orders fail.  There are
+5,162 bad insertion arrays, 142 bad recording arrays, and no raw pair
+collisions.  The 142 bad recording arrays are exactly the nonpartition
+composition `(2,3,1,1)`.  Fiberwise correction within a P-Knuth component and
+recording descent gives exact target coverage.  It keeps `Q` on 4,702 defects;
+460 change both shape and `Q`.  The finite rule has 133 insertion actions and
+135 pair actions.
+
+Unlike rank six, rank seven retains genuine ranking ambiguity: 541 defect
+fibers have size greater than one, with maximum five, and 352 subgroups remain
+non-singleton even after fixing the entire recording array and first-column
+height.  This isolates the current locality bottleneck.  Lexicographic rank
+within those subgroups gives a deterministic reversible map, but is not an
+intrinsic insertion rule.
+The release `--kp-raw 7` and `--kp-correct 7` censuses, all twelve unit tests,
+Clippy with warnings denied, formatting, and the diff check pass.
+
 On 2026-10-16, the Chromatic P-array RSK worker completed a direct bijection
 which avoids inverse Kostka.  The new primary source is paper-cache 354,
 Blasiak--Eriksson--Pylyavskyy--Siegl, arXiv:2211.03967v2.  In each standard
