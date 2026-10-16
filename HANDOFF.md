@@ -81,7 +81,7 @@ the 32 total-cost ties, while the decreasing individual-cost profile resolves
 all of them.  The release `--kp-raw 7` and `--kp-correct 7` censuses, all
 thirteen unit tests, Clippy with warnings denied, formatting, and the diff
 check pass.  The rank-seven raw-census checkpoint is `68318b7`; the
-minimum-motion checkpoint is pending commit.
+minimum-motion implementation checkpoint is `aa661f5`.
 
 On 2026-10-16, the Chromatic P-array RSK worker completed a direct bijection
 which avoids inverse Kostka.  The new primary source is paper-cache 354,
