@@ -166,7 +166,7 @@ loses no selected edge.  The 460 shape-changing recording moves have 318
 unique descent-preserving rim candidates and 142 two-candidate cases.  The
 release `--kp-correct 7` census, all fourteen tests, Clippy with warnings
 denied, formatting, and the diff check pass.  The table-free graph checkpoint
-is pending commit.
+is `1b2532f`.
 
 On 2026-10-16, the Chromatic P-array RSK worker completed a direct bijection
 which avoids inverse Kostka.  The new primary source is paper-cache 354,
