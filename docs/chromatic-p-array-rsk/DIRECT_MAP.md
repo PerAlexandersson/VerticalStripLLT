@@ -232,11 +232,15 @@ and retaining the recording tableau fills the two missing recording tableaux
 in the shape-\((3,2)\) fiber. The new insertion tableau has column word
 \(52413\). This gives an exact repair in rank five.
 
-The repair does not yet define an insertion algorithm in all ranks. The next
-finite problem is to implement the complete Kim--Pylyavskyy trace, apply this
-correction at a ladder-climber event, and classify the first overlapping
-defects in rank six. A local rule must be reversible and confluent and must
-specialize to the published algorithm when no element climbs a ladder.
+The complete Kim--Pylyavskyy trace and inverse are now implemented.  In rank
+six there are 112 bad insertion tableaux on the 12 ladder-climbing orders.
+The forced missing targets fall into ten cell actions; six actions change both
+shape and recording tableau.  A 77-signature guarded rewrite and its separately
+checked inverse give a bijection through rank six.  Kim--Pylyavskyy Example
+7.11 produces a nonpartition column-height composition in rank seven, so this
+finite rule is not yet an all-rank insertion.  The algorithms, censuses, and
+exact obstructions are recorded in
+[LOCAL_KP_INSERTION.md](LOCAL_KP_INSERTION.md).
 
 ## 6. Closed and secondary avenues
 
@@ -258,4 +262,3 @@ two-term incidence complex on each endpoint path. It may explain correction
 terms by chain homotopies, but it is no longer needed for existence of the
 direct bijection. It remains a diagnostic for comparing the three crystal
 gauges.
-

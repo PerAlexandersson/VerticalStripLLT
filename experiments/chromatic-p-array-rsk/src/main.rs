@@ -1536,6 +1536,799 @@ fn p_word_inversion(poset: &Poset, word: &[usize]) -> usize {
         .count()
 }
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+enum KpColumnEventKind {
+    Empty,
+    Append,
+    OrdinaryBump,
+    LadderCopy,
+    LadderMove,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+struct KpColumnEvent {
+    first_scan_position: usize,
+    last_scan_position: usize,
+    kind: KpColumnEventKind,
+    source: Vec<usize>,
+    chain_before: Vec<usize>,
+    chain_after: Vec<usize>,
+    emitted: Vec<usize>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+struct KpColumnStep {
+    column: Vec<usize>,
+    remainder: Vec<Option<usize>>,
+    appended_scan_positions: Vec<usize>,
+    events: Vec<KpColumnEvent>,
+}
+
+#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
+struct KpInsertion {
+    /// Columns from left to right, each stored bottom-to-top.
+    p_columns: Vec<Vec<usize>>,
+    /// Recording columns in the same convention, with zero-based labels.
+    q_columns: Vec<Vec<usize>>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+struct KpInsertionTrace {
+    passes: Vec<KpColumnStep>,
+    raw_p_columns: Vec<Vec<usize>>,
+    repaired_rank_five_climber: bool,
+}
+
+fn kp_complement(poset: &Poset, value: usize) -> usize {
+    poset.n() - 1 - value
+}
+
+fn kp_less(poset: &Poset, dual: bool, left: usize, right: usize) -> bool {
+    if dual {
+        poset.lt(kp_complement(poset, right), kp_complement(poset, left))
+    } else {
+        poset.lt(left, right)
+    }
+}
+
+fn kp_is_ladder(poset: &Poset, dual: bool, values: &[usize]) -> bool {
+    let mut sorted = values.to_vec();
+    if dual {
+        for value in &mut sorted {
+            *value = kp_complement(poset, *value);
+        }
+    }
+    sorted.sort_unstable();
+    sorted.dedup();
+    sorted.len() == values.len()
+        && (0..sorted.len()).all(|left| {
+            (left + 1..sorted.len())
+                .all(|right| poset.lt(sorted[left], sorted[right]) == (right >= left + 2))
+        })
+}
+
+fn kp_column_step_from(
+    poset: &Poset,
+    word: &[Option<usize>],
+    chain: &[usize],
+    drag_positions: &BTreeSet<usize>,
+    dual: bool,
+) -> KpColumnStep {
+    let source: Vec<Option<usize>> = word.iter().rev().copied().collect();
+    let mut remainder = vec![None; source.len()];
+    let mut active: Vec<usize> = chain.iter().rev().copied().collect();
+    let mut events = Vec::new();
+    let mut offset = 0;
+
+    while offset < source.len() {
+        let first_scan_position = offset + 1;
+        let chain_before = active.clone();
+        let Some(entry) = source[offset] else {
+            let emitted = if drag_positions.contains(&offset) && !active.is_empty() {
+                remainder[offset] = Some(active.remove(0));
+                remainder[offset].into_iter().collect()
+            } else {
+                Vec::new()
+            };
+            events.push(KpColumnEvent {
+                first_scan_position,
+                last_scan_position: first_scan_position,
+                kind: KpColumnEventKind::Empty,
+                source: Vec::new(),
+                chain_before,
+                chain_after: active.clone(),
+                emitted,
+            });
+            offset += 1;
+            continue;
+        };
+
+        let predecessor = active.iter().rposition(|&old| old < entry);
+        if predecessor.is_none() || kp_less(poset, dual, active[predecessor.unwrap()], entry) {
+            let replacement = predecessor.map_or(0, |index| index + 1);
+            let kind = if replacement == active.len() {
+                active.push(entry);
+                KpColumnEventKind::Append
+            } else {
+                remainder[offset] = Some(active[replacement]);
+                active[replacement] = entry;
+                KpColumnEventKind::OrdinaryBump
+            };
+            events.push(KpColumnEvent {
+                first_scan_position,
+                last_scan_position: first_scan_position,
+                kind,
+                source: vec![entry],
+                chain_before,
+                chain_after: active.clone(),
+                emitted: remainder[offset].into_iter().collect(),
+            });
+            offset += 1;
+            continue;
+        }
+
+        let row = predecessor.expect("the ordinary case handles the bottom sentinel");
+        let mut choices = Vec::new();
+        for height in 0..active.len() - row {
+            for width in 0..source.len() - offset {
+                let Some(source_block) = source[offset..=offset + width]
+                    .iter()
+                    .copied()
+                    .collect::<Option<Vec<_>>>()
+                else {
+                    continue;
+                };
+                if source_block.windows(2).any(|pair| pair[0] >= pair[1]) {
+                    continue;
+                }
+                let mut ladder = active[row..=row + height].to_vec();
+                ladder.extend(source_block);
+                if kp_is_ladder(poset, dual, &ladder) {
+                    choices.push((height, width));
+                }
+            }
+        }
+        let height = choices
+            .iter()
+            .map(|&(height, _)| height)
+            .max()
+            .expect("an incomparable pair is a two-element ladder");
+        let width = choices
+            .iter()
+            .filter_map(|&(candidate_height, width)| (candidate_height == height).then_some(width))
+            .max()
+            .unwrap();
+        let source_block: Vec<usize> = source[offset..=offset + width]
+            .iter()
+            .map(|value| value.expect("a selected source block has no empty positions"))
+            .collect();
+
+        let kind = if source_block[width] < active[row + height] {
+            for (block_offset, &value) in source_block.iter().enumerate() {
+                remainder[offset + block_offset] = Some(value);
+            }
+            KpColumnEventKind::LadderCopy
+        } else {
+            let old_active = active.clone();
+            for index in row..=row + height {
+                let first = source_block
+                    .iter()
+                    .position(|&value| value > old_active[index])
+                    .expect("a ladder move has a first source cut");
+                let last = if index == row + height {
+                    width
+                } else {
+                    (0..width)
+                        .rev()
+                        .find(|&source_index| source_block[source_index] < old_active[index + 1])
+                        .expect("a ladder move has a last source cut")
+                };
+                assert!(first <= last);
+                let emitted = std::iter::once(old_active[index])
+                    .chain(source_block[first..last].iter().copied());
+                for (target, value) in (offset + first..=offset + last).zip(emitted) {
+                    if let Some(old) = remainder[target] {
+                        assert_eq!(old, value);
+                    }
+                    remainder[target] = Some(value);
+                }
+                active[index] = source_block[last];
+            }
+            KpColumnEventKind::LadderMove
+        };
+        events.push(KpColumnEvent {
+            first_scan_position,
+            last_scan_position: first_scan_position + width,
+            kind,
+            source: source_block,
+            chain_before,
+            chain_after: active.clone(),
+            emitted: remainder[offset..=offset + width]
+                .iter()
+                .filter_map(|&value| value)
+                .collect(),
+        });
+        offset += width + 1;
+    }
+
+    let appended_scan_positions = source
+        .iter()
+        .zip(&remainder)
+        .enumerate()
+        .filter_map(|(position, (old, new))| (old.is_some() && new.is_none()).then_some(position))
+        .collect();
+    active.reverse();
+    remainder.reverse();
+    KpColumnStep {
+        column: active,
+        remainder,
+        appended_scan_positions,
+        events,
+    }
+}
+
+fn kp_column_step(poset: &Poset, word: &[Option<usize>]) -> KpColumnStep {
+    kp_column_step_from(poset, word, &[], &BTreeSet::new(), false)
+}
+
+fn kp_reverse_complement(poset: &Poset, values: &[Option<usize>]) -> Vec<Option<usize>> {
+    values
+        .iter()
+        .rev()
+        .map(|value| value.map(|value| kp_complement(poset, value)))
+        .collect()
+}
+
+fn kp_reverse_complement_column(poset: &Poset, values: &[usize]) -> Vec<usize> {
+    values
+        .iter()
+        .rev()
+        .map(|&value| kp_complement(poset, value))
+        .collect()
+}
+
+fn kp_rank_five_repair(poset: &Poset, insertion: &mut KpInsertion) -> bool {
+    if poset.code() != [2, 4, 4, 5, 5] || insertion.p_columns != [vec![4, 2], vec![3, 0], vec![1]] {
+        return false;
+    }
+    let first_q = [vec![2, 0], vec![3, 1], vec![4]];
+    let second_q = [vec![1, 0], vec![3, 2], vec![4]];
+    if insertion.q_columns != first_q && insertion.q_columns != second_q {
+        return false;
+    }
+    insertion.p_columns = vec![vec![4, 1], vec![3, 0], vec![2]];
+    true
+}
+
+fn kp_rank_five_unrepair(poset: &Poset, insertion: &mut KpInsertion) -> bool {
+    if poset.code() != [2, 4, 4, 5, 5] || insertion.p_columns != [vec![4, 1], vec![3, 0], vec![2]] {
+        return false;
+    }
+    let first_q = [vec![2, 0], vec![3, 1], vec![4]];
+    let second_q = [vec![1, 0], vec![3, 2], vec![4]];
+    if insertion.q_columns != first_q && insertion.q_columns != second_q {
+        return false;
+    }
+    insertion.p_columns = vec![vec![4, 2], vec![3, 0], vec![1]];
+    true
+}
+
+fn kp_insert(
+    poset: &Poset,
+    word: &[usize],
+    repair_rank_five: bool,
+) -> (KpInsertion, KpInsertionTrace) {
+    assert_eq!(word.len(), poset.n());
+    assert_eq!(
+        word.iter().copied().collect::<BTreeSet<_>>().len(),
+        word.len()
+    );
+    let mut remainder: Vec<Option<usize>> = word.iter().copied().map(Some).collect();
+    let mut p_columns = Vec::new();
+    let mut q_columns = Vec::new();
+    let mut passes = Vec::new();
+    while remainder.iter().any(Option::is_some) {
+        let step = kp_column_step(poset, &remainder);
+        let mut recording = step.appended_scan_positions.clone();
+        recording.reverse();
+        assert_eq!(step.column.len(), recording.len());
+        p_columns.push(step.column.clone());
+        q_columns.push(recording);
+        remainder = step.remainder.clone();
+        passes.push(step);
+    }
+    let raw_p_columns = p_columns.clone();
+    let mut insertion = KpInsertion {
+        p_columns,
+        q_columns,
+    };
+    let repaired_rank_five_climber = repair_rank_five && kp_rank_five_repair(poset, &mut insertion);
+    (
+        insertion,
+        KpInsertionTrace {
+            passes,
+            raw_p_columns,
+            repaired_rank_five_climber,
+        },
+    )
+}
+
+fn kp_inverse_checked(
+    poset: &Poset,
+    insertion: &KpInsertion,
+    unrepair_rank_five: bool,
+) -> Option<Vec<usize>> {
+    if insertion.p_columns.len() != insertion.q_columns.len() {
+        return None;
+    }
+    let mut raw = insertion.clone();
+    if unrepair_rank_five {
+        kp_rank_five_unrepair(poset, &mut raw);
+    }
+    let mut remainder = vec![None; poset.n()];
+    for (column, recording) in raw.p_columns.iter().zip(&raw.q_columns).rev() {
+        let drags: BTreeSet<usize> = recording
+            .iter()
+            .map(|&scan_position| poset.n() - 1 - scan_position)
+            .collect();
+        let hatted_remainder = kp_reverse_complement(poset, &remainder);
+        let hatted_column = kp_reverse_complement_column(poset, column);
+        let step = kp_column_step_from(poset, &hatted_remainder, &hatted_column, &drags, true);
+        if !step.column.is_empty() {
+            return None;
+        }
+        remainder = kp_reverse_complement(poset, &step.remainder);
+    }
+    remainder.into_iter().collect()
+}
+
+fn kp_inverse(poset: &Poset, insertion: &KpInsertion, unrepair_rank_five: bool) -> Vec<usize> {
+    kp_inverse_checked(poset, insertion, unrepair_rank_five)
+        .expect("a complete KP inverse must have no residual column or empty slots")
+}
+
+fn kp_columns_to_rows(columns: &[Vec<usize>]) -> Vec<Vec<usize>> {
+    if columns.is_empty() {
+        return Vec::new();
+    }
+    assert!(columns
+        .windows(2)
+        .all(|pair| pair[0].len() >= pair[1].len()));
+    let mut rows = Vec::new();
+    for row in 0..columns[0].len() {
+        rows.push(
+            columns
+                .iter()
+                .filter(|column| row < column.len())
+                .map(|column| column[column.len() - 1 - row])
+                .collect(),
+        );
+    }
+    rows
+}
+
+fn kp_rows_to_columns(rows: &[Vec<usize>]) -> Vec<Vec<usize>> {
+    if rows.is_empty() {
+        return Vec::new();
+    }
+    assert!(rows.windows(2).all(|pair| pair[0].len() >= pair[1].len()));
+    (0..rows[0].len())
+        .map(|col| {
+            rows.iter()
+                .filter_map(|row| row.get(col).copied())
+                .rev()
+                .collect()
+        })
+        .collect()
+}
+
+fn kp_tableau_key(insertion: &KpInsertion) -> (Vec<usize>, Vec<usize>, Vec<usize>) {
+    let p_rows = kp_columns_to_rows(&insertion.p_columns);
+    let q_rows = kp_columns_to_rows(&insertion.q_columns);
+    let lambda = p_rows.iter().map(Vec::len).collect::<Vec<_>>();
+    assert_eq!(lambda, q_rows.iter().map(Vec::len).collect::<Vec<_>>());
+    (
+        lambda,
+        p_rows.into_iter().flatten().collect(),
+        q_rows.into_iter().flatten().collect(),
+    )
+}
+
+fn kp_is_p_tableau(poset: &Poset, columns: &[Vec<usize>]) -> bool {
+    let rows = kp_columns_to_rows(columns);
+    rows.iter()
+        .all(|row| row.windows(2).all(|pair| !poset.lt(pair[1], pair[0])))
+        && rows.windows(2).all(|pair| {
+            pair[1]
+                .iter()
+                .zip(&pair[0])
+                .all(|(&lower, &upper)| poset.lt(upper, lower))
+        })
+}
+
+fn kp_is_standard_tableau(columns: &[Vec<usize>]) -> bool {
+    let rows = kp_columns_to_rows(columns);
+    rows.iter()
+        .all(|row| row.windows(2).all(|pair| pair[0] < pair[1]))
+        && rows.windows(2).all(|pair| {
+            pair[1]
+                .iter()
+                .zip(&pair[0])
+                .all(|(&lower, &upper)| upper < lower)
+        })
+}
+
+fn kp_expected_targets(poset: &Poset) -> BTreeSet<(Vec<usize>, Vec<usize>, Vec<usize>)> {
+    let n = poset.n();
+    let mut targets = BTreeSet::new();
+    for lambda in partitions(n) {
+        let conjugate = conjugate_partition(&lambda);
+        let p_entries: Vec<Vec<usize>> = p_tableaux(poset, &conjugate)
+            .into_iter()
+            .map(|tableau| {
+                let conjugate_entries: Vec<usize> = rows(&tableau, conjugate.len())
+                    .into_iter()
+                    .flatten()
+                    .collect();
+                let (actual_shape, entries) = transpose_tableau(&conjugate, &conjugate_entries);
+                assert_eq!(actual_shape, lambda);
+                entries
+            })
+            .collect();
+        let standard = ssyts(&lambda, &vec![1; n]);
+        for p in &p_entries {
+            let p_columns = kp_rows_to_columns(&entries_to_rows(&lambda, p, false));
+            assert!(kp_is_p_tableau(poset, &p_columns));
+            for q in &standard {
+                assert!(targets.insert((lambda.clone(), p.clone(), q.clone())));
+            }
+        }
+    }
+    targets
+}
+
+fn kp_trace_checksum(trace: &KpInsertionTrace) -> usize {
+    let mut checksum = usize::from(trace.repaired_rank_five_climber);
+    for pass in &trace.passes {
+        checksum = checksum
+            .wrapping_mul(131)
+            .wrapping_add(pass.appended_scan_positions.len())
+            .wrapping_add(pass.column.len())
+            .wrapping_add(
+                pass.remainder
+                    .iter()
+                    .filter(|entry| entry.is_some())
+                    .count(),
+            );
+        for event in &pass.events {
+            checksum = checksum
+                .wrapping_mul(131)
+                .wrapping_add(event.first_scan_position)
+                .wrapping_add(event.last_scan_position)
+                .wrapping_add(event.kind as usize)
+                .wrapping_add(event.source.iter().sum::<usize>())
+                .wrapping_add(event.chain_before.iter().sum::<usize>())
+                .wrapping_add(event.chain_after.iter().sum::<usize>())
+                .wrapping_add(event.emitted.iter().sum::<usize>());
+        }
+    }
+    checksum
+}
+
+#[derive(Clone, Debug)]
+struct KpDefectWitness {
+    code: Vec<usize>,
+    word: Vec<usize>,
+    insertion: KpInsertion,
+}
+
+#[derive(Default)]
+struct KpCensus {
+    posets: usize,
+    ineligible_posets: usize,
+    defective_posets: usize,
+    words: usize,
+    raw_invalid_p: usize,
+    raw_invalid_q: usize,
+    repaired_words: usize,
+    corrected_invalid_p: usize,
+    corrected_collisions: usize,
+    corrected_missing_targets: usize,
+    trace_checksum: usize,
+    first_defect: Option<KpDefectWitness>,
+}
+
+type KpTableauKey = (Vec<usize>, Vec<usize>, Vec<usize>);
+type KpFiber = (usize, usize);
+type KpInvalidFiber = BTreeMap<KpFiber, Vec<(Vec<usize>, KpInsertion)>>;
+
+#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
+struct KpCellAction {
+    source_column_shape: Vec<usize>,
+    target_column_shape: Vec<usize>,
+    moves: Vec<((usize, usize), (usize, usize))>,
+}
+
+#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
+struct KpPairAction {
+    p: KpCellAction,
+    q: KpCellAction,
+}
+
+#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
+struct KpLocalSignature {
+    column_shape: Vec<usize>,
+    window_occupancy: Vec<(usize, usize)>,
+    comparison_code: u128,
+    recording_descent_mask: usize,
+}
+
+struct KpCorrectionCatalog {
+    forward: BTreeMap<Vec<usize>, KpInsertion>,
+    reverse: BTreeMap<KpInsertion, Vec<usize>>,
+    defects: Vec<(Vec<usize>, KpInsertion, KpInsertion)>,
+}
+
+fn kp_insertion_from_key(key: &KpTableauKey) -> KpInsertion {
+    let (lambda, p, q) = key;
+    KpInsertion {
+        p_columns: kp_rows_to_columns(&entries_to_rows(lambda, p, false)),
+        q_columns: kp_rows_to_columns(&entries_to_rows(lambda, q, false)),
+    }
+}
+
+fn kp_insertion_reading_word(insertion: &KpInsertion) -> Vec<usize> {
+    insertion.p_columns.iter().flatten().copied().collect()
+}
+
+fn kp_column_cell_action(source: &[Vec<usize>], target: &[Vec<usize>]) -> KpCellAction {
+    fn coordinates(columns: &[Vec<usize>]) -> BTreeMap<usize, (usize, usize)> {
+        let mut coordinates = BTreeMap::new();
+        for (col, column) in columns.iter().enumerate() {
+            for (bottom_offset, &value) in column.iter().enumerate() {
+                let row = column.len() - 1 - bottom_offset;
+                assert!(coordinates.insert(value, (row, col)).is_none());
+            }
+        }
+        coordinates
+    }
+    let source_coordinates = coordinates(source);
+    let target_coordinates = coordinates(target);
+    let mut moves: Vec<_> = source_coordinates
+        .iter()
+        .filter_map(|(&value, &from)| {
+            let to = target_coordinates[&value];
+            (from != to).then_some((from, to))
+        })
+        .collect();
+    moves.sort();
+    KpCellAction {
+        source_column_shape: source.iter().map(Vec::len).collect(),
+        target_column_shape: target.iter().map(Vec::len).collect(),
+        moves,
+    }
+}
+
+fn kp_cell_action(source: &KpInsertion, target: &KpInsertion) -> KpCellAction {
+    kp_column_cell_action(&source.p_columns, &target.p_columns)
+}
+
+fn kp_pair_action(source: &KpInsertion, target: &KpInsertion) -> KpPairAction {
+    KpPairAction {
+        p: kp_column_cell_action(&source.p_columns, &target.p_columns),
+        q: kp_column_cell_action(&source.q_columns, &target.q_columns),
+    }
+}
+
+fn kp_apply_cell_action(columns: &[Vec<usize>], action: &KpCellAction) -> Vec<Vec<usize>> {
+    assert_eq!(
+        columns.iter().map(Vec::len).collect::<Vec<_>>(),
+        action.source_column_shape
+    );
+    let source_rows = kp_columns_to_rows(columns);
+    let target_row_count = action.target_column_shape.first().copied().unwrap_or(0);
+    let target_row_lengths: Vec<usize> = (0..target_row_count)
+        .map(|row| {
+            action
+                .target_column_shape
+                .iter()
+                .filter(|&&height| row < height)
+                .count()
+        })
+        .collect();
+    let mut target_rows: Vec<Vec<Option<usize>>> = target_row_lengths
+        .iter()
+        .map(|&length| vec![None; length])
+        .collect();
+    for (row, source_row) in source_rows.iter().enumerate() {
+        for (col, &value) in source_row.iter().enumerate() {
+            let destination = action
+                .moves
+                .iter()
+                .find_map(|&(from, to)| (from == (row, col)).then_some(to))
+                .unwrap_or((row, col));
+            let slot = &mut target_rows[destination.0][destination.1];
+            assert!(slot.replace(value).is_none());
+        }
+    }
+    let target_rows: Vec<Vec<usize>> = target_rows
+        .into_iter()
+        .map(|row| {
+            row.into_iter()
+                .map(|entry| entry.expect("a cell action fills its target shape"))
+                .collect()
+        })
+        .collect();
+    kp_rows_to_columns(&target_rows)
+}
+
+fn kp_apply_pair_action(insertion: &KpInsertion, action: &KpPairAction) -> KpInsertion {
+    KpInsertion {
+        p_columns: kp_apply_cell_action(&insertion.p_columns, &action.p),
+        q_columns: kp_apply_cell_action(&insertion.q_columns, &action.q),
+    }
+}
+
+fn kp_local_signature(poset: &Poset, insertion: &KpInsertion) -> KpLocalSignature {
+    let rows = kp_columns_to_rows(&insertion.p_columns);
+    let mut window = Vec::new();
+    let mut occupancy = Vec::new();
+    for (row, entries) in rows.iter().enumerate().take(2) {
+        for (col, &entry) in entries.iter().enumerate().take(4) {
+            occupancy.push((row, col));
+            window.push(entry);
+        }
+    }
+    let mut comparison_code = 0u128;
+    let mut place = 1u128;
+    for left in 0..window.len() {
+        for right in left + 1..window.len() {
+            let relation = if poset.lt(window[left], window[right]) {
+                1
+            } else if poset.lt(window[right], window[left]) {
+                2
+            } else {
+                0
+            };
+            comparison_code += place * relation;
+            place *= 3;
+        }
+    }
+    let (lambda, _, q) = kp_tableau_key(insertion);
+    KpLocalSignature {
+        column_shape: insertion.p_columns.iter().map(Vec::len).collect(),
+        window_occupancy: occupancy,
+        comparison_code,
+        recording_descent_mask: standard_tableau_descent_mask(&lambda, &q),
+    }
+}
+
+fn kp_correction_catalog(poset: &Poset) -> KpCorrectionCatalog {
+    let components = p_knuth_components(poset);
+    let mut component_of = BTreeMap::new();
+    for (component_index, component) in components.iter().enumerate() {
+        for word in component {
+            assert!(component_of.insert(word.clone(), component_index).is_none());
+        }
+    }
+
+    let expected = kp_expected_targets(poset);
+    let mut forward = BTreeMap::new();
+    let mut reverse = BTreeMap::new();
+    let mut invalid_by_fiber: KpInvalidFiber = BTreeMap::new();
+    for word in permutations(poset.n()) {
+        let (raw, _) = kp_insert(poset, &word, true);
+        let key = kp_tableau_key(&raw);
+        if expected.contains(&key) {
+            assert!(forward.insert(word.clone(), raw.clone()).is_none());
+            assert!(reverse.insert(raw, word).is_none());
+        } else {
+            let (lambda, _, q) = &key;
+            let fiber = (
+                component_of[&word],
+                standard_tableau_descent_mask(lambda, q),
+            );
+            invalid_by_fiber.entry(fiber).or_default().push((word, raw));
+        }
+    }
+
+    let occupied: BTreeSet<KpTableauKey> = reverse.keys().map(kp_tableau_key).collect();
+    let mut missing_by_fiber: BTreeMap<(usize, usize), Vec<KpInsertion>> = BTreeMap::new();
+    for key in expected.difference(&occupied) {
+        let insertion = kp_insertion_from_key(key);
+        let reading_word = kp_insertion_reading_word(&insertion);
+        let fiber = (
+            component_of[&reading_word],
+            standard_tableau_descent_mask(&key.0, &key.2),
+        );
+        missing_by_fiber.entry(fiber).or_default().push(insertion);
+    }
+    assert_eq!(
+        invalid_by_fiber.keys().collect::<Vec<_>>(),
+        missing_by_fiber.keys().collect::<Vec<_>>()
+    );
+
+    let mut defects = Vec::new();
+    for (fiber, mut invalid) in invalid_by_fiber {
+        let mut missing = missing_by_fiber.remove(&fiber).unwrap();
+        invalid.sort_by(|left, right| left.0.cmp(&right.0));
+        missing.sort();
+        assert_eq!(invalid.len(), missing.len());
+        for ((word, raw), target) in invalid.into_iter().zip(missing) {
+            assert!(kp_is_p_tableau(poset, &target.p_columns));
+            assert!(kp_is_standard_tableau(&target.q_columns));
+            assert!(forward.insert(word.clone(), target.clone()).is_none());
+            assert!(reverse.insert(target.clone(), word.clone()).is_none());
+            defects.push((word, raw, target));
+        }
+    }
+    let factorial: usize = (1..=poset.n()).product();
+    assert_eq!(forward.len(), factorial);
+    assert_eq!(reverse.len(), factorial);
+    assert_eq!(
+        reverse.keys().map(kp_tableau_key).collect::<BTreeSet<_>>(),
+        expected
+    );
+    defects.sort_by(|left, right| left.0.cmp(&right.0));
+    KpCorrectionCatalog {
+        forward,
+        reverse,
+        defects,
+    }
+}
+
+fn verify_kp_insertion_n(n: usize) -> KpCensus {
+    let mut summary = KpCensus::default();
+    for poset in natural_unit_interval_orders(n) {
+        summary.posets += 1;
+        summary.ineligible_posets += usize::from(!is_kim_pylyavskyy_eligible(&poset));
+        let expected = kp_expected_targets(&poset);
+        let mut images = BTreeMap::new();
+        let mut poset_defective = false;
+        for word in permutations(n) {
+            summary.words += 1;
+            let (raw, _) = kp_insert(&poset, &word, false);
+            let raw_p_valid = kp_is_p_tableau(&poset, &raw.p_columns);
+            let raw_q_valid = kp_is_standard_tableau(&raw.q_columns);
+            summary.raw_invalid_p += usize::from(!raw_p_valid);
+            summary.raw_invalid_q += usize::from(!raw_q_valid);
+            let (corrected, trace) = kp_insert(&poset, &word, true);
+            summary.repaired_words += usize::from(trace.repaired_rank_five_climber);
+            summary.trace_checksum = summary
+                .trace_checksum
+                .wrapping_add(kp_trace_checksum(&trace));
+            let corrected_p_valid = kp_is_p_tableau(&poset, &corrected.p_columns);
+            summary.corrected_invalid_p += usize::from(!corrected_p_valid);
+            if !corrected_p_valid {
+                poset_defective = true;
+                if summary.first_defect.is_none() {
+                    summary.first_defect = Some(KpDefectWitness {
+                        code: poset.code(),
+                        word: word.clone(),
+                        insertion: corrected.clone(),
+                    });
+                }
+            }
+            assert!(kp_is_standard_tableau(&corrected.q_columns));
+            assert_eq!(kp_inverse(&poset, &corrected, true), word);
+            if images.insert(kp_tableau_key(&corrected), word).is_some() {
+                summary.corrected_collisions += 1;
+            }
+        }
+        summary.defective_posets += usize::from(poset_defective);
+        let valid_images: BTreeSet<_> = images
+            .keys()
+            .filter(|key| expected.contains(*key))
+            .cloned()
+            .collect();
+        summary.corrected_missing_targets += expected.difference(&valid_images).count();
+        if n <= 5 {
+            assert_eq!(images.keys().cloned().collect::<BTreeSet<_>>(), expected);
+        }
+    }
+    summary
+}
+
 fn p_knuth_neighbors(poset: &Poset, word: &[usize]) -> Vec<Vec<usize>> {
     let mut neighbors = BTreeSet::new();
     for center in 1..word.len().saturating_sub(1) {
@@ -1709,6 +2502,38 @@ fn direct_standard_catalog(poset: &Poset) -> DirectStandardCatalog {
     DirectStandardCatalog { forward, reverse }
 }
 
+fn kp_direct_standard_catalog(poset: &Poset) -> DirectStandardCatalog {
+    let kp_catalog = kp_correction_catalog(poset);
+    let mut forward = BTreeMap::new();
+    let mut reverse = BTreeMap::new();
+    for (word, insertion) in kp_catalog.forward {
+        let (p_shape, p_entries, recording) = kp_tableau_key(&insertion);
+        let q = evacuate_standard_tableau(&p_shape, &recording);
+        assert_eq!(
+            p_descent_mask(poset, &word),
+            standard_tableau_descent_mask(&p_shape, &q),
+            "KP recording convention mismatch: P={:?}, word={word:?}, shape={p_shape:?}, raw={recording:?}, transformed={q:?}",
+            poset.code()
+        );
+        let (lambda, transposed_entries) = transpose_tableau(&p_shape, &p_entries);
+        let mut t = vec![usize::MAX; poset.n()];
+        for (&entry, &(row, _)) in transposed_entries
+            .iter()
+            .zip(cell_coordinates(&lambda).iter())
+        {
+            t[entry] = row;
+        }
+        assert!(t.iter().all(|&row| row != usize::MAX));
+        assert_eq!(shape(&t, lambda.len()), lambda);
+        let image = DirectStandardImage { p_shape, t, q };
+        assert!(forward.insert(word.clone(), image.clone()).is_none());
+        assert!(reverse.insert(image, word).is_none());
+    }
+    assert_eq!(forward.len(), kp_catalog.reverse.len());
+    assert_eq!(reverse.len(), kp_catalog.reverse.len());
+    DirectStandardCatalog { forward, reverse }
+}
+
 fn transpose_tableau(lambda: &[usize], entries: &[usize]) -> (Vec<usize>, Vec<usize>) {
     assert_eq!(lambda.iter().sum::<usize>(), entries.len());
     let conjugate = conjugate_partition(lambda);
@@ -1725,6 +2550,52 @@ fn transpose_tableau(lambda: &[usize], entries: &[usize]) -> (Vec<usize>, Vec<us
         }
     }
     (conjugate, transposed)
+}
+
+fn evacuate_standard_tableau(lambda: &[usize], entries: &[usize]) -> Vec<usize> {
+    assert_eq!(lambda.iter().sum::<usize>(), entries.len());
+    assert_eq!(
+        entries.iter().copied().collect::<BTreeSet<_>>().len(),
+        entries.len()
+    );
+    let mut current = entries_to_rows(lambda, entries, false);
+    let mut evacuated = vec![usize::MAX; entries.len()];
+    for next in (0..entries.len()).rev() {
+        assert_eq!(current[0][0], 0);
+        let (mut row, mut col) = (0, 0);
+        loop {
+            let right = (col + 1 < current[row].len()).then(|| (row, col + 1));
+            let below =
+                (row + 1 < current.len() && col < current[row + 1].len()).then(|| (row + 1, col));
+            let source = match (right, below) {
+                (Some(right), Some(below)) => {
+                    if current[right.0][right.1] < current[below.0][below.1] {
+                        right
+                    } else {
+                        below
+                    }
+                }
+                (Some(right), None) => right,
+                (None, Some(below)) => below,
+                (None, None) => break,
+            };
+            current[row][col] = current[source.0][source.1];
+            (row, col) = source;
+        }
+        assert_eq!(col + 1, current[row].len());
+        current[row].pop();
+        if current[row].is_empty() {
+            assert_eq!(row + 1, current.len());
+            current.pop();
+        }
+        let original_index = lambda[..row].iter().sum::<usize>() + col;
+        evacuated[original_index] = next;
+        for value in current.iter_mut().flatten() {
+            *value -= 1;
+        }
+    }
+    assert!(evacuated.iter().all(|&entry| entry != usize::MAX));
+    evacuated
 }
 
 fn block_word(poset: &Poset, coloring: &[usize], alphabet: usize) -> Vec<usize> {
@@ -4450,6 +5321,71 @@ fn main() {
         print!("{}", crystal_graph_dot(&Poset { h }, alphabet));
         return;
     }
+    if args.get(1).map(String::as_str) == Some("--kp-local") {
+        assert_eq!(args.len(), 2, "usage: --kp-local");
+        for n in 1..=6 {
+            let census = verify_kp_insertion_n(n);
+            println!(
+                "KP n={n}: posets={}, ineligible={}, defective={}, words={}, raw bad P={}, raw bad Q={}, rank5 repairs={}, corrected bad P={}, collisions={}, missing={}, checksum={}",
+                census.posets,
+                census.ineligible_posets,
+                census.defective_posets,
+                census.words,
+                census.raw_invalid_p,
+                census.raw_invalid_q,
+                census.repaired_words,
+                census.corrected_invalid_p,
+                census.corrected_collisions,
+                census.corrected_missing_targets,
+                census.trace_checksum
+            );
+            if let Some(witness) = census.first_defect {
+                println!(
+                    "  first defect: P={:?}, word={:?}, output={:?}",
+                    witness.code, witness.word, witness.insertion
+                );
+            }
+        }
+
+        let mut defect_count = 0;
+        let mut p_actions = BTreeSet::new();
+        let mut pair_actions = BTreeSet::new();
+        let mut source_signatures = BTreeSet::new();
+        let mut target_signatures = BTreeSet::new();
+        for poset in natural_unit_interval_orders(6) {
+            let catalog = kp_correction_catalog(&poset);
+            assert_eq!(catalog.forward.len(), 720);
+            assert_eq!(catalog.reverse.len(), 720);
+            for (_, raw, target) in catalog.defects {
+                defect_count += 1;
+                p_actions.insert(kp_cell_action(&raw, &target));
+                let action = kp_pair_action(&raw, &target);
+                assert_eq!(kp_apply_pair_action(&raw, &action), target);
+                pair_actions.insert(action);
+                source_signatures.insert(kp_local_signature(&poset, &raw));
+                target_signatures.insert(kp_local_signature(&poset, &target));
+            }
+        }
+        println!(
+            "KP n=6 corrections: defects={defect_count}, P-actions={}, pair-actions={}, source signatures={}, target signatures={}",
+            p_actions.len(),
+            pair_actions.len(),
+            source_signatures.len(),
+            target_signatures.len()
+        );
+        let rank_five_chromatic_catalogs: usize = natural_unit_interval_orders(5)
+            .into_iter()
+            .map(|poset| {
+                let catalog = kp_direct_standard_catalog(&poset);
+                assert_eq!(catalog.forward.len(), 120);
+                catalog.reverse.len()
+            })
+            .sum();
+        println!(
+            "KP n=5 chromatic standard catalogs: {rank_five_chromatic_catalogs} standard pairs"
+        );
+        return;
+    }
     verify_lgv_obstruction();
     verify_all_tail_q_obstruction();
     println!("LGV obstruction: n=2, mu=(1,1), nu=(2), lambda changes (2) <-> (1,1)");
@@ -4768,6 +5704,279 @@ mod tests {
             .map(|poset| poset.code())
             .collect();
         assert_eq!(excluded, vec![vec![2, 4, 4, 5, 5]]);
+    }
+
+    #[test]
+    fn kim_pylyavskyy_rank_five_climber_repair_is_recording_aware() {
+        let poset = Poset {
+            h: vec![1, 3, 3, 4, 4],
+        };
+        let (first_raw, first_trace) = kp_insert(&poset, &[2, 3, 4, 1, 0], false);
+        assert_eq!(
+            kp_tableau_key(&first_raw),
+            (vec![3, 2], vec![2, 0, 1, 4, 3], vec![0, 1, 4, 2, 3])
+        );
+        assert!(!first_trace.repaired_rank_five_climber);
+        assert_eq!(
+            first_trace
+                .passes
+                .iter()
+                .flat_map(|pass| &pass.events)
+                .filter(|event| matches!(event.kind, KpColumnEventKind::LadderMove))
+                .count(),
+            2
+        );
+
+        let (second_raw, _) = kp_insert(&poset, &[2, 4, 1, 3, 0], false);
+        assert_eq!(
+            kp_tableau_key(&second_raw),
+            (vec![3, 2], vec![2, 0, 1, 4, 3], vec![0, 2, 4, 1, 3])
+        );
+        assert!(!kp_is_p_tableau(&poset, &first_raw.p_columns));
+        assert!(!kp_is_p_tableau(&poset, &second_raw.p_columns));
+        assert!(kp_is_standard_tableau(&first_raw.q_columns));
+        assert!(kp_is_standard_tableau(&second_raw.q_columns));
+
+        let (first_repaired, first_repair_trace) = kp_insert(&poset, &[2, 3, 4, 1, 0], true);
+        let (second_repaired, second_repair_trace) = kp_insert(&poset, &[2, 4, 1, 3, 0], true);
+        assert_eq!(
+            kp_tableau_key(&first_repaired),
+            (vec![3, 2], vec![1, 0, 2, 4, 3], vec![0, 1, 4, 2, 3])
+        );
+        assert_eq!(
+            kp_tableau_key(&second_repaired),
+            (vec![3, 2], vec![1, 0, 2, 4, 3], vec![0, 2, 4, 1, 3])
+        );
+        assert!(first_repair_trace.repaired_rank_five_climber);
+        assert!(second_repair_trace.repaired_rank_five_climber);
+        assert_eq!(first_repair_trace.raw_p_columns, first_raw.p_columns);
+        assert_eq!(second_repair_trace.raw_p_columns, second_raw.p_columns);
+        assert!(kp_is_p_tableau(&poset, &first_repaired.p_columns));
+        assert!(kp_is_p_tableau(&poset, &second_repaired.p_columns));
+        assert_eq!(
+            kp_inverse(&poset, &first_repaired, true),
+            vec![2, 3, 4, 1, 0]
+        );
+        assert_eq!(
+            kp_inverse(&poset, &second_repaired, true),
+            vec![2, 4, 1, 3, 0]
+        );
+
+        for word in [[3, 4, 1, 0, 2], [4, 1, 3, 0, 2], [4, 1, 3, 2, 0]] {
+            let (existing, trace) = kp_insert(&poset, &word, true);
+            assert_eq!(
+                kp_columns_to_rows(&existing.p_columns),
+                vec![vec![1, 0, 2], vec![4, 3]]
+            );
+            assert!(!trace.repaired_rank_five_climber);
+            assert_eq!(kp_inverse(&poset, &existing, true), word);
+        }
+    }
+
+    #[test]
+    fn kim_pylyavskyy_repaired_bijection_through_five() {
+        for n in 1..=5 {
+            let census = verify_kp_insertion_n(n);
+            assert_eq!(census.words, census.posets * (1..=n).product::<usize>());
+            assert_eq!(census.raw_invalid_q, 0);
+            assert_eq!(census.corrected_invalid_p, 0);
+            assert_eq!(census.corrected_collisions, 0);
+            assert_eq!(census.corrected_missing_targets, 0);
+            if n < 5 {
+                assert_eq!(census.raw_invalid_p, 0);
+                assert_eq!(census.repaired_words, 0);
+            } else {
+                assert_eq!(census.ineligible_posets, 1);
+                assert_eq!(census.defective_posets, 0);
+                assert_eq!(census.raw_invalid_p, 2);
+                assert_eq!(census.repaired_words, 2);
+            }
+        }
+    }
+
+    #[test]
+    fn kim_pylyavskyy_chromatic_bijection_through_five() {
+        for n in 1..=5 {
+            for poset in natural_unit_interval_orders(n) {
+                let catalog = kp_direct_standard_catalog(&poset);
+                let mut images_by_weight: BTreeMap<Vec<usize>, BTreeSet<Target>> = BTreeMap::new();
+                for source in proper_colorings(&poset, n) {
+                    let content = shape(&source, n);
+                    let target = direct_forward_with_catalog(&poset, &source, n, &catalog);
+                    assert_eq!(
+                        direct_reverse_with_catalog(&poset, &target, &content, &catalog),
+                        source
+                    );
+                    assert_eq!(asc(&poset, &source), inv_g(&poset, &target.t));
+                    assert_eq!(shape(&target.q, n), content);
+                    for color in 0..n.saturating_sub(1) {
+                        if let Some(lowered) = direct_coloring_crystal_operator(
+                            &poset, &source, n, color, false, &catalog,
+                        ) {
+                            assert_eq!(
+                                direct_coloring_crystal_operator(
+                                    &poset, &lowered, n, color, true, &catalog,
+                                ),
+                                Some(source.clone())
+                            );
+                            assert_eq!(asc(&poset, &lowered), asc(&poset, &source));
+                        }
+                    }
+                    assert!(images_by_weight.entry(content).or_default().insert(target));
+                }
+                for (content, images) in images_by_weight {
+                    assert_eq!(images, target_fiber(&poset, &content).into_iter().collect());
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn kim_pylyavskyy_rank_six_defect_census() {
+        let census = verify_kp_insertion_n(6);
+        assert_eq!(census.posets, 132);
+        assert_eq!(census.ineligible_posets, 12);
+        assert_eq!(census.defective_posets, 12);
+        assert_eq!(census.words, 95_040);
+        assert_eq!(census.raw_invalid_p, 112);
+        assert_eq!(census.raw_invalid_q, 0);
+        assert_eq!(census.repaired_words, 0);
+        assert_eq!(census.corrected_invalid_p, 112);
+        assert_eq!(census.corrected_collisions, 0);
+        assert_eq!(census.corrected_missing_targets, 112);
+        let witness = census.first_defect.unwrap();
+        assert_eq!(witness.code.len(), 6);
+        assert_eq!(witness.word.len(), 6);
+        assert_eq!(
+            kp_tableau_key(&witness.insertion).0.iter().sum::<usize>(),
+            6
+        );
+    }
+
+    #[test]
+    fn kim_pylyavskyy_rank_six_forced_corrections() {
+        let mut defect_count = 0;
+        let mut same_recording = 0;
+        let mut shape_changes = 0;
+        let mut actions = BTreeMap::new();
+        let mut forward_signatures = BTreeMap::new();
+        let mut inverse_signatures = BTreeMap::new();
+        let mut forward_conflicts = 0;
+        let mut inverse_conflicts = 0;
+        for poset in natural_unit_interval_orders(6) {
+            let catalog = kp_correction_catalog(&poset);
+            for (word, raw, target) in &catalog.defects {
+                defect_count += 1;
+                same_recording += usize::from(raw.q_columns == target.q_columns);
+                shape_changes += usize::from(
+                    raw.p_columns.iter().map(Vec::len).collect::<Vec<_>>()
+                        != target.p_columns.iter().map(Vec::len).collect::<Vec<_>>(),
+                );
+                let action = kp_cell_action(raw, target);
+                *actions.entry(action.clone()).or_insert(0) += 1;
+                let pair_action = kp_pair_action(raw, target);
+                if let Some(old) =
+                    forward_signatures.insert(kp_local_signature(&poset, raw), pair_action.clone())
+                {
+                    forward_conflicts += usize::from(old != pair_action);
+                }
+                let inverse_action = kp_pair_action(target, raw);
+                if let Some(old) = inverse_signatures
+                    .insert(kp_local_signature(&poset, target), inverse_action.clone())
+                {
+                    inverse_conflicts += usize::from(old != inverse_action);
+                }
+                assert_eq!(kp_apply_pair_action(raw, &pair_action), *target);
+                assert_eq!(kp_apply_pair_action(target, &inverse_action), *raw);
+                assert_eq!(catalog.forward[word], *target);
+                assert_eq!(catalog.reverse[target], *word);
+            }
+        }
+        assert_eq!(defect_count, 112);
+        assert_eq!(same_recording, 106);
+        assert_eq!(shape_changes, 6);
+        let mut action_multiplicities: Vec<usize> = actions.into_values().collect();
+        action_multiplicities.sort_unstable();
+        assert_eq!(action_multiplicities, [2, 3, 4, 4, 6, 6, 7, 12, 14, 54]);
+        assert_eq!(forward_signatures.len(), 77);
+        assert_eq!(inverse_signatures.len(), 77);
+        assert_eq!(forward_conflicts, 0);
+        assert_eq!(inverse_conflicts, 0);
+
+        let mut decoded_repairs = 0;
+        let mut false_inverse_guards = 0;
+        for poset in natural_unit_interval_orders(6) {
+            let catalog = kp_correction_catalog(&poset);
+            let defect_targets: BTreeSet<KpInsertion> = catalog
+                .defects
+                .iter()
+                .map(|(_, _, target)| target.clone())
+                .collect();
+            for key in kp_expected_targets(&poset) {
+                let target = kp_insertion_from_key(&key);
+                let Some(inverse_action) =
+                    inverse_signatures.get(&kp_local_signature(&poset, &target))
+                else {
+                    continue;
+                };
+                let raw = kp_apply_pair_action(&target, inverse_action);
+                if kp_is_p_tableau(&poset, &raw.p_columns) {
+                    continue;
+                }
+                let Some(forward_action) =
+                    forward_signatures.get(&kp_local_signature(&poset, &raw))
+                else {
+                    continue;
+                };
+                if kp_apply_pair_action(&raw, forward_action) != target {
+                    continue;
+                }
+                let Some(word) = kp_inverse_checked(&poset, &raw, false) else {
+                    continue;
+                };
+                if kp_insert(&poset, &word, false).0 != raw {
+                    continue;
+                }
+                if defect_targets.contains(&target) {
+                    decoded_repairs += 1;
+                } else {
+                    false_inverse_guards += 1;
+                }
+            }
+        }
+        assert_eq!(decoded_repairs, 112);
+        assert_eq!(false_inverse_guards, 0);
+
+        let poset = Poset {
+            h: vec![2, 2, 4, 4, 5, 5],
+        };
+        let catalog = kp_correction_catalog(&poset);
+        let word = vec![3, 5, 2, 0, 4, 1];
+        let (_, raw, target) = catalog
+            .defects
+            .iter()
+            .find(|(source, _, _)| *source == word)
+            .unwrap();
+        assert_eq!(raw.p_columns, [vec![5, 3], vec![4, 0], vec![2], vec![1]]);
+        assert_eq!(raw.q_columns, [vec![1, 0], vec![4, 2], vec![3], vec![5]]);
+        assert_eq!(target.p_columns, [vec![5, 2], vec![4, 0], vec![3, 1]]);
+        assert_eq!(target.q_columns, [vec![1, 0], vec![4, 2], vec![5, 3]]);
+    }
+
+    #[test]
+    fn kim_pylyavskyy_published_rank_seven_nonshape_output() {
+        let poset = Poset {
+            h: vec![1, 3, 4, 5, 5, 6, 6],
+        };
+        let word = vec![2, 0, 4, 5, 6, 3, 1];
+        let (raw, _) = kp_insert(&poset, &word, false);
+        assert_eq!(raw.p_columns, [vec![2, 0], vec![6, 4, 1], vec![5], vec![3]]);
+        assert_eq!(raw.q_columns, [vec![2, 0], vec![6, 3, 1], vec![4], vec![5]]);
+        assert_eq!(
+            raw.p_columns.iter().map(Vec::len).collect::<Vec<_>>(),
+            [2, 3, 1, 1]
+        );
+        assert_eq!(kp_inverse(&poset, &raw, false), word);
     }
 
     #[test]

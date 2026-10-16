@@ -2,6 +2,52 @@
 
 ## Current status and ownership
 
+On 2026-10-16, at the user's request, the Chromatic P-array RSK worker
+reclaimed `docs/chromatic-p-array-rsk/`,
+`experiments/chromatic-p-array-rsk/`, and its focused `HANDOFF.md` entry to
+replace the completed global P-Knuth rank map by a local reversible insertion
+rule.  The primary lane owns all edits and builds.  Authorized read-only
+assessments cover the exact Kim--Pylyavskyy forward algorithm, rank-six
+ladder-climber defects, and coherent dual-equivalence/growth-diagram rules.
+Lean builds and sources, marked-coloring/HRV, circular LLTs, and manuscript
+files remain excluded.
+
+The exact Kim--Pylyavskyy Algorithms 1--3 and dualized inverse are now
+implemented with a reversible event trace.  The rank-five repair is
+recording-aware: only the two fibers `125/34` and `135/24` over the repaired
+tableau `213/54` are first restored to `312/54` before published deletion;
+the three existing valid fibers are unchanged.  Exhaustive checks through
+rank five prove exact target coverage and inverse reconstruction.
+After standard-tableau evacuation corrects the reversed recording-descent
+convention, this standard map is composed with the existing coloring
+standardization.  The resulting weight- and ascent-preserving chromatic map,
+its inverse, and all transported Kashiwara lowering/raising inverses pass on
+every fixed-alphabet coloring through rank five.
+
+The rank-six census covers 132 orders and 95,040 permutations.  Exactly the
+12 ladder-climbing orders fail, with 112 invalid insertion tableaux, no bad
+recording tableaux, and no raw pair collisions.  The unique missing target in
+each P-Knuth-component/recording-descent fiber gives ten coordinate actions;
+106 preserve `Q`, while six change both shape and `Q`.  Seventy-seven source
+signatures and 77 target signatures give conflict-free actions.  Reverse
+recognition also requires raw deletion--insertion replay: the other guards
+alone admit two false positives.  The full bidirectional finite rule recovers
+exactly all 112 corrections.  It is not yet an all-rank local insertion.
+
+Two durable obstructions delimit the next step.  The BEPS Section 5 chain
+interchange fails Yang--Baxter first at rank six, even on KP-eligible orders,
+and one witness forces different insertion shapes, so it cannot be a
+memoryless growth rule.  KP Example 7.11 at code `(2,4,5,6,6,7,7)` and word
+`3156742` has raw column heights `(2,3,1,1)`, so an all-rank correction must
+accept arbitrary column arrays.  Detailed conventions and results are in
+`docs/chromatic-p-array-rsk/LOCAL_KP_INSERTION.md`.
+
+Twelve unit tests, Clippy with warnings denied, formatting, the diff check,
+and the release `--kp-local` census pass.  The release census
+reproduces the rank-six totals and constructs all 5,040 rank-five standard
+chromatic pairs.  No Lean source or build, marked-coloring/HRV file,
+circular-LLT file, or manuscript file was touched.
+
 On 2026-10-16, the Chromatic P-array RSK worker completed a direct bijection
 which avoids inverse Kostka.  The new primary source is paper-cache 354,
 Blasiak--Eriksson--Pylyavskyy--Siegl, arXiv:2211.03967v2.  In each standard
