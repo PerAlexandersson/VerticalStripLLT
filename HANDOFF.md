@@ -22,6 +22,9 @@ anchors; only one and 21 components need splitting.  The direct rank-five
 map differs from the Allen--Celano--Mason signed map on 39,666 colorings, so
 it is a third crystal gauge.  Six unit tests, Clippy with warnings denied,
 formatting, `git diff --check`, and the full release census pass.
+The verified checkpoint is `70699d8`, merged and pushed to `main`.  The
+worker has released `docs/chromatic-p-array-rsk/`,
+`experiments/chromatic-p-array-rsk/`, and its focused `HANDOFF.md` entry.
 
 The three authorized read-only assessments agree that locality is now the
 remaining problem.  On the forbidden order `(2,4,4,5,5)`, Kim--Pylyavskyy
