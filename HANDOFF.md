@@ -187,7 +187,7 @@ two.  At rank six it preserves 94,928 raw pairs and corrects 112, covers all
 also transports the coloring crystal through the hybrid.  This completes the
 all-rank bijection requested by the user, but not the stronger all-rank local
 insertion problem: each `B` step still enumerates a full P-Knuth component.
-The Garsia--Milne checkpoint is pending commit.
+The Garsia--Milne checkpoint is `c0331c8`.
 
 On 2026-10-16, the Chromatic P-array RSK worker completed a direct bijection
 which avoids inverse Kostka.  The new primary source is paper-cache 354,
