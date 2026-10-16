@@ -47,6 +47,9 @@ and the release `--kp-local` census pass.  The release census
 reproduces the rank-six totals and constructs all 5,040 rank-five standard
 chromatic pairs.  No Lean source or build, marked-coloring/HRV file,
 circular-LLT file, or manuscript file was touched.
+The verified checkpoint is `61c8de5`, merged and pushed to `main`.  The
+worker retains its three owned paths for the next arbitrary-column repair
+experiment.
 
 On 2026-10-16, the Chromatic P-array RSK worker completed a direct bijection
 which avoids inverse Kostka.  The new primary source is paper-cache 354,
