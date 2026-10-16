@@ -107,6 +107,31 @@ the missing-target set.  A uniform case rule and overlap/confluence proof are
 still required for an intrinsic all-rank insertion.  The boundary-guard
 implementation checkpoint is `d6961ae`.
 
+The first uniform action case is implemented.  All 78 arrays whose first
+defect is the shape pattern `(2,3,1,1)` use the same five-entry path move and
+one recording-entry move; the release census reports zero failures.  The other
+64 malformed arrays have an earlier row defect.  A greedy nearest-repair rule
+cannot handle the row sector: 83 staged assignments are strictly nonminimal
+for their individual source, and 35 remain nonminimal even after restricting
+to the 66 observed motions, the correct P-Knuth component, and targets excluded
+from the raw KP image.  The obstruction is assignment competition, first at
+code `(2,4,5,6,7,7,7)`.  A new rank-seven regression also composes the
+corrected standard map with coloring standardization on this defective order
+and checks weight, `asc=inv_G`, inverse reconstruction, and Kashiwara
+lowering/raising inverses over a three-letter alphabet.  The uniform
+shape-branch checkpoint is pending commit.
+
+All thirteen transposition actions are also replaced by one rule.  At a row
+defect `(j,r)`, try swaps with offsets `(2,0)`, `(3,0)`, `(4,0)`, `(2,-1)`,
+and `(2,1)`, keep valid targets which are not in the raw KP image, and require
+a P-Knuth path after restricting both column words to the changed-position
+interval plus one unchanged letter at each end.  The certificates have length
+five, six, or seven and use at most 16 elementary moves.  The release census
+finds exactly 2,779 cases, with no ties or failures, and no candidate on the
+other 2,383 defects.  Together with the 78 shape-first cases, uniform branches
+now cover 2,857 of 5,162 repairs without a whole-component oracle.  The
+combined uniform-branch checkpoint is pending commit.
+
 On 2026-10-16, the Chromatic P-array RSK worker completed a direct bijection
 which avoids inverse Kostka.  The new primary source is paper-cache 354,
 Blasiak--Eriksson--Pylyavskyy--Siegl, arXiv:2211.03967v2.  In each standard

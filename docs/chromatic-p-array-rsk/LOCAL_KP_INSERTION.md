@@ -390,11 +390,60 @@ numbers moving (2,3,4,5,6) insertion entries are respectively
 (13,13,26,17,4).  There are 66 pair motions after translating the boundary to
 the origin, and 59 insertion motions up to arbitrary translation.
 
-This gives a bidirectional finite rule through rank seven which no longer
-uses the missing-target set when it is applied.  Its action table was obtained
-from the minimum-motion matching; an all-rank rule still requires a uniform
-description of these actions and a proof that overlapping repairs are
-joinable.
+One branch already has a uniform description.  Suppose the first defect is
+the shape boundary between columns of heights (2) and (3), followed by two
+columns of height (1).  Write the latter three insertion columns from top to
+bottom as
+
+\[
+  (a,b,c),\qquad (d),\qquad (e).
+\]
+
+Replace them by
+
+\[
+  (e,c),\qquad (a,d),\qquad (b),
+\]
+
+and move the bottom recording entry of the height-three column to the bottom
+of the next recording column.  This rule agrees with the minimum-motion map
+in all 78 cases whose first defect is a shape defect.  The other 64 malformed
+arrays have an earlier row defect and belong to the row branch.
+
+A second uniform branch covers every transposition action.  At a row defect
+((j,r)), swap the offending left cell with one of the five relative positions
+
+\[
+  (j+2,r),\quad (j+3,r),\quad (j+4,r),\quad
+  (j+2,r-1),\quad (j+2,r+1),
+\]
+
+and leave (Q) fixed.  Restrict the raw and candidate column-reading words to
+the interval containing the two changed positions, enlarged by one unchanged
+letter at each end, and require a P-Knuth path between these short words.
+Also require a valid (P)-tableau and exclude pairs already in the raw image by
+Kim--Pylyavskyy deletion--reinsertion.  Minimum displacement then selects one
+target on exactly 2,779 sources, always the assigned target, and selects no
+target on the other 2,383 defects.  There are no ties.  The local certificates
+have length five, six, or seven and require at most 16 elementary P-Knuth
+moves.  Thus this removes thirteen of the 73 actions from the table without a
+whole-component oracle.
+
+A source-by-source nearest repair cannot describe the row branch.  In the
+staged matching, 5,076 sources receive their unique individual minimum, three
+have a tied minimum, and 83 receive a strictly more expensive target in order
+to make the assignment bijective.  Even if we restrict to the 66 observed
+local motions, require the same P-Knuth component, and exclude targets in the
+raw image by deletion--reinsertion, 35 assigned targets are not individually
+minimal.  The first example is the two-source fiber for
+(P=(2,4,5,6,7,7,7)) described above: both sources prefer the same target, so
+the decreasing pair-cost profile assigns the other target to one source.
+
+This gives a bidirectional finite rule through rank seven which no longer uses
+the missing-target set when it is applied.  Its remaining action table was
+obtained from the minimum-motion matching; an all-rank rule still requires a
+uniform description of the cycle and path actions and a proof that
+overlapping repairs are joinable.
 
 ## 9. Current boundary
 

@@ -2521,6 +2521,117 @@ fn kp_boundary_signature(poset: &Poset, insertion: &KpInsertion) -> KpBoundarySi
         .expect("a bad KP output has a shape or row violation")
 }
 
+fn kp_shape_boundary_repair(poset: &Poset, insertion: &KpInsertion) -> Option<KpInsertion> {
+    let (boundary, row, kind) = kp_first_invalid_boundary(poset, &insertion.p_columns)?;
+    if kind != 0
+        || row != 2
+        || boundary + 3 >= insertion.p_columns.len()
+        || insertion.p_columns[boundary].len() != 2
+        || insertion.p_columns[boundary + 1].len() != 3
+        || insertion.p_columns[boundary + 2].len() != 1
+        || insertion.p_columns[boundary + 3].len() != 1
+    {
+        return None;
+    }
+    let tall = &insertion.p_columns[boundary + 1];
+    let (c, b, a) = (tall[0], tall[1], tall[2]);
+    let d = insertion.p_columns[boundary + 2][0];
+    let e = insertion.p_columns[boundary + 3][0];
+    let mut repaired = insertion.clone();
+    repaired.p_columns[boundary + 1] = vec![c, e];
+    repaired.p_columns[boundary + 2] = vec![d, a];
+    repaired.p_columns[boundary + 3] = vec![b];
+    let recording_entry = repaired.q_columns[boundary + 1].remove(0);
+    repaired.q_columns[boundary + 2].insert(0, recording_entry);
+    Some(repaired)
+}
+
+fn kp_boundary_transposition_repairs(poset: &Poset, insertion: &KpInsertion) -> Vec<KpInsertion> {
+    let Some((boundary, row, kind)) = kp_first_invalid_boundary(poset, &insertion.p_columns) else {
+        return Vec::new();
+    };
+    if kind != 1 {
+        return Vec::new();
+    }
+    let mut candidates = Vec::new();
+    for (column_delta, row_delta) in [(2, 0), (3, 0), (4, 0), (2, -1), (2, 1)] {
+        let target_col = boundary + column_delta;
+        let Some(target_row) = row.checked_add_signed(row_delta) else {
+            continue;
+        };
+        if target_col >= insertion.p_columns.len()
+            || target_row >= insertion.p_columns[target_col].len()
+        {
+            continue;
+        }
+        let mut candidate = insertion.clone();
+        let left_index = candidate.p_columns[boundary].len() - 1 - row;
+        let target_index = candidate.p_columns[target_col].len() - 1 - target_row;
+        let left = candidate.p_columns[boundary][left_index];
+        let right = candidate.p_columns[target_col][target_index];
+        candidate.p_columns[boundary][left_index] = right;
+        candidate.p_columns[target_col][target_index] = left;
+        if !kp_is_p_tableau(poset, &candidate.p_columns)
+            || !kp_is_standard_tableau(&candidate.q_columns)
+        {
+            continue;
+        }
+        if kp_inverse_checked(poset, &candidate, false)
+            .is_some_and(|word| kp_insert(poset, &word, false).0 == candidate)
+        {
+            continue;
+        }
+        if !kp_margin_one_p_knuth_reachable(poset, insertion, &candidate) {
+            continue;
+        }
+        candidates.push((column_delta + row.abs_diff(target_row), candidate));
+    }
+    candidates.sort();
+    let Some(minimum) = candidates.first().map(|candidate| candidate.0) else {
+        return Vec::new();
+    };
+    candidates
+        .into_iter()
+        .take_while(|candidate| candidate.0 == minimum)
+        .map(|candidate| candidate.1)
+        .collect()
+}
+
+fn kp_margin_one_p_knuth_reachable(
+    poset: &Poset,
+    source: &KpInsertion,
+    target: &KpInsertion,
+) -> bool {
+    let source_word = kp_insertion_reading_word(source);
+    let target_word = kp_insertion_reading_word(target);
+    let changed: Vec<usize> = source_word
+        .iter()
+        .zip(&target_word)
+        .enumerate()
+        .filter_map(|(index, (left, right))| (left != right).then_some(index))
+        .collect();
+    if changed.len() != 2 {
+        return false;
+    }
+    let first = changed[0].saturating_sub(1);
+    let last = (changed[1] + 1).min(source_word.len() - 1);
+    let source_interval = source_word[first..=last].to_vec();
+    let target_interval = target_word[first..=last].to_vec();
+    let mut seen = BTreeSet::from([source_interval.clone()]);
+    let mut stack = vec![source_interval];
+    while let Some(word) = stack.pop() {
+        if word == target_interval {
+            return true;
+        }
+        for neighbor in p_knuth_neighbors(poset, &word) {
+            if seen.insert(neighbor.clone()) {
+                stack.push(neighbor);
+            }
+        }
+    }
+    false
+}
+
 fn kp_target_signature(poset: &Poset, insertion: &KpInsertion) -> KpTargetSignature {
     let mut window = Vec::new();
     let mut occupancy = Vec::new();
@@ -5914,6 +6025,11 @@ fn main() {
         let mut same_recording = 0;
         let mut shape_changes = 0;
         let mut malformed_sources = 0;
+        let mut shape_boundary_cases = 0;
+        let mut shape_boundary_failures = 0;
+        let mut transposition_cases = 0;
+        let mut transposition_ties = 0;
+        let mut transposition_failures = 0;
         let mut max_defect_fiber = 0;
         let mut ambiguous_defect_fibers = 0;
         let mut max_residual_fiber = 0;
@@ -6027,6 +6143,14 @@ fn main() {
                 .iter()
                 .map(|(_, raw, target)| (target.clone(), kp_pair_action(target, raw)))
                 .collect();
+            for (_, raw, target) in &catalog.defects {
+                let repairs = kp_boundary_transposition_repairs(&poset, raw);
+                transposition_cases += usize::from(!repairs.is_empty());
+                transposition_ties += usize::from(repairs.len() > 1);
+                transposition_failures += usize::from(
+                    !repairs.is_empty() && (repairs.len() != 1 || repairs[0] != *target),
+                );
+            }
             for target in catalog.reverse.keys() {
                 let data = target_signature_data
                     .entry(kp_target_signature(&poset, target))
@@ -6045,6 +6169,10 @@ fn main() {
                 let target_shape: Vec<usize> = target.p_columns.iter().map(Vec::len).collect();
                 shape_changes += usize::from(raw_shape != target_shape);
                 malformed_sources += usize::from(!kp_has_partition_shape(&raw.p_columns));
+                if let Some(repaired) = kp_shape_boundary_repair(&poset, &raw) {
+                    shape_boundary_cases += 1;
+                    shape_boundary_failures += usize::from(repaired != target);
+                }
                 let p_action = kp_cell_action(&raw, &target);
                 let pair_action = kp_pair_action(&raw, &target);
                 *p_actions.entry(p_action.clone()).or_default() += 1;
@@ -6239,6 +6367,12 @@ fn main() {
         println!(
             "  boundary signatures: {}, pair-conflicts={boundary_pair_conflicts}",
             boundary_pair_actions.len(),
+        );
+        println!(
+            "  uniform shape-boundary rule: cases={shape_boundary_cases}, failures={shape_boundary_failures}",
+        );
+        println!(
+            "  uniform transposition rule: cases={transposition_cases}, ties={transposition_ties}, failures={transposition_failures}",
         );
         println!(
             "  inverse target signatures: {}, action-conflicts={target_signature_conflicts}, false-recognition signatures={false_target_signatures}, false-recognition targets={false_target_occurrences}",
@@ -6990,6 +7124,18 @@ mod tests {
             [2, 3, 1, 1]
         );
         assert_eq!(kp_inverse(&poset, &raw, false), word);
+        let repaired = kp_shape_boundary_repair(&poset, &raw).unwrap();
+        assert_eq!(
+            repaired.p_columns,
+            [vec![2, 0], vec![6, 3], vec![5, 1], vec![4]]
+        );
+        assert_eq!(
+            repaired.q_columns,
+            [vec![2, 0], vec![3, 1], vec![6, 4], vec![5]]
+        );
+        assert!(kp_is_p_tableau(&poset, &repaired.p_columns));
+        assert!(kp_is_standard_tableau(&repaired.q_columns));
+        assert_eq!(kp_correction_catalog(&poset).forward[&word], repaired);
     }
 
     #[test]
@@ -7008,6 +7154,14 @@ mod tests {
             crossed.forward[&second_word].p_columns,
             [vec![5, 1], vec![4, 0], vec![2], vec![3], vec![6]]
         );
+        let (_, second_raw, second_target) = crossed
+            .defects
+            .iter()
+            .find(|(word, _, _)| *word == second_word)
+            .unwrap();
+        let repairs = kp_boundary_transposition_repairs(&crossed_poset, second_raw);
+        assert_eq!(repairs.len(), 1);
+        assert_eq!(repairs[0], *second_target);
         assert_eq!(crossed.ambiguous_movement_profile_groups, 0);
 
         let tied_total_poset = Poset {
@@ -7062,6 +7216,42 @@ mod tests {
             kp_apply_pair_action(first_target, &kp_reverse_pair_action(&first_action)),
             *first_raw
         );
+    }
+
+    #[test]
+    fn kim_pylyavskyy_rank_seven_coloring_crystal_sample() {
+        let poset = Poset {
+            h: vec![1, 2, 4, 4, 5, 6, 6],
+        };
+        let alphabet = 3;
+        let catalog = kp_direct_standard_catalog(&poset);
+        let colorings = proper_colorings(&poset, alphabet);
+        assert!(!colorings.is_empty());
+        let mut lowering_edges = 0;
+        for source in colorings {
+            let content = shape(&source, alphabet);
+            let target = direct_forward_with_catalog(&poset, &source, alphabet, &catalog);
+            assert_eq!(
+                direct_reverse_with_catalog(&poset, &target, &content, &catalog),
+                source
+            );
+            assert_eq!(asc(&poset, &source), inv_g(&poset, &target.t));
+            assert_eq!(shape(&target.q, alphabet), content);
+            for color in 0..alphabet - 1 {
+                if let Some(lowered) = direct_coloring_crystal_operator(
+                    &poset, &source, alphabet, color, false, &catalog,
+                ) {
+                    lowering_edges += 1;
+                    assert_eq!(
+                        direct_coloring_crystal_operator(
+                            &poset, &lowered, alphabet, color, true, &catalog,
+                        ),
+                        Some(source.clone())
+                    );
+                }
+            }
+        }
+        assert!(lowering_edges > 0);
     }
 
     #[test]
