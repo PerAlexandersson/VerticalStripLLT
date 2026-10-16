@@ -556,3 +556,52 @@ the staged optimum is unique and complete, and that inverse component closure
 terminates.  Until these facts are proved, the componentwise map in
 `DIRECT_MAP.md` remains the proved all-rank bijection and the local
 construction remains a verified rank-seven prototype.
+
+## 11. Exact rank-eight obstructions
+
+The rank-seven candidate rule does not extend unchanged to rank eight. The
+first failure is not merely a larger geometric move. For Hessenberg code
+
+\[
+ (1,2,4,6,6,7,7,8)
+\]
+
+and word \(82156743\), raw insertion gives a recording descent set different
+from the reverse of the input P-descent set. Thus a candidate target must be
+filtered by the input invariant, not by \(\operatorname{Des}(Q_{\rm raw})\).
+After making this correction and allowing the recording tableau to change,
+the fixed rank-seven window again gives a unique perfect matching for all 112
+defects of this order.
+
+There are also raw outputs having valid \(P\) and nonstandard \(Q\). The
+first sampled example has code \((2,4,5,6,7,8,8,8)\) and word \(73156842\).
+Consequently the correction algorithm needs a recording-defect anchor when no
+invalid P-boundary exists. Even after this repair, the five-column right
+extent leaves 24 of the 437 sources unmatched. Extending the window one
+further column gives a perfect matching in the independent exhaustive probe.
+
+The order \((3,4,6,6,6,8,8,8)\) gives a stronger obstruction. Restoring
+coverage requires, in the tested model, a right extent of five columns beyond
+the boundary, two occupancy changes, and three moved recording entries. The
+resulting graph has a perfect staged matching, but four stage-one components
+have two optimum matchings with the same total motion cost and the same
+decreasing cost profile. One tied source is \(57326814\), whose raw pair is
+
+\[
+ P=(57,26,38,1,4),\qquad Q=(13,24,57,6,8).
+\]
+
+It can be matched at cost \((6,8,0,0)\) to either of two targets with
+
+\[
+ P'=(25,37,18,6,4)
+ \quad\hbox{or}\quad
+ P'=(27,38,16,5,4),
+\]
+
+and the ambiguity persists in the two full component matchings. Hence the
+rank-seven motion profile is not an all-rank canonical tie-breaker. The
+implemented probe now reports unmatched sources and targets rather than
+asserting completeness, uses the true reversed input descent set, and handles
+recording-only defects. These changes fix correctness of the experiment;
+they do not claim an intrinsic rank-eight bijection.

@@ -12,6 +12,34 @@ ladder-climber defects, and coherent dual-equivalence/growth-diagram rules.
 Lean builds and sources, marked-coloring/HRV, circular LLTs, and manuscript
 files remain excluded.
 
+The Rust semistandard involution has been corrected to the genuine
+Schuetzenberger--Lusztig involution, using the triangular Bender--Knuth word
+`t1 (t2 t1) ...`.  The previous longest-permutation reduced word was an
+involutive content reversal, but Bender--Knuth moves do not satisfy braid, so
+it did not intertwine Kashiwara operators.  A new exhaustive tableau test
+through size five verifies involutivity, reversed content, compatibility with
+standard evacuation, and `eta f_i = e_{k-i} eta`.  All existing bijection and
+crystal tests still pass with the corrected map.
+
+Rank-eight probes also corrected two assumptions in the local KP graph.  A
+candidate now uses the reversed input P-descent set rather than raw
+`Des(Q)`, and a recording-defect anchor handles raw outputs with valid `P`
+but nonstandard `Q`.  Exact regressions use code `(1,2,4,6,6,7,7,8)`, word
+`82156743`, and code `(2,4,5,6,7,8,8,8)`, word `73156842`.  The first order's
+112 defects now match perfectly in the old window.  The second still leaves
+24 of 437 defects unmatched until the window is enlarged.  Code
+`(3,4,6,6,6,8,8,8)` requires two occupancy changes and three recording moves,
+and has four exact ties even after the old total-cost/profile tie-breaker.
+Thus the rank-seven local rule is not canonical in rank eight.  The CLI
+`--kp-uniform-code` reports these failures without asserting completeness.
+
+On the crystal side, no uniformly bounded-support intrinsic rule is possible:
+on every odd path with alphabet two, normality forces `f_1` to exchange the
+two alternating proper colorings and hence recolor every vertex.  A carrier
+or scanning rule remains viable.  Every Garsia--Milne transition preserves
+the full P-descent set and therefore lifts at fixed content, but the raw-good
+branch is not stable under the transported crystal operators.
+
 The exact Kim--Pylyavskyy Algorithms 1--3 and dualized inverse are now
 implemented with a reversible event trace.  The rank-five repair is
 recording-aware: only the two fibers `125/34` and `135/24` over the repaired

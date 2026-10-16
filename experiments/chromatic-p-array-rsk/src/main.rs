@@ -1515,6 +1515,14 @@ fn p_descent_mask(poset: &Poset, word: &[usize]) -> usize {
         .fold(0, |mask, (index, _)| mask | (1 << index))
 }
 
+fn reverse_descent_positions(mask: usize, size: usize) -> usize {
+    (0..size.saturating_sub(1))
+        .filter(|&position| mask & (1 << position) != 0)
+        .fold(0, |reversed, position| {
+            reversed | (1 << (size - 2 - position))
+        })
+}
+
 fn standard_tableau_descent_mask(lambda: &[usize], entries: &[usize]) -> usize {
     let mut row_of = vec![0; entries.len()];
     let mut offset = 0;
@@ -2873,14 +2881,19 @@ type KpCandidateEdges = BTreeMap<Vec<usize>, BTreeSet<KpInsertion>>;
 
 struct KpUniformGraphCatalog {
     pairs: Vec<KpMatchedPair>,
+    source_count: usize,
     edge_count: usize,
     target_count: usize,
+    valid_p_bad_q_count: usize,
+    wrong_raw_descent_count: usize,
     stage_pair_counts: [usize; 3],
     stage_component_counts: [usize; 3],
     total_cost_ties: usize,
     profile_ties: usize,
     max_source_component: usize,
     max_target_component: usize,
+    unmatched_sources: Vec<KpSource>,
+    unmatched_targets: Vec<KpInsertion>,
 }
 
 fn kp_cell_entries(columns: &[Vec<usize>]) -> BTreeMap<(usize, usize), usize> {
@@ -2899,6 +2912,33 @@ fn kp_in_defect_window(cell: (usize, usize), boundary: usize, row: usize) -> boo
     cell_col >= boundary.saturating_sub(1)
         && cell_col <= boundary + 4
         && cell_row.abs_diff(row) <= 2
+}
+
+fn kp_first_invalid_recording_boundary(columns: &[Vec<usize>]) -> Option<(usize, usize)> {
+    for boundary in 0..columns.len().saturating_sub(1) {
+        if columns[boundary].len() < columns[boundary + 1].len() {
+            return Some((boundary, columns[boundary].len()));
+        }
+    }
+    if !kp_has_partition_shape(columns) {
+        return None;
+    }
+    let rows = kp_columns_to_rows(columns);
+    for (row, entries) in rows.iter().enumerate() {
+        if let Some(boundary) = entries.windows(2).position(|pair| pair[0] >= pair[1]) {
+            return Some((boundary, row));
+        }
+    }
+    for row in 0..rows.len().saturating_sub(1) {
+        if let Some(column) = rows[row]
+            .iter()
+            .zip(&rows[row + 1])
+            .position(|(&upper, &lower)| upper >= lower)
+        {
+            return Some((column.saturating_sub(1), row));
+        }
+    }
+    None
 }
 
 fn kp_uniform_candidate_graph(
@@ -2921,8 +2961,12 @@ fn kp_uniform_candidate_graph(
     let mut replay_excludes_raw = BTreeMap::new();
     let mut edges = BTreeMap::new();
     for (word, raw) in sources {
-        let (boundary, row, _) = kp_first_invalid_boundary(poset, &raw.p_columns)
-            .expect("a raw defect has a first invalid boundary");
+        let (boundary, row) = kp_first_invalid_boundary(poset, &raw.p_columns)
+            .map(|(boundary, row, _)| (boundary, row))
+            .or_else(|| kp_first_invalid_recording_boundary(&raw.q_columns))
+            .expect("a raw defect has an insertion or recording boundary");
+        let source_descent_mask =
+            reverse_descent_positions(p_descent_mask(poset, word), word.len());
         let source_entries = kp_cell_entries(&raw.p_columns);
         let source_cells: BTreeSet<_> = source_entries.keys().copied().collect();
         let source_shape: Vec<_> = raw.p_columns.iter().map(Vec::len).collect();
@@ -2940,7 +2984,10 @@ fn kp_uniform_candidate_graph(
             {
                 continue;
             }
-            let recording_candidates: Vec<_> = if *target_shape == source_shape {
+            let raw_recording_is_eligible = *target_shape == source_shape
+                && kp_is_standard_tableau(&raw.q_columns)
+                && kp_recording_descent_mask(&raw.q_columns) == source_descent_mask;
+            let recording_candidates: Vec<_> = if raw_recording_is_eligible {
                 vec![raw.q_columns.clone()]
             } else {
                 q_pool
@@ -2948,9 +2995,7 @@ fn kp_uniform_candidate_graph(
                     .into_iter()
                     .flatten()
                     .filter(|recording| {
-                        if kp_recording_descent_mask(recording)
-                            != kp_recording_descent_mask(&raw.q_columns)
-                        {
+                        if kp_recording_descent_mask(recording) != source_descent_mask {
                             return false;
                         }
                         let action = kp_column_cell_action(&raw.q_columns, recording);
@@ -2978,8 +3023,9 @@ fn kp_uniform_candidate_graph(
                     p_columns: p_columns.clone(),
                     q_columns: raw.q_columns.clone(),
                 };
-                if kp_asymmetric_p_knuth_certificate(poset, raw, &insertion_with_source_q, 2, 1)
-                    .is_none()
+                if raw.p_columns != *p_columns
+                    && kp_asymmetric_p_knuth_certificate(poset, raw, &insertion_with_source_q, 2, 1)
+                        .is_none()
                 {
                     continue;
                 }
@@ -3050,25 +3096,36 @@ fn kp_candidate_components(
 fn kp_uniform_graph_catalog(poset: &Poset) -> KpUniformGraphCatalog {
     let expected = kp_expected_targets(poset);
     let mut sources = BTreeMap::new();
+    let mut occupied = BTreeSet::new();
+    let mut valid_p_bad_q_count = 0;
+    let mut wrong_raw_descent_count = 0;
     for word in permutations(poset.n()) {
         let (raw, _) = kp_insert(poset, &word, true);
-        let valid = kp_is_p_tableau(poset, &raw.p_columns)
-            && kp_is_standard_tableau(&raw.q_columns)
-            && expected.contains(&kp_tableau_key(&raw));
+        let valid_p = kp_is_p_tableau(poset, &raw.p_columns);
+        let valid_q = kp_is_standard_tableau(&raw.q_columns);
+        let valid = valid_p && valid_q && expected.contains(&kp_tableau_key(&raw));
         if !valid {
+            valid_p_bad_q_count += usize::from(valid_p && !valid_q);
+            wrong_raw_descent_count += usize::from(
+                kp_recording_descent_mask(&raw.q_columns)
+                    != reverse_descent_positions(p_descent_mask(poset, &word), word.len()),
+            );
             sources.insert(word, raw);
+        } else {
+            assert!(occupied.insert(kp_tableau_key(&raw)));
         }
     }
     let source_list: Vec<_> = sources
         .iter()
         .map(|(word, raw)| (word.clone(), raw.clone()))
         .collect();
+    let source_count = source_list.len();
     let edges = kp_uniform_candidate_graph(poset, &expected, &source_list);
     let edge_count = edges.values().map(BTreeSet::len).sum();
     let mut remaining_sources = sources;
-    let mut remaining_targets: BTreeSet<_> = edges
-        .values()
-        .flat_map(|targets| targets.iter().cloned())
+    let mut remaining_targets: BTreeSet<_> = expected
+        .difference(&occupied)
+        .map(kp_insertion_from_key)
         .collect();
     let target_count = remaining_targets.len();
     let mut pairs = Vec::new();
@@ -3132,19 +3189,24 @@ fn kp_uniform_graph_catalog(poset: &Poset) -> KpUniformGraphCatalog {
         remaining_sources.retain(|word, _| !used_sources.contains(word));
         remaining_targets.retain(|target| !used_targets.contains(target));
     }
-    assert!(remaining_sources.is_empty());
-    assert!(remaining_targets.is_empty());
+    let unmatched_sources = remaining_sources.into_iter().collect();
+    let unmatched_targets = remaining_targets.into_iter().collect();
     pairs.sort_by(|left, right| left.0 .0.cmp(&right.0 .0));
     KpUniformGraphCatalog {
         pairs,
+        source_count,
         edge_count,
         target_count,
+        valid_p_bad_q_count,
+        wrong_raw_descent_count,
         stage_pair_counts,
         stage_component_counts,
         total_cost_ties,
         profile_ties,
         max_source_component,
         max_target_component,
+        unmatched_sources,
+        unmatched_targets,
     }
 }
 
@@ -4014,8 +4076,15 @@ fn standardize_semistandard_tableau(lambda: &[usize], entries: &[usize]) -> Vec<
 
 fn tableau_lusztig_involution(lambda: &[usize], entries: &[usize], alphabet: usize) -> Vec<usize> {
     let mut result = entries.to_vec();
-    for color in reversal_swaps(alphabet) {
-        result = bender_knuth(lambda, &result, color);
+    // The semistandard Schuetzenberger--Lusztig involution is the triangular
+    // Bender--Knuth word t_1 (t_2 t_1) ... (t_{k-1} ... t_1).  This is not
+    // interchangeable with an arbitrary reduced word for the longest
+    // permutation: Bender--Knuth involutions do not satisfy the braid
+    // relations on semistandard tableaux.
+    for largest in 1..alphabet {
+        for color in (0..largest).rev() {
+            result = bender_knuth(lambda, &result, color);
+        }
     }
     result
 }
@@ -6665,6 +6734,58 @@ fn main() {
         print!("{}", crystal_graph_dot(&Poset { h }, alphabet));
         return;
     }
+    if args.get(1).map(String::as_str) == Some("--kp-uniform-code") {
+        assert_eq!(args.len(), 3, "usage: --kp-uniform-code h_1,...,h_n");
+        let code: Vec<usize> = args[2]
+            .split(',')
+            .map(|part| {
+                part.parse::<usize>()
+                    .expect("Hessenberg code must be numeric")
+            })
+            .collect();
+        let n = code.len();
+        let h: Vec<usize> = code
+            .iter()
+            .map(|&entry| {
+                entry
+                    .checked_sub(1)
+                    .expect("Hessenberg entries are one-based")
+            })
+            .collect();
+        assert!(
+            h.iter()
+                .enumerate()
+                .all(|(i, &entry)| i <= entry && entry < n)
+                && h.windows(2).all(|window| window[0] <= window[1]),
+            "invalid natural-unit-interval-order Hessenberg code"
+        );
+        let catalog = kp_uniform_graph_catalog(&Poset { h });
+        println!(
+            "KP uniform code={}: sources={}, missing-targets={}, edges={}, matched={}, unmatched-sources={}, unmatched-targets={}, valid-P/bad-Q={}, wrong-raw-descent={}, stages={:?}, components={:?}, total-ties={}, profile-ties={}, max-component={}+{}",
+            args[2],
+            catalog.source_count,
+            catalog.target_count,
+            catalog.edge_count,
+            catalog.pairs.len(),
+            catalog.unmatched_sources.len(),
+            catalog.unmatched_targets.len(),
+            catalog.valid_p_bad_q_count,
+            catalog.wrong_raw_descent_count,
+            catalog.stage_pair_counts,
+            catalog.stage_component_counts,
+            catalog.total_cost_ties,
+            catalog.profile_ties,
+            catalog.max_source_component,
+            catalog.max_target_component,
+        );
+        if let Some((word, raw)) = catalog.unmatched_sources.first() {
+            println!("first unmatched source={word:?}, raw={raw:?}");
+        }
+        if let Some(target) = catalog.unmatched_targets.first() {
+            println!("first unmatched target={target:?}");
+        }
+        return;
+    }
     if args.get(1).map(String::as_str) == Some("--kp-gm") {
         assert_eq!(args.len(), 3, "usage: --kp-gm rank");
         let n = args[2].parse::<usize>().expect("rank must be numeric");
@@ -7589,6 +7710,60 @@ mod tests {
     }
 
     #[test]
+    fn semistandard_lusztig_involution_is_the_crystal_involution() {
+        let lambda = vec![2, 1];
+        let standard = vec![0, 1, 2];
+        assert_eq!(
+            tableau_lusztig_involution(&lambda, &standard, 3),
+            vec![0, 2, 1]
+        );
+
+        for n in 1..=5 {
+            for content in compositions(n) {
+                let alphabet = content.len();
+                for lambda in partitions(n) {
+                    for q in ssyts(&lambda, &content) {
+                        let eta = tableau_lusztig_involution(&lambda, &q, alphabet);
+                        assert_eq!(shape(&eta, alphabet), {
+                            let mut reversed = content.clone();
+                            reversed.reverse();
+                            reversed
+                        });
+                        assert_eq!(tableau_lusztig_involution(&lambda, &eta, alphabet), q);
+                        assert_eq!(
+                            standardize_semistandard_tableau(&lambda, &eta),
+                            evacuate_standard_tableau(
+                                &lambda,
+                                &standardize_semistandard_tableau(&lambda, &q),
+                            )
+                        );
+                        let target = Target {
+                            lambda: lambda.clone(),
+                            t: Vec::new(),
+                            q: q.clone(),
+                        };
+                        let eta_target = Target {
+                            lambda: lambda.clone(),
+                            t: Vec::new(),
+                            q: eta,
+                        };
+                        for color in 0..alphabet.saturating_sub(1) {
+                            let eta_after_f =
+                                crystal_on_target(&target, color, false).map(|moved| {
+                                    tableau_lusztig_involution(&lambda, &moved.q, alphabet)
+                                });
+                            let e_after_eta =
+                                crystal_on_target(&eta_target, alphabet - 2 - color, true)
+                                    .map(|moved| moved.q);
+                            assert_eq!(eta_after_f, e_after_eta);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
     fn kim_pylyavskyy_avoidance_class_through_five() {
         let excluded: Vec<Vec<usize>> = natural_unit_interval_orders(5)
             .into_iter()
@@ -7794,6 +7969,33 @@ mod tests {
             kp_tableau_key(&witness.insertion).0.iter().sum::<usize>(),
             6
         );
+    }
+
+    #[test]
+    fn kim_pylyavskyy_rank_eight_recording_defects() {
+        let descent_poset = Poset {
+            h: vec![0, 1, 3, 5, 5, 6, 6, 7],
+        };
+        let descent_word = vec![7, 1, 0, 4, 5, 6, 3, 2];
+        let (descent_raw, _) = kp_insert(&descent_poset, &descent_word, false);
+        let required_descent = reverse_descent_positions(
+            p_descent_mask(&descent_poset, &descent_word),
+            descent_word.len(),
+        );
+        assert_ne!(
+            kp_recording_descent_mask(&descent_raw.q_columns),
+            required_descent
+        );
+
+        let recording_poset = Poset {
+            h: vec![1, 3, 4, 5, 6, 7, 7, 7],
+        };
+        let recording_word = vec![6, 2, 0, 4, 5, 7, 3, 1];
+        let (recording_raw, _) = kp_insert(&recording_poset, &recording_word, false);
+        assert!(kp_is_p_tableau(&recording_poset, &recording_raw.p_columns));
+        assert!(!kp_is_standard_tableau(&recording_raw.q_columns));
+        assert!(kp_first_invalid_boundary(&recording_poset, &recording_raw.p_columns).is_none());
+        assert!(kp_first_invalid_recording_boundary(&recording_raw.q_columns).is_some());
     }
 
     #[test]

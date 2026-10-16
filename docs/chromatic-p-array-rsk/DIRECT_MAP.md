@@ -163,6 +163,34 @@ This proves existence of a direct normal crystal on colorings. An intrinsic
 local description remains open because the rank matching defining
 \(\varphi_P\) examines a whole P-Knuth component.
 
+The Rust implementation uses the triangular Bender--Knuth word
+
+\[
+ t_1(t_2t_1)(t_3t_2t_1)\dotsm(t_{k-1}\dotsm t_1)
+\]
+
+for \(\eta_k\).  An earlier prototype used another reduced word for the
+longest permutation.  That word still gave an involutive content-reversing
+bijection, but it was not the Schuetzenberger--Lusztig involution because
+Bender--Knuth involutions do not satisfy the braid relations.  The corrected
+implementation verifies involutivity, content reversal, compatibility with
+standard-tableau evacuation, and
+
+\[
+ \eta_k f_i=e_{k-i}\eta_k
+\]
+
+on all semistandard tableaux of size at most five (with one-based crystal
+indices).
+
+Normality itself rules out a uniformly bounded-support coloring rule.  On an
+odd path with alphabet \(\{1,2\}\), there are exactly two proper colorings,
+the two alternating colorings.  The coloring whose endpoints have color
+\(1\) has weight difference one, so normality forces \(f_1\) to map it to the
+other coloring.  Hence \(f_1\) changes every vertex.  An intrinsic rule, if
+one exists, must therefore be an unbounded scanning or carrier algorithm,
+not a bounded local recoloring.
+
 ## 4. Exact finite verification
 
 The Rust prototype is in experiments/chromatic-p-array-rsk/src/main.rs. It
