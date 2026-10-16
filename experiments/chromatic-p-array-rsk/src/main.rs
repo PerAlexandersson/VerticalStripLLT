@@ -1493,6 +1493,481 @@ fn p_tableaux(poset: &Poset, lambda: &[usize]) -> Vec<Vec<usize>> {
     out
 }
 
+fn conjugate_partition(lambda: &[usize]) -> Vec<usize> {
+    let width = lambda.first().copied().unwrap_or(0);
+    (0..width)
+        .map(|col| lambda.iter().filter(|&&length| col < length).count())
+        .collect()
+}
+
+fn p_tableau_column_word(tableau: &[usize]) -> Vec<usize> {
+    let row_count = 1 + tableau.iter().copied().max().unwrap_or(0);
+    rows(tableau, row_count)
+        .into_iter()
+        .flat_map(|row| row.into_iter().rev())
+        .collect()
+}
+
+fn p_descent_mask(poset: &Poset, word: &[usize]) -> usize {
+    word.windows(2)
+        .enumerate()
+        .filter(|(_, pair)| poset.lt(pair[1], pair[0]))
+        .fold(0, |mask, (index, _)| mask | (1 << index))
+}
+
+fn standard_tableau_descent_mask(lambda: &[usize], entries: &[usize]) -> usize {
+    let mut row_of = vec![0; entries.len()];
+    let mut offset = 0;
+    for (row, &length) in lambda.iter().enumerate() {
+        for &value in &entries[offset..offset + length] {
+            row_of[value] = row;
+        }
+        offset += length;
+    }
+    (0..entries.len().saturating_sub(1))
+        .filter(|&value| row_of[value + 1] > row_of[value])
+        .fold(0, |mask, value| mask | (1 << value))
+}
+
+fn p_word_inversion(poset: &Poset, word: &[usize]) -> usize {
+    (0..word.len())
+        .flat_map(|left| (left + 1..word.len()).map(move |right| (left, right)))
+        .filter(|&(left, right)| word[left] > word[right] && poset.edge(word[left], word[right]))
+        .count()
+}
+
+fn p_knuth_neighbors(poset: &Poset, word: &[usize]) -> Vec<Vec<usize>> {
+    let mut neighbors = BTreeSet::new();
+    for center in 1..word.len().saturating_sub(1) {
+        let current = [word[center - 1], word[center], word[center + 1]];
+        let mut local = BTreeSet::new();
+        for &a in &current {
+            for &b in &current {
+                for &c in &current {
+                    if a == b || a == c || b == c {
+                        continue;
+                    }
+                    let incomparable =
+                        |left, right| !poset.lt(left, right) && !poset.lt(right, left);
+                    let weak_forward = |left, right| !poset.lt(right, left);
+                    let candidates = [
+                        (
+                            poset.lt(a, b) && weak_forward(b, c) && poset.lt(a, c),
+                            [b, a, c],
+                            [b, c, a],
+                        ),
+                        (
+                            weak_forward(a, b) && poset.lt(b, c) && poset.lt(a, c),
+                            [c, a, b],
+                            [a, c, b],
+                        ),
+                        (
+                            incomparable(a, b) && incomparable(b, c) && poset.lt(a, c),
+                            [c, a, b],
+                            [b, c, a],
+                        ),
+                    ];
+                    for (valid, left, right) in candidates {
+                        if !valid {
+                            continue;
+                        }
+                        if current == left {
+                            local.insert(right);
+                        } else if current == right {
+                            local.insert(left);
+                        }
+                    }
+                }
+            }
+        }
+        assert!(local.len() <= 1, "P-Knuth edge color is not an involution");
+        for replacement in local {
+            let mut neighbor = word.to_vec();
+            neighbor[center - 1..=center + 1].copy_from_slice(&replacement);
+            neighbors.insert(neighbor);
+        }
+    }
+    neighbors.into_iter().collect()
+}
+
+fn p_knuth_components(poset: &Poset) -> Vec<Vec<Vec<usize>>> {
+    let all = permutations(poset.n());
+    let mut unseen: BTreeSet<Vec<usize>> = all.into_iter().collect();
+    let mut components = Vec::new();
+    while let Some(start) = unseen.iter().next().cloned() {
+        unseen.remove(&start);
+        let mut stack = vec![start];
+        let mut component = Vec::new();
+        while let Some(word) = stack.pop() {
+            for neighbor in p_knuth_neighbors(poset, &word) {
+                if unseen.remove(&neighbor) {
+                    stack.push(neighbor);
+                }
+            }
+            component.push(word);
+        }
+        component.sort();
+        components.push(component);
+    }
+    components.sort();
+    components
+}
+
+#[derive(Clone, Debug)]
+struct PKnuthComponentWitness {
+    code: Vec<usize>,
+    size: usize,
+    inversion: usize,
+    anchor_shapes: BTreeMap<Vec<usize>, usize>,
+    first_word: Vec<usize>,
+}
+
+#[derive(Default)]
+struct PKnuthSummary {
+    posets: usize,
+    components: usize,
+    anchors: usize,
+    anchor_excess: usize,
+    multi_anchor_components: usize,
+    multi_shape_components: usize,
+    first_multi_anchor: Option<PKnuthComponentWitness>,
+    forbidden_component: Option<PKnuthComponentWitness>,
+}
+
+#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
+struct DirectStandardImage {
+    /// The Blasiak--Eriksson--Pylyavskyy--Siegl shape, conjugate to the
+    /// Shareshian--Wachs shape stored by `t`.
+    p_shape: Vec<usize>,
+    /// A Shareshian--Wachs P-tableau, stored as the row of each vertex.
+    t: Vec<usize>,
+    /// An ordinary standard tableau of shape `p_shape`, stored row by row.
+    q: Vec<usize>,
+}
+
+struct DirectStandardCatalog {
+    forward: BTreeMap<Vec<usize>, DirectStandardImage>,
+    reverse: BTreeMap<DirectStandardImage, Vec<usize>>,
+}
+
+fn direct_standard_catalog(poset: &Poset) -> DirectStandardCatalog {
+    let n = poset.n();
+    let mut anchors: BTreeMap<Vec<usize>, (Vec<usize>, Vec<usize>)> = BTreeMap::new();
+    for lambda in partitions(n) {
+        let p_shape = conjugate_partition(&lambda);
+        for tableau in p_tableaux(poset, &lambda) {
+            let word = p_tableau_column_word(&tableau);
+            assert!(anchors.insert(word, (p_shape.clone(), tableau)).is_none());
+        }
+    }
+
+    let mut forward = BTreeMap::new();
+    let mut reverse = BTreeMap::new();
+    for component in p_knuth_components(poset) {
+        let component_set: BTreeSet<Vec<usize>> = component.iter().cloned().collect();
+        let mut words_by_descent: BTreeMap<usize, Vec<Vec<usize>>> = BTreeMap::new();
+        for word in component {
+            words_by_descent
+                .entry(p_descent_mask(poset, &word))
+                .or_default()
+                .push(word);
+        }
+        let mut images_by_descent: BTreeMap<usize, Vec<DirectStandardImage>> = BTreeMap::new();
+        for (anchor_word, (p_shape, tableau)) in &anchors {
+            if !component_set.contains(anchor_word) {
+                continue;
+            }
+            for standard in ssyts(p_shape, &vec![1; n]) {
+                images_by_descent
+                    .entry(standard_tableau_descent_mask(p_shape, &standard))
+                    .or_default()
+                    .push(DirectStandardImage {
+                        p_shape: p_shape.clone(),
+                        t: tableau.clone(),
+                        q: standard,
+                    });
+            }
+        }
+        assert_eq!(
+            words_by_descent.keys().collect::<Vec<_>>(),
+            images_by_descent.keys().collect::<Vec<_>>()
+        );
+        for (descent, mut words) in words_by_descent {
+            let mut images = images_by_descent.remove(&descent).unwrap();
+            words.sort();
+            images.sort();
+            assert_eq!(words.len(), images.len());
+            for (word, image) in words.into_iter().zip(images) {
+                assert!(forward.insert(word.clone(), image.clone()).is_none());
+                assert!(reverse.insert(image, word).is_none());
+            }
+        }
+    }
+    let permutation_count: usize = (1..=n).product();
+    assert_eq!(forward.len(), permutation_count);
+    assert_eq!(reverse.len(), permutation_count);
+    DirectStandardCatalog { forward, reverse }
+}
+
+fn transpose_tableau(lambda: &[usize], entries: &[usize]) -> (Vec<usize>, Vec<usize>) {
+    assert_eq!(lambda.iter().sum::<usize>(), entries.len());
+    let conjugate = conjugate_partition(lambda);
+    let mut offsets = Vec::with_capacity(lambda.len());
+    let mut offset = 0;
+    for &length in lambda {
+        offsets.push(offset);
+        offset += length;
+    }
+    let mut transposed = Vec::with_capacity(entries.len());
+    for col in 0..conjugate.len() {
+        for row in 0..conjugate[col] {
+            transposed.push(entries[offsets[row] + col]);
+        }
+    }
+    (conjugate, transposed)
+}
+
+fn block_word(poset: &Poset, coloring: &[usize], alphabet: usize) -> Vec<usize> {
+    let mut word = Vec::with_capacity(poset.n());
+    for color in 0..alphabet {
+        let mut chain: Vec<usize> = coloring
+            .iter()
+            .enumerate()
+            .filter_map(|(vertex, &entry)| (entry == color).then_some(vertex))
+            .collect();
+        chain.reverse();
+        assert!(chain.windows(2).all(|pair| poset.lt(pair[1], pair[0])));
+        word.extend(chain);
+    }
+    assert_eq!(word.len(), poset.n());
+    word
+}
+
+fn coloring_from_block_word(poset: &Poset, word: &[usize], content: &[usize]) -> Vec<usize> {
+    assert_eq!(content.iter().sum::<usize>(), poset.n());
+    let mut coloring = vec![usize::MAX; poset.n()];
+    let mut offset = 0;
+    for (color, &length) in content.iter().enumerate() {
+        let chain = &word[offset..offset + length];
+        assert!(
+            chain.windows(2).all(|pair| poset.lt(pair[1], pair[0])),
+            "nonchain block in direct inverse: P={:?}, word={word:?}, content={content:?}, color={color}",
+            poset.code()
+        );
+        for &vertex in chain {
+            assert_eq!(coloring[vertex], usize::MAX);
+            coloring[vertex] = color;
+        }
+        offset += length;
+    }
+    assert!(coloring.iter().all(|&color| color != usize::MAX));
+    coloring
+}
+
+fn destandardize_tableau(entries: &[usize], content: &[usize]) -> Vec<usize> {
+    let mut color_of_label = Vec::with_capacity(entries.len());
+    for (color, &multiplicity) in content.iter().enumerate() {
+        color_of_label.extend(std::iter::repeat_n(color, multiplicity));
+    }
+    assert_eq!(color_of_label.len(), entries.len());
+    entries.iter().map(|&entry| color_of_label[entry]).collect()
+}
+
+fn standardize_semistandard_tableau(lambda: &[usize], entries: &[usize]) -> Vec<usize> {
+    let coordinates = cell_coordinates(lambda);
+    assert_eq!(coordinates.len(), entries.len());
+    let alphabet = 1 + *entries.iter().max().expect("a tableau is nonempty");
+    let mut standardized = vec![0; entries.len()];
+    let mut next_label = 0;
+    for color in 0..alphabet {
+        let mut positions: Vec<usize> = entries
+            .iter()
+            .enumerate()
+            .filter_map(|(position, &entry)| (entry == color).then_some(position))
+            .collect();
+        positions.sort_by_key(|&position| {
+            let (row, col) = coordinates[position];
+            (col, std::cmp::Reverse(row))
+        });
+        for position in positions {
+            standardized[position] = next_label;
+            next_label += 1;
+        }
+    }
+    standardized
+}
+
+fn tableau_lusztig_involution(lambda: &[usize], entries: &[usize], alphabet: usize) -> Vec<usize> {
+    let mut result = entries.to_vec();
+    for color in reversal_swaps(alphabet) {
+        result = bender_knuth(lambda, &result, color);
+    }
+    result
+}
+
+fn direct_forward_with_catalog(
+    poset: &Poset,
+    coloring: &[usize],
+    alphabet: usize,
+    catalog: &DirectStandardCatalog,
+) -> Target {
+    assert!(coloring.iter().all(|&color| color < alphabet));
+    assert!(is_proper_coloring(poset, coloring));
+    let content = shape(coloring, alphabet);
+    let complemented: Vec<usize> = coloring.iter().map(|&color| alphabet - 1 - color).collect();
+    let word = block_word(poset, &complemented, alphabet);
+    let image = catalog.forward.get(&word).unwrap();
+    assert_eq!(
+        p_descent_mask(poset, &word),
+        standard_tableau_descent_mask(&image.p_shape, &image.q)
+    );
+    let (lambda, standard_q) = transpose_tableau(&image.p_shape, &image.q);
+    assert_eq!(shape(&image.t, lambda.len()), lambda);
+    let complemented_content = shape(&complemented, alphabet);
+    let q_prime = destandardize_tableau(&standard_q, &complemented_content);
+    assert!(is_semistandard_rows(&entries_to_rows(
+        &lambda, &q_prime, true
+    )));
+    let q = tableau_lusztig_involution(&lambda, &q_prime, alphabet);
+    assert_eq!(shape(&q, alphabet), content);
+    assert_eq!(tableau_lusztig_involution(&lambda, &q, alphabet), q_prime);
+    assert_eq!(p_word_inversion(poset, &word), des(poset, &complemented));
+    assert_eq!(p_word_inversion(poset, &word), inv_g(poset, &image.t));
+    assert_eq!(asc(poset, coloring), inv_g(poset, &image.t));
+    Target {
+        lambda,
+        t: image.t.clone(),
+        q,
+    }
+}
+
+fn direct_reverse_with_catalog(
+    poset: &Poset,
+    target: &Target,
+    content: &[usize],
+    catalog: &DirectStandardCatalog,
+) -> Vec<usize> {
+    assert_eq!(shape(&target.q, content.len()), content);
+    let q_prime = tableau_lusztig_involution(&target.lambda, &target.q, content.len());
+    let standard_q = standardize_semistandard_tableau(&target.lambda, &q_prime);
+    let (p_shape, q) = transpose_tableau(&target.lambda, &standard_q);
+    let image = DirectStandardImage {
+        p_shape,
+        t: target.t.clone(),
+        q,
+    };
+    let word = catalog.reverse.get(&image).unwrap();
+    let mut complemented_content = content.to_vec();
+    complemented_content.reverse();
+    let complemented = coloring_from_block_word(poset, word, &complemented_content);
+    let coloring: Vec<usize> = complemented
+        .iter()
+        .map(|&color| content.len() - 1 - color)
+        .collect();
+    assert!(is_proper_coloring(poset, &coloring));
+    assert_eq!(shape(&coloring, content.len()), content);
+    coloring
+}
+
+fn direct_coloring_crystal_operator(
+    poset: &Poset,
+    coloring: &[usize],
+    alphabet: usize,
+    color: usize,
+    raising: bool,
+    catalog: &DirectStandardCatalog,
+) -> Option<Vec<usize>> {
+    let target = direct_forward_with_catalog(poset, coloring, alphabet, catalog);
+    let moved_target = crystal_on_target(&target, color, raising)?;
+    let moved_content = shape(&moved_target.q, alphabet);
+    Some(direct_reverse_with_catalog(
+        poset,
+        &moved_target,
+        &moved_content,
+        catalog,
+    ))
+}
+
+fn verify_p_knuth_components_n(n: usize) -> PKnuthSummary {
+    let mut summary = PKnuthSummary::default();
+    for poset in natural_unit_interval_orders(n) {
+        summary.posets += 1;
+        let mut anchors: BTreeMap<Vec<usize>, Vec<Vec<usize>>> = BTreeMap::new();
+        let mut anchor_shapes = BTreeMap::new();
+        for lambda in partitions(n) {
+            let conjugate = conjugate_partition(&lambda);
+            for tableau in p_tableaux(&poset, &lambda) {
+                let word = p_tableau_column_word(&tableau);
+                assert_eq!(p_word_inversion(&poset, &word), inv_g(&poset, &tableau));
+                assert!(anchor_shapes
+                    .insert(word.clone(), conjugate.clone())
+                    .is_none());
+                anchors.entry(word).or_default().push(tableau);
+            }
+        }
+        for component in p_knuth_components(&poset) {
+            summary.components += 1;
+            let inversion = p_word_inversion(&poset, &component[0]);
+            assert!(component
+                .iter()
+                .all(|word| p_word_inversion(&poset, word) == inversion));
+            let component_set: BTreeSet<Vec<usize>> = component.iter().cloned().collect();
+            let mut shapes = BTreeMap::new();
+            let mut expected_by_descent = BTreeMap::new();
+            let mut anchor_count = 0;
+            for (word, tableaux) in &anchors {
+                if !component_set.contains(word) {
+                    continue;
+                }
+                assert_eq!(tableaux.len(), 1);
+                anchor_count += 1;
+                let shape = anchor_shapes.get(word).unwrap();
+                *shapes.entry(shape.clone()).or_default() += 1;
+                for standard in ssyts(shape, &vec![1; n]) {
+                    *expected_by_descent
+                        .entry(standard_tableau_descent_mask(shape, &standard))
+                        .or_default() += 1;
+                }
+            }
+            let mut actual_by_descent = BTreeMap::new();
+            for word in &component {
+                *actual_by_descent
+                    .entry(p_descent_mask(&poset, word))
+                    .or_default() += 1;
+            }
+            assert_eq!(
+                actual_by_descent,
+                expected_by_descent,
+                "P-Knuth Schur inventory mismatch for P={:?}, component={component:?}",
+                poset.code()
+            );
+            assert_eq!(component.len(), expected_by_descent.values().sum());
+            summary.anchors += anchor_count;
+            summary.anchor_excess += anchor_count.saturating_sub(1);
+            let witness = PKnuthComponentWitness {
+                code: poset.code(),
+                size: component.len(),
+                inversion,
+                anchor_shapes: shapes.clone(),
+                first_word: component[0].clone(),
+            };
+            if anchor_count > 1 {
+                summary.multi_anchor_components += 1;
+                if summary.first_multi_anchor.is_none() {
+                    summary.first_multi_anchor = Some(witness.clone());
+                }
+            }
+            if shapes.len() > 1 {
+                summary.multi_shape_components += 1;
+            }
+            if poset.code() == vec![2, 4, 4, 5, 5] && component_set.contains(&vec![2, 3, 4, 1, 0]) {
+                summary.forbidden_component = Some(witness);
+            }
+        }
+    }
+    summary
+}
+
 fn inv_g(poset: &Poset, tableau: &[usize]) -> usize {
     des(poset, tableau)
 }
@@ -1700,6 +2175,71 @@ fn target_fiber(poset: &Poset, mu: &[usize]) -> Vec<Target> {
     }
     out.sort();
     out
+}
+
+#[derive(Default)]
+struct DirectMapSummary {
+    posets: usize,
+    colorings: usize,
+    targets: usize,
+    differing_from_signed: usize,
+    lowering_edges: usize,
+}
+
+fn verify_direct_map_n(n: usize) -> DirectMapSummary {
+    let mut summary = DirectMapSummary::default();
+    for poset in natural_unit_interval_orders(n) {
+        summary.posets += 1;
+        let catalog = direct_standard_catalog(&poset);
+        let mut by_weight: BTreeMap<Vec<usize>, Vec<Vec<usize>>> = BTreeMap::new();
+        for coloring in proper_colorings(&poset, n) {
+            by_weight
+                .entry(shape(&coloring, n))
+                .or_default()
+                .push(coloring);
+        }
+        for (content, sources) in by_weight {
+            let expected: BTreeSet<Target> = target_fiber(&poset, &content).into_iter().collect();
+            let mut images = BTreeSet::new();
+            for source in &sources {
+                let image = direct_forward_with_catalog(&poset, source, n, &catalog);
+                assert_eq!(shape(&image.q, n), content);
+                assert_eq!(asc(&poset, source), inv_g(&poset, &image.t));
+                assert_eq!(
+                    direct_reverse_with_catalog(&poset, &image, &content, &catalog),
+                    *source
+                );
+                summary.differing_from_signed +=
+                    usize::from(forward_with_alphabet(&poset, source, n).0 != image);
+                assert!(images.insert(image.clone()));
+                for color in 0..n.saturating_sub(1) {
+                    let Some(moved) =
+                        direct_coloring_crystal_operator(&poset, source, n, color, false, &catalog)
+                    else {
+                        continue;
+                    };
+                    let moved_target = crystal_on_target(&image, color, false).unwrap();
+                    let moved_content = shape(&moved_target.q, n);
+                    assert_eq!(
+                        direct_forward_with_catalog(&poset, &moved, n, &catalog),
+                        moved_target
+                    );
+                    assert_eq!(shape(&moved, n), moved_content);
+                    assert_eq!(asc(&poset, &moved), asc(&poset, source));
+                    assert_eq!(
+                        direct_coloring_crystal_operator(&poset, &moved, n, color, true, &catalog,)
+                            .as_ref(),
+                        Some(source)
+                    );
+                    summary.lowering_edges += 1;
+                }
+            }
+            assert_eq!(images, expected);
+            summary.colorings += sources.len();
+            summary.targets += images.len();
+        }
+    }
+    summary
 }
 
 fn crystal_on_target(target: &Target, color: usize, raising: bool) -> Option<Target> {
@@ -3927,6 +4467,8 @@ fn main() {
     print_component_signature_studies(6);
     let mut total = Summary::default();
     for n in 1..=5 {
+        let p_knuth = verify_p_knuth_components_n(n);
+        let direct = verify_direct_map_n(n);
         let (inverse_kostka_states, max_local_events) = verify_inverse_kostka_n(n);
         let (lm_inverse_kostka_states, lm_differing_endpoints, lm_max_local_events) =
             verify_loehr_mendes_inverse_kostka_n(n);
@@ -3977,6 +4519,40 @@ fn main() {
             lm_comparison.max_trace_events,
             lm_comparison.trace_checksum
         );
+        println!(
+            "  P-Knuth direct oracle: posets={}, components={}, anchors={}, excess={}, multi-anchor={}, multi-shape={}, full-alphabet maps={}, targets={}, lowering edges={}, images differing from signed={}",
+            p_knuth.posets,
+            p_knuth.components,
+            p_knuth.anchors,
+            p_knuth.anchor_excess,
+            p_knuth.multi_anchor_components,
+            p_knuth.multi_shape_components,
+            direct.colorings,
+            direct.targets,
+            direct.lowering_edges,
+            direct.differing_from_signed
+        );
+        assert_eq!(direct.posets, p_knuth.posets);
+        if let Some(witness) = &p_knuth.first_multi_anchor {
+            println!(
+                "    first multi-anchor component: P={:?}, size={}, inv={}, shapes={:?}, first={:?}",
+                witness.code,
+                witness.size,
+                witness.inversion,
+                witness.anchor_shapes,
+                witness.first_word
+            );
+        }
+        if let Some(witness) = &p_knuth.forbidden_component {
+            println!(
+                "    KP forbidden-word component: P={:?}, size={}, inv={}, shapes={:?}, first={:?}",
+                witness.code,
+                witness.size,
+                witness.inversion,
+                witness.anchor_shapes,
+                witness.first_word
+            );
+        }
         if let Some(witness) = &lm_comparison.first_image_difference {
             println!(
                 "    first image difference: P={:?}, source={:?}, ACM={:?}, LM={:?}",
@@ -4140,8 +4716,42 @@ mod tests {
     }
 
     #[test]
+    fn forbidden_p_knuth_component_has_published_schur_inventory() {
+        let poset = Poset {
+            h: vec![1, 3, 3, 4, 4],
+        };
+        let component = p_knuth_components(&poset)
+            .into_iter()
+            .find(|component| component.contains(&vec![2, 3, 4, 1, 0]))
+            .unwrap();
+        assert_eq!(component.len(), 19);
+        let component_set: BTreeSet<Vec<usize>> = component.into_iter().collect();
+        let mut anchors = BTreeMap::new();
+        for lambda in partitions(5) {
+            let p_shape = conjugate_partition(&lambda);
+            for tableau in p_tableaux(&poset, &lambda) {
+                let word = p_tableau_column_word(&tableau);
+                if component_set.contains(&word) {
+                    assert!(anchors.insert(word, p_shape.clone()).is_none());
+                }
+            }
+        }
+        assert_eq!(
+            anchors,
+            BTreeMap::from([
+                (vec![2, 0, 4, 3, 1], vec![4, 1]),
+                (vec![4, 0, 3, 1, 2], vec![4, 1]),
+                (vec![4, 1, 3, 0, 2], vec![3, 2]),
+                (vec![4, 2, 0, 3, 1], vec![3, 1, 1]),
+            ])
+        );
+    }
+
+    #[test]
     fn exhaustive_through_four() {
         for n in 1..=4 {
+            verify_p_knuth_components_n(n);
+            verify_direct_map_n(n);
             verify_inverse_kostka_n(n);
             verify_loehr_mendes_inverse_kostka_n(n);
             verify_loehr_mendes_coloring_map_n(n);

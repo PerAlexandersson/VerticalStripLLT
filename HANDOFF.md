@@ -2,6 +2,39 @@
 
 ## Current status and ownership
 
+On 2026-10-16, the Chromatic P-array RSK worker completed a direct bijection
+which avoids inverse Kostka.  The new primary source is paper-cache 354,
+Blasiak--Eriksson--Pylyavskyy--Siegl, arXiv:2211.03967v2.  In each standard
+P-Knuth component and P-descent fiber, their Theorems 3.9--3.10 give equal
+numbers of words and pairs `(P-tableau,SYT)`; fixed lexicographic rank gives
+an explicit bijection.  Color complementation, decreasing-chain block
+standardization, tableau transposition/destandardization, and the ordinary
+semistandard Schuetzenberger--Lusztig involution extend it to all proper
+colorings, preserving weight and `asc=inv_G`.  Both directions and the
+transported Kashiwara operators are implemented.  The construction and proof
+are in `docs/chromatic-p-array-rsk/DIRECT_MAP.md`.
+
+The complete census covers every natural unit interval order through rank
+five: 55,125 fixed-alphabet rank-five colorings, exact target coverage, and
+96,968 lowering edges with raising inverses.  At ranks four and five there
+are respectively 187/188 and 1,820/1,849 P-Knuth components/P-tableau
+anchors; only one and 21 components need splitting.  The direct rank-five
+map differs from the Allen--Celano--Mason signed map on 39,666 colorings, so
+it is a third crystal gauge.  Six unit tests, Clippy with warnings denied,
+formatting, `git diff --check`, and the full release census pass.
+
+The three authorized read-only assessments agree that locality is now the
+remaining problem.  On the forbidden order `(2,4,4,5,5)`, Kim--Pylyavskyy
+insertion is valid on 17 vertices of the 19-vertex exceptional component.
+Only `35241` and `34521` collide at the invalid tableau `312/54`; replacing
+it by the valid tableau `213/54`, whose column word is `52413`, fills exactly
+the missing shape-`(3,2)` fiber.  A standalone crystal-compatible
+inverse-Kostka differential is impossible already from
+`m_(2)=s_(2)-s_(1,1)`.  The next local experiment is therefore the complete
+Kim--Pylyavskyy trace with this ladder-climber correction, followed by the
+rank-six overlap/confluence census.  The worker touched no Lean source or
+build, marked-coloring/HRV file, circular LLT file, or manuscript file.
+
 On 2026-10-16, the Chromatic P-array RSK worker implemented the exact
 Loehr--Mendes reverse inverse-Kostka involution as a second oracle and threaded
 it through the complete Garsia--Milne coloring bijection.  The source is now
