@@ -191,6 +191,49 @@ other coloring.  Hence \(f_1\) changes every vertex.  An intrinsic rule, if
 one exists, must therefore be an unbounded scanning or carrier algorithm,
 not a bounded local recoloring.
 
+### 3.1. The recording-label carrier
+
+The corrected involution makes the recording part of such a carrier
+particularly simple. Let \(S=\operatorname{std}(Q)\), where \(Q\) is the final
+semistandard recording tableau. Since
+
+\[
+ \operatorname{std}(\eta Q)=\operatorname{evac}(S)
+\]
+
+and evacuation commutes with transpose, the two evacuation operations in the
+conversion to Kim--Pylyavskyy conventions cancel. The KP recording columns
+are exactly the reversed rows of \(S\).
+
+Suppose a Kashiwara move changes the cell \(x=(r,c)\). Order cells by
+\((Q(x),c,-r)\). Let \(\alpha\) be the old rank of \(x\), and let \(\beta\)
+be its rank among the other cells after its entry is changed. The recording
+update is the single interval cycle
+
+\[
+ \alpha\longmapsto\beta,
+ \qquad
+ z\longmapsto z-1\quad(\alpha<z\leq\beta),
+ \qquad
+ z\longmapsto z+1\quad(\beta\leq z<\alpha).
+\]
+
+We apply this relabeling directly to every KP recording column. Its inverse
+swaps \(\alpha\) and \(\beta\). Thus the recording update has a constant-size
+reversible certificate even though the affected interval can be arbitrarily
+long.
+
+The Rust census verifies this update on all 198,720 directed crystal moves
+arising from 56,993 proper colorings through rank five. The interval lengths
+1, 2, and 3 occur 148,640, 49,696, and 384 times, respectively. Ninety-six
+moves land in a Garsia--Milne-repaired target, and twenty directed moves cross
+between raw and repaired ownership. The interval token remains correct in
+both directions. Raw KP deletion identifies the owner when the moved endpoint
+is raw-good; when the moved endpoint is repaired, one instead appends the
+reversible Garsia--Milne trace. Hence the crystal operator has now been
+separated into an intrinsic recording carrier and a still-global ownership
+resolution.
+
 ## 4. Exact finite verification
 
 The Rust prototype is in experiments/chromatic-p-array-rsk/src/main.rs. It

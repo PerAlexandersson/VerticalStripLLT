@@ -614,3 +614,55 @@ tie-breaker. Lexicographic cell-action order is symmetric on these four
 components, but has no all-rank justification. The global Garsia--Milne map
 selects neither tied matching, so the present local graph is not a
 localization of that particular global baseline.
+
+## 12. Adaptive component sealing
+
+The exact-Q stages are unsafe in rank eight. For code
+\((3,4,6,6,6,8,8,8)\), the right-extent-five graph contains a balanced
+\(6\)-by-\(6\) component in which every maximum exact-Q partial matching has
+five edges but none extends to a perfect matching. The correct indivisible
+unit is therefore a whole connected component.
+
+We use nested candidate graphs. Starting with the rank-seven bounds, we
+successively permit one more right column, two occupancy changes, and three
+recording moves. At each level we seal only a connected component having a
+perfect matching of all of its source and target vertices. Among perfect
+matchings we minimize the total motion cost and then its decreasing edge-cost
+profile. If both keys tie, the implementation chooses the lexicographically
+least target-index assignment. We remove the sealed component and relax only
+the residual graph. Components larger than the current 128-bit subset-DP
+capacity are left unsealed for the terminal invariant-fiber fallback.
+
+The three rank-eight probes give:
+
+| Hessenberg code | base | right extent 5 | occupancy 2 | recording moves 3 |
+|---|---:|---:|---:|---:|
+| \((1,2,4,6,6,7,7,8)\) | 112 | 0 | 0 | 0 |
+| \((2,4,5,6,7,8,8,8)\) | 407 | 30 | 0 | 0 |
+| \((3,4,6,6,6,8,8,8)\) | 934 | 354 | 0 | 144 |
+
+All 1,981 defects seal, and none of the sealed components has a tied optimum.
+This is a deterministic rank-eight prototype, not an all-rank locality
+theorem. A safe all-rank schedule must eventually enlarge every geometric and
+P-Knuth margin bound and release same-shape recording freezing. At its terminal
+level it must either prove balance and completeness in an immutable invariant
+fiber or add the already proved Garsia--Milne endpoint edges. The latter gives
+termination immediately, but remains global in the worst case.
+
+The implemented completion instead uses the coarser immutable pair consisting
+of reversed input P-descent and P-inversion. Every local edge is now checked
+explicitly to preserve both statistics. The proved global bijection shows that
+defective sources and missing targets are equinumerous in each such fiber.
+Sealing a local perfect component removes the same number from both sides of
+one fiber, so the residual remains balanced. After the bounded local schedule,
+we pair each residual fiber in lexicographic order. This gives an explicit
+all-rank finite bijection preserving both required statistics. It is local on
+every sealed component and deliberately global on the fallback fibers.
+The inverse recomputes the same deterministic catalog, looks up corrected
+targets there, and otherwise applies checked raw KP deletion and insertion
+replay.
+
+Using full-component optimization changes 30 of the existing 5,162
+rank-seven assignments. We therefore keep the current rank-seven map intact
+while treating component sealing as a separate candidate for the all-rank
+construction.

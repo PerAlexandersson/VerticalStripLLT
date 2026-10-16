@@ -2464,6 +2464,101 @@ fn kp_minimum_movement_edge_matching(
     }
 }
 
+fn kp_minimum_movement_perfect_edge_matching(
+    sources: &[KpSource],
+    targets: &[KpInsertion],
+    edges: &KpCandidateEdges,
+) -> Option<KpMinimumMovementMatching> {
+    type State = ([usize; 4], Vec<[usize; 4]>, usize, usize, Vec<usize>);
+
+    assert_eq!(sources.len(), targets.len());
+    assert!(targets.len() <= 128, "perfect-matching DP uses a u128 mask");
+    let mut states: BTreeMap<u128, State> =
+        BTreeMap::from([(0, ([0; 4], Vec::new(), 1, 1, Vec::new()))]);
+    for source in sources {
+        let mut next_states: BTreeMap<u128, State> = BTreeMap::new();
+        for (mask, (total, profile, total_count, profile_count, assignment)) in states {
+            for (target_index, target) in targets.iter().enumerate() {
+                let bit = 1u128 << target_index;
+                if mask & bit != 0
+                    || !edges
+                        .get(&source.0)
+                        .is_some_and(|neighbors| neighbors.contains(target))
+                {
+                    continue;
+                }
+                let edge_cost = kp_pair_action_cost(&source.1, target);
+                let mut candidate_total = total;
+                for (entry, value) in candidate_total.iter_mut().zip(edge_cost) {
+                    *entry += value;
+                }
+                let mut candidate_profile = profile.clone();
+                candidate_profile.push(edge_cost);
+                candidate_profile.sort_by(|left, right| right.cmp(left));
+                let mut candidate_assignment = assignment.clone();
+                candidate_assignment.push(target_index);
+                let candidate = (
+                    candidate_total,
+                    candidate_profile,
+                    total_count,
+                    profile_count,
+                    candidate_assignment,
+                );
+                match next_states.entry(mask | bit) {
+                    std::collections::btree_map::Entry::Vacant(entry) => {
+                        entry.insert(candidate);
+                    }
+                    std::collections::btree_map::Entry::Occupied(mut occupied) => {
+                        let entry = occupied.get_mut();
+                        match candidate.0.cmp(&entry.0) {
+                            std::cmp::Ordering::Less => *entry = candidate,
+                            std::cmp::Ordering::Greater => {}
+                            std::cmp::Ordering::Equal => {
+                                entry.2 = entry.2.saturating_add(candidate.2);
+                                match candidate.1.cmp(&entry.1) {
+                                    std::cmp::Ordering::Less => {
+                                        entry.1 = candidate.1;
+                                        entry.3 = candidate.3;
+                                        entry.4 = candidate.4;
+                                    }
+                                    std::cmp::Ordering::Greater => {}
+                                    std::cmp::Ordering::Equal => {
+                                        entry.3 = entry.3.saturating_add(candidate.3);
+                                        if candidate.4 < entry.4 {
+                                            entry.4 = candidate.4;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        states = next_states;
+    }
+    let full_mask = if targets.len() == 128 {
+        u128::MAX
+    } else {
+        (1u128 << targets.len()) - 1
+    };
+    let (_, _, total_optimum_count, profile_optimum_count, assignment) =
+        states.remove(&full_mask)?;
+    let pairs = sources
+        .iter()
+        .cloned()
+        .zip(assignment)
+        .map(|(source, target_index)| (source, targets[target_index].clone()))
+        .collect();
+    Some(KpMinimumMovementMatching {
+        pairs,
+        residual_sources: Vec::new(),
+        residual_targets: Vec::new(),
+        total_optimum_count,
+        profile_optimum_count,
+    })
+}
+
 fn kp_apply_cell_action(columns: &[Vec<usize>], action: &KpCellAction) -> Vec<Vec<usize>> {
     assert_eq!(
         columns.iter().map(Vec::len).collect::<Vec<_>>(),
@@ -2879,6 +2974,39 @@ fn kp_asymmetric_p_knuth_certificate(
 
 type KpCandidateEdges = BTreeMap<Vec<usize>, BTreeSet<KpInsertion>>;
 
+#[derive(Clone, Copy)]
+struct KpCandidateBounds {
+    left_extent: usize,
+    right_extent: usize,
+    row_radius: usize,
+    occupancy_changes: usize,
+    recording_moves: usize,
+    p_knuth_before: usize,
+    p_knuth_after: usize,
+}
+
+impl KpCandidateBounds {
+    const RANK_SEVEN: Self = Self {
+        left_extent: 1,
+        right_extent: 4,
+        row_radius: 2,
+        occupancy_changes: 1,
+        recording_moves: 2,
+        p_knuth_before: 2,
+        p_knuth_after: 1,
+    };
+
+    const RANK_EIGHT_ENLARGED: Self = Self {
+        left_extent: 1,
+        right_extent: 5,
+        row_radius: 2,
+        occupancy_changes: 2,
+        recording_moves: 3,
+        p_knuth_before: 2,
+        p_knuth_after: 1,
+    };
+}
+
 struct KpUniformGraphCatalog {
     pairs: Vec<KpMatchedPair>,
     source_count: usize,
@@ -2907,11 +3035,16 @@ fn kp_cell_entries(columns: &[Vec<usize>]) -> BTreeMap<(usize, usize), usize> {
     entries
 }
 
-fn kp_in_defect_window(cell: (usize, usize), boundary: usize, row: usize) -> bool {
+fn kp_in_defect_window(
+    cell: (usize, usize),
+    boundary: usize,
+    row: usize,
+    bounds: KpCandidateBounds,
+) -> bool {
     let (cell_row, cell_col) = cell;
-    cell_col >= boundary.saturating_sub(1)
-        && cell_col <= boundary + 4
-        && cell_row.abs_diff(row) <= 2
+    cell_col >= boundary.saturating_sub(bounds.left_extent)
+        && cell_col <= boundary + bounds.right_extent
+        && cell_row.abs_diff(row) <= bounds.row_radius
 }
 
 fn kp_first_invalid_recording_boundary(columns: &[Vec<usize>]) -> Option<(usize, usize)> {
@@ -2945,6 +3078,7 @@ fn kp_uniform_candidate_graph(
     poset: &Poset,
     expected: &BTreeSet<KpTableauKey>,
     sources: &[KpSource],
+    bounds: KpCandidateBounds,
 ) -> KpCandidateEdges {
     let mut p_pool: BTreeMap<Vec<usize>, BTreeSet<Vec<Vec<usize>>>> = BTreeMap::new();
     let mut q_pool: BTreeMap<Vec<usize>, BTreeSet<KpRecording>> = BTreeMap::new();
@@ -2967,6 +3101,7 @@ fn kp_uniform_candidate_graph(
             .expect("a raw defect has an insertion or recording boundary");
         let source_descent_mask =
             reverse_descent_positions(p_descent_mask(poset, word), word.len());
+        let source_inversion = p_word_inversion(poset, word);
         let source_entries = kp_cell_entries(&raw.p_columns);
         let source_cells: BTreeSet<_> = source_entries.keys().copied().collect();
         let source_shape: Vec<_> = raw.p_columns.iter().map(Vec::len).collect();
@@ -2977,10 +3112,10 @@ fn kp_uniform_candidate_graph(
                 .enumerate()
                 .flat_map(|(col, &height)| (0..height).map(move |row| (row, col)))
                 .collect();
-            if source_cells.difference(&target_cells).count() > 1
+            if source_cells.difference(&target_cells).count() > bounds.occupancy_changes
                 || source_cells
                     .symmetric_difference(&target_cells)
-                    .any(|&cell| !kp_in_defect_window(cell, boundary, row))
+                    .any(|&cell| !kp_in_defect_window(cell, boundary, row, bounds))
             {
                 continue;
             }
@@ -2999,10 +3134,10 @@ fn kp_uniform_candidate_graph(
                             return false;
                         }
                         let action = kp_column_cell_action(&raw.q_columns, recording);
-                        action.moves.len() <= 2
+                        action.moves.len() <= bounds.recording_moves
                             && action.moves.iter().all(|&(from, to)| {
-                                kp_in_defect_window(from, boundary, row)
-                                    && kp_in_defect_window(to, boundary, row)
+                                kp_in_defect_window(from, boundary, row, bounds)
+                                    && kp_in_defect_window(to, boundary, row, bounds)
                             })
                     })
                     .cloned()
@@ -3012,20 +3147,31 @@ fn kp_uniform_candidate_graph(
                 continue;
             }
             for p_columns in p_tableaux {
-                let target_entries = kp_cell_entries(p_columns);
-                if source_entries.iter().any(|(&cell, value)| {
-                    target_entries.get(&cell) != Some(value)
-                        && !kp_in_defect_window(cell, boundary, row)
-                }) {
-                    continue;
-                }
-                let insertion_with_source_q = KpInsertion {
+                let p_candidate = KpInsertion {
                     p_columns: p_columns.clone(),
                     q_columns: raw.q_columns.clone(),
                 };
+                if p_word_inversion(poset, &kp_insertion_reading_word(&p_candidate))
+                    != source_inversion
+                {
+                    continue;
+                }
+                let target_entries = kp_cell_entries(p_columns);
+                if source_entries.iter().any(|(&cell, value)| {
+                    target_entries.get(&cell) != Some(value)
+                        && !kp_in_defect_window(cell, boundary, row, bounds)
+                }) {
+                    continue;
+                }
                 if raw.p_columns != *p_columns
-                    && kp_asymmetric_p_knuth_certificate(poset, raw, &insertion_with_source_q, 2, 1)
-                        .is_none()
+                    && kp_asymmetric_p_knuth_certificate(
+                        poset,
+                        raw,
+                        &p_candidate,
+                        bounds.p_knuth_before,
+                        bounds.p_knuth_after,
+                    )
+                    .is_none()
                 {
                     continue;
                 }
@@ -3093,7 +3239,10 @@ fn kp_candidate_components(
     components
 }
 
-fn kp_uniform_graph_catalog(poset: &Poset) -> KpUniformGraphCatalog {
+fn kp_uniform_graph_catalog_with_bounds(
+    poset: &Poset,
+    bounds: KpCandidateBounds,
+) -> KpUniformGraphCatalog {
     let expected = kp_expected_targets(poset);
     let mut sources = BTreeMap::new();
     let mut occupied = BTreeSet::new();
@@ -3120,7 +3269,7 @@ fn kp_uniform_graph_catalog(poset: &Poset) -> KpUniformGraphCatalog {
         .map(|(word, raw)| (word.clone(), raw.clone()))
         .collect();
     let source_count = source_list.len();
-    let edges = kp_uniform_candidate_graph(poset, &expected, &source_list);
+    let edges = kp_uniform_candidate_graph(poset, &expected, &source_list, bounds);
     let edge_count = edges.values().map(BTreeSet::len).sum();
     let mut remaining_sources = sources;
     let mut remaining_targets: BTreeSet<_> = expected
@@ -3208,6 +3357,207 @@ fn kp_uniform_graph_catalog(poset: &Poset) -> KpUniformGraphCatalog {
         unmatched_sources,
         unmatched_targets,
     }
+}
+
+fn kp_uniform_graph_catalog(poset: &Poset) -> KpUniformGraphCatalog {
+    kp_uniform_graph_catalog_with_bounds(poset, KpCandidateBounds::RANK_SEVEN)
+}
+
+struct KpAdaptiveSealingCatalog {
+    pairs: Vec<KpMatchedPair>,
+    source_count: usize,
+    target_count: usize,
+    sealed_by_level: Vec<usize>,
+    optimum_ties_by_level: Vec<usize>,
+    fallback_pairs: usize,
+    unmatched_sources: Vec<KpSource>,
+    unmatched_targets: Vec<KpInsertion>,
+}
+
+fn kp_adaptive_sealing_catalog(poset: &Poset) -> KpAdaptiveSealingCatalog {
+    let expected = kp_expected_targets(poset);
+    let mut remaining_sources = BTreeMap::new();
+    let mut occupied = BTreeSet::new();
+    for word in permutations(poset.n()) {
+        let (raw, _) = kp_insert(poset, &word, true);
+        let valid = kp_is_p_tableau(poset, &raw.p_columns)
+            && kp_is_standard_tableau(&raw.q_columns)
+            && expected.contains(&kp_tableau_key(&raw));
+        if valid {
+            assert!(occupied.insert(kp_tableau_key(&raw)));
+        } else {
+            remaining_sources.insert(word, raw);
+        }
+    }
+    let source_count = remaining_sources.len();
+    let mut remaining_targets: BTreeSet<_> = expected
+        .difference(&occupied)
+        .map(kp_insertion_from_key)
+        .collect();
+    let target_count = remaining_targets.len();
+    assert_eq!(source_count, target_count);
+
+    let levels = [
+        KpCandidateBounds::RANK_SEVEN,
+        KpCandidateBounds {
+            right_extent: 5,
+            ..KpCandidateBounds::RANK_SEVEN
+        },
+        KpCandidateBounds {
+            right_extent: 5,
+            occupancy_changes: 2,
+            ..KpCandidateBounds::RANK_SEVEN
+        },
+        KpCandidateBounds::RANK_EIGHT_ENLARGED,
+    ];
+    let mut pairs = Vec::new();
+    let mut sealed_by_level = Vec::new();
+    let mut optimum_ties_by_level = Vec::new();
+    for bounds in levels {
+        if remaining_sources.is_empty() {
+            break;
+        }
+        let source_list: Vec<_> = remaining_sources
+            .iter()
+            .map(|(word, raw)| (word.clone(), raw.clone()))
+            .collect();
+        let raw_edges = kp_uniform_candidate_graph(poset, &expected, &source_list, bounds);
+        let edges: KpCandidateEdges = raw_edges
+            .into_iter()
+            .map(|(word, targets)| {
+                (
+                    word,
+                    targets
+                        .into_iter()
+                        .filter(|target| remaining_targets.contains(target))
+                        .collect(),
+                )
+            })
+            .collect();
+        let source_words = remaining_sources.keys().cloned().collect();
+        let components = kp_candidate_components(&source_words, &edges);
+        let mut used_sources = BTreeSet::new();
+        let mut used_targets = BTreeSet::new();
+        let mut level_ties = 0;
+        for (component_source_words, component_targets) in components {
+            if component_source_words.len() != component_targets.len()
+                || component_targets.is_empty()
+                // The exact local optimizer uses a u128 subset mask.  Larger
+                // components remain untouched and are handled by the total
+                // invariant-fiber fallback below.
+                || component_targets.len() > 128
+            {
+                continue;
+            }
+            let component_sources: Vec<_> = component_source_words
+                .iter()
+                .map(|word| (word.clone(), remaining_sources[word].clone()))
+                .collect();
+            let Some(matching) = kp_minimum_movement_perfect_edge_matching(
+                &component_sources,
+                &component_targets,
+                &edges,
+            ) else {
+                continue;
+            };
+            level_ties += usize::from(matching.profile_optimum_count > 1);
+            for ((word, raw), target) in matching.pairs {
+                used_sources.insert(word.clone());
+                used_targets.insert(target.clone());
+                pairs.push(((word, raw), target));
+            }
+        }
+        sealed_by_level.push(used_sources.len());
+        optimum_ties_by_level.push(level_ties);
+        remaining_sources.retain(|word, _| !used_sources.contains(word));
+        remaining_targets.retain(|target| !used_targets.contains(target));
+    }
+    let mut sources_by_invariant: BTreeMap<(usize, usize), Vec<KpSource>> = BTreeMap::new();
+    for (word, raw) in &remaining_sources {
+        let invariant = (
+            reverse_descent_positions(p_descent_mask(poset, word), word.len()),
+            p_word_inversion(poset, word),
+        );
+        sources_by_invariant
+            .entry(invariant)
+            .or_default()
+            .push((word.clone(), raw.clone()));
+    }
+    let mut targets_by_invariant: BTreeMap<(usize, usize), Vec<KpInsertion>> = BTreeMap::new();
+    for target in &remaining_targets {
+        let invariant = (
+            kp_recording_descent_mask(&target.q_columns),
+            p_word_inversion(poset, &kp_insertion_reading_word(target)),
+        );
+        targets_by_invariant
+            .entry(invariant)
+            .or_default()
+            .push(target.clone());
+    }
+    assert_eq!(
+        sources_by_invariant.keys().collect::<Vec<_>>(),
+        targets_by_invariant.keys().collect::<Vec<_>>(),
+        "the proved global bijection balances every descent/inversion fiber"
+    );
+    let mut fallback_pairs = 0;
+    for (invariant, mut sources) in sources_by_invariant {
+        let mut targets = targets_by_invariant.remove(&invariant).unwrap();
+        sources.sort();
+        targets.sort();
+        assert_eq!(sources.len(), targets.len());
+        fallback_pairs += sources.len();
+        pairs.extend(sources.into_iter().zip(targets));
+    }
+    remaining_sources.clear();
+    remaining_targets.clear();
+    let unmatched_sources = remaining_sources.into_iter().collect();
+    let unmatched_targets = remaining_targets.into_iter().collect();
+    pairs.sort_by(|left, right| left.0 .0.cmp(&right.0 .0));
+    KpAdaptiveSealingCatalog {
+        pairs,
+        source_count,
+        target_count,
+        sealed_by_level,
+        optimum_ties_by_level,
+        fallback_pairs,
+        unmatched_sources,
+        unmatched_targets,
+    }
+}
+
+fn kp_adaptive_forward(
+    poset: &Poset,
+    word: &[usize],
+    catalog: &KpAdaptiveSealingCatalog,
+) -> KpInsertion {
+    if let Some((_, target)) = catalog
+        .pairs
+        .iter()
+        .find(|((source_word, _), _)| source_word == word)
+    {
+        return target.clone();
+    }
+    let (raw, _) = kp_insert(poset, word, true);
+    assert!(kp_is_p_tableau(poset, &raw.p_columns));
+    assert!(kp_is_standard_tableau(&raw.q_columns));
+    raw
+}
+
+fn kp_adaptive_reverse(
+    poset: &Poset,
+    target: &KpInsertion,
+    catalog: &KpAdaptiveSealingCatalog,
+) -> Vec<usize> {
+    if let Some(((source_word, _), _)) = catalog
+        .pairs
+        .iter()
+        .find(|(_, corrected_target)| corrected_target == target)
+    {
+        return source_word.clone();
+    }
+    kp_inverse_checked(poset, target, true)
+        .filter(|word| kp_insert(poset, word, true).0 == *target)
+        .expect("an uncorrected adaptive target must have a checked raw KP inverse")
 }
 
 fn kp_uniform_forward(
@@ -3833,6 +4183,18 @@ fn kp_insertion_direct_image(
     DirectStandardImage { p_shape, t, q }
 }
 
+fn kp_insertion_from_direct_image(image: &DirectStandardImage) -> KpInsertion {
+    let lambda = conjugate_partition(&image.p_shape);
+    let t_entries: Vec<_> = rows(&image.t, lambda.len()).into_iter().flatten().collect();
+    let (p_shape, p_entries) = transpose_tableau(&lambda, &t_entries);
+    assert_eq!(p_shape, image.p_shape);
+    let recording = evacuate_standard_tableau(&image.p_shape, &image.q);
+    KpInsertion {
+        p_columns: kp_rows_to_columns(&entries_to_rows(&image.p_shape, &p_entries, false)),
+        q_columns: kp_rows_to_columns(&entries_to_rows(&image.p_shape, &recording, false)),
+    }
+}
+
 fn kp_direct_standard_catalog(poset: &Poset) -> DirectStandardCatalog {
     let insertion_pairs: Vec<_> = if poset.n() == 7 {
         let uniform = kp_uniform_graph_catalog(poset);
@@ -3850,6 +4212,7 @@ fn kp_direct_standard_catalog(poset: &Poset) -> DirectStandardCatalog {
     let mut reverse = BTreeMap::new();
     for (word, insertion) in insertion_pairs {
         let image = kp_insertion_direct_image(poset, &word, &insertion);
+        assert_eq!(kp_insertion_from_direct_image(&image), insertion);
         assert!(forward.insert(word.clone(), image.clone()).is_none());
         assert!(reverse.insert(image, word).is_none());
     }
@@ -3861,6 +4224,8 @@ fn kp_direct_standard_catalog(poset: &Poset) -> DirectStandardCatalog {
 
 struct KpGarsiaMilneCatalog {
     standard: DirectStandardCatalog,
+    base: DirectStandardCatalog,
+    raw_good_forward: BTreeMap<Vec<usize>, DirectStandardImage>,
     raw_good_words: usize,
     corrected_words: usize,
     max_alternating_steps: usize,
@@ -3934,6 +4299,8 @@ fn kp_garsia_milne_catalog(poset: &Poset) -> KpGarsiaMilneCatalog {
     assert_eq!(reverse.len(), factorial);
     KpGarsiaMilneCatalog {
         standard: DirectStandardCatalog { forward, reverse },
+        base,
+        raw_good_forward,
         raw_good_words,
         corrected_words,
         max_alternating_steps,
@@ -4072,6 +4439,147 @@ fn standardize_semistandard_tableau(lambda: &[usize], entries: &[usize]) -> Vec<
         }
     }
     standardized
+}
+
+#[cfg(test)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+struct RecordingLabelCycle {
+    first: usize,
+    last: usize,
+    /// If true, old labels increase by one and `last` wraps to `first`.
+    increasing: bool,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+struct RecordingCarrierToken {
+    row: usize,
+    col: usize,
+    alpha: usize,
+    beta: usize,
+}
+
+fn recording_carrier_token(
+    target: &Target,
+    position: usize,
+    new_value: usize,
+) -> RecordingCarrierToken {
+    let coordinates = cell_coordinates(&target.lambda);
+    let (row, col) = coordinates[position];
+    let old_key = (target.q[position], col, std::cmp::Reverse(row));
+    let new_key = (new_value, col, std::cmp::Reverse(row));
+    let alpha = target
+        .q
+        .iter()
+        .zip(&coordinates)
+        .filter(|&(value, &(other_row, other_col))| {
+            (*value, other_col, std::cmp::Reverse(other_row)) < old_key
+        })
+        .count();
+    let beta = target
+        .q
+        .iter()
+        .zip(&coordinates)
+        .enumerate()
+        .filter(|&(other_position, (value, &(other_row, other_col)))| {
+            other_position != position
+                && (*value, other_col, std::cmp::Reverse(other_row)) < new_key
+        })
+        .count();
+    assert_eq!(
+        standardize_semistandard_tableau(&target.lambda, &target.q)[position],
+        alpha
+    );
+    RecordingCarrierToken {
+        row,
+        col,
+        alpha,
+        beta,
+    }
+}
+
+fn apply_recording_carrier_token(entries: &[usize], token: RecordingCarrierToken) -> Vec<usize> {
+    entries
+        .iter()
+        .map(|&label| {
+            if label == token.alpha {
+                token.beta
+            } else if token.alpha < label && label <= token.beta {
+                label - 1
+            } else if token.beta <= label && label < token.alpha {
+                label + 1
+            } else {
+                label
+            }
+        })
+        .collect()
+}
+
+#[cfg(test)]
+fn recording_label_cycle(before: &[usize], after: &[usize]) -> Option<RecordingLabelCycle> {
+    assert_eq!(before.len(), after.len());
+    let mut relabeling = vec![usize::MAX; before.len()];
+    for (&old, &new) in before.iter().zip(after) {
+        assert_eq!(relabeling[old], usize::MAX);
+        relabeling[old] = new;
+    }
+    let changed: Vec<_> = relabeling
+        .iter()
+        .enumerate()
+        .filter_map(|(old, &new)| (old != new).then_some(old))
+        .collect();
+    let (&first, &last) = (changed.first()?, changed.last()?);
+    assert_eq!(changed, (first..=last).collect::<Vec<_>>());
+    let increasing =
+        (first..last).all(|label| relabeling[label] == label + 1) && relabeling[last] == first;
+    let decreasing =
+        relabeling[first] == last && (first + 1..=last).all(|label| relabeling[label] == label - 1);
+    assert!(
+        increasing || decreasing,
+        "standardization changed by a noncycle: before={before:?}, after={after:?}, relabeling={relabeling:?}"
+    );
+    Some(RecordingLabelCycle {
+        first,
+        last,
+        increasing,
+    })
+}
+
+#[cfg(test)]
+fn apply_recording_label_cycle(entries: &[usize], cycle: RecordingLabelCycle) -> Vec<usize> {
+    entries
+        .iter()
+        .map(|&label| {
+            if cycle.increasing {
+                if label == cycle.last {
+                    cycle.first
+                } else if (cycle.first..cycle.last).contains(&label) {
+                    label + 1
+                } else {
+                    label
+                }
+            } else if label == cycle.first {
+                cycle.last
+            } else if (cycle.first + 1..=cycle.last).contains(&label) {
+                label - 1
+            } else {
+                label
+            }
+        })
+        .collect()
+}
+
+fn semistandard_raw_recording_columns(lambda: &[usize], entries: &[usize]) -> KpRecording {
+    entries_to_rows(
+        lambda,
+        &standardize_semistandard_tableau(lambda, entries),
+        false,
+    )
+    .into_iter()
+    .map(|mut row| {
+        row.reverse();
+        row
+    })
+    .collect()
 }
 
 fn tableau_lusztig_involution(lambda: &[usize], entries: &[usize], alphabet: usize) -> Vec<usize> {
@@ -4470,6 +4978,145 @@ struct DirectMapSummary {
     lowering_edges: usize,
 }
 
+#[derive(Default)]
+struct RecordingCarrierSummary {
+    posets: usize,
+    colorings: usize,
+    directed_moves: usize,
+    cycle_widths: BTreeMap<usize, usize>,
+    raw_inverse_moves: usize,
+    gm_reverse_moves: usize,
+    max_gm_reverse_steps: usize,
+    moves_landing_repaired: usize,
+    raw_repaired_crossings: usize,
+}
+
+impl RecordingCarrierSummary {
+    fn absorb(&mut self, other: Self) {
+        self.posets += other.posets;
+        self.colorings += other.colorings;
+        self.directed_moves += other.directed_moves;
+        for (width, count) in other.cycle_widths {
+            *self.cycle_widths.entry(width).or_default() += count;
+        }
+        self.raw_inverse_moves += other.raw_inverse_moves;
+        self.gm_reverse_moves += other.gm_reverse_moves;
+        self.max_gm_reverse_steps = self.max_gm_reverse_steps.max(other.max_gm_reverse_steps);
+        self.moves_landing_repaired += other.moves_landing_repaired;
+        self.raw_repaired_crossings += other.raw_repaired_crossings;
+    }
+}
+
+fn kp_gm_raw_good(poset: &Poset, word: &[usize], image: &DirectStandardImage) -> bool {
+    let (raw, _) = kp_insert(poset, word, false);
+    kp_is_p_tableau(poset, &raw.p_columns)
+        && kp_is_standard_tableau(&raw.q_columns)
+        && kp_insertion_direct_image(poset, word, &raw) == *image
+}
+
+fn direct_coloring_word(poset: &Poset, coloring: &[usize], alphabet: usize) -> Vec<usize> {
+    let complemented: Vec<_> = coloring.iter().map(|&color| alphabet - 1 - color).collect();
+    block_word(poset, &complemented, alphabet)
+}
+
+fn verify_recording_carrier_n(n: usize) -> RecordingCarrierSummary {
+    let mut summary = RecordingCarrierSummary::default();
+    for poset in natural_unit_interval_orders(n) {
+        summary.posets += 1;
+        let catalog = kp_garsia_milne_catalog(&poset);
+        for coloring in proper_colorings(&poset, n) {
+            summary.colorings += 1;
+            let target = direct_forward_with_catalog(&poset, &coloring, n, &catalog.standard);
+            let word = direct_coloring_word(&poset, &coloring, n);
+            let image = &catalog.standard.forward[&word];
+            let insertion = kp_insertion_from_direct_image(image);
+            assert_eq!(
+                insertion.q_columns,
+                semistandard_raw_recording_columns(&target.lambda, &target.q)
+            );
+            let source_raw_good = kp_gm_raw_good(&poset, &word, image);
+            for color in 0..n.saturating_sub(1) {
+                for raising in [false, true] {
+                    let Some(position) = crystal_move_position(&target, color, raising) else {
+                        continue;
+                    };
+                    let new_value = if raising { color } else { color + 1 };
+                    let token = recording_carrier_token(&target, position, new_value);
+                    let Some(moved_target) = crystal_on_target(&target, color, raising) else {
+                        unreachable!("a selected crystal position must move")
+                    };
+                    summary.directed_moves += 1;
+                    let moved_content = shape(&moved_target.q, n);
+                    let moved_coloring = direct_reverse_with_catalog(
+                        &poset,
+                        &moved_target,
+                        &moved_content,
+                        &catalog.standard,
+                    );
+                    let moved_word = direct_coloring_word(&poset, &moved_coloring, n);
+                    let moved_image = &catalog.standard.forward[&moved_word];
+                    let moved_insertion = kp_insertion_from_direct_image(moved_image);
+                    assert_eq!(insertion.p_columns, moved_insertion.p_columns);
+                    assert_eq!(
+                        moved_insertion.q_columns,
+                        semistandard_raw_recording_columns(&moved_target.lambda, &moved_target.q,)
+                    );
+                    *summary
+                        .cycle_widths
+                        .entry(token.alpha.abs_diff(token.beta) + 1)
+                        .or_default() += 1;
+                    let cycled: KpRecording = insertion
+                        .q_columns
+                        .iter()
+                        .map(|column| apply_recording_carrier_token(column, token))
+                        .collect();
+                    let carrier_insertion = KpInsertion {
+                        p_columns: insertion.p_columns.clone(),
+                        q_columns: cycled,
+                    };
+                    assert_eq!(carrier_insertion, moved_insertion);
+                    let inverse = RecordingCarrierToken {
+                        row: token.row,
+                        col: token.col,
+                        alpha: token.beta,
+                        beta: token.alpha,
+                    };
+                    let restored: KpRecording = moved_insertion
+                        .q_columns
+                        .iter()
+                        .map(|column| apply_recording_carrier_token(column, inverse))
+                        .collect();
+                    assert_eq!(restored, insertion.q_columns);
+                    let target_raw_good = kp_gm_raw_good(&poset, &moved_word, moved_image);
+                    let raw_owner =
+                        kp_inverse_checked(&poset, &carrier_insertion, false).filter(|candidate| {
+                            kp_insert(&poset, candidate, false).0 == carrier_insertion
+                        });
+                    if let Some(raw_owner) = raw_owner {
+                        summary.raw_inverse_moves += 1;
+                        assert!(target_raw_good);
+                        assert_eq!(raw_owner, moved_word);
+                    } else {
+                        summary.gm_reverse_moves += 1;
+                        assert!(!target_raw_good);
+                        let (gm_owner, steps) = kp_garsia_milne_reverse_trace(
+                            &catalog.base,
+                            &catalog.raw_good_forward,
+                            moved_image,
+                        );
+                        assert_eq!(gm_owner, moved_word);
+                        summary.max_gm_reverse_steps = summary.max_gm_reverse_steps.max(steps);
+                    }
+                    summary.moves_landing_repaired += usize::from(!target_raw_good);
+                    summary.raw_repaired_crossings +=
+                        usize::from(source_raw_good != target_raw_good);
+                }
+            }
+        }
+    }
+    summary
+}
+
 fn verify_direct_map_n(n: usize) -> DirectMapSummary {
     let mut summary = DirectMapSummary::default();
     for poset in natural_unit_interval_orders(n) {
@@ -4526,7 +5173,7 @@ fn verify_direct_map_n(n: usize) -> DirectMapSummary {
     summary
 }
 
-fn crystal_on_target(target: &Target, color: usize, raising: bool) -> Option<Target> {
+fn crystal_move_position(target: &Target, color: usize, raising: bool) -> Option<usize> {
     let mut minus = Vec::new();
     let mut plus = Vec::new();
     let mut row_offsets = Vec::with_capacity(target.lambda.len());
@@ -4545,11 +5192,15 @@ fn crystal_on_target(target: &Target, color: usize, raising: bool) -> Option<Tar
             }
         }
     }
-    let position = if raising {
+    Some(if raising {
         *minus.first()?
     } else {
         *plus.last()?
-    };
+    })
+}
+
+fn crystal_on_target(target: &Target, color: usize, raising: bool) -> Option<Target> {
+    let position = crystal_move_position(target, color, raising)?;
     let mut result = target.clone();
     if raising {
         result.q[position] -= 1;
@@ -6735,7 +7386,10 @@ fn main() {
         return;
     }
     if args.get(1).map(String::as_str) == Some("--kp-uniform-code") {
-        assert_eq!(args.len(), 3, "usage: --kp-uniform-code h_1,...,h_n");
+        assert!(
+            args.len() == 3 || args.len() == 4,
+            "usage: --kp-uniform-code h_1,...,h_n [rank7|rank8-enlarged|adaptive]"
+        );
         let code: Vec<usize> = args[2]
             .split(',')
             .map(|part| {
@@ -6759,9 +7413,42 @@ fn main() {
                 && h.windows(2).all(|window| window[0] <= window[1]),
             "invalid natural-unit-interval-order Hessenberg code"
         );
-        let catalog = kp_uniform_graph_catalog(&Poset { h });
+        let profile = args.get(3).map(String::as_str).unwrap_or("rank7");
+        if profile == "adaptive" {
+            let poset = Poset { h };
+            let catalog = kp_adaptive_sealing_catalog(&poset);
+            for ((word, _), target) in &catalog.pairs {
+                assert_eq!(kp_adaptive_forward(&poset, word, &catalog), *target);
+                assert_eq!(kp_adaptive_reverse(&poset, target, &catalog), *word);
+            }
+            println!(
+                "KP adaptive code={}: sources={}, missing-targets={}, matched={}, sealed-by-level={:?}, optimum-ties={:?}, fallback-pairs={}, unmatched-sources={}, unmatched-targets={}",
+                args[2],
+                catalog.source_count,
+                catalog.target_count,
+                catalog.pairs.len(),
+                catalog.sealed_by_level,
+                catalog.optimum_ties_by_level,
+                catalog.fallback_pairs,
+                catalog.unmatched_sources.len(),
+                catalog.unmatched_targets.len(),
+            );
+            if let Some((word, raw)) = catalog.unmatched_sources.first() {
+                println!("first adaptive unmatched source={word:?}, raw={raw:?}");
+            }
+            if let Some(target) = catalog.unmatched_targets.first() {
+                println!("first adaptive unmatched target={target:?}");
+            }
+            return;
+        }
+        let bounds = match profile {
+            "rank7" => KpCandidateBounds::RANK_SEVEN,
+            "rank8-enlarged" => KpCandidateBounds::RANK_EIGHT_ENLARGED,
+            _ => panic!("unknown KP candidate profile: {profile}"),
+        };
+        let catalog = kp_uniform_graph_catalog_with_bounds(&Poset { h }, bounds);
         println!(
-            "KP uniform code={}: sources={}, missing-targets={}, edges={}, matched={}, unmatched-sources={}, unmatched-targets={}, valid-P/bad-Q={}, wrong-raw-descent={}, stages={:?}, components={:?}, total-ties={}, profile-ties={}, max-component={}+{}",
+            "KP uniform code={} profile={profile}: sources={}, missing-targets={}, edges={}, matched={}, unmatched-sources={}, unmatched-targets={}, valid-P/bad-Q={}, wrong-raw-descent={}, stages={:?}, components={:?}, total-ties={}, profile-ties={}, max-component={}+{}",
             args[2],
             catalog.source_count,
             catalog.target_count,
@@ -6784,6 +7471,30 @@ fn main() {
         if let Some(target) = catalog.unmatched_targets.first() {
             println!("first unmatched target={target:?}");
         }
+        return;
+    }
+    if args.get(1).map(String::as_str) == Some("--kp-carrier") {
+        assert_eq!(args.len(), 3, "usage: --kp-carrier maximum-rank");
+        let max_n = args[2]
+            .parse::<usize>()
+            .expect("maximum rank must be numeric");
+        assert!(max_n <= 5, "the carrier census is bounded to rank five");
+        let mut summary = RecordingCarrierSummary::default();
+        for n in 1..=max_n {
+            summary.absorb(verify_recording_carrier_n(n));
+        }
+        println!(
+            "KP recording carrier through n={max_n}: posets={}, colorings={}, directed-moves={}, cycle-widths={:?}, raw-inverse={}, gm-reverse={}, max-gm-steps={}, moves-landing-repaired={}, raw/repaired-crossings={}",
+            summary.posets,
+            summary.colorings,
+            summary.directed_moves,
+            summary.cycle_widths,
+            summary.raw_inverse_moves,
+            summary.gm_reverse_moves,
+            summary.max_gm_reverse_steps,
+            summary.moves_landing_repaired,
+            summary.raw_repaired_crossings,
+        );
         return;
     }
     if args.get(1).map(String::as_str) == Some("--kp-gm") {
@@ -7742,6 +8453,62 @@ mod tests {
                             t: Vec::new(),
                             q: q.clone(),
                         };
+                        let before_standard = standardize_semistandard_tableau(&lambda, &target.q);
+                        let before_raw = semistandard_raw_recording_columns(&lambda, &target.q);
+                        for raising in [false, true] {
+                            for color in 0..alphabet.saturating_sub(1) {
+                                let Some(position) = crystal_move_position(&target, color, raising)
+                                else {
+                                    continue;
+                                };
+                                let Some(moved) = crystal_on_target(&target, color, raising) else {
+                                    unreachable!("a selected crystal position must move")
+                                };
+                                let token =
+                                    recording_carrier_token(&target, position, moved.q[position]);
+                                let after_standard =
+                                    standardize_semistandard_tableau(&lambda, &moved.q);
+                                let after_raw =
+                                    semistandard_raw_recording_columns(&lambda, &moved.q);
+                                let token_cycled: KpRecording = before_raw
+                                    .iter()
+                                    .map(|column| apply_recording_carrier_token(column, token))
+                                    .collect();
+                                assert_eq!(token_cycled, after_raw);
+                                let inverse_token = RecordingCarrierToken {
+                                    row: token.row,
+                                    col: token.col,
+                                    alpha: token.beta,
+                                    beta: token.alpha,
+                                };
+                                let token_restored: KpRecording = after_raw
+                                    .iter()
+                                    .map(|column| {
+                                        apply_recording_carrier_token(column, inverse_token)
+                                    })
+                                    .collect();
+                                assert_eq!(token_restored, before_raw);
+                                if let Some(cycle) =
+                                    recording_label_cycle(&before_standard, &after_standard)
+                                {
+                                    let cycled: KpRecording = before_raw
+                                        .iter()
+                                        .map(|column| apply_recording_label_cycle(column, cycle))
+                                        .collect();
+                                    assert_eq!(cycled, after_raw);
+                                    let inverse =
+                                        recording_label_cycle(&after_standard, &before_standard)
+                                            .unwrap();
+                                    let restored: KpRecording = after_raw
+                                        .iter()
+                                        .map(|column| apply_recording_label_cycle(column, inverse))
+                                        .collect();
+                                    assert_eq!(restored, before_raw);
+                                } else {
+                                    assert_eq!(before_raw, after_raw);
+                                }
+                            }
+                        }
                         let eta_target = Target {
                             lambda: lambda.clone(),
                             t: Vec::new(),
@@ -7838,6 +8605,29 @@ mod tests {
             assert!(!trace.repaired_rank_five_climber);
             assert_eq!(kp_inverse(&poset, &existing, true), word);
         }
+    }
+
+    #[test]
+    fn adaptive_component_sealing_handles_rank_six_kp_defect() {
+        let poset = Poset {
+            h: vec![2, 2, 4, 4, 5, 5],
+        };
+        let catalog = kp_adaptive_sealing_catalog(&poset);
+        assert!(catalog.source_count > 0);
+        assert_eq!(catalog.target_count, catalog.source_count);
+        assert_eq!(catalog.pairs.len(), catalog.source_count);
+        assert_eq!(catalog.sealed_by_level, [catalog.source_count]);
+        assert_eq!(catalog.optimum_ties_by_level, [0]);
+        assert_eq!(catalog.fallback_pairs, 0);
+        assert!(catalog.unmatched_sources.is_empty());
+        assert!(catalog.unmatched_targets.is_empty());
+        let mut images = BTreeSet::new();
+        for word in permutations(poset.n()) {
+            let target = kp_adaptive_forward(&poset, &word, &catalog);
+            assert_eq!(kp_adaptive_reverse(&poset, &target, &catalog), word);
+            assert!(images.insert(kp_tableau_key(&target)));
+        }
+        assert_eq!(images, kp_expected_targets(&poset));
     }
 
     #[test]

@@ -43,6 +43,36 @@ or scanning rule remains viable.  Every Garsia--Milne transition preserves
 the full P-descent set and therefore lifts at fixed content, but the raw-good
 branch is not stable under the transported crystal operators.
 
+The recording part of the genuine crystal now has an exact carrier.  For the
+final semistandard tableau `Q`, let `S=std(Q)`.  Evacuation cancellation shows
+that the KP recording columns are the reversed rows of `S`.  A Kashiwara move
+has a constant-size token `(row,col,alpha,beta)` and applies one interval cycle
+of standard labels directly to those columns; swapping `alpha,beta` gives the
+inverse.  The release `--kp-carrier 5` census verifies all 198,720 directed
+moves on 56,993 colorings through rank five.  There are 96 directed moves
+landing in repaired targets and 20 directed raw/repaired crossings.  Raw
+inverse works when the moved
+endpoint is raw-good; a repaired endpoint uses a Garsia--Milne reverse trace.
+Thus the only remaining nonlocal part is endpoint ownership resolution.
+
+For local insertion, exact-Q partial stages are now known unsafe: a rank-eight
+6-by-6 component has maximum exact-Q matchings that cannot extend perfectly.
+The replacement prototype uses nested graphs and seals only entire perfectly
+matched components.  Independent exhaustive probes seal respectively
+`112`; `407+30`; and `934+354+0+144` defects on codes `12466778`, `24567888`,
+and `34666888`, with no cost/profile ties.  Rust exposes the same experiment
+as `--kp-uniform-code CODE adaptive`.  A terminal all-rank schedule must relax
+all bounds and use proved invariant-fiber balance or append the global
+Garsia--Milne endpoint edges; locality in the worst case remains open.
+The Rust completion now uses a simpler proved fallback: each candidate edge
+is checked to preserve reversed P-descent and P-inversion, local perfect
+components are removed, and any residual is paired lexicographically inside
+these balanced coarse fibers.  This is an all-rank finite bijection with a
+global fallback; components beyond the 128-bit local optimizer are simply
+deferred to it.  Its inverse reconstructs the same deterministic catalog,
+recognizes corrected targets there, and otherwise uses checked raw KP
+deletion/replay.  The sampled rank-eight orders use zero fallback pairs.
+
 The exact Kim--Pylyavskyy Algorithms 1--3 and dualized inverse are now
 implemented with a reversible event trace.  The rank-five repair is
 recording-aware: only the two fibers `125/34` and `135/24` over the repaired
@@ -73,13 +103,14 @@ memoryless growth rule.  KP Example 7.11 at code `(2,4,5,6,6,7,7)` and word
 accept arbitrary column arrays.  Detailed conventions and results are in
 `docs/chromatic-p-array-rsk/LOCAL_KP_INSERTION.md`.
 
-Twelve unit tests, Clippy with warnings denied, formatting, the diff check,
-and the release `--kp-local` census pass.  The release census
-reproduces the rank-six totals and constructs all 5,040 rank-five standard
-chromatic pairs.  No Lean source or build, marked-coloring/HRV file,
-circular-LLT file, or manuscript file was touched.
-The verified checkpoint is `61c8de5`, merged and pushed to `main`.  The
-worker retains its three owned paths for the next arbitrary-column repair
+Eighteen unit tests, Clippy with warnings denied, formatting, and the diff
+check pass.  Release `--kp-carrier 5` checks 198,720 directed moves.  The hard
+adaptive rank-eight run on code `34666888` matches all 1,432 defects with
+sealing profile `[934,354,0,144]`, zero optimum ties, and zero fallback pairs.
+The rank-six adaptive regression exhaustively checks forward/inverse
+reconstruction and exact target coverage.  No Lean source or build,
+marked-coloring/HRV file, circular-LLT file, or manuscript file was touched.
+The worker retains its three owned paths for the next carrier/ownership
 experiment.
 
 The rank-seven arbitrary-column experiment is complete.  Across 429 orders
