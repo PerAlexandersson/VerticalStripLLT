@@ -6,10 +6,13 @@ The host supervisor owns only `README.md` and this handoff entry for the
 user-requested GitHub visibility change. The README now gives a short result
 summary, links the two independent formalized component proofs, and cites the
 Alexandersson--Sulzgruber and Hwang papers. No Lean or manuscript source was
-edited. Read-only checks found a clean `main`, no credential-like tracked
+edited. The README checkpoint `b1a13d8` is pushed to `origin/main`, and GitHub
+reports `PerAlexandersson/VerticalStripLLT` as public; the public page returned
+HTTP 200. Read-only checks found a clean `main`, no credential-like tracked
 filenames in current or historical paths, and no credential-pattern matches in
 current text files. The local `PartitionDivision` audit project is separate;
 it has no Lean package or GitHub remote and must not be described as formalized.
+The host supervisor releases both files after this status checkpoint.
 
 ## Current status and routing
 
