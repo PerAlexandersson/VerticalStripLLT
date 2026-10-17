@@ -1,5 +1,16 @@
 # VerticalStripLLT handoff
 
+## Public repository preparation (2026-10-17)
+
+The host supervisor owns only `README.md` and this handoff entry for the
+user-requested GitHub visibility change. The README now gives a short result
+summary, links the two independent formalized component proofs, and cites the
+Alexandersson--Sulzgruber and Hwang papers. No Lean or manuscript source was
+edited. Read-only checks found a clean `main`, no credential-like tracked
+filenames in current or historical paths, and no credential-pattern matches in
+current text files. The local `PartitionDivision` audit project is separate;
+it has no Lean package or GitHub remote and must not be described as formalized.
+
 ## Current status and routing
 
 On 2026-10-16, the user moved the chromatic P-array RSK and proper-coloring
