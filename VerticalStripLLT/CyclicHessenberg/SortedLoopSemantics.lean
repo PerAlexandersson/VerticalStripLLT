@@ -20,6 +20,8 @@ theorem coloredLoopAscentCount_eq_orderedLoopAscentCount (h : Tuple k n)
   simp only [orderedLoopAscentEvents, orderedLoopValue, loopAscentEvents,
     Finset.mem_filter, Finset.mem_univ, true_and, e, Equiv.prodCongr_apply,
     Prod.map_apply, Equiv.refl_apply]
+  dsimp only
+  simp only [Finset.mem_filter, Finset.mem_univ, true_and]
   rw [← colorSortedPerm_precedes_iff_lt]
   tauto
 
@@ -37,7 +39,7 @@ theorem sortedLoopColorWeight_sort (h : Tuple k n)
     orderedLoopAscentCount h (x.1, colorSortedPerm x.2)) *
       ∏ i : Fin k, MvPolynomial.X (x.2 (colorSortedPerm x.2 i)) = _
   rw [← coloredLoopAscentCount_eq_orderedLoopAscentCount]
-  rw [(colorSortedPerm x.2).prod_comp (fun a => (MvPolynomial.X (x.2 a) : XPoly m))]
+  rw [Equiv.prod_comp (colorSortedPerm x.2) (fun a => (MvPolynomial.X (x.2 a) : XPoly m))]
 
 theorem sortedLoopColoringSum_eq_sum_weight (h : Tuple k n) (m : ℕ) :
     sortedLoopColoringSum h m = ∑ x : SortedLoopColorData h m, sortedLoopColorWeight h x := by
