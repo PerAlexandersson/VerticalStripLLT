@@ -40,7 +40,9 @@ def layerListFeasible (h : V → V) : List V → List V → Prop
 instance layerListFeasibleDecidable (h : V → V) (l u : List V) :
     Decidable (layerListFeasible h l u) := by
   induction l generalizing u with
-  | nil => cases u <;> exact inferInstance
+  | nil => cases u with
+    | nil => exact inferInstanceAs (Decidable True)
+    | cons c u => exact inferInstanceAs (Decidable False)
   | cons a l ih => cases u with
     | nil => exact inferInstanceAs (Decidable False)
     | cons c u => exact @instDecidableAnd _ _ inferInstance (ih u)
@@ -88,7 +90,7 @@ theorem layerListWeight_pair_exchange [CommSemiring R] (h : V → V) (hm : Monot
       have hB : layerListAscentCount h (b :: a :: σ) (c :: d :: σ') = N := by
         simp only [layerListAscentCount, spectatorCount_cons, hba, false_and,
           ite_false, zero_add]
-        rfl
+        simp [N, Nat.add_assoc]
       have hC : layerListAscentCount h (a :: b :: σ) (d :: c :: σ') = N + 1 := by
         simp only [layerListAscentCount, spectatorCount_cons, hab, hbD, and_self, ite_true]
         dsimp [N]
@@ -110,9 +112,34 @@ theorem layerListWeight_pair_exchange [CommSemiring R] (h : V → V) (hm : Monot
       simp only [List.cons_append, List.nil_append, layerListWeight, layerListFeasible,
         ite_eq_right hcross, ite_eq_right hcross', mul_zero, add_zero, hcount]
       constructor
-      · rfl
+      · trivial
       · congr 1
+        apply propext
         tauto
   · simp [layerListWeight, layerListFeasible, ht]
+
+/-- Every earlier strand sees the same unordered row pair, so arbitrary prefixes preserve exchange. -/
+theorem layerListWeight_exchangeCompatible [CommSemiring R] (h : V → V)
+    (hm : Monotone h) (q : R) : ListExchangeCompatible q (layerListWeight h q) := by
+  intro ρ σ ρ' σ' a b c d hlen hab hcd
+  induction ρ generalizing ρ' with
+  | nil =>
+    have hnil : ρ' = [] := List.length_eq_zero_iff.mp hlen.symm
+    subst ρ'
+    exact layerListWeight_pair_exchange h hm q a b c d hab hcd σ σ'
+  | cons x ρ ih =>
+    cases ρ' with
+    | nil => simp at hlen
+    | cons y ρ' =>
+      have htail := ih ρ' (Nat.succ.inj hlen)
+      have hperm : (ρ ++ [a, b] ++ σ).Perm (ρ ++ [b, a] ++ σ) :=
+        ((List.Perm.swap b a []).append_left ρ).append_right σ
+      have hs := spectatorCount_perm x (h y) hperm
+      simp only [List.cons_append, layerListWeight_cons]
+      by_cases hxy : x ≤ h y
+      · simp only [ite_eq_left hxy, ← hs]
+        rw [htail.1, htail.2]
+        constructor <;> ring
+      · simp only [ite_eq_right hxy, mul_zero, add_zero, and_self]
 
 end VerticalStripLLT.CyclicHessenberg
