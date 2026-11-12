@@ -23,7 +23,8 @@ Bounded active assignments (build-free, no commits): `cyclic_hessenberg_data` re
 it released `CycleRoots.lean` and `CycleBlockAction.lean`, adopted by primary,
 and released `CycleCoefficients.lean`, adopted by primary. It now owns only
 `OpenPathWeight.lean` (released, adopted by primary). It now owns only new
-`MarkedWeights.lean`, finite powerset generating polynomials and marked-event counts. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
+`MarkedWeights.lean` (released, adopted by primary). It now owns only new
+`SingletonExpansion.lean`, exact zero- and one-vertex matching expansion examples. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
 it released `CompositionIndex.lean`, adopted by primary, and now owns only
 `ColorRuns.lean` (released, adopted by primary). Its next sole file is
 `CompositionSplit.lean` (released, adopted by primary). It now owns only new

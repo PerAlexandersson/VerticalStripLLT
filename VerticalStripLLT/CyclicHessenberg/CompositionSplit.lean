@@ -35,7 +35,7 @@ theorem splitWrtCompositionAux_zip (l₁ : List α) (l₂ : List β) (ns : List 
       change List.take n (List.zipWith Prod.mk l₁ l₂) ::
         (List.drop n (List.zipWith Prod.mk l₁ l₂)).splitWrtCompositionAux ns = _
       rw [List.take_zipWith, List.drop_zipWith]
-      rw [ih]
+      exact congrArg (List.cons ((l₁.take n).zip (l₂.take n))) (ih (l₁.drop n) (l₂.drop n))
 
 /-- Splitting a zipped pair of lists produces the corresponding zipped blocks. -/
 theorem splitWrtComposition_zip (l₁ : List α) (l₂ : List β) (c : Composition n) :
