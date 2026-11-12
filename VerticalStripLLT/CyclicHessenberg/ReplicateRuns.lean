@@ -26,7 +26,9 @@ theorem constantBlocks_lengths (colors : List C) (sizes : List ℕ)
     | nil => simp at hlen
     | cons n ns =>
       have htail : cs.length = ns.length := Nat.succ.inj hlen
-      simp [constantBlocks, htail, ih htail]
+      change (List.replicate n c).length ::
+        (constantBlocks cs ns).map List.length = n :: ns
+      simp only [List.length_replicate, ih ns htail]
 
 theorem constantBlocks_flatten_length (colors : List C) (sizes : List ℕ)
     (hlen : colors.length = sizes.length) :
@@ -82,8 +84,8 @@ private theorem zip_pairwise_lt_pos (colors : List C) (sizes : List ℕ)
       constructor
       · intro p hp
         have hp' := List.of_mem_zip hp
-        exact ⟨hhead p.1 hp'.1, hn, hpos p.2 hp'.2⟩
-      · apply ih htail
+        exact ⟨hhead p.1 hp'.1, hn, hpos p.2 (List.mem_cons_of_mem _ hp'.2)⟩
+      · apply ih ns htail
         intro m hm
         exact hpos m (by simp [hm])
 
@@ -94,7 +96,7 @@ private theorem constantBlocks_pairwise_separated (colors : List C) (sizes : Lis
   rw [List.pairwise_map]
   apply (zip_pairwise_lt_pos colors sizes hcolor hpos).imp
   intro p q hpq
-  exact replicate_runSeparated p.1 q.1 p.2 q.2 hpq.1 hpq.2.1 hpq.2.2
+  exact replicate_runSeparated p.1 q.1 p.2 q.2 hpq.2.1 hpq.2.2 hpq.1
 
 theorem equalityRuns_flatten_constantBlocks (colors : List C) (sizes : List ℕ)
     (hlen : colors.length = sizes.length) (hcolor : colors.Pairwise (· < ·))

@@ -17,11 +17,9 @@ theorem coloredLoopAscentCount_eq_orderedLoopAscentCount (h : Tuple k n)
     Equiv.prodCongr (Equiv.refl _) (Equiv.prodCongr (colorSortedPerm κ) (colorSortedPerm κ))
   apply (Finset.card_equiv e ?_).symm
   rintro ⟨ℓ, i, j⟩
-  simp only [orderedLoopAscentEvents, orderedLoopValue, loopAscentEvents,
-    Finset.mem_filter, Finset.mem_univ, true_and, e, Equiv.prodCongr_apply,
-    Prod.map_apply, Equiv.refl_apply]
-  dsimp only
-  simp only [Finset.mem_filter, Finset.mem_univ, true_and]
+  simp only [orderedLoopAscentEvents, loopAscentEvents,
+    Finset.mem_filter, Finset.mem_univ, true_and]
+  simp only [orderedLoopValue, e, Equiv.prodCongr_apply, Prod.map_apply, Equiv.refl_apply]
   rw [← colorSortedPerm_precedes_iff_lt]
   tauto
 
