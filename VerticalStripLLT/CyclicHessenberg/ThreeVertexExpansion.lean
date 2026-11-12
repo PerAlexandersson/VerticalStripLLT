@@ -33,23 +33,25 @@ theorem naturalKernelExpansion_triple (a b r : V) (hab : a < b) (hbr : b < r)
     · exact hbr
     · exact lt_trans hab hbr
   have hps : S.powerset = {∅, {a}, {b}, {b, a}} := by
+    simp only [S, Finset.powerset_insert, Finset.powerset_empty,
+      Finset.image_singleton, Finset.image_insert, Finset.insert_empty]
     ext U
-    simp [S, Finset.subset_insert_iff, habne]
+    simp only [Finset.mem_union, Finset.mem_insert, Finset.mem_singleton]
+    tauto
   have hdiff0 : (insert r S : Finset V) \ {r} = S := by
     ext x
-    simp [S, Finset.mem_sdiff, Finset.mem_insert, habne, hbrne, harne]
+    simp only [S, Finset.mem_sdiff, Finset.mem_insert, Finset.mem_singleton]
+    aesop
   have hdiffA : (insert r S : Finset V) \ {r, a} = {b} := by
     ext x
-    simp [S, Finset.mem_sdiff, Finset.mem_insert, Finset.mem_singleton,
-      habne, hbrne, harne]
+    simp only [S, Finset.mem_sdiff, Finset.mem_insert, Finset.mem_singleton]
+    aesop
   have hdiffB : (insert r S : Finset V) \ {r, b} = {a} := by
     ext x
-    simp [S, Finset.mem_sdiff, Finset.mem_insert, Finset.mem_singleton,
-      habne, hbrne, harne]
+    simp only [S, Finset.mem_sdiff, Finset.mem_insert, Finset.mem_singleton]
+    aesop
   have hdiffAB : (insert r S : Finset V) \ (insert r {b, a}) = ∅ := by
-    ext x
-    simp [S, Finset.mem_sdiff, Finset.mem_insert, Finset.mem_singleton,
-      habne, hbrne, harne]
+    exact Finset.sdiff_self
   let Z0 := rootDeletion (Polynomial.X : Polynomial ℕ) Z {r} r
   let f : Finset V → NEExpansion := fun U =>
     natElementary ⟨U.card + 1, Nat.zero_lt_succ _⟩ *
@@ -59,43 +61,42 @@ theorem naturalKernelExpansion_triple (a b r : V) (hab : a < b) (hbr : b < r)
       (∑ U ∈ S.powerset, f U) =
         f ∅ + f {a} + f {b} + f {b, a} := by
     rw [hps]
-    simp [habne]
+    simp only [Finset.sum_insert, Finset.sum_singleton]
+    simp [habne, habne.symm]
   have hrecFour : naturalKernelExpansion (insert r S) Z =
       f ∅ + f {a} + f {b} + f {b, a} := by
     calc
       naturalKernelExpansion (insert r S) Z = ∑ U ∈ S.powerset, f U := by
         rw [naturalKernelExpansion_insert_max S r hmax Z]
-        rfl
       _ = _ := hsum
   have hrootA :
       rootDeletion (Polynomial.X : Polynomial ℕ) Z {r, a} r [b] [b] =
         Polynomial.X * Z [r, a, b] [a, r, b] := by
     unfold rootDeletion
     have herase : ({r, a} : Finset V).erase r = {a} := by
-      simp [harne]
+      simp [harne, harne.symm]
     rw [herase]
-    simp [harne]
+    simp [harne, harne.symm]
   have hrootB :
       rootDeletion (Polynomial.X : Polynomial ℕ) Z {r, b} r [a] [a] =
         Polynomial.X * Z [r, b, a] [b, r, a] := by
     unfold rootDeletion
     have herase : ({r, b} : Finset V).erase r = {b} := by
-      simp [hbrne]
+      simp [hbrne, hbrne.symm]
     rw [herase]
-    simp [hbrne]
+    simp [hbrne, hbrne.symm]
   have hrootAB :
       rootDeletion (Polynomial.X : Polynomial ℕ) Z (insert r {b, a}) r [] [] =
         Polynomial.X ^ 2 *
           (Z [r, b, a] [b, a, r] + Z [r, a, b] [a, b, r]) := by
     unfold rootDeletion
     have herase : (insert r ({b, a} : Finset V)).erase r = {b, a} := by
-      simp [hbrne, harne]
+      simp [hbrne, hbrne.symm, harne, harne.symm]
     have hcard : (insert r ({b, a} : Finset V)).card = 3 := by
-      simp [habne, hbrne, harne]
+      simp [habne, habne.symm, hbrne, hbrne.symm, harne, harne.symm]
     rw [herase, hcard]
     rw [sum_order_pair b a habne.symm]
     simp [pairForwardOrder, pairReverseOrder, habne, Finset.pair_comm]
-  have hpair := naturalKernelExpansion_pair a b hab Z0
   have hrecExplicit : naturalKernelExpansion {r, b, a} Z =
       natElementary 1 * naturalKernelExpansion {b, a} Z0 +
         natElementary 2 * naturalKernelExpansion {b}
@@ -104,7 +105,9 @@ theorem naturalKernelExpansion_triple (a b r : V) (hab : a < b) (hbr : b < r)
           (rootDeletion Polynomial.X Z {r, b} r) +
         natElementary 3 * naturalKernelExpansion ∅
           (rootDeletion Polynomial.X Z (insert r {b, a}) r) := by
-    simpa [f, S, habne, hbrne, harne, hdiff0, hdiffA, hdiffB, hdiffAB] using hrecFour
+    simpa only [f, Finset.card_empty, Finset.card_singleton, Finset.insert_empty,
+      Finset.card_insert_of_notMem (show b ∉ ({a} : Finset V) by simp [habne.symm]),
+      hdiff0, hdiffA, hdiffB, hdiffAB] using hrecFour
   rw [hrecExplicit]
   rw [naturalKernelExpansion_pair a b hab Z0,
     naturalKernelExpansion_singleton b (rootDeletion Polynomial.X Z {r, a} r),

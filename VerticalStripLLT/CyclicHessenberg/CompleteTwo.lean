@@ -130,13 +130,19 @@ private theorem completeTwoLayerKernel_mul_self :
     completeTwoLayerKernel * completeTwoLayerKernel =
       ((Polynomial.X : Polynomial ℕ) + 2) • completeTwoLayerKernel := by
   classical
-  ext π τ
+  funext π τ
+  have hne : fullOrderReverseTwo ≠ fullOrderForwardTwo := by
+    intro hh
+    have := congrArg Subtype.val hh
+    simp at this
   rw [Matrix.mul_apply, sum_fullOrder_two]
   by_cases hπ : π = fullOrderForwardTwo
   · subst π
-    simp [completeTwoLayerKernel_entry]
+    simp only [completeTwoLayerKernel_entry, if_pos rfl, if_neg hne,
+      Matrix.smul_apply, smul_eq_mul]
     ring
-  · simp [completeTwoLayerKernel_entry, hπ]
+  · simp only [completeTwoLayerKernel_entry, if_neg hπ, if_pos rfl, if_neg hne,
+      Matrix.smul_apply, smul_eq_mul]
     ring
 
 theorem completeTwoLayerKernel_pow_succ (n : ℕ) :
@@ -149,8 +155,6 @@ theorem completeTwoLayerKernel_pow_succ (n : ℕ) :
       rw [pow_succ, ih, Matrix.smul_mul, completeTwoLayerKernel_mul_self,
         smul_smul]
       simp only [pow_succ]
-      congr 1
-      ring
 
 theorem completeTwoOpenKernel_eq (n : ℕ) :
     naturalOpenKernel (completeTwoTuple (n + 1)) =
@@ -158,6 +162,7 @@ theorem completeTwoOpenKernel_eq (n : ℕ) :
   classical
   change (List.ofFn (fun i : Fin (n + 1) =>
     naturalLayerKernel (completeTwoTuple (n + 1) i))).prod = _
+  change (List.ofFn (fun _ : Fin (n + 1) => completeTwoLayerKernel)).prod = _
   rw [List.ofFn_const, List.prod_replicate, completeTwoLayerKernel_pow_succ]
 
 theorem completeTwoOpenKernel_entry (n : ℕ) (π τ : FullOrder 2) :
