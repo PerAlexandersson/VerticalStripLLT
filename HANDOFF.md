@@ -20,8 +20,9 @@ its decisions are recorded in the adapted plan. Only primary integrates and buil
 Draft PR: https://github.com/PerAlexandersson/VerticalStripLLT/pull/9
 
 Bounded active assignments (build-free, no commits): `cyclic_hessenberg_data` released `OrbitAction.lean`, adopted by primary;
-it released `CycleRoots.lean`, adopted by primary, and now owns only new
-`CycleBlockAction.lean`, generic list-map cyclic-block action and extraction. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
+it released `CycleRoots.lean` and `CycleBlockAction.lean`, adopted by primary,
+and now owns only new `CycleCoefficients.lean`, the coefficient formula and
+forced q-power factor for the explicit canonical cycle sum. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
 it released `CompositionIndex.lean`, adopted by primary, and now owns only
 new `ColorRuns.lean`, constant equality runs of monotone finite lists.
 Primary retains all other files, including cycle deletion and integration.
@@ -115,9 +116,8 @@ separate cycle targets in that receipt still needed repairs.
 receipt `20261112T111928-3ede86c6`; its separate permutation-display target
 had one SortedGT-to-Pairwise coercion error, now repaired in source.
 
-Outstanding substantive work: check/audit source elementary positivity, construct
-canonical cycle deletion and permutation equivalences, unroll the expansion into
-cycle and matching sums, prove the independent composition-sorted loop source
+Outstanding substantive work: complete the permutation equivalence and matching
+formula, audit the explicit cycle endpoints, prove the independent composition-sorted loop source
 bridge, factors/marked ascents, and meaningful regression/challenge endpoints.
 The actual weighted raw loop/path and coloring equalities and full layer exchange
 are checked; these must not be confused with the remaining sorted-source bridge.
