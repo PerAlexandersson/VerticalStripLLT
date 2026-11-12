@@ -16,7 +16,8 @@ theorem splitWrtCompositionAux_map (l : List α) (ns : List ℕ) (f : α → β)
   induction ns generalizing l with
   | nil => simp [splitWrtCompositionAux]
   | cons n ns ih =>
-      simp [splitWrtCompositionAux_cons, List.map_take, List.map_drop, ih]
+      simp only [splitWrtCompositionAux_cons, List.map_cons, ← List.map_take,
+        ← List.map_drop, ih]
 
 /-- Mapping a list commutes with splitting it into composition blocks. -/
 theorem splitWrtComposition_map (l : List α) (c : Composition n) (f : α → β) :
@@ -30,7 +31,11 @@ theorem splitWrtCompositionAux_zip (l₁ : List α) (l₂ : List β) (ns : List 
   induction ns generalizing l₁ l₂ with
   | nil => simp [splitWrtCompositionAux]
   | cons n ns ih =>
-      simp [splitWrtCompositionAux_cons, List.take_zipWith, List.drop_zipWith, ih]
+      simp only [splitWrtCompositionAux_cons, List.zipWith_cons_cons]
+      change List.take n (List.zipWith Prod.mk l₁ l₂) ::
+        (List.drop n (List.zipWith Prod.mk l₁ l₂)).splitWrtCompositionAux ns = _
+      rw [List.take_zipWith, List.drop_zipWith]
+      rw [ih]
 
 /-- Splitting a zipped pair of lists produces the corresponding zipped blocks. -/
 theorem splitWrtComposition_zip (l₁ : List α) (l₂ : List β) (c : Composition n) :
