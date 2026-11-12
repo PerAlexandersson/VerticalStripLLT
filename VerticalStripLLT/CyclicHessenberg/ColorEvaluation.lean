@@ -94,6 +94,7 @@ theorem colorClassProduct_eval {V R : Type*} [LinearOrder V] [CommRing R]
   have hfull := colorPositions_fullWord S m
   have hprojection := selectedColorSubword_map_snd_eq_sortedColorWord S m
   generalize hL : colorPositions S m = L at hposition hfull hprojection
+  generalize hG : colorClassProduct S.sort (List.ofFn weight) = G at hposition ⊢
   let positionWeight : Fin m × S → R := fun p => weight p.1
   let positionLetter : Fin m × S → V := fun p => p.2.val
   let subwordValue : List (Fin m × S) → R := fun T =>
@@ -112,7 +113,7 @@ theorem colorClassProduct_eval {V R : Type*} [LinearOrder V] [CommRing R]
   have hsubwords := sum_subwords_eq_sum_colorings L
     hfull subwordValue hbad
   calc
-    wordEval f [] [] (colorClassProduct S.sort (List.ofFn weight)) =
+    wordEval f [] [] G =
         (L.sublists.map subwordValue).sum := by
       rw [hposition]
       rw [wordEval_prod_one_add]
@@ -145,10 +146,10 @@ theorem colorClassProduct_eval_of_subset {V R : Type*} [LinearOrder V] [CommRing
     wordEval f [] [] (colorClassProduct T.sort (List.ofFn weight)) =
       ∑ κ : S → Fin m, (∏ v : S, weight (κ v)) *
         f (sortColorOrder κ).val := by
-  calc
-    wordEval f [] [] (colorClassProduct T.sort (List.ofFn weight)) =
-        wordEval f [] [] (colorClassProduct S.sort (List.ofFn weight)) :=
-      (colorClassProduct_restrict S T hST f hf (List.ofFn weight)).eval
-    _ = _ := colorClassProduct_eval S weight f hf
+  have hrestrict := colorClassProduct_restrict S T hST f hf (List.ofFn weight)
+  have heval := colorClassProduct_eval S weight f hf
+  generalize hT : colorClassProduct T.sort (List.ofFn weight) = A at hrestrict ⊢
+  generalize hS : colorClassProduct S.sort (List.ofFn weight) = B at hrestrict heval
+  exact hrestrict.eval.trans heval
 
 end VerticalStripLLT.CyclicHessenberg
