@@ -36,9 +36,10 @@ normal form/two-value spectator identity in `LayerExchangeCounts.lean`.
 No delegate has built or committed.
 The Luna delegate `cyclic_hessenberg_data` released `ColorClassProducts.lean`;
 primary is checking its literal sublist expansions.
-The Luna delegate `cyclic_order_insertion` now owns only the new
-`CyclicHessenberg/ColorElementaryWeights.lean`: finite-list elementary weights,
-their cons recurrence and identification with the existing elementary polynomial.
+The Luna delegate `cyclic_order_insertion` released `ColorElementaryWeights.lean`;
+primary is checking its recurrence and finite-alphabet identification.
+The Luna delegate `cyclic_hessenberg_data` now owns only new `LoopColorOrder.lean`:
+identify the actual loop color/tie relation with positions in its sorted full order.
 No builds or commits; all other files remain primary-owned.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,

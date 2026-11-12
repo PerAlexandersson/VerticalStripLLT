@@ -19,7 +19,8 @@ def elementaryWeights {R : Type*} [CommSemiring R] (Y : List R) (d : ℕ) : R :=
 
 @[simp] theorem elementaryWeights_nil_succ {R : Type*} [CommSemiring R] (d : ℕ) :
     elementaryWeights ([] : List R) (d + 1) = 0 := by
-  simp [elementaryWeights, Multiset.esymm]
+  apply Multiset.esymm_of_card_lt
+  simp
 
 /-- Adding one list entry gives the usual elementary-symmetric recurrence. -/
 theorem elementaryWeights_cons_succ {R : Type*} [CommSemiring R] (t : R)
@@ -27,6 +28,7 @@ theorem elementaryWeights_cons_succ {R : Type*} [CommSemiring R] (t : R)
     elementaryWeights (t :: Y) (d + 1) =
       elementaryWeights Y (d + 1) + t * elementaryWeights Y d := by
   classical
+  change (t ::ₘ (Y : Multiset R)).esymm (d + 1) = _
   simp [elementaryWeights, Multiset.esymm, Multiset.powersetCard_cons,
     Multiset.map_add, Multiset.map_map, Multiset.prod_cons,
     Multiset.sum_map_mul_left]
@@ -34,14 +36,14 @@ theorem elementaryWeights_cons_succ {R : Type*} [CommSemiring R] (t : R)
 /-- The list of finite-alphabet variables has the standard elementary weight. -/
 theorem elementaryWeights_X (m d : ℕ) :
     elementaryWeights
-        (List.ofFn (fun i : Fin m => MvPolynomial.X i : XPoly m)) d =
+        (List.ofFn (fun i : Fin m => (MvPolynomial.X i : XPoly m))) d =
       MvPolynomial.esymm (Fin m) Q d := by
   classical
   have hfin : (List.finRange m : Multiset (Fin m)) = Finset.univ.val := by
-    rw [← Finset.sort_univ m]
+    rw [← Fin.sort_univ m]
     exact Finset.sort_eq
   have hX :
-      (List.ofFn (fun i : Fin m => MvPolynomial.X i : XPoly m) :
+      (List.ofFn (fun i : Fin m => (MvPolynomial.X i : XPoly m)) :
         Multiset (XPoly m)) = Finset.univ.val.map MvPolynomial.X := by
     rw [List.ofFn_eq_map]
     change (List.finRange m : Multiset (Fin m)).map MvPolynomial.X = _
