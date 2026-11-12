@@ -50,7 +50,6 @@ private theorem fullOrder_two_cases (π : FullOrder 2) :
       have hnodup := π.property.1
       rw [hxy] at hnodup
       simp at hnodup
-      exact hnodup.elim
     · subst y
       left
       apply Subtype.ext
@@ -65,13 +64,13 @@ private theorem fullOrder_two_cases (π : FullOrder 2) :
       have hnodup := π.property.1
       rw [hxy] at hnodup
       simp at hnodup
-      exact hnodup.elim
 
 def completeTwoLayerKernel : Kernel (Polynomial ℕ) (Finset.univ : Finset (Fin 2)) :=
   naturalLayerKernel completeTwo
 
 theorem completeTwoLayerKernel_forward_row (τ : FullOrder 2) :
     completeTwoLayerKernel fullOrderForwardTwo τ = 1 + Polynomial.X := by
+  change layerKernelAt completeTwo (1 + Polynomial.X) fullOrderForwardTwo τ = _
   rw [← layerListWeight_eq completeTwo Polynomial.X fullOrderForwardTwo τ]
   rcases fullOrder_two_cases τ with hτ | hτ <;> subst τ
     <;> simp [completeTwoLayerKernel, layerListWeight, layerListFeasible,
@@ -79,6 +78,7 @@ theorem completeTwoLayerKernel_forward_row (τ : FullOrder 2) :
 
 theorem completeTwoLayerKernel_reverse_row (τ : FullOrder 2) :
     completeTwoLayerKernel fullOrderReverseTwo τ = 1 := by
+  change layerKernelAt completeTwo (1 + Polynomial.X) fullOrderReverseTwo τ = _
   rw [← layerListWeight_eq completeTwo Polynomial.X fullOrderReverseTwo τ]
   rcases fullOrder_two_cases τ with hτ | hτ <;> subst τ
     <;> simp [completeTwoLayerKernel, layerListWeight, layerListFeasible,
@@ -124,7 +124,7 @@ private theorem sum_fullOrder_two {R : Type*} [AddCommMonoid R]
     (∑ π : FullOrder 2, F π) = ∑ b : Bool, F (fullOrderTwoEquivBool.symm b) :=
       (Equiv.sum_comp fullOrderTwoEquivBool.symm F).symm
     _ = F fullOrderForwardTwo + F fullOrderReverseTwo := by
-      simp [fullOrderTwoEquivBool]
+      simp [fullOrderTwoEquivBool, add_comm]
 
 private theorem completeTwoLayerKernel_mul_self :
     completeTwoLayerKernel * completeTwoLayerKernel =

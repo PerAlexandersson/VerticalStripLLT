@@ -60,7 +60,9 @@ theorem constantBlocks_heads_lengths (B : List (List C))
         constantBlocks (blockHeads B) (B.map List.length) = (c :: cs) :: B
       simp only [List.head_cons] at hb
       rw [← hb]
-      exact congrArg (List.cons (c :: cs)) (ih _ _)
+      exact congrArg (List.cons (c :: cs)) (ih
+        (fun b hb => hne b (List.mem_cons_of_mem _ hb))
+        (fun b hb => hc b (List.mem_cons_of_mem _ hb)))
 
 theorem constantBlocks_equalityRuns (l : List C) :
     constantBlocks (blockHeads l.equalityRuns) (l.equalityRuns.map List.length) =

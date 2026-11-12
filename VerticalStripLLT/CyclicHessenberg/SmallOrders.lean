@@ -41,7 +41,6 @@ theorem order_pair_val_eq_forward_or_reverse (a b : V) (hne : a ≠ b)
     · subst y
       have hnodup := σ.property.1
       simp [hxy] at hnodup
-      exact hnodup.elim
     · subst y
       exact Or.inl hxy
   · subst x
@@ -51,7 +50,6 @@ theorem order_pair_val_eq_forward_or_reverse (a b : V) (hne : a ≠ b)
     · subst y
       have hnodup := σ.property.1
       simp [hxy] at hnodup
-      exact hnodup.elim
 
 /-- The finite order sum on two vertices is the sum of its two displayed orders. -/
 theorem sum_order_pair {R : Type*} [AddCommMonoid R] (a b : V) (hne : a ≠ b)
@@ -80,6 +78,6 @@ theorem sum_order_pair {R : Type*} [AddCommMonoid R] (a b : V) (hne : a ≠ b)
     (∑ σ : Order ({a, b} : Finset V), F σ) = ∑ t : Bool, F (e.symm t) :=
       (Equiv.sum_comp e.symm F).symm
     _ = F forward + F reverse := by
-      simp [e, forward, reverse]
+      simp [e, forward, reverse, add_comm]
 
 end VerticalStripLLT.CyclicHessenberg
