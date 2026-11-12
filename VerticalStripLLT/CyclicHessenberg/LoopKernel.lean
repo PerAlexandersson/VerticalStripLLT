@@ -18,14 +18,18 @@ def fullOrdersPerm (k : ℕ) : FullOrder k ≃ Equiv.Perm (Fin k) :=
 
 @[simp] theorem fullOrdersPerm_apply_position (π : FullOrder k) (i : LayerPosition k) :
     fullOrdersPerm k π (layerPositionEquiv k i) = (orderEquiv π i).val := by
-  simp [fullOrdersPerm]
+  change (orderEquiv π ((layerPositionEquiv k).symm (layerPositionEquiv k i))).val = _
+  rw [Equiv.symm_apply_apply]
 
 theorem layerFeasible_iff_permutations (h : Hessenberg k) (π τ : FullOrder k) :
     layerFeasible h π τ ↔
       ∀ i : Fin k, fullOrdersPerm k π i ≤ h (fullOrdersPerm k τ i) := by
   constructor
   · intro hf i
-    simpa using hf ((layerPositionEquiv k).symm i)
+    have hh := hf ((layerPositionEquiv k).symm i)
+    rw [← fullOrdersPerm_apply_position, ← fullOrdersPerm_apply_position,
+      Equiv.apply_symm_apply] at hh
+    exact hh
   · intro hf i
     simpa using hf (layerPositionEquiv k i)
 
@@ -58,9 +62,11 @@ def boundaryPathToLoop (h : Tuple k n) (π : FullOrder k) (P : ClosedLayerPath h
     LoopCover h := by
   refine ⟨fun ℓ => (fullOrdersPerm k π).symm.trans (fullOrdersPerm k (P.val ℓ)),
     ?_, ?_, ?_⟩
-  · rw [P.property.1]
+  · dsimp only
+    rw [P.property.1]
     exact Equiv.symm_trans_self _
-  · rw [P.property.2.1]
+  · dsimp only
+    rw [P.property.2.1]
     exact Equiv.symm_trans_self _
   · intro ℓ a
     exact (layerFeasible_iff_permutations _ _ _).mp (P.property.2.2 ℓ)
