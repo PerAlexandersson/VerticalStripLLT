@@ -23,7 +23,7 @@ theorem specialize_loopColoringLLT_one {k n : ℕ} (h : Tuple k n) (m : ℕ) :
     rw [← Fintype.prod_sum]
     simp
   simp only [loopColoringLLT, map_sum, map_mul, map_prod, specializeQ,
-    MvPolynomial.map_C, Polynomial.evalRingHom_apply, Polynomial.eval_pow,
+    MvPolynomial.map_C, Polynomial.coe_evalRingHom, Polynomial.eval_pow,
     Polynomial.eval_X, one_pow, map_one, one_mul, MvPolynomial.map_X]
   rw [hsum]
   simp [nsmul_eq_mul]
@@ -39,7 +39,7 @@ theorem specialize_shift_cyclicLLT_zero {k n : ℕ} (h : Tuple k n) (m : ℕ) :
     ext <;> simp [qShift, Polynomial.coe_compRingHom_apply]
   change MvPolynomial.map (Polynomial.evalRingHom (0 : ℤ))
     (MvPolynomial.map qShift (loopColoringLLT h m)) = _
-  rw [← MvPolynomial.map_map, hcomp]
+  rw [MvPolynomial.map_map, hcomp]
   exact specialize_loopColoringLLT_one h m
 
 end VerticalStripLLT.CyclicHessenberg

@@ -76,7 +76,11 @@ theorem naturalKernelExpansion_triple (a b r : V) (hab : a < b) (hbr : b < r)
       intro hh
       have ha' : a ∈ ({b} : Finset V) := hh.symm ▸ Finset.mem_insert_of_mem (by simp)
       exact habne (Finset.mem_singleton.mp ha')
-    simp [Finset.sum_insert, ha, habset, hbaset, add_assoc]
+    rw [Finset.sum_insert (show (∅ : Finset V) ∉ {{a}, {b}, {b, a}} by simp),
+      Finset.sum_insert (show ({a} : Finset V) ∉ {{b}, {b, a}} by simp [ha, habset]),
+      Finset.sum_insert (show ({b} : Finset V) ∉ {{b, a}} by simp [hbaset]),
+      Finset.sum_singleton]
+    simp only [add_assoc]
   have hrecFour : naturalKernelExpansion (insert r S) Z =
       f ∅ + f {a} + f {b} + f {b, a} := by
     calc
