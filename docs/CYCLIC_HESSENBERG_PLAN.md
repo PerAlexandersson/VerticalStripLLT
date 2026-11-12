@@ -1,12 +1,14 @@
 # Cyclic Hessenberg LLT implementation
 
-Status: implementation in progress, 2026-11-12. The independent canonical-loop
-source equality with the explicit matching expansion, coefficientwise positivity,
-and weighted homogeneity are kernel checked at `a12cc2f`. Canonical cycles,
-positive deletion, full spectator exchange, and both residual contexts are checked.
-The separate composition-sorted source bridge, exact marked-coefficient interpretation
-and full regression suite remain in progress. Existing ordinary and circular
-results retain their previous verification status.
+Status: main semantic and positivity endpoints checked, 2026-11-12.
+`Challenges/CyclicHessenberg.lean` exposes all five endpoints. The explicit
+composition formula, independent coloring source, positive deletion, cycle and
+matching expansions, forced coefficient factor and marked-ascent cardinalities
+are checked. The 96-query main audit passed at `a41525d`; only the standard
+axioms `propext`, `Classical.choice`, `Quot.sound` occur. Complete two- and
+three-vertex formulas, zero-parameter source specialization, and the identity
+monodromy/loop-cover bijection are checked. Remaining integration work is the
+identity/Kim–Oh regressions and the broad existing-repository build.
 
 ## Scope and source correspondence
 
@@ -14,9 +16,9 @@ We implement an additional application under
 `VerticalStripLLT/CyclicHessenberg/`, in namespace
 `VerticalStripLLT.CyclicHessenberg`. Its source polynomial is the finite sum
 over canonical loop covers and colors, defined before transfer kernels or
-elementary expansions. For every positive layer count, we seek one formal
+elementary expansions. For every positive layer count, we prove one formal
 elementary expression whose evaluation in every finite alphabet equals this
-polynomial after `q ↦ q+1`. Its coefficients must lie in `ℕ[q]`.
+polynomial after `q ↦ q+1`. Its coefficients lie in `ℕ[q]`.
 
 The mathematical specification is `FINDINGS.md`, Sections 13–15, and
 `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project. The
@@ -88,7 +90,8 @@ The subsequent independent review approved homogeneous `lengthSlice` extraction:
 for each pair of exterior words and degree, instantiate the conjugation and inverse
 identities for that length slice and use its explicit finite bound. The checked
 `wordAd_eq_signedSublistMountain` implements this route without a polynomial lift.
-The final prefix/color-product bridge remains a required semantic proof.
+The prefix/color-product bridge is proved in `ColorPrefixEvaluation.lean` and
+`ColorRecurrence.lean`.
 
 The next review selected the pure finite-subword/coloring bijection. We adapt the
 combinatorial proofs from the existing word proof locally, without importing its
@@ -170,7 +173,7 @@ swaps, matrix characterization and product closure. The natural recurrence has
 compiled with coefficient nonnegativity and linearity. Its equality with the actual
 coloring sum, the independent canonical-loop source bridge, and source positivity
 are checked at `637112b`. Explicit cycle/matching and composition-sorted source
-bridges remain. Finiteness of cycle displays is obtained first from the actual
+bridges are now also checked, through `MatchingExpansion.lean` and `Source.lean`. Finiteness of cycle displays is obtained first from the actual
 maximal-cycle deletion equivalence by strict support induction; permutation
 reconstruction is a subsequent independent bijection, not a finiteness assumption.
 The helper `ExchangeMatrix.lean` specializes the finite-involution calculation
@@ -250,3 +253,43 @@ increasing lists of distinct block colors must identify the run weight with
 the source monomial quasisymmetric weight; this cannot be left as prose.
 The cover/color bijection uses checked color-sort uniqueness. No plethystic
 definition or circular flip-class claim is introduced.
+
+## Final source map and independent integration review
+
+We follow the manuscript proof strategy. The extra finite indexing, equality-run
+and order lemmas expose its bookkeeping to Lean; they do not replace its argument.
+Per reiterated this requirement during integration. Any mathematical change must
+be justified by an improvement to the paper argument.
+
+| Result | Checked declaration |
+| --- | --- |
+| Literal composition source with ordinary finite `M_β` | `cyclicLLT` in `Source.lean` |
+| Run weight equals increasing-color `M_β` | `runMonomialQuasisymmetric_eq` |
+| Exact source/coloring bridge | `cyclicLLT_eq_loopColoringLLT` |
+| Layer product satisfies spectator-aware exchange | `naturalOpenKernel_exchangeCompatible` |
+| Both independently fixed residual contexts | `ExchangeCompatible.prefixKernel`, `.suffixKernel` |
+| Signed-to-positive root deletion | `signedRootDeletion_eq_rootDeletion` |
+| Actual coloring recurrence | `weightedKernelColoring_insert_max` |
+| Recursive expression equals coloring evaluation | `naturalKernelExpansion_eval_eq_weightedKernelColoring` |
+| Canonical-cycle expansion | `naturalKernelExpansion_eq_cycleSum` |
+| Cycle display/permutation equivalence, including fixed points | `cycleDisplayEquivPerm` |
+| Explicit matching expansion | `naturalCanonicalCyclicExpansion_eq_matchingExpansion` |
+| Source equality after one shift | `shift_cyclicLLT_eq_cyclicExpansion` |
+| Forced coefficient factor | `naturalCyclicExpansion_coeff` |
+| Finite marked-ascent cardinalities | `cyclicExpansion_coeff_eq_card_markedMatching` |
+| Uniform coefficientwise positivity and degree | `Challenges.CyclicHessenberg.ePositive` |
+| Closed loops/identity monodromy | `loopCoverMatchingEquiv` |
+
+The independent Astra integration audit found no orientation or semantic defect.
+It checked successive matching composition, the source-to-target boundary ratio,
+fixed-point singleton cycles, positive block sizes, retained layer indices in
+ascent events, and the exact coefficient equation `j = k-count + selected.card`.
+The raw source, composition source and desired expansion have separate definitions.
+No desired semantic equality or positivity theorem is assumed as a hypothesis.
+The reviewed increasing-color equivalence and its weight theorem are now checked.
+
+The formal source is the finite-alphabet composition formula from the manuscript.
+We do not separately formalize plethystic `Xi`, an infinite symmetric-functions
+object, or a literal circular flip-class decomposition. There is no import from
+`Circular` in the substantive new subtree. `RepositoryAudit.lean` alone loads
+existing results to test integration; it is not a proof dependency.

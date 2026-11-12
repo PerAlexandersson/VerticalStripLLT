@@ -22,9 +22,10 @@ Draft PR: https://github.com/PerAlexandersson/VerticalStripLLT/pull/9
 Bounded assignments: all earlier candidates released and adopted by primary,
 including `CompleteTwo.lean` and `ThreeVertexExpansion.lean` (unbuilt).
 `CompleteThree.lean` is released and adopted by primary. `cyclic_order_insertion`
-now owns only new `KimOhExample.lean`, a build-free two-layer regression on
-h=(0,2,2). `cyclic_hessenberg_data` now owns
-only new `IdentityMatching.lean`, a build-free identity-layer matching regression.
+released `KimOhExample.lean`, now adopted by primary. No delegate owns source. `cyclic_hessenberg_data` now owns
+`IdentityMatching.lean` (released and adopted by primary). User reiterated:
+follow the paper proof strategy; mathematical deviations require a concrete
+improvement to the paper argument. The implemented route follows that strategy.
 Primary retains every other file and all integration/builds.
 Astra's independent final semantic audit found no orientation, fixed-point,
 coefficient or dependency defect; final literal composition source wrapper,
