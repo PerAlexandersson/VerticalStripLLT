@@ -20,22 +20,23 @@ expansion and gives its circular analogue.
 
 The coloring sums and highest-reachable-vertex expansions are defined
 independently and proved equal for every finite alphabet, including the empty
-alphabet. The diagram and word proofs of the component theorem are separate;
-neither imports the other's proof directory.
+alphabet. The component theorem has both a diagram proof and a word-functional
+proof.
 
-The separate cyclic Hessenberg development treats the cyclic LLT polynomials
-introduced by [Kim and Oh](https://arxiv.org/abs/2611.14177v1), Section 6.
-It follows the loop/coloring proof: transfer-kernel exchange, positive root
-deletion, and canonical cycle and matching expansions. Its independently defined
-composition source agrees with the coloring sum. After `q ↦ q+1`, one elementary expression over `ℕ[q]` works for every finite
-alphabet; each coefficient counts matchings with marked ascent events. Main source
-expansion theorems assume a positive layer count and include empty support and
-empty alphabets. This result does not assert a circular flip-class decomposition.
-See the [source map and proof plan](docs/CYCLIC_HESSENBERG_PLAN.md) and
-[public theorem interfaces](VerticalStripLLT/Challenges/CyclicHessenberg.lean).
+The cyclic Hessenberg development treats the cyclic LLT polynomials introduced
+by [Kim and Oh](https://arxiv.org/abs/2611.14177v1), Section 6. For every nonempty
+tuple of Hessenberg functions, we prove an elementary expansion after `q ↦ q+1`
+with coefficients in `ℕ[q]`. Each coefficient counts matchings with marked ascent
+events. The expansion holds in every finite alphabet, including the empty one,
+and includes the empty vertex set.
 
-The verification file checks the main theorems and their axioms. The project
-uses no `sorry`, custom axioms, or proof placeholders.
+The proof follows the loop/coloring model, transfer-kernel exchange, positive
+root deletion, and canonical cycle and matching expansions. The
+[main theorem file](VerticalStripLLT/CyclicHessenberg.lean) presents the source
+equality, expansion formulas, coefficient counts, and positivity theorem.
+The [source map and proof plan](docs/CYCLIC_HESSENBERG_PLAN.md) describe the proof modules.
+
+The verification files audit the main theorems and their axiom dependencies.
 
 ## Build
 
@@ -49,9 +50,7 @@ lake-workspace build VerticalStripLLT.CyclicHessenberg.Audit
 ```
 
 The wrapper keeps build artifacts outside the checkout. See [AGENTS.md](AGENTS.md)
-for workspace setup and build ownership. In the current Docker worker, builds
-run through the authorized host bridge with `--project VerticalStripLLT`; the
-RealRooted Lean MCP and local/Euler builds are not used for this task.
+for workspace setup, remote build commands, and build ownership.
 
 ## Further reading
 

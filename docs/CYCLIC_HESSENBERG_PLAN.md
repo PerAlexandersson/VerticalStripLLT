@@ -36,11 +36,9 @@ monorepo and the research manuscript remain read-only.
 | `thm:cyclicExpansion` | Explicit canonical-cycle expansion |
 | `cor:matchingExpansion` | Matching expansion and marked-ascent counts |
 
-The source identification with Kim–Oh's plethystic Definition 6.1 uses their
-Theorem 6.3 and its composition-indexed proof. We formalize the latter
-combinatorial model and its weighted bijection, not `Xi` or plethysm.
-The new objects are distinct from the existing `Circular` diagrams. Literal
-decomposition into circular flip classes remains open.
+The source identification with Kim–Oh's Definition 6.1 uses their Theorem 6.3
+and its composition-indexed proof. We formalize this finite-alphabet combinatorial
+model and its weighted bijection in the `CyclicHessenberg` namespace.
 
 ## Independent architecture review and decision
 
@@ -144,9 +142,11 @@ false`. Final audit entry points follow `Verification.lean` and
 | 5 | `CycleDisplay`, `CycleEquiv`, `CycleExpansion`, `MatchingExpansion`, `MatchingCoefficients` | Explicit cycle/matching formulas, coefficient factor and finite marked-ascent count |
 | 6 | Public root, cyclic examples/challenges, audit | Kernel checks, axiom audits and existing-paper regression |
 
-The public root is `VerticalStripLLT/CyclicHessenberg.lean`. Example and
-challenge wrappers are `VerticalStripLLT/Examples/CyclicHessenberg.lean`
-and `VerticalStripLLT/Challenges/CyclicHessenberg.lean`. All wrappers have substantive proofs, with no placeholder main theorems.
+The public theorem file is `VerticalStripLLT/CyclicHessenberg.lean`; it contains
+the five main declarations and their proofs. Examples are in
+`VerticalStripLLT/Examples/CyclicHessenberg.lean`. The historical import path
+`VerticalStripLLT/Challenges/CyclicHessenberg.lean` imports the public theorem file.
+The declaration names remain in `VerticalStripLLT.Challenges.CyclicHessenberg`.
 The audit is `CyclicHessenbergVerification.lean`, importing the additional
 `CyclicHessenberg/Audit.lean` module. The latter makes the axiom queries
 available through the constrained remote target interface.
@@ -246,8 +246,7 @@ equality-run lengths. The source polynomial is defined directly from positional
 ascent events and this independent run weight. A separate bijection with
 increasing lists of distinct block colors must identify the run weight with
 the source monomial quasisymmetric weight; this cannot be left as prose.
-The cover/color bijection uses checked color-sort uniqueness. No plethystic
-definition or circular flip-class claim is introduced.
+The cover/color bijection uses checked color-sort uniqueness.
 
 ## Final source map and independent integration review
 
@@ -284,10 +283,8 @@ No desired semantic equality or positivity theorem is assumed as a hypothesis.
 The reviewed increasing-color equivalence and its weight theorem are now checked.
 
 The formal source is the finite-alphabet composition formula from the manuscript.
-We do not separately formalize plethystic `Xi`, an infinite symmetric-functions
-object, or a literal circular flip-class decomposition. There is no import from
-`Circular` in the substantive new subtree. `RepositoryAudit.lean` alone loads
-existing results to test integration; it is not a proof dependency.
+The cyclic proof modules form their own dependency tree. `RepositoryAudit.lean`
+loads existing results to test integration.
 
 After Per reiterated the proof-strategy constraint, Astra compared the finalized
 chain against the manuscript again and found no mathematical deviation or unmet
@@ -319,6 +316,5 @@ The final combined build checks these arguments and every planned regression.
   declarations or kernel-check disabling. Source widths and `git diff --check`
   pass. No source-tree symlinks or generated dependency/build trees were added.
 
-No required declaration or proof remains missing. Per authorized merging the
-verified pull request; the implementation makes no additional claim about
-literal circular flip classes or the plethystic definition.
+All required declarations and proofs are checked. Per authorized merging the
+verified pull request.

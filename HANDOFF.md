@@ -1,5 +1,15 @@
 # VerticalStripLLT handoff
 
+## Public entry point revision (2026-11-12, active)
+
+Primary owns `README.md`, `VerticalStripLLT/CyclicHessenberg.lean`,
+`VerticalStripLLT/Challenges/CyclicHessenberg.lean`,
+`docs/CYCLIC_HESSENBERG_PLAN.md`, and this entry on `cyclic-public-entrypoint`.
+Per requested a useful linked theorem file and removal of paragraph-ending
+caveats. Move the five existing public declarations into the entry file,
+preserving their names, statements and proofs; keep the old import path usable.
+Update the public prose and source map, then run the serialized Laplace checks.
+
 ## README source citation (2026-11-12)
 
 Completed Per's request to cite the Kim–Oh preprint introducing cyclic LLTs
