@@ -29,9 +29,10 @@ theorem elementaryWeights_cons_succ {R : Type*} [CommSemiring R] (t : R)
       elementaryWeights Y (d + 1) + t * elementaryWeights Y d := by
   classical
   change (t ::ₘ (Y : Multiset R)).esymm (d + 1) = _
-  simp [elementaryWeights, Multiset.esymm, Multiset.powersetCard_cons,
-    Multiset.map_add, Multiset.map_map, Multiset.prod_cons,
-    Multiset.sum_map_mul_left]
+  rw [Multiset.esymm, Multiset.powersetCard_cons]
+  simp only [Multiset.map_add, Multiset.sum_add, Multiset.map_map,
+    Function.comp_def, Multiset.prod_cons, Multiset.sum_map_mul_left,
+    elementaryWeights, Multiset.esymm]
 
 /-- The list of finite-alphabet variables has the standard elementary weight. -/
 theorem elementaryWeights_X (m d : ℕ) :
@@ -41,7 +42,7 @@ theorem elementaryWeights_X (m d : ℕ) :
   classical
   have hfin : (List.finRange m : Multiset (Fin m)) = Finset.univ.val := by
     rw [← Fin.sort_univ m]
-    exact Finset.sort_eq
+    exact Finset.sort_eq _ _
   have hX :
       (List.ofFn (fun i : Fin m => (MvPolynomial.X i : XPoly m)) :
         Multiset (XPoly m)) = Finset.univ.val.map MvPolynomial.X := by
