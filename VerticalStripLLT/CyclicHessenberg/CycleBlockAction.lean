@@ -25,7 +25,7 @@ theorem map_cons_eq_rotated_iff_formPerm_action (f : V → V) (r : V)
     have hmap' : List.map f l = l.rotate 1 := by
       exact hmap.trans hrot
     have hopt := congrArg (fun w : List V => w[i]?) hmap'
-    have hval : f l[i] = l[(i + 1) % l.length]'_ := by
+    have hval : f l[i] = l[(i + 1) % l.length]'(Nat.mod_lt _ (by simp [l])) := by
       apply Option.some.inj
       simpa [List.getElem?_map, List.getElem?_rotate, hi] using hopt
     exact hval.trans (List.formPerm_apply_getElem l hnd i hi).symm

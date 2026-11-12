@@ -30,10 +30,16 @@ def matchingToOpenPath (h : Tuple k n) (π τ : FullOrder k)
     OpenLayerPath h π τ := by
   refine ⟨fun ℓ => (fullOrdersPerm k).symm
     ((fullOrdersPerm k π).trans (matchingTransport φ.val.val ℓ)), ?_, ?_, ?_⟩
-  · simp
+  · apply (fullOrdersPerm k).injective
+    rw [Equiv.apply_symm_apply]
+    ext x
+    simp
   · change (fullOrdersPerm k).symm
       ((fullOrdersPerm k π).trans (matchingMonodromy φ.val.val)) = τ
     rw [φ.property]
+    apply (fullOrdersPerm k).injective
+    rw [Equiv.apply_symm_apply]
+    ext x
     simp
   · intro ℓ
     rw [layerFeasible_iff_permutations]
@@ -50,7 +56,10 @@ def openPathToMatching (h : Tuple k n) (π τ : FullOrder k)
     have hh := (layerFeasible_iff_permutations _ _ _).mp (P.property.2.2 ℓ)
       ((fullOrdersPerm k (P.val ℓ.castSucc)).symm x)
     simpa only [Equiv.apply_symm_apply, Equiv.trans_apply] using hh
-  · rw [matchingMonodromy, matchingTransport_of_arbitrary_boundaries,
+  · change matchingTransport
+      (fun ℓ => (fullOrdersPerm k (P.val ℓ.castSucc)).symm.trans
+        (fullOrdersPerm k (P.val ℓ.succ))) (Fin.last n) = _
+    rw [matchingTransport_of_arbitrary_boundaries (fun ℓ => fullOrdersPerm k (P.val ℓ)),
       P.property.1, P.property.2.1]
 
 def matchingOpenPathEquiv (h : Tuple k n) (π τ : FullOrder k) :
@@ -66,13 +75,14 @@ def matchingOpenPathEquiv (h : Tuple k n) (π τ : FullOrder k) :
     intro x
     simp only [openPathToMatching, matchingToOpenPath, Equiv.apply_symm_apply,
       Equiv.trans_apply, Equiv.symm_trans_apply, matchingTransport_succ_apply]
-    simp
   right_inv P := by
     apply Subtype.ext
     funext ℓ
     apply (fullOrdersPerm k).injective
     simp only [matchingToOpenPath, openPathToMatching, Equiv.apply_symm_apply]
-    rw [matchingTransport_of_arbitrary_boundaries, P.property.1]
+    rw [matchingTransport_of_arbitrary_boundaries (fun ℓ => fullOrdersPerm k (P.val ℓ)),
+      P.property.1]
+    ext x
     simp
 
 end VerticalStripLLT.CyclicHessenberg

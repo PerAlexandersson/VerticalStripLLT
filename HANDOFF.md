@@ -21,8 +21,8 @@ Draft PR: https://github.com/PerAlexandersson/VerticalStripLLT/pull/9
 
 Bounded active assignments (build-free, no commits): `cyclic_hessenberg_data` released `OrbitAction.lean`, adopted by primary;
 it released `CycleRoots.lean` and `CycleBlockAction.lean`, adopted by primary,
-and now owns only new `CycleCoefficients.lean`, the coefficient formula and
-forced q-power factor for the explicit canonical cycle sum. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
+and released `CycleCoefficients.lean`, adopted by primary. It now owns only
+new `OpenPathWeight.lean`, the natural open-kernel sum over feasible paths. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
 it released `CompositionIndex.lean`, adopted by primary, and now owns only
 `ColorRuns.lean` (released, adopted by primary). Its next sole file is
 `CompositionSplit.lean`, list-map and zip compatibility of composition splitting

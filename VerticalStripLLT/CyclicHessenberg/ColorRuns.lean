@@ -37,7 +37,9 @@ theorem equalityRun_eq_replicate_head {l run : List α}
   | cons a tail =>
       have hrep : tail = List.replicate tail.length a :=
         List.isChain_cons_eq_iff_eq_replicate.mp hchain
-      simp [hrep, List.replicate_succ]
+      change a :: tail = List.replicate (tail.length + 1) a
+      rw [List.replicate_succ]
+      exact congrArg (List.cons a) hrep
 
 private def runCross (u v : List α) : Prop :=
   ∀ x ∈ u.getLast?, ∀ y ∈ v.head?, x ≤ y
@@ -55,7 +57,7 @@ private theorem headsOfRuns_isChain {runs : List (List α)}
     (hcross : runs.IsChain runCross)
     (hsep : runs.IsChain runSeparated) :
     (headsOfRuns runs hne).IsChain (· < ·) := by
-  induction runs generalizing hne hconst hcross hsep with
+  induction runs with
   | nil => exact List.isChain_nil
   | cons a tail ih =>
       cases tail with
@@ -70,14 +72,20 @@ private theorem headsOfRuns_isChain {runs : List (List α)}
           have hcrossAB := (List.isChain_cons_cons.mp hcross).1
           have hsepAB := (List.isChain_cons_cons.mp hsep).1
           rcases hsepAB with ⟨ha, hb, hneq⟩
+          have hlast : a.getLast ha = a.head hneA := by
+            have hentries : ∀ x ∈ a, x = a.head hneA := by
+              intro x hx
+              have hm : x ∈ List.replicate a.length (a.head hneA) := hconstA ▸ hx
+              exact (List.mem_replicate.mp hm).2
+            exact hentries _ (List.getLast_mem ha)
           have hle : a.head hneA ≤ b.head hneB := by
-            have h := hcrossAB (a.getLast ha) (List.getLast_mem _)
-              (b.head hb) (List.head_mem _)
-            simpa [hconstA, hconstB] using h
+            have h := hcrossAB (a.getLast ha) (List.getLast_mem_getLast? ha)
+              (b.head hb) (List.head_mem_head? hb)
+            exact hlast ▸ h
           have hneHead : a.head hneA ≠ b.head hneB := by
             intro heq
             apply of_decide_eq_false hneq
-            simpa [hconstA, hconstB] using heq
+            exact hlast.trans heq
           have hlt : a.head hneA < b.head hneB := lt_of_le_of_ne hle hneHead
           have hneTail : ∀ r ∈ b :: tail, r ≠ [] := by
             intro r hr
@@ -104,20 +112,19 @@ theorem equalityRunHeads_pairwise_lt {l : List α} (hl : l.Pairwise (· ≤ ·))
   have hparts := (List.isChain_flatten hnil).mp hflat
   have hconst : ∀ r (hr : r ∈ runs),
       r = List.replicate r.length
-        (r.head (List.ne_nil_of_mem_splitBy (by simpa [runs] using hr))) := by
+        (r.head (mem_equalityRun_ne_nil hr)) := by
     intro r hr
-    exact equalityRun_eq_replicate_head (by simpa [runs] using hr)
+    exact equalityRun_eq_replicate_head hr
   have hsep : runs.IsChain runSeparated := by
-    simpa [runs, runSeparated, equalityRuns] using
-      (List.isChain_getLast_head_splitBy (fun a b => decide (a = b)) l)
+    exact List.isChain_getLast_head_splitBy (fun a b => decide (a = b)) l
   have hheads := headsOfRuns_isChain
-    (fun r hr => List.ne_nil_of_mem_splitBy (by simpa [runs] using hr))
+    (fun r hr => mem_equalityRun_ne_nil hr)
     (by
       intro r hr
-      simpa [runs] using hconst r hr)
+      exact hconst r hr)
     hparts.2 hsep
   change (headsOfRuns runs
-    (fun r hr => List.ne_nil_of_mem_splitBy (by simpa [runs] using hr))).Pairwise (· < ·)
+    (fun r hr => mem_equalityRun_ne_nil hr)).Pairwise (· < ·)
   exact List.isChain_iff_pairwise.mp hheads
 
 end List
