@@ -21,7 +21,7 @@ open scoped BigOperators
       MvPolynomial.C
         (naturalPolynomialCast (kernelEntry (naturalOpenKernel h) [] [])) := by
   simp [recursiveCyclicExpansion, naturalRecursiveCyclicExpansion,
-    naturalKernelExpansion_empty]
+    naturalKernelExpansion_empty, naturalCast, naturalPolynomialCast]
 
 @[simp] theorem loopColoringLLT_zero_alphabet_explicit {k n : ℕ}
     (h : Tuple k n) (hk : 0 < k) :
@@ -33,8 +33,7 @@ private theorem loopAscentEvents_singleton {n : ℕ} (h : Tuple 1 n)
   classical
   ext e
   have hab : e.2.1 = e.2.2 := Subsingleton.elim _ _
-  rw [hab]
-  simp [loopAscentEvents]
+  simp [loopAscentEvents, hab]
 
 theorem loopColoringLLT_singleton {n m : ℕ} (h : Tuple 1 n) :
     loopColoringLLT h m = ∑ i : Fin m, (MvPolynomial.X i : XPoly m) := by

@@ -20,8 +20,8 @@ its decisions are recorded in the adapted plan. Only primary integrates and buil
 Draft PR: https://github.com/PerAlexandersson/VerticalStripLLT/pull/9
 
 Bounded active assignments (build-free, no commits): `cyclic_hessenberg_data` released `OrbitAction.lean`, adopted by primary;
-it now owns only new `CycleRoots.lean`, maximal representatives of permutation
-orbits and their uniqueness/coverage. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
+it released `CycleRoots.lean`, adopted by primary, and now owns only new
+`CycleBlockAction.lean`, generic list-map cyclic-block action and extraction. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
 it now owns only new `CompositionIndex.lean`, monotonicity/surjectivity and
 ordered-block index comparisons for Mathlib compositions.
 Primary retains all other files, including cycle deletion and integration.
