@@ -288,3 +288,5 @@ import VerticalStripLLT.Components.SelectedColoringTransport
 import VerticalStripLLT.Components.ComponentPositive
 import VerticalStripLLT.Components.DiagramProof
 import VerticalStripLLT.Bridge
+
+import VerticalStripLLT.CyclicHessenberg
