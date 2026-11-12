@@ -42,7 +42,7 @@ theorem colorClassProduct_filter (f : List V → R) (p : V → Bool)
 theorem filter_sort_of_subset (A T : Finset V) (hAT : A ⊆ T) :
     T.sort.filter (fun a => decide (a ∈ A)) = A.sort := by
   classical
-  apply List.SortedLT.eq_of_mem_iff ((Finset.sortedLT_sort T).filter _)
+  apply List.SortedLT.eq_of_mem_iff ((Finset.sortedLT_sort T).pairwise.filter _).sortedLT
     (Finset.sortedLT_sort A)
   intro a
   simp only [List.mem_filter, Finset.mem_sort, decide_eq_true_eq]
@@ -64,7 +64,8 @@ theorem supported_prefix (S U : Finset V) (hUS : U ⊆ S) (p : Order U)
   intro w hw
   apply hf
   intro hpw
-  have h := isOrder_append_left_iff p.property (Finset.sdiff_disjoint.symm)
+  have h := isOrder_append_left_iff (B := S \ U) (l := w) p.property
+    (Finset.sdiff_disjoint.symm)
   have hu : U ∪ (S \ U) = S := Finset.union_sdiff_of_subset hUS
   rw [hu] at h
   exact hw (h.mp hpw)

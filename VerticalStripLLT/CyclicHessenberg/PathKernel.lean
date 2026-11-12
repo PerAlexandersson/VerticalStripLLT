@@ -6,6 +6,7 @@ import VerticalStripLLT.CyclicHessenberg.LoopKernel
 namespace VerticalStripLLT.CyclicHessenberg
 
 open scoped BigOperators
+open Classical
 
 variable {k n : ℕ}
 
@@ -38,10 +39,10 @@ private theorem fixedBoundaryPath_weight_eq (h : Tuple k n) (π : FullOrder k)
       else 0 := by
   classical
   by_cases hp : FixedBoundaryPathFeasible h π p
-  · rw [dif_pos hp]
+  · rw [dite_eq_left hp]
     simp_rw [rawLayerKernel, layerKernelAt, if_pos (hp _)]
     rw [Finset.prod_pow_eq_pow_sum]
-  · rw [dif_neg hp]
+  · rw [dite_eq_right hp]
     have hex : ∃ ℓ : Fin n, ¬ layerFeasible (h ℓ) (p.val ℓ.castSucc) (p.val ℓ.succ) :=
       not_forall.mp hp
     obtain ⟨ℓ, hℓ⟩ := hex
@@ -79,7 +80,7 @@ theorem rawOpenKernel_diagonal_eq_closedLayerPath_sum (h : Tuple k n)
       (fun p : FixedBoundaryPath (FullOrder k) n π π =>
         if hp : FixedBoundaryPathFeasible h π p then w p else 0)
     rw [← hsplit]
-    simp
+    simp only [Subtype.property, ↓reduceDIte, ↓reduceIte, Finset.sum_const_zero, add_zero]
   calc
     (∑ p : FixedBoundaryPath (FullOrder k) n π π,
         if hp : FixedBoundaryPathFeasible h π p then w p else 0) =
