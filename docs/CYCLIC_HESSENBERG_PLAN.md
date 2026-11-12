@@ -293,3 +293,12 @@ We do not separately formalize plethystic `Xi`, an infinite symmetric-functions
 object, or a literal circular flip-class decomposition. There is no import from
 `Circular` in the substantive new subtree. `RepositoryAudit.lean` alone loads
 existing results to test integration; it is not a proof dependency.
+
+After Per reiterated the proof-strategy constraint, Astra compared the finalized
+chain against the manuscript again and found no mathematical deviation or unmet
+core theorem contract. In particular, `lengthSlice` is the finite homogeneous
+coefficient extraction implicit in the manuscript's `R_d` comparison. Its
+read-only review also confirmed the formal q=0 proof: only singleton-cycle
+matchings survive, and `loopCoverMatchingEquiv` identifies their number with
+canonical loop covers. This includes k=0 and the required zeroth power.
+Compilation of the final regression candidates remains a separate gate.

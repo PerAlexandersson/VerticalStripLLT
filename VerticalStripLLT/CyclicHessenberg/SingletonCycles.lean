@@ -1,4 +1,5 @@
 import VerticalStripLLT.CyclicHessenberg.PermutationDisplay
+import Mathlib.Algebra.Order.BigOperators.Group.List
 
 /-! A cycle display with as many cycles as vertices is the identity permutation. -/
 
@@ -12,8 +13,8 @@ private theorem cycleSourceWord_length_eq_tailSum_add_count
   induction B with
   | nil => rfl
   | cons b B ih =>
-    change b.2.length + (B.map fun b => b.2.length).sum + (B.length + 1) =
-      b.2.length + 1 + (cycleSourceWord B).length
+    simp only [List.map_cons, List.sum_cons, List.length_cons, cycleSourceWord,
+      List.flatMap_cons, List.length_append] at *
     lia
 
 private theorem cycleWords_eq_of_empty_tails (B : List (V × List V))
@@ -25,7 +26,9 @@ private theorem cycleWords_eq_of_empty_tails (B : List (V × List V))
     have hB : ∀ c ∈ B, c.2 = [] := by
       intro c hc
       exact h c (by simp [hc])
-    simp [cycleSourceWord, cycleTargetWord, hb, ih hB]
+    change (b.1 :: b.2) ++ cycleSourceWord B = (b.2 ++ [b.1]) ++ cycleTargetWord B
+    rw [hb, ih hB]
+    rfl
 
 namespace CycleDisplay
 
@@ -49,7 +52,7 @@ theorem fullPerm_eq_one_of_count_eq_card {k : ℕ}
       (l := D.blocks.map fun b => b.2.length)
       (by intro x hx; exact Nat.zero_le x) hsum
       (List.mem_map.mpr ⟨b, hb, rfl⟩)
-    exact List.length_eq_zero.mp hzero
+    exact List.length_eq_zero_iff.mp hzero
   have hwords : D.source.val = D.target.val := by
     exact cycleWords_eq_of_empty_tails D.blocks htails
   apply D.fullPerm_eq_of_map_source 1

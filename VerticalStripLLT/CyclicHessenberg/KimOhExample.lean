@@ -88,53 +88,45 @@ private theorem kimOhKernel_210_210 :
     naturalOpenKernel kimOhTuple completeThreeOrder210 completeThreeOrder210 =
       Polynomial.X + 2 := by
   rw [kimOhOpenKernel_entry_eq_sum, sum_fullOrder_three]
-  simp [kimOhLayer_eq_listWeight, layerListWeight, layerListFeasible,
-    layerListAscentCount, spectatorCount, kimOhHessenberg,
-    completeThreeOrder210_val, completeThreeOrder201_val, completeThreeOrder120_val,
-    completeThreeOrder012_val, completeThreeOrder021_val, completeThreeOrder102_val]
-  ring
+  simp_rw [kimOhLayer_eq_listWeight]
+  simp [layerListWeight, layerListFeasible, layerListAscentCount, spectatorCount,
+    kimOhHessenberg] <;> ring
 
 private theorem kimOhKernel_210_201 :
     naturalOpenKernel kimOhTuple completeThreeOrder210 completeThreeOrder201 = 0 := by
   rw [kimOhOpenKernel_entry_eq_sum, sum_fullOrder_three]
-  simp [kimOhLayer_eq_listWeight, layerListWeight, layerListFeasible,
-    layerListAscentCount, spectatorCount, kimOhHessenberg,
-    completeThreeOrder210_val, completeThreeOrder201_val, completeThreeOrder120_val,
-    completeThreeOrder012_val, completeThreeOrder021_val, completeThreeOrder102_val]
+  simp_rw [kimOhLayer_eq_listWeight]
+  simp [layerListWeight, layerListFeasible, layerListAscentCount, spectatorCount,
+    kimOhHessenberg] <;> ring
 
 private theorem kimOhKernel_201_021 :
     naturalOpenKernel kimOhTuple completeThreeOrder201 completeThreeOrder021 = 0 := by
   rw [kimOhOpenKernel_entry_eq_sum, sum_fullOrder_three]
-  simp [kimOhLayer_eq_listWeight, layerListWeight, layerListFeasible,
-    layerListAscentCount, spectatorCount, kimOhHessenberg,
-    completeThreeOrder210_val, completeThreeOrder201_val, completeThreeOrder120_val,
-    completeThreeOrder012_val, completeThreeOrder021_val, completeThreeOrder102_val]
+  simp_rw [kimOhLayer_eq_listWeight]
+  simp [layerListWeight, layerListFeasible, layerListAscentCount, spectatorCount,
+    kimOhHessenberg] <;> ring
 
 private theorem kimOhKernel_210_120 :
     naturalOpenKernel kimOhTuple completeThreeOrder210 completeThreeOrder120 =
       Polynomial.X + 2 := by
   rw [kimOhOpenKernel_entry_eq_sum, sum_fullOrder_three]
-  simp [kimOhLayer_eq_listWeight, layerListWeight, layerListFeasible,
-    layerListAscentCount, spectatorCount, kimOhHessenberg,
-    completeThreeOrder210_val, completeThreeOrder201_val, completeThreeOrder120_val,
-    completeThreeOrder012_val, completeThreeOrder021_val, completeThreeOrder102_val]
-  ring
+  simp_rw [kimOhLayer_eq_listWeight]
+  simp [layerListWeight, layerListFeasible, layerListAscentCount, spectatorCount,
+    kimOhHessenberg] <;> ring
 
 private theorem kimOhKernel_210_102 :
     naturalOpenKernel kimOhTuple completeThreeOrder210 completeThreeOrder102 = 0 := by
   rw [kimOhOpenKernel_entry_eq_sum, sum_fullOrder_three]
-  simp [kimOhLayer_eq_listWeight, layerListWeight, layerListFeasible,
-    layerListAscentCount, spectatorCount, kimOhHessenberg,
-    completeThreeOrder210_val, completeThreeOrder201_val, completeThreeOrder120_val,
-    completeThreeOrder012_val, completeThreeOrder021_val, completeThreeOrder102_val]
+  simp_rw [kimOhLayer_eq_listWeight]
+  simp [layerListWeight, layerListFeasible, layerListAscentCount, spectatorCount,
+    kimOhHessenberg] <;> ring
 
 private theorem kimOhKernel_201_012 :
     naturalOpenKernel kimOhTuple completeThreeOrder201 completeThreeOrder012 = 0 := by
   rw [kimOhOpenKernel_entry_eq_sum, sum_fullOrder_three]
-  simp [kimOhLayer_eq_listWeight, layerListWeight, layerListFeasible,
-    layerListAscentCount, spectatorCount, kimOhHessenberg,
-    completeThreeOrder210_val, completeThreeOrder201_val, completeThreeOrder120_val,
-    completeThreeOrder012_val, completeThreeOrder021_val, completeThreeOrder102_val]
+  simp_rw [kimOhLayer_eq_listWeight]
+  simp [layerListWeight, layerListFeasible, layerListAscentCount, spectatorCount,
+    kimOhHessenberg] <;> ring
 
 /-- The two-layer Hessenberg kernel from Kim--Oh, Example 6.7. -/
 theorem naturalCyclicExpansion_kimOh_example67 :

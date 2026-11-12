@@ -19,6 +19,8 @@ import VerticalStripLLT.CyclicHessenberg.MatchingExpansion
 import VerticalStripLLT.CyclicHessenberg.CycleCoefficients
 
 import VerticalStripLLT.CyclicHessenberg
+import VerticalStripLLT.Examples.CyclicHessenberg
+import VerticalStripLLT.CyclicHessenberg.ZeroExpansion
 
 /-! Axiom queries for cyclic source semantics, deletion, expansions and coefficient positivity. -/
 
@@ -122,3 +124,17 @@ import VerticalStripLLT.CyclicHessenberg
 #print axioms VerticalStripLLT.Challenges.CyclicHessenberg.positiveMatchingExpansion
 #print axioms VerticalStripLLT.Challenges.CyclicHessenberg.elementaryCoefficientFormula
 #print axioms VerticalStripLLT.Challenges.CyclicHessenberg.ePositive
+
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalCyclicExpansion_empty_support
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalCyclicExpansion_singleton_support
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalCyclicExpansion_identity
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalKernelExpansion_pair
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalKernelExpansion_triple
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalCyclicExpansion_completeTwo
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalCyclicExpansion_completeThree
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalCyclicExpansion_kimOh_example67
+#print axioms VerticalStripLLT.CyclicHessenberg.specialize_shift_cyclicLLT_zero
+#print axioms VerticalStripLLT.CyclicHessenberg.loopCoverMatchingEquiv
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalCyclicExpansion_at_zero
+#print axioms VerticalStripLLT.CyclicHessenberg.Examples.decreasing_color_tie
+#print axioms VerticalStripLLT.CyclicHessenberg.Examples.later_reverse_event_with_tie

@@ -56,13 +56,13 @@ private theorem matchingTransport_identity {k n : ℕ} (i : Fin (n + 1)) :
     simp [ih]
 
 private theorem cycleRoots_one {V : Type*} [LinearOrder V] [Fintype V]
-    [DecidableEq V] : cycleRoots (1 : Equiv.Perm V) = Finset.univ := by
+    : cycleRoots (1 : Equiv.Perm V) = Finset.univ := by
   classical
   ext x
   simp [cycleRoots]
 
 private theorem permutationBlocks_one {V : Type*} [LinearOrder V] [Fintype V]
-    [DecidableEq V] :
+    :
     permutationBlocks (1 : Equiv.Perm V) =
       ((Finset.univ : Finset V).sort (· ≥ ·)).map fun x => (x, []) := by
   rw [permutationBlocks, cycleRoots_one]
@@ -92,9 +92,10 @@ private theorem layerAscentCount_identity_self {k : ℕ} (π : FullOrder k) :
     layerAscentCount (Hessenberg.identity k) π π = 0 := by
   classical
   have hevents : layerAscentEvents (Hessenberg.identity k) π π = ∅ := by
-    apply Finset.eq_empty_iff_forall_not_mem.mpr
-    intro e he
-    simp only [layerAscentEvents, Finset.mem_filter, Finset.mem_univ, true_and] at he
+    ext e
+    simp only [layerAscentEvents, Finset.mem_filter, Finset.mem_univ, true_and,
+      Finset.notMem_empty, iff_false]
+    intro he
     have hlt := he.2.1
     have hback : (orderEquiv π e.2).val ≤ (orderEquiv π e.1).val := by
       simpa [Hessenberg.identity] using he.2.2
@@ -136,7 +137,8 @@ theorem naturalCyclicExpansion_identity (k n : ℕ) :
       rw [hφ]
       exact matchingTransport_identity i
     rw [htrans]
-    simp
+    change (fullOrdersPerm k).symm (fullOrdersPerm k D.source) = D.source
+    exact (fullOrdersPerm k).symm_apply_apply D.source
   have hasc : matchingAscentCount h φ = 0 := by
     rw [matchingAscentCount_eq_sum]
     apply Finset.sum_eq_zero
