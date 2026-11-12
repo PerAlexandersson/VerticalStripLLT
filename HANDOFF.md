@@ -21,10 +21,13 @@ Draft PR: https://github.com/PerAlexandersson/VerticalStripLLT/pull/9
 
 Bounded active assignments (build-free, no commits): `cyclic_hessenberg_data` released `OrbitAction.lean`, adopted by primary;
 it now owns only new `CycleRoots.lean`, maximal representatives of permutation
-orbits and their uniqueness/coverage. `cyclic_order_insertion` owns only new `BasicExamples.lean`,
-empty support/alphabet and one-vertex source/expansion regression lemmas.
+orbits and their uniqueness/coverage. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
+it now owns only new `CompositionIndex.lean`, monotonicity/surjectivity and
+ordered-block index comparisons for Mathlib compositions.
 Primary retains all other files, including cycle deletion and integration.
-Astra's next assignment is a read-only audit of the remaining sorted-loop bridge.
+Astra completed its read-only sorted-loop bridge review: use Mathlib Composition,
+blockwise decreasing loop labels, increasing block colors and equality-run
+factorization. Primary owns the resulting source bridge and integration.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.

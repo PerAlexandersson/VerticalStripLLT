@@ -17,7 +17,6 @@ private theorem sourceWord_length_blocks (B : List (V × List V)) :
       change b.2.length + 1 + (B.map fun b => b.2.length + 1).sum =
         (b.1 :: b.2 ++ cycleSourceWord B).length
       rw [ih, List.length_append, List.length_cons]
-      lia
 
 private theorem shape_weight_blocks (B : List (V × List V)) :
     Finsupp.weight (fun d : ℕ+ => d.val)
@@ -34,7 +33,7 @@ private theorem shape_degree_blocks (B : List (V × List V)) :
   induction B with
   | nil => simp
   | cons b B ih =>
-      simp [List.map_cons, List.sum_cons, Finsupp.degree_single, ih]
+      simp [List.map_cons, List.sum_cons, Finsupp.degree_single, ih, Nat.add_comm]
 
 private theorem elementaryMonomial_blocks (B : List (V × List V)) :
     (B.map fun b => natElementary (blockSize b)).prod =
@@ -52,8 +51,11 @@ theorem shape_weight {S : Finset V} (D : CycleDisplay S) :
     D.shape.sum (fun d n => d.val * n) = S.card := by
   rw [← D.source_order.length]
   rw [← sourceWord_length_blocks]
-  simpa only [shape, Finsupp.weight_apply, smul_eq_mul, blockSize, Nat.mul_comm] using
-    shape_weight_blocks D.blocks
+  have hw := shape_weight_blocks D.blocks
+  rw [Finsupp.weight_apply] at hw
+  change ((D.blocks.map fun b => Finsupp.single (blockSize b) 1).sum.sum
+    fun d n => d.val * n) = (D.blocks.map fun b => b.2.length + 1).sum
+  simpa only [smul_eq_mul, mul_comm] using hw
 
 theorem shape_degree {S : Finset V} (D : CycleDisplay S) :
     D.shape.sum (fun _ n => n) = D.count := by

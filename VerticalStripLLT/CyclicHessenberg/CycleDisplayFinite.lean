@@ -1,5 +1,6 @@
 import VerticalStripLLT.CyclicHessenberg.CycleDisplayDeletion
 import Mathlib.Data.Fintype.Sigma
+import Mathlib.Data.Fintype.Prod
 
 /-! Finiteness follows from the actual maximal-cycle deletion equivalence. -/
 
@@ -25,8 +26,8 @@ theorem finite (S : Finset V) : Finite (CycleDisplay S) := by
     · let r := S.max' hS
       have hr : r ∈ S := S.max'_mem hS
       have hmax : ∀ a ∈ S, a ≤ r := fun a ha => Finset.le_max' S a ha
-      letI (U : RootSet S r) : Finite (CycleDisplay (S \ U.val)) :=
-        ih _ (Finset.sdiff_ssubset U.property.1 ⟨r, U.property.2⟩)
+      letI (U : RootSet S r) : Fintype (CycleDisplay (S \ U.val)) :=
+        @Fintype.ofFinite _ (ih _ (Finset.sdiff_ssubset U.property.1 ⟨r, U.property.2⟩))
       exact Finite.of_surjective (assemble S r hmax) (assemble_surjective S r hr hmax)
     · have he : S = ∅ := Finset.not_nonempty_iff_eq_empty.mp hS
       subst S
