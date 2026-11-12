@@ -58,6 +58,7 @@ theorem constantBlocks_heads_lengths (B : List (List C))
       have hb := hc (c :: cs) (by simp)
       change List.replicate (c :: cs).length c ::
         constantBlocks (blockHeads B) (B.map List.length) = (c :: cs) :: B
+      simp only [List.head_cons] at hb
       rw [← hb]
       exact congrArg (List.cons (c :: cs)) (ih _ _)
 

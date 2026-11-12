@@ -19,24 +19,15 @@ finite-word decomposition, coloring semantics and canonical cycle architecture;
 its decisions are recorded in the adapted plan. Only primary integrates and builds.
 Draft PR: https://github.com/PerAlexandersson/VerticalStripLLT/pull/9
 
-Bounded active assignments (build-free, no commits): `cyclic_hessenberg_data` released `OrbitAction.lean`, adopted by primary;
-it released `CycleRoots.lean` and `CycleBlockAction.lean`, adopted by primary,
-and released `CycleCoefficients.lean`, adopted by primary. It now owns only
-`OpenPathWeight.lean` (released, adopted by primary). It now owns only new
-`MarkedWeights.lean` (released, adopted by primary). It now owns only new
-`SingletonExpansion.lean` (released, adopted by primary). It now owns only new
-`ReplicateRuns.lean` (released, adopted by primary). It now owns only new
-`ThreeVertexExpansion.lean`, the generic six-term expansion on three named vertices. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
-it released `CompositionIndex.lean`, adopted by primary, and now owns only
-`ColorRuns.lean` (released, adopted by primary). Its next sole file is
-`CompositionSplit.lean` (released, adopted by primary). It now owns only new
-`RunLexOrder.lean` (released as partial helpers, adopted by primary; the full iff
-remains primary work). It now owns only `SmallOrders.lean` (released, adopted by primary). It now owns only
-`CompleteTwo.lean`, the complete two-vertex layer matrix and its power formula.
-Primary retains all other files, including cycle deletion and integration.
-Astra completed its read-only sorted-loop bridge review: use Mathlib Composition,
-blockwise decreasing loop labels, increasing block colors and equality-run
-factorization. Primary owns the resulting source bridge and integration.
+Bounded assignments: all earlier candidates released and adopted by primary,
+including `CompleteTwo.lean` and `ThreeVertexExpansion.lean` (unbuilt).
+`cyclic_order_insertion` now owns only new `CompleteThree.lean`, a build-free
+concrete one-layer three-vertex regression. `cyclic_hessenberg_data` now owns
+only new `IdentityMatching.lean`, a build-free identity-layer matching regression.
+Primary retains every other file and all integration/builds.
+Astra's independent final semantic audit found no orientation, fixed-point,
+coefficient or dependency defect; final literal composition source wrapper,
+regressions and public interfaces remain. Its review is contingent on checks.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.
@@ -131,13 +122,16 @@ passed at `8dc7714`. All of `MatchingExpansion` passed at `a12cc2f`
 matching sum**, with coefficientwise nonnegativity and weighted homogeneity.
 The forced shape factor `naturalCycleSum_coeff`, `MatchingPaths`, and `ColorRuns`
 passed at `4f3e814`; `CompositionSplit` and `SortedColorWords` passed at `1600147`.
-Matching axiom audits and marked-coefficient assertions are next focused checks.
+The 84-query audit passed at `4d2ddff` / `20261112T113454-72e4e381`.
+Marked coefficient cardinalities and the forced q-power factor checked at
+`3ab5cee` / `20261112T113626-1d5eef35`. Sorted-loop bijection checked at
+`a5408f7`; `SortedLoopSemantics` checked at `452cf5f` / `20261112T114805-241f9edb`.
+The latter receipt failed only RunHeads, now being repaired.
 
-Outstanding substantive work: complete the permutation equivalence and matching
-formula, audit the explicit cycle endpoints, prove the independent composition-sorted loop source
-bridge, factors/marked ascents, and meaningful regression/challenge endpoints.
-The actual weighted raw loop/path and coloring equalities and full layer exchange
-are checked; these must not be confused with the remaining sorted-source bridge.
+Outstanding work: increasing-color quasisymmetric identification and literal
+composition-source wrapper, nontrivial regressions, five public challenges,
+full checks and final axiom audit. Main raw-source equality to the explicit
+matching expansion, positivity, homogeneity and marked coefficients are checked.
 
 The initial requested `ae64cfc` checkpoint was published and checked through
 three repair receipts, culminating in `68d44c4` / `20261112T091256-90a0a5d9`.
