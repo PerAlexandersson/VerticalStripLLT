@@ -39,6 +39,23 @@ theorem rootDeletion_map {T : Type*} [CommSemiring T] (f : R →+* T)
   classical
   simp [rootDeletion]
 
+theorem rootDeletion_add (q : R) (Z W : List V → List V → R)
+    (U : Finset V) (r : V) :
+    rootDeletion q (fun l t => Z l t + W l t) U r =
+      fun l t => rootDeletion q Z U r l t + rootDeletion q W U r l t := by
+  classical
+  funext l t
+  simp [rootDeletion, Finset.sum_add_distrib, mul_add]
+
+theorem rootDeletion_smul (q a : R) (Z : List V → List V → R)
+    (U : Finset V) (r : V) :
+    rootDeletion q (fun l t => a * Z l t) U r =
+      fun l t => a * rootDeletion q Z U r l t := by
+  classical
+  funext l t
+  simp only [rootDeletion, ← Finset.mul_sum]
+  ring
+
 @[simp] theorem rootDeletion_singleton (q : R) (Z : List V → List V → R)
     (r : V) (π τ : List V) :
     rootDeletion q Z {r} r π τ = Z (r :: π) (r :: τ) := by
@@ -151,7 +168,15 @@ private theorem sum_insertion_positions (S : Finset V) (a : V) (ha : a ∉ S)
   classical
   have h := sum_insertOrder a ha (fun τ => f τ.val)
   simp_rw [insertOrder_val] at h
-  simpa only [Fin.sum_univ_eq_sum_range, length_order] using h
+  calc
+    _ = ∑ σ : Order S, ∑ i : Fin (S.card + 1),
+        f (σ.val.take i.val ++ a :: σ.val.drop i.val) := by
+      apply Finset.sum_congr rfl
+      intro σ hσ
+      rw [length_order]
+      exact (Fin.sum_univ_eq_sum_range
+        (fun i => f (σ.val.take i ++ a :: σ.val.drop i)) (S.card + 1)).symm
+    _ = _ := h
 
 /-- The positive residual of the signed intermediate kernel inserts the missing minimum once. -/
 theorem rootDeletion_minimumDifference {q : R} {Z : List V → List V → R}
