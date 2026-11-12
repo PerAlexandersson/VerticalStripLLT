@@ -1,8 +1,9 @@
 # Cyclic Hessenberg LLT implementation
 
-Status: implementation in progress, 2026-11-12. The new sources have not yet
-been compiled. Existing ordinary and circular results retain their previous
-verification status.
+Status: implementation in progress, 2026-11-12. The initial Data, BoundaryOrder,
+Kernel and independent Loops modules passed Laplace compilation at `68d44c4`.
+The main expansion and positivity endpoints remain unproved. Existing ordinary
+and circular results retain their previous verification status.
 
 ## Scope and source correspondence
 
@@ -112,8 +113,9 @@ The public root will be `VerticalStripLLT/CyclicHessenberg.lean`. Example and
 challenge wrappers will be `VerticalStripLLT/Examples/CyclicHessenberg.lean`
 and `VerticalStripLLT/Challenges/CyclicHessenberg.lean`. We add them only when
 their substantive proofs exist. There will be no placeholder main theorems.
-The audit is `CyclicHessenbergVerification.lean`, with a buildable audit module
-under the subtree if required by the constrained remote target interface.
+The audit is `CyclicHessenbergVerification.lean`, importing the additional
+`CyclicHessenberg/Audit.lean` module. The latter makes the axiom queries
+available through the constrained remote target interface.
 
 Current source checkpoint:
 
@@ -123,9 +125,10 @@ Current source checkpoint:
 * `Kernel`: typed finite matrices, zero extension, scalar exchange closure,
   unequal restrictions, contextual diagonal balance and signed minimum kernel.
 
-These are source candidates, not completed gates. The bijection between
-orders and indexed equivalences, position swap API, matrix characterization,
-product closure, and all later gates still require implementation/checking.
+The first three modules and the independent loop definitions have compiled,
+but this does not complete the gates. The bijection between orders and indexed
+equivalences is the next candidate; the position swap API, matrix
+characterization, product closure, and later gates still require work.
 
 ## Fixed endpoint contracts
 

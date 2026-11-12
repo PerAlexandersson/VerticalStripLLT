@@ -40,25 +40,29 @@ works for `lake status`; `report` is host-only in Docker and was refused.
 No local build, dependency setup, or cache cleanup was run. No source-tree
 symlinks were found. Existing `.lake/config` is left intact.
 
-Status: source candidates in `Data`, `BoundaryOrder` and `Kernel`; no new
-kernel-checked theorem yet. The latter includes typed unequal prefix/suffix
+Verified foundation checkpoint: `68d44c40b6e6b3b7dde97088e7d1250a491e027c`.
+Laplace job `20261112T091256-90a0a5d9` succeeded (exit 0, 1324 jobs), building
+`Kernel` and `Loops` and their `Data`/`BoundaryOrder` dependencies without Lean
+warnings. The wrapper's external packages-directory warning is unchanged;
+do not run `lake update` in response. The verified kernel includes unequal prefix/suffix
 restriction, `ListExchangeCompatible.diagonal_contextualBalance` and
 `ListExchangeCompatible.minimumDifference`. Gate 1 still lacks indexed-order
 equivalence, scalar/matrix characterization and product closure. All main
 root-deletion, insertion, loop-bridge, cycle/matching and positivity endpoints
-remain unproved. Static checks are not kernel verification.
+remain unproved. The independently defined `loopColoringLLT`, its empty-support
+value and zero-alphabet theorem are checked. The indexed-order equivalence is
+the next candidate change, pending its own build. Axiom audit follows.
 
 Published unbuilt checkpoint: `ae64cfc103e7db2719c192f8d15ef04351be94e6`.
 Primary submitted job `20261112T091045-b6da0e5b`, 7200-second bound, targets
 `VerticalStripLLT.CyclicHessenberg.Data`,
 `VerticalStripLLT.CyclicHessenberg.BoundaryOrder`,
 `VerticalStripLLT.CyclicHessenberg.Kernel`, via `--project VerticalStripLLT`.
-The primary owns monitoring and follow-up; use `lake job` / `lake logs` for
-that receipt. It failed on a missing finite-function import and two list-API
-proof errors; these are corrected in the next source checkpoint. No duplicate
-cache preparation is needed. Meanwhile `Loops.lean`
-now contains the independent canonical-cover/color model and degenerate-case
-proof candidates. Next: inspect focused diagnostics and continue Gate 1.
+The first receipt failed on a missing finite-function import and two list-API
+proof errors. Follow-up `20261112T091151-fdb209c0` at `28212e9` checked Data
+and BoundaryOrder but exposed Kernel/Loops elaboration errors. These were
+fixed and the third receipt above passed. No duplicate cache preparation was
+needed. The primary owns all subsequent submission and monitoring.
 
 ## Public repository preparation (2026-10-17)
 

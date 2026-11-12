@@ -1,6 +1,7 @@
 import Mathlib.Data.Finset.Sort
 import Mathlib.Data.List.Permutation
 import Mathlib.Data.List.NodupEquivFin
+import Mathlib.Data.List.OfFn
 
 /-! Orders of finite named supports. Deletion retains the original vertex names. -/
 
@@ -103,6 +104,50 @@ def appendOrder {A B : Finset V} (hd : Disjoint A B)
 
 @[simp] theorem mem_order {S : Finset V} (l : Order S) (v : V) :
     v ∈ l.val ↔ v ∈ S := l.property.mem_iff v
+
+/-- Read a boundary order as a bijection from its positions to the named support. -/
+def orderEquiv {S : Finset V} (l : Order S) : Fin S.card ≃ S :=
+  (finCongr (length_order l).symm).trans
+    ((List.Nodup.getEquiv l.val l.property.1).trans
+      (Equiv.subtypeEquivRight (fun v => l.property.mem_iff v)))
+
+@[simp] theorem orderEquiv_apply {S : Finset V} (l : Order S) (i : Fin S.card) :
+    (orderEquiv l i).val = l.val.get (Fin.cast (length_order l).symm i) := rfl
+
+/-- Recover the list of a bijection, in position order. -/
+def orderOfEquiv {S : Finset V} (e : Fin S.card ≃ S) : Order S := by
+  refine ⟨List.ofFn (fun i => (e i).val), ?_, ?_⟩
+  · rw [List.nodup_ofFn]
+    intro i j hij
+    exact e.injective (Subtype.ext hij)
+  · apply Finset.ext
+    intro v
+    simp only [List.mem_toFinset, List.mem_ofFn]
+    constructor
+    · rintro ⟨i, rfl⟩
+      exact (e i).property
+    · intro hv
+      exact ⟨e.symm ⟨v, hv⟩, congrArg Subtype.val (e.apply_symm_apply ⟨v, hv⟩)⟩
+
+@[simp] theorem orderOfEquiv_orderEquiv {S : Finset V} (l : Order S) :
+    orderOfEquiv (orderEquiv l) = l := by
+  apply Subtype.ext
+  change List.ofFn (fun i => l.val.get (Fin.cast (length_order l).symm i)) = l.val
+  rw [← List.ofFn_congr (length_order l) l.val.get, List.ofFn_get]
+
+@[simp] theorem orderEquiv_orderOfEquiv {S : Finset V} (e : Fin S.card ≃ S) :
+    orderEquiv (orderOfEquiv e) = e := by
+  apply Equiv.ext
+  intro i
+  apply Subtype.ext
+  simp [orderOfEquiv, List.get_ofFn]
+
+/-- Orders and bijections enumerate exactly the same finite boundary states. -/
+def ordersEquiv (S : Finset V) : Order S ≃ (Fin S.card ≃ S) where
+  toFun := orderEquiv
+  invFun := orderOfEquiv
+  left_inv := orderOfEquiv_orderEquiv
+  right_inv := orderEquiv_orderOfEquiv
 
 @[simp] theorem appendOrder_val {A B : Finset V} (hd : Disjoint A B)
     (l : Order A) (t : Order B) :
