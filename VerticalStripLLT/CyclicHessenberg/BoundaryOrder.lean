@@ -203,8 +203,9 @@ theorem swapAdjacentList_context (ρ σ : List V) (a b : V) :
     swapAdjacentList ρ.length (ρ ++ [a, b] ++ σ) = ρ ++ [b, a] ++ σ := by
   induction ρ with
   | nil => rfl
-  | cons c ρ ih => simpa only [List.length_cons, List.cons_append, swapAdjacentList] using
-      congrArg (List.cons c) ih
+  | cons c ρ ih =>
+    simpa only [List.length_cons, List.cons_append, swapAdjacentList] using
+      (congrArg (List.cons c) ih)
 
 /-- Adjacent exchange on the finite type of orders. -/
 def swapAdjacent {S : Finset V} (i : ℕ) (l : Order S) : Order S :=
