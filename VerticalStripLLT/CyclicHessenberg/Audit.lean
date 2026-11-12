@@ -13,6 +13,7 @@ import VerticalStripLLT.CyclicHessenberg.LoopSemantics
 import VerticalStripLLT.CyclicHessenberg.ColorDeletion
 import VerticalStripLLT.CyclicHessenberg.ColorEvaluation
 import VerticalStripLLT.CyclicHessenberg.KernelSupport
+import VerticalStripLLT.CyclicHessenberg.RecursivePositivity
 
 /-! Axiom queries for the currently implemented cyclic Hessenberg interfaces.
 The final semantic bridge and positivity endpoints must be added when proved. -/
@@ -82,3 +83,10 @@ The final semantic bridge and positivity endpoints must be added when proved. -/
 #print axioms VerticalStripLLT.CyclicHessenberg.colorClassProduct_eval
 #print axioms VerticalStripLLT.CyclicHessenberg.colorClassProduct_eval_of_subset
 #print axioms VerticalStripLLT.CyclicHessenberg.SupportedKernel.rootDeletion
+#print axioms VerticalStripLLT.CyclicHessenberg.weightedKernelColoring_insert_max
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalKernelExpansion_eval_eq_weightedKernelColoring
+#print axioms VerticalStripLLT.CyclicHessenberg.xQShift_loopColoringLLT_eq_naturalOpenKernel_coloring
+#print axioms VerticalStripLLT.CyclicHessenberg.shift_loopColoringLLT_eq_recursiveExpansion
+#print axioms VerticalStripLLT.CyclicHessenberg.recursiveCyclicExpansion_coeff_nonneg
+#print axioms VerticalStripLLT.CyclicHessenberg.recursiveCyclicExpansion_isWeightedHomogeneous
+#print axioms VerticalStripLLT.CyclicHessenberg.loopColoringLLT_has_natural_elementary_expansion

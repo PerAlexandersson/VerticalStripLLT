@@ -128,6 +128,7 @@ theorem correctedOrbitList_eq_of_action (p : Equiv.Perm α) (r : α)
     · intro i hi₁ hi₂
       rw [Equiv.Perm.getElem_toList p r i hi₁, hpow i,
         List.formPerm_pow_apply_head r (s :: tail) hnd' i]
-      simpa only [Nat.mod_eq_of_lt hi₂]
+      change l[i % l.length] = l[i]
+      simp only [Nat.mod_eq_of_lt hi₂]
 
 end VerticalStripLLT.CyclicHessenberg

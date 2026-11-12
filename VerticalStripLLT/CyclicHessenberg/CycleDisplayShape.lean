@@ -1,4 +1,5 @@
 import VerticalStripLLT.CyclicHessenberg.CycleDisplay
+import Mathlib.Data.Finsupp.Weight
 
 /-! Shape statistics and the elementary monomial of a cycle display. -/
 
@@ -13,7 +14,10 @@ private theorem sourceWord_length_blocks (B : List (V × List V)) :
   induction B with
   | nil => rfl
   | cons b B ih =>
-      simp [cycleSourceWord, ih]
+      change b.2.length + 1 + (B.map fun b => b.2.length + 1).sum =
+        (b.1 :: b.2 ++ cycleSourceWord B).length
+      rw [ih, List.length_cons, List.length_append]
+      lia
 
 private theorem shape_weight_blocks (B : List (V × List V)) :
     Finsupp.weight (fun d : ℕ+ => d.val)
@@ -39,9 +43,9 @@ private theorem elementaryMonomial_blocks (B : List (V × List V)) :
   induction B with
   | nil => simp [natElementary]
   | cons b B ih =>
-      simp only [List.map_cons, List.prod_cons, List.sum_cons, natElementary,
-        MvPolynomial.X]
-      rw [ih, MvPolynomial.monomial_mul_monomial]
+      simp only [List.map_cons, List.prod_cons, List.sum_cons]
+      rw [ih]
+      simp only [natElementary, MvPolynomial.X, MvPolynomial.monomial_mul_monomial]
       simp
 
 theorem shape_weight {S : Finset V} (D : CycleDisplay S) :

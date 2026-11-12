@@ -19,6 +19,13 @@ finite-word decomposition, coloring semantics and canonical cycle architecture;
 its decisions are recorded in the adapted plan. Only primary integrates and builds.
 Draft PR: https://github.com/PerAlexandersson/VerticalStripLLT/pull/9
 
+Bounded active assignments (build-free, no commits): `cyclic_hessenberg_data`
+owns only new `OrbitAction.lean`, proving the corrected orbit list acts by the
+original permutation. `cyclic_order_insertion` owns only new `BasicExamples.lean`,
+empty support/alphabet and one-vertex source/expansion regression lemmas.
+Primary retains all other files, including cycle deletion and integration.
+Astra's next assignment is a read-only audit of the remaining sorted-loop bridge.
+
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.
 Paths and interfaces will be adapted to this standalone repository, not
