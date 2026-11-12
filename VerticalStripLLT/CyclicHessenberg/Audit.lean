@@ -15,6 +15,9 @@ import VerticalStripLLT.CyclicHessenberg.ColorEvaluation
 import VerticalStripLLT.CyclicHessenberg.KernelSupport
 import VerticalStripLLT.CyclicHessenberg.RecursivePositivity
 
+import VerticalStripLLT.CyclicHessenberg.MatchingExpansion
+import VerticalStripLLT.CyclicHessenberg.CycleCoefficients
+
 /-! Axiom queries for the currently implemented cyclic Hessenberg interfaces.
 The final semantic bridge and positivity endpoints must be added when proved. -/
 
@@ -90,3 +93,16 @@ The final semantic bridge and positivity endpoints must be added when proved. -/
 #print axioms VerticalStripLLT.CyclicHessenberg.recursiveCyclicExpansion_coeff_nonneg
 #print axioms VerticalStripLLT.CyclicHessenberg.recursiveCyclicExpansion_isWeightedHomogeneous
 #print axioms VerticalStripLLT.CyclicHessenberg.loopColoringLLT_has_natural_elementary_expansion
+
+#print axioms VerticalStripLLT.CyclicHessenberg.CycleDisplay.deletionEquiv
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalKernelExpansion_eq_cycleSum
+#print axioms VerticalStripLLT.CyclicHessenberg.cycleDisplayEquivPerm
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalCycleSum_coeff
+#print axioms VerticalStripLLT.CyclicHessenberg.matchingTransport_of_arbitrary_boundaries
+#print axioms VerticalStripLLT.CyclicHessenberg.matchingOpenPathEquiv
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalOpenKernel_eq_openLayerPath_sum
+#print axioms VerticalStripLLT.CyclicHessenberg.canonicalPathMatchingEquiv
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalCanonicalCyclicExpansion_eq_matchingExpansion
+#print axioms VerticalStripLLT.CyclicHessenberg.shift_loopColoringLLT_eq_cyclicExpansion
+#print axioms VerticalStripLLT.CyclicHessenberg.cyclicExpansion_coeff_nonneg
+#print axioms VerticalStripLLT.CyclicHessenberg.cyclicExpansion_isWeightedHomogeneous

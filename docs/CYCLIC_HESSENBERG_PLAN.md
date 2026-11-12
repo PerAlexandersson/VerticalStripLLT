@@ -1,10 +1,12 @@
 # Cyclic Hessenberg LLT implementation
 
-Status: implementation in progress, 2026-11-12. At `e22f2ce`, Laplace checked
-scalar/matrix exchange equivalence and product closure, full signed-to-positive
-root deletion, the natural recurrence and its linearity. The main semantic
-expansion and source positivity endpoints remain unproved. Existing ordinary
-and circular results retain their previous verification status.
+Status: implementation in progress, 2026-11-12. The independent canonical-loop
+source equality with the explicit matching expansion, coefficientwise positivity,
+and weighted homogeneity are kernel checked at `a12cc2f`. Canonical cycles,
+positive deletion, full spectator exchange, and both residual contexts are checked.
+The separate composition-sorted source bridge, exact marked-coefficient interpretation
+and full regression suite remain in progress. Existing ordinary and circular
+results retain their previous verification status.
 
 ## Scope and source correspondence
 
@@ -235,3 +237,16 @@ Final checks include the whole library and existing audit entry points.
 Static guards reject `sorry`, `admit`, new axioms and `native_decide` in the
 new subtree. Axiom queries must report at most `propext`, `Classical.choice`
 and `Quot.sound`. Exact SHAs, job IDs and log locations belong in `HANDOFF.md`.
+
+## Composition-source review decision
+
+Astra independently approved the positive-composition source bridge. We use
+Mathlib `Composition k`, ordered loop covers with an explicit first-boundary
+permutation, and decreasing label lists inside each composition block. Color
+choices are monotone positional words with exactly the prescribed positive
+equality-run lengths. The source polynomial is defined directly from positional
+ascent events and this independent run weight. A separate bijection with
+increasing lists of distinct block colors must identify the run weight with
+the source monomial quasisymmetric weight; this cannot be left as prose.
+The cover/color bijection uses checked color-sort uniqueness. No plethystic
+definition or circular flip-class claim is introduced.

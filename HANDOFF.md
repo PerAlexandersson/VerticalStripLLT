@@ -121,6 +121,15 @@ separate cycle targets in that receipt still needed repairs.
 receipt `20261112T111928-3ede86c6`; its separate permutation-display target
 had one SortedGT-to-Pairwise coercion error, now repaired in source.
 
+Matching milestone: `CycleEquiv` and `SortedLoops` passed at `55ee38d`
+(`20261112T112819-80b862d9`, exit 0). `CanonicalMatching` and `OpenPathWeight`
+passed at `8dc7714`. All of `MatchingExpansion` passed at `a12cc2f`
+(`20261112T113059-9d621bb2`): the independent source equals the **explicit
+matching sum**, with coefficientwise nonnegativity and weighted homogeneity.
+The forced shape factor `naturalCycleSum_coeff`, `MatchingPaths`, and `ColorRuns`
+passed at `4f3e814`; `CompositionSplit` and `SortedColorWords` passed at `1600147`.
+Matching axiom audits and marked-coefficient assertions are next focused checks.
+
 Outstanding substantive work: complete the permutation equivalence and matching
 formula, audit the explicit cycle endpoints, prove the independent composition-sorted loop source
 bridge, factors/marked ascents, and meaningful regression/challenge endpoints.

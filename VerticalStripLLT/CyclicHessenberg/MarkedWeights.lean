@@ -16,7 +16,7 @@ theorem x_pow_mul_one_add_X_pow_eq_sum_powerset {α : Type*} [DecidableEq α]
   induction E using Finset.induction_on with
   | empty => simp
   | @insert a s ha ih =>
-    rw [Finset.card_insert_of_not_mem ha, pow_succ,
+    rw [Finset.card_insert_of_notMem ha, pow_succ,
       Finset.sum_powerset_insert ha]
     have hsecond :
         (∑ T ∈ s.powerset, (Polynomial.X : Polynomial ℕ) ^ (d + (insert a T).card)) =
@@ -25,7 +25,7 @@ theorem x_pow_mul_one_add_X_pow_eq_sum_powerset {α : Type*} [DecidableEq α]
       apply Finset.sum_congr rfl
       intro T hT
       have hnot : a ∉ T := Finset.notMem_mono (Finset.mem_powerset.mp hT) ha
-      rw [Finset.card_insert_of_not_mem hnot, ← Nat.add_assoc, pow_succ, mul_comm]
+      rw [Finset.card_insert_of_notMem hnot, ← Nat.add_assoc, pow_succ, mul_comm]
     calc
       (Polynomial.X : Polynomial ℕ) ^ d * ((1 + (Polynomial.X : Polynomial ℕ)) ^ s.card * (1 + (Polynomial.X : Polynomial ℕ))) =
           (Polynomial.X : Polynomial ℕ) ^ d * (1 + (Polynomial.X : Polynomial ℕ)) ^ s.card +
