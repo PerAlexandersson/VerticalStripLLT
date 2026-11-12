@@ -16,6 +16,7 @@ theorem kernelEntry_supported (S : Finset V) (Z : Kernel R S) :
     SupportedKernel S (kernelEntry Z) := by
   classical
   intro l t h
+  change f (Z l t) = 0
   rcases h with hl | ht
   · simp [kernelEntry, hl]
   · by_cases hl : IsOrder S l <;> simp [kernelEntry, hl, ht]
@@ -55,6 +56,27 @@ theorem rotatedRootPrefix_isOrder (U : Finset V) (r : V) (hr : r ∈ U)
   have hh : IsOrder U ([r] ++ σ.val) := rootPrefix_isOrder U r hr σ
   exact hh.perm List.perm_append_comm
 
+/-- A signed mountain contains exactly its chosen vertices and the additional root. -/
+theorem mountain_isOrder (U T : Finset V) (r : V) (hr : r ∉ U) (hT : T ⊆ U) :
+    IsOrder (insert r U) ((U \ T).sort ++ [r] ++ T.sort (· ≥ ·)) := by
+  classical
+  have hrT : r ∉ T := fun h => hr (hT h)
+  have h₁ : Disjoint (U \ T) {r} := by
+    simp only [Finset.disjoint_singleton_right, Finset.mem_sdiff, not_and]
+    exact fun h => (hr h).elim
+  have h₂ : Disjoint ((U \ T) ∪ {r}) T := by
+    rw [Finset.disjoint_union_left]
+    exact ⟨Finset.sdiff_disjoint, by simpa using hrT⟩
+  have hp := (((increasingOrder (U \ T)).property.append
+    (show IsOrder ({r} : Finset V) [r] by simp [IsOrder]) h₁).append
+      (decreasingOrder T).property h₂)
+  have hs : ((U \ T) ∪ {r}) ∪ T = insert r U := by
+    calc
+      _ = {r} ∪ ((U \ T) ∪ T) := by ac_rfl
+      _ = insert r U := by rw [Finset.sdiff_union_of_subset hT]; simp
+  rw [hs] at hp
+  exact hp
+
 /-- Positive deletion really removes `U`; it retains neither repetitions nor missing letters. -/
 theorem SupportedKernel.rootDeletion {S : Finset V} {Z : List V → List V → R}
     (hZ : SupportedKernel S Z) (q : R) (U : Finset V) (hUS : U ⊆ S)
@@ -74,6 +96,7 @@ theorem SupportedKernel.rootDeletion {S : Finset V} {Z : List V → List V → R
     rcases hbad with hπ | hτ
     · exact Or.inl (fun h => hπ (hleft.mp h))
     · exact Or.inr (fun h => hτ (hright.mp h))
+  change rootDeletion q Z U r π τ = 0
   simp only [rootDeletion, hzero, mul_zero]
 
 end VerticalStripLLT.CyclicHessenberg

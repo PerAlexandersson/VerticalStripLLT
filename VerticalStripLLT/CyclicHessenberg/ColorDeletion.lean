@@ -47,8 +47,9 @@ theorem mountainWordSum_eval_positive {q : R} {Z : List V → List V → R}
 /-- Collapse the homogeneous degree index, retaining each actual subset of letters. -/
 theorem sum_elementary_signedSetMountain (S : Finset V) (r : V) (Y : List R) :
     (∑ d ∈ Finset.range (S.card + 1),
-      elementaryWeights Y (d + 1) • signedSetMountain S r d) =
-      ∑ U ∈ S.powerset, elementaryWeights Y (U.card + 1) • mountainWordSum U r := by
+      elementaryWeights Y (d + 1) • signedSetMountain (R := R) S r d) =
+      ∑ U ∈ S.powerset,
+        elementaryWeights Y (U.card + 1) • mountainWordSum (R := R) U r := by
   classical
   simp only [signedSetMountain_eq_sum, Finset.smul_sum]
   rw [Finset.sum_comm]
@@ -70,15 +71,17 @@ theorem colorInsertion_eq_mountainSum (f : List V → R)
   have hsmall : ∀ a ∈ S.sort, a < r := by
     intro a ha
     exact hr a (by simpa only [Finset.mem_sort] using ha)
+  have hsort : S.sort.Pairwise (· < ·) := (Finset.sortedLT_sort S).pairwise
+  have hall (d : ℕ) : ContextEq f
+      (wordAd (wordLetterSum S.sort) (wordTerm [r]) d) (signedSetMountain S r d) :=
+    wordAd_eq_signedSetMountain f hf hrep S r hr d
+  generalize hl : S.sort = l at hsmall hsort hall ⊢
   have h₁ := colorInsertion_eq_adExpansion f hf hrep (S.card + 1) hdegree
-    S.sort r (Finset.sortedLT_sort S).pairwise hsmall Y
+    l r hsort hsmall Y
   have h₂ := ContextEq.sum (f := f) (Finset.range (S.card + 1))
-    (fun d => elementaryWeights Y (d + 1) • wordAd (wordLetterSum S.sort) (wordTerm [r]) d)
+    (fun d => elementaryWeights Y (d + 1) • wordAd (wordLetterSum l) (wordTerm [r]) d)
     (fun d => elementaryWeights Y (d + 1) • signedSetMountain S r d)
-    (fun d _ => (wordAd_eq_signedSetMountain f hf hrep S r hr d).smul
-      (elementaryWeights Y (d + 1)))
-  intro ρ σ
-  exact (h₁ ρ σ).trans ((h₂ ρ σ).trans
-    (congrArg (wordEval f ρ σ) (sum_elementary_signedSetMountain S r Y)))
+    (fun d _ => (hall d).smul (elementaryWeights Y (d + 1)))
+  exact h₁.trans (h₂.trans (ContextEq.of_eq (sum_elementary_signedSetMountain S r Y)))
 
 end VerticalStripLLT.CyclicHessenberg

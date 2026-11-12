@@ -95,8 +95,7 @@ private theorem colorPositionFiber_filter_map_snd (S : Finset V) {m : ℕ}
   simp only [colorPositionFiber, List.filter_map, List.map_map, Function.comp_def]
   rw [List.map_id']
   apply List.SortedGT.eq_of_mem_iff
-    ((((Finset.pairwise_sort (Finset.univ : Finset S) (· ≥ ·)).filter _).sortedGE)
-      .sortedGT_of_nodup ((Finset.sort_nodup (Finset.univ : Finset S) (· ≥ ·)).filter _))
+    ((Finset.sortedGT_sort (Finset.univ : Finset S)).pairwise.filter _).sortedGT
     (Finset.sortedGT_sort _)
   intro v
   simp [Finset.mem_sort]
@@ -106,7 +105,11 @@ theorem selectedColorSubword_map_snd_eq_sortedColorWord (S : Finset V) (m : ℕ)
     (κ : S → Fin m) :
     (selectedColorSubword (colorPositions S m) κ).map Prod.snd = sortedColorWord κ := by
   classical
-  change ((colorPositions S m).filter (fun p => decide (κ p.2 = p.1))).map Prod.snd = _
+  have hselected : selectedColorSubword (colorPositions S m) κ =
+      (colorPositions S m).filter (fun p => decide (κ p.2 = p.1)) := by
+    unfold selectedColorSubword
+    congr
+  rw [hselected]
   rw [colorPositions, map_filter_flatten]
   rw [← List.ofFn_comp']
   apply congrArg List.flatten
@@ -125,15 +128,14 @@ private theorem colorClassProduct_ofFn {R : Type*} [CommRing R] (S : Finset V)
     induction Y with
     | nil => rfl
     | cons t Y ih => simp only [colorClassProduct, List.map_cons, List.prod_cons, ih]
-  simpa only [List.map_ofFn] using hh (List.ofFn weight)
+  simpa only [List.map_ofFn, Function.comp_def] using hh (List.ofFn weight)
 
 private theorem colorPositionFiber_prod {R : Type*} [CommRing R] (S : Finset V)
     {m : ℕ} (weight : Fin m → R) (c : Fin m) :
     ((colorPositionFiber S m c).map fun p =>
       1 + weight p.1 • wordTerm (R := R) [p.2.val]).prod =
       descendingClass (weight c) S.sort := by
-  change (((Finset.univ : Finset S).sort (· ≥ ·)).map fun v =>
-    1 + weight c • wordTerm (R := R) [v.val]).prod = _
+  simp only [colorPositionFiber, List.map_map, Function.comp_def]
   calc
     _ = ((((Finset.univ : Finset S).sort (· ≥ ·)).map Subtype.val).map
         (fun v => 1 + weight c • wordTerm (R := R) [v])).prod := by

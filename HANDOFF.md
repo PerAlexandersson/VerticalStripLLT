@@ -55,6 +55,8 @@ now owns only new `ColorPositions.lean`, the literal positions-product identity.
 `LoopSemantics.lean` is released and adopted by primary. The order delegate now
 owns only new `ColorEvaluation.lean`, finite product evaluation through the subword
 bijection and the residual-support bridge. Primary retains all build ownership.
+Both delegates have now released all files, including `ColorPositions.lean` and
+`ColorEvaluation.lean`; primary again owns the whole task subtree. No delegate built.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.
@@ -111,6 +113,11 @@ Checked status (all via serialized Laplace; failed receipts are not final checks
   at `5b65bbf`. `LayerExchange` and `FiniteMatrixPaths` passed at `d8050d7` in
   receipt `20261112T102533-ae968313` (the separate mountain assembly target failed).
   Thus actual positional layers and their ordered natural product satisfy exchange.
+- `ColorSupport` passed at `0caa0fa`; `ColorSubwords` and `PathKernel` at `41c8371`.
+  `ColorSubsetMountain` and **`loopColoringLLT_eq_kernelColoringLLT`** passed at
+  `fc868f9`, receipt `20261112T103815-5b751a30`; other targets in that receipt failed.
+  The raw independent source polynomial is now proved equal to the diagonal transfer
+  coloring enumerator. This is still not the elementary-expansion endpoint.
 
 Outstanding substantive work: assemble the elementary-weight insertion sum,
 identify its signed mountain coefficients, and prove its evaluation equals the
