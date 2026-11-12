@@ -44,7 +44,9 @@ theorem weightedKernelColoring_insert_max (S : Finset V) (r : V)
       rw [weightedKernelColoring_eq_classProduct _ _ hs, sort_insert_max S r hr]
     _ = wordEval f [] [] (colorInsertion S.sort r Y * G) := by
       rw [hfactor]
-      simp only [add_mul, one_mul, map_add, hmissing, zero_add]
+      simp only [add_mul, one_mul, map_add]
+      change wordEval f [] [] G + wordEval f [] [] (colorInsertion S.sort r Y * G) = _
+      rw [hmissing, zero_add]
     _ = ∑ U ∈ S.powerset, elementaryWeights Y (U.card + 1) *
           wordEval f [] [] (mountainWordSum U r * G) := by
       simpa only [Finset.sum_mul, smul_mul_assoc, map_sum, map_smul, smul_eq_mul]
@@ -54,7 +56,7 @@ theorem weightedKernelColoring_insert_max (S : Finset V) (r : V)
       intro U hU
       have hUS : U ⊆ S := Finset.mem_powerset.mp hU
       have hrU : r ∉ U := fun h => hrS (hUS h)
-      have hfull : insert r U ⊆ insert r S := Finset.insert_subset_insert hUS
+      have hfull : insert r U ⊆ insert r S := Finset.insert_subset_insert r hUS
       have hremaining : (insert r S) \ (insert r U) ⊆ S := by
         intro a ha
         obtain ⟨haS, haU⟩ := Finset.mem_sdiff.mp ha
