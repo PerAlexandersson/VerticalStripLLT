@@ -42,7 +42,8 @@ theorem recursiveCyclicExpansion_coeff_nonneg {k n : ℕ} (h : Tuple k n)
 theorem recursiveCyclicExpansion_isWeightedHomogeneous {k n : ℕ} (h : Tuple k n) :
     MvPolynomial.IsWeightedHomogeneous (fun d : ℕ+ => d.val)
       (recursiveCyclicExpansion h) k := by
-  simpa only [Finset.card_univ, Fintype.card_fin] using
+  simpa only [kernelExpansion, recursiveCyclicExpansion, naturalRecursiveCyclicExpansion,
+    Finset.card_univ, Fintype.card_fin] using
     kernelExpansion_isWeightedHomogeneous_degree
       (Finset.univ : Finset (Fin k)) (kernelEntry (naturalOpenKernel h))
 

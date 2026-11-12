@@ -8,78 +8,16 @@ Baseline: clean `main` at `f93e8755b473528d95b3e5d8f7c08d07af9e4fa0`;
 remote: public `PerAlexandersson/VerticalStripLLT`. Active branch:
 `cyclic-hessenberg`, in this checkout. No other worktree exists.
 
-Ownership: primary owns `VerticalStripLLT/CyclicHessenberg/`, the future
-`VerticalStripLLT/CyclicHessenberg.lean`, cyclic examples/challenge wrappers,
-`CyclicHessenbergVerification.lean`, `docs/CYCLIC_HESSENBERG_PLAN.md`, and this
-opening handoff entry. Root imports and README integration are reserved to
-the primary after checks. Existing Circular, component and manuscript files
-are outside the implementation scope. The independent Astra reviewer
-`cyclic_architecture_review` completed its read-only review and released its
-task. The primary adopted its recommendations; the decision and standalone
-roadmap are in `docs/CYCLIC_HESSENBERG_PLAN.md`. The bounded Luna delegate
-`cyclic_hessenberg_data` drafted only `Data.lean`, then released it without
-building or committing; the primary reviewed and adopted that file.
-The same Luna delegate drafted and released `CyclicHessenberg/Layer.lean`
-without builds or commits; the primary reviewed and adopted its layer kernels,
-ordered products and coefficient maps. Draft PR: GitHub #9.
-`cyclic_hessenberg_data` drafted and released `CyclicHessenberg/Coloring.lean`
-without building. The primary adopts its direct finite color enumerator for checking.
-The bounded Luna delegate `cyclic_order_insertion` drafted and released
-`CyclicHessenberg/OrderInsertion.lean`: insertion/erasure of one absent named
-vertex and the finite-sum reindexing. The primary adopted it for Laplace checking.
-That delegate drafted and released `CyclicHessenberg/MatrixExchange.lean` for the
-generic finite-involution scalar/matrix equivalence; primary owns its integration.
-Both Luna delegates have released all files. Primary now owns the whole task
-subtree and the single build slot. Latest candidates adopted from delegates:
-sorting characterization and uniqueness in `Coloring.lean`, and the count-sum
-normal form/two-value spectator identity in `LayerExchangeCounts.lean`.
-No delegate has built or committed.
-The Luna delegate `cyclic_hessenberg_data` released `ColorClassProducts.lean`;
-primary is checking its literal sublist expansions.
-The Luna delegate `cyclic_order_insertion` released `ColorElementaryWeights.lean`;
-primary is checking its recurrence and finite-alphabet identification.
-The Luna delegate `cyclic_hessenberg_data` released `LoopColorOrder.lean`;
-primary checked its sorting/position equivalence at `2bf4223`.
-Both delegates released `FiniteMatrixPaths.lean` and `SortedSubsets.lean`; primary
-owns their integration and repairs. New bounded assignments: `cyclic_order_insertion`
-owns only new `PathKernel.lean`, restricting the matrix-path sum to feasible paths;
-`cyclic_hessenberg_data` now owns only new `ColorSubwords.lean`, pure finite
-colored-subword/coloring bijections. No assignment-expansion file was written;
-the Astra-reviewed subword route supersedes it. Neither may build or commit.
-The Astra reviewer completed the remaining coloring semantic review read-only.
-`PathKernel.lean` has been released and adopted by primary for checking.
-`cyclic_order_insertion` now owns only new `LoopSemantics.lean`, assembling
-the weighted bijections into the raw loop/kernel polynomial equality. No builds.
-`ColorSubwords.lean` has been released and adopted by primary. The data delegate
-now owns only new `ColorPositions.lean`, the literal positions-product identity.
-`LoopSemantics.lean` is released and adopted by primary. The order delegate now
-owns only new `ColorEvaluation.lean`, finite product evaluation through the subword
-bijection and the residual-support bridge. Primary retains all build ownership.
-Both delegates have now released all files, including `ColorPositions.lean` and
-`ColorEvaluation.lean`; primary again owns the whole task subtree. No delegate built.
-Next bounded assignment: data delegate owns only new `ColorMissing.lean`, proving
-that a color product omitting a required root evaluates to zero, plus maximum-sort
-append bookkeeping. All integration and builds remain with primary.
-The order delegate owns only new `ColorPrefixEvaluation.lean`, evaluating a fixed
-prefix and then a signed mountain block against the actual residual coloring sum.
-The data delegate released `ColorMissing.lean`; it now owns only new
-`RootSubsetSums.lean`, a dependent finite-sum reindexing by subsets containing a root.
-These last two helper assignments are released and adopted by primary. All agents
-are build-free and all task files are currently primary-owned.
-New bounded assignment: data delegate owns only `PolynomialSemantics.lean`,
-coefficient-map/elementary-evaluation identities and the single-shift source bridge.
-The order delegate owns only `ExpansionEvaluation.lean`, the strong-induction
-evaluation of the existing natural recurrence using the actual coloring recurrence.
-Both files were released and adopted by primary. New bounded assignments:
-data delegate owns only `OrbitLists.lean` (fixed-point-inclusive orbit lists and
-reconstruction from a literal cyclic block); order delegate owns only
-`ExpansionHomogeneity.lean` (weighted homogeneity of the natural recurrence).
-Primary owns `CycleDisplay.lean` and the subsequent canonical display equivalence.
-The Astra reviewer completed and released an independent cycle representation review.
-The order delegate released `ExpansionHomogeneity.lean`; it now owns only
-`CycleDisplayShape.lean`, shape degree/weight and the elementary monomial identity.
-The data delegate released `OrbitLists.lean`; it now owns only `CycleDisplayCons.lean`,
-prepending the maximal cycle block with named support and source/target/count equations.
+Ownership: primary owns all files in `VerticalStripLLT/CyclicHessenberg/`,
+the future umbrella, cyclic examples/challenges, `CyclicHessenbergVerification.lean`,
+`docs/CYCLIC_HESSENBERG_PLAN.md`, and this opening. Root imports and README
+integration are reserved to primary. Existing Circular, component and manuscript
+files are outside scope. All Luna assignments have been released without builds
+or commits; primary has adopted their candidates, including `CycleDisplayCons.lean`
+and `CycleDisplayShape.lean`. Astra independently reviewed representation,
+finite-word decomposition, coloring semantics and canonical cycle architecture;
+its decisions are recorded in the adapted plan. Only primary integrates and builds.
+Draft PR: https://github.com/PerAlexandersson/VerticalStripLLT/pull/9
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.
@@ -147,15 +85,24 @@ Checked status (all via serialized Laplace; failed receipts are not final checks
   receipt `20261112T104750-231d7eb0`. That receipt still had a sort-bookkeeping
   failure in `ColorMissing`; the failure is not counted as a completed target.
 
-Outstanding substantive work: assemble the elementary-weight insertion sum,
-identify its signed mountain coefficients, and prove its evaluation equals the
-actual finite coloring enumerator. Prove full spectator-aware layer exchange,
-weighted loop/path and sorted-loop source identifications, then unroll the
-recursion into canonical cycles and matchings. Final source coefficientwise
-positivity, homogeneity/factors, meaningful examples/challenge wrappers and
-broad regressions are not yet proved. `kernelExpansion_coeff_nonneg` concerns
-only the constructed expression; it is not a positivity theorem for the
-independent `loopColoringLLT` until the semantic bridge is checked.
+Further checked milestones: `ColorPrefixEvaluation` at `bfd3d92`;
+65-query axiom audit and `ExpansionRootSum` at `a0a883f` (receipt
+`20261112T105438-c1e4dabe`, only propext/Classical.choice/Quot.sound);
+`ColorRecurrence` at `12fa542` (`20261112T105845-050371f6`);
+`CycleDisplay` at `08010e6`; `ExpansionEvaluation` and `PolynomialSemantics`
+at `3b99525` (`20261112T110208-b16928cf`); `ExpansionHomogeneity` at
+`1d6e61f` (`20261112T110457-9e86302b`). These failed multi-target receipts
+checked the named modules but are not successful complete gates.
+The source equality in `RecursivePositivity` elaborated in the last receipt;
+its homogeneity corollary needs an unfolding repair before the module passes.
+The cycle orbit reconstruction candidate also needs dependent-index repairs.
+
+Outstanding substantive work: check/audit source elementary positivity, construct
+canonical cycle deletion and permutation equivalences, unroll the expansion into
+cycle and matching sums, prove the independent composition-sorted loop source
+bridge, factors/marked ascents, and meaningful regression/challenge endpoints.
+The actual weighted raw loop/path and coloring equalities and full layer exchange
+are checked; these must not be confused with the remaining sorted-source bridge.
 
 The initial requested `ae64cfc` checkpoint was published and checked through
 three repair receipts, culminating in `68d44c4` / `20261112T091256-90a0a5d9`.

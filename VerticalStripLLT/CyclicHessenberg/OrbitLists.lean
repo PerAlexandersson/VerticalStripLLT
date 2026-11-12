@@ -59,7 +59,8 @@ theorem mem_correctedOrbitList_iff (p : Equiv.Perm α) (r x : α) :
       exact SameCycle.rfl
     · intro hcycle
       have hEq := hcycle.eq_of_left h
-      simp [correctedOrbitList, h, hEq]
+      subst x
+      simp [correctedOrbitList, h]
   · have hr : r ∈ p.support := Equiv.Perm.mem_support.mpr h
     rw [correctedOrbitList, if_neg h, Equiv.Perm.mem_toList_iff]
     simp [hr]
@@ -107,13 +108,11 @@ theorem correctedOrbitList_eq_of_action (p : Equiv.Perm α) (r : α)
         calc
           (p ^ i) r = (l.formPerm ^ i) r := hpow i
           _ = l[i % l.length]'_ := List.formPerm_pow_apply_head r (s :: tail) hnd' i
-          _ = l[i]'hi := by rw [Nat.mod_eq_of_lt hi]
+          _ = l[i]'hi := by simp only [Nat.mod_eq_of_lt hi]
       · intro hcycle
         obtain ⟨n, hn⟩ := hcycle.exists_nat_pow_eq
-        calc
-          x = (p ^ n) r := hn.symm
-          _ = (l.formPerm ^ n) r := hpow n
-          _ ∈ l := hmemForm n
+        rw [← hn, hpow n]
+        exact hmemForm n
     have hr : r ∈ p.support := Equiv.Perm.mem_support.mpr hfix
     have hperm : (p.toList r).Perm l := by
       apply (List.perm_ext_iff_of_nodup (Equiv.Perm.nodup_toList p r) hnd').2
@@ -128,7 +127,7 @@ theorem correctedOrbitList_eq_of_action (p : Equiv.Perm α) (r : α)
     · exact hlen
     · intro i hi₁ hi₂
       rw [Equiv.Perm.getElem_toList p r i hi₁, hpow i,
-        List.formPerm_pow_apply_head r (s :: tail) hnd' i,
-        Nat.mod_eq_of_lt hi₂]
+        List.formPerm_pow_apply_head r (s :: tail) hnd' i]
+      simpa only [Nat.mod_eq_of_lt hi₂]
 
 end VerticalStripLLT.CyclicHessenberg
