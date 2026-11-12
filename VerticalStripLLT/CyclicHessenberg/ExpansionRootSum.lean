@@ -26,7 +26,11 @@ theorem naturalKernelExpansion_insert_max (S : Finset V) (r : V)
     · exact le_rfl
     · exact (hr a ha).le
   rw [naturalKernelExpansion_eq_rootSum _ hne, hmax]
-  rw [sum_powerset_insert_indicator S r hrS]
+  have hsum := sum_powerset_insert_indicator S r hrS
+    (fun (U : Finset V) (hroot : r ∈ U) =>
+      natElementary ⟨U.card, Finset.card_pos.mpr ⟨r, hroot⟩⟩ *
+        naturalKernelExpansion ((insert r S) \ U) (rootDeletion Polynomial.X Z U r))
+  rw [hsum]
   apply Finset.sum_congr rfl
   intro U hU
   have hrU : r ∉ U := fun h => hrS (Finset.mem_powerset.mp hU h)

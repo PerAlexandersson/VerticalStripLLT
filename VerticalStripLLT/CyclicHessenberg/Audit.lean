@@ -8,6 +8,11 @@ import VerticalStripLLT.CyclicHessenberg.LoopKernel
 import VerticalStripLLT.CyclicHessenberg.LayerExchangeCounts
 import VerticalStripLLT.CyclicHessenberg.ColorInsertion
 import VerticalStripLLT.CyclicHessenberg.ColorClassProducts
+import VerticalStripLLT.CyclicHessenberg.LayerExchange
+import VerticalStripLLT.CyclicHessenberg.LoopSemantics
+import VerticalStripLLT.CyclicHessenberg.ColorDeletion
+import VerticalStripLLT.CyclicHessenberg.ColorEvaluation
+import VerticalStripLLT.CyclicHessenberg.KernelSupport
 
 /-! Axiom queries for the currently implemented cyclic Hessenberg interfaces.
 The final semantic bridge and positivity endpoints must be added when proved. -/
@@ -57,3 +62,23 @@ The final semantic bridge and positivity endpoints must be added when proved. -/
 #print axioms VerticalStripLLT.CyclicHessenberg.inverseClass_eq_sublistSum
 #print axioms VerticalStripLLT.CyclicHessenberg.colorClassProduct_insert_root
 #print axioms VerticalStripLLT.CyclicHessenberg.finite_weight_shift
+#print axioms VerticalStripLLT.CyclicHessenberg.layerListWeight_exchangeCompatible
+#print axioms VerticalStripLLT.CyclicHessenberg.layerListWeight_eq
+#print axioms VerticalStripLLT.CyclicHessenberg.layerKernelAt_exchangeCompatible
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalOpenKernel_exchangeCompatible
+#print axioms VerticalStripLLT.CyclicHessenberg.shiftedRawOpenKernel_exchangeCompatible
+#print axioms VerticalStripLLT.CyclicHessenberg.list_prod_eq_sum_fixedBoundaryPath
+#print axioms VerticalStripLLT.CyclicHessenberg.rawOpenKernel_diagonal_eq_closedLayerPath_sum
+#print axioms VerticalStripLLT.CyclicHessenberg.loopEventEquiv_mem
+#print axioms VerticalStripLLT.CyclicHessenberg.coloredLoopAscentCount_eq_path_sum
+#print axioms VerticalStripLLT.CyclicHessenberg.loopColoringLLT_eq_kernelColoringLLT
+#print axioms VerticalStripLLT.CyclicHessenberg.colorInsertion_eq_adExpansion
+#print axioms VerticalStripLLT.CyclicHessenberg.wordAd_eq_signedSetMountain
+#print axioms VerticalStripLLT.CyclicHessenberg.mountainWordSum_eval_positive
+#print axioms VerticalStripLLT.CyclicHessenberg.colorInsertion_eq_mountainSum
+#print axioms VerticalStripLLT.CyclicHessenberg.colorClassProduct_restrict
+#print axioms VerticalStripLLT.CyclicHessenberg.sum_subwords_eq_sum_colorings
+#print axioms VerticalStripLLT.CyclicHessenberg.colorClassProduct_eq_positionProduct
+#print axioms VerticalStripLLT.CyclicHessenberg.colorClassProduct_eval
+#print axioms VerticalStripLLT.CyclicHessenberg.colorClassProduct_eval_of_subset
+#print axioms VerticalStripLLT.CyclicHessenberg.SupportedKernel.rootDeletion

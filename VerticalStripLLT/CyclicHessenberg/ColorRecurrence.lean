@@ -36,8 +36,8 @@ theorem weightedKernelColoring_insert_max (S : Finset V) (r : V)
     colorClassProduct_eval_missing (insert r S) S r (Finset.mem_insert_self _ _)
       hrS weight f hf
   have hfactor := (colorClassProduct_insert_root f hrep S.sort r Y).eval
-  have hinsertion := ((colorInsertion_eq_mountainSum f hbalance hrep S r hr hdegree Y)
-    .mul_right G).eval
+  have hCI := colorInsertion_eq_mountainSum f hbalance hrep S r hr hdegree Y
+  have hinsertion := (ContextEq.mul_right hCI G).eval
   calc
     weightedKernelColoring (insert r S) Z weight =
         wordEval f [] [] (colorClassProduct (S.sort ++ [r]) Y) := by
