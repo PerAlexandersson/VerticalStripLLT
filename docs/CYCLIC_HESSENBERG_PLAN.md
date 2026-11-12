@@ -82,8 +82,19 @@ congruence is proved by finite expansion. Both inverse identities and the
 full repeated-letter sandwich are checked before conjugating commutators.
 `wordAd_terminates` uses an explicit full-support degree bound in every
 context; `finite_weight_shift` retains the boundary summand explicitly.
-Coefficient extraction must use a constant-polynomial lift of the functional,
-and the final prefix/color-product bridge remains a required semantic proof.
+The subsequent independent review approved homogeneous `lengthSlice` extraction:
+for each pair of exterior words and degree, instantiate the conjugation and inverse
+identities for that length slice and use its explicit finite bound. The checked
+`wordAd_eq_signedSublistMountain` implements this route without a polynomial lift.
+The final prefix/color-product bridge remains a required semantic proof.
+
+The next review selected the pure finite-subword/coloring bijection. We adapt the
+combinatorial proofs from the existing word proof locally, without importing its
+quotient dependencies. For residual supports we first remove forbidden-letter
+factors using contextual annihilation, then apply the full-support subword
+bijection. Actual prefix-support cancellation supplies the required annihilation.
+The single imported `Components.WordProof.DisjointSubsetSums` helper is purely a
+finite-sum bijection; it imports only Mathlib and no component or quotient theorem.
 
 ## Standalone dependencies
 
@@ -196,9 +207,10 @@ for Fable; the RealRooted-only Lean MCP must not be used for this repository.
 No local Lake, dependency update, toolchain change, bridge modification, cache
 cleanup or SSH change is authorized by this task.
 
-After host readiness, publish the task branch and submit its full commit SHA
-with `--project VerticalStripLLT`, first `--mode cache`, then focused `--target`
-builds. The host runs the pinned external-cache workflow in its own checkout,
+Host readiness and the pinned cache preparation are confirmed. Publish the task
+branch and submit its full commit SHA with `--project VerticalStripLLT` and focused
+`--target` builds; do not repeat cache preparation for this unchanged pin.
+The host runs the pinned external-cache workflow in its own checkout,
 serialized with other Laplace jobs. Source checkpoints submitted for compilation
 are explicitly unverified until their receipts and logs are inspected.
 

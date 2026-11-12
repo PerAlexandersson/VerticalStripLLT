@@ -79,8 +79,22 @@ theorem rawOpenKernel_diagonal_eq_closedLayerPath_sum (h : Tuple k n)
       (FixedBoundaryPathFeasible h π)
       (fun p : FixedBoundaryPath (FullOrder k) n π π =>
         if hp : FixedBoundaryPathFeasible h π p then w p else 0)
-    rw [← hsplit]
-    simp only [Subtype.property, ↓reduceDIte, ↓reduceIte, Finset.sum_const_zero, add_zero]
+    have hyes : (∑ p : {p : FixedBoundaryPath (FullOrder k) n π π //
+        FixedBoundaryPathFeasible h π p},
+        if hp : FixedBoundaryPathFeasible h π p.val then w p.val else 0) =
+          ∑ p : {p : FixedBoundaryPath (FullOrder k) n π π //
+            FixedBoundaryPathFeasible h π p}, w p.val := by
+      apply Finset.sum_congr rfl
+      intro p hp
+      exact dite_eq_left p.property
+    have hno : (∑ p : {p : FixedBoundaryPath (FullOrder k) n π π //
+        ¬ FixedBoundaryPathFeasible h π p},
+        if hp : FixedBoundaryPathFeasible h π p.val then w p.val else 0) = 0 := by
+      apply Finset.sum_eq_zero
+      intro p hp
+      exact dite_eq_right p.property
+    rw [hyes, hno, add_zero] at hsplit
+    exact hsplit.symm
   calc
     (∑ p : FixedBoundaryPath (FullOrder k) n π π,
         if hp : FixedBoundaryPathFeasible h π p then w p else 0) =

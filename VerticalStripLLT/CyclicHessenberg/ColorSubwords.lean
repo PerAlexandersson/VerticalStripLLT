@@ -2,6 +2,7 @@ import Mathlib.Algebra.BigOperators.Ring.List
 import Mathlib.Data.List.Nodup
 import Mathlib.Data.List.Sublists
 import Mathlib.Data.Fintype.Pi
+import Mathlib.Data.Fintype.BigOperators
 
 set_option autoImplicit false
 
@@ -116,7 +117,7 @@ theorem list_prod_one_add_eq_sum_subwords {I R : Type*} [Semiring R]
   | nil => simp
   | cons a L ih =>
     simp only [List.map_cons, List.prod_cons, List.sublists_cons,
-      List.bind_eq_flatMap, List.map_flatMap]
+      List.bind_eq_flatMap, List.map_flatMap, List.map_nil]
     rw [sum_flatMap_pair, List.sum_map_mul_left, ← ih, add_mul, one_mul]
 
 /-- Full subwords with a full vertex projection are uniquely indexed by colorings. -/

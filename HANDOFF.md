@@ -98,6 +98,16 @@ Checked status (all via serialized Laplace; failed receipts are not final checks
   `20261112T095856-2e6b52ea`, exit 0, 1197 jobs: ColorInsertion class-product
   factorization and the exact boundary term in `finite_weight_shift`.
   Later helper axioms still need auditing.
+- The expanded 45-query audit passed at `7a3813896c704991c60ba38a415ec4d1011e7b34`,
+  receipt `20261112T100018-fedf1569`, exit 0. Only the three standard axioms above.
+- `ColorElementaryExpansion` passed at `1c2c671`; `ColorMountain` and `LoopWeights`
+  passed at `f85d5d0`, receipt `20261112T101106-530ee56b`, exit 0. These prove the
+  actual insertion's elementary weights, homogeneous signed mountains, and the
+  event-preserving equality `coloredLoopAscentCount_eq_path_sum`.
+- `LayerList` passed at `3069d71`, `LayerListBridge` at `72560d6`, `SortedSubsets`
+  at `5b65bbf`. `LayerExchange` and `FiniteMatrixPaths` passed at `d8050d7` in
+  receipt `20261112T102533-ae968313` (the separate mountain assembly target failed).
+  Thus actual positional layers and their ordered natural product satisfy exchange.
 
 Outstanding substantive work: assemble the elementary-weight insertion sum,
 identify its signed mountain coefficients, and prove its evaluation equals the
