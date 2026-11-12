@@ -117,7 +117,6 @@ theorem colorClassProduct_eval {V R : Type*} [LinearOrder V] [CommRing R]
         (L.sublists.map subwordValue).sum := by
       rw [hposition]
       rw [wordEval_prod_one_add]
-      rfl
     _ = ∑ κ : S → Fin m, subwordValue (selectedColorSubword L κ) := hsubwords
     _ = ∑ κ : S → Fin m, (∏ v : S, weight (κ v)) *
           f (sortColorOrder κ).val := by
