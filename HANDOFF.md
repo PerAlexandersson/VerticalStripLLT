@@ -32,6 +32,9 @@ generic finite-involution scalar/matrix equivalence; primary owns its integratio
 The Luna delegate `cyclic_hessenberg_data` now owns only `Coloring.lean` to
 prove the color/tie sorting characterization and uniqueness. No builds or commits.
 Primary retains all other files and the single build slot.
+The Luna delegate `cyclic_order_insertion` now owns only
+`CyclicHessenberg/LayerExchangeCounts.lean` for the count-sum normal form and
+two-value spectator indicator identity, with no builds or commits.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.
