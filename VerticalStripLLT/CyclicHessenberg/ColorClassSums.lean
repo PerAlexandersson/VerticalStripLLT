@@ -172,7 +172,7 @@ theorem letter_inverse (f : List V → R) (hf : ∀ l, ¬ l.Nodup → f l = 0)
     simpa only [mul_one, smul_zero, smul_mul_assoc, mul_smul_comm, smul_smul] using hh
   have heq : (1 + t • wordTerm [a]) * (1 - t • wordTerm [a]) =
       (1 : WordSum R V) - (t • wordTerm [a]) * (t • wordTerm [a]) := by
-    generalize t • wordTerm [a] = X
+    generalize t • wordTerm (R := R) [a] = X
     noncomm_ring
   exact (ContextEq.of_eq heq).trans (by simpa using (ContextEq.refl 1).sub hsq)
 
