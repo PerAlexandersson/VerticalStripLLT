@@ -38,6 +38,14 @@ theorem rootDeletion_map {T : Type*} [CommSemiring T] (f : R →+* T)
   classical
   simp [rootDeletion]
 
+@[simp] theorem rootDeletion_singleton (q : R) (Z : List V → List V → R)
+    (r : V) (π τ : List V) :
+    rootDeletion q Z {r} r π τ = Z (r :: π) (r :: τ) := by
+  classical
+  let : Unique (Order (∅ : Finset V)) :=
+    ⟨⟨increasingOrder ∅⟩, fun l => Subsingleton.elim l _⟩
+  simp [rootDeletion]
+
 /-- The crossed entries encountered while moving `a` simultaneously along both lists. -/
 def minimumSlideSum (Z : List V → List V → R) (a : V) (π τ : List V) :
     List V → List V → List V → List V → R
@@ -75,6 +83,7 @@ theorem minimumSlide {q : R} {Z : List V → List V → R}
       ring
 
 /-- Index the crossed entries by the position of the moving minimum. -/
+omit [LinearOrder V] in
 theorem minimumSlideSum_eq_sum (Z : List V → List V → R)
     (a : V) (π τ ρ ρ' xs ys : List V) (hlen : xs.length = ys.length) :
     minimumSlideSum Z a π τ ρ ρ' xs ys =
@@ -156,7 +165,7 @@ private theorem sort_insert_min_decreasing (T : Finset V) (a : V)
     have hc' : c = a := List.mem_singleton.mp hc
     subst c
     exact le_of_lt (ha b ((ht.mem_iff b).mp hb))
-  have h := (List.toFinset_sort ho.1).mpr hp
+  have h := (List.toFinset_sort (· ≥ ·) ho.1).mpr hp
   simpa only [ho.2, Finset.union_singleton] using h
 
 private theorem mountainList_insert_min_unmarked (U T : Finset V) (r a : V)
@@ -192,6 +201,36 @@ private theorem mountainList_insert_min_marked (U T : Finset V) (r a : V)
   have hsmall : ∀ b ∈ T, a < b := fun b hb =>
     ha b (Finset.mem_of_mem_erase (hT hb))
   simp only [mountainList, heq, sort_insert_min_decreasing T a hsmall, List.append_assoc]
+
+@[simp] theorem signedRootDeletion_singleton (Z : List V → List V → R)
+    (r : V) (π τ : List V) :
+    signedRootDeletion Z {r} r π τ = Z (r :: π) (r :: τ) := by
+  classical
+  simp [signedRootDeletion, mountainList]
+
+/-- Split the alternating sum according to whether its smallest vertex is marked. -/
+theorem signedRootDeletion_insert_min (Z : List V → List V → R)
+    (U : Finset V) (r a : V) (π τ : List V)
+    (har : a < r) (ha : ∀ b ∈ U, a < b) :
+    signedRootDeletion Z (insert a U) r π τ =
+      signedRootDeletion (fun l t =>
+        Z (a :: l ++ π) (a :: t ++ τ) - Z (l ++ [a] ++ π) (t ++ [a] ++ τ))
+        U r [] [] := by
+  classical
+  have haU : a ∉ U := fun h => (lt_irrefl a) (ha a h)
+  have haer : a ∉ U.erase r := fun h => haU (Finset.mem_of_mem_erase h)
+  rw [signedRootDeletion, Finset.erase_insert_of_ne (ne_of_gt har),
+    Finset.sum_powerset_insert haer, ← Finset.sum_add_distrib]
+  unfold signedRootDeletion
+  apply Finset.sum_congr rfl
+  intro T hT
+  have hsub := Finset.mem_powerset.mp hT
+  have haT : a ∉ T := fun h => haer (hsub h)
+  rw [mountainList_insert_min_unmarked U T r a har ha hsub,
+    mountainList_insert_min_marked U T r a har ha hsub,
+    Finset.card_insert_of_notMem haT, pow_succ]
+  simp only [List.append_nil, List.cons_append]
+  ring
 
 end Ring
 
