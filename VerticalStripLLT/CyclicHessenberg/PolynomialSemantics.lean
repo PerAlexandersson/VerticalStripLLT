@@ -47,8 +47,13 @@ theorem kernelColoringLLT_map_coeff {S : Finset V} (F : Q →+* Q)
     _ = weightedKernelColoring S
         (fun l t => (MvPolynomial.C (F (kernelEntry Z l t)) : XPoly m))
         MvPolynomial.X := by
-      simpa only [kernelEntry_map] using
-        (weightedKernelColoring_eq_kernelColoringLLT S (F.mapMatrix Z) m).symm
+      have hmap : (fun l t => (MvPolynomial.C (kernelEntry (F.mapMatrix Z) l t) : XPoly m)) =
+          (fun l t => (MvPolynomial.C (F (kernelEntry Z l t)) : XPoly m)) := by
+        funext l t
+        congr 1
+        exact kernelEntry_map F Z l t
+      rw [← hmap]
+      exact (weightedKernelColoring_eq_kernelColoringLLT S (F.mapMatrix Z) m).symm
 
 /-- The loop coloring source equals the coloring sum of the single shifted
 natural open-kernel product. -/
@@ -62,6 +67,7 @@ theorem xQShift_loopColoringLLT_eq_naturalOpenKernel_coloring
         MvPolynomial.X := by
   classical
   rw [loopColoringLLT_eq_kernelColoringLLT]
+  change MvPolynomial.map VerticalStripLLT.qShift (kernelColoringLLT (rawOpenKernel h) m) = _
   rw [kernelColoringLLT_map_coeff VerticalStripLLT.qShift (rawOpenKernel h) m]
   have hentry (l t : List (Fin k)) :
       VerticalStripLLT.qShift (kernelEntry (rawOpenKernel h) l t) =

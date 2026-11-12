@@ -71,7 +71,7 @@ theorem naturalKernelExpansion_eval_eq_weightedKernelColoring
             (Finset.mem_insert_self _ _)
           rw [ih ((insert r T) \ (insert r U)) hstrictS
             (rootDeletion Polynomial.X Z (insert r U) r) hZ' hs']
-          simp [eval, natElementary]
+          simp only [eval, natElementary, MvPolynomial.eval₂Hom_X']
         have hrootMap (U : Finset V) :
             (fun l t => φ (rootDeletion Polynomial.X Z (insert r U) r l t)) =
               rootDeletion (φ Polynomial.X) (fun l t => φ (Z l t))
