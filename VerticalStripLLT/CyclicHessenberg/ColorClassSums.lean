@@ -65,6 +65,8 @@ namespace ContextEq
 
 variable {f : List V → R} {A B C D : WordSum R V}
 
+theorem eval (h : ContextEq f A B) : wordEval f [] [] A = wordEval f [] [] B := h [] []
+
 @[refl] theorem refl (A : WordSum R V) : ContextEq f A A := fun _ _ => rfl
 
 @[symm] theorem symm (h : ContextEq f A B) : ContextEq f B A := fun ρ σ => (h ρ σ).symm

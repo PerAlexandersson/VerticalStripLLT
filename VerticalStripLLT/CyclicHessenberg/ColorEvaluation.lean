@@ -30,6 +30,7 @@ private theorem prod_weighted_letters {I V R : Type*} [CommRing R]
       _ = ((weight i) * (L.map weight).prod) •
             wordTerm (R := R) (letter i :: L.map letter) := by
               rw [smul_smul, wordTerm_mul]
+              rfl
 
 private theorem wordEval_sum_list {V R : Type*} [CommRing R]
     (f : List V → R) (L : List (WordSum R V)) :
@@ -89,7 +90,10 @@ theorem colorClassProduct_eval {V R : Type*} [LinearOrder V] [CommRing R]
       ∑ κ : S → Fin m, (∏ v : S, weight (κ v)) *
         f (sortColorOrder κ).val := by
   classical
-  let L := colorPositions S m
+  have hposition := colorClassProduct_eq_positionProduct S weight
+  have hfull := colorPositions_fullWord S m
+  have hprojection := selectedColorSubword_map_snd_eq_sortedColorWord S m
+  generalize hL : colorPositions S m = L at hposition hfull hprojection
   let positionWeight : Fin m × S → R := fun p => weight p.1
   let positionLetter : Fin m × S → V := fun p => p.2.val
   let subwordValue : List (Fin m × S) → R := fun T =>
@@ -106,11 +110,11 @@ theorem colorClassProduct_eval {V R : Type*} [LinearOrder V] [CommRing R]
       simpa only [List.map_map, Function.comp_def] using hfull
     simp [subwordValue, positionWeight, positionLetter, hzero]
   have hsubwords := sum_subwords_eq_sum_colorings L
-    (colorPositions_fullWord S m) subwordValue hbad
+    hfull subwordValue hbad
   calc
     wordEval f [] [] (colorClassProduct S.sort (List.ofFn weight)) =
         (L.sublists.map subwordValue).sum := by
-      rw [colorClassProduct_eq_positionProduct]
+      rw [hposition]
       rw [wordEval_prod_one_add]
       rfl
     _ = ∑ κ : S → Fin m, subwordValue (selectedColorSubword L κ) := hsubwords
@@ -118,7 +122,7 @@ theorem colorClassProduct_eval {V R : Type*} [LinearOrder V] [CommRing R]
           f (sortColorOrder κ).val := by
       apply Finset.sum_congr rfl
       intro κ hκ
-      have hweight := prod_selectedColorSubword L (colorPositions_fullWord S m)
+      have hweight := prod_selectedColorSubword L hfull
         κ weight
       have hletters :
           (selectedColorSubword L κ).map positionLetter = (sortColorOrder κ).val := by
@@ -127,7 +131,7 @@ theorem colorClassProduct_eval {V R : Type*} [LinearOrder V] [CommRing R]
               ((selectedColorSubword L κ).map Prod.snd).map Subtype.val := by
                 simp [positionLetter, List.map_map, Function.comp_def]
           _ = (sortedColorWord κ).map Subtype.val := by
-            rw [selectedColorSubword_map_snd_eq_sortedColorWord]
+            rw [hprojection]
           _ = (sortColorOrder κ).val := rfl
       dsimp only [subwordValue]
       rw [hletters]
@@ -144,7 +148,7 @@ theorem colorClassProduct_eval_of_subset {V R : Type*} [LinearOrder V] [CommRing
   calc
     wordEval f [] [] (colorClassProduct T.sort (List.ofFn weight)) =
         wordEval f [] [] (colorClassProduct S.sort (List.ofFn weight)) :=
-      colorClassProduct_restrict S T hST f hf (List.ofFn weight) [] []
+      (colorClassProduct_restrict S T hST f hf (List.ofFn weight)).eval
     _ = _ := colorClassProduct_eval S weight f hf
 
 end VerticalStripLLT.CyclicHessenberg
