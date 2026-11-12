@@ -2,6 +2,7 @@ import VerticalStripLLT.CyclicHessenberg.Kernel
 import Mathlib.Algebra.FreeMonoid.Basic
 import Mathlib.Algebra.MonoidAlgebra.Module
 import Mathlib.LinearAlgebra.Finsupp.LinearCombination
+import Mathlib.Tactic.NoncommRing
 
 /-! Finite signed sums of words, evaluated in arbitrary exterior contexts.
 No quotient or multiplicativity assumption on the evaluating functional is used. -/
@@ -13,7 +14,8 @@ variable {V R : Type*} [CommRing R]
 abbrev WordSum (R V : Type*) [CommRing R] := MonoidAlgebra R (FreeMonoid V)
 
 /-- A literal word with coefficient one. -/
-def wordTerm (l : List V) : WordSum R V := MonoidAlgebra.single (FreeMonoid.ofList l) 1
+noncomputable def wordTerm (l : List V) : WordSum R V :=
+  MonoidAlgebra.single (FreeMonoid.ofList l) 1
 
 @[simp] theorem wordTerm_mul (l t : List V) :
     wordTerm (R := R) l * wordTerm t = wordTerm (l ++ t) := by
@@ -146,10 +148,77 @@ theorem repeated_sandwich (f : List V → R)
     have hnd' : ((ρ ++ [a]) ++ (w.toList ++ [a] ++ σ)).Nodup := by
       simpa only [List.append_assoc] using hnd
     have hd := (List.nodup_append'.mp hnd').2.2
-    exact hd (by simp) (by simp)
+    exact hd (show a ∈ ρ ++ [a] by simp) (by simp)
   | add Y Z hY hZ =>
     simpa only [mul_add, add_mul, add_zero] using hY.add hZ
   | smul c Y hY =>
     simpa only [mul_smul_comm, smul_mul_assoc, smul_zero] using hY.smul c
+
+/-- Decreasing color-class product on a list supplied in increasing order. -/
+noncomputable def descendingClass (t : R) : List V → WordSum R V
+  | [] => 1
+  | a :: l => descendingClass t l * (1 + t • wordTerm [a])
+
+/-- Its signed increasing product; inverse identities are contextual. -/
+noncomputable def inverseClass (t : R) : List V → WordSum R V
+  | [] => 1
+  | a :: l => (1 - t • wordTerm [a]) * inverseClass t l
+
+theorem letter_inverse (f : List V → R) (hf : ∀ l, ¬ l.Nodup → f l = 0)
+    (t : R) (a : V) :
+    ContextEq f ((1 + t • wordTerm [a]) * (1 - t • wordTerm [a])) 1 := by
+  have hsq : ContextEq f ((t • wordTerm [a]) * (t • wordTerm [a])) 0 := by
+    have hh := (repeated_sandwich f hf a 1).smul (t * t)
+    simpa only [mul_one, smul_zero, smul_mul_assoc, mul_smul_comm, smul_smul] using hh
+  have heq : (1 + t • wordTerm [a]) * (1 - t • wordTerm [a]) =
+      (1 : WordSum R V) - (t • wordTerm [a]) * (t • wordTerm [a]) := by
+    noncomm_ring
+  exact (ContextEq.of_eq heq).trans (by simpa using (ContextEq.refl 1).sub hsq)
+
+theorem inverse_letter (f : List V → R) (hf : ∀ l, ¬ l.Nodup → f l = 0)
+    (t : R) (a : V) :
+    ContextEq f ((1 - t • wordTerm [a]) * (1 + t • wordTerm [a])) 1 := by
+  simpa only [neg_smul, sub_eq_add_neg, neg_neg] using letter_inverse f hf (-t) a
+
+/-- Both finite color-class products cancel in every exterior context. -/
+theorem descendingClass_mul_inverseClass (f : List V → R)
+    (hf : ∀ l, ¬ l.Nodup → f l = 0) (t : R) (l : List V) :
+    ContextEq f (descendingClass t l * inverseClass t l) 1 := by
+  induction l with
+  | nil => simp only [descendingClass, inverseClass, mul_one]; exact ContextEq.refl 1
+  | cons a l ih =>
+    have hh := ((letter_inverse f hf t a).mul_left (descendingClass t l)).mul_right
+      (inverseClass t l)
+    have hs : ContextEq f (descendingClass t (a :: l) * inverseClass t (a :: l))
+        (descendingClass t l * inverseClass t l) := by
+      simpa only [descendingClass, inverseClass, mul_assoc, mul_one, one_mul] using hh
+    exact hs.trans ih
+
+theorem inverseClass_mul_descendingClass (f : List V → R)
+    (hf : ∀ l, ¬ l.Nodup → f l = 0) (t : R) (l : List V) :
+    ContextEq f (inverseClass t l * descendingClass t l) 1 := by
+  induction l with
+  | nil => simp only [descendingClass, inverseClass, mul_one]; exact ContextEq.refl 1
+  | cons a l ih =>
+    have hh := (ih.mul_left (1 - t • wordTerm [a])).mul_right (1 + t • wordTerm [a])
+    have hs : ContextEq f (inverseClass t (a :: l) * descendingClass t (a :: l))
+        ((1 - t • wordTerm [a]) * (1 + t • wordTerm [a])) := by
+      simpa only [descendingClass, inverseClass, mul_assoc, mul_one] using hh
+    exact hs.trans (inverse_letter f hf t a)
+
+/-- The discarded quadratic term repeats the letter on both sides of an arbitrary sum. -/
+theorem letter_conjugation (f : List V → R) (hf : ∀ l, ¬ l.Nodup → f l = 0)
+    (t : R) (a : V) (Y : WordSum R V) :
+    ContextEq f ((1 + t • wordTerm [a]) * Y * (1 - t • wordTerm [a]))
+      (Y + t • (wordTerm [a] * Y - Y * wordTerm [a])) := by
+  have hh := (repeated_sandwich f hf a Y).smul (t * t)
+  have heq : (1 + t • wordTerm [a]) * Y * (1 - t • wordTerm [a]) =
+      (Y + t • (wordTerm [a] * Y - Y * wordTerm [a])) -
+        (t * t) • (wordTerm [a] * Y * wordTerm [a]) := by
+    simp only [add_mul, mul_sub, sub_mul, one_mul, mul_one, mul_add,
+      smul_mul_assoc, mul_smul_comm, smul_sub, smul_smul]
+    abel
+  exact (ContextEq.of_eq heq).trans (by
+    simpa only [smul_zero, sub_zero] using (ContextEq.refl _).sub hh)
 
 end VerticalStripLLT.CyclicHessenberg
