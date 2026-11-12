@@ -184,7 +184,8 @@ theorem ExchangeCompatible.map {T : Type*} [CommSemiring T] {q : R}
   have heq : kernelEntry (fun π τ => f (Z π τ)) = fun l t => f (kernelEntry Z l t) := by
     funext l t
     exact kernelEntry_map f Z l t
-  rw [ExchangeCompatible, heq]
+  change ListExchangeCompatible (f q) (kernelEntry (fun π τ => f (Z π τ)))
+  rw [heq]
   exact ListExchangeCompatible.map hZ f
 
 /-- Unequal fixed prefixes preserve all exchanges on the retained support. -/
