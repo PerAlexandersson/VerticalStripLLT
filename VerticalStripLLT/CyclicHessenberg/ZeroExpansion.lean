@@ -38,7 +38,8 @@ theorem naturalCyclicExpansion_at_zero (h : Tuple k n) :
       simp [hp, hc, hs, M, MvPolynomial.X_pow_eq_monomial]
     · have hne : k - matchingCycleCount h φ ≠ 0 := by
         have hle : matchingCycleCount h φ ≤ k := by
-          simpa using (matchingDisplay h φ).count_le_card
+          simpa only [matchingCycleCount, Finset.card_univ, Fintype.card_fin]
+            using (matchingDisplay h φ).count_le_card
         have hnot : matchingCycleCount h φ ≠ k :=
           mt (matchingCycleCount_eq_size_iff h φ).mp hp
         lia
@@ -48,6 +49,5 @@ theorem naturalCyclicExpansion_at_zero (h : Tuple k n) :
   simp only [Finset.sum_const, nsmul_eq_mul]
   rw [← Fintype.card_subtype (fun φ : MatchingTuple h => matchingMonodromy φ.val = 1)]
   rw [← card_loopCover_eq_card_identityMatchingFiber h]
-  rfl
 
 end VerticalStripLLT.CyclicHessenberg

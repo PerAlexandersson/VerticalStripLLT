@@ -8,8 +8,8 @@ slot, by Per's explicit designation. Work is in public
 baseline `f93e8755b473528d95b3e5d8f7c08d07af9e4fa0`. Draft PR:
 https://github.com/PerAlexandersson/VerticalStripLLT/pull/9
 
-**Main source equality and positivity are checked; final regressions and broad
-integration checks remain.** Do not mark the whole task complete yet. Per
+**Main source equality, positivity, paper formulas and broad integration are
+checked; final q=0/example repairs and combined audit remain.** Do not mark the whole task complete yet. Per
 reiterated that the implementation must follow the paper proof strategy; only
 an improvement to the paper argument can justify a mathematical deviation.
 The implementation follows the manuscript chain, with finite indexing helpers.
@@ -64,13 +64,14 @@ receipt is distinguished from a successful complete build):
   `9339a5872f64f6eef2a12210a6372d07f642438a` /
   `20261112T115952-d2d6d442`, exit 0 (1683 jobs).
 
-Current builds: broad library plus old-result `RepositoryAudit`, head
+Broad library and old-result `RepositoryAudit` passed at
 `9339a5872f64f6eef2a12210a6372d07f642438a`, job
-`20261112T120011-6b53d17d`, running. New example target, head
-`a27f525ba2290473847b1eee08e3b8029b4c5016`, job
-`20261112T120312-ac8fa4a6`, queued behind it. Identity/Kim–Oh examples and
-orientation/context regressions are unverified until that receipt is inspected.
-`ZeroExpansion.lean` and `SingletonCycles.lean` remain unbuilt candidates.
+`20261112T120011-6b53d17d`, exit 0 (2480 jobs). The seven existing-result
+axiom queries returned only standard axioms. `IdentityMatching`,
+`SingletonCycles` and `KimOhExample` passed at `86b3640`, job
+`20261112T122027-96ede7a3`. That receipt failed only the final q=0 coefficient
+unfolding and the reverse-event example's decidability instance, now repaired.
+The expanded 110-query audit and final combined build are next.
 
 Exact public names: `Challenges.CyclicHessenberg.sortedLoopModel`,
 `positiveCycleExpansion`, `positiveMatchingExpansion`,

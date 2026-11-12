@@ -138,3 +138,5 @@ import VerticalStripLLT.CyclicHessenberg.ZeroExpansion
 #print axioms VerticalStripLLT.CyclicHessenberg.naturalCyclicExpansion_at_zero
 #print axioms VerticalStripLLT.CyclicHessenberg.Examples.decreasing_color_tie
 #print axioms VerticalStripLLT.CyclicHessenberg.Examples.later_reverse_event_with_tie
+
+#print axioms VerticalStripLLT.CyclicHessenberg.Examples.reverse_tie_ascent_pos

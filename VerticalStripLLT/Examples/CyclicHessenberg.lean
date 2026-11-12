@@ -40,13 +40,21 @@ theorem later_reverse_event :
   simp [loopAscentEvents, reverseEventLoop, completeTwoTuple, completeTwo,
     Hessenberg.complete]
 
+noncomputable def reverseTieEvents : Finset (Fin 2 × Fin 2 × Fin 2) := by
+  classical
+  exact (loopAscentEvents (completeTwoTuple 2) reverseEventLoop).filter
+    (fun e => colorPrecedes (fun _ => (0 : Fin 1)) e.2.1 e.2.2)
+
 /-- Equal colors retain this reverse event; replacing `≤` by `<` would lose it. -/
 theorem later_reverse_event_with_tie :
-    ((1 : Fin 2), (1 : Fin 2), (0 : Fin 2)) ∈
-      (loopAscentEvents (completeTwoTuple 2) reverseEventLoop).filter
-        (fun e => colorPrecedes (fun _ => (0 : Fin 1)) e.2.1 e.2.2) := by
+    ((1 : Fin 2), (1 : Fin 2), (0 : Fin 2)) ∈ reverseTieEvents := by
   classical
   exact Finset.mem_filter.mpr ⟨later_reverse_event, decreasing_color_tie.1⟩
+
+theorem reverse_tie_ascent_pos :
+    0 < coloredLoopAscentCount (completeTwoTuple 2) reverseEventLoop
+      (fun _ => (0 : Fin 1)) :=
+  Finset.card_pos.mpr ⟨(1, 1, 0), later_reverse_event_with_tie⟩
 
 private def lowForward : Order ({0, 1} : Finset ℕ) := ⟨[0, 1], by simp [IsOrder]⟩
 private def lowReverse : Order ({0, 1} : Finset ℕ) := ⟨[1, 0], by simp [IsOrder, Finset.pair_comm]⟩
