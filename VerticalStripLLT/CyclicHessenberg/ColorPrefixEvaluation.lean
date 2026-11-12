@@ -63,34 +63,36 @@ theorem mountainWordSum_mul_eval {V R : Type*} [LinearOrder V] [CommRing R]
     exact hZ w w (Or.inl hw)
   let mountain (B : Finset V) : List V :=
     (U \ B).sort ++ [r] ++ B.sort (· ≥ ·)
+  have hdef : mountainWordSum (R := R) U r =
+      ∑ B ∈ U.powerset, (-1 : R) ^ B.card • wordTerm (mountain B) := rfl
+  generalize hG : colorClassProduct T.sort (List.ofFn weight) = G
+  generalize hM : mountainWordSum (R := R) U r = M at hdef ⊢
   have hterm (B : Finset V) (hB : B ⊆ U) :
       wordEval f [] []
-          (wordTerm (R := R) (mountain B) *
-            colorClassProduct T.sort (List.ofFn weight)) =
+          (wordTerm (R := R) (mountain B) * G) =
         ∑ κ : A → Fin m, (∏ a : A, weight (κ a)) *
           Z (mountain B ++ (sortColorOrder κ).val)
             (mountain B ++ (sortColorOrder κ).val) := by
     have horder : IsOrder (insert r U) (mountain B) := by
       simpa only [mountain] using (mountain_isOrder U B r hr hB)
+    generalize hp : mountain B = p at horder ⊢
     have heval := colorClassProduct_prefix_eval S (insert r U) T hU
-      ⟨mountain B, horder⟩ hAT weight f hf
+      ⟨p, horder⟩ hAT weight f hf
+    rw [hG] at heval
     simpa only [f] using heval
   have hdelete (w : List V) :
       (∑ B ∈ U.powerset, (-1 : R) ^ B.card *
         Z (mountain B ++ w) (mountain B ++ w)) =
         signedRootDeletion Z (insert r U) r w w := by
-    have heval := mountainWordSum_eval Z U r hr w w
-    simpa only [mountainWordSum, mountain, map_sum, map_smul, wordEval_term,
-      List.nil_append, List.append_nil, smul_eq_mul] using heval
+    simp only [signedRootDeletion, mountainList, Finset.erase_insert hr, mountain]
   have hexpand :
-      wordEval f [] []
-          (mountainWordSum U r * colorClassProduct T.sort (List.ofFn weight)) =
+      wordEval f [] [] (M * G) =
         ∑ B ∈ U.powerset, (-1 : R) ^ B.card •
           ∑ κ : A → Fin m, (∏ a : A, weight (κ a)) *
             Z (mountain B ++ (sortColorOrder κ).val)
               (mountain B ++ (sortColorOrder κ).val) := by
-    simp only [mountainWordSum, mountain, Finset.sum_mul, map_sum, map_smul,
-      smul_mul_assoc]
+    rw [hdef]
+    simp only [Finset.sum_mul, smul_mul_assoc, map_sum, map_smul]
     apply Finset.sum_congr rfl
     intro B hB
     rw [hterm B (Finset.mem_powerset.mp hB)]
@@ -113,8 +115,7 @@ theorem mountainWordSum_mul_eval {V R : Type*} [LinearOrder V] [CommRing R]
     simp only [smul_eq_mul]
     ring
   calc
-    wordEval f [] []
-        (mountainWordSum U r * colorClassProduct T.sort (List.ofFn weight)) =
+    wordEval f [] [] (M * G) =
         ∑ κ : A → Fin m, (∏ a : A, weight (κ a)) *
           ∑ B ∈ U.powerset, (-1 : R) ^ B.card *
             Z (mountain B ++ (sortColorOrder κ).val)
