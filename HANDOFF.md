@@ -1,5 +1,60 @@
 # VerticalStripLLT handoff
 
+## Cyclic Hessenberg implementation (2026-11-12, active)
+
+Per explicitly appointed the current primary Codex worker as strategy,
+integration, source and serialized-build owner for this separate application.
+Baseline: clean `main` at `f93e8755b473528d95b3e5d8f7c08d07af9e4fa0`;
+remote: public `PerAlexandersson/VerticalStripLLT`. Active branch:
+`cyclic-hessenberg`, in this checkout. No other worktree exists.
+
+Ownership: primary owns `VerticalStripLLT/CyclicHessenberg/`, the future
+`VerticalStripLLT/CyclicHessenberg.lean`, cyclic examples/challenge wrappers,
+`CyclicHessenbergVerification.lean`, `docs/CYCLIC_HESSENBERG_PLAN.md`, and this
+opening handoff entry. Root imports and README integration are reserved to
+the primary after checks. Existing Circular, component and manuscript files
+are outside the implementation scope. The independent Astra reviewer
+`cyclic_architecture_review` completed its read-only review and released its
+task. The primary adopted its recommendations; the decision and standalone
+roadmap are in `docs/CYCLIC_HESSENBERG_PLAN.md`. The bounded Luna delegate
+`cyclic_hessenberg_data` drafted only `Data.lean`, then released it without
+building or committing; the primary reviewed and adopted that file.
+
+Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
+and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.
+Paths and interfaces will be adapted to this standalone repository, not
+copied into AlexanderssonFormalizations. Keep an independently defined raw
+loop/color sum, positive layer count, empty support/alphabet cases, both
+unequal-prefix and unequal-suffix restriction, and the semantic bridge.
+Literal circular flip-component decomposition remains open.
+
+Build coordination: Lean `v4.34.0`, mathlib
+`5ed2965256430c3649e86755f9576b54eca72435`; preserve manifest and toolchain.
+Only the authorized Laplace project-selecting bridge may compile this task.
+Host is extending it; no submission yet. Euler is reserved for Fable.
+`codex mcp list` and runtime registry inspected: Lean MCP targets RealRooted,
+so target-repository diagnostics are unavailable; do not invoke it here.
+Paper-cache is registered. `/workspace/tools/supervisor-scripts/bin/supervisor-tool`
+works for `lake status`; `report` is host-only in Docker and was refused.
+No local build, dependency setup, or cache cleanup was run. No source-tree
+symlinks were found. Existing `.lake/config` is left intact.
+
+Status: source candidates in `Data`, `BoundaryOrder` and `Kernel`; no new
+kernel-checked theorem yet. The latter includes typed unequal prefix/suffix
+restriction, `ListExchangeCompatible.diagonal_contextualBalance` and
+`ListExchangeCompatible.minimumDifference`. Gate 1 still lacks indexed-order
+equivalence, scalar/matrix characterization and product closure. All main
+root-deletion, insertion, loop-bridge, cycle/matching and positivity endpoints
+remain unproved. Static checks are not kernel verification.
+
+Build requirements for host: full pinned Mathlib dependency cache, then
+`VerticalStripLLT.CyclicHessenberg.Data`,
+`VerticalStripLLT.CyclicHessenberg.BoundaryOrder`,
+`VerticalStripLLT.CyclicHessenberg.Kernel`. CLI help now lists
+`--project {RealRooted,VerticalStripLLT}` and `--mode {build,cache}`;
+wait for host readiness before submitting. Next: publish the source checkpoint
+when the host is ready, inspect focused build diagnostics, then continue Gate 1.
+
 ## Public repository preparation (2026-10-17)
 
 The host supervisor owns only `README.md` and this handoff entry for the
