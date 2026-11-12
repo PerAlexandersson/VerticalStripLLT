@@ -21,13 +21,13 @@ theorem lengthSlice_repeated (f : List V → R)
 theorem lengthSlice_degree (f : List V → R) (M : ℕ) :
     ∀ w, M < w.length → lengthSlice f M w = 0 := by
   intro w hw
-  exact if_neg (ne_of_gt hw)
+  exact ite_eq_right (ne_of_gt hw)
 
 theorem ContextualBalance.lengthSlice [LinearOrder V] {f : List V → R}
     (hf : ContextualBalance f) (M : ℕ) : ContextualBalance (lengthSlice f M) := by
   intro ρ σ a b c hab hbc
   have hh := hf ρ σ a b c hab hbc
-  simp only [lengthSlice, List.length_append, List.length_cons, List.length_nil]
+  simp only [CyclicHessenberg.lengthSlice, List.length_append, List.length_cons, List.length_nil]
   split_ifs <;> simp_all
 
 theorem wordEval_sub_function (f g : List V → R) (ρ σ : List V) (A : WordSum R V) :
@@ -57,14 +57,14 @@ theorem wordAd_eval_lengthSlice (f : List V → R) (M : ℕ) (l : List V) (r : V
       if ρ.length + d + 1 + σ.length = M then
         wordEval f ρ σ (wordAd (wordLetterSum l) (wordTerm [r]) d) else 0 := by
   by_cases hm : ρ.length + d + 1 + σ.length = M
-  · rw [if_pos hm]
+  · rw [ite_eq_left hm]
     apply wordAd_eval_congr_of_length
     intro w hw
-    simp only [lengthSlice, hw, hm, if_pos]
-  · rw [if_neg hm]
+    simp only [lengthSlice, hw, hm, ite_eq_left]
+  · rw [ite_eq_right hm]
     apply wordAd_eval_zero_of_length
     intro w hw
-    simp only [lengthSlice, hw, if_neg hm]
+    simp only [lengthSlice, hw, ite_eq_right hm]
 
 /-- Inverse conjugation is a finite telescope with an explicitly vanishing last term. -/
 theorem inverseClass_root_eq_adSum [LinearOrder V] (f : List V → R)
@@ -87,7 +87,7 @@ theorem inverseClass_root_eq_adSum [LinearOrder V] (f : List V → R)
     simpa only [T, Finset.mul_sum, Finset.sum_mul, Finset.sum_range_sub'] using hsum
   have hlast : ContextEq f (U N) 0 := wordAd_terminates f N hdegree l r N le_rfl
   have hroot : ContextEq f (D * T * I) (wordTerm [r]) :=
-    hsum'.trans (by simpa only [sub_zero] using (ContextEq.refl (U 0)).sub hlast)
+    hsum'.trans (by simpa only [sub_zero, U, wordAd] using (ContextEq.refl (U 0)).sub hlast)
   have hmain := (hroot.mul_left I).mul_right D
   have hID := inverseClass_mul_descendingClass f hrep (-1) l
   have hcollapse : ContextEq f (I * (D * T * I) * D) T := by
@@ -114,6 +114,6 @@ theorem wordAd_eq_lengthSlice_inverseRoot [LinearOrder V] (f : List V → R)
     lia
   simp_rw [heq] at hh
   have hd : d ∈ Finset.range M := by simp only [Finset.mem_range]; dsimp [M]; lia
-  simpa only [Finset.sum_ite_eq', if_pos hd] using hh.symm
+  simpa only [Finset.sum_ite_eq', ite_eq_left hd] using hh.symm
 
 end VerticalStripLLT.CyclicHessenberg
