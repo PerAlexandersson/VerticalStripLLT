@@ -62,7 +62,7 @@ theorem permutationDisplay_fullPerm (D : CycleDisplay (Finset.univ : Finset V)) 
   rw [permutationBlocks, ← D.roots_list_eq_sort, List.map_map]
   calc
     D.blocks.map (fun b => orbitBlock D.fullPerm b.1) = D.blocks.map id := by
-      apply List.map_congr_left.mpr
+      apply List.map_congr_left
       intro b hb
       apply Prod.ext
       · rfl
