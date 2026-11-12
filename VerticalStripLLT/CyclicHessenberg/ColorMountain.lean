@@ -1,5 +1,6 @@
 import VerticalStripLLT.CyclicHessenberg.ColorDegree
 import VerticalStripLLT.CyclicHessenberg.ColorClassProducts
+import Mathlib.Algebra.BigOperators.Ring.List
 
 /-! Isolating homogeneous signed mountain words by finite length slices. -/
 
@@ -115,5 +116,57 @@ theorem wordAd_eq_lengthSlice_inverseRoot [LinearOrder V] (f : List V → R)
   simp_rw [heq] at hh
   have hd : d ∈ Finset.range M := by simp only [Finset.mem_range]; dsimp [M]; lia
   simpa only [Finset.sum_ite_eq', ite_eq_left hd] using hh.symm
+
+/-- Literal expansion of inverse conjugation, before discarding repeated vertices. -/
+theorem inverseRoot_eq_sublistSum (l : List V) (r : V) :
+    inverseClass (-1 : R) l * wordTerm [r] * descendingClass (-1) l =
+      (l.sublists.map fun A => (l.sublists.map fun B =>
+        (-1 : R) ^ B.length • wordTerm (A ++ [r] ++ B.reverse)).sum).sum := by
+  rw [inverseClass_eq_sublistSum, descendingClass_eq_sublistSum]
+  simp only [neg_neg, one_pow, one_smul]
+  simp_rw [← List.sum_map_mul_right, List.map_map, Function.comp_def]
+  simp_rw [← List.sum_map_mul_left, mul_smul_comm, wordTerm_mul]
+
+/-- All signed sublist mountains of one homogeneous degree. Repetitions are still present. -/
+noncomputable def signedSublistMountain (l : List V) (r : V) (d : ℕ) : WordSum R V :=
+  (l.sublists.map fun A => (l.sublists.map fun B =>
+    if A.length + B.length = d then
+      (-1 : R) ^ B.length • wordTerm (A ++ [r] ++ B.reverse) else 0).sum).sum
+
+theorem lengthSlice_inverseRoot_eval (f : List V → R) (l : List V) (r : V)
+    (d : ℕ) (ρ σ : List V) :
+    wordEval (lengthSlice f (ρ.length + d + 1 + σ.length)) ρ σ
+        (inverseClass (-1) l * wordTerm [r] * descendingClass (-1) l) =
+      wordEval f ρ σ (signedSublistMountain l r d) := by
+  classical
+  rw [inverseRoot_eq_sublistSum, signedSublistMountain]
+  simp only [map_list_sum, List.map_map, Function.comp_def]
+  apply congrArg List.sum
+  apply List.map_congr_left.mpr
+  intro A hA
+  simp only [map_list_sum, List.map_map, Function.comp_def]
+  apply congrArg List.sum
+  apply List.map_congr_left.mpr
+  intro B hB
+  have hlen : (ρ ++ (A ++ [r] ++ B.reverse) ++ σ).length =
+      ρ.length + d + 1 + σ.length ↔ A.length + B.length = d := by
+    simp only [List.length_append, List.length_reverse, List.length_cons, List.length_nil]
+    lia
+  by_cases hd : A.length + B.length = d
+  · simp only [ite_eq_left hd, map_smul, wordEval_term, lengthSlice,
+      ite_eq_left (hlen.mpr hd)]
+  · simp only [ite_eq_right hd, map_zero, map_smul, wordEval_term, lengthSlice,
+      ite_eq_right (fun h => hd (hlen.mp h)), smul_zero]
+
+/-- The iterated commutator is the signed mountain sum in every exterior context. -/
+theorem wordAd_eq_signedSublistMountain [LinearOrder V] (f : List V → R)
+    (hf : ContextualBalance f) (hrep : ∀ l, ¬ l.Nodup → f l = 0)
+    (l : List V) (r : V) (hl : l.Pairwise (· < ·))
+    (hr : ∀ a ∈ l, a < r) (d : ℕ) :
+    ContextEq f (wordAd (wordLetterSum l) (wordTerm [r]) d)
+      (signedSublistMountain l r d) := by
+  intro ρ σ
+  exact (wordAd_eq_lengthSlice_inverseRoot f hf hrep l r hl hr d ρ σ).trans
+    (lengthSlice_inverseRoot_eval f l r d ρ σ)
 
 end VerticalStripLLT.CyclicHessenberg

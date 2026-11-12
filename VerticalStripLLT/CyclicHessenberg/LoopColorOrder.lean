@@ -34,8 +34,8 @@ theorem colorSortedPerm_precedes_of_lt {k m : ℕ} (κ : Fin k → Fin m)
   let i' : LayerPosition k := (layerPositionEquiv k).symm i
   let j' : LayerPosition k := (layerPositionEquiv k).symm j
   have hij' : i' < j' := by
-    apply Fin.lt_def.mpr
-    simpa [i', j', layerPositionEquiv] using Fin.lt_def.mp hij
+    change i.val < j.val
+    exact hij
   have hsorted := sortColorOrder_orderEquiv_precedes
     (κ := fun v : (Finset.univ : Finset (Fin k)) => κ v.val) hij'
   have hpi : colorSortedPerm κ i =
@@ -47,7 +47,7 @@ theorem colorSortedPerm_precedes_of_lt {k m : ℕ} (κ : Fin k → Fin m)
     simpa [colorSortedPerm, colorSortedFullOrder, j'] using
       (fullOrdersPerm_apply_position (colorSortedFullOrder κ) j')
   rw [hpi, hpj]
-  simpa [fiberColorPrecedes, colorPrecedes] using hsorted
+  simpa [fiberColorPrecedes, colorPrecedes, colorSortedFullOrder] using hsorted
 
 /-- Positions increase exactly when their sorted vertices satisfy `colorPrecedes`. -/
 theorem colorSortedPerm_precedes_iff_lt {k m : ℕ} (κ : Fin k → Fin m)
