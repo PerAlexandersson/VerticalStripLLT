@@ -4,6 +4,8 @@ import VerticalStripLLT.CyclicHessenberg.ColorDegree
 
 namespace VerticalStripLLT.CyclicHessenberg
 
+open scoped BigOperators
+
 variable {V R : Type*} [CommRing R]
 
 /-- Ordered product of the decreasing class factors for all colors. -/
@@ -48,14 +50,14 @@ theorem colorClassProduct_insert_root (f : List V → R)
       simpa only [colorClassProduct, descendingClass_append, descendingClass, one_mul]
         using ih.mul_left ((1 + T) * D)
     have hkill : ContextEq f (T * D * B * G) 0 := by
-      simpa only [smul_mul_assoc, smul_zero, zero_mul] using
+      simpa only [T, B, smul_mul_assoc, smul_zero, zero_mul] using
         ((colorInsertion_repeated_root f hrep l r Y D).mul_right G).smul t
     have hcancel : ContextEq f (D * B * I * D * G) (D * B * G) := by
       simpa only [mul_one, mul_assoc] using
         ((inverseClass_mul_descendingClass f hrep t l).mul_left (D * B)).mul_right G
     have heq₁ : (1 + T) * D * ((1 + B) * G) =
         ((1 + T) * D * G + D * B * G) + T * D * B * G := by
-      simp only [mul_add, add_mul, one_mul, mul_one, mul_assoc]
+      simp only [mul_add, add_mul, one_mul, mul_assoc]
       abel
     have heq₂ : (1 + (T + D * B * I)) * (D * G) =
         (1 + T) * D * G + D * B * I * D * G := by
@@ -69,5 +71,32 @@ theorem colorClassProduct_insert_root (f : List V → R)
       · simpa only [add_zero] using h₂
       · exact h₃.trans (ContextEq.of_eq heq₂.symm)
     exact h₁.trans hh
+
+/-- The exact boundary term in the finite shift of a weighted commutator sum. -/
+theorem finite_weight_shift (E : ℕ → R) (hE : E 0 = 1) (U : ℕ → WordSum R V)
+    (t : R) (N : ℕ) :
+    (∑ d ∈ Finset.range N, (E (d + 1) + t * E d) • U d) =
+      t • U 0 + (∑ d ∈ Finset.range N, E (d + 1) • (U d + t • U (d + 1))) -
+        (t * E N) • U N := by
+  have hs : (∑ d ∈ Finset.range N, E d • U d) + E N • U N =
+      (∑ d ∈ Finset.range N, E (d + 1) • U (d + 1)) + U 0 := by
+    rw [← Finset.sum_range_succ, Finset.sum_range_succ', hE, one_smul]
+  have ht := congrArg (fun X : WordSum R V => t • X) hs
+  simp only [smul_add, smul_smul] at ht
+  have ht' : t • (∑ d ∈ Finset.range N, E d • U d) =
+      t • U 0 + t • (∑ d ∈ Finset.range N, E (d + 1) • U (d + 1)) -
+        (t * E N) • U N := by
+    apply eq_sub_iff_add_eq.mpr
+    simpa only [add_comm] using ht
+  have hleft : (∑ d ∈ Finset.range N, (E (d + 1) + t * E d) • U d) =
+      (∑ d ∈ Finset.range N, E (d + 1) • U d) +
+        t • (∑ d ∈ Finset.range N, E d • U d) := by
+    simp only [add_smul, Finset.sum_add_distrib, Finset.smul_sum, smul_smul]
+  have hright : (∑ d ∈ Finset.range N, E (d + 1) • (U d + t • U (d + 1))) =
+      (∑ d ∈ Finset.range N, E (d + 1) • U d) +
+        t • (∑ d ∈ Finset.range N, E (d + 1) • U (d + 1)) := by
+    simp [smul_add, Finset.sum_add_distrib, Finset.smul_sum, smul_smul, mul_comm]
+  rw [hleft, hright, ht']
+  abel
 
 end VerticalStripLLT.CyclicHessenberg
