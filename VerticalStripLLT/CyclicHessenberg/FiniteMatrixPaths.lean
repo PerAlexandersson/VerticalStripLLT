@@ -84,7 +84,8 @@ theorem list_prod_eq_sum_fixedBoundaryPath {I R : Type*} [Fintype I] [DecidableE
         fixedBoundaryPathWeight M (e.symm ⟨c, p⟩) =
           M 0 a c * fixedBoundaryPathWeight tailM p := by
       change (∏ ℓ : Fin (n + 1),
-        M ℓ (Fin.cons a p.val ℓ.castSucc) (Fin.cons a p.val ℓ.succ)) = _
+        M ℓ ((Fin.cons a p.val : Fin (n + 2) → I) ℓ.castSucc)
+          ((Fin.cons a p.val : Fin (n + 2) → I) ℓ.succ)) = _
       rw [Fin.prod_univ_succ]
       simp only [Fin.castSucc_zero, Fin.cons_zero, Fin.cons_succ,
         Fin.castSucc_succ, p.property.1]

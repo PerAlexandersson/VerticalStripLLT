@@ -94,8 +94,10 @@ theorem wordAd_eq_signedSetMountain (f : List V → R)
     (S : Finset V) (r : V) (hr : ∀ a ∈ S, a < r) (d : ℕ) :
     ContextEq f (wordAd (wordLetterSum S.sort) (wordTerm [r]) d)
       (signedSetMountain S r d) := by
-  exact (wordAd_eq_signedSublistMountain f hf hrep S.sort r
-    (Finset.sortedLT_sort S).pairwise (fun a ha => hr a (by simpa using ha)) d).trans
-      (signedSublistMountain_eq_signedSetMountain f hrep S r d)
+  have hsmall : ∀ a ∈ S.sort, a < r := fun a ha => hr a (Finset.mem_sort.mp ha)
+  apply ContextEq.trans (B := signedSublistMountain S.sort r d)
+  · exact wordAd_eq_signedSublistMountain f hf hrep S.sort r
+      (Finset.sortedLT_sort S).pairwise hsmall d
+  · exact signedSublistMountain_eq_signedSetMountain f hrep S r d
 
 end VerticalStripLLT.CyclicHessenberg

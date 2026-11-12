@@ -31,7 +31,9 @@ theorem naturalOpenKernel_exchangeCompatible {k n : ℕ} (h : Tuple k n) :
 theorem shiftedRawOpenKernel_exchangeCompatible {k n : ℕ} (h : Tuple k n) :
     ExchangeCompatible Polynomial.X (VerticalStripLLT.qShift.mapMatrix (rawOpenKernel h)) := by
   rw [← cast_naturalOpenKernel_eq_shift_rawOpenKernel]
+  change ExchangeCompatible Polynomial.X
+    (fun π τ => naturalPolynomialCast (naturalOpenKernel h π τ))
   have hh := (naturalOpenKernel_exchangeCompatible h).map naturalPolynomialCast
-  simpa [naturalPolynomialCast, Matrix.map] using hh
+  simpa only [naturalPolynomialCast, Polynomial.coe_mapRingHom, Polynomial.map_X] using hh
 
 end VerticalStripLLT.CyclicHessenberg
