@@ -22,11 +22,13 @@ building or committing; the primary reviewed and adopted that file.
 The same Luna delegate drafted and released `CyclicHessenberg/Layer.lean`
 without builds or commits; the primary reviewed and adopted its layer kernels,
 ordered products and coefficient maps. Draft PR: GitHub #9.
-`cyclic_hessenberg_data` now owns only `CyclicHessenberg/Coloring.lean` for
-finite color/tie sorting and the direct kernel-coloring enumerator, build-free.
+`cyclic_hessenberg_data` drafted and released `CyclicHessenberg/Coloring.lean`
+without building. The primary adopts its direct finite color enumerator for checking.
 The bounded Luna delegate `cyclic_order_insertion` drafted and released
 `CyclicHessenberg/OrderInsertion.lean`: insertion/erasure of one absent named
 vertex and the finite-sum reindexing. The primary adopted it for Laplace checking.
+That delegate now owns only `CyclicHessenberg/MatrixExchange.lean` for the
+generic finite-involution scalar/matrix equivalence, with no builds or commits.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.

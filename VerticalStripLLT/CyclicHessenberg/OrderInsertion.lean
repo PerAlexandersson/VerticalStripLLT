@@ -59,6 +59,7 @@ theorem insertOrder_val {S : Finset V} (a : V) (ha : a ∉ S)
 private def eraseOrder {S : Finset V} (a : V) (ha : a ∉ S)
     (τ : Order (insert a S)) : Order S := by
   classical
+  refine ⟨τ.val.eraseIdx (τ.val.idxOf a), ?_⟩
   let n := τ.val.idxOf a
   have hmem : a ∈ τ.val := (mem_order τ a).mpr (Finset.mem_insert_self a S)
   have hn : n < τ.val.length := List.idxOf_lt_length_iff.mpr hmem
@@ -68,7 +69,7 @@ private def eraseOrder {S : Finset V} (a : V) (ha : a ∉ S)
       (List.getElem_cons_eraseIdx_perm hn)
   have hnd : (a :: τ.val.eraseIdx n).Nodup := hperm.nodup_iff.mpr τ.property.1
   obtain ⟨haerase, hnderase⟩ := List.nodup_cons.mp hnd
-  refine ⟨τ.val.eraseIdx n, hnderase, ?_⟩
+  refine ⟨hnderase, ?_⟩
   apply Finset.ext
   intro v
   simp only [List.mem_toFinset]

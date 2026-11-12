@@ -119,6 +119,9 @@ available through the constrained remote target interface.
 The insertion/erasure equivalence is isolated in the additional helper
 `CyclicHessenberg/OrderInsertion.lean`, between BoundaryOrder and RootDeletion,
 so its list bookkeeping can be implemented and reviewed independently.
+The additional `CyclicHessenberg/MatrixExchange.lean` isolates the generic
+finite-involution matrix calculation used to derive product closure; it does
+not assume commutation in place of the two scalar laws.
 
 Current source checkpoint:
 
