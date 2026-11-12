@@ -15,7 +15,7 @@ theorem index_monotone : Monotone c.index := by
   by_contra hnot
   have hidx : (c.index y : ℕ) < c.index x := Nat.lt_of_not_ge hnot
   have hstep : (c.index y : ℕ) + 1 ≤ c.index x := Nat.succ_le_of_lt hidx
-  have hsize := c.monotone_sizeUpTo ((c.index y : ℕ) + 1) (c.index x) hstep
+  have hsize := c.monotone_sizeUpTo hstep
   have hy : (y : ℕ) < c.sizeUpTo (c.index y).succ := c.lt_sizeUpTo_index_succ y
   have hx : c.sizeUpTo (c.index x) ≤ (x : ℕ) := c.sizeUpTo_index_le x
   have hxy' : (x : ℕ) ≤ y := Fin.le_iff_val_le_val.mp hxy
@@ -61,7 +61,7 @@ theorem embedding_lt_of_lt_index {i j : Fin c.length} (hij : i < j)
   rw [← c.sizeUpTo_succ' i] at hi
   have hstep : (i : ℕ) + 1 ≤ j :=
     Nat.succ_le_of_lt (Fin.lt_iff_val_lt_val.mp hij)
-  have hsize := c.monotone_sizeUpTo ((i : ℕ) + 1) j hstep
+  have hsize := c.monotone_sizeUpTo hstep
   exact lt_of_lt_of_le hi (le_trans hsize (Nat.le_add_right _ _))
 
 end Composition

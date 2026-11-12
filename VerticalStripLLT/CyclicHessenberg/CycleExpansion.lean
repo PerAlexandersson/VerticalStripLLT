@@ -111,8 +111,14 @@ theorem naturalKernelExpansion_eq_cycleSum (S : Finset V)
     · let r := S.max' hS
       have hr : r ∈ S := S.max'_mem hS
       have hmax : ∀ a ∈ S, a ≤ r := fun a ha => Finset.le_max' S a ha
-      rw [naturalKernelExpansion_eq_rootSum S hS, sum_rootSet,
-        naturalCycleSum_eq_rootSum S r hr hmax]
+      have hsum := sum_rootSet S r (fun U hroot =>
+        natElementary ⟨U.card, Finset.card_pos.mpr ⟨r, hroot⟩⟩ *
+          naturalKernelExpansion (S \ U) (rootDeletion Polynomial.X Z U r))
+      calc
+        naturalKernelExpansion S Z = _ :=
+          (naturalKernelExpansion_eq_rootSum S hS Z).trans hsum
+        _ = naturalCycleSum S Z := ?_
+      rw [naturalCycleSum_eq_rootSum S r hr hmax]
       apply Finset.sum_congr rfl
       intro U hU
       rw [ih (S \ U.val) (Finset.sdiff_ssubset U.property.1 ⟨r, U.property.2⟩)]
