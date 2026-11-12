@@ -19,9 +19,9 @@ task. The primary adopted its recommendations; the decision and standalone
 roadmap are in `docs/CYCLIC_HESSENBERG_PLAN.md`. The bounded Luna delegate
 `cyclic_hessenberg_data` drafted only `Data.lean`, then released it without
 building or committing; the primary reviewed and adopted that file.
-The same Luna delegate now owns only `CyclicHessenberg/Layer.lean` for a bounded
-layer-kernel/coefficient-map implementation; no builds or commits. All other
-cyclic source files remain primary-owned. Draft PR: GitHub #9.
+The same Luna delegate drafted and released `CyclicHessenberg/Layer.lean`
+without builds or commits; the primary reviewed and adopted its layer kernels,
+ordered products and coefficient maps. Draft PR: GitHub #9.
 A second bounded Luna delegate `cyclic_order_insertion` owns only
 `CyclicHessenberg/OrderInsertion.lean`: insertion/erasure of one absent named
 vertex and the finite-sum reindexing. It must remain build-free; the primary

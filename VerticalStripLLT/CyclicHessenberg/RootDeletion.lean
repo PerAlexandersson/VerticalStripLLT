@@ -44,7 +44,10 @@ theorem rootDeletion_map {T : Type*} [CommSemiring T] (f : R →+* T)
   classical
   let : Unique (Order (∅ : Finset V)) :=
     ⟨⟨increasingOrder ∅⟩, fun l => Subsingleton.elim l _⟩
-  simp [rootDeletion]
+  simp only [rootDeletion, Finset.card_singleton, Nat.sub_self, pow_zero, one_mul,
+    Finset.erase_singleton]
+  rw [Fintype.sum_unique]
+  simp only [order_empty_val, List.nil_append, List.cons_append]
 
 /-- The crossed entries encountered while moving `a` simultaneously along both lists. -/
 def minimumSlideSum (Z : List V → List V → R) (a : V) (π τ : List V) :
@@ -82,8 +85,8 @@ theorem minimumSlide {q : R} {Z : List V → List V → R}
       simp only [minimumSlideSum, List.append_assoc, List.cons_append]
       ring
 
-/-- Index the crossed entries by the position of the moving minimum. -/
 omit [LinearOrder V] in
+/-- Index the crossed entries by the position of the moving minimum. -/
 theorem minimumSlideSum_eq_sum (Z : List V → List V → R)
     (a : V) (π τ ρ ρ' xs ys : List V) (hlen : xs.length = ys.length) :
     minimumSlideSum Z a π τ ρ ρ' xs ys =
@@ -219,7 +222,7 @@ theorem signedRootDeletion_insert_min (Z : List V → List V → R)
   classical
   have haU : a ∉ U := fun h => (lt_irrefl a) (ha a h)
   have haer : a ∉ U.erase r := fun h => haU (Finset.mem_of_mem_erase h)
-  rw [signedRootDeletion, Finset.erase_insert_of_ne (ne_of_gt har),
+  rw [signedRootDeletion, Finset.erase_insert_of_ne (ne_of_lt har),
     Finset.sum_powerset_insert haer, ← Finset.sum_add_distrib]
   unfold signedRootDeletion
   apply Finset.sum_congr rfl
