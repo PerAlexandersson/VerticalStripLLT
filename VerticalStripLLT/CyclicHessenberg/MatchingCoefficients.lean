@@ -16,7 +16,8 @@ theorem matchingShape_degree (h : Tuple k n) (φ : MatchingTuple h) :
 
 theorem matchingShape_weight (h : Tuple k n) (φ : MatchingTuple h) :
     (matchingShape h φ).sum (fun i a => i.val * a) = k := by
-  simpa only [Finset.card_univ, Fintype.card_fin] using (matchingDisplay h φ).shape_weight
+  simpa only [matchingShape, Finset.card_univ, Fintype.card_fin] using
+    (matchingDisplay h φ).shape_weight
 
 /-- A fixed shape has the forced power `q^(k-number of parts)` as a factor. -/
 theorem naturalCyclicExpansion_coeff (h : Tuple k n) (d : ℕ+ →₀ ℕ) :
@@ -71,6 +72,7 @@ theorem cyclicExpansion_coeff_eq_card_markedMatching (h : Tuple k n)
   simp only [cyclicExpansion, naturalCast, MvPolynomial.coeff_map,
     Polynomial.coe_mapRingHom, Polynomial.coeff_map]
   rw [naturalCyclicExpansion_coeff_eq_card_markedMatching]
+  rfl
 
 theorem naturalCyclicExpansion_coeff_eq_zero_of_weight_ne (h : Tuple k n)
     (d : ℕ+ →₀ ℕ) (hd : d.sum (fun i a => i.val * a) ≠ k) :
