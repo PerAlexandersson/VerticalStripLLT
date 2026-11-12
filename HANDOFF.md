@@ -43,9 +43,11 @@ primary checked its sorting/position equivalence at `2bf4223`.
 Both delegates released `FiniteMatrixPaths.lean` and `SortedSubsets.lean`; primary
 owns their integration and repairs. New bounded assignments: `cyclic_order_insertion`
 owns only new `PathKernel.lean`, restricting the matrix-path sum to feasible paths;
-`cyclic_hessenberg_data` owns only new `ColorClassAssignments.lean`, the literal
-finite expansion of the ordered class product. Neither may build or commit.
-The Astra reviewer is reviewing the remaining coloring semantic bridge read-only.
+`cyclic_hessenberg_data` now owns only new `ColorSubwords.lean`, pure finite
+colored-subword/coloring bijections. No assignment-expansion file was written;
+the Astra-reviewed subword route supersedes it. Neither may build or commit.
+The Astra reviewer completed the remaining coloring semantic review read-only.
+`PathKernel.lean` has been released and adopted by primary for checking.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.
