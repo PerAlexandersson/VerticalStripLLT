@@ -45,7 +45,7 @@ private theorem sum_map_neg {α M : Type*} [AddCommGroup M] (l : List α) (f : �
     (l.map fun x => -f x).sum = -(l.map f).sum := by
   induction l with
   | nil => simp
-  | cons x xs ih => simp [ih]
+  | cons x xs ih => simp [ih, add_comm]
 
 /-- Expand the decreasing color-class product as a sum over sublists. -/
 theorem descendingClass_eq_sublistSum (t : R) (l : List V) :

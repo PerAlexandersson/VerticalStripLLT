@@ -34,9 +34,12 @@ subtree and the single build slot. Latest candidates adopted from delegates:
 sorting characterization and uniqueness in `Coloring.lean`, and the count-sum
 normal form/two-value spectator identity in `LayerExchangeCounts.lean`.
 No delegate has built or committed.
-The Luna delegate `cyclic_hessenberg_data` is assigned only the new
-`CyclicHessenberg/ColorClassProducts.lean`: literal sublist expansions of the
-finite class products, with no builds or commits. All other files remain primary-owned.
+The Luna delegate `cyclic_hessenberg_data` released `ColorClassProducts.lean`;
+primary is checking its literal sublist expansions.
+The Luna delegate `cyclic_order_insertion` now owns only the new
+`CyclicHessenberg/ColorElementaryWeights.lean`: finite-list elementary weights,
+their cons recurrence and identification with the existing elementary polynomial.
+No builds or commits; all other files remain primary-owned.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.
