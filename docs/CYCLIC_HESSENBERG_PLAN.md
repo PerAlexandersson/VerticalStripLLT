@@ -75,6 +75,16 @@ by the primary integration owner:
 No review agent ran a build or edited source. A bounded Luna delegate drafted
 only `Data.lean`; the primary reviewed and adopted it, and owns integration.
 
+The Astra reviewer independently checked the later finite-word decomposition.
+We use finite `MonoidAlgebra` sums and `ContextEq`, with no quotient and no
+assumption that the evaluating functional is multiplicative. Multiplication
+congruence is proved by finite expansion. Both inverse identities and the
+full repeated-letter sandwich are checked before conjugating commutators.
+`wordAd_terminates` uses an explicit full-support degree bound in every
+context; `finite_weight_shift` retains the boundary summand explicitly.
+Coefficient extraction must use a constant-polynomial lift of the functional,
+and the final prefix/color-product bridge remains a required semantic proof.
+
 ## Standalone dependencies
 
 Baseline is `f93e8755b473528d95b3e5d8f7c08d07af9e4fa0` in the public

@@ -4,6 +4,10 @@ import VerticalStripLLT.CyclicHessenberg.ExchangeMatrix
 import VerticalStripLLT.CyclicHessenberg.Expansion
 import VerticalStripLLT.CyclicHessenberg.Layer
 import VerticalStripLLT.CyclicHessenberg.Coloring
+import VerticalStripLLT.CyclicHessenberg.LoopKernel
+import VerticalStripLLT.CyclicHessenberg.LayerExchangeCounts
+import VerticalStripLLT.CyclicHessenberg.ColorInsertion
+import VerticalStripLLT.CyclicHessenberg.ColorClassProducts
 
 /-! Axiom queries for the currently implemented cyclic Hessenberg interfaces.
 The final semantic bridge and positivity endpoints must be added when proved. -/
@@ -38,3 +42,18 @@ The final semantic bridge and positivity endpoints must be added when proved. -/
 #print axioms VerticalStripLLT.CyclicHessenberg.naturalOpenKernel_entry_eq_sum
 #print axioms VerticalStripLLT.CyclicHessenberg.orderColoringEnumerator_empty
 #print axioms VerticalStripLLT.CyclicHessenberg.orderColoringEnumerator_zero_alphabet
+#print axioms VerticalStripLLT.CyclicHessenberg.loopBoundaryPathEquiv
+#print axioms VerticalStripLLT.CyclicHessenberg.sortColorOrder_unique
+#print axioms VerticalStripLLT.CyclicHessenberg.sortColorOrder_orderEquiv_precedes
+#print axioms VerticalStripLLT.CyclicHessenberg.layerAscentCount_eq_sum
+#print axioms VerticalStripLLT.CyclicHessenberg.laterSpectatorIndicatorSwap
+#print axioms VerticalStripLLT.CyclicHessenberg.contextEq_iff_all_contexts
+#print axioms VerticalStripLLT.CyclicHessenberg.repeated_sandwich
+#print axioms VerticalStripLLT.CyclicHessenberg.descendingClass_mul_inverseClass
+#print axioms VerticalStripLLT.CyclicHessenberg.inverseClass_mul_descendingClass
+#print axioms VerticalStripLLT.CyclicHessenberg.descendingClass_conjugate_ad
+#print axioms VerticalStripLLT.CyclicHessenberg.wordAd_terminates
+#print axioms VerticalStripLLT.CyclicHessenberg.descendingClass_eq_sublistSum
+#print axioms VerticalStripLLT.CyclicHessenberg.inverseClass_eq_sublistSum
+#print axioms VerticalStripLLT.CyclicHessenberg.colorClassProduct_insert_root
+#print axioms VerticalStripLLT.CyclicHessenberg.finite_weight_shift

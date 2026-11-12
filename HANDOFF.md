@@ -61,55 +61,46 @@ works for `lake status`; `report` is host-only in Docker and was refused.
 No local build, dependency setup, or cache cleanup was run. No source-tree
 symlinks were found. Existing `.lake/config` is left intact.
 
-Verified foundation checkpoint: `68d44c40b6e6b3b7dde97088e7d1250a491e027c`.
-Laplace job `20261112T091256-90a0a5d9` succeeded (exit 0, 1324 jobs), building
-`Kernel` and `Loops` and their `Data`/`BoundaryOrder` dependencies without Lean
-warnings. The wrapper's external packages-directory warning is unchanged;
-do not run `lake update` in response. The verified kernel includes unequal prefix/suffix
-restriction, `ListExchangeCompatible.diagonal_contextualBalance` and
-`ListExchangeCompatible.minimumDifference`. Gate 1 still lacks indexed-order
-equivalence, scalar/matrix characterization and product closure. All main
-root-deletion, insertion, loop-bridge, cycle/matching and positivity endpoints
-remain unproved. The independently defined `loopColoringLLT`, its empty-support
-value and zero-alphabet theorem are checked. The indexed-order equivalence is
-now checked at `5d99e0a` by job `20261112T091405-393693a8`; all 16 initial
-axiom queries report only standard Lean axioms. `RootDeletion.lean` passed
-at `f075874ca9b602a34f723e029c0e82f802925cb7` in job
-`20261112T092503-e3344827`: positive residual exchange/map closure,
-`minimumSlide`, `minimumSlideSum_eq_sum`, `minimumSlide_cycle`, both singleton
-formulas, and `signedRootDeletion_insert_min`. That receipt failed overall
-because Layer still had two elaboration errors, now corrected in source.
-The full `signedRootDeletion_eq_rootDeletion` (including unequal suffixes),
-`rootDeletion_minimumDifference`, and insertion reindexing passed at
-`98c38283585604fe5262b82b0dde6115aca07b5b`, job `20261112T093828-ae2267b9`.
-That receipt also checked `Expansion`: the well-founded natural recurrence,
-its additivity/scalar linearity and coefficient nonnegativity of the constructed
-expression. It failed overall only on MatrixExchange, now being repaired.
-This is not yet positivity of the source polynomial: color insertion, the
-layer exchange proof and loop/kernel semantic equality remain outstanding.
-`Coloring` and the adjacent-position API passed at `1ab1a9f` in receipt
-`20261112T093608-1b817368`; `Layer` passed at `deb5d84` in receipt
-`20261112T092652-277780a5`; `OrderInsertion` passed at `f276554` in receipt
-`20261112T093127-070a9ade`. Axiom queries so far cover only the foundation;
-the full deletion and later endpoints must be added to Audit next.
-Combined checkpoint `e22f2ce477d9877b397d797edf7076e50228f923` passed
-job `20261112T094124-cda993df` (1411 jobs, exit 0): scalar/matrix equivalence,
-`ExchangeCompatible.mul` and `.list_prod`, full deletion and expansion linearity.
-All 30 queries in `CyclicHessenberg/Audit.lean` report only `propext`,
-`Classical.choice`, `Quot.sound`. No warnings in the new Lean targets.
-`LoopKernel.lean` is now a primary-owned candidate for the actual bijection
-between canonical covers and closed boundary paths; weighted equality remains open.
+Checked status (all via serialized Laplace; failed receipts are not final checks):
 
-Published unbuilt checkpoint: `ae64cfc103e7db2719c192f8d15ef04351be94e6`.
-Primary submitted job `20261112T091045-b6da0e5b`, 7200-second bound, targets
-`VerticalStripLLT.CyclicHessenberg.Data`,
-`VerticalStripLLT.CyclicHessenberg.BoundaryOrder`,
-`VerticalStripLLT.CyclicHessenberg.Kernel`, via `--project VerticalStripLLT`.
-The first receipt failed on a missing finite-function import and two list-API
-proof errors. Follow-up `20261112T091151-fdb209c0` at `28212e9` checked Data
-and BoundaryOrder but exposed Kernel/Loops elaboration errors. These were
-fixed and the third receipt above passed. No duplicate cache preparation was
-needed. The primary owns all subsequent submission and monitoring.
+- `e22f2ce477d9877b397d797edf7076e50228f923`, receipt
+  `20261112T094124-cda993df`, exit 0, 1411 jobs: gates 1–2, including
+  `exchangeCompatible_iff_commute`, product closure, both unequal-context
+  restrictions, `signedRootDeletion_eq_rootDeletion`, insertion equivalence,
+  the natural recurrence and its additivity/scalar linearity. All 30 current
+  axiom queries returned only `propext`, `Classical.choice`, `Quot.sound`.
+- `loopBoundaryPathEquiv` passed at `c6e4518` in receipt
+  `20261112T094446-41ba26ad` (the separate ColorClassSums target failed then).
+  This is an actual canonical-cover/path bijection, not yet weighted equality.
+- Sorting uniqueness and ordered-position inequalities in `Coloring`, plus
+  `layerAscentCount_eq_sum` and `laterSpectatorIndicatorSwap`, passed at
+  `6771a81` in receipt `20261112T095045-b21bc49f`.
+- `ColorClassSums` (contextual multiplication, full repeated-letter sandwich
+  annihilation, both class inverses) passed at `629a703`; all of
+  `ColorConjugation` (largest root, letter-sum/inverse commutation, iterated
+  commutators) passed at `10a29de`.
+- `ColorDegree` and `ColorClassProducts` passed at `a03b2c5` in receipt
+  `20261112T095748-e2d9c5cc`: explicit finite-degree termination and literal
+  sublist expansions. The ColorInsertion target still needed a scalar rewrite.
+- `3d3ff31a4cd350520cada0b194b2ead3b10b1631`, receipt
+  `20261112T095856-2e6b52ea`, exit 0, 1197 jobs: ColorInsertion class-product
+  factorization and the exact boundary term in `finite_weight_shift`.
+  Later helper axioms still need auditing.
+
+Outstanding substantive work: assemble the elementary-weight insertion sum,
+identify its signed mountain coefficients, and prove its evaluation equals the
+actual finite coloring enumerator. Prove full spectator-aware layer exchange,
+weighted loop/path and sorted-loop source identifications, then unroll the
+recursion into canonical cycles and matchings. Final source coefficientwise
+positivity, homogeneity/factors, meaningful examples/challenge wrappers and
+broad regressions are not yet proved. `kernelExpansion_coeff_nonneg` concerns
+only the constructed expression; it is not a positivity theorem for the
+independent `loopColoringLLT` until the semantic bridge is checked.
+
+The initial requested `ae64cfc` checkpoint was published and checked through
+three repair receipts, culminating in `68d44c4` / `20261112T091256-90a0a5d9`.
+The primary owns every subsequent submission and monitor. The cache wrapper's
+external packages-directory warning is known; do not run `lake update`.
 
 ## Public repository preparation (2026-10-17)
 
