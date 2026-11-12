@@ -52,10 +52,16 @@ theorem shape_weight {S : Finset V} (D : CycleDisplay S) :
   rw [← D.source_order.length]
   rw [← sourceWord_length_blocks]
   have hw := shape_weight_blocks D.blocks
-  rw [Finsupp.weight_apply] at hw
+  simp only [Finsupp.weight_apply, smul_eq_mul] at hw
   change ((D.blocks.map fun b => Finsupp.single (blockSize b) 1).sum.sum
     fun d n => d.val * n) = (D.blocks.map fun b => b.2.length + 1).sum
-  simpa only [smul_eq_mul, Nat.mul_comm, blockSize] using hw
+  calc
+    _ = ((D.blocks.map fun b => Finsupp.single (blockSize b) 1).sum.sum
+        fun d n => n * d.val) := by
+      apply Finsupp.sum_congr
+      intro d hd
+      exact Nat.mul_comm _ _
+    _ = _ := hw
 
 theorem shape_degree {S : Finset V} (D : CycleDisplay S) :
     D.shape.sum (fun _ n => n) = D.count := by

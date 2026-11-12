@@ -22,8 +22,8 @@ Draft PR: https://github.com/PerAlexandersson/VerticalStripLLT/pull/9
 Bounded active assignments (build-free, no commits): `cyclic_hessenberg_data` released `OrbitAction.lean`, adopted by primary;
 it released `CycleRoots.lean`, adopted by primary, and now owns only new
 `CycleBlockAction.lean`, generic list-map cyclic-block action and extraction. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
-it now owns only new `CompositionIndex.lean`, monotonicity/surjectivity and
-ordered-block index comparisons for Mathlib compositions.
+it released `CompositionIndex.lean`, adopted by primary, and now owns only
+new `ColorRuns.lean`, constant equality runs of monotone finite lists.
 Primary retains all other files, including cycle deletion and integration.
 Astra completed its read-only sorted-loop bridge review: use Mathlib Composition,
 blockwise decreasing loop labels, increasing block colors and equality-run
