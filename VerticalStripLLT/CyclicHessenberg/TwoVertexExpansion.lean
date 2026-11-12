@@ -31,8 +31,12 @@ theorem naturalKernelExpansion_pair (a r : V) (har : a < r)
   classical
   have hne : a ≠ r := ne_of_lt har
   have hr : ∀ b ∈ ({a} : Finset V), b < r := by simpa using har
+  have hps : ({a} : Finset V).powerset = {∅, {a}} := by
+    ext U
+    simp only [Finset.mem_powerset, Finset.subset_singleton_iff, Finset.mem_insert,
+      Finset.mem_singleton]
   rw [naturalKernelExpansion_insert_max {a} r hr]
-  simp only [Finset.powerset_singleton, Finset.sum_insert, Finset.mem_singleton,
+  simp only [hps, Finset.sum_insert, Finset.mem_singleton,
     Finset.empty_ne_singleton, not_false_eq_true, Finset.sum_singleton]
   simp only [Finset.card_empty, Finset.card_singleton, Finset.insert_empty_eq]
   have hdiff : ({r, a} : Finset V) \ {r} = {a} := by ext b; simp [hne, hne.symm]; tauto

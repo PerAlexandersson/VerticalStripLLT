@@ -24,12 +24,14 @@ it released `CycleRoots.lean` and `CycleBlockAction.lean`, adopted by primary,
 and released `CycleCoefficients.lean`, adopted by primary. It now owns only
 `OpenPathWeight.lean` (released, adopted by primary). It now owns only new
 `MarkedWeights.lean` (released, adopted by primary). It now owns only new
-`SingletonExpansion.lean`, exact zero- and one-vertex matching expansion examples. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
+`SingletonExpansion.lean` (released, adopted by primary). It now owns only new
+`ReplicateRuns.lean`, recovery of constant positive blocks from increasing colors. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
 it released `CompositionIndex.lean`, adopted by primary, and now owns only
 `ColorRuns.lean` (released, adopted by primary). Its next sole file is
 `CompositionSplit.lean` (released, adopted by primary). It now owns only new
-`RunLexOrder.lean`, the list-level equivalence of lexicographic order and decreasing
-label order within constant color runs.
+`RunLexOrder.lean` (released as partial helpers, adopted by primary; the full iff
+remains primary work). It now owns only `SmallOrders.lean`, two-element order
+enumeration and its finite sum formula.
 Primary retains all other files, including cycle deletion and integration.
 Astra completed its read-only sorted-loop bridge review: use Mathlib Composition,
 blockwise decreasing loop labels, increasing block colors and equality-run
