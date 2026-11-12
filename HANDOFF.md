@@ -22,11 +22,13 @@ Draft PR: https://github.com/PerAlexandersson/VerticalStripLLT/pull/9
 Bounded active assignments (build-free, no commits): `cyclic_hessenberg_data` released `OrbitAction.lean`, adopted by primary;
 it released `CycleRoots.lean` and `CycleBlockAction.lean`, adopted by primary,
 and released `CycleCoefficients.lean`, adopted by primary. It now owns only
-new `OpenPathWeight.lean`, the natural open-kernel sum over feasible paths. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
+`OpenPathWeight.lean` (released, adopted by primary). It now owns only new
+`MarkedWeights.lean`, finite powerset generating polynomials and marked-event counts. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
 it released `CompositionIndex.lean`, adopted by primary, and now owns only
 `ColorRuns.lean` (released, adopted by primary). Its next sole file is
-`CompositionSplit.lean`, list-map and zip compatibility of composition splitting
-and reconstruction from block lengths.
+`CompositionSplit.lean` (released, adopted by primary). It now owns only new
+`RunLexOrder.lean`, the list-level equivalence of lexicographic order and decreasing
+label order within constant color runs.
 Primary retains all other files, including cycle deletion and integration.
 Astra completed its read-only sorted-loop bridge review: use Mathlib Composition,
 blockwise decreasing loop labels, increasing block colors and equality-run
