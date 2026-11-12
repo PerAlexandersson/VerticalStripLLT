@@ -13,7 +13,8 @@ private theorem wordEval_prefix_shift {V R : Type*} [CommRing R]
     wordEval f p [] A = wordEval (fun w => f (p ++ w)) [] [] A := by
   induction A using MonoidAlgebra.induction_on with
   | of w =>
-    change wordEval f p [] (wordTerm (R := R) w.toList) = _
+    change wordEval f p [] (wordTerm (R := R) w.toList) =
+      wordEval (fun w => f (p ++ w)) [] [] (wordTerm (R := R) w.toList)
     simp [wordEval_term]
   | add A B hA hB => simp only [map_add, hA, hB]
   | smul c A hA => simp only [map_smul, hA]
@@ -24,23 +25,23 @@ theorem colorClassProduct_prefix_eval {V R : Type*} [LinearOrder V] [CommRing R]
     {m : ℕ} (weight : Fin m → R) (f : List V → R)
     (hf : ∀ w, ¬ IsOrder S w → f w = 0) :
     wordEval f [] [] (wordTerm p.val * colorClassProduct T.sort (List.ofFn weight)) =
-      ∑ κ : S \ U → Fin m, (∏ v, weight (κ v)) *
+      ∑ κ : ↥(S \ U) → Fin m, (∏ v, weight (κ v)) *
         f (p.val ++ (sortColorOrder κ).val) := by
   classical
   let f' : List V → R := fun w => f (p.val ++ w)
   have hf' : ∀ w, ¬ IsOrder (S \ U) w → f' w = 0 :=
     supported_prefix S U hUS p f hf
+  have heval := colorClassProduct_eval_of_subset (S \ U) T hUT weight f' hf'
+  generalize hG : colorClassProduct T.sort (List.ofFn weight) = G at heval ⊢
   calc
-    wordEval f [] [] (wordTerm p.val * colorClassProduct T.sort (List.ofFn weight)) =
-        wordEval f p.val [] (colorClassProduct T.sort (List.ofFn weight)) := by
+    wordEval f [] [] (wordTerm p.val * G) = wordEval f p.val [] G := by
       simpa only [List.nil_append] using
-        (wordEval_term_mul f [] [] p.val (colorClassProduct T.sort (List.ofFn weight)))
-    _ = wordEval f' [] [] (colorClassProduct T.sort (List.ofFn weight)) :=
+        (wordEval_term_mul f [] [] p.val G)
+    _ = wordEval f' [] [] G :=
       wordEval_prefix_shift f p.val _
-    _ = ∑ κ : S \ U → Fin m, (∏ v, weight (κ v)) *
+    _ = ∑ κ : ↥(S \ U) → Fin m, (∏ v, weight (κ v)) *
           f (p.val ++ (sortColorOrder κ).val) := by
-      simpa only [f'] using
-        (colorClassProduct_eval_of_subset (S \ U) T hUT weight f' hf')
+      exact heval
 
 /-- A mountain block followed by a color product evaluates as a signed
 root-deletion coloring sum. -/
@@ -51,7 +52,7 @@ theorem mountainWordSum_mul_eval {V R : Type*} [LinearOrder V] [CommRing R]
     (weight : Fin m → R) :
     wordEval (fun w => Z w w) [] []
         (mountainWordSum U r * colorClassProduct T.sort (List.ofFn weight)) =
-      ∑ κ : S \ insert r U → Fin m, (∏ a, weight (κ a)) *
+      ∑ κ : ↥(S \ insert r U) → Fin m, (∏ a, weight (κ a)) *
         signedRootDeletion Z (insert r U) r (sortColorOrder κ).val
           (sortColorOrder κ).val := by
   classical

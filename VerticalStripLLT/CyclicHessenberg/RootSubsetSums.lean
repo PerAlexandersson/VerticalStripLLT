@@ -38,7 +38,7 @@ theorem sum_powerset_mem_indicator {V R : Type*} [DecidableEq V]
       if h : r ∈ U.val then F U.val h else 0) =
       ∑ U ∈ (S.erase r).powerset,
         F (insert r U) (Finset.mem_insert_self r U) := by
-  simpa [Finset.insert_erase hr] using
+  simpa only [Finset.insert_erase hr] using
     sum_powerset_insert_indicator (S.erase r) r (Finset.notMem_erase r S) F
 
 end VerticalStripLLT.CyclicHessenberg
