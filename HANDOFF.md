@@ -109,6 +109,12 @@ uniform natural witness and homogeneity are now kernel checked. The expanded
 72-query audit passed at `55a7d44`, receipt `20261112T111158-6abc61dc`; the
 separate cycle targets in that receipt still needed repairs.
 
+`CycleDisplayDeletion` checked at `f279a85`; `CycleDisplayFinite` checked at
+`729e913`; `CycleRoots` and `BasicExamples` checked at `ea8a5d7`. The explicit
+`naturalKernelExpansion_eq_cycleSum` and `CompositionIndex` passed at `334d432`,
+receipt `20261112T111928-3ede86c6`; its separate permutation-display target
+had one SortedGT-to-Pairwise coercion error, now repaired in source.
+
 Outstanding substantive work: check/audit source elementary positivity, construct
 canonical cycle deletion and permutation equivalences, unroll the expansion into
 cycle and matching sums, prove the independent composition-sorted loop source

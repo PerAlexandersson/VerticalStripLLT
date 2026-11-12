@@ -60,7 +60,7 @@ noncomputable def permutationDisplay (p : Equiv.Perm V) :
       (by simpa only [Finset.mem_sort] using hr) hmem hne
   roots_desc := by
     rw [permutationBlocks, List.pairwise_map]
-    exact (cycleRoots p).sortedGT_sort
+    exact (cycleRoots p).sortedGT_sort.pairwise
 
 namespace CycleDisplay
 
