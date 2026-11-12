@@ -19,7 +19,7 @@ theorem positionalColorSorted_iff_sortedBlocks (π : Equiv.Perm (Fin k))
   have hblocks : β.blocks = ((List.ofFn α).equalityRuns).map List.length :=
     (congrArg Composition.blocks hβ).symm
   have hh := List.pairwise_zip_composition_iff_blocks_desc (List.ofFn α) (List.ofFn π)
-    β (List.length_ofFn _) (List.length_ofFn _) hcolors hblocks
+    β List.length_ofFn List.length_ofFn hcolors hblocks
   have hzip : (List.ofFn α).zip (List.ofFn π) = List.ofFn (fun i => (α i, π i)) := by
     apply List.ext_getElem
     · simp
@@ -34,12 +34,15 @@ abbrev SortedLoopColorData (h : Tuple k n) (m : ℕ) :=
 noncomputable instance sortedLoopColorDataFintype (h : Tuple k n) (m : ℕ) :
     Fintype (SortedLoopColorData h m) := inferInstanceAs (Fintype (Sigma _))
 
-noncomputable def sortColoredLoop (h : Tuple k n)
-    (x : LoopCover h × (Fin k → Fin m)) : SortedLoopColorData h m := by
-  let p := coloringSortedPairEquiv x.2
+noncomputable def sortedPairToLoopData (h : Tuple k n)
+    (L : LoopCover h) (p : SortedColorPair k m) : SortedLoopColorData h m := by
   let β := colorRunComposition p.val.2
-  refine ⟨β, ⟨⟨⟨x.1, p.val.1⟩, ?_⟩, ⟨p.val.2, p.property.monotone, rfl⟩⟩⟩
+  refine ⟨β, ⟨⟨⟨L, p.val.1⟩, ?_⟩, ⟨p.val.2, p.property.monotone, rfl⟩⟩⟩
   exact (positionalColorSorted_iff_sortedBlocks _ _ _ p.property.monotone rfl).mp p.property
+
+noncomputable def sortColoredLoop (h : Tuple k n)
+    (x : LoopCover h × (Fin k → Fin m)) : SortedLoopColorData h m :=
+  sortedPairToLoopData h x.1 (coloringSortedPairEquiv x.2)
 
 def unsortColoredLoop (h : Tuple k n) (x : SortedLoopColorData h m) :
     LoopCover h × (Fin k → Fin m) :=
@@ -60,10 +63,8 @@ theorem sort_unsortColoredLoop (h : Tuple k n) (x : SortedLoopColorData h m) :
   let p : SortedColorPair k m := ⟨⟨π, α⟩, hp⟩
   have heq := coloringSortedPairEquiv.apply_symm_apply p
   change coloringSortedPairEquiv (fun a => α (π.symm a)) = p at heq
-  unfold sortColoredLoop unsortColoredLoop
-  dsimp only
+  change sortedPairToLoopData h L (coloringSortedPairEquiv (fun a => α (π.symm a))) = _
   rw [heq]
-  dsimp only [p]
   cases hβ
   rfl
 

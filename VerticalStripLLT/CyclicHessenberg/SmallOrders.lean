@@ -16,7 +16,7 @@ def pairForwardOrder (a b : V) (hne : a ≠ b) : Order ({a, b} : Finset V) :=
 
 /-- The order listing the two named vertices in reverse display order. -/
 def pairReverseOrder (a b : V) (hne : a ≠ b) : Order ({a, b} : Finset V) :=
-  ⟨[b, a], by simp [IsOrder, hne]⟩
+  ⟨[b, a], by simp [IsOrder, hne.symm, Finset.pair_comm]⟩
 
 @[simp] theorem pairForwardOrder_val (a b : V) (hne : a ≠ b) :
     (pairForwardOrder a b hne).val = [a, b] := rfl
@@ -40,8 +40,7 @@ theorem order_pair_val_eq_forward_or_reverse (a b : V) (hne : a ≠ b)
     rcases hmem y hymem with hy | hy
     · subst y
       have hnodup := σ.property.1
-      rw [hxy] at hnodup
-      simp at hnodup
+      simp [hxy] at hnodup
       exact hnodup.elim
     · subst y
       exact Or.inl hxy
@@ -51,8 +50,7 @@ theorem order_pair_val_eq_forward_or_reverse (a b : V) (hne : a ≠ b)
       exact Or.inr hxy
     · subst y
       have hnodup := σ.property.1
-      rw [hxy] at hnodup
-      simp at hnodup
+      simp [hxy] at hnodup
       exact hnodup.elim
 
 /-- The finite order sum on two vertices is the sum of its two displayed orders. -/
@@ -67,7 +65,7 @@ theorem sum_order_pair {R : Type*} [AddCommMonoid R] (a b : V) (hne : a ≠ b)
     intro h
     have hba : b = a := (List.cons.inj h).1
     exact hne hba.symm
-  let e : Order ({a, b} : Finset V) ≃ Bool where
+  let e : Order ({a, b} : Finset V) ≃ Bool := {
     toFun σ := if σ.val = [a, b] then false else true
     invFun t := if t then reverse else forward
     left_inv σ := by
@@ -77,7 +75,7 @@ theorem sum_order_pair {R : Type*} [AddCommMonoid R] (a b : V) (hne : a ≠ b)
       · apply Subtype.ext
         simp [h, hrev, reverse]
     right_inv t := by
-      cases t <;> simp [forward, reverse, pairForwardOrder, pairReverseOrder, hne, hrev]
+      cases t <;> simp [forward, reverse, pairForwardOrder, pairReverseOrder, hne, hrev] }
   calc
     (∑ σ : Order ({a, b} : Finset V), F σ) = ∑ t : Bool, F (e.symm t) :=
       (Equiv.sum_comp e.symm F).symm
