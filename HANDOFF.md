@@ -62,6 +62,10 @@ that a color product omitting a required root evaluates to zero, plus maximum-so
 append bookkeeping. All integration and builds remain with primary.
 The order delegate owns only new `ColorPrefixEvaluation.lean`, evaluating a fixed
 prefix and then a signed mountain block against the actual residual coloring sum.
+The data delegate released `ColorMissing.lean`; it now owns only new
+`RootSubsetSums.lean`, a dependent finite-sum reindexing by subsets containing a root.
+These last two helper assignments are released and adopted by primary. All agents
+are build-free and all task files are currently primary-owned.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.
@@ -123,6 +127,11 @@ Checked status (all via serialized Laplace; failed receipts are not final checks
   `fc868f9`, receipt `20261112T103815-5b751a30`; other targets in that receipt failed.
   The raw independent source polynomial is now proved equal to the diagonal transfer
   coloring enumerator. This is still not the elementary-expansion endpoint.
+- `ColorDeletion`, `ColorPositions` and `KernelSupport` passed at `579aa2b`, receipt
+  `20261112T104309-5633d971`. The actual `colorClassProduct_eval`, including its
+  residual ambient-support variant, and `WeightedColoring` passed at `c35ddb5`,
+  receipt `20261112T104750-231d7eb0`. That receipt still had a sort-bookkeeping
+  failure in `ColorMissing`; the failure is not counted as a completed target.
 
 Outstanding substantive work: assemble the elementary-weight insertion sum,
 identify its signed mountain coefficients, and prove its evaluation equals the

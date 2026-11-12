@@ -16,14 +16,15 @@ theorem sort_insert_max (S : Finset V) (r : V)
   classical
   apply List.SortedLT.eq_of_mem_iff
     (Finset.sortedLT_sort (insert r S))
-    (List.sortedLT_append.mpr ⟨Finset.sortedLT_sort S, by simp,
+    (List.sortedLT_append.mpr ⟨Finset.sortedLT_sort S,
+      (show ([r] : List V).Pairwise (· < ·) by simp).sortedLT,
       by
         intro a ha b hb
         simp only [List.mem_singleton] at hb
         subst b
         exact hr a (by simpa only [Finset.mem_sort] using ha)⟩)
   intro a
-  simp [Finset.mem_sort]
+  simp [Finset.mem_sort, or_comm]
 
 /-- A missing support vertex forces every color-class evaluation to vanish. -/
 theorem colorClassProduct_eval_missing {R : Type*} [CommRing R]
