@@ -1,6 +1,6 @@
 # VerticalStripLLT handoff
 
-## Cyclic Hessenberg implementation (2026-11-12, active)
+## Cyclic Hessenberg implementation (2026-11-12, complete)
 
 Primary Codex owns strategy, integration, source and the sole serialized build
 slot, by Per's explicit designation. Work is in public
@@ -8,20 +8,25 @@ slot, by Per's explicit designation. Work is in public
 baseline `f93e8755b473528d95b3e5d8f7c08d07af9e4fa0`. Draft PR:
 https://github.com/PerAlexandersson/VerticalStripLLT/pull/9
 
-**Main source equality, positivity, paper formulas and broad integration are
-checked; final q=0/example repairs and combined audit remain.** Do not mark the whole task complete yet. Per
-reiterated that the implementation must follow the paper proof strategy; only
-an improvement to the paper argument can justify a mathematical deviation.
-The implementation follows the manuscript chain, with finite indexing helpers.
+**Implementation complete; all required proofs and regressions are kernel checked.**
+Per's proof-strategy constraint was followed. The final independent Astra review
+found no mathematical deviation or unmet core theorem contract.
 
-Ownership: primary owns `VerticalStripLLT/CyclicHessenberg/`, its umbrella,
-`Challenges/CyclicHessenberg.lean`, `Examples/CyclicHessenberg.lean`, root import,
-`CyclicHessenbergVerification.lean`, README, adapted plan and this opening.
-All Luna candidates were released and adopted, including `SingletonCycles.lean`.
-Primary owns the whole task scope; delegates currently own no source. The latest
-unbuilt candidates are `SingletonCycles.lean` and `ZeroExpansion.lean`.
-Only primary commits, pushes and builds. Existing Circular/component proofs and
-the manuscript are unchanged. No AlexanderssonFormalizations files are edited.
+Final verified Lean source: `09b32d62b4a5fb9a0ef0e63fb2ef2505720cfd8d`.
+Final serialized Laplace receipt: `20261112T122307-ff9f3c03`, exit 0, 2496 jobs:
+full library, `CyclicHessenberg.Audit`, and `CyclicHessenberg.RepositoryAudit`.
+The 110-declaration cyclic axiom allowlist guard passed; only `propext`,
+`Classical.choice`, `Quot.sound` are allowed. Seven existing public-result
+axiom checks also passed. Focused final examples and q=0 receipt:
+`bcc016cd11112ea67ea8284c6ee2725689822ddd` / `20261112T122136-a344882f`,
+exit 0, 1710 jobs. Later documentation-only commits do not change this Lean source.
+
+Ownership: no active source edits, delegated claims or running builds remain.
+Primary integrated the entire task-owned subtree, root import, challenges,
+examples, audit and documentation. Every delegate released its candidate before
+integration. Existing Circular/component proofs and manuscript are unchanged.
+No AlexanderssonFormalizations files were edited. Task branch is pushed without
+force; draft PR is retained for Per's review, not merged.
 
 Specification: complete original monorepo plan, FINDINGS §§13–15 and
 `cyclic-llt-e-expansion.tex` read. Adapted source map and independent Astra
@@ -64,14 +69,13 @@ receipt is distinguished from a successful complete build):
   `9339a5872f64f6eef2a12210a6372d07f642438a` /
   `20261112T115952-d2d6d442`, exit 0 (1683 jobs).
 
-Broad library and old-result `RepositoryAudit` passed at
-`9339a5872f64f6eef2a12210a6372d07f642438a`, job
-`20261112T120011-6b53d17d`, exit 0 (2480 jobs). The seven existing-result
-axiom queries returned only standard axioms. `IdentityMatching`,
-`SingletonCycles` and `KimOhExample` passed at `86b3640`, job
-`20261112T122027-96ede7a3`. That receipt failed only the final q=0 coefficient
-unfolding and the reverse-event example's decidability instance, now repaired.
-The expanded 110-query audit and final combined build are next.
+Final regression coverage: empty support, singleton, identity layers for all k,n,
+the generic two-/three-vertex root formulas, complete two-vertex tuples for all
+positive layer counts, complete three vertices, Kim–Oh Example 6.7, q=0 both in
+the formal elementary basis and finite alphabet, zero alphabet, decreasing color
+ties, a genuine later-layer reverse event, fixed-point cycles, and distinct
+prefix/suffix row-column contexts. All pass in the final combined receipt.
+No proofs or required declarations are missing.
 
 Exact public names: `Challenges.CyclicHessenberg.sortedLoopModel`,
 `positiveCycleExpansion`, `positiveMatchingExpansion`,
@@ -96,10 +100,18 @@ so it was not used. Paper-cache is registered. `report` is host-only and refused
 in Docker. No source symlinks found; preexisting `.lake/config` left intact.
 No mathematical computation scripts were used.
 
-Next: inspect broad and focused receipts, repair any failures, finish the formal
-q=0 expansion and example audit, recheck all final source, refresh PR/docs/handoff,
-and push a verified focused checkpoint. Current static guards find no holes,
-new axioms or `native_decide`. Run final guards and axiom checks again after edits.
+Review entry points: `VerticalStripLLT/CyclicHessenberg.lean`,
+`VerticalStripLLT/Challenges/CyclicHessenberg.lean`,
+`VerticalStripLLT/Examples/CyclicHessenberg.lean`, and the source map in
+`docs/CYCLIC_HESSENBERG_PLAN.md`. Main source/core proof files do not import
+Circular. `RepositoryAudit.lean` alone imports old results as regression checks.
+The root verification scripts were not directly invoked: the constrained bridge
+uses full-library compilation and the selected public-result audit targets above.
+
+Final static guards and `git diff --check` pass; no holes, new axioms,
+`native_decide`, unsafe declarations, disabled kernel checks, or source symlinks.
+No further implementation step remains. Keep the pinned toolchain/manifest and
+use the same project-selecting route for any review revisions.
 
 ## Public repository preparation (2026-10-17)
 

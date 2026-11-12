@@ -1,14 +1,12 @@
 # Cyclic Hessenberg LLT implementation
 
-Status: main semantic and positivity endpoints checked, 2026-11-12.
-`Challenges/CyclicHessenberg.lean` exposes all five endpoints. The explicit
-composition formula, independent coloring source, positive deletion, cycle and
-matching expansions, forced coefficient factor and marked-ascent cardinalities
-are checked. The 96-query main audit passed at `a41525d`; only the standard
-axioms `propext`, `Classical.choice`, `Quot.sound` occur. Complete two- and
-three-vertex formulas, zero-parameter source specialization, and the identity
-monodromy/loop-cover bijection are checked. Remaining integration work is the
-identity/Kim–Oh regressions and the broad existing-repository build.
+Status: complete and kernel checked, 2026-11-12. Final Lean source:
+`09b32d62b4a5fb9a0ef0e63fb2ef2505720cfd8d`; serialized Laplace receipt
+`20261112T122307-ff9f3c03`, exit 0, 2496 jobs. The full library, cyclic audit
+and existing-result audit pass. A build-time guard checks all 110 cyclic
+declarations against exactly `propext`, `Classical.choice`, `Quot.sound`.
+All five public endpoints and every regression below are checked. Toolchain,
+manifest and existing ordinary/circular/component proofs are unchanged.
 
 ## Scope and source correspondence
 
@@ -143,13 +141,12 @@ false`. Final audit entry points follow `Verification.lean` and
 | 2 | `RootDeletion` | Full signed-to-positive identity as kernels, insertion equivalence, residual compatibility and coefficient maps |
 | 3 | `Coloring`, `ColorClassSums`, `ColorInsertion`, `Expansion` | All-alphabet evaluation, natural coefficients, weighted homogeneity, expansion linearity |
 | 4 | `Loops`, `Layer`, `LayerExchange`, `LoopKernel` | Independent source model and semantic bridge, spectator-aware exchange proof |
-| 5 | `Cycles`, `CycleExpansion`, `Matchings`, `Positivity` | Explicit cycle/matching formulas, coefficient factor and finite marked-ascent count |
+| 5 | `CycleDisplay`, `CycleEquiv`, `CycleExpansion`, `MatchingExpansion`, `MatchingCoefficients` | Explicit cycle/matching formulas, coefficient factor and finite marked-ascent count |
 | 6 | Public root, cyclic examples/challenges, audit | Kernel checks, axiom audits and existing-paper regression |
 
-The public root will be `VerticalStripLLT/CyclicHessenberg.lean`. Example and
-challenge wrappers will be `VerticalStripLLT/Examples/CyclicHessenberg.lean`
-and `VerticalStripLLT/Challenges/CyclicHessenberg.lean`. We add them only when
-their substantive proofs exist. There will be no placeholder main theorems.
+The public root is `VerticalStripLLT/CyclicHessenberg.lean`. Example and
+challenge wrappers are `VerticalStripLLT/Examples/CyclicHessenberg.lean`
+and `VerticalStripLLT/Challenges/CyclicHessenberg.lean`. All wrappers have substantive proofs, with no placeholder main theorems.
 The audit is `CyclicHessenbergVerification.lean`, importing the additional
 `CyclicHessenberg/Audit.lean` module. The latter makes the axiom queries
 available through the constrained remote target interface.
@@ -160,13 +157,11 @@ The additional `CyclicHessenberg/MatrixExchange.lean` isolates the generic
 finite-involution matrix calculation used to derive product closure; it does
 not assume commutation in place of the two scalar laws.
 
-Current source checkpoint:
-
-* `Data`: finite Hessenberg maps, identity/complete data, tuple and indexing.
-* `BoundaryOrder`: named list orders, finite enumeration, concatenation,
-  cancellation of disjoint fixed contexts, empty-order uniqueness and swap.
-* `Kernel`: typed finite matrices, zero extension, scalar exchange closure,
-  unequal restrictions, contextual diagonal balance and signed minimum kernel.
+All six implementation gates have passed. The modules are intentionally small:
+finite data and orders; scalar/matrix exchange; contextual finite words and color
+insertion; independent semantic bridges; canonical cycles and feasible matchings;
+and source-facing endpoints with exact regressions. The final source map below
+lists the declarations needed to review the complete proof chain.
 
 Gates 1 and 2 have compiled, including the order/indexed equivalence, position
 swaps, matrix characterization and product closure. The natural recurrence has
@@ -196,7 +191,7 @@ for every `m`, including zero. The same expression must satisfy
 MvPolynomial.IsWeightedHomogeneous (fun t : ℕ+ => t.val) (cyclicExpansion h) k
 ```
 
-The five final wrappers are `sortedLoopModel`, `positiveCycleExpansion`,
+The five checked public wrappers are `sortedLoopModel`, `positiveCycleExpansion`,
 `positiveMatchingExpansion`, `elementaryCoefficientFormula`, and `ePositive`
 in `VerticalStripLLT.Challenges.CyclicHessenberg`. None may assume a semantic
 bridge, deletion identity, positivity, or desired expansion as input.
@@ -301,4 +296,29 @@ coefficient extraction implicit in the manuscript's `R_d` comparison. Its
 read-only review also confirmed the formal q=0 proof: only singleton-cycle
 matchings survive, and `loopCoverMatchingEquiv` identifies their number with
 canonical loop covers. This includes k=0 and the required zeroth power.
-Compilation of the final regression candidates remains a separate gate.
+The final combined build checks these arguments and every planned regression.
+`naturalCyclicExpansion_at_zero` gives the formal elementary-basis specialization;
+`specialize_shift_cyclicLLT_zero` gives the independent finite-alphabet version.
+
+## Verification receipts and reproducibility
+
+- Final full library plus cyclic and existing public-result audits:
+  `09b32d62b4a5fb9a0ef0e63fb2ef2505720cfd8d`, job
+  `20261112T122307-ff9f3c03`, exit 0, 2496 jobs.
+- Focused final q=0 and complete cyclic examples:
+  `bcc016cd11112ea67ea8284c6ee2725689822ddd`, job
+  `20261112T122136-a344882f`, exit 0, 1710 jobs.
+- The expanded audit has 110 cyclic queries and an executable allowlist guard;
+  the separate repository regression audit checks seven existing public results.
+  No unexpected axioms occur. The guard prevents a truncated remote log from
+  hiding an unexpected dependency.
+- The full library and ordinary/circular example modules compile. The seven old
+  endpoint queries are exposed through `CyclicHessenberg/RepositoryAudit.lean`
+  because the bridge accepts library targets, not the root verification scripts.
+- Static checks find no `sorry`, `admit`, added axioms, `native_decide`, unsafe
+  declarations or kernel-check disabling. Source widths and `git diff --check`
+  pass. No source-tree symlinks or generated dependency/build trees were added.
+
+No required declaration or proof remains missing. The pull request remains
+available for Per's review; the implementation makes no additional claim about
+literal circular flip classes or the plethystic definition.
