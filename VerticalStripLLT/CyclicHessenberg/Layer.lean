@@ -49,7 +49,7 @@ theorem layerKernelAt_map {k : ℕ} {R S : Type*} [CommSemiring R] [CommSemiring
     f.mapMatrix (layerKernelAt h z) = layerKernelAt h (f z) := by
   classical
   funext π τ
-  simp [layerKernelAt]
+  by_cases hf : layerFeasible h π τ <;> simp [layerKernelAt, hf]
 
 /-- The raw layer kernel, weighted by `q` to the ascent count. -/
 noncomputable def rawLayerKernel {k : ℕ} (h : Hessenberg k) :
@@ -132,6 +132,7 @@ theorem cast_naturalOpenKernel_eq_shift_rawOpenKernel {k n : ℕ} (h : Tuple k n
       ((List.ofFn fun i : Fin n => rawLayerKernel (h i)).prod)
   rw [map_list_prod, map_list_prod, List.map_ofFn, List.map_ofFn]
   congr 1
+  apply congrArg List.ofFn
   funext i
   exact cast_naturalLayerKernel_eq_shift_rawLayerKernel (h i)
 

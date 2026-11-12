@@ -22,10 +22,11 @@ building or committing; the primary reviewed and adopted that file.
 The same Luna delegate drafted and released `CyclicHessenberg/Layer.lean`
 without builds or commits; the primary reviewed and adopted its layer kernels,
 ordered products and coefficient maps. Draft PR: GitHub #9.
-A second bounded Luna delegate `cyclic_order_insertion` owns only
+`cyclic_hessenberg_data` now owns only `CyclicHessenberg/Coloring.lean` for
+finite color/tie sorting and the direct kernel-coloring enumerator, build-free.
+The bounded Luna delegate `cyclic_order_insertion` drafted and released
 `CyclicHessenberg/OrderInsertion.lean`: insertion/erasure of one absent named
-vertex and the finite-sum reindexing. It must remain build-free; the primary
-alone integrates and submits all checks.
+vertex and the finite-sum reindexing. The primary adopted it for Laplace checking.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.
@@ -59,10 +60,14 @@ root-deletion, insertion, loop-bridge, cycle/matching and positivity endpoints
 remain unproved. The independently defined `loopColoringLLT`, its empty-support
 value and zero-alphabet theorem are checked. The indexed-order equivalence is
 now checked at `5d99e0a` by job `20261112T091405-393693a8`; all 16 initial
-axiom queries report only standard Lean axioms. One unused simp argument
-was removed afterward. Next candidate: positive residual definitions,
-exchange/map closure and the simultaneous-minimum-slide lemma in
-`RootDeletion.lean`. This is not yet the full signed root-deletion identity.
+axiom queries report only standard Lean axioms. `RootDeletion.lean` passed
+at `f075874ca9b602a34f723e029c0e82f802925cb7` in job
+`20261112T092503-e3344827`: positive residual exchange/map closure,
+`minimumSlide`, `minimumSlideSum_eq_sum`, `minimumSlide_cycle`, both singleton
+formulas, and `signedRootDeletion_insert_min`. That receipt failed overall
+because Layer still had two elaboration errors, now corrected in source.
+The full signed root-deletion identity still awaits insertion reindexing and
+cardinality induction; it is not claimed by these supporting lemmas.
 
 Published unbuilt checkpoint: `ae64cfc103e7db2719c192f8d15ef04351be94e6`.
 Primary submitted job `20261112T091045-b6da0e5b`, 7200-second bound, targets
