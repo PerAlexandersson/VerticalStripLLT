@@ -118,7 +118,7 @@ theorem layerListWeight_pair_exchange [CommSemiring R] (h : V → V) (hm : Monot
         tauto
   · simp [layerListWeight, layerListFeasible, ht]
 
-/-- Every earlier strand sees the same unordered row pair, so arbitrary prefixes preserve exchange. -/
+/-- Earlier strands see the same unordered row pair, so arbitrary prefixes preserve exchange. -/
 theorem layerListWeight_exchangeCompatible [CommSemiring R] (h : V → V)
     (hm : Monotone h) (q : R) : ListExchangeCompatible q (layerListWeight h q) := by
   intro ρ σ ρ' σ' a b c d hlen hab hcd

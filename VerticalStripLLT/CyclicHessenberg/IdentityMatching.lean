@@ -79,11 +79,11 @@ private theorem list_sum_single_one {α : Type*} (l : List α) :
     congr 1
     simp [Nat.add_comm]
 
-private theorem permutationDisplay_one_count (k : ℕ) :
+theorem permutationDisplay_one_count (k : ℕ) :
     (permutationDisplay (1 : Equiv.Perm (Fin k))).count = k := by
   simp [CycleDisplay.count, permutationDisplay, permutationBlocks_one]
 
-private theorem permutationDisplay_one_shape (k : ℕ) :
+theorem permutationDisplay_one_shape (k : ℕ) :
     (permutationDisplay (1 : Equiv.Perm (Fin k))).shape = Finsupp.single 1 k := by
   simp [CycleDisplay.shape, CycleDisplay.blockSize, permutationDisplay,
     permutationBlocks_one, List.map_map, Function.comp_def, list_sum_single_one]

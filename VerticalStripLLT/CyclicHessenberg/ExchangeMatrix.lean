@@ -61,7 +61,8 @@ theorem exchangeCompatible_iff_involutions (q : R) {S : Finset V} (Z : Kernel R 
           change swapAdjacentList ρ.length (ρ' ++ [c, d] ++ σ') = _
           rw [hlen, swapAdjacentList_context]
         rw [hsx, hsy] at hh
-        simpa only [kernelEntry, dite_eq_left hl, dite_eq_left hl', dite_eq_left ht, dite_eq_left ht'] using hh
+        simpa only [kernelEntry, dite_eq_left hl, dite_eq_left hl',
+          dite_eq_left ht, dite_eq_left ht'] using hh
       · have ht' : ¬ IsOrder S (ρ' ++ [d, c] ++ σ') :=
           fun h' => ht (isOrder_swapAdjacent ρ' σ' d c h')
         simp only [kernelEntry, dite_eq_left hl, dite_eq_left hl', dite_eq_right ht,

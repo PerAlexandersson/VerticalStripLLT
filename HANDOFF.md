@@ -2,143 +2,103 @@
 
 ## Cyclic Hessenberg implementation (2026-11-12, active)
 
-Per explicitly appointed the current primary Codex worker as strategy,
-integration, source and serialized-build owner for this separate application.
-Baseline: clean `main` at `f93e8755b473528d95b3e5d8f7c08d07af9e4fa0`;
-remote: public `PerAlexandersson/VerticalStripLLT`. Active branch:
-`cyclic-hessenberg`, in this checkout. No other worktree exists.
+Primary Codex owns strategy, integration, source and the sole serialized build
+slot, by Per's explicit designation. Work is in public
+`PerAlexandersson/VerticalStripLLT`, branch `cyclic-hessenberg`, this checkout;
+baseline `f93e8755b473528d95b3e5d8f7c08d07af9e4fa0`. Draft PR:
+https://github.com/PerAlexandersson/VerticalStripLLT/pull/9
 
-Ownership: primary owns all files in `VerticalStripLLT/CyclicHessenberg/`,
-the future umbrella, cyclic examples/challenges, `CyclicHessenbergVerification.lean`,
-`docs/CYCLIC_HESSENBERG_PLAN.md`, and this opening. Root imports and README
-integration are reserved to primary. Existing Circular, component and manuscript
-files are outside scope. All Luna assignments have been released without builds
-or commits; primary has adopted their candidates, including `CycleDisplayCons.lean`
-and `CycleDisplayShape.lean`. Astra independently reviewed representation,
-finite-word decomposition, coloring semantics and canonical cycle architecture;
-its decisions are recorded in the adapted plan. Only primary integrates and builds.
-Draft PR: https://github.com/PerAlexandersson/VerticalStripLLT/pull/9
+**Main source equality and positivity are checked; final regressions and broad
+integration checks remain.** Do not mark the whole task complete yet. Per
+reiterated that the implementation must follow the paper proof strategy; only
+an improvement to the paper argument can justify a mathematical deviation.
+The implementation follows the manuscript chain, with finite indexing helpers.
 
-Bounded assignments: all earlier candidates released and adopted by primary,
-including `CompleteTwo.lean` and `ThreeVertexExpansion.lean` (unbuilt).
-`CompleteThree.lean` is released and adopted by primary. `cyclic_order_insertion`
-released `KimOhExample.lean`, now adopted by primary. No delegate owns source. `cyclic_hessenberg_data` now owns
-`IdentityMatching.lean` (released and adopted by primary). User reiterated:
-follow the paper proof strategy; mathematical deviations require a concrete
-improvement to the paper argument. The implemented route follows that strategy.
-Primary retains every other file and all integration/builds.
-Astra's independent final semantic audit found no orientation, fixed-point,
-coefficient or dependency defect; final literal composition source wrapper,
-regressions and public interfaces remain. Its review is contingent on checks.
+Ownership: primary owns `VerticalStripLLT/CyclicHessenberg/`, its umbrella,
+`Challenges/CyclicHessenberg.lean`, `Examples/CyclicHessenberg.lean`, root import,
+`CyclicHessenbergVerification.lean`, README, adapted plan and this opening.
+All Luna candidates were released and adopted, including `SingletonCycles.lean`.
+Primary owns the whole task scope; delegates currently own no source. The latest
+unbuilt candidates are `SingletonCycles.lean` and `ZeroExpansion.lean`.
+Only primary commits, pushes and builds. Existing Circular/component proofs and
+the manuscript are unchanged. No AlexanderssonFormalizations files are edited.
 
-Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
-and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.
-Paths and interfaces will be adapted to this standalone repository, not
-copied into AlexanderssonFormalizations. Keep an independently defined raw
-loop/color sum, positive layer count, empty support/alphabet cases, both
-unequal-prefix and unequal-suffix restriction, and the semantic bridge.
-Literal circular flip-component decomposition remains open.
+Specification: complete original monorepo plan, FINDINGS §§13–15 and
+`cyclic-llt-e-expansion.tex` read. Adapted source map and independent Astra
+reviews are in `docs/CYCLIC_HESSENBERG_PLAN.md`. Astra reviewed representation,
+finite contextual word arguments, source sorting, cycles and final integration.
+It found no semantic/orientation defect in the main proof. It checked fixed
+points, monodromy order, layer-labelled events and coefficient indexing.
 
-Build coordination: Lean `v4.34.0`, mathlib
-`5ed2965256430c3649e86755f9576b54eca72435`; preserve manifest and toolchain.
-Only the authorized Laplace project-selecting bridge may compile this task.
-Host confirmed readiness and the successful pinned cache receipt
-`20261112T090727-b00c3487` (8908 artifacts, exit 0). Euler is reserved for Fable.
-`codex mcp list` and runtime registry inspected: Lean MCP targets RealRooted,
-so target-repository diagnostics are unavailable; do not invoke it here.
-Paper-cache is registered. `/workspace/tools/supervisor-scripts/bin/supervisor-tool`
-works for `lake status`; `report` is host-only in Docker and was refused.
-No local build, dependency setup, or cache cleanup was run. No source-tree
-symlinks were found. Existing `.lake/config` is left intact.
+Checked endpoints (serialized Laplace; a checked target in a failed multi-target
+receipt is distinguished from a successful complete build):
 
-Checked status (all via serialized Laplace; failed receipts are not final checks):
+- Foundations, both unequal prefix/suffix residual contexts, matrix/scalar
+  exchange, insertion/erasure and signed positive deletion: `e22f2ce`, receipt
+  `20261112T094124-cda993df`, exit 0.
+- Actual source/path semantic equality `loopColoringLLT_eq_kernelColoringLLT`:
+  `fc868f9` / `20261112T103815-5b751a30` (separate target failed).
+- Actual color recurrence, finite-word evaluation and elementary semantic
+  bridge culminate in `RecursivePositivity`: `637112b` /
+  `20261112T110948-543e7a08` (separate targets failed).
+- Explicit canonical-cycle unrolling `naturalKernelExpansion_eq_cycleSum`:
+  `334d432` / `20261112T111928-3ede86c6` (separate target failed).
+- Actual cycle/permutation inverse and source sorting definitions: `55ee38d` /
+  `20261112T112819-80b862d9`, exit 0.
+- Independent raw source equals explicit matching expansion; nonnegative
+  coefficients and weighted homogeneity: `MatchingExpansion`, `a12cc2f` /
+  `20261112T113059-9d621bb2` (separate target failed).
+- Forced q-power and exact finite marked-ascent counts: `MatchingCoefficients`,
+  `3ab5cee` / `20261112T113626-1d5eef35` (separate target failed).
+- Sorted-loop weight-preserving source equality: `SortedLoopSemantics`,
+  `452cf5f` / `20261112T114805-241f9edb` (RunHeads failed then).
+- Increasing-color `M_β` identification: `Quasisymmetric`, `5868b00` /
+  `20261112T115435-1e5c40d7` (regression targets failed then).
+- All five public challenge endpoints, literal composition source equality,
+  and 96-query `Audit`: `a41525d` / `20261112T115801-7e2dfbe2`.
+  Only `propext`, `Classical.choice`, `Quot.sound`; the separate three-vertex
+  target failed then. `ZeroParameter` also passed in that receipt.
+- Complete two-vertex formula for all positive layer counts:
+  `CompleteTwoExpansion`, `83a6c10` / `20261112T115617-298a42d7`.
+- Complete three-vertex formula and loop/identity-monodromy equivalence:
+  `9339a5872f64f6eef2a12210a6372d07f642438a` /
+  `20261112T115952-d2d6d442`, exit 0 (1683 jobs).
 
-- `e22f2ce477d9877b397d797edf7076e50228f923`, receipt
-  `20261112T094124-cda993df`, exit 0, 1411 jobs: gates 1–2, including
-  `exchangeCompatible_iff_commute`, product closure, both unequal-context
-  restrictions, `signedRootDeletion_eq_rootDeletion`, insertion equivalence,
-  the natural recurrence and its additivity/scalar linearity. All 30 current
-  axiom queries returned only `propext`, `Classical.choice`, `Quot.sound`.
-- `loopBoundaryPathEquiv` passed at `c6e4518` in receipt
-  `20261112T094446-41ba26ad` (the separate ColorClassSums target failed then).
-  This is an actual canonical-cover/path bijection, not yet weighted equality.
-- Sorting uniqueness and ordered-position inequalities in `Coloring`, plus
-  `layerAscentCount_eq_sum` and `laterSpectatorIndicatorSwap`, passed at
-  `6771a81` in receipt `20261112T095045-b21bc49f`.
-- `ColorClassSums` (contextual multiplication, full repeated-letter sandwich
-  annihilation, both class inverses) passed at `629a703`; all of
-  `ColorConjugation` (largest root, letter-sum/inverse commutation, iterated
-  commutators) passed at `10a29de`.
-- `ColorDegree` and `ColorClassProducts` passed at `a03b2c5` in receipt
-  `20261112T095748-e2d9c5cc`: explicit finite-degree termination and literal
-  sublist expansions. The ColorInsertion target still needed a scalar rewrite.
-- `3d3ff31a4cd350520cada0b194b2ead3b10b1631`, receipt
-  `20261112T095856-2e6b52ea`, exit 0, 1197 jobs: ColorInsertion class-product
-  factorization and the exact boundary term in `finite_weight_shift`.
-  Later helper axioms still need auditing.
-- The expanded 45-query audit passed at `7a3813896c704991c60ba38a415ec4d1011e7b34`,
-  receipt `20261112T100018-fedf1569`, exit 0. Only the three standard axioms above.
-- `ColorElementaryExpansion` passed at `1c2c671`; `ColorMountain` and `LoopWeights`
-  passed at `f85d5d0`, receipt `20261112T101106-530ee56b`, exit 0. These prove the
-  actual insertion's elementary weights, homogeneous signed mountains, and the
-  event-preserving equality `coloredLoopAscentCount_eq_path_sum`.
-- `LayerList` passed at `3069d71`, `LayerListBridge` at `72560d6`, `SortedSubsets`
-  at `5b65bbf`. `LayerExchange` and `FiniteMatrixPaths` passed at `d8050d7` in
-  receipt `20261112T102533-ae968313` (the separate mountain assembly target failed).
-  Thus actual positional layers and their ordered natural product satisfy exchange.
-- `ColorSupport` passed at `0caa0fa`; `ColorSubwords` and `PathKernel` at `41c8371`.
-  `ColorSubsetMountain` and **`loopColoringLLT_eq_kernelColoringLLT`** passed at
-  `fc868f9`, receipt `20261112T103815-5b751a30`; other targets in that receipt failed.
-  The raw independent source polynomial is now proved equal to the diagonal transfer
-  coloring enumerator. This is still not the elementary-expansion endpoint.
-- `ColorDeletion`, `ColorPositions` and `KernelSupport` passed at `579aa2b`, receipt
-  `20261112T104309-5633d971`. The actual `colorClassProduct_eval`, including its
-  residual ambient-support variant, and `WeightedColoring` passed at `c35ddb5`,
-  receipt `20261112T104750-231d7eb0`. That receipt still had a sort-bookkeeping
-  failure in `ColorMissing`; the failure is not counted as a completed target.
+Current builds: broad library plus old-result `RepositoryAudit`, head
+`9339a5872f64f6eef2a12210a6372d07f642438a`, job
+`20261112T120011-6b53d17d`, running. New example target, head
+`a27f525ba2290473847b1eee08e3b8029b4c5016`, job
+`20261112T120312-ac8fa4a6`, queued behind it. Identity/Kim–Oh examples and
+orientation/context regressions are unverified until that receipt is inspected.
+`ZeroExpansion.lean` and `SingletonCycles.lean` remain unbuilt candidates.
 
-Further checked milestones: `ColorPrefixEvaluation` at `bfd3d92`;
-65-query axiom audit and `ExpansionRootSum` at `a0a883f` (receipt
-`20261112T105438-c1e4dabe`, only propext/Classical.choice/Quot.sound);
-`ColorRecurrence` at `12fa542` (`20261112T105845-050371f6`);
-`CycleDisplay` at `08010e6`; `ExpansionEvaluation` and `PolynomialSemantics`
-at `3b99525` (`20261112T110208-b16928cf`); `ExpansionHomogeneity` at
-`1d6e61f` (`20261112T110457-9e86302b`). These failed multi-target receipts
-checked the named modules but are not successful complete gates.
-`RecursivePositivity` and `CycleDisplayCons` passed at `637112b`, receipt
-`20261112T110948-543e7a08`. The source equality, coefficientwise positivity,
-uniform natural witness and homogeneity are now kernel checked. The expanded
-72-query audit passed at `55a7d44`, receipt `20261112T111158-6abc61dc`; the
-separate cycle targets in that receipt still needed repairs.
+Exact public names: `Challenges.CyclicHessenberg.sortedLoopModel`,
+`positiveCycleExpansion`, `positiveMatchingExpansion`,
+`elementaryCoefficientFormula`, `ePositive`. The source `cyclicLLT` is independently
+defined by the composition-indexed sorted loop sum with increasing-color
+`monomialQuasisymmetric`; `loopColoringLLT` is independently defined by covers
+and colors. The final `naturalCyclicExpansion` is an explicit matching sum.
+No target is defined to equal its desired expansion. Main source expansion
+endpoints retain `0 < n` and allow `k=0`, `m=0`. No literal circular flip-class,
+plethystic Xi or infinite symmetric-function claim is made.
 
-`CycleDisplayDeletion` checked at `f279a85`; `CycleDisplayFinite` checked at
-`729e913`; `CycleRoots` and `BasicExamples` checked at `ea8a5d7`. The explicit
-`naturalKernelExpansion_eq_cycleSum` and `CompositionIndex` passed at `334d432`,
-receipt `20261112T111928-3ede86c6`; its separate permutation-display target
-had one SortedGT-to-Pairwise coercion error, now repaired in source.
+Build route: only `/workspace/tools/supervisor-scripts/bin/supervisor-tool lake
+submit --project VerticalStripLLT --commit FULL_PUBLISHED_SHA --target ...
+--seconds 7200`, with `lake job` / `lake logs` monitoring. Pinned Lean `v4.34.0`,
+Mathlib `5ed2965256430c3649e86755f9576b54eca72435`, manifest SHA
+`ae15c805ac19878d69133a5e60be38ccc77fadbef3e3d3e3fb8d4733c3f155dc` unchanged.
+Cache receipt `20261112T090727-b00c3487`, exit 0, 8908 artifacts; no repeat needed.
+Laplace uses the serialized two-thread/12-GiB queue. Euler is reserved for Fable.
+No local Lean build, bridge/SSH change, dependency update or cache cleanup.
+Runtime registry and `codex mcp list` inspected; Lean MCP targets RealRooted,
+so it was not used. Paper-cache is registered. `report` is host-only and refused
+in Docker. No source symlinks found; preexisting `.lake/config` left intact.
+No mathematical computation scripts were used.
 
-Matching milestone: `CycleEquiv` and `SortedLoops` passed at `55ee38d`
-(`20261112T112819-80b862d9`, exit 0). `CanonicalMatching` and `OpenPathWeight`
-passed at `8dc7714`. All of `MatchingExpansion` passed at `a12cc2f`
-(`20261112T113059-9d621bb2`): the independent source equals the **explicit
-matching sum**, with coefficientwise nonnegativity and weighted homogeneity.
-The forced shape factor `naturalCycleSum_coeff`, `MatchingPaths`, and `ColorRuns`
-passed at `4f3e814`; `CompositionSplit` and `SortedColorWords` passed at `1600147`.
-The 84-query audit passed at `4d2ddff` / `20261112T113454-72e4e381`.
-Marked coefficient cardinalities and the forced q-power factor checked at
-`3ab5cee` / `20261112T113626-1d5eef35`. Sorted-loop bijection checked at
-`a5408f7`; `SortedLoopSemantics` checked at `452cf5f` / `20261112T114805-241f9edb`.
-The latter receipt failed only RunHeads, now being repaired.
-
-Outstanding work: increasing-color quasisymmetric identification and literal
-composition-source wrapper, nontrivial regressions, five public challenges,
-full checks and final axiom audit. Main raw-source equality to the explicit
-matching expansion, positivity, homogeneity and marked coefficients are checked.
-
-The initial requested `ae64cfc` checkpoint was published and checked through
-three repair receipts, culminating in `68d44c4` / `20261112T091256-90a0a5d9`.
-The primary owns every subsequent submission and monitor. The cache wrapper's
-external packages-directory warning is known; do not run `lake update`.
+Next: inspect broad and focused receipts, repair any failures, finish the formal
+q=0 expansion and example audit, recheck all final source, refresh PR/docs/handoff,
+and push a verified focused checkpoint. Current static guards find no holes,
+new axioms or `native_decide`. Run final guards and axiom checks again after edits.
 
 ## Public repository preparation (2026-10-17)
 
