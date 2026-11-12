@@ -24,7 +24,9 @@ it released `CycleRoots.lean` and `CycleBlockAction.lean`, adopted by primary,
 and now owns only new `CycleCoefficients.lean`, the coefficient formula and
 forced q-power factor for the explicit canonical cycle sum. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
 it released `CompositionIndex.lean`, adopted by primary, and now owns only
-new `ColorRuns.lean`, constant equality runs of monotone finite lists.
+`ColorRuns.lean` (released, adopted by primary). Its next sole file is
+`CompositionSplit.lean`, list-map and zip compatibility of composition splitting
+and reconstruction from block lengths.
 Primary retains all other files, including cycle deletion and integration.
 Astra completed its read-only sorted-loop bridge review: use Mathlib Composition,
 blockwise decreasing loop labels, increasing block colors and equality-run

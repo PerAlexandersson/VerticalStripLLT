@@ -23,7 +23,7 @@ theorem map_cons_eq_rotated_iff_formPerm_action (f : V → V) (r : V)
     have hx' : x ∈ l := by simpa [l] using hx
     obtain ⟨i, hi, rfl⟩ := List.getElem_of_mem hx'
     have hmap' : List.map f l = l.rotate 1 := by
-      simpa [l, hrot] using hmap
+      exact hmap.trans hrot
     have hopt := congrArg (fun w : List V => w[i]?) hmap'
     have hval : f l[i] = l[(i + 1) % l.length]'_ := by
       apply Option.some.inj

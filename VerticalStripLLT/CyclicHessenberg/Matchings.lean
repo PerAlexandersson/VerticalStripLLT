@@ -59,4 +59,19 @@ theorem matchingTransport_of_boundaries (P : Fin (n + 1) → Equiv.Perm (Fin k))
     intro x
     simp only [Equiv.Perm.mul_apply, Equiv.trans_apply, Equiv.symm_apply_apply]
 
+theorem matchingTransport_of_arbitrary_boundaries
+    (P : Fin (n + 1) → Equiv.Perm (Fin k)) (i : Fin (n + 1)) :
+    matchingTransport (fun ℓ => (P ℓ.castSucc).symm.trans (P ℓ.succ)) i =
+      (P 0).symm.trans (P i) := by
+  let Q := fun ℓ => (P 0).symm.trans (P ℓ)
+  have hQ : Q 0 = 1 := by ext x; simp [Q]
+  have hh := matchingTransport_of_boundaries Q hQ i
+  have hratio : (fun ℓ : Fin n => (Q ℓ.castSucc).symm.trans (Q ℓ.succ)) =
+      (fun ℓ : Fin n => (P ℓ.castSucc).symm.trans (P ℓ.succ)) := by
+    funext ℓ
+    ext x
+    simp [Q]
+  rw [hratio] at hh
+  exact hh
+
 end VerticalStripLLT.CyclicHessenberg
