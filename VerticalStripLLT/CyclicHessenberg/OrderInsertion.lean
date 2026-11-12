@@ -64,8 +64,8 @@ private def eraseOrder {S : Finset V} (a : V) (ha : a ∉ S)
   have hn : n < τ.val.length := List.idxOf_lt_length_iff.mpr hmem
   have hget : τ.val.get ⟨n, hn⟩ = a := List.idxOf_get hn
   have hperm : a :: τ.val.eraseIdx n ~ τ.val := by
-    rw [← hget]
-    exact List.getElem_cons_eraseIdx_perm hn
+    simpa only [show τ.val[n] = a from hget] using
+      (List.getElem_cons_eraseIdx_perm hn)
   have hnd : (a :: τ.val.eraseIdx n).Nodup := hperm.nodup_iff.mpr τ.property.1
   obtain ⟨haerase, hnderase⟩ := List.nodup_cons.mp hnd
   refine ⟨τ.val.eraseIdx n, hnderase, ?_⟩
@@ -113,6 +113,8 @@ def insertionEquiv {S : Finset V} (a : V) (ha : a ∉ S) :
       List.get_insertIdx_self σ.val a i.val hi
     have hidx : (σ.val.insertIdx i a).idxOf a = i.val := by
       have h := List.get_idxOf (insertOrder a ha σ i).property.1 ⟨i.val, hlen⟩
+      change (σ.val.insertIdx i a).idxOf
+        ((σ.val.insertIdx i a).get ⟨i.val, hlen⟩) = i.val at h
       rw [hget] at h
       exact h
     apply Prod.ext
@@ -131,8 +133,8 @@ def insertionEquiv {S : Finset V} (a : V) (ha : a ∉ S) :
     apply Subtype.ext
     change (τ.val.eraseIdx (τ.val.idxOf a)).insertIdx
       (τ.val.idxOf a) a = τ.val
-    rw [← hget]
-    exact List.insertIdx_eraseIdx_getElem hn
+    simpa only [show τ.val[τ.val.idxOf a] = a from hget] using
+      (List.insertIdx_eraseIdx_getElem hn)
 
 /-- Reindex the finite sum over an order and an insertion position by the inserted order. -/
 theorem sum_insertOrder {S : Finset V} (a : V) (ha : a ∉ S) {R : Type*}
