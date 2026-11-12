@@ -25,7 +25,8 @@ and released `CycleCoefficients.lean`, adopted by primary. It now owns only
 `OpenPathWeight.lean` (released, adopted by primary). It now owns only new
 `MarkedWeights.lean` (released, adopted by primary). It now owns only new
 `SingletonExpansion.lean` (released, adopted by primary). It now owns only new
-`ReplicateRuns.lean`, recovery of constant positive blocks from increasing colors. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
+`ReplicateRuns.lean` (released, adopted by primary). It now owns only new
+`ThreeVertexExpansion.lean`, the generic six-term expansion on three named vertices. `cyclic_order_insertion` released `BasicExamples.lean`, adopted by primary;
 it released `CompositionIndex.lean`, adopted by primary, and now owns only
 `ColorRuns.lean` (released, adopted by primary). Its next sole file is
 `CompositionSplit.lean` (released, adopted by primary). It now owns only new
