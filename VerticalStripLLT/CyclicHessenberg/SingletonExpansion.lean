@@ -41,8 +41,11 @@ private theorem matchingAscentCount_eq_zero_of_subsingleton_positions {k n : ℕ
     ((matchingCanonicalPath h φ).val ℓ.castSucc)
     ((matchingCanonicalPath h φ).val ℓ.succ)
 
-private def emptyCycleDisplay : CycleDisplay (Finset.univ : Finset (Fin 0)) := by
-  simpa using (CycleDisplay.empty (V := Fin 0))
+private def emptyCycleDisplay : CycleDisplay (Finset.univ : Finset (Fin 0)) where
+  blocks := []
+  source_order := by simp [IsOrder, cycleSourceWord]
+  root_max := by simp
+  roots_desc := by simp
 
 private theorem permutationDisplay_emptyFin :
     permutationDisplay (1 : Equiv.Perm (Fin 0)) = emptyCycleDisplay := by
@@ -103,7 +106,12 @@ private theorem singletonCycleDisplay_shape :
     infer_instance
   have hasc : matchingAscentCount h φ = 0 :=
     matchingAscentCount_eq_zero_of_subsingleton_positions h φ
-  simp [naturalCyclicExpansion, hcount, hshape, hasc]
+  simp only [naturalCyclicExpansion, Finset.univ_unique, Finset.sum_singleton]
+  change MvPolynomial.C (Polynomial.X ^ (0 - matchingCycleCount h φ) *
+    (1 + Polynomial.X) ^ matchingAscentCount h φ) *
+      MvPolynomial.monomial (matchingShape h φ) 1 = 1
+  rw [hcount, hshape, hasc]
+  simp
 
 @[simp] theorem naturalCyclicExpansion_singleton_support {n : ℕ}
     (h : Tuple 1 n) : naturalCyclicExpansion h = natElementary 1 := by
@@ -125,6 +133,11 @@ private theorem singletonCycleDisplay_shape :
     infer_instance
   have hasc : matchingAscentCount h φ = 0 :=
     matchingAscentCount_eq_zero_of_subsingleton_positions h φ
-  simp [naturalCyclicExpansion, hcount, hshape, hasc, natElementary, MvPolynomial.X]
+  simp only [naturalCyclicExpansion, Finset.univ_unique, Finset.sum_singleton]
+  change MvPolynomial.C (Polynomial.X ^ (1 - matchingCycleCount h φ) *
+    (1 + Polynomial.X) ^ matchingAscentCount h φ) *
+      MvPolynomial.monomial (matchingShape h φ) 1 = natElementary 1
+  rw [hcount, hshape, hasc]
+  simp [natElementary, MvPolynomial.X]
 
 end VerticalStripLLT.CyclicHessenberg

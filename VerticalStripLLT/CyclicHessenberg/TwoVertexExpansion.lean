@@ -38,8 +38,16 @@ theorem naturalKernelExpansion_pair (a r : V) (har : a < r)
   rw [naturalKernelExpansion_insert_max {a} r hr]
   simp only [hps, Finset.sum_insert, Finset.mem_singleton,
     Finset.empty_ne_singleton, not_false_eq_true, Finset.sum_singleton]
-  simp only [Finset.card_empty, Finset.card_singleton, Finset.insert_empty_eq]
-  have hdiff : ({r, a} : Finset V) \ {r} = {a} := by ext b; simp [hne, hne.symm]; tauto
+  simp only [Finset.card_empty, Finset.card_singleton, Finset.insert_empty]
+  have hdiff : ({r, a} : Finset V) \ {r} = {a} := by
+    ext b
+    simp only [Finset.mem_sdiff, Finset.mem_insert, Finset.mem_singleton]
+    constructor
+    · rintro ⟨hb | hb, hnot⟩
+      · exact (hnot hb).elim
+      · exact hb
+    · rintro rfl
+      exact ⟨Or.inr rfl, hne⟩
   rw [hdiff, naturalKernelExpansion_singleton, Finset.sdiff_self, naturalKernelExpansion_empty]
   simp only [rootDeletion_singleton, List.nil_append, List.cons_append]
   have hroot : rootDeletion (Polynomial.X : Polynomial ℕ) Z {r, a} r [] [] =
