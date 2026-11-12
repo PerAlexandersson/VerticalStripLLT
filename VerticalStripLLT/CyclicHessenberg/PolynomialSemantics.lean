@@ -85,6 +85,7 @@ theorem xQShift_loopColoringLLT_eq_naturalOpenKernel_coloring
   unfold weightedKernelColoring
   apply Finset.sum_congr rfl
   intro κ hκ
+  dsimp only
   rw [hentry]
 
 end VerticalStripLLT.CyclicHessenberg

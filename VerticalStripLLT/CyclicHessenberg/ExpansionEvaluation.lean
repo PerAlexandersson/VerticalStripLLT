@@ -71,7 +71,12 @@ theorem naturalKernelExpansion_eval_eq_weightedKernelColoring
             (Finset.mem_insert_self _ _)
           rw [ih ((insert r T) \ (insert r U)) hstrictS
             (rootDeletion Polynomial.X Z (insert r U) r) hZ' hs']
-          simp only [eval, natElementary, MvPolynomial.eval₂Hom_X']
+          apply congrArg (fun a => a * weightedKernelColoring
+            ((insert r T) \ (insert r U))
+            (fun l t => φ (rootDeletion Polynomial.X Z (insert r U) r l t)) weight)
+          exact MvPolynomial.eval₂Hom_X' φ
+            (fun d : ℕ+ => elementaryWeights (List.ofFn weight) d.val)
+            ⟨U.card + 1, Nat.zero_lt_succ _⟩
         have hrootMap (U : Finset V) :
             (fun l t => φ (rootDeletion Polynomial.X Z (insert r U) r l t)) =
               rootDeletion (φ Polynomial.X) (fun l t => φ (Z l t))
