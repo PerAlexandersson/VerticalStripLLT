@@ -76,6 +76,10 @@ reconstruction from a literal cyclic block); order delegate owns only
 `ExpansionHomogeneity.lean` (weighted homogeneity of the natural recurrence).
 Primary owns `CycleDisplay.lean` and the subsequent canonical display equivalence.
 The Astra reviewer completed and released an independent cycle representation review.
+The order delegate released `ExpansionHomogeneity.lean`; it now owns only
+`CycleDisplayShape.lean`, shape degree/weight and the elementary monomial identity.
+The data delegate released `OrbitLists.lean`; it now owns only `CycleDisplayCons.lean`,
+prepending the maximal cycle block with named support and source/target/count equations.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.

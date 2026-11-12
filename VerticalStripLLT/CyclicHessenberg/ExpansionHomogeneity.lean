@@ -30,10 +30,9 @@ theorem naturalKernelExpansion_isWeightedHomogeneous_degree (S : Finset V)
             MvPolynomial.IsWeightedHomogeneous (fun d : ℕ+ => d.val)
               (natElementary
                 ⟨U.val.card, Finset.card_pos.mpr ⟨S.max' hS, hr⟩⟩) U.val.card := by
-          simpa only [natElementary] using
-            (MvPolynomial.isWeightedHomogeneous_X (Polynomial ℕ)
-              (fun d : ℕ+ => d.val)
-              ⟨U.val.card, Finset.card_pos.mpr ⟨S.max' hS, hr⟩⟩)
+          exact MvPolynomial.isWeightedHomogeneous_X (Polynomial ℕ)
+            (fun d : ℕ+ => d.val)
+            ⟨U.val.card, Finset.card_pos.mpr ⟨S.max' hS, hr⟩⟩
         have hres := ih (S \ U.val)
           (Finset.sdiff_ssubset hsub ⟨S.max' hS, hr⟩)
           (rootDeletion Polynomial.X Z U.val (S.max' hS))
