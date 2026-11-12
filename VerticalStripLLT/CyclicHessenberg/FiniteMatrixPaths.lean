@@ -16,8 +16,9 @@ def FixedBoundaryPath (I : Type*) (n : ℕ) (a b : I) :=
   {p : Fin (n + 1) → I // p 0 = a ∧ p (Fin.last n) = b}
 
 noncomputable instance fixedBoundaryPathFintype {I : Type*} [Fintype I]
-    (n : ℕ) (a b : I) : Fintype (FixedBoundaryPath I n a b) :=
-  Fintype.ofFinite _
+    (n : ℕ) (a b : I) : Fintype (FixedBoundaryPath I n a b) := by
+  unfold FixedBoundaryPath
+  exact Fintype.ofFinite _
 
 /-- Split a nonempty path into its first step and the remaining path. -/
 def fixedBoundaryPathSplit {I : Type*} (n : ℕ) (a b : I) :
@@ -42,8 +43,9 @@ def fixedBoundaryPathSplit {I : Type*} (n : ℕ) (a b : I) :
     · intro j
       rfl
   right_inv q := by
-    rcases q with ⟨c, p⟩
-    simp [p.property.1, Fin.cons]
+    rcases q with ⟨c, p, hfirst, hlast⟩
+    subst c
+    rfl
 
 private def fixedBoundaryPathWeight {I R : Type*} [Fintype I]
     [CommSemiring R] {n : ℕ} {a b : I}
@@ -57,7 +59,7 @@ theorem list_prod_eq_sum_fixedBoundaryPath {I R : Type*} [Fintype I] [DecidableE
       ∑ p : FixedBoundaryPath I n a b,
         ∏ ℓ : Fin n, M ℓ (p.val ℓ.castSucc) (p.val ℓ.succ) := by
   classical
-  induction n generalizing M a b with
+  induction n generalizing a b with
   | zero =>
     by_cases hab : a = b
     · subst b
@@ -66,7 +68,7 @@ theorem list_prod_eq_sum_fixedBoundaryPath {I R : Type*} [Fintype I] [DecidableE
         intro p q
         apply Subtype.ext
         funext i
-        have hi : i = 0 := Subsingleton.elim i (0 : Fin 1)
+        have hi : i = 0 := Fin.ext (by have := i.isLt; simp only [Fin.val_zero]; lia)
         subst i
         exact p.property.1.trans q.property.1.symm⟩
       let : Unique (FixedBoundaryPath I 0 a a) :=
@@ -81,8 +83,12 @@ theorem list_prod_eq_sum_fixedBoundaryPath {I R : Type*} [Fintype I] [DecidableE
     have hweight (c : I) (p : FixedBoundaryPath I n c b) :
         fixedBoundaryPathWeight M (e.symm ⟨c, p⟩) =
           M 0 a c * fixedBoundaryPathWeight tailM p := by
-      simp [fixedBoundaryPathWeight, fixedBoundaryPathSplit, e,
-        Fin.prod_univ_succ, tailM, p.property.1]
+      change (∏ ℓ : Fin (n + 1),
+        M ℓ (Fin.cons a p.val ℓ.castSucc) (Fin.cons a p.val ℓ.succ)) = _
+      rw [Fin.prod_univ_succ]
+      simp only [Fin.castSucc_zero, Fin.cons_zero, Fin.cons_succ,
+        Fin.castSucc_succ, p.property.1]
+      rfl
     calc
       (List.ofFn M).prod a b =
           ∑ c : I, M 0 a c * (List.ofFn tailM).prod c b := by
@@ -92,6 +98,7 @@ theorem list_prod_eq_sum_fixedBoundaryPath {I R : Type*} [Fintype I] [DecidableE
         apply Finset.sum_congr rfl
         intro c hc
         rw [ih tailM c b]
+        rfl
       _ = ∑ q : Σ c : I, FixedBoundaryPath I n c b,
             M 0 a q.1 * fixedBoundaryPathWeight tailM q.2 := by
         rw [Fintype.sum_sigma]

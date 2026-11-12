@@ -1,5 +1,6 @@
 import Mathlib.Algebra.BigOperators.Group.Finset.Basic
 import Mathlib.Data.Finset.Sort
+import Mathlib.Data.Finset.Powerset
 import Mathlib.Data.List.Sublists
 
 set_option autoImplicit false
@@ -25,7 +26,7 @@ private theorem list_sum_map_eq_finset_sum {α : Type*} [DecidableEq α] (l : Li
 private theorem sort_toFinset_eq_self_of_sublist (S : Finset V) {l : List V}
     (hl : l <+ S.sort) : l.toFinset.sort = l := by
   apply (List.toFinset_sort (r := (· ≤ ·)) (hl.nodup (Finset.sort_nodup _ _))).2
-  exact (Finset.pairwise_sort (· ≤ ·) S).sublist hl
+  exact (Finset.pairwise_sort S (· ≤ ·)).sublist hl
 
 /-- Sum a weight over all sublists of the increasing list of `S` by subsets of `S`. -/
 theorem sum_sublists_sort (S : Finset V) (f : List V → R) :
@@ -47,8 +48,8 @@ theorem sum_sublists_sort (S : Finset V) (f : List V → R) :
     have hperm := List.perm_of_nodup_nodup_toFinset_eq
       (hsub.nodup hsortNodup) (hsub'.nodup hsortNodup) hEq
     exact List.Perm.eq_of_pairwise'
-      ((Finset.pairwise_sort (· ≤ ·) S).sublist hsub)
-      ((Finset.pairwise_sort (· ≤ ·) S).sublist hsub') hperm
+      ((Finset.pairwise_sort S (· ≤ ·)).sublist hsub)
+      ((Finset.pairwise_sort S (· ≤ ·)).sublist hsub') hperm
   · intro T hT
     have hTsub : T ⊆ S := Finset.mem_powerset.mp hT
     have hperm : T.sort <+~ S.sort :=
@@ -59,8 +60,8 @@ theorem sum_sublists_sort (S : Finset V) (f : List V → R) :
         simpa using hxS)
     have hsub : T.sort <+ S.sort :=
       List.sublist_of_subperm_of_sortedLE hperm
-        ((Finset.pairwise_sort (· ≤ ·) T).sortedLE)
-        ((Finset.pairwise_sort (· ≤ ·) S).sortedLE)
+        ((Finset.pairwise_sort T (· ≤ ·)).sortedLE)
+        ((Finset.pairwise_sort S (· ≤ ·)).sortedLE)
     refine ⟨T.sort, List.mem_toFinset.mpr (List.mem_sublists.mpr hsub), ?_⟩
     simp
   · intro l hl
