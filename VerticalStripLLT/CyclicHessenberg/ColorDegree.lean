@@ -30,7 +30,8 @@ theorem wordAd_eval_zero_of_length (f : List V → R) (l : List V) (r : V)
   | zero =>
     rw [wordAd, wordEval_term]
     apply hf
-    simp [Nat.add_assoc, Nat.add_comm]
+    simp only [List.length_append, List.length_cons, List.length_nil]
+    lia
   | succ d ih =>
     rw [wordAd, wordComm, map_sub, wordEval_letterSum_mul, wordEval_mul_letterSum]
     have hleft : (l.map fun a =>
