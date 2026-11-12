@@ -6,6 +6,8 @@ import Mathlib.Tactic.Ring
 
 namespace VerticalStripLLT.CyclicHessenberg
 
+open scoped BigOperators
+
 variable {V R : Type*} [LinearOrder V]
 
 /-- A finite transfer matrix on orders of one named support. -/
@@ -134,6 +136,18 @@ theorem map {T : Type*} [CommSemiring T] {q : R} {Z : List V → List V → R}
   intro ρ σ ρ' σ' a b c d hlen hab hcd
   obtain ⟨h₁, h₂⟩ := hZ ρ σ ρ' σ' a b c d hlen hab hcd
   exact ⟨by simpa using congrArg f h₁, by simpa using congrArg f h₂⟩
+
+theorem sum {ι : Type*} (s : Finset ι) {q : R}
+    (Z : ι → List V → List V → R)
+    (hZ : ∀ i ∈ s, ListExchangeCompatible q (Z i)) :
+    ListExchangeCompatible q (fun l t => ∑ i ∈ s, Z i l t) := by
+  classical
+  induction s using Finset.induction_on with
+  | empty => simpa using zero (V := V) q
+  | @insert i s hi ih =>
+    have h₁ := hZ i (Finset.mem_insert_self i s)
+    have h₂ := ih (fun j hj => hZ j (Finset.mem_insert_of_mem hj))
+    simpa only [Finset.sum_insert hi] using h₁.add h₂
 
 end ListExchangeCompatible
 

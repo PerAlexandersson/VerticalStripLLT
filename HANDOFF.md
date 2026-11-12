@@ -19,6 +19,9 @@ task. The primary adopted its recommendations; the decision and standalone
 roadmap are in `docs/CYCLIC_HESSENBERG_PLAN.md`. The bounded Luna delegate
 `cyclic_hessenberg_data` drafted only `Data.lean`, then released it without
 building or committing; the primary reviewed and adopted that file.
+The same Luna delegate now owns only `CyclicHessenberg/Layer.lean` for a bounded
+layer-kernel/coefficient-map implementation; no builds or commits. All other
+cyclic source files remain primary-owned. Draft PR: GitHub #9.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.
@@ -51,7 +54,11 @@ equivalence, scalar/matrix characterization and product closure. All main
 root-deletion, insertion, loop-bridge, cycle/matching and positivity endpoints
 remain unproved. The independently defined `loopColoringLLT`, its empty-support
 value and zero-alphabet theorem are checked. The indexed-order equivalence is
-the next candidate change, pending its own build. Axiom audit follows.
+now checked at `5d99e0a` by job `20261112T091405-393693a8`; all 16 initial
+axiom queries report only standard Lean axioms. One unused simp argument
+was removed afterward. Next candidate: positive residual definitions,
+exchange/map closure and the simultaneous-minimum-slide lemma in
+`RootDeletion.lean`. This is not yet the full signed root-deletion identity.
 
 Published unbuilt checkpoint: `ae64cfc103e7db2719c192f8d15ef04351be94e6`.
 Primary submitted job `20261112T091045-b6da0e5b`, 7200-second bound, targets

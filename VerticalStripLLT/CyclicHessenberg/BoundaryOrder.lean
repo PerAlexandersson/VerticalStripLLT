@@ -140,7 +140,7 @@ def orderOfEquiv {S : Finset V} (e : Fin S.card ≃ S) : Order S := by
   apply Equiv.ext
   intro i
   apply Subtype.ext
-  simp [orderOfEquiv, List.get_ofFn]
+  simp [orderOfEquiv]
 
 /-- Orders and bijections enumerate exactly the same finite boundary states. -/
 def ordersEquiv (S : Finset V) : Order S ≃ (Fin S.card ≃ S) where
