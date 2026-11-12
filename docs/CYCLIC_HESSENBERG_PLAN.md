@@ -1,12 +1,13 @@
 # Cyclic Hessenberg LLT implementation
 
-Status: complete and kernel checked, 2026-11-12. Final Lean source:
-`09b32d62b4a5fb9a0ef0e63fb2ef2505720cfd8d`; serialized Laplace receipt
-`20261112T122307-ff9f3c03`, exit 0, 2496 jobs. The full library, cyclic audit
-and existing-result audit pass. A build-time guard checks all 110 cyclic
-declarations against exactly `propext`, `Classical.choice`, `Quot.sound`.
-All five public endpoints and every regression below are checked. Toolchain,
-manifest and existing ordinary/circular/component proofs are unchanged.
+Status: complete and kernel checked, 2026-11-12. Current Lean source:
+`b4f317eedaeb307b5262cc4f708d6797efaf7d8f`. The public theorem file contains
+all five main declarations and proofs. Focused entry/challenge/audit receipt
+`20261112T140211-da37ad1b` passed (1711 jobs), followed by full library and
+existing-result audit receipt `20261112T140233-9a6a520d` (2479 jobs).
+A build-time guard checks all 110 cyclic declarations against exactly
+`propext`, `Classical.choice`, `Quot.sound`. All five public endpoints and every
+regression below are checked. Toolchain and manifest remain pinned.
 
 ## Scope and source correspondence
 
@@ -299,7 +300,11 @@ The final combined build checks these arguments and every planned regression.
 
 ## Verification receipts and reproducibility
 
-- Final full library plus cyclic and existing public-result audits:
+- Public-entry revision, with declaration names, statements and proofs preserved:
+  `b4f317eedaeb307b5262cc4f708d6797efaf7d8f`; focused entry/challenge/audit
+  job `20261112T140211-da37ad1b`, exit 0, 1711 jobs; full library and
+  existing-result audit job `20261112T140233-9a6a520d`, exit 0, 2479 jobs.
+- Original full library plus cyclic and existing public-result audits:
   `09b32d62b4a5fb9a0ef0e63fb2ef2505720cfd8d`, job
   `20261112T122307-ff9f3c03`, exit 0, 2496 jobs.
 - Focused final q=0 and complete cyclic examples:

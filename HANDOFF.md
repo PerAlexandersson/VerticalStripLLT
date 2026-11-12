@@ -1,14 +1,19 @@
 # VerticalStripLLT handoff
 
-## Public entry point revision (2026-11-12, active)
+## Public entry point revision (2026-11-12, complete)
 
-Primary owns `README.md`, `VerticalStripLLT/CyclicHessenberg.lean`,
-`VerticalStripLLT/Challenges/CyclicHessenberg.lean`,
-`docs/CYCLIC_HESSENBERG_PLAN.md`, and this entry on `cyclic-public-entrypoint`.
-Per requested a useful linked theorem file and removal of paragraph-ending
-caveats. Move the five existing public declarations into the entry file,
-preserving their names, statements and proofs; keep the old import path usable.
-Update the public prose and source map, then run the serialized Laplace checks.
+`VerticalStripLLT/CyclicHessenberg.lean` now contains the five main theorem
+statements and proofs, with the matching formula and Kim–Oh citation above them.
+Names, statements and proofs were preserved verbatim. The historical challenge
+import path imports this file. README and public source-map prose state the
+results directly, following Per's preference against paragraph-ending caveats.
+
+Current verified Lean source: `b4f317eedaeb307b5262cc4f708d6797efaf7d8f`.
+Focused entry/challenge/audit build: `20261112T140211-da37ad1b`, exit 0,
+1711 jobs; the 110-declaration axiom guard passed. Full library and existing-result
+audit: `20261112T140233-9a6a520d`, exit 0, 2479 jobs. Both used the pinned Laplace
+route. `git diff --check` passes. Primary released all files after integration;
+no active delegated ownership or build remains.
 
 ## README source citation (2026-11-12)
 
@@ -37,7 +42,7 @@ The 110-declaration cyclic axiom allowlist guard passed; only `propext`,
 `Classical.choice`, `Quot.sound` are allowed. Seven existing public-result
 axiom checks also passed. Focused final examples and q=0 receipt:
 `bcc016cd11112ea67ea8284c6ee2725689822ddd` / `20261112T122136-a344882f`,
-exit 0, 1710 jobs. Later documentation-only commits do not change this Lean source.
+exit 0, 1710 jobs. The later public-entry relocation is recorded above.
 
 Ownership: no active source edits, delegated claims or running builds remain.
 Primary integrated the entire task-owned subtree, root import, challenges,
