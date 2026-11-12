@@ -9,6 +9,8 @@ No quotient or multiplicativity assumption on the evaluating functional is used.
 
 namespace VerticalStripLLT.CyclicHessenberg
 
+open scoped BigOperators
+
 variable {V R : Type*} [CommRing R]
 
 abbrev WordSum (R V : Type*) [CommRing R] := MonoidAlgebra R (FreeMonoid V)
@@ -112,6 +114,13 @@ theorem mul (h : ContextEq f A B) (h' : ContextEq f C D) :
   (h.mul_right C).trans (h'.mul_left B)
 
 theorem of_eq (h : A = B) : ContextEq f A B := h ▸ refl A
+
+theorem sum {ι : Type*} (s : Finset ι) (A B : ι → WordSum R V)
+    (h : ∀ i ∈ s, ContextEq f (A i) (B i)) :
+    ContextEq f (∑ i ∈ s, A i) (∑ i ∈ s, B i) := by
+  intro ρ σ
+  simp only [map_sum]
+  exact Finset.sum_congr rfl (fun i hi => h i hi ρ σ)
 
 end ContextEq
 
