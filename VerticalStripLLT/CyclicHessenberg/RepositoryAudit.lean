@@ -1,0 +1,14 @@
+import VerticalStripLLT
+import VerticalStripLLT.Examples.Circular
+import VerticalStripLLT.Examples.Ordinary
+
+/-! Regression audits for existing public results when loading the new independent subtree. -/
+
+#print axioms VerticalStripLLT.coloringLLT_eq_eval_orientationExpansion_by_components
+#print axioms VerticalStripLLT.coloringLLT_shifted_e_positive_by_components
+#print axioms
+  VerticalStripLLT.Circular.coloringLLT_shifted_eq_eval_shiftedOrientationExpansion_by_components
+#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_eval_by_words
+#print axioms VerticalStripLLT.Circular.component_weighted_e_positive_by_words
+#print axioms VerticalStripLLT.Circular.component_weighted_strict_eq_eval
+#print axioms VerticalStripLLT.Circular.component_weighted_e_positive

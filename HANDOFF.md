@@ -1,5 +1,119 @@
 # VerticalStripLLT handoff
 
+## Cyclic Hessenberg implementation (2026-11-12, complete)
+
+Primary Codex owns strategy, integration, source and the sole serialized build
+slot, by Per's explicit designation. Work is in public
+`PerAlexandersson/VerticalStripLLT`, branch `cyclic-hessenberg`, this checkout;
+baseline `f93e8755b473528d95b3e5d8f7c08d07af9e4fa0`. PR:
+https://github.com/PerAlexandersson/VerticalStripLLT/pull/9
+
+**Implementation complete; all required proofs and regressions are kernel checked.**
+Per's proof-strategy constraint was followed. The final independent Astra review
+found no mathematical deviation or unmet core theorem contract.
+
+Final verified Lean source: `09b32d62b4a5fb9a0ef0e63fb2ef2505720cfd8d`.
+Final serialized Laplace receipt: `20261112T122307-ff9f3c03`, exit 0, 2496 jobs:
+full library, `CyclicHessenberg.Audit`, and `CyclicHessenberg.RepositoryAudit`.
+The 110-declaration cyclic axiom allowlist guard passed; only `propext`,
+`Classical.choice`, `Quot.sound` are allowed. Seven existing public-result
+axiom checks also passed. Focused final examples and q=0 receipt:
+`bcc016cd11112ea67ea8284c6ee2725689822ddd` / `20261112T122136-a344882f`,
+exit 0, 1710 jobs. Later documentation-only commits do not change this Lean source.
+
+Ownership: no active source edits, delegated claims or running builds remain.
+Primary integrated the entire task-owned subtree, root import, challenges,
+examples, audit and documentation. Every delegate released its candidate before
+integration. Existing Circular/component proofs and manuscript are unchanged.
+No AlexanderssonFormalizations files were edited. Task branch is pushed without
+force. Per explicitly authorized merging PR #9 after final verification;
+the GitHub PR records the integration and merge commit.
+
+Specification: complete original monorepo plan, FINDINGS §§13–15 and
+`cyclic-llt-e-expansion.tex` read. Adapted source map and independent Astra
+reviews are in `docs/CYCLIC_HESSENBERG_PLAN.md`. Astra reviewed representation,
+finite contextual word arguments, source sorting, cycles and final integration.
+It found no semantic/orientation defect in the main proof. It checked fixed
+points, monodromy order, layer-labelled events and coefficient indexing.
+
+Checked endpoints (serialized Laplace; a checked target in a failed multi-target
+receipt is distinguished from a successful complete build):
+
+- Foundations, both unequal prefix/suffix residual contexts, matrix/scalar
+  exchange, insertion/erasure and signed positive deletion: `e22f2ce`, receipt
+  `20261112T094124-cda993df`, exit 0.
+- Actual source/path semantic equality `loopColoringLLT_eq_kernelColoringLLT`:
+  `fc868f9` / `20261112T103815-5b751a30` (separate target failed).
+- Actual color recurrence, finite-word evaluation and elementary semantic
+  bridge culminate in `RecursivePositivity`: `637112b` /
+  `20261112T110948-543e7a08` (separate targets failed).
+- Explicit canonical-cycle unrolling `naturalKernelExpansion_eq_cycleSum`:
+  `334d432` / `20261112T111928-3ede86c6` (separate target failed).
+- Actual cycle/permutation inverse and source sorting definitions: `55ee38d` /
+  `20261112T112819-80b862d9`, exit 0.
+- Independent raw source equals explicit matching expansion; nonnegative
+  coefficients and weighted homogeneity: `MatchingExpansion`, `a12cc2f` /
+  `20261112T113059-9d621bb2` (separate target failed).
+- Forced q-power and exact finite marked-ascent counts: `MatchingCoefficients`,
+  `3ab5cee` / `20261112T113626-1d5eef35` (separate target failed).
+- Sorted-loop weight-preserving source equality: `SortedLoopSemantics`,
+  `452cf5f` / `20261112T114805-241f9edb` (RunHeads failed then).
+- Increasing-color `M_β` identification: `Quasisymmetric`, `5868b00` /
+  `20261112T115435-1e5c40d7` (regression targets failed then).
+- All five public challenge endpoints, literal composition source equality,
+  and 96-query `Audit`: `a41525d` / `20261112T115801-7e2dfbe2`.
+  Only `propext`, `Classical.choice`, `Quot.sound`; the separate three-vertex
+  target failed then. `ZeroParameter` also passed in that receipt.
+- Complete two-vertex formula for all positive layer counts:
+  `CompleteTwoExpansion`, `83a6c10` / `20261112T115617-298a42d7`.
+- Complete three-vertex formula and loop/identity-monodromy equivalence:
+  `9339a5872f64f6eef2a12210a6372d07f642438a` /
+  `20261112T115952-d2d6d442`, exit 0 (1683 jobs).
+
+Final regression coverage: empty support, singleton, identity layers for all k,n,
+the generic two-/three-vertex root formulas, complete two-vertex tuples for all
+positive layer counts, complete three vertices, Kim–Oh Example 6.7, q=0 both in
+the formal elementary basis and finite alphabet, zero alphabet, decreasing color
+ties, a genuine later-layer reverse event, fixed-point cycles, and distinct
+prefix/suffix row-column contexts. All pass in the final combined receipt.
+No proofs or required declarations are missing.
+
+Exact public names: `Challenges.CyclicHessenberg.sortedLoopModel`,
+`positiveCycleExpansion`, `positiveMatchingExpansion`,
+`elementaryCoefficientFormula`, `ePositive`. The source `cyclicLLT` is independently
+defined by the composition-indexed sorted loop sum with increasing-color
+`monomialQuasisymmetric`; `loopColoringLLT` is independently defined by covers
+and colors. The final `naturalCyclicExpansion` is an explicit matching sum.
+No target is defined to equal its desired expansion. Main source expansion
+endpoints retain `0 < n` and allow `k=0`, `m=0`. No literal circular flip-class,
+plethystic Xi or infinite symmetric-function claim is made.
+
+Build route: only `/workspace/tools/supervisor-scripts/bin/supervisor-tool lake
+submit --project VerticalStripLLT --commit FULL_PUBLISHED_SHA --target ...
+--seconds 7200`, with `lake job` / `lake logs` monitoring. Pinned Lean `v4.34.0`,
+Mathlib `5ed2965256430c3649e86755f9576b54eca72435`, manifest SHA
+`ae15c805ac19878d69133a5e60be38ccc77fadbef3e3d3e3fb8d4733c3f155dc` unchanged.
+Cache receipt `20261112T090727-b00c3487`, exit 0, 8908 artifacts; no repeat needed.
+Laplace uses the serialized two-thread/12-GiB queue. Euler is reserved for Fable.
+No local Lean build, bridge/SSH change, dependency update or cache cleanup.
+Runtime registry and `codex mcp list` inspected; Lean MCP targets RealRooted,
+so it was not used. Paper-cache is registered. `report` is host-only and refused
+in Docker. No source symlinks found; preexisting `.lake/config` left intact.
+No mathematical computation scripts were used.
+
+Review entry points: `VerticalStripLLT/CyclicHessenberg.lean`,
+`VerticalStripLLT/Challenges/CyclicHessenberg.lean`,
+`VerticalStripLLT/Examples/CyclicHessenberg.lean`, and the source map in
+`docs/CYCLIC_HESSENBERG_PLAN.md`. Main source/core proof files do not import
+Circular. `RepositoryAudit.lean` alone imports old results as regression checks.
+The root verification scripts were not directly invoked: the constrained bridge
+uses full-library compilation and the selected public-result audit targets above.
+
+Final static guards and `git diff --check` pass; no holes, new axioms,
+`native_decide`, unsafe declarations, disabled kernel checks, or source symlinks.
+No further implementation step remains. Keep the pinned toolchain/manifest and
+use the same project-selecting route for any review revisions.
+
 ## Public repository preparation (2026-10-17)
 
 The host supervisor owns only `README.md` and this handoff entry for the
