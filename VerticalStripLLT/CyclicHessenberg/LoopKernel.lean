@@ -91,4 +91,16 @@ def loopBoundaryPathEquiv (h : Tuple k n) (π : FullOrder k) :
     intro i
     simp [boundaryPathToLoop, loopToBoundaryPath]
 
+/-- The boundary-path bijection reads the original loop label at each fixed position. -/
+theorem loopToBoundaryPath_position (h : Tuple k n) (π : FullOrder k) (L : LoopCover h)
+    (ℓ : Fin (n + 1)) (i : LayerPosition k) :
+    (orderEquiv ((loopToBoundaryPath h π L).val ℓ) i).val =
+      L.val ℓ (orderEquiv π i).val := by
+  rw [← fullOrdersPerm_apply_position]
+  change (fullOrdersPerm k ((fullOrdersPerm k).symm
+    ((fullOrdersPerm k π).trans (L.val ℓ)))) (layerPositionEquiv k i) = _
+  rw [Equiv.apply_symm_apply]
+  change L.val ℓ (fullOrdersPerm k π (layerPositionEquiv k i)) = _
+  rw [fullOrdersPerm_apply_position]
+
 end VerticalStripLLT.CyclicHessenberg

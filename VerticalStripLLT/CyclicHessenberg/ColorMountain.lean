@@ -124,7 +124,7 @@ theorem inverseRoot_eq_sublistSum (l : List V) (r : V) :
         (-1 : R) ^ B.length • wordTerm (A ++ [r] ++ B.reverse)).sum).sum := by
   rw [inverseClass_eq_sublistSum, descendingClass_eq_sublistSum]
   simp only [neg_neg, one_pow, one_smul]
-  simp_rw [← List.sum_map_mul_right, List.map_map, Function.comp_def]
+  simp_rw [← List.sum_map_mul_right]
   simp_rw [← List.sum_map_mul_left, mul_smul_comm, wordTerm_mul]
 
 /-- All signed sublist mountains of one homogeneous degree. Repetitions are still present. -/
@@ -142,11 +142,11 @@ theorem lengthSlice_inverseRoot_eval (f : List V → R) (l : List V) (r : V)
   rw [inverseRoot_eq_sublistSum, signedSublistMountain]
   simp only [map_list_sum, List.map_map, Function.comp_def]
   apply congrArg List.sum
-  apply List.map_congr_left.mpr
+  apply List.map_congr_left
   intro A hA
   simp only [map_list_sum, List.map_map, Function.comp_def]
   apply congrArg List.sum
-  apply List.map_congr_left.mpr
+  apply List.map_congr_left
   intro B hB
   have hlen : (ρ ++ (A ++ [r] ++ B.reverse) ++ σ).length =
       ρ.length + d + 1 + σ.length ↔ A.length + B.length = d := by
