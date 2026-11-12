@@ -5,7 +5,7 @@
 Primary Codex owns strategy, integration, source and the sole serialized build
 slot, by Per's explicit designation. Work is in public
 `PerAlexandersson/VerticalStripLLT`, branch `cyclic-hessenberg`, this checkout;
-baseline `f93e8755b473528d95b3e5d8f7c08d07af9e4fa0`. Draft PR:
+baseline `f93e8755b473528d95b3e5d8f7c08d07af9e4fa0`. PR:
 https://github.com/PerAlexandersson/VerticalStripLLT/pull/9
 
 **Implementation complete; all required proofs and regressions are kernel checked.**
@@ -26,7 +26,8 @@ Primary integrated the entire task-owned subtree, root import, challenges,
 examples, audit and documentation. Every delegate released its candidate before
 integration. Existing Circular/component proofs and manuscript are unchanged.
 No AlexanderssonFormalizations files were edited. Task branch is pushed without
-force; draft PR is retained for Per's review, not merged.
+force. Per explicitly authorized merging PR #9 after final verification;
+the GitHub PR records the integration and merge commit.
 
 Specification: complete original monorepo plan, FINDINGS §§13–15 and
 `cyclic-llt-e-expansion.tex` read. Adapted source map and independent Astra

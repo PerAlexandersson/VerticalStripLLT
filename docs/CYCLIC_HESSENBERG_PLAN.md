@@ -319,6 +319,6 @@ The final combined build checks these arguments and every planned regression.
   declarations or kernel-check disabling. Source widths and `git diff --check`
   pass. No source-tree symlinks or generated dependency/build trees were added.
 
-No required declaration or proof remains missing. The pull request remains
-available for Per's review; the implementation makes no additional claim about
+No required declaration or proof remains missing. Per authorized merging the
+verified pull request; the implementation makes no additional claim about
 literal circular flip classes or the plethystic definition.
