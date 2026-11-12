@@ -52,7 +52,7 @@ theorem assemble_surjective (S : Finset V) (r : V) (hr : r ∈ S)
   obtain ⟨r', t⟩ := b
   have hroot : r' = r := by
     apply le_antisymm
-    · exact hmax _ (D.root_mem (by rw [hB]; simp))
+    · exact hmax _ (D.root_mem (b := (r', t)) (by rw [hB]; simp))
     · exact D.first_root_max r' t B hB r hr
   subst r'
   let U : Finset V := (r :: t).toFinset

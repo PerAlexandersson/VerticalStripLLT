@@ -165,8 +165,12 @@ Current source checkpoint:
 
 Gates 1 and 2 have compiled, including the order/indexed equivalence, position
 swaps, matrix characterization and product closure. The natural recurrence has
-compiled with coefficient nonnegativity and linearity. Its equality with the
-coloring sum, the source bridge, and gates 4–6 still require substantive proofs.
+compiled with coefficient nonnegativity and linearity. Its equality with the actual
+coloring sum, the independent canonical-loop source bridge, and source positivity
+are checked at `637112b`. Explicit cycle/matching and composition-sorted source
+bridges remain. Finiteness of cycle displays is obtained first from the actual
+maximal-cycle deletion equivalence by strict support induction; permutation
+reconstruction is a subsequent independent bijection, not a finiteness assumption.
 The helper `ExchangeMatrix.lean` specializes the finite-involution calculation
 to actual boundary orders and proves the list/scalar characterization.
 

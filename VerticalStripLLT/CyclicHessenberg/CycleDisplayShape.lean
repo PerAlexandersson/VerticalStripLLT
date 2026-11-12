@@ -16,7 +16,7 @@ private theorem sourceWord_length_blocks (B : List (V × List V)) :
   | cons b B ih =>
       change b.2.length + 1 + (B.map fun b => b.2.length + 1).sum =
         (b.1 :: b.2 ++ cycleSourceWord B).length
-      rw [ih, List.length_cons, List.length_append]
+      rw [ih, List.length_append, List.length_cons]
       lia
 
 private theorem shape_weight_blocks (B : List (V × List V)) :
@@ -26,7 +26,7 @@ private theorem shape_weight_blocks (B : List (V × List V)) :
   induction B with
   | nil => simp
   | cons b B ih =>
-      simp [List.map_cons, List.sum_cons, blockSize, ih]
+      simp only [List.map_cons, List.sum_cons, map_add, Finsupp.weight_single, one_smul, ih]
 
 private theorem shape_degree_blocks (B : List (V × List V)) :
     Finsupp.degree ((B.map fun b => Finsupp.single (blockSize b) 1).sum) =
@@ -52,7 +52,7 @@ theorem shape_weight {S : Finset V} (D : CycleDisplay S) :
     D.shape.sum (fun d n => d.val * n) = S.card := by
   rw [← D.source_order.length]
   rw [← sourceWord_length_blocks]
-  simpa [shape, Finsupp.weight_apply, Finsupp.sum, Nat.mul_comm] using
+  simpa only [shape, Finsupp.weight_apply, smul_eq_mul, blockSize, Nat.mul_comm] using
     shape_weight_blocks D.blocks
 
 theorem shape_degree {S : Finset V} (D : CycleDisplay S) :

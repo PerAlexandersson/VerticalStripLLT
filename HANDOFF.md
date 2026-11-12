@@ -19,9 +19,9 @@ finite-word decomposition, coloring semantics and canonical cycle architecture;
 its decisions are recorded in the adapted plan. Only primary integrates and builds.
 Draft PR: https://github.com/PerAlexandersson/VerticalStripLLT/pull/9
 
-Bounded active assignments (build-free, no commits): `cyclic_hessenberg_data`
-owns only new `OrbitAction.lean`, proving the corrected orbit list acts by the
-original permutation. `cyclic_order_insertion` owns only new `BasicExamples.lean`,
+Bounded active assignments (build-free, no commits): `cyclic_hessenberg_data` released `OrbitAction.lean`, adopted by primary;
+it now owns only new `CycleRoots.lean`, maximal representatives of permutation
+orbits and their uniqueness/coverage. `cyclic_order_insertion` owns only new `BasicExamples.lean`,
 empty support/alphabet and one-vertex source/expansion regression lemmas.
 Primary retains all other files, including cycle deletion and integration.
 Astra's next assignment is a read-only audit of the remaining sorted-loop bridge.
@@ -100,9 +100,11 @@ Further checked milestones: `ColorPrefixEvaluation` at `bfd3d92`;
 at `3b99525` (`20261112T110208-b16928cf`); `ExpansionHomogeneity` at
 `1d6e61f` (`20261112T110457-9e86302b`). These failed multi-target receipts
 checked the named modules but are not successful complete gates.
-The source equality in `RecursivePositivity` elaborated in the last receipt;
-its homogeneity corollary needs an unfolding repair before the module passes.
-The cycle orbit reconstruction candidate also needs dependent-index repairs.
+`RecursivePositivity` and `CycleDisplayCons` passed at `637112b`, receipt
+`20261112T110948-543e7a08`. The source equality, coefficientwise positivity,
+uniform natural witness and homogeneity are now kernel checked. The expanded
+72-query audit passed at `55a7d44`, receipt `20261112T111158-6abc61dc`; the
+separate cycle targets in that receipt still needed repairs.
 
 Outstanding substantive work: check/audit source elementary positivity, construct
 canonical cycle deletion and permutation equivalences, unroll the expansion into
