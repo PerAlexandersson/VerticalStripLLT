@@ -26,8 +26,12 @@ private theorem mem_colorFiber {S : Finset V} {m : ℕ} (κ : S → Fin m)
   classical
   simp [colorFiber]
 
+/-- The color/tie order: colors increase, and equal colors reverse vertices. -/
+def fiberColorPrecedes {S : Finset V} {m : ℕ} (κ : S → Fin m) (a b : S) : Prop :=
+  κ a < κ b ∨ (κ a = κ b ∧ b < a)
+
 /-- Concatenate the decreasing color fibers in increasing color order. -/
-private def sortedColorWord {S : Finset V} {m : ℕ} (κ : S → Fin m) : List S :=
+def sortedColorWord {S : Finset V} {m : ℕ} (κ : S → Fin m) : List S :=
   (List.ofFn (colorFiber κ)).flatten
 
 private theorem sortedColorWord_nodup {S : Finset V} {m : ℕ} (κ : S → Fin m) :
@@ -51,6 +55,44 @@ private theorem mem_sortedColorWord {S : Finset V} {m : ℕ} (κ : S → Fin m)
   · exact List.mem_ofFn.mpr ⟨κ v, rfl⟩
   · exact (mem_colorFiber κ).mpr rfl
 
+private theorem colorFiber_pairwise {S : Finset V} {m : ℕ} (κ : S → Fin m)
+    (c : Fin m) : (colorFiber κ c).Pairwise (fiberColorPrecedes κ) := by
+  classical
+  rw [List.pairwise_iff_get]
+  intro i j hij
+  let l := colorFiber κ c
+  have hsorted : l.Pairwise (· ≥ ·) := Finset.pairwise_sort _ _
+  have hdesc : l.get j ≤ l.get i := hsorted.rel_get_of_lt hij
+  have hne : l.get i ≠ l.get j := by
+    intro heq
+    exact (Fin.ne_of_lt hij) ((Finset.sort_nodup _ _).injective_get heq)
+  have hi : κ (l.get i) = c := (mem_colorFiber κ).mp (List.get_mem l i)
+  have hj : κ (l.get j) = c := (mem_colorFiber κ).mp (List.get_mem l j)
+  exact Or.inr ⟨hi.trans hj.symm, lt_of_le_of_ne hdesc hne.symm⟩
+
+/-- The color/tie-sorted word is pairwise ordered by `fiberColorPrecedes`. -/
+theorem sortedColorWord_pairwise {S : Finset V} {m : ℕ} (κ : S → Fin m) :
+    (sortedColorWord κ).Pairwise (fiberColorPrecedes κ) := by
+  classical
+  rw [sortedColorWord, List.pairwise_flatten]
+  constructor
+  · intro l hl
+    obtain ⟨c, rfl⟩ := List.mem_ofFn.mp hl
+    exact colorFiber_pairwise κ c
+  · rw [List.pairwise_ofFn]
+    intro i j hij x hx y hy
+    have hxi : κ x = i := (mem_colorFiber κ).mp hx
+    have hyj : κ y = j := (mem_colorFiber κ).mp hy
+    exact Or.inl (by simpa [hxi, hyj] using hij)
+
+/-- Compare ambient vertices using their canonical membership in a support. -/
+def colorPrecedesOn {S : Finset V} {m : ℕ} (κ : S → Fin m) (a b : V) : Prop :=
+  ∃ ha : a ∈ S, ∃ hb : b ∈ S, fiberColorPrecedes κ ⟨a, ha⟩ ⟨b, hb⟩
+
+/-- A boundary order is color/tie sorted when its list is pairwise ordered. -/
+def IsColorSortedOrder {S : Finset V} {m : ℕ} (κ : S → Fin m) (l : Order S) : Prop :=
+  l.val.Pairwise (colorPrecedesOn κ)
+
 /-- List vertices by increasing color, breaking ties by decreasing vertex. -/
 noncomputable def sortColorOrder {S : Finset V} {m : ℕ} (κ : S → Fin m) :
     Order S := by
@@ -65,6 +107,70 @@ noncomputable def sortColorOrder {S : Finset V} {m : ℕ} (κ : S → Fin m) :
       exact huv ▸ u.property
     · intro hv
       exact ⟨⟨v, hv⟩, mem_sortedColorWord κ ⟨v, hv⟩, rfl⟩
+
+/-- The constructed boundary order satisfies the color/tie ordering. -/
+theorem sortColorOrder_colorSorted {S : Finset V} {m : ℕ} (κ : S → Fin m) :
+    IsColorSortedOrder κ (sortColorOrder κ) := by
+  change ((sortedColorWord κ).map Subtype.val).Pairwise (colorPrecedesOn κ)
+  rw [List.pairwise_map]
+  exact (sortedColorWord_pairwise κ).imp fun a b hab =>
+    ⟨a.property, b.property, hab⟩
+
+/-- Mutually preceding vertices cannot occur in the strict color/tie order. -/
+private theorem fiberColorPrecedes_asymm {S : Finset V} {m : ℕ} (κ : S → Fin m)
+    (a b : S) (hab : fiberColorPrecedes κ a b) (hba : fiberColorPrecedes κ b a) : False := by
+  rcases hab with hab | ⟨hab, hab'⟩
+  · rcases hba with hba | ⟨hba, hba'⟩
+    · exact (lt_asymm hab hba).elim
+    · rw [hba] at hab
+      exact (lt_irrefl _ hab).elim
+  · rcases hba with hba | ⟨hba, hba'⟩
+    · rw [← hab] at hba
+      exact (lt_irrefl _ hba).elim
+    · exact (lt_asymm hab' hba').elim
+
+private theorem colorPrecedesOn_asymm {S : Finset V} {m : ℕ} (κ : S → Fin m)
+    {a b : V} (hab : colorPrecedesOn κ a b) (hba : colorPrecedesOn κ b a) : False := by
+  rcases hab with ⟨ha, hb, hab⟩
+  rcases hba with ⟨hb', ha', hba⟩
+  have hbEq : (⟨b, hb'⟩ : S) = ⟨b, hb⟩ := Subtype.ext rfl
+  have haEq : (⟨a, ha'⟩ : S) = ⟨a, ha⟩ := Subtype.ext rfl
+  rw [hbEq, haEq] at hba
+  exact fiberColorPrecedes_asymm κ _ _ hab hba
+
+/-- The constructed boundary order has the stated inequality at every pair of
+ordered positions. -/
+theorem sortColorOrder_orderEquiv_precedes {S : Finset V} {m : ℕ}
+    (κ : S → Fin m) {i j : Fin S.card} (hij : i < j) :
+    fiberColorPrecedes κ (orderEquiv (sortColorOrder κ) i)
+      (orderEquiv (sortColorOrder κ) j) := by
+  let l := sortColorOrder κ
+  let i' : Fin l.val.length := Fin.cast (length_order l).symm i
+  let j' : Fin l.val.length := Fin.cast (length_order l).symm j
+  have hlt : i' < j' := by
+    apply Fin.lt_def.mpr
+    simpa [i', j', Fin.cast] using Fin.lt_def.mp hij
+  have hpair := (sortColorOrder_colorSorted κ).rel_get_of_lt hlt
+  rcases hpair with ⟨hi, hj, hpre⟩
+  have hei : orderEquiv l i = ⟨l.val.get i', hi⟩ := by
+    apply Subtype.ext
+    simpa [i'] using orderEquiv_apply l i
+  have hej : orderEquiv l j = ⟨l.val.get j', hj⟩ := by
+    apply Subtype.ext
+    simpa [j'] using orderEquiv_apply l j
+  simpa only [hei, hej] using hpre
+
+/-- A boundary order with the color/tie pairwise property is unique. -/
+theorem sortColorOrder_unique {S : Finset V} {m : ℕ} (κ : S → Fin m)
+    (l : Order S) (hl : IsColorSortedOrder κ l) : l = sortColorOrder κ := by
+  have hp : l.val.Perm (sortColorOrder κ).val :=
+    List.perm_of_nodup_nodup_toFinset_eq l.property.1
+      (sortColorOrder κ).property.1
+      (l.property.2.trans (sortColorOrder κ).property.2.symm)
+  letI : Std.Antisymm (colorPrecedesOn κ) :=
+    ⟨fun a b hab hba => False.elim (colorPrecedesOn_asymm κ hab hba)⟩
+  apply Subtype.ext
+  exact List.Perm.eq_of_pairwise' hl (sortColorOrder_colorSorted κ) hp
 
 /-- The unique boundary order on an empty support. -/
 def emptyOrder {V : Type*} [LinearOrder V] : Order (∅ : Finset V) :=

@@ -10,7 +10,7 @@ noncomputable def wordLetterSum : List V → WordSum R V
   | [] => 0
   | a :: l => wordTerm [a] + wordLetterSum l
 
-def wordComm (A B : WordSum R V) : WordSum R V := A * B - B * A
+noncomputable def wordComm (A B : WordSum R V) : WordSum R V := A * B - B * A
 
 theorem ContextEq.comm {f : List V → R} {A B C D : WordSum R V}
     (h : ContextEq f A B) (h' : ContextEq f C D) :

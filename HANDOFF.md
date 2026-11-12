@@ -29,12 +29,11 @@ The bounded Luna delegate `cyclic_order_insertion` drafted and released
 vertex and the finite-sum reindexing. The primary adopted it for Laplace checking.
 That delegate drafted and released `CyclicHessenberg/MatrixExchange.lean` for the
 generic finite-involution scalar/matrix equivalence; primary owns its integration.
-The Luna delegate `cyclic_hessenberg_data` now owns only `Coloring.lean` to
-prove the color/tie sorting characterization and uniqueness. No builds or commits.
-Primary retains all other files and the single build slot.
-The Luna delegate `cyclic_order_insertion` now owns only
-`CyclicHessenberg/LayerExchangeCounts.lean` for the count-sum normal form and
-two-value spectator indicator identity, with no builds or commits.
+Both Luna delegates have released all files. Primary now owns the whole task
+subtree and the single build slot. Latest candidates adopted from delegates:
+sorting characterization and uniqueness in `Coloring.lean`, and the count-sum
+normal form/two-value spectator identity in `LayerExchangeCounts.lean`.
+No delegate has built or committed.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.
