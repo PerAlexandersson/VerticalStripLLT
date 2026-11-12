@@ -99,8 +99,9 @@ theorem wordAd_eq_signedSetMountain (f : List V → R)
     intro a ha
     exact hr a (by simpa only [Finset.mem_sort] using ha)
   have hsort : S.sort.Pairwise (· < ·) := (Finset.sortedLT_sort S).pairwise
-  intro ρ σ
-  exact (wordAd_eq_signedSublistMountain f hf hrep S.sort r hsort hsmall d ρ σ).trans
-    (signedSublistMountain_eq_signedSetMountain f hrep S r d ρ σ)
+  have h₂ := signedSublistMountain_eq_signedSetMountain f hrep S r d
+  generalize hl : S.sort = l at hsmall hsort h₂ ⊢
+  exact ContextEq.trans
+    (wordAd_eq_signedSublistMountain f hf hrep l r hsort hsmall d) h₂
 
 end VerticalStripLLT.CyclicHessenberg

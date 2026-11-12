@@ -94,7 +94,13 @@ theorem loopColoringLLT_eq_kernelColoringLLT (h : Tuple k n) (m : ℕ) :
       intro κ hκ
       have hsort : sortColorOrder (E κ) = colorSortedFullOrder κ := rfl
       rw [← Finset.sum_mul, loopColoring_coeff_sum_mul_monomial]
-      simp [G, E, hsort, finColoring_monomial_subtype_eq]
+      change MvPolynomial.C
+          (rawOpenKernel h (colorSortedFullOrder κ) (colorSortedFullOrder κ)) * _ =
+        MvPolynomial.C
+          (rawOpenKernel h (sortColorOrder (E κ)) (sortColorOrder (E κ))) * _
+      rw [hsort]
+      congr 1
+      exact (finColoring_monomial_subtype_eq κ).symm
     _ = ∑ c : S → Fin m, G c := Equiv.sum_comp E G
 
 end VerticalStripLLT.CyclicHessenberg
