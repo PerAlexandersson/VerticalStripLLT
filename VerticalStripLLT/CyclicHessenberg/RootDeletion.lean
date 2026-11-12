@@ -1,4 +1,5 @@
 import VerticalStripLLT.CyclicHessenberg.Kernel
+import VerticalStripLLT.CyclicHessenberg.OrderInsertion
 import Mathlib.Data.Finset.Powerset
 import Mathlib.Algebra.BigOperators.Group.Finset.Powerset
 
@@ -142,6 +143,47 @@ section Ring
 
 variable [CommRing R]
 
+private theorem sum_insertion_positions (S : Finset V) (a : V) (ha : a ∉ S)
+    (f : List V → R) :
+    (∑ σ : Order S, ∑ i ∈ Finset.range (σ.val.length + 1),
+      f (σ.val.take i ++ a :: σ.val.drop i)) =
+      ∑ τ : Order (insert a S), f τ.val := by
+  classical
+  have h := sum_insertOrder a ha (fun τ => f τ.val)
+  simp_rw [insertOrder_val, Fin.sum_univ_eq_sum_range] at h
+  simpa only [length_order] using h
+
+/-- The positive residual of the signed intermediate kernel inserts the missing minimum once. -/
+theorem rootDeletion_minimumDifference {q : R} {Z : List V → List V → R}
+    (hZ : ListExchangeCompatible q Z) (U : Finset V) (r a : V) (π τ : List V)
+    (hr : r ∈ U) (ha : ∀ b ∈ U, a < b) :
+    rootDeletion q (fun l t =>
+      Z (a :: l ++ π) (a :: t ++ τ) - Z (l ++ [a] ++ π) (t ++ [a] ++ τ))
+      U r [] [] = rootDeletion q Z (insert a U) r π τ := by
+  classical
+  have har := ha r hr
+  have haU : a ∉ U := fun h => (lt_irrefl a) (ha a h)
+  have haer : a ∉ U.erase r := fun h => haU (Finset.mem_of_mem_erase h)
+  let f : List V → R := fun l => Z (r :: l ++ π) (l ++ [r] ++ τ)
+  have hinner (σ : Order (U.erase r)) :
+      Z (a :: r :: σ.val ++ π) (a :: (σ.val ++ [r]) ++ τ) -
+        Z ((r :: σ.val) ++ [a] ++ π) ((σ.val ++ [r]) ++ [a] ++ τ) =
+      q * ∑ i ∈ Finset.range (σ.val.length + 1),
+        f (σ.val.take i ++ a :: σ.val.drop i) := by
+    have hs := minimumSlide_cycle hZ a r σ.val π τ har
+      (fun b hb => ha b (Finset.mem_of_mem_erase ((mem_order σ b).mp hb)))
+    dsimp only [f]
+    simp only [List.cons_append, List.append_assoc, List.nil_append] at hs ⊢
+    rw [hs]
+    ring
+  unfold rootDeletion
+  simp only [List.append_nil]
+  simp_rw [hinner]
+  rw [← Finset.mul_sum, ← mul_assoc, ← pow_succ,
+    Nat.sub_add_cancel (Finset.card_pos.mpr ⟨r, hr⟩),
+    Finset.card_insert_of_notMem haU, Nat.add_sub_cancel,
+    Finset.erase_insert_of_ne (ne_of_lt har), sum_insertion_positions (U.erase r) a haer]
+
 /-- A mountain lists the unmarked vertices increasingly, then the root, then marks decreasingly. -/
 def mountainList (U T : Finset V) (r : V) : List V :=
   ((U.erase r) \ T).sort ++ [r] ++ T.sort (· ≥ ·)
@@ -233,6 +275,49 @@ theorem signedRootDeletion_insert_min (Z : List V → List V → R)
     Finset.card_insert_of_notMem haT, pow_succ]
   simp only [List.append_nil, List.cons_append]
   ring
+
+/-- The signed root-deletion kernel equals the positive crossed-entry residual.
+Both suffixes are arbitrary, and the input kernel need not have positive entries. -/
+theorem signedRootDeletion_eq_rootDeletion {q : R} {Z : List V → List V → R}
+    (hZ : ListExchangeCompatible q Z) (U : Finset V) (r : V)
+    (hr : r ∈ U) (hmax : ∀ b ∈ U, b ≤ r) (π τ : List V) :
+    signedRootDeletion Z U r π τ = rootDeletion q Z U r π τ := by
+  classical
+  induction U using Finset.strongInductionOn generalizing Z π τ with
+  | h U ih =>
+    by_cases hsingle : U = {r}
+    · subst U
+      simp
+    · have hne : U.Nonempty := ⟨r, hr⟩
+      let a := U.min' hne
+      have haU : a ∈ U := U.min'_mem hne
+      have hamin : ∀ b ∈ U.erase a, a < b := by
+        intro b hb
+        exact Finset.min'_lt_of_mem_erase_min' hb
+      have har : a < r := by
+        apply lt_of_le_of_ne (U.min'_le r hr)
+        intro heq
+        apply hsingle
+        apply Finset.ext
+        intro b
+        simp only [Finset.mem_singleton]
+        constructor
+        · intro hb
+          exact le_antisymm (hmax b hb) (heq ▸ U.min'_le b hb)
+        · rintro rfl
+          exact hr
+      have hr' : r ∈ U.erase a := Finset.mem_erase.mpr ⟨ne_of_gt har, hr⟩
+      let W : List V → List V → R := fun l t =>
+        Z (a :: l ++ π) (a :: t ++ τ) - Z (l ++ [a] ++ π) (t ++ [a] ++ τ)
+      have hW : ListExchangeCompatible q W := hZ.minimumDifference a π τ
+      have hsplit := signedRootDeletion_insert_min Z (U.erase a) r a π τ har hamin
+      rw [Finset.insert_erase haU] at hsplit
+      rw [hsplit]
+      change signedRootDeletion W (U.erase a) r [] [] = _
+      rw [ih (U.erase a) (Finset.erase_ssubset haU) hW hr'
+        (fun b hb => hmax b (Finset.mem_of_mem_erase hb)) [] []]
+      have hstep := rootDeletion_minimumDifference hZ (U.erase a) r a π τ hr' hamin
+      simpa only [Finset.insert_erase haU] using hstep
 
 end Ring
 

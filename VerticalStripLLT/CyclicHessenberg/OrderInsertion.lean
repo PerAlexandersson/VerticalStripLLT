@@ -7,10 +7,11 @@ import Mathlib.Data.Fintype.BigOperators
 
 namespace VerticalStripLLT.CyclicHessenberg
 
-open scoped BigOperators
+open scoped BigOperators List
 
 variable {V : Type*} [LinearOrder V]
 
+omit [LinearOrder V] in
 private theorem insertIdx_eq_take_cons_drop (l : List V) (i : ℕ) (a : V)
     (hi : i ≤ l.length) : l.insertIdx i a = l.take i ++ a :: l.drop i := by
   induction l generalizing i with
@@ -139,7 +140,7 @@ theorem sum_insertOrder {S : Finset V} (a : V) (ha : a ∉ S) {R : Type*}
     (∑ σ : Order S, ∑ i : Fin (S.card + 1), f (insertOrder a ha σ i)) =
       ∑ τ : Order (insert a S), f τ := by
   classical
-  rw [← Fintype.sum_prod_type]
-  exact Equiv.sum_comp (insertionEquiv a ha) f
+  exact (Fintype.sum_prod_type (fun p : Order S × Fin (S.card + 1) =>
+    f (insertOrder a ha p.1 p.2))).symm.trans (Equiv.sum_comp (insertionEquiv a ha) f)
 
 end VerticalStripLLT.CyclicHessenberg
