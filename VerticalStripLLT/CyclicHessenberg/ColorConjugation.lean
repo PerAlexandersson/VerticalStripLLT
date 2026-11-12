@@ -209,7 +209,8 @@ theorem descendingClass_conjugate_ad [LinearOrder V] (f : List V → R)
     apply hnext.trans
     apply ContextEq.of_eq
     change wordComm A (X + t • wordComm A X) = _
-    simp only [wordComm, mul_add, add_mul, mul_smul_comm, smul_mul_assoc, smul_sub]
+    simp only [wordComm, mul_add, add_mul, mul_sub, sub_mul, mul_smul_comm,
+      smul_mul_assoc, smul_sub]
     abel
 
 end VerticalStripLLT.CyclicHessenberg
