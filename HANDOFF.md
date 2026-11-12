@@ -57,6 +57,11 @@ owns only new `ColorEvaluation.lean`, finite product evaluation through the subw
 bijection and the residual-support bridge. Primary retains all build ownership.
 Both delegates have now released all files, including `ColorPositions.lean` and
 `ColorEvaluation.lean`; primary again owns the whole task subtree. No delegate built.
+Next bounded assignment: data delegate owns only new `ColorMissing.lean`, proving
+that a color product omitting a required root evaluates to zero, plus maximum-sort
+append bookkeeping. All integration and builds remain with primary.
+The order delegate owns only new `ColorPrefixEvaluation.lean`, evaluating a fixed
+prefix and then a signed mountain block against the actual residual coloring sum.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.

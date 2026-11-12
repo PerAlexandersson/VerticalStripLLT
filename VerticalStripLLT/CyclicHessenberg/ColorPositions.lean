@@ -109,6 +109,9 @@ theorem selectedColorSubword_map_snd_eq_sortedColorWord (S : Finset V) (m : ℕ)
       (colorPositions S m).filter (fun p => decide (κ p.2 = p.1)) := by
     unfold selectedColorSubword
     congr
+    funext p
+    exact congrArg (fun h : Decidable (κ p.2 = p.1) => @decide _ h)
+      (Subsingleton.elim _ _)
   rw [hselected]
   rw [colorPositions, map_filter_flatten]
   rw [← List.ofFn_comp']
@@ -139,7 +142,7 @@ private theorem colorPositionFiber_prod {R : Type*} [CommRing R] (S : Finset V)
   calc
     _ = ((((Finset.univ : Finset S).sort (· ≥ ·)).map Subtype.val).map
         (fun v => 1 + weight c • wordTerm (R := R) [v])).prod := by
-      simp only [List.map_map]
+      simp only [List.map_map, Function.comp_def]
     _ = _ := by
       rw [subtype_sort_ge_map_val, finset_sort_ge_eq_reverse]
       exact (descendingClass_eq_reverseProd (weight c) S.sort).symm

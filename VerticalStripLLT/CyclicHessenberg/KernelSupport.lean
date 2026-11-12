@@ -16,7 +16,6 @@ theorem kernelEntry_supported (S : Finset V) (Z : Kernel R S) :
     SupportedKernel S (kernelEntry Z) := by
   classical
   intro l t h
-  change f (Z l t) = 0
   rcases h with hl | ht
   · simp [kernelEntry, hl]
   · by_cases hl : IsOrder S l <;> simp [kernelEntry, hl, ht]
@@ -25,6 +24,7 @@ theorem SupportedKernel.map {S : Finset V} {Z : List V → List V → R}
     (hZ : SupportedKernel S Z) {T : Type*} [CommSemiring T] (f : R →+* T) :
     SupportedKernel S (fun l t => f (Z l t)) := by
   intro l t h
+  change f (Z l t) = 0
   rw [hZ l t h, map_zero]
 
 theorem SupportedKernel.diagonal_repeated {S : Finset V}
@@ -96,7 +96,7 @@ theorem SupportedKernel.rootDeletion {S : Finset V} {Z : List V → List V → R
     rcases hbad with hπ | hτ
     · exact Or.inl (fun h => hπ (hleft.mp h))
     · exact Or.inr (fun h => hτ (hright.mp h))
-  change rootDeletion q Z U r π τ = 0
-  simp only [rootDeletion, hzero, mul_zero]
+  change CyclicHessenberg.rootDeletion q Z U r π τ = 0
+  simp only [CyclicHessenberg.rootDeletion, hzero, mul_zero]
 
 end VerticalStripLLT.CyclicHessenberg

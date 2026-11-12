@@ -58,7 +58,7 @@ theorem sum_elementary_signedSetMountain (S : Finset V) (r : V) (Y : List R) :
   have hcard : U.card < S.card + 1 :=
     Nat.lt_succ_of_le (Finset.card_le_card (Finset.mem_powerset.mp hU))
   simp only [smul_ite, smul_zero]
-  simp only [Finset.sum_ite_eq', Finset.mem_range, hcard, ite_true]
+  simp only [Finset.sum_ite_eq, Finset.sum_ite_eq', Finset.mem_range, hcard, ite_true]
 
 /-- The actual insertion operator has elementary-weighted signed deletion blocks. -/
 theorem colorInsertion_eq_mountainSum (f : List V → R)
