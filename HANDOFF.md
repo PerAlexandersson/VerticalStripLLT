@@ -31,7 +31,8 @@ Literal circular flip-component decomposition remains open.
 Build coordination: Lean `v4.34.0`, mathlib
 `5ed2965256430c3649e86755f9576b54eca72435`; preserve manifest and toolchain.
 Only the authorized Laplace project-selecting bridge may compile this task.
-Host is extending it; no submission yet. Euler is reserved for Fable.
+Host confirmed readiness and the successful pinned cache receipt
+`20261112T090727-b00c3487` (8908 artifacts, exit 0). Euler is reserved for Fable.
 `codex mcp list` and runtime registry inspected: Lean MCP targets RealRooted,
 so target-repository diagnostics are unavailable; do not invoke it here.
 Paper-cache is registered. `/workspace/tools/supervisor-scripts/bin/supervisor-tool`
@@ -47,13 +48,17 @@ equivalence, scalar/matrix characterization and product closure. All main
 root-deletion, insertion, loop-bridge, cycle/matching and positivity endpoints
 remain unproved. Static checks are not kernel verification.
 
-Build requirements for host: full pinned Mathlib dependency cache, then
+Published unbuilt checkpoint: `ae64cfc103e7db2719c192f8d15ef04351be94e6`.
+Primary submitted job `20261112T091045-b6da0e5b`, 7200-second bound, targets
 `VerticalStripLLT.CyclicHessenberg.Data`,
 `VerticalStripLLT.CyclicHessenberg.BoundaryOrder`,
-`VerticalStripLLT.CyclicHessenberg.Kernel`. CLI help now lists
-`--project {RealRooted,VerticalStripLLT}` and `--mode {build,cache}`;
-wait for host readiness before submitting. Next: publish the source checkpoint
-when the host is ready, inspect focused build diagnostics, then continue Gate 1.
+`VerticalStripLLT.CyclicHessenberg.Kernel`, via `--project VerticalStripLLT`.
+The primary owns monitoring and follow-up; use `lake job` / `lake logs` for
+that receipt. It failed on a missing finite-function import and two list-API
+proof errors; these are corrected in the next source checkpoint. No duplicate
+cache preparation is needed. Meanwhile `Loops.lean`
+now contains the independent canonical-cover/color model and degenerate-case
+proof candidates. Next: inspect focused diagnostics and continue Gate 1.
 
 ## Public repository preparation (2026-10-17)
 

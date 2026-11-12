@@ -1,5 +1,6 @@
 import Mathlib.Order.Fin.Basic
 import Mathlib.Data.Fintype.EquivFin
+import Mathlib.Data.Fintype.Pi
 
 set_option autoImplicit false
 

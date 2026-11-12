@@ -67,8 +67,8 @@ theorem isOrder_append_right_iff {A B : Finset V} {l s : List V}
     IsOrder (A ∪ B) (l ++ s) ↔ IsOrder A l := by
   have hcomm : IsOrder (A ∪ B) (l ++ s) ↔ IsOrder (B ∪ A) (s ++ l) := by
     constructor <;> intro h
-    · simpa only [Finset.union_comm] using h.perm (List.perm_append_comm l s)
-    · simpa only [Finset.union_comm] using h.perm (List.perm_append_comm s l)
+    · simpa only [Finset.union_comm] using h.perm List.perm_append_comm
+    · simpa only [Finset.union_comm] using h.perm List.perm_append_comm
   exact hcomm.trans (isOrder_append_left_iff hs hd.symm)
 
 /-- Enumerate orders by the permutations of the increasing list. -/
@@ -110,7 +110,7 @@ def appendOrder {A B : Finset V} (hd : Disjoint A B)
 
 @[simp] theorem order_empty_val (l : Order (∅ : Finset V)) : l.val = [] := by
   have h := length_order l
-  simpa using h
+  exact List.length_eq_zero_iff.mp h
 
 instance orderEmptySubsingleton : Subsingleton (Order (∅ : Finset V)) :=
   ⟨fun l t => Subtype.ext ((order_empty_val l).trans (order_empty_val t).symm)⟩
