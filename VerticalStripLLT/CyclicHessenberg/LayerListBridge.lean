@@ -29,7 +29,8 @@ theorem layerListAscentCount_ofFn (h : V → V) {n : ℕ} (v w : Fin n → V) :
   | zero => simp [layerListAscentCount]
   | succ n ih =>
     rw [List.ofFn_succ, List.ofFn_succ, layerListAscentCount, spectatorCount_ofFn, ih]
-    simp [Fin.sum_univ_succ]
+    simp only [Fin.sum_univ_succ, Fin.not_lt_zero, Fin.zero_lt_succ, Fin.succ_lt_succ_iff,
+      false_and, true_and, ite_false, zero_add]
 
 theorem fullOrder_ofFn {n : ℕ} (π : FullOrder n) :
     List.ofFn (fun i => (orderEquiv π i).val) = π.val :=

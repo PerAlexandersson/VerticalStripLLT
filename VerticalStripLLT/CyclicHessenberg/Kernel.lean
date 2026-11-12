@@ -151,6 +151,42 @@ theorem sum {ι : Type*} (s : Finset ι) {q : R}
 
 end ListExchangeCompatible
 
+/-- Restrict a compatible list function to genuine orders and zero-extend it again. -/
+theorem ListExchangeCompatible.toKernel {q : R} {Z : List V → List V → R}
+    (hZ : ListExchangeCompatible q Z) (S : Finset V) :
+    ExchangeCompatible q (fun π τ : Order S => Z π.val τ.val) := by
+  classical
+  intro ρ σ ρ' σ' a b c d hlen hab hcd
+  by_cases hl : IsOrder S (ρ ++ [a, b] ++ σ)
+  · have hl' := isOrder_swapAdjacent ρ σ a b hl
+    by_cases ht : IsOrder S (ρ' ++ [c, d] ++ σ')
+    · have ht' := isOrder_swapAdjacent ρ' σ' c d ht
+      simpa only [kernelEntry, dite_eq_left hl, dite_eq_left hl', dite_eq_left ht,
+        dite_eq_left ht'] using hZ ρ σ ρ' σ' a b c d hlen hab hcd
+    · have ht' : ¬ IsOrder S (ρ' ++ [d, c] ++ σ') :=
+        fun hh => ht (isOrder_swapAdjacent ρ' σ' d c hh)
+      simp only [kernelEntry, dite_eq_left hl, dite_eq_left hl', dite_eq_right ht,
+        dite_eq_right ht', mul_zero, add_zero, and_self]
+  · have hl' : ¬ IsOrder S (ρ ++ [b, a] ++ σ) :=
+      fun hh => hl (isOrder_swapAdjacent ρ σ b a hh)
+    simp only [kernelEntry, dite_eq_right hl, dite_eq_right hl', mul_zero, add_zero, and_self]
+
+theorem kernelEntry_map {T : Type*} [CommSemiring T] (f : R →+* T)
+    {S : Finset V} (Z : Kernel R S) (l t : List V) :
+    kernelEntry (fun π τ => f (Z π τ)) l t = f (kernelEntry Z l t) := by
+  classical
+  by_cases hl : IsOrder S l <;> by_cases ht : IsOrder S t
+  all_goals simp [kernelEntry, hl, ht]
+
+theorem ExchangeCompatible.map {T : Type*} [CommSemiring T] {q : R}
+    {S : Finset V} {Z : Kernel R S} (hZ : ExchangeCompatible q Z) (f : R →+* T) :
+    ExchangeCompatible (f q) (fun π τ => f (Z π τ)) := by
+  have heq : kernelEntry (fun π τ => f (Z π τ)) = fun l t => f (kernelEntry Z l t) := by
+    funext l t
+    exact kernelEntry_map f Z l t
+  rw [ExchangeCompatible, heq]
+  exact ListExchangeCompatible.map hZ f
+
 /-- Unequal fixed prefixes preserve all exchanges on the retained support. -/
 theorem ExchangeCompatible.prefixKernel {q : R} {A B : Finset V}
     {Z : Kernel R (A ∪ B)} (hZ : ExchangeCompatible q Z)
