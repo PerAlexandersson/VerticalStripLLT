@@ -12,7 +12,7 @@ variable {k n m : ℕ}
 
 /-- Colorings of the full subtype support are the same as colorings of `Fin k`. -/
 def finColoringEquiv (k m : ℕ) :
-    (Fin k → Fin m) ≃ ((Finset.univ : Finset (Fin k)) → Fin m) where
+    (Fin k → Fin m) ≃ (↥(Finset.univ : Finset (Fin k)) → Fin m) where
   toFun κ v := κ v.val
   invFun κ a := κ ⟨a, Finset.mem_univ _⟩
   left_inv κ := by
@@ -51,7 +51,11 @@ private theorem loopColoring_coeff_sum_eq_rawKernel (h : Tuple k n) (m : ℕ)
         ∑ L : LoopCover h, f (E L) := by
       apply Finset.sum_congr rfl
       intro L hL
-      simp only [f, E, π, loopBoundaryPathEquiv]
+      change MvPolynomial.C (Polynomial.X ^ coloredLoopAscentCount h L κ) =
+        MvPolynomial.C (Polynomial.X ^ ∑ ℓ : Fin n,
+          layerAscentCount (h ℓ)
+            ((loopToBoundaryPath h (colorSortedFullOrder κ) L).val ℓ.castSucc)
+            ((loopToBoundaryPath h (colorSortedFullOrder κ) L).val ℓ.succ))
       rw [coloredLoopAscentCount_eq_path_sum]
     _ = ∑ P : ClosedLayerPath h π, f P := Equiv.sum_comp E f
     _ = MvPolynomial.C (rawOpenKernel h π π) := by

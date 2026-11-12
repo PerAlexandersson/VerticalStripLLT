@@ -67,7 +67,9 @@ theorem colorInsertion_eq_mountainSum (f : List V → R)
     ContextEq f (colorInsertion S.sort r Y)
       (∑ U ∈ S.powerset, elementaryWeights Y (U.card + 1) • mountainWordSum U r) := by
   classical
-  have hsmall : ∀ a ∈ S.sort, a < r := fun a ha => hr a ((Finset.mem_sort _).mp ha)
+  have hsmall : ∀ a ∈ S.sort, a < r := by
+    intro a ha
+    exact hr a (by simpa only [Finset.mem_sort] using ha)
   have h₁ := colorInsertion_eq_adExpansion f hf hrep (S.card + 1) hdegree
     S.sort r (Finset.sortedLT_sort S).pairwise hsmall Y
   have h₂ := ContextEq.sum (f := f) (Finset.range (S.card + 1))

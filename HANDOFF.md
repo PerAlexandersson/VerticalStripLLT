@@ -52,6 +52,9 @@ The Astra reviewer completed the remaining coloring semantic review read-only.
 the weighted bijections into the raw loop/kernel polynomial equality. No builds.
 `ColorSubwords.lean` has been released and adopted by primary. The data delegate
 now owns only new `ColorPositions.lean`, the literal positions-product identity.
+`LoopSemantics.lean` is released and adopted by primary. The order delegate now
+owns only new `ColorEvaluation.lean`, finite product evaluation through the subword
+bijection and the residual-support bridge. Primary retains all build ownership.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.
