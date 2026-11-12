@@ -150,7 +150,6 @@ private theorem sum_insertion_positions (S : Finset V) (a : V) (ha : a ∉ S)
       ∑ τ : Order (insert a S), f τ.val := by
   classical
   have h := sum_insertOrder a ha (fun τ => f τ.val)
-  dsimp only at h
   simp_rw [insertOrder_val] at h
   simpa only [Fin.sum_univ_eq_sum_range, length_order] using h
 
@@ -294,7 +293,7 @@ theorem signedRootDeletion_eq_rootDeletion {q : R} {Z : List V → List V → R}
       have haU : a ∈ U := U.min'_mem hne
       have hamin : ∀ b ∈ U.erase a, a < b := by
         intro b hb
-        exact Finset.min'_lt_of_mem_erase_min' hb
+        exact Finset.min'_lt_of_mem_erase_min' U hne hb
       have har : a < r := by
         apply lt_of_le_of_ne (U.min'_le r hr)
         intro heq
