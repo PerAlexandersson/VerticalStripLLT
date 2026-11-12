@@ -57,6 +57,8 @@ theorem naturalKernelExpansion_pair (a r : V) (har : a < r)
     rw [herase]
     simp [Finset.card_insert_of_notMem (show r ∉ ({a} : Finset V) by simp [hne.symm])]
   rw [hroot]
+  change natElementary 1 * (natElementary 1 * MvPolynomial.C (Z [r, a] [r, a])) +
+    natElementary 2 * MvPolynomial.C (Polynomial.X * Z [r, a] [a, r]) = _
   ring
 
 end VerticalStripLLT.CyclicHessenberg

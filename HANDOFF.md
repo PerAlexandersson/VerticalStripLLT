@@ -30,8 +30,8 @@ it released `CompositionIndex.lean`, adopted by primary, and now owns only
 `ColorRuns.lean` (released, adopted by primary). Its next sole file is
 `CompositionSplit.lean` (released, adopted by primary). It now owns only new
 `RunLexOrder.lean` (released as partial helpers, adopted by primary; the full iff
-remains primary work). It now owns only `SmallOrders.lean`, two-element order
-enumeration and its finite sum formula.
+remains primary work). It now owns only `SmallOrders.lean` (released, adopted by primary). It now owns only
+`CompleteTwo.lean`, the complete two-vertex layer matrix and its power formula.
 Primary retains all other files, including cycle deletion and integration.
 Astra completed its read-only sorted-loop bridge review: use Mathlib Composition,
 blockwise decreasing loop labels, increasing block colors and equality-run
