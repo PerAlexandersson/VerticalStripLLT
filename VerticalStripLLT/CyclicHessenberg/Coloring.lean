@@ -71,7 +71,7 @@ def emptyOrder {V : Type*} [LinearOrder V] : Order (∅ : Finset V) :=
   ⟨[], by simp [IsOrder]⟩
 
 private def emptyColoring {V : Type*} {m : ℕ} : (∅ : Finset V) → Fin m :=
-  fun v => False.elim (by simpa using v.property)
+  fun v => False.elim (Finset.notMem_empty v.val v.property)
 
 /-- Sum a boundary functional over colorings in color/tie order. -/
 noncomputable def orderColoringEnumerator {S : Finset V} (f : Order S → Q)
@@ -89,12 +89,12 @@ theorem orderColoringEnumerator_empty {m : ℕ}
     (f : Order (∅ : Finset V) → Q) :
     orderColoringEnumerator f m = MvPolynomial.C (f emptyOrder) := by
   classical
-  let : Unique ((∅ : Finset V) → Fin m) where
+  let : Unique ((∅ : Finset V) → Fin m) := {
     default := emptyColoring
     uniq := by
       intro κ
       funext v
-      exact False.elim (by simpa using v.property)
+      exact False.elim (Finset.notMem_empty v.val v.property) }
   have horder (κ : (∅ : Finset V) → Fin m) : sortColorOrder κ = emptyOrder :=
     Subsingleton.elim _ _
   simp [orderColoringEnumerator, horder]

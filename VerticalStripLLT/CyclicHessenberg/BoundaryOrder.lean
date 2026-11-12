@@ -166,4 +166,109 @@ theorem isOrder_swapAdjacent {S : Finset V} (ρ σ : List V) (a b : V)
   apply h.perm
   exact ((List.Perm.swap b a []).append_left ρ).append_right σ
 
+/-- Exchange positions `i,i+1`; an out-of-range exchange is the identity. -/
+def swapAdjacentList : ℕ → List V → List V
+  | 0, a :: b :: l => b :: a :: l
+  | i + 1, a :: l => a :: swapAdjacentList i l
+  | _, l => l
+
+omit [LinearOrder V] in
+theorem swapAdjacentList_perm (i : ℕ) (l : List V) : l.Perm (swapAdjacentList i l) := by
+  induction i generalizing l with
+  | zero =>
+    cases l with
+    | nil => exact List.Perm.refl _
+    | cons a l =>
+      cases l with
+      | nil => exact List.Perm.refl _
+      | cons b l => exact List.Perm.swap b a l
+  | succ i ih =>
+    cases l with
+    | nil => exact List.Perm.refl _
+    | cons a l => exact (ih l).cons a
+
+omit [LinearOrder V] in
+@[simp] theorem swapAdjacentList_involutive (i : ℕ) (l : List V) :
+    swapAdjacentList i (swapAdjacentList i l) = l := by
+  induction i generalizing l with
+  | zero => cases l with
+    | nil => rfl
+    | cons a l => cases l <;> rfl
+  | succ i ih => cases l with
+    | nil => rfl
+    | cons a l => simp only [swapAdjacentList, ih]
+
+omit [LinearOrder V] in
+theorem swapAdjacentList_context (ρ σ : List V) (a b : V) :
+    swapAdjacentList ρ.length (ρ ++ [a, b] ++ σ) = ρ ++ [b, a] ++ σ := by
+  induction ρ with
+  | nil => rfl
+  | cons c ρ ih => simpa only [List.length_cons, List.cons_append, swapAdjacentList] using
+      congrArg (List.cons c) ih
+
+/-- Adjacent exchange on the finite type of orders. -/
+def swapAdjacent {S : Finset V} (i : ℕ) (l : Order S) : Order S :=
+  ⟨swapAdjacentList i l.val, l.property.perm (swapAdjacentList_perm i l.val)⟩
+
+@[simp] theorem swapAdjacent_involutive {S : Finset V} (i : ℕ) (l : Order S) :
+    swapAdjacent i (swapAdjacent i l) = l := by
+  apply Subtype.ext
+  exact swapAdjacentList_involutive i l.val
+
+/-- Whether the entries at the displayed adjacent positions are increasing. -/
+def IncreasingAt : ℕ → List V → Prop
+  | 0, a :: b :: _ => a < b
+  | i + 1, _ :: l => IncreasingAt i l
+  | _, _ => False
+
+instance increasingAtDecidable (i : ℕ) (l : List V) : Decidable (IncreasingAt i l) := by
+  induction i generalizing l with
+  | zero => cases l with
+    | nil => exact inferInstanceAs (Decidable False)
+    | cons a l => cases l with
+      | nil => exact inferInstanceAs (Decidable False)
+      | cons b l => exact inferInstanceAs (Decidable (a < b))
+  | succ i ih => cases l with
+    | nil => exact inferInstanceAs (Decidable False)
+    | cons a l => exact ih l
+
+theorem increasingAt_context (ρ σ : List V) (a b : V) :
+    IncreasingAt ρ.length (ρ ++ [a, b] ++ σ) ↔ a < b := by
+  induction ρ with
+  | nil => rfl
+  | cons c ρ ih => exact ih
+
+omit [LinearOrder V] in
+/-- Every valid adjacent position has a prefix/pair/suffix decomposition. -/
+theorem adjacent_context (i : ℕ) (l : List V) (hi : i + 1 < l.length) :
+    ∃ (ρ σ : List V) (a b : V), ρ.length = i ∧ l = ρ ++ [a, b] ++ σ := by
+  induction i generalizing l with
+  | zero =>
+    cases l with
+    | nil => simp at hi
+    | cons a l => cases l with
+      | nil => simp at hi
+      | cons b l => exact ⟨[], l, a, b, rfl, rfl⟩
+  | succ i ih =>
+    cases l with
+    | nil => simp at hi
+    | cons c l =>
+      obtain ⟨ρ, σ, a, b, hρ, hl⟩ := ih l (Nat.lt_of_succ_lt_succ hi)
+      exact ⟨c :: ρ, σ, a, b, congrArg Nat.succ hρ, by rw [hl]; rfl⟩
+
+theorem increasingAt_swapAdjacent {S : Finset V} (i : ℕ) (hi : i + 1 < S.card)
+    (l : Order S) : IncreasingAt i (swapAdjacent i l).val ↔ ¬ IncreasingAt i l.val := by
+  obtain ⟨ρ, σ, a, b, hρ, hl⟩ := adjacent_context i l.val (by simpa using hi)
+  have hnd : (ρ ++ [a, b] ++ σ).Nodup := hl ▸ l.property.1
+  have hab : a ≠ b := by
+    have h := (List.nodup_append'.mp hnd).1
+    have h' := (List.nodup_append'.mp h).2.1
+    simpa using h'
+  change IncreasingAt i (swapAdjacentList i l.val) ↔ ¬ IncreasingAt i l.val
+  rw [hl, ← hρ, swapAdjacentList_context, increasingAt_context, increasingAt_context]
+  constructor
+  · exact fun h h' => (lt_asymm h h')
+  · intro h
+    exact lt_of_le_of_ne (le_of_not_gt h) hab.symm
+
 end VerticalStripLLT.CyclicHessenberg

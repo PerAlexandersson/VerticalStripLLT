@@ -150,8 +150,9 @@ private theorem sum_insertion_positions (S : Finset V) (a : V) (ha : a ∉ S)
       ∑ τ : Order (insert a S), f τ.val := by
   classical
   have h := sum_insertOrder a ha (fun τ => f τ.val)
-  simp_rw [insertOrder_val, Fin.sum_univ_eq_sum_range] at h
-  simpa only [length_order] using h
+  dsimp only at h
+  simp_rw [insertOrder_val] at h
+  simpa only [Fin.sum_univ_eq_sum_range, length_order] using h
 
 /-- The positive residual of the signed intermediate kernel inserts the missing minimum once. -/
 theorem rootDeletion_minimumDifference {q : R} {Z : List V → List V → R}
@@ -284,7 +285,7 @@ theorem signedRootDeletion_eq_rootDeletion {q : R} {Z : List V → List V → R}
     signedRootDeletion Z U r π τ = rootDeletion q Z U r π τ := by
   classical
   induction U using Finset.strongInductionOn generalizing Z π τ with
-  | h U ih =>
+  | _ U ih =>
     by_cases hsingle : U = {r}
     · subst U
       simp
