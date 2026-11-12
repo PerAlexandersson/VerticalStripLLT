@@ -50,7 +50,7 @@ theorem naturalKernelExpansion_eq_rootSum (S : Finset V)
             (rootDeletion Polynomial.X Z U.val (S.max' hS))
       else 0 := by
   classical
-  rw [naturalKernelExpansion, dif_pos hS]
+  rw [naturalKernelExpansion, dite_eq_left hS]
 
 /-- The deletion expression is additive in the original kernel. -/
 theorem naturalKernelExpansion_add (S : Finset V)
@@ -65,10 +65,10 @@ theorem naturalKernelExpansion_add (S : Finset V)
       apply Finset.sum_congr rfl
       intro U hU
       by_cases hr : S.max' hS ∈ U.val
-      · simp only [dif_pos hr, rootDeletion_add]
+      · simp only [dite_eq_left hr, rootDeletion_add]
         rw [ih (S \ U.val) (Finset.sdiff_ssubset
           (Finset.mem_powerset.mp U.property) ⟨S.max' hS, hr⟩), mul_add]
-      · simp only [dif_neg hr, add_zero]
+      · simp only [dite_eq_right hr, add_zero]
     · have hempty : S = ∅ := Finset.not_nonempty_iff_eq_empty.mp hS
       subst S
       simp
@@ -86,11 +86,11 @@ theorem naturalKernelExpansion_smul (S : Finset V) (a : Polynomial ℕ)
       apply Finset.sum_congr rfl
       intro U hU
       by_cases hr : S.max' hS ∈ U.val
-      · simp only [dif_pos hr, rootDeletion_smul]
+      · simp only [dite_eq_left hr, rootDeletion_smul]
         rw [ih (S \ U.val) (Finset.sdiff_ssubset
           (Finset.mem_powerset.mp U.property) ⟨S.max' hS, hr⟩)]
         ring
-      · simp only [dif_neg hr, mul_zero]
+      · simp only [dite_eq_right hr, mul_zero]
     · have hempty : S = ∅ := Finset.not_nonempty_iff_eq_empty.mp hS
       subst S
       simp

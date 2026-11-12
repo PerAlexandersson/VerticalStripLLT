@@ -27,8 +27,8 @@ without building. The primary adopts its direct finite color enumerator for chec
 The bounded Luna delegate `cyclic_order_insertion` drafted and released
 `CyclicHessenberg/OrderInsertion.lean`: insertion/erasure of one absent named
 vertex and the finite-sum reindexing. The primary adopted it for Laplace checking.
-That delegate now owns only `CyclicHessenberg/MatrixExchange.lean` for the
-generic finite-involution scalar/matrix equivalence, with no builds or commits.
+That delegate drafted and released `CyclicHessenberg/MatrixExchange.lean` for the
+generic finite-involution scalar/matrix equivalence; primary owns its integration.
 The Luna delegate `cyclic_hessenberg_data` now owns only `Coloring.lean` to
 prove the color/tie sorting characterization and uniqueness. No builds or commits.
 Primary retains all other files and the single build slot.
@@ -71,8 +71,19 @@ at `f075874ca9b602a34f723e029c0e82f802925cb7` in job
 `minimumSlide`, `minimumSlideSum_eq_sum`, `minimumSlide_cycle`, both singleton
 formulas, and `signedRootDeletion_insert_min`. That receipt failed overall
 because Layer still had two elaboration errors, now corrected in source.
-The full signed root-deletion identity still awaits insertion reindexing and
-cardinality induction; it is not claimed by these supporting lemmas.
+The full `signedRootDeletion_eq_rootDeletion` (including unequal suffixes),
+`rootDeletion_minimumDifference`, and insertion reindexing passed at
+`98c38283585604fe5262b82b0dde6115aca07b5b`, job `20261112T093828-ae2267b9`.
+That receipt also checked `Expansion`: the well-founded natural recurrence,
+its additivity/scalar linearity and coefficient nonnegativity of the constructed
+expression. It failed overall only on MatrixExchange, now being repaired.
+This is not yet positivity of the source polynomial: color insertion, the
+layer exchange proof and loop/kernel semantic equality remain outstanding.
+`Coloring` and the adjacent-position API passed at `1ab1a9f` in receipt
+`20261112T093608-1b817368`; `Layer` passed at `deb5d84` in receipt
+`20261112T092652-277780a5`; `OrderInsertion` passed at `f276554` in receipt
+`20261112T093127-070a9ade`. Axiom queries so far cover only the foundation;
+the full deletion and later endpoints must be added to Audit next.
 
 Published unbuilt checkpoint: `ae64cfc103e7db2719c192f8d15ef04351be94e6`.
 Primary submitted job `20261112T091045-b6da0e5b`, 7200-second bound, targets

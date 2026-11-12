@@ -29,7 +29,7 @@ private theorem sum_diag_mul (f c : I → R) (b : I) :
     (∑ i : I, f i * (if b = i then c i else 0)) = f b * c b := by
   classical
   simp_rw [mul_ite]
-  simpa [eq_comm] using sum_pick b (fun i => f i * c i)
+  simp [eq_comm]
 
 private theorem sum_shift_mul (s : I → I) (hs : ∀ i, s (s i) = i)
     (f c : I → R) (b : I) :
@@ -46,7 +46,7 @@ private theorem sum_shift_mul (s : I → I) (hs : ∀ i, s (s i) = i)
         b = s (s b) := (hs b).symm
         _ = s i := (congrArg s h).symm
   simp_rw [mul_ite, hcond]
-  simpa using sum_pick (s b) (fun i => f i * c i)
+  simp
 
 private theorem sum_pick_mul (b : I) (c : R) (f : I → R) :
     (∑ i : I, (if i = b then c else 0) * f i) = c * f b := by
@@ -63,18 +63,17 @@ theorem mul_involutionExchange_entry (s : I → I) (up : I → Prop)
   classical
   simp only [Matrix.mul_apply, involutionExchange, mul_add, Finset.sum_add_distrib]
   rw [sum_diag_mul, sum_shift_mul s hs]
-  simp [hup y]
-  ring
+  by_cases hy : up y <;> simp [hup y, hy, mul_comm]
 
 /-- Entry formula for left multiplication by the exchange matrix. -/
 theorem involutionExchange_mul_entry (s : I → I) (up : I → Prop)
     [DecidablePred up] (q : R) (Z : Matrix I I R) (x y : I)
-    (hs : ∀ i, s (s i) = i) (hup : ∀ i, up (s i) ↔ ¬ up i) :
+    (_hs : ∀ i, s (s i) = i) (_hup : ∀ i, up (s i) ↔ ¬ up i) :
     (involutionExchange s up q * Z) x y =
       (if up x then q else 0) * Z x y +
         (if up x then 1 + q else 1) * Z (s x) y := by
   classical
-  simp only [Matrix.mul_apply, involutionExchange, mul_add, Finset.sum_add_distrib]
+  simp only [Matrix.mul_apply, involutionExchange, add_mul, Finset.sum_add_distrib]
   rw [sum_pick_mul, sum_pick_mul]
 
 /-- Scalar form of the two exchange relations for an involution. -/
