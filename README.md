@@ -23,10 +23,11 @@ independently and proved equal for every finite alphabet, including the empty
 alphabet. The diagram and word proofs of the component theorem are separate;
 neither imports the other's proof directory.
 
-The separate cyclic Hessenberg development follows the loop/coloring proof:
-transfer-kernel exchange, positive root deletion, and canonical cycle and matching
-expansions. Its independently defined composition source agrees with the coloring
-sum. After `q ↦ q+1`, one elementary expression over `ℕ[q]` works for every finite
+The separate cyclic Hessenberg development treats the cyclic LLT polynomials
+introduced by [Kim and Oh](https://arxiv.org/abs/2611.14177v1), Section 6.
+It follows the loop/coloring proof: transfer-kernel exchange, positive root
+deletion, and canonical cycle and matching expansions. Its independently defined
+composition source agrees with the coloring sum. After `q ↦ q+1`, one elementary expression over `ℕ[q]` works for every finite
 alphabet; each coefficient counts matchings with marked ascent events. Main source
 expansion theorems assume a positive layer count and include empty support and
 empty alphabets. This result does not assert a circular flip-class decomposition.
@@ -62,6 +63,10 @@ RealRooted Lean MCP and local/Euler builds are not used for this task.
   [*Chromatic quasisymmetric functions and noncommutative P-symmetric
   functions*](https://doi.org/10.1090/tran/9096),
   *Transactions of the AMS* **377** (2024), 2855–2896.
+- Donghyun Kim and Jaeseong Oh,
+  [*The elliptic Hall algebra and the combinatorics of affine Springer
+  fibers*](https://arxiv.org/abs/2611.14177v1), arXiv:2611.14177v1 (2026).
+  Section 6 introduces cyclic LLT polynomials and their monomial expansions.
 - [Challenge](CHALLENGE.md): a precise target for a shorter component proof.
 - [Documentation](docs/README.md): proof maps, source correspondence and audits.
 - Completion audits: [ordinary](docs/COMPLETION.md),

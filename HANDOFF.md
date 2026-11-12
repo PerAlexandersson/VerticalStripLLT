@@ -1,5 +1,13 @@
 # VerticalStripLLT handoff
 
+## README source citation (2026-11-12)
+
+Completed Per's request to cite the Kim–Oh preprint introducing cyclic LLTs
+in the README paragraph and Further reading list. Ownership is released. Metadata and Section 6 were checked
+against the cached source and the arXiv abstract page, arXiv:2611.14177v1.
+The citation and `git diff --check` pass. This is a documentation-only change;
+no Lean build was run.
+
 ## Cyclic Hessenberg implementation (2026-11-12, complete)
 
 Primary Codex owns strategy, integration, source and the sole serialized build
