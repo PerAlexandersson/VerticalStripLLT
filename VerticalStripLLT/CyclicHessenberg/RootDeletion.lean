@@ -28,7 +28,7 @@ theorem rootDeletion_exchangeCompatible {q : R} {Z : List V → List V → R}
   apply ListExchangeCompatible.smul
   apply ListExchangeCompatible.sum
   intro σ hσ
-  exact hZ.prefixLists (r :: σ.val) (σ.val ++ [r]) (by simp [Nat.add_comm])
+  exact hZ.prefixLists (r :: σ.val) (σ.val ++ [r]) (by simp)
 
 theorem rootDeletion_map {T : Type*} [CommSemiring T] (f : R →+* T)
     (q : R) (Z : List V → List V → R) (U : Finset V) (r : V) (π τ : List V) :
@@ -70,8 +70,58 @@ theorem minimumSlide {q : R} {Z : List V → List V → R}
         (fun z hz => hxs z (by simp [hz])) (fun z hz => hys z (by simp [hz]))
       simp only [List.append_assoc, List.cons_append, List.nil_append] at hstep htail ⊢
       rw [hstep, htail]
-      simp only [minimumSlideSum]
+      simp only [minimumSlideSum, List.append_assoc, List.cons_append, List.nil_append]
       ring
+
+/-- Index the crossed entries by the position of the moving minimum. -/
+theorem minimumSlideSum_eq_sum (Z : List V → List V → R)
+    (a : V) (π τ ρ ρ' xs ys : List V) (hlen : xs.length = ys.length) :
+    minimumSlideSum Z a π τ ρ ρ' xs ys =
+      ∑ i ∈ Finset.range xs.length,
+        Z (ρ ++ xs.take (i + 1) ++ a :: xs.drop (i + 1) ++ π)
+          (ρ' ++ ys.take i ++ a :: ys.drop i ++ τ) := by
+  induction xs generalizing ys ρ ρ' with
+  | nil => simp [minimumSlideSum]
+  | cons x xs ih =>
+    cases ys with
+    | nil => simp at hlen
+    | cons y ys =>
+      rw [minimumSlideSum, List.length_cons, Finset.sum_range_succ']
+      rw [ih (ys := ys) (ρ := ρ ++ [x]) (ρ' := ρ' ++ [y]) (by simpa using hlen)]
+      simp only [List.take_zero, List.drop_zero, List.take_succ_cons, List.drop_succ_cons,
+        List.append_nil, List.nil_append, List.cons_append, List.append_assoc]
+
+/-- The minimum slide for a cyclically rotated pair is precisely a sum over insertion positions. -/
+theorem minimumSlide_cycle {q : R} {Z : List V → List V → R}
+    (hZ : ListExchangeCompatible q Z) (a r : V) (σ π τ : List V)
+    (har : a < r) (haσ : ∀ b ∈ σ, a < b) :
+    Z (a :: r :: σ ++ π) (a :: σ ++ [r] ++ τ) =
+      Z (r :: σ ++ [a] ++ π) (σ ++ [r, a] ++ τ) +
+        q * ∑ i ∈ Finset.range (σ.length + 1),
+          Z (r :: (σ.take i ++ a :: σ.drop i) ++ π)
+            ((σ.take i ++ a :: σ.drop i) ++ [r] ++ τ) := by
+  have hx : ∀ b ∈ r :: σ, a < b := by
+    intro b hb
+    rcases List.mem_cons.mp hb with rfl | hb
+    · exact har
+    · exact haσ b hb
+  have hy : ∀ b ∈ σ ++ [r], a < b := by
+    intro b hb
+    rcases List.mem_append.mp hb with hb | hb
+    · exact haσ b hb
+    · have hb' : b = r := List.mem_singleton.mp hb
+      simpa only [hb'] using har
+  have h := minimumSlide hZ a π τ [] [] (r :: σ) (σ ++ [r]) rfl (by simp) hx hy
+  rw [minimumSlideSum_eq_sum Z a π τ [] [] (r :: σ) (σ ++ [r]) (by simp)] at h
+  simp only [List.nil_append, List.length_cons, List.cons_append, List.append_assoc] at h ⊢
+  convert h using 2
+  congr 1
+  apply Finset.sum_congr rfl
+  intro i hi
+  have hi' : i ≤ σ.length := Nat.le_of_lt_succ (Finset.mem_range.mp hi)
+  simp [List.take_succ_cons, List.drop_succ_cons,
+    List.take_append_of_le_length hi', List.drop_append_of_le_length hi',
+    List.append_assoc]
 
 end Semiring
 
