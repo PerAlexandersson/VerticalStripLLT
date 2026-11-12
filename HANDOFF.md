@@ -43,6 +43,8 @@ primary checked its sorting/position equivalence at `2bf4223`.
 The Luna delegate `cyclic_order_insertion` now owns only new `FiniteMatrixPaths.lean`:
 fixed-endpoint finite paths, their first-step equivalence, and the matrix-product sum.
 No builds or commits; all other files remain primary-owned.
+The Luna delegate `cyclic_hessenberg_data` additionally owns only new
+`SortedSubsets.lean`, reindexing literal sublists of a sorted support by its subsets.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.
