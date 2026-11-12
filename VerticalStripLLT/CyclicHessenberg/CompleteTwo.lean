@@ -138,10 +138,10 @@ private theorem completeTwoLayerKernel_mul_self :
   rw [Matrix.mul_apply, sum_fullOrder_two]
   by_cases hπ : π = fullOrderForwardTwo
   · subst π
-    simp only [completeTwoLayerKernel_entry, if_pos rfl, if_neg hne,
+    simp only [completeTwoLayerKernel_entry, ite_true, if_neg hne,
       Matrix.smul_apply, smul_eq_mul]
     ring
-  · simp only [completeTwoLayerKernel_entry, if_neg hπ, if_pos rfl, if_neg hne,
+  · simp only [completeTwoLayerKernel_entry, if_neg hπ, ite_true, if_neg hne,
       Matrix.smul_apply, smul_eq_mul]
     ring
 
