@@ -3,6 +3,7 @@ import VerticalStripLLT.CyclicHessenberg.Kernel
 import VerticalStripLLT.OrientationShift
 import Mathlib.Algebra.BigOperators.Group.List.Basic
 import Mathlib.Algebra.Polynomial.Basic
+import Mathlib.Data.Matrix.Basic
 
 set_option autoImplicit false
 
@@ -106,7 +107,7 @@ theorem layerPathSum_eq_prod {k : ℕ} {R : Type*} [Semiring R]
     (π τ : FullOrder k) :
     layerPathSum layers π τ = layers.prod π τ := by
   induction layers generalizing π with
-  | nil => simp [layerPathSum]
+  | nil => simp [layerPathSum, Matrix.one_apply]
   | cons M rest ih =>
     simp only [layerPathSum, List.prod_cons, Matrix.mul_apply]
     apply Finset.sum_congr rfl

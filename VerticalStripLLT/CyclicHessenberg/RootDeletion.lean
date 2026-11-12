@@ -44,10 +44,9 @@ theorem rootDeletion_map {T : Type*} [CommSemiring T] (f : R →+* T)
   classical
   let : Unique (Order (∅ : Finset V)) :=
     ⟨⟨increasingOrder ∅⟩, fun l => Subsingleton.elim l _⟩
-  simp only [rootDeletion, Finset.card_singleton, Nat.sub_self, pow_zero, one_mul,
-    Finset.erase_singleton]
-  rw [Fintype.sum_unique]
-  simp only [order_empty_val, List.nil_append, List.cons_append]
+  unfold rootDeletion
+  rw [Finset.erase_singleton]
+  simp
 
 /-- The crossed entries encountered while moving `a` simultaneously along both lists. -/
 def minimumSlideSum (Z : List V → List V → R) (a : V) (π τ : List V) :
