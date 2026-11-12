@@ -64,10 +64,12 @@ theorem exchangeCompatible_iff_involutions (q : R) {S : Finset V} (Z : Kernel R 
         simpa only [kernelEntry, dite_eq_left hl, dite_eq_left hl', dite_eq_left ht, dite_eq_left ht'] using hh
       · have ht' : ¬ IsOrder S (ρ' ++ [d, c] ++ σ') :=
           fun h' => ht (isOrder_swapAdjacent ρ' σ' d c h')
-        simp [kernelEntry, hl, hl', ht, ht']
+        simp only [kernelEntry, dite_eq_left hl, dite_eq_left hl', dite_eq_right ht,
+          dite_eq_right ht', mul_zero, add_zero, and_self]
     · have hl' : ¬ IsOrder S (ρ ++ [b, a] ++ σ) :=
         fun h' => hl (isOrder_swapAdjacent ρ σ b a h')
-      simp [kernelEntry, hl, hl']
+      simp only [kernelEntry, dite_eq_right hl, dite_eq_right hl', mul_zero,
+        add_zero, and_self]
 
 /-- Commutation is a consequence and characterization of the scalar laws. -/
 theorem exchangeCompatible_iff_commute (q : R) {S : Finset V} (Z : Kernel R S) :

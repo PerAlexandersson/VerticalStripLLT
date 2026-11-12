@@ -29,7 +29,7 @@ private theorem sum_diag_mul (f c : I → R) (b : I) :
     (∑ i : I, f i * (if b = i then c i else 0)) = f b * c b := by
   classical
   simp_rw [mul_ite]
-  simp [eq_comm]
+  simp
 
 private theorem sum_shift_mul (s : I → I) (hs : ∀ i, s (s i) = i)
     (f c : I → R) (b : I) :

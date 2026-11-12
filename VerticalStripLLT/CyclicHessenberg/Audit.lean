@@ -1,5 +1,9 @@
 import VerticalStripLLT.CyclicHessenberg.Kernel
 import VerticalStripLLT.CyclicHessenberg.Loops
+import VerticalStripLLT.CyclicHessenberg.ExchangeMatrix
+import VerticalStripLLT.CyclicHessenberg.Expansion
+import VerticalStripLLT.CyclicHessenberg.Layer
+import VerticalStripLLT.CyclicHessenberg.Coloring
 
 /-! Axiom queries for the currently implemented cyclic Hessenberg interfaces.
 The final semantic bridge and positivity endpoints must be added when proved. -/
@@ -20,3 +24,17 @@ The final semantic bridge and positivity endpoints must be added when proved. -/
 #print axioms VerticalStripLLT.CyclicHessenberg.loopColoringLLT_zero_alphabet
 #print axioms VerticalStripLLT.CyclicHessenberg.colorPrecedes_of_lt
 #print axioms VerticalStripLLT.CyclicHessenberg.colorPrecedes_of_gt
+#print axioms VerticalStripLLT.CyclicHessenberg.insertionEquiv
+#print axioms VerticalStripLLT.CyclicHessenberg.sum_insertOrder
+#print axioms VerticalStripLLT.CyclicHessenberg.exchangeCompatible_iff_commute
+#print axioms VerticalStripLLT.CyclicHessenberg.ExchangeCompatible.mul
+#print axioms VerticalStripLLT.CyclicHessenberg.ExchangeCompatible.list_prod
+#print axioms VerticalStripLLT.CyclicHessenberg.rootDeletion_exchangeCompatible
+#print axioms VerticalStripLLT.CyclicHessenberg.signedRootDeletion_eq_rootDeletion
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalKernelExpansion_add
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalKernelExpansion_smul
+#print axioms VerticalStripLLT.CyclicHessenberg.kernelExpansion_coeff_nonneg
+#print axioms VerticalStripLLT.CyclicHessenberg.cast_naturalOpenKernel_eq_shift_rawOpenKernel
+#print axioms VerticalStripLLT.CyclicHessenberg.naturalOpenKernel_entry_eq_sum
+#print axioms VerticalStripLLT.CyclicHessenberg.orderColoringEnumerator_empty
+#print axioms VerticalStripLLT.CyclicHessenberg.orderColoringEnumerator_zero_alphabet
