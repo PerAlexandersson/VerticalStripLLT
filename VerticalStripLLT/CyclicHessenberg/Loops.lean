@@ -72,7 +72,7 @@ noncomputable def loopColoringLLT (h : Tuple k n) (m : ℕ) : XPoly m :=
       ∏ a : Fin k, MvPolynomial.X (κ a)
 
 instance loopCoverEmptySubsingleton (h : Tuple 0 n) : Subsingleton (LoopCover h) := by
-  apply Subtype.instSubsingleton
+  exact ⟨fun L M => Subtype.ext (Subsingleton.elim _ _)⟩
 
 @[simp] theorem coloredLoopAscentCount_empty (h : Tuple 0 n) (L : LoopCover h)
     (κ : Fin 0 → Fin m) : coloredLoopAscentCount h L κ = 0 := by
@@ -82,7 +82,7 @@ instance loopCoverEmptySubsingleton (h : Tuple 0 n) : Subsingleton (LoopCover h)
 @[simp] theorem loopColoringLLT_empty (h : Tuple 0 n) (m : ℕ) :
     loopColoringLLT h m = 1 := by
   classical
-  letI : Unique (LoopCover h) :=
+  let : Unique (LoopCover h) :=
     ⟨inferInstance, fun L => Subsingleton.elim L default⟩
   simp [loopColoringLLT]
 
@@ -90,7 +90,7 @@ instance loopCoverEmptySubsingleton (h : Tuple 0 n) : Subsingleton (LoopCover h)
 @[simp] theorem loopColoringLLT_zero_alphabet (h : Tuple k n) (hk : 0 < k) :
     loopColoringLLT h 0 = 0 := by
   classical
-  letI : IsEmpty (Fin k → Fin 0) := ⟨fun κ => Fin.elim0 (κ ⟨0, hk⟩)⟩
+  let : IsEmpty (Fin k → Fin 0) := ⟨fun κ => Fin.elim0 (κ ⟨0, hk⟩)⟩
   simp [loopColoringLLT]
 
 end VerticalStripLLT.CyclicHessenberg

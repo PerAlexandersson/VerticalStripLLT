@@ -32,7 +32,7 @@ theorem ext {k : ℕ} {f g : Hessenberg k} (h : ∀ i, f i = g i) : f = g := by
       rfl
 
 instance {k : ℕ} : Finite (Hessenberg k) :=
-  Finite.of_injective Hessenberg.toFun fun f g h => ext fun i => congrFun h i
+  Finite.of_injective Hessenberg.toFun fun _f _g h => ext fun i => congrFun h i
 
 noncomputable instance {k : ℕ} : Fintype (Hessenberg k) := Fintype.ofFinite _
 

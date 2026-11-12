@@ -85,6 +85,7 @@ theorem add {q : R} {Z W : List V → List V → R}
   intro ρ σ ρ' σ' a b c d hlen hab hcd
   obtain ⟨hZ₁, hZ₂⟩ := hZ ρ σ ρ' σ' a b c d hlen hab hcd
   obtain ⟨hW₁, hW₂⟩ := hW ρ σ ρ' σ' a b c d hlen hab hcd
+  dsimp only
   constructor
   · rw [hZ₁, hW₁, mul_add]
   · rw [hZ₂, hW₂, mul_add]
@@ -95,6 +96,7 @@ theorem smul {q : R} {Z : List V → List V → R}
     ListExchangeCompatible q (fun l t => s * Z l t) := by
   intro ρ σ ρ' σ' a b c d hlen hab hcd
   obtain ⟨h₁, h₂⟩ := hZ ρ σ ρ' σ' a b c d hlen hab hcd
+  dsimp only
   constructor
   · rw [h₁]
     ring
@@ -102,7 +104,7 @@ theorem smul {q : R} {Z : List V → List V → R}
     ring
 
 /-- Fix different row and column prefixes of equal length. -/
-theorem prefix {q : R} {Z : List V → List V → R}
+theorem prefixLists {q : R} {Z : List V → List V → R}
     (hZ : ListExchangeCompatible q Z) (p p' : List V)
     (hp : p.length = p'.length) :
     ListExchangeCompatible q (fun l t => Z (p ++ l) (p' ++ t)) := by
@@ -124,7 +126,7 @@ theorem context {q : R} {Z : List V → List V → R}
     (hZ : ListExchangeCompatible q Z) (p p' s s' : List V)
     (hp : p.length = p'.length) :
     ListExchangeCompatible q (fun l t => Z (p ++ l ++ s) (p' ++ t ++ s')) := by
-  exact (hZ.suffix s s').prefix p p' hp
+  exact (hZ.suffix s s').prefixLists p p' hp
 
 theorem map {T : Type*} [CommSemiring T] {q : R} {Z : List V → List V → R}
     (hZ : ListExchangeCompatible q Z) (f : R →+* T) :
@@ -140,19 +142,19 @@ theorem ExchangeCompatible.prefixKernel {q : R} {A B : Finset V}
     {Z : Kernel R (A ∪ B)} (hZ : ExchangeCompatible q Z)
     (hd : Disjoint A B) (p p' : Order A) :
     ExchangeCompatible q (prefixKernel hd Z p p') := by
-  have heq : kernelEntry (prefixKernel hd Z p p') =
+  have heq : kernelEntry (CyclicHessenberg.prefixKernel hd Z p p') =
       fun l t => kernelEntry Z (p.val ++ l) (p'.val ++ t) := by
     funext l t
     exact kernelEntry_prefixKernel hd Z p p' l t
   rw [ExchangeCompatible, heq]
-  exact ListExchangeCompatible.prefix hZ p.val p'.val (by simp)
+  exact ListExchangeCompatible.prefixLists hZ p.val p'.val (by simp)
 
 /-- Unequal fixed suffixes preserve all exchanges on the retained support. -/
 theorem ExchangeCompatible.suffixKernel {q : R} {A B : Finset V}
     {Z : Kernel R (A ∪ B)} (hZ : ExchangeCompatible q Z)
     (hd : Disjoint A B) (s s' : Order B) :
     ExchangeCompatible q (suffixKernel hd Z s s') := by
-  have heq : kernelEntry (suffixKernel hd Z s s') =
+  have heq : kernelEntry (CyclicHessenberg.suffixKernel hd Z s s') =
       fun l t => kernelEntry Z (l ++ s.val) (t ++ s'.val) := by
     funext l t
     exact kernelEntry_suffixKernel hd Z s s' l t
@@ -197,6 +199,7 @@ theorem ListExchangeCompatible.sub {q : R} {Z W : List V → List V → R}
   intro ρ σ ρ' σ' a b c d hlen hab hcd
   obtain ⟨hZ₁, hZ₂⟩ := hZ ρ σ ρ' σ' a b c d hlen hab hcd
   obtain ⟨hW₁, hW₂⟩ := hW ρ σ ρ' σ' a b c d hlen hab hcd
+  dsimp only
   constructor
   · rw [hZ₁, hW₁, mul_sub]
   · rw [hZ₂, hW₂, mul_sub]
@@ -208,7 +211,7 @@ theorem ListExchangeCompatible.minimumDifference {q : R}
     (a : V) (π τ : List V) :
     ListExchangeCompatible q (fun l t =>
       Z (a :: l ++ π) (a :: t ++ τ) - Z (l ++ [a] ++ π) (t ++ [a] ++ τ)) := by
-  have hleft := (hZ.suffix π τ).prefix [a] [a] rfl
+  have hleft := (hZ.suffix π τ).prefixLists [a] [a] rfl
   have hright := hZ.suffix ([a] ++ π) ([a] ++ τ)
   simpa only [List.cons_append, List.nil_append, List.append_assoc] using hleft.sub hright
 
