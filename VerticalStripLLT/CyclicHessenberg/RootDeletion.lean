@@ -1,5 +1,6 @@
 import VerticalStripLLT.CyclicHessenberg.Kernel
 import Mathlib.Data.Finset.Powerset
+import Mathlib.Algebra.BigOperators.Group.Finset.Powerset
 
 /-! Positive residual kernels and the simultaneous minimum slide. -/
 
@@ -70,7 +71,7 @@ theorem minimumSlide {q : R} {Z : List V → List V → R}
         (fun z hz => hxs z (by simp [hz])) (fun z hz => hys z (by simp [hz]))
       simp only [List.append_assoc, List.cons_append, List.nil_append] at hstep htail ⊢
       rw [hstep, htail]
-      simp only [minimumSlideSum, List.append_assoc, List.cons_append, List.nil_append]
+      simp only [minimumSlideSum, List.append_assoc, List.cons_append]
       ring
 
 /-- Index the crossed entries by the position of the moving minimum. -/
@@ -90,6 +91,7 @@ theorem minimumSlideSum_eq_sum (Z : List V → List V → R)
       rw [ih (ys := ys) (ρ := ρ ++ [x]) (ρ' := ρ' ++ [y]) (by simpa using hlen)]
       simp only [List.take_zero, List.drop_zero, List.take_succ_cons, List.drop_succ_cons,
         List.append_nil, List.nil_append, List.cons_append, List.append_assoc]
+      exact add_comm _ _
 
 /-- The minimum slide for a cyclically rotated pair is precisely a sum over insertion positions. -/
 theorem minimumSlide_cycle {q : R} {Z : List V → List V → R}
@@ -138,6 +140,58 @@ noncomputable def signedRootDeletion (Z : List V → List V → R)
     (U : Finset V) (r : V) (π τ : List V) : R :=
   ∑ T ∈ (U.erase r).powerset,
     (-1 : R) ^ T.card * Z (mountainList U T r ++ π) (mountainList U T r ++ τ)
+
+private theorem sort_insert_min_decreasing (T : Finset V) (a : V)
+    (ha : ∀ b ∈ T, a < b) :
+    (insert a T).sort (· ≥ ·) = T.sort (· ≥ ·) ++ [a] := by
+  have hnot : a ∉ T := fun h => (lt_irrefl a) (ha a h)
+  have hd : Disjoint T {a} := by simp [hnot]
+  have ht : IsOrder T (T.sort (· ≥ ·)) := (decreasingOrder T).property
+  have hs : IsOrder {a} [a] := by simp [IsOrder]
+  have ho := ht.append hs hd
+  have hp : (T.sort (· ≥ ·) ++ [a]).Pairwise (· ≥ ·) := by
+    rw [List.pairwise_append]
+    refine ⟨T.pairwise_sort _, by simp, ?_⟩
+    intro b hb c hc
+    have hc' : c = a := List.mem_singleton.mp hc
+    subst c
+    exact le_of_lt (ha b ((ht.mem_iff b).mp hb))
+  have h := (List.toFinset_sort ho.1).mpr hp
+  simpa only [ho.2, Finset.union_singleton] using h
+
+private theorem mountainList_insert_min_unmarked (U T : Finset V) (r a : V)
+    (har : a < r) (ha : ∀ b ∈ U, a < b) (hT : T ⊆ U.erase r) :
+    mountainList (insert a U) T r = a :: mountainList U T r := by
+  have haT : a ∉ T := fun h => (lt_irrefl a) (ha a (Finset.mem_of_mem_erase (hT h)))
+  have heq : ((insert a U).erase r) \ T = insert a ((U.erase r) \ T) := by
+    ext b
+    simp only [Finset.mem_sdiff, Finset.mem_erase, Finset.mem_insert]
+    constructor
+    · rintro ⟨⟨hbr, rfl | hb⟩, hbT⟩
+      · exact Or.inl rfl
+      · exact Or.inr ⟨⟨hbr, hb⟩, hbT⟩
+    · rintro (rfl | ⟨⟨hbr, hb⟩, hbT⟩)
+      · exact ⟨⟨ne_of_lt har, Or.inl rfl⟩, haT⟩
+      · exact ⟨⟨hbr, Or.inr hb⟩, hbT⟩
+  have hsmall : ∀ b ∈ (U.erase r) \ T, a ≤ b := by
+    intro b hb
+    exact le_of_lt (ha b (Finset.mem_of_mem_erase (Finset.mem_sdiff.mp hb).1))
+  have hnot' : a ∉ (U.erase r) \ T := by
+    intro h
+    exact (lt_irrefl a) (ha a (Finset.mem_of_mem_erase (Finset.mem_sdiff.mp h).1))
+  simp only [mountainList, heq, Finset.sort_insert _ hsmall hnot', List.cons_append]
+
+private theorem mountainList_insert_min_marked (U T : Finset V) (r a : V)
+    (_har : a < r) (ha : ∀ b ∈ U, a < b) (hT : T ⊆ U.erase r) :
+    mountainList (insert a U) (insert a T) r = mountainList U T r ++ [a] := by
+  have haU : a ∉ U := fun h => (lt_irrefl a) (ha a h)
+  have heq : ((insert a U).erase r) \ insert a T = (U.erase r) \ T := by
+    ext b
+    simp only [Finset.mem_sdiff, Finset.mem_erase, Finset.mem_insert, not_or]
+    aesop
+  have hsmall : ∀ b ∈ T, a < b := fun b hb =>
+    ha b (Finset.mem_of_mem_erase (hT hb))
+  simp only [mountainList, heq, sort_insert_min_decreasing T a hsmall, List.append_assoc]
 
 end Ring
 

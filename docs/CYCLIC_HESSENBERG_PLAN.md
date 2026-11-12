@@ -116,6 +116,9 @@ their substantive proofs exist. There will be no placeholder main theorems.
 The audit is `CyclicHessenbergVerification.lean`, importing the additional
 `CyclicHessenberg/Audit.lean` module. The latter makes the axiom queries
 available through the constrained remote target interface.
+The insertion/erasure equivalence is isolated in the additional helper
+`CyclicHessenberg/OrderInsertion.lean`, between BoundaryOrder and RootDeletion,
+so its list bookkeeping can be implemented and reviewed independently.
 
 Current source checkpoint:
 

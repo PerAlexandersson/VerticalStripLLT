@@ -22,6 +22,10 @@ building or committing; the primary reviewed and adopted that file.
 The same Luna delegate now owns only `CyclicHessenberg/Layer.lean` for a bounded
 layer-kernel/coefficient-map implementation; no builds or commits. All other
 cyclic source files remain primary-owned. Draft PR: GitHub #9.
+A second bounded Luna delegate `cyclic_order_insertion` owns only
+`CyclicHessenberg/OrderInsertion.lean`: insertion/erasure of one absent named
+vertex and the finite-sum reindexing. It must remain build-free; the primary
+alone integrates and submits all checks.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.
