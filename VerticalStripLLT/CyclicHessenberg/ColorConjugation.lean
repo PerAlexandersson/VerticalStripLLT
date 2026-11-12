@@ -129,7 +129,9 @@ theorem letterSum_commute_descendingClass [LinearOrder V] (f : List V → R)
     have hDv : ContextEq f (D * u) ((u + t • wordComm A u) * D) := by
       have h₁ := (hID.mul_left (D * u)).symm
       have h₂ := hconj.mul_right D
-      exact (by simpa only [mul_one, ← mul_assoc] using h₁).trans h₂
+      have h₁' : ContextEq f (D * u) (D * u * inverseClass t l * D) := by
+        simpa only [mul_one, ← mul_assoc] using h₁
+      exact h₁'.trans h₂
     have hR := (hDA.add hDv).mul_left (1 + t • u)
     have hzero : ContextEq f ((t * t) • ((u * A * u - u * u * A) * D)) 0 := by
       have h₁ : ContextEq f (u * A * u) 0 := repeated_sandwich f hrep v A
@@ -139,12 +141,12 @@ theorem letterSum_commute_descendingClass [LinearOrder V] (f : List V → R)
     have heq : (1 + t • u) * (A * D + (u + t • wordComm A u) * D) =
         (A + u) * ((1 + t • u) * D) +
           (t * t) • ((u * A * u - u * u * A) * D) := by
-      simp only [wordComm, mul_add, add_mul, mul_sub, sub_mul, one_mul, mul_one,
+      simp only [wordComm, mul_add, add_mul, mul_sub, sub_mul, one_mul,
         mul_smul_comm, smul_mul_assoc, smul_add, smul_sub, smul_smul, mul_assoc]
       abel
     have hh := hR.trans ((ContextEq.of_eq heq).trans ((ContextEq.refl _).add hzero))
     simpa only [wordLetterSum_append, descendingClass_append, wordLetterSum,
-      descendingClass, add_zero, one_mul, mul_add, add_zero, A, D, u] using hh.symm
+      descendingClass, add_zero, one_mul, mul_add, mul_assoc, A, D, u] using hh.symm
 
 /-- Inverse commutation follows from both inverse identities and the proved class commutation. -/
 theorem letterSum_commute_inverseClass [LinearOrder V] (f : List V → R)
@@ -162,9 +164,52 @@ theorem letterSum_commute_inverseClass [LinearOrder V] (f : List V → R)
   have h₂ := (hDA.mul_left I).mul_right I
   have h₃ := hDI.mul_left (I * A)
   have hh : ContextEq f (A * I) (I * A) := by
-    apply (by simpa only [one_mul, mul_assoc] using h₁).trans
-    apply (by simpa only [mul_assoc] using h₂).trans
-    simpa only [mul_one, mul_assoc] using h₃
+    have h₁' : ContextEq f (A * I) (I * (D * (A * I))) := by
+      simpa only [one_mul, mul_assoc] using h₁
+    have h₂' : ContextEq f (I * (D * (A * I))) (I * (A * (D * I))) := by
+      simpa only [mul_assoc] using h₂
+    have h₃' : ContextEq f (I * (A * (D * I))) (I * A) := by
+      simpa only [mul_one, mul_assoc] using h₃
+    exact h₁'.trans (h₂'.trans h₃')
   exact hh
+
+/-- Iterated adjoint used in finite color insertion. -/
+noncomputable def wordAd (A Y : WordSum R V) : ℕ → WordSum R V
+  | 0 => Y
+  | d + 1 => wordComm A (wordAd A Y d)
+
+/-- A new color acts on each finite iterated commutator by two consecutive terms. -/
+theorem descendingClass_conjugate_ad [LinearOrder V] (f : List V → R)
+    (hf : ContextualBalance f) (hrep : ∀ l, ¬ l.Nodup → f l = 0)
+    (t : R) (l : List V) (r : V) (hl : l.Pairwise (· < ·))
+    (hr : ∀ a ∈ l, a < r) (d : ℕ) :
+    ContextEq f
+      (descendingClass t l * wordAd (wordLetterSum l) (wordTerm [r]) d * inverseClass t l)
+      (wordAd (wordLetterSum l) (wordTerm [r]) d +
+        t • wordAd (wordLetterSum l) (wordTerm [r]) (d + 1)) := by
+  let A : WordSum R V := wordLetterSum l
+  let D : WordSum R V := descendingClass t l
+  let I : WordSum R V := inverseClass t l
+  have hDA : ContextEq f (D * A) (A * D) :=
+    (letterSum_commute_descendingClass f hf hrep t l hl).symm
+  have hAI : ContextEq f (A * I) (I * A) :=
+    letterSum_commute_inverseClass f hf hrep t l hl
+  induction d with
+  | zero => exact descendingClass_conjugate_root f hf hrep t l r hl hr
+  | succ d ih =>
+    let X : WordSum R V := wordAd A (wordTerm [r]) d
+    have h₁ := (hDA.mul_right X).mul_right I
+    have h₂ := hAI.mul_left (D * X)
+    have hstep : ContextEq f (D * wordComm A X * I) (wordComm A (D * X * I)) := by
+      simpa only [wordComm, mul_sub, sub_mul, mul_assoc] using h₁.sub h₂
+    have hnext := (ContextEq.refl A).comm ih
+    change ContextEq f (D * wordComm A X * I)
+      (wordComm A X + t • wordComm A (wordComm A X))
+    apply hstep.trans
+    apply hnext.trans
+    apply ContextEq.of_eq
+    change wordComm A (X + t • wordComm A X) = _
+    simp only [wordComm, mul_add, add_mul, mul_smul_comm, smul_mul_assoc, smul_sub]
+    abel
 
 end VerticalStripLLT.CyclicHessenberg
