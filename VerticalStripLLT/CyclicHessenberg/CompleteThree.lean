@@ -20,22 +20,22 @@ def completeThree : Hessenberg 3 := Hessenberg.complete (by decide)
 def completeThreeTuple : Tuple 3 1 := fun _ => completeThree
 
 def completeThreeOrder210 : FullOrder 3 :=
-  fullOrderOfList [2, 1, 0] (by decide)
+  fullOrderOfList [2, 1, 0] (by unfold IsOrder; decide)
 
 def completeThreeOrder201 : FullOrder 3 :=
-  fullOrderOfList [2, 0, 1] (by decide)
+  fullOrderOfList [2, 0, 1] (by unfold IsOrder; decide)
 
 def completeThreeOrder021 : FullOrder 3 :=
-  fullOrderOfList [0, 2, 1] (by decide)
+  fullOrderOfList [0, 2, 1] (by unfold IsOrder; decide)
 
 def completeThreeOrder120 : FullOrder 3 :=
-  fullOrderOfList [1, 2, 0] (by decide)
+  fullOrderOfList [1, 2, 0] (by unfold IsOrder; decide)
 
 def completeThreeOrder102 : FullOrder 3 :=
-  fullOrderOfList [1, 0, 2] (by decide)
+  fullOrderOfList [1, 0, 2] (by unfold IsOrder; decide)
 
 def completeThreeOrder012 : FullOrder 3 :=
-  fullOrderOfList [0, 1, 2] (by decide)
+  fullOrderOfList [0, 1, 2] (by unfold IsOrder; decide)
 
 @[simp] theorem completeThreeOrder210_val : completeThreeOrder210.val = [2, 1, 0] := rfl
 @[simp] theorem completeThreeOrder201_val : completeThreeOrder201.val = [2, 0, 1] := rfl
