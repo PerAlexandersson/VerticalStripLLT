@@ -91,4 +91,80 @@ theorem descendingClass_conjugate_root [LinearOrder V] (f : List V → R)
     simp only [wordLetterSum, wordComm, add_mul, mul_add, smul_sub, smul_add, C]
     abel
 
+theorem descendingClass_append (t : R) (l u : List V) :
+    descendingClass t (l ++ u) = descendingClass t u * descendingClass t l := by
+  induction l with
+  | nil => simp [descendingClass]
+  | cons a l ih => simp only [List.cons_append, descendingClass, ih, mul_assoc]
+
+theorem inverseClass_append (t : R) (l u : List V) :
+    inverseClass t (l ++ u) = inverseClass t l * inverseClass t u := by
+  induction l with
+  | nil => simp [inverseClass]
+  | cons a l ih => simp only [List.cons_append, inverseClass, ih, mul_assoc]
+
+theorem wordLetterSum_append (l u : List V) :
+    wordLetterSum (R := R) (l ++ u) = wordLetterSum l + wordLetterSum u := by
+  induction l with
+  | nil => simp [wordLetterSum]
+  | cons a l ih => simp only [List.cons_append, wordLetterSum, ih, add_assoc]
+
+/-- The class sum commutes with the sum of its individual letters in every context. -/
+theorem letterSum_commute_descendingClass [LinearOrder V] (f : List V → R)
+    (hf : ContextualBalance f) (hrep : ∀ l, ¬ l.Nodup → f l = 0)
+    (t : R) (l : List V) (hl : l.Pairwise (· < ·)) :
+    ContextEq f (wordLetterSum l * descendingClass t l)
+      (descendingClass t l * wordLetterSum l) := by
+  induction l using List.reverseRecOn with
+  | nil => simp only [wordLetterSum, descendingClass, mul_one, one_mul]; exact ContextEq.refl _
+  | append_singleton l v ih =>
+    have hp := List.pairwise_append.mp hl
+    let A : WordSum R V := wordLetterSum l
+    let D : WordSum R V := descendingClass t l
+    let u : WordSum R V := wordTerm [v]
+    have hDA : ContextEq f (D * A) (A * D) := (ih hp.1).symm
+    have hconj := descendingClass_conjugate_root f hf hrep t l v hp.1
+      (fun a ha => hp.2.2 a ha v (by simp))
+    have hID := inverseClass_mul_descendingClass f hrep t l
+    have hDv : ContextEq f (D * u) ((u + t • wordComm A u) * D) := by
+      have h₁ := (hID.mul_left (D * u)).symm
+      have h₂ := hconj.mul_right D
+      exact (by simpa only [mul_one, ← mul_assoc] using h₁).trans h₂
+    have hR := (hDA.add hDv).mul_left (1 + t • u)
+    have hzero : ContextEq f ((t * t) • ((u * A * u - u * u * A) * D)) 0 := by
+      have h₁ : ContextEq f (u * A * u) 0 := repeated_sandwich f hrep v A
+      have h₂ : ContextEq f (u * u * A) 0 := by
+        simpa only [mul_one, zero_mul] using (repeated_sandwich f hrep v 1).mul_right A
+      simpa only [sub_zero, zero_mul, smul_zero] using ((h₁.sub h₂).mul_right D).smul (t * t)
+    have heq : (1 + t • u) * (A * D + (u + t • wordComm A u) * D) =
+        (A + u) * ((1 + t • u) * D) +
+          (t * t) • ((u * A * u - u * u * A) * D) := by
+      simp only [wordComm, mul_add, add_mul, mul_sub, sub_mul, one_mul, mul_one,
+        mul_smul_comm, smul_mul_assoc, smul_add, smul_sub, smul_smul, mul_assoc]
+      abel
+    have hh := hR.trans ((ContextEq.of_eq heq).trans ((ContextEq.refl _).add hzero))
+    simpa only [wordLetterSum_append, descendingClass_append, wordLetterSum,
+      descendingClass, add_zero, one_mul, mul_add, add_zero, A, D, u] using hh.symm
+
+/-- Inverse commutation follows from both inverse identities and the proved class commutation. -/
+theorem letterSum_commute_inverseClass [LinearOrder V] (f : List V → R)
+    (hf : ContextualBalance f) (hrep : ∀ l, ¬ l.Nodup → f l = 0)
+    (t : R) (l : List V) (hl : l.Pairwise (· < ·)) :
+    ContextEq f (wordLetterSum l * inverseClass t l)
+      (inverseClass t l * wordLetterSum l) := by
+  let A : WordSum R V := wordLetterSum l
+  let D : WordSum R V := descendingClass t l
+  let I : WordSum R V := inverseClass t l
+  have hID := inverseClass_mul_descendingClass f hrep t l
+  have hDI := descendingClass_mul_inverseClass f hrep t l
+  have hDA := (letterSum_commute_descendingClass f hf hrep t l hl).symm
+  have h₁ := ((hID.mul_right A).mul_right I).symm
+  have h₂ := (hDA.mul_left I).mul_right I
+  have h₃ := hDI.mul_left (I * A)
+  have hh : ContextEq f (A * I) (I * A) := by
+    apply (by simpa only [one_mul, mul_assoc] using h₁).trans
+    apply (by simpa only [mul_assoc] using h₂).trans
+    simpa only [mul_one, mul_assoc] using h₃
+  exact hh
+
 end VerticalStripLLT.CyclicHessenberg

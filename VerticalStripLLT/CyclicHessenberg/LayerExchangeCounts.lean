@@ -18,7 +18,6 @@ theorem layerAscentCount_eq_sum {k : ℕ} (h : Hessenberg k)
   classical
   rw [layerAscentCount, layerAscentEvents]
   rw [Finset.card_eq_sum_ones, Finset.sum_filter]
-  simp only [Finset.sum_univ]
   rw [Fintype.sum_prod_type]
 
 /-- The two later-spectator contributions are invariant under the adjacent exchange. -/

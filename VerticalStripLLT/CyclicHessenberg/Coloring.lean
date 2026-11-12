@@ -113,7 +113,7 @@ theorem sortColorOrder_colorSorted {S : Finset V} {m : ℕ} (κ : S → Fin m) :
     IsColorSortedOrder κ (sortColorOrder κ) := by
   change ((sortedColorWord κ).map Subtype.val).Pairwise (colorPrecedesOn κ)
   rw [List.pairwise_map]
-  exact (sortedColorWord_pairwise κ).imp fun a b hab =>
+  exact (sortedColorWord_pairwise κ).imp fun {a b} hab =>
     ⟨a.property, b.property, hab⟩
 
 /-- Mutually preceding vertices cannot occur in the strict color/tie order. -/
@@ -154,11 +154,13 @@ theorem sortColorOrder_orderEquiv_precedes {S : Finset V} {m : ℕ}
   rcases hpair with ⟨hi, hj, hpre⟩
   have hei : orderEquiv l i = ⟨l.val.get i', hi⟩ := by
     apply Subtype.ext
-    simpa [i'] using orderEquiv_apply l i
+    simp [i']
   have hej : orderEquiv l j = ⟨l.val.get j', hj⟩ := by
     apply Subtype.ext
-    simpa [j'] using orderEquiv_apply l j
-  simpa only [hei, hej] using hpre
+    simp [j']
+  change fiberColorPrecedes κ (orderEquiv l i) (orderEquiv l j)
+  rw [hei, hej]
+  exact hpre
 
 /-- A boundary order with the color/tie pairwise property is unique. -/
 theorem sortColorOrder_unique {S : Finset V} {m : ℕ} (κ : S → Fin m)
@@ -167,7 +169,7 @@ theorem sortColorOrder_unique {S : Finset V} {m : ℕ} (κ : S → Fin m)
     List.perm_of_nodup_nodup_toFinset_eq l.property.1
       (sortColorOrder κ).property.1
       (l.property.2.trans (sortColorOrder κ).property.2.symm)
-  letI : Std.Antisymm (colorPrecedesOn κ) :=
+  let : Std.Antisymm (colorPrecedesOn κ) :=
     ⟨fun a b hab hba => False.elim (colorPrecedesOn_asymm κ hab hba)⟩
   apply Subtype.ext
   exact List.Perm.eq_of_pairwise' hl (sortColorOrder_colorSorted κ) hp
