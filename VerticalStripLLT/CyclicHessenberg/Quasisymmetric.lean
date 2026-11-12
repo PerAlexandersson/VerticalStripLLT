@@ -17,7 +17,9 @@ noncomputable instance strictColorListFintype (β : Composition k) (m : ℕ) :
     Fintype (StrictColorList β m) := by
   let f : StrictColorList β m → {l : List (Fin m) // l.Nodup} :=
     fun c => ⟨c.val, c.property.1.nodup⟩
-  have hf : Function.Injective f := fun c d h => Subtype.ext (congrArg Subtype.val h)
+  have hf : Function.Injective f := by
+    intro c d h
+    exact Subtype.ext (congrArg (fun x : {l : List (Fin m) // l.Nodup} => x.val) h)
   letI := Finite.of_injective f hf
   exact Fintype.ofFinite _
 
@@ -55,7 +57,7 @@ def strictListToColorWord (β : Composition k) (c : StrictColorList β m) :
     rw [List.pairwise_ofFn] at hp
     intro i j hij
     rcases lt_or_eq_of_le hij with hij | rfl
-    · exact hp i j hij
+    · exact hp hij
     · exact le_rfl
   · apply Composition.ext
     change (List.ofFn α).equalityRuns.map List.length = β.blocks
@@ -64,7 +66,8 @@ def strictListToColorWord (β : Composition k) (c : StrictColorList β m) :
 
 theorem ofFn_strictListToColorWord (β : Composition k) (c : StrictColorList β m) :
     List.ofFn (strictListToColorWord β c).val = (constantBlocks c.val β.blocks).flatten :=
-  ofFn_positionalWordOfList _ _
+  ofFn_positionalWordOfList _
+    ((constantBlocks_flatten_length c.val β.blocks c.property.2).trans β.blocks_sum)
 
 noncomputable def compositionColorWordEquivStrictList (β : Composition k) (m : ℕ) :
     CompositionColorWord β m ≃ StrictColorList β m where
@@ -96,7 +99,7 @@ noncomputable def monomialQuasisymmetric (β : Composition k) (m : ℕ) : XPoly 
 theorem colorWord_monomial_eq_block_powers (β : Composition k) (c : StrictColorList β m) :
     (∏ i : Fin k, (MvPolynomial.X ((strictListToColorWord β c).val i) : XPoly m)) =
       ((c.val.zip β.blocks).map fun p => (MvPolynomial.X p.1 : XPoly m) ^ p.2).prod := by
-  rw [← List.prod_ofFn, ← List.map_ofFn, ofFn_strictListToColorWord]
+  rw [← List.prod_ofFn, List.ofFn_comp', ofFn_strictListToColorWord]
   simp only [constantBlocks, List.map_flatten, List.prod_flatten, List.map_map,
     Function.comp_def, List.map_replicate, List.prod_replicate]
 

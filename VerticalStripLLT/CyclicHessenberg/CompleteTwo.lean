@@ -65,7 +65,7 @@ private theorem fullOrder_two_cases (π : FullOrder 2) :
       rw [hxy] at hnodup
       simp at hnodup
 
-def completeTwoLayerKernel : Kernel (Polynomial ℕ) (Finset.univ : Finset (Fin 2)) :=
+noncomputable def completeTwoLayerKernel : Kernel (Polynomial ℕ) (Finset.univ : Finset (Fin 2)) :=
   naturalLayerKernel completeTwo
 
 theorem completeTwoLayerKernel_forward_row (τ : FullOrder 2) :
@@ -104,7 +104,7 @@ private def fullOrderTwoEquivBool : FullOrder 2 ≃ Bool where
     rcases fullOrder_two_cases π with h | h
     · apply Subtype.ext
       simpa [h]
-    · have hrev : [1, 0] ≠ [0, 1] := by
+    · have hrev : [(1 : Fin 2), 0] ≠ [0, 1] := by
         intro heq
         have h10 : (1 : Fin 2) = 0 := (List.cons.inj heq).1
         have hne : (1 : Fin 2) ≠ 0 := by decide
@@ -128,7 +128,7 @@ private theorem sum_fullOrder_two {R : Type*} [AddCommMonoid R]
 
 private theorem completeTwoLayerKernel_mul_self :
     completeTwoLayerKernel * completeTwoLayerKernel =
-      (Polynomial.X + 2) • completeTwoLayerKernel := by
+      ((Polynomial.X : Polynomial ℕ) + 2) • completeTwoLayerKernel := by
   classical
   ext π τ
   rw [Matrix.mul_apply, sum_fullOrder_two]
@@ -141,7 +141,7 @@ private theorem completeTwoLayerKernel_mul_self :
 
 theorem completeTwoLayerKernel_pow_succ (n : ℕ) :
     completeTwoLayerKernel ^ (n + 1) =
-      (Polynomial.X + 2) ^ n • completeTwoLayerKernel := by
+      ((Polynomial.X : Polynomial ℕ) + 2) ^ n • completeTwoLayerKernel := by
   classical
   induction n with
   | zero => simp
@@ -154,7 +154,7 @@ theorem completeTwoLayerKernel_pow_succ (n : ℕ) :
 
 theorem completeTwoOpenKernel_eq (n : ℕ) :
     naturalOpenKernel (completeTwoTuple (n + 1)) =
-      (Polynomial.X + 2) ^ n • completeTwoLayerKernel := by
+      ((Polynomial.X : Polynomial ℕ) + 2) ^ n • completeTwoLayerKernel := by
   classical
   change (List.ofFn (fun i : Fin (n + 1) =>
     naturalLayerKernel (completeTwoTuple (n + 1) i))).prod = _
