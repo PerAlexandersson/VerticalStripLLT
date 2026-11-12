@@ -38,8 +38,10 @@ The Luna delegate `cyclic_hessenberg_data` released `ColorClassProducts.lean`;
 primary is checking its literal sublist expansions.
 The Luna delegate `cyclic_order_insertion` released `ColorElementaryWeights.lean`;
 primary is checking its recurrence and finite-alphabet identification.
-The Luna delegate `cyclic_hessenberg_data` now owns only new `LoopColorOrder.lean`:
-identify the actual loop color/tie relation with positions in its sorted full order.
+The Luna delegate `cyclic_hessenberg_data` released `LoopColorOrder.lean`;
+primary checked its sorting/position equivalence at `2bf4223`.
+The Luna delegate `cyclic_order_insertion` now owns only new `FiniteMatrixPaths.lean`:
+fixed-endpoint finite paths, their first-step equivalence, and the matrix-product sum.
 No builds or commits; all other files remain primary-owned.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,

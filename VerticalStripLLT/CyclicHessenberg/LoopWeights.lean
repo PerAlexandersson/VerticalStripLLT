@@ -45,16 +45,21 @@ noncomputable def loopEventEquiv (κ : Fin k → Fin m) :
     (Fin n × LayerPosition k × LayerPosition k) ≃ (Fin n × Fin k × Fin k) :=
   Equiv.prodCongr (Equiv.refl _) (Equiv.prodCongr (colorSortedPositions κ) (colorSortedPositions κ))
 
+/-- The colored events in the independently defined loop polynomial. -/
+noncomputable def coloredLoopEvents (h : Tuple k n) (L : LoopCover h)
+    (κ : Fin k → Fin m) : Finset (Fin n × Fin k × Fin k) := by
+  classical
+  exact (loopAscentEvents h L).filter (fun x => colorPrecedes κ x.2.1 x.2.2)
+
 theorem loopEventEquiv_mem (h : Tuple k n) (L : LoopCover h) (κ : Fin k → Fin m)
     (e : Fin n × LayerPosition k × LayerPosition k) :
     e ∈ pathAscentEvents h (loopToBoundaryPath h (colorSortedFullOrder κ) L) ↔
-      loopEventEquiv κ e ∈ (loopAscentEvents h L).filter
-        (fun x => colorPrecedes κ x.2.1 x.2.2) := by
+      loopEventEquiv κ e ∈ coloredLoopEvents h L κ := by
   classical
   rcases e with ⟨ℓ, i, j⟩
-  simp only [pathAscentEvents, Finset.mem_filter, Finset.mem_univ, true_and,
+  simp only [pathAscentEvents, coloredLoopEvents, Finset.mem_filter, Finset.mem_univ, true_and,
     loopToBoundaryPath_position, loopAscentEvents, loopEventEquiv, Equiv.prodCongr_apply,
-    Equiv.refl_apply, colorSortedPositions_apply]
+    Prod.map_apply, Equiv.refl_apply, colorSortedPositions_apply]
   have hp := colorSortedPositions_precedes κ i j
   simp only [colorSortedPositions_apply] at hp
   rw [hp]

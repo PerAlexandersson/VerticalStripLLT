@@ -144,7 +144,6 @@ theorem lengthSlice_inverseRoot_eval (f : List V → R) (l : List V) (r : V)
   apply congrArg List.sum
   apply List.map_congr_left
   intro A hA
-  simp only [map_list_sum, List.map_map, Function.comp_def]
   apply congrArg List.sum
   apply List.map_congr_left
   intro B hB
