@@ -84,6 +84,13 @@ layer exchange proof and loop/kernel semantic equality remain outstanding.
 `20261112T092652-277780a5`; `OrderInsertion` passed at `f276554` in receipt
 `20261112T093127-070a9ade`. Axiom queries so far cover only the foundation;
 the full deletion and later endpoints must be added to Audit next.
+Combined checkpoint `e22f2ce477d9877b397d797edf7076e50228f923` passed
+job `20261112T094124-cda993df` (1411 jobs, exit 0): scalar/matrix equivalence,
+`ExchangeCompatible.mul` and `.list_prod`, full deletion and expansion linearity.
+All 30 queries in `CyclicHessenberg/Audit.lean` report only `propext`,
+`Classical.choice`, `Quot.sound`. No warnings in the new Lean targets.
+`LoopKernel.lean` is now a primary-owned candidate for the actual bijection
+between canonical covers and closed boundary paths; weighted equality remains open.
 
 Published unbuilt checkpoint: `ae64cfc103e7db2719c192f8d15ef04351be94e6`.
 Primary submitted job `20261112T091045-b6da0e5b`, 7200-second bound, targets

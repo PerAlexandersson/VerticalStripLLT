@@ -1,8 +1,9 @@
 # Cyclic Hessenberg LLT implementation
 
-Status: implementation in progress, 2026-11-12. The initial Data, BoundaryOrder,
-Kernel and independent Loops modules passed Laplace compilation at `68d44c4`.
-The main expansion and positivity endpoints remain unproved. Existing ordinary
+Status: implementation in progress, 2026-11-12. At `e22f2ce`, Laplace checked
+scalar/matrix exchange equivalence and product closure, full signed-to-positive
+root deletion, the natural recurrence and its linearity. The main semantic
+expansion and source positivity endpoints remain unproved. Existing ordinary
 and circular results retain their previous verification status.
 
 ## Scope and source correspondence
@@ -131,10 +132,12 @@ Current source checkpoint:
 * `Kernel`: typed finite matrices, zero extension, scalar exchange closure,
   unequal restrictions, contextual diagonal balance and signed minimum kernel.
 
-The first three modules and the independent loop definitions have compiled,
-but this does not complete the gates. The bijection between orders and indexed
-equivalences is the next candidate; the position swap API, matrix
-characterization, product closure, and later gates still require work.
+Gates 1 and 2 have compiled, including the order/indexed equivalence, position
+swaps, matrix characterization and product closure. The natural recurrence has
+compiled with coefficient nonnegativity and linearity. Its equality with the
+coloring sum, the source bridge, and gates 4–6 still require substantive proofs.
+The helper `ExchangeMatrix.lean` specializes the finite-involution calculation
+to actual boundary orders and proves the list/scalar characterization.
 
 ## Fixed endpoint contracts
 
