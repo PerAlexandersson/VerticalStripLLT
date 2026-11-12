@@ -89,6 +89,7 @@ theorem signedSublistMountain_eq_signedSetMountain (f : List V → R)
     intro T hT
     simp only [F, hcard T hT, ite_eq_right hd]
 
+set_option maxHeartbeats 800000 in
 theorem wordAd_eq_signedSetMountain (f : List V → R)
     (hf : ContextualBalance f) (hrep : ∀ l, ¬ l.Nodup → f l = 0)
     (S : Finset V) (r : V) (hr : ∀ a ∈ S, a < r) (d : ℕ) :
