@@ -70,6 +70,12 @@ New bounded assignment: data delegate owns only `PolynomialSemantics.lean`,
 coefficient-map/elementary-evaluation identities and the single-shift source bridge.
 The order delegate owns only `ExpansionEvaluation.lean`, the strong-induction
 evaluation of the existing natural recurrence using the actual coloring recurrence.
+Both files were released and adopted by primary. New bounded assignments:
+data delegate owns only `OrbitLists.lean` (fixed-point-inclusive orbit lists and
+reconstruction from a literal cyclic block); order delegate owns only
+`ExpansionHomogeneity.lean` (weighted homogeneity of the natural recurrence).
+Primary owns `CycleDisplay.lean` and the subsequent canonical display equivalence.
+The Astra reviewer completed and released an independent cycle representation review.
 
 Specification read: the complete 2026-11-11 monorepo plan, FINDINGS §§13–15,
 and `cyclic-llt-e-expansion.tex` in the Cyclic-LLT-e-positivity project.

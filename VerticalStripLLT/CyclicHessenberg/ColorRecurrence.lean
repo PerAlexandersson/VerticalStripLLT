@@ -10,6 +10,17 @@ open scoped BigOperators
 
 variable {V R : Type*} [LinearOrder V] [CommRing R]
 
+private theorem insertion_factor_eval (f : List V → R) (A I M G : WordSum R V)
+    (hfactor : ContextEq f A ((1 + I) * G)) (hinsert : ContextEq f I M)
+    (hmissing : wordEval f [] [] G = 0) :
+    wordEval f [] [] A = wordEval f [] [] (M * G) := by
+  calc
+    _ = wordEval f [] [] ((1 + I) * G) := hfactor.eval
+    _ = wordEval f [] [] G + wordEval f [] [] (I * G) := by
+      rw [add_mul, one_mul, map_add]
+    _ = wordEval f [] [] (M * G) := by
+      rw [hmissing, zero_add, (hinsert.mul_right G).eval]
+
 /-- Delete a subset together with the largest root. All color sums retain their direct semantics. -/
 theorem weightedKernelColoring_insert_max (S : Finset V) (r : V)
     (hr : ∀ a ∈ S, a < r) (q : R) (Z : List V → List V → R)
@@ -35,22 +46,17 @@ theorem weightedKernelColoring_insert_max (S : Finset V) (r : V)
   have hmissing : wordEval f [] [] G = 0 :=
     colorClassProduct_eval_missing (insert r S) S r (Finset.mem_insert_self _ _)
       hrS weight f hf
-  have hfactor := (colorClassProduct_insert_root f hrep S.sort r Y).eval
+  have hfactor := colorClassProduct_insert_root f hrep S.sort r Y
   have hCI := colorInsertion_eq_mountainSum f hbalance hrep S r hr hdegree Y
-  have hinsertion := (ContextEq.mul_right hCI G).eval
+  have hwhole := insertion_factor_eval f _ _ _ G hfactor hCI hmissing
   calc
     weightedKernelColoring (insert r S) Z weight =
         wordEval f [] [] (colorClassProduct (S.sort ++ [r]) Y) := by
       rw [weightedKernelColoring_eq_classProduct _ _ hs, sort_insert_max S r hr]
-    _ = wordEval f [] [] (colorInsertion S.sort r Y * G) := by
-      rw [hfactor]
-      simp only [add_mul, one_mul, map_add]
-      change wordEval f [] [] G + wordEval f [] [] (colorInsertion S.sort r Y * G) = _
-      rw [hmissing, zero_add]
     _ = ∑ U ∈ S.powerset, elementaryWeights Y (U.card + 1) *
           wordEval f [] [] (mountainWordSum U r * G) := by
       simpa only [Finset.sum_mul, smul_mul_assoc, map_sum, map_smul, smul_eq_mul]
-        using hinsertion
+        using hwhole
     _ = _ := by
       apply Finset.sum_congr rfl
       intro U hU

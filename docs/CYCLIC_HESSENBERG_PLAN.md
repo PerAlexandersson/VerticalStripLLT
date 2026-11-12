@@ -96,6 +96,16 @@ bijection. Actual prefix-support cancellation supplies the required annihilation
 The single imported `Components.WordProof.DisjointSubsetSums` helper is purely a
 finite-sum bijection; it imports only Mathlib and no component or quotient theorem.
 
+The independent cycle review selected lists of root/tail pairs. The concatenated
+root-first blocks form an order of the support; each tail vertex is smaller than
+its root and roots strictly decrease. Rotate each block left for the target order.
+The display permutation is source-position inverse followed by target-position,
+which makes the direction theorem immediate. The inverse uses orbit maxima and
+`if p r = r then [r] else p.toList r`: pinned Mathlib's `toList` omits fixed points.
+Prove literal orbit reconstruction and both inverse laws before transferring a
+finite instance. A separate max-deletion equivalence supplies the display-sum
+recurrence, which is valid for arbitrary kernels before any exchange hypothesis.
+
 ## Standalone dependencies
 
 Baseline is `f93e8755b473528d95b3e5d8f7c08d07af9e4fa0` in the public
