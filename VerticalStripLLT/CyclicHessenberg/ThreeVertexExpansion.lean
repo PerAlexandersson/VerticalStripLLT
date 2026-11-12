@@ -65,7 +65,18 @@ theorem naturalKernelExpansion_triple (a b r : V) (hab : a < b) (hbr : b < r)
       (∑ U ∈ S.powerset, f U) =
         f ∅ + f {a} + f {b} + f {b, a} := by
     rw [hps]
-    simp [habne, habne.symm, add_assoc]
+    have ha : ({a} : Finset V) ≠ {b} := by
+      intro hh
+      exact habne (Finset.singleton_injective hh)
+    have habset : ({a} : Finset V) ≠ {b, a} := by
+      intro hh
+      have hb : b ∈ ({a} : Finset V) := hh.symm ▸ Finset.mem_insert_self b {a}
+      exact habne.symm (Finset.mem_singleton.mp hb)
+    have hbaset : ({b} : Finset V) ≠ {b, a} := by
+      intro hh
+      have ha' : a ∈ ({b} : Finset V) := hh.symm ▸ Finset.mem_insert_of_mem (by simp)
+      exact habne (Finset.mem_singleton.mp ha')
+    simp [Finset.sum_insert, ha, habset, hbaset, add_assoc]
   have hrecFour : naturalKernelExpansion (insert r S) Z =
       f ∅ + f {a} + f {b} + f {b, a} := by
     calc
@@ -108,9 +119,11 @@ theorem naturalKernelExpansion_triple (a b r : V) (hab : a < b) (hbr : b < r)
           (rootDeletion Polynomial.X Z {r, b} r) +
         natElementary 3 * naturalKernelExpansion ∅
           (rootDeletion Polynomial.X Z (insert r {b, a}) r) := by
-    simpa only [Z0, f, Finset.card_empty, Finset.card_singleton, Finset.insert_empty,
+    have hh := hrecFour
+    simp only [Z0, f, Finset.card_empty, Finset.card_singleton, Finset.insert_empty,
       Finset.card_insert_of_notMem (show b ∉ ({a} : Finset V) by simp [habne.symm]),
-      hdiff0, hdiffA, hdiffB, hdiffAB, S] using hrecFour
+      hdiff0, hdiffA, hdiffB, hdiffAB, S] at hh
+    exact hh
   rw [hrecExplicit]
   rw [naturalKernelExpansion_pair a b hab Z0,
     naturalKernelExpansion_singleton b (rootDeletion Polynomial.X Z {r, a} r),
